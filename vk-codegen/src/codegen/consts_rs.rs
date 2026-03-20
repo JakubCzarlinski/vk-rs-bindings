@@ -1,5 +1,5 @@
 use crate::cfggen::cfg_any;
-use crate::codegen::{depr_attr, feat_key, pretty, refpage_url};
+use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url};
 use crate::ir::{Registry, TypedefKind};
 use crate::types::const_rust_type;
 use proc_macro2::{Literal, TokenStream};
@@ -12,16 +12,16 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
 
     // -- #define typedefs -> const fn or pub const ------------------------------
-    for td in reg.typedefs.values() {
-        if td.kind != TypedefKind::Define {
+    for typedef in reg.typedefs.values() {
+        if typedef.kind != TypedefKind::Define {
             continue;
         }
-        let Some(ref ty) = td.ty else { continue };
-        let name_str = &td.name;
+        let Some(ref ty) = typedef.ty else { continue };
+        let name_str = &typedef.name;
         let url = refpage_url(name_str);
         let doc = format!(" [`{name_str}`]({url})");
         let name = format_ident!("{}", name_str);
-        let cfg = cfg_any(&td.provided_by);
+        let cfg = cfg_any(&typedef.provided_by);
 
         let item_ts: Option<TokenStream> = if let Some(rest) = ty.strip_prefix("fn:") {
             // "fn:param1,param2|body_expr" - emit as #[inline] pub const fn
@@ -45,11 +45,12 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
             // Video codec version: "1, 0, 0" -> pre-evaluated u32
             let parts: Vec<&str> = rest.split(',').map(str::trim).collect();
             if parts.len() == 3 {
-                let (maj, min, pat) = (parts[0], parts[1], parts[2]);
-                let val = maj.parse::<u32>().unwrap_or(0) << 22
-                    | min.parse::<u32>().unwrap_or(0) << 12
-                    | pat.parse::<u32>().unwrap_or(0);
-                let doc2 = format!(" Encoded as `VK_MAKE_VIDEO_STD_VERSION({maj}, {min}, {pat})`");
+                let (major, minor, patch) = (parts[0], parts[1], parts[2]);
+                let val = major.parse::<u32>().unwrap_or(0) << 22
+                    | minor.parse::<u32>().unwrap_or(0) << 12
+                    | patch.parse::<u32>().unwrap_or(0);
+                let doc2 =
+                    format!(" Encoded as `VK_MAKE_VIDEO_STD_VERSION({major}, {minor}, {patch})`");
                 let v = Literal::u32_suffixed(val);
                 Some(quote! { #[doc = #doc] #[doc = #doc2] #cfg pub const #name: u32 = #v; })
             } else {
@@ -82,7 +83,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
 
         if let Some(ts) = item_ts {
             groups
-                .entry(feat_key(&td.provided_by))
+                .entry(feature_key(&typedef.provided_by))
                 .or_default()
                 .extend(ts);
         }
@@ -93,27 +94,27 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
         let name = format_ident!("{}", &c.name);
         let url = refpage_url(&c.name);
         let doc = format!(" [`{n}`]({url})", n = c.name);
-        let depr = depr_attr(&c.depr);
+        let depr = deprecate_attr(&c.depr);
         let cfg = cfg_any(&c.provided_by);
 
-        let ts: TokenStream = if let Some(ref alias) = c.alias {
+        let token_stream: TokenStream = if let Some(ref alias) = c.alias {
             let a = format_ident!("{}", alias);
             quote! { #cfg #[doc = #doc] #depr pub const #name: u32 = #a; }
         } else if c.ty == "&'static str" {
             let val_ts: TokenStream = c.value.parse().unwrap_or_else(|_| quote! { "" });
             quote! { #cfg #[doc = #doc] #depr pub const #name: &'static str = #val_ts; }
         } else {
-            let ty_str = const_rust_type(&c.ty, &c.value);
-            let ty_ts: TokenStream = ty_str.parse().unwrap_or_else(|_| quote! { u32 });
-            let val_str = normalize_const_value(&c.value, ty_str);
+            let type_str = const_rust_type(&c.ty, &c.value);
+            let type_ts: TokenStream = type_str.parse().unwrap_or_else(|_| quote! { u32 });
+            let val_str = normalize_const_value(&c.value, type_str);
             let val_ts: TokenStream = val_str.parse().unwrap_or_else(|_| quote! { 0 });
-            quote! { #cfg #[doc = #doc] #depr pub const #name: #ty_ts = #val_ts; }
+            quote! { #cfg #[doc = #doc] #depr pub const #name: #type_ts = #val_ts; }
         };
 
         groups
-            .entry(feat_key(&c.provided_by))
+            .entry(feature_key(&c.provided_by))
             .or_default()
-            .extend(ts);
+            .extend(token_stream);
     }
 
     let mut out = TokenStream::new();

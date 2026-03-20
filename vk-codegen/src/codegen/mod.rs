@@ -52,7 +52,7 @@ pub fn generate(reg: &Registry) -> GeneratedFiles {
 
 /// Canonical key for grouping items by their cfg gate.
 /// Items with identical sorted provided_by sets share a group.
-fn feat_key(provided_by: &[String]) -> Vec<String> {
+fn feature_key(provided_by: &[String]) -> Vec<String> {
     let mut v = provided_by.to_vec();
     v.sort();
     v
@@ -76,7 +76,7 @@ pub fn refpage_url(name: &str) -> String {
 
 // -- Token helpers -------------------------------------------------------------
 
-fn depr_attr(d: &DeprecationInfo) -> TokenStream {
+fn deprecate_attr(d: &DeprecationInfo) -> TokenStream {
     if !d.is_any() {
         return quote! {};
     }

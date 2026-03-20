@@ -1,5 +1,5 @@
 use crate::cfggen::cfg_any;
-use crate::codegen::{depr_attr, feat_key, pretty, refpage_url, sanitize_ident};
+use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url, sanitize_ident};
 use crate::ir::{Member, Registry, Struct, Typedef, TypedefKind};
 use crate::types::{c_type_to_rust, ctype_to_rust_str};
 use proc_macro2::TokenStream;
@@ -34,7 +34,7 @@ pub fn gen_types_rs(reg: &Registry) -> String {
         let ts = gen_typedef_ts(td);
         if !ts.is_empty() {
             groups
-                .entry(feat_key(&td.provided_by))
+                .entry(feature_key(&td.provided_by))
                 .or_default()
                 .extend(ts);
         }
@@ -46,7 +46,7 @@ pub fn gen_types_rs(reg: &Registry) -> String {
         let ts = gen_struct_ts(s, reg);
         if !ts.is_empty() {
             groups
-                .entry(feat_key(&s.provided_by))
+                .entry(feature_key(&s.provided_by))
                 .or_default()
                 .extend(ts);
         }
@@ -95,7 +95,7 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
     let cfg = cfg_any(&td.provided_by);
     let url = refpage_url(&td.name);
     let doc = format!(" [`{n}`]({url})", n = td.name);
-    let depr = depr_attr(&td.depr);
+    let depr = deprecate_attr(&td.depr);
     let name = format_ident!("{}", &td.name);
 
     match td.kind {
@@ -197,7 +197,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     let cfg = cfg_any(&s.provided_by);
     let url = refpage_url(&s.name);
     let doc = format!(" [`{n}`]({url})", n = s.name);
-    let depr = depr_attr(&s.depr);
+    let depr = deprecate_attr(&s.depr);
     let name = format_ident!("{}", &s.name);
 
     if let Some(ref alias) = s.alias {

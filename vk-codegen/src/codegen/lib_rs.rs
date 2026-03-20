@@ -21,18 +21,17 @@ pub fn gen_lib_rs() -> String {
             dead_code, unused_imports, clippy::all
         )]
 
+        pub mod commands;
         pub mod consts;
         pub mod enums;
-        pub mod types;
-        pub mod commands;
         pub mod loader;
+        pub mod types;
         pub mod validation;
-
+        pub use commands::*;
         pub use consts::*;
         pub use enums::*;
-        pub use types::*;
-        pub use commands::*;
         pub use loader::*;
+        pub use types::*;
         pub use validation::*;
     };
     pretty(ts)

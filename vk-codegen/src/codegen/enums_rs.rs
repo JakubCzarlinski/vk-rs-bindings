@@ -1,28 +1,34 @@
+use crate::cfggen::cfg_any;
+use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url};
+use crate::ir::{Enum, EnumValue, Registry};
 use proc_macro2::{Literal, TokenStream};
 use quote::{format_ident, quote};
-use std::collections::HashSet;
-
-use crate::cfggen::cfg_any;
-use crate::codegen::{depr_attr, feat_key, pretty, refpage_url};
-use crate::ir::{Enum, EnumValue, Registry};
+use std::collections::{BTreeMap, HashSet};
 
 pub fn gen_enums_rs(reg: &Registry) -> String {
-    use std::collections::BTreeMap;
-
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
+
+    let mut seen_features = HashSet::new();
     for e in reg.enums.values() {
-        let ts = gen_enum(e);
-        if !ts.is_empty() {
-            let mut all_feats: Vec<String> = e.provided_by.clone();
-            for v in &e.variants {
-                for f in &v.provided_by {
-                    if !all_feats.contains(f) {
-                        all_feats.push(f.clone());
-                    }
-                }
-            }
-            groups.entry(feat_key(&all_feats)).or_default().extend(ts);
+        let token_stream = gen_enum(e);
+        if token_stream.is_empty() {
+            continue;
         }
+
+        // Collect unique features.
+        let all_feats: Vec<String> = e
+            .provided_by
+            .iter()
+            .chain(e.variants.iter().flat_map(|v| v.provided_by.iter()))
+            .filter(|&feature| seen_features.insert(feature))
+            .cloned()
+            .collect();
+
+        groups
+            .entry(feature_key(&all_feats))
+            .or_default()
+            .extend(token_stream);
+        seen_features.clear();
     }
 
     let mut ts = TokenStream::new();
@@ -33,18 +39,20 @@ pub fn gen_enums_rs(reg: &Registry) -> String {
         //! Bitmasks are `repr(transparent)` newtypes over `u32`/`u64`
         //! with `|`, `&`, `^`, `!` and compound-assignment operators.
     });
-    for (_, items) in groups {
+
+    for items in groups.into_values() {
         ts.extend(items);
     }
+
     pretty(ts)
 }
 
 fn gen_enum(e: &Enum) -> TokenStream {
     let mut all_feats: Vec<String> = e.provided_by.clone();
-    for v in &e.variants {
-        for f in &v.provided_by {
-            if !all_feats.contains(f) {
-                all_feats.push(f.clone());
+    for variant in &e.variants {
+        for feature in &variant.provided_by {
+            if !all_feats.contains(feature) {
+                all_feats.push(feature.clone());
             }
         }
     }
@@ -71,25 +79,25 @@ fn gen_enum(e: &Enum) -> TokenStream {
     } else {
         quote! {i32}
     };
-    let mut var_ts = TokenStream::new();
-    let mut seen: HashSet<String> = HashSet::new();
+    let mut variant_token_stream = TokenStream::new();
+    let mut seen_features: HashSet<String> = HashSet::new();
 
-    for v in &e.variants {
-        if !seen.insert(v.name.clone()) {
+    for variant in &e.variants {
+        if !seen_features.insert(variant.name.clone()) {
             continue;
         }
-        let vcfg = if v.provided_by.is_empty() || v.provided_by == all_feats {
+        let variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats {
             quote! {}
         } else {
-            cfg_any(&v.provided_by)
+            cfg_any(&variant.provided_by)
         };
-        let vname = format_ident!("{}", &v.name);
-        let vdoc = v.comment.as_deref().unwrap_or("");
-        let vdepr = depr_attr(&v.depr);
-        let val = enum_val_tokens(&v.value, false);
-        var_ts.extend(quote! {
-            #vcfg #[doc = #vdoc] #vdepr
-            pub const #vname: Self = Self(#val);
+        let variant_name = format_ident!("{}", &variant.name);
+        let variant_doc = variant.comment.as_deref().unwrap_or("");
+        let variant_depr = deprecate_attr(&variant.depr);
+        let val = enum_val_tokens(&variant.value, false);
+        variant_token_stream.extend(quote! {
+            #variant_cfg #[doc = #variant_doc] #variant_depr
+            pub const #variant_name: Self = Self(#val);
         });
     }
 
@@ -101,7 +109,7 @@ fn gen_enum(e: &Enum) -> TokenStream {
         pub struct #name(pub #inner);
 
         #cfg
-        impl #name { #var_ts }
+        impl #name { #variant_token_stream }
     }
 }
 
@@ -117,25 +125,25 @@ fn gen_bitmask_type(
     } else {
         quote! {u32}
     };
-    let mut bit_ts = TokenStream::new();
-    let mut seen: HashSet<String> = HashSet::new();
+    let mut bit_token_stream = TokenStream::new();
+    let mut seen_features: HashSet<String> = HashSet::new();
 
-    for v in &e.variants {
-        if !seen.insert(v.name.clone()) {
+    for variant in &e.variants {
+        if !seen_features.insert(variant.name.clone()) {
             continue;
         }
-        let vcfg = if v.provided_by.is_empty() || v.provided_by == all_feats {
+        let variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats {
             quote! {}
         } else {
-            cfg_any(&v.provided_by)
+            cfg_any(&variant.provided_by)
         };
-        let vname = format_ident!("{}", &v.name);
-        let vdoc = v.comment.as_deref().unwrap_or("");
-        let vdepr = depr_attr(&v.depr);
-        let val = enum_val_tokens(&v.value, true);
-        bit_ts.extend(quote! {
-            #vcfg #[doc = #vdoc] #vdepr
-            pub const #vname: Self = Self(#val);
+        let variant_name = format_ident!("{}", &variant.name);
+        let variant_doc = variant.comment.as_deref().unwrap_or("");
+        let variant_depr = deprecate_attr(&variant.depr);
+        let val = enum_val_tokens(&variant.value, true);
+        bit_token_stream.extend(quote! {
+            #variant_cfg #[doc = #variant_doc] #variant_depr
+            pub const #variant_name: Self = Self(#val);
         });
     }
 
@@ -149,7 +157,7 @@ fn gen_bitmask_type(
         #cfg
         impl #name {
             pub const EMPTY: Self = Self(0);
-            #bit_ts
+            #bit_token_stream
             #[inline] pub const fn contains(self, o: Self) -> bool { (self.0 & o.0) == o.0 }
             #[inline] pub const fn intersects(self, o: Self) -> bool { (self.0 & o.0) != 0 }
             #[inline] pub const fn is_empty(self) -> bool { self.0 == 0 }

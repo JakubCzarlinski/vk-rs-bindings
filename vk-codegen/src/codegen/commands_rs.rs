@@ -1,5 +1,5 @@
 use crate::cfggen::cfg_any;
-use crate::codegen::{depr_attr, feat_key, pretty, refpage_url, sanitize_ident};
+use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url, sanitize_ident};
 use crate::ir::{Command, Registry};
 use crate::types::ctype_to_rust_str;
 use proc_macro2::TokenStream;
@@ -9,25 +9,25 @@ use std::collections::BTreeMap;
 pub fn gen_commands_rs(reg: &Registry) -> String {
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
     for cmd in reg.commands.values() {
-        let ts = gen_command(cmd);
-        if !ts.is_empty() {
+        let token_stream = gen_command(cmd);
+        if !token_stream.is_empty() {
             groups
-                .entry(feat_key(&cmd.provided_by))
+                .entry(feature_key(&cmd.provided_by))
                 .or_default()
-                .extend(ts);
+                .extend(token_stream);
         }
     }
-    let mut ts = TokenStream::new();
-    ts.extend(quote! {
+    let mut token_stream = TokenStream::new();
+    token_stream.extend(quote! {
         //! Vulkan command function pointer types (`PFN_vk*`).
         #[allow(unused_imports)] use core::ffi::{c_char, c_void};
         #[allow(unused_imports)] use crate::types::*;
         #[allow(unused_imports)] use crate::enums::*;
     });
     for (_, items) in groups {
-        ts.extend(items);
+        token_stream.extend(items);
     }
-    pretty(ts)
+    pretty(token_stream)
 }
 
 fn gen_command(cmd: &Command) -> TokenStream {
@@ -44,7 +44,7 @@ fn gen_command(cmd: &Command) -> TokenStream {
         .collect::<Vec<_>>()
         .join("\n");
     let doc = format!(" [`{n}`]({url})\n\n Provided by:\n{provided}", n = cmd.name);
-    let depr = depr_attr(&cmd.depr);
+    let depr = deprecate_attr(&cmd.depr);
 
     if let Some(ref alias) = cmd.alias {
         let a = format_ident!("PFN_{}", alias);

@@ -6,11 +6,11 @@
 //! Reads the Khronos Vulkan Registry XML files and produces a complete
 //! `vk-sys` crate with feature-gated FFI bindings.
 
+mod cfggen;
+mod codegen;
 mod ir;
 mod parser;
 mod types;
-mod cfggen;
-mod codegen;
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -18,11 +18,11 @@ use std::path::{Path, PathBuf};
 fn main() {
     let args: Vec<String> = std::env::args().collect();
 
-    let vk_path   = arg(&args, "--vk")
+    let vk_path = arg(&args, "--vk")
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from("vk.xml"));
     let video_path = arg(&args, "--video").map(PathBuf::from);
-    let out_dir   = arg(&args, "--out")
+    let out_dir = arg(&args, "--out")
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from("vk-sys-generated"));
 
@@ -52,8 +52,11 @@ fn main() {
 
     eprintln!(
         "vk-codegen: {} typedefs, {} structs, {} enums, {} commands, {} constants",
-        reg.typedefs.len(), reg.structs.len(), reg.enums.len(),
-        reg.commands.len(), reg.constants.len(),
+        reg.typedefs.len(),
+        reg.structs.len(),
+        reg.enums.len(),
+        reg.commands.len(),
+        reg.constants.len(),
     );
     eprintln!(
         "vk-codegen: {} core features, {} extensions ({} enabled)",
@@ -68,27 +71,28 @@ fn main() {
     let src_dir = out_dir.join("src");
     fs::create_dir_all(&src_dir).expect("create output dir");
 
-    write_file(&out_dir, "Cargo.toml",       &files.cargo_toml);
-    write_file(&src_dir, "lib.rs",           &files.lib_rs);
-    write_file(&src_dir, "types.rs",         &files.types_rs);
-    write_file(&src_dir, "enums.rs",         &files.enums_rs);
-    write_file(&src_dir, "consts.rs",        &files.consts_rs);
-    write_file(&src_dir, "commands.rs",      &files.commands_rs);
-    write_file(&src_dir, "loader.rs",        &files.loader_rs);
-    write_file(&src_dir, "validation.rs",    &files.validation_rs);
-    write_file(&out_dir, "vk-features.dot",  &files.dot_graph);
+    write_file(&out_dir, "Cargo.toml", &files.cargo_toml);
+    write_file(&src_dir, "lib.rs", &files.lib_rs);
+    write_file(&src_dir, "types.rs", &files.types_rs);
+    write_file(&src_dir, "enums.rs", &files.enums_rs);
+    write_file(&src_dir, "consts.rs", &files.consts_rs);
+    write_file(&src_dir, "commands.rs", &files.commands_rs);
+    write_file(&src_dir, "loader.rs", &files.loader_rs);
+    write_file(&src_dir, "validation.rs", &files.validation_rs);
+    write_file(&out_dir, "vk-features.dot", &files.dot_graph);
 
-    eprintln!("vk-codegen: done → {}", out_dir.display());
+    eprintln!("vk-codegen: done -> {}", out_dir.display());
     eprintln!("vk-codegen: render graph: dot -Tsvg vk-features.dot -o vk-features.svg");
 }
 
 fn arg<'a>(args: &'a [String], flag: &str) -> Option<&'a str> {
-    args.windows(2).find(|w| w[0] == flag).map(|w| w[1].as_str())
+    args.windows(2)
+        .find(|w| w[0] == flag)
+        .map(|w| w[1].as_str())
 }
 
 fn write_file(dir: &Path, name: &str, content: &str) {
     let path = dir.join(name);
-    fs::write(&path, content)
-        .unwrap_or_else(|e| panic!("Cannot write {}: {}", path.display(), e));
+    fs::write(&path, content).unwrap_or_else(|e| panic!("Cannot write {}: {}", path.display(), e));
     eprintln!("  wrote {} ({} bytes)", path.display(), content.len());
 }

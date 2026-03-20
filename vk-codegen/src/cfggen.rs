@@ -1,20 +1,24 @@
 //! Generates `#[cfg(...)]` token streams from `DepExpr` and feature-name lists.
 
-#![allow(dead_code)]
+// #![allow(dead_code)]
 
+use crate::ir::DepExpr;
 use proc_macro2::TokenStream;
 use quote::quote;
-use crate::ir::DepExpr;
 
-// ── Public API ────────────────────────────────────────────────────────────────
+// -- Public API ----------------------------------------------------------------
 
 /// `#[cfg(feature = "A")]`  or  `#[cfg(any(feature="A", feature="B", ...))]`
 pub fn cfg_any(features: &[String]) -> TokenStream {
     match features.len() {
         0 => quote! {},
-        1 => { let f = &features[0]; quote! { #[cfg(feature = #f)] } }
+        1 => {
+            let f = &features[0];
+            quote! { #[cfg(feature = #f)] }
+        }
         _ => {
-            let items: Vec<TokenStream> = features.iter().map(|f| quote! { feature = #f }).collect();
+            let items: Vec<TokenStream> =
+                features.iter().map(|f| quote! { feature = #f }).collect();
             quote! { #[cfg(any(#(#items),*))] }
         }
     }
@@ -31,15 +35,17 @@ pub fn cfg_from_dep(dep: &DepExpr) -> TokenStream {
 pub fn cfg_expr_any(features: &[String]) -> TokenStream {
     match features.len() {
         0 => quote! { all() },
-        1 => { let f = &features[0]; quote! { feature = #f } }
+        1 => {
+            let f = &features[0];
+            quote! { feature = #f }
+        }
         _ => {
-            let items: Vec<TokenStream> = features.iter().map(|f| quote! { feature = #f }).collect();
+            let items: Vec<TokenStream> =
+                features.iter().map(|f| quote! { feature = #f }).collect();
             quote! { any(#(#items),*) }
         }
     }
 }
-
-// ── Internals ─────────────────────────────────────────────────────────────────
 
 fn clauses_to_ts(clauses: &[Vec<String>]) -> TokenStream {
     match clauses.len() {
@@ -55,7 +61,10 @@ fn clauses_to_ts(clauses: &[Vec<String>]) -> TokenStream {
 fn clause_to_ts(clause: &[String]) -> TokenStream {
     match clause.len() {
         0 => quote! { all() },
-        1 => { let f = &clause[0]; quote! { feature = #f } }
+        1 => {
+            let f = &clause[0];
+            quote! { feature = #f }
+        }
         _ => {
             let items: Vec<TokenStream> = clause.iter().map(|f| quote! { feature = #f }).collect();
             quote! { all(#(#items),*) }

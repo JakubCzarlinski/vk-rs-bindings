@@ -11,7 +11,7 @@ fn make_registry() -> ir::Registry {
     reg
 }
 
-// ── DepExpr parser ────────────────────────────────────────────────────────────
+// -- DepExpr parser ------------------------------------------------------------
 
 #[test]
 fn dep_simple_atom() {
@@ -43,26 +43,41 @@ fn dep_real_world_complex() {
     let s = "((VK_KHR_get_physical_device_properties2,VK_VERSION_1_1)+VK_KHR_depth_stencil_resolve),VK_VERSION_1_2";
     let c = ir::parse_dep_expr(s).to_dnf_clauses();
     assert_eq!(c.len(), 3, "got: {c:?}");
-    assert!(c.iter().any(|cl| cl == &["VK_VERSION_1_2"]), "no single-atom clause");
+    assert!(
+        c.iter().any(|cl| cl == &["VK_VERSION_1_2"]),
+        "no single-atom clause"
+    );
 }
 
-// ── EnumValue offset encoding ─────────────────────────────────────────────────
+// -- EnumValue offset encoding -------------------------------------------------
 
 #[test]
 fn offset_enum_encoding() {
-    let v0 = ir::EnumValue::Offset { extnumber: 272, offset: 0, negative: false };
-    let v1 = ir::EnumValue::Offset { extnumber: 272, offset: 1, negative: false };
+    let v0 = ir::EnumValue::Offset {
+        extnumber: 272,
+        offset: 0,
+        negative: false,
+    };
+    let v1 = ir::EnumValue::Offset {
+        extnumber: 272,
+        offset: 1,
+        negative: false,
+    };
     assert_eq!(v0.resolve(), Some(1_000_271_000));
     assert_eq!(v1.resolve(), Some(1_000_271_001));
 }
 
 #[test]
 fn offset_enum_negative() {
-    let v = ir::EnumValue::Offset { extnumber: 1, offset: 0, negative: true };
+    let v = ir::EnumValue::Offset {
+        extnumber: 1,
+        offset: 0,
+        negative: true,
+    };
     assert_eq!(v.resolve(), Some(-1_000_000_000));
 }
 
-// ── XML parsing ───────────────────────────────────────────────────────────────
+// -- XML parsing ---------------------------------------------------------------
 
 #[test]
 fn parse_core_features() {
@@ -84,7 +99,9 @@ fn parse_extensions_present() {
 #[test]
 fn disabled_extension_is_disabled() {
     let reg = make_registry();
-    let disabled = reg.extensions.iter()
+    let disabled = reg
+        .extensions
+        .iter()
         .find(|e| e.name == "VK_LUNARG_test_disabled")
         .expect("fixture has VK_LUNARG_test_disabled");
     assert!(disabled.is_disabled());
@@ -93,7 +110,10 @@ fn disabled_extension_is_disabled() {
 #[test]
 fn parse_struct_fields() {
     let reg = make_registry();
-    let ici = reg.structs.get("VkInstanceCreateInfo").expect("VkInstanceCreateInfo");
+    let ici = reg
+        .structs
+        .get("VkInstanceCreateInfo")
+        .expect("VkInstanceCreateInfo");
     let names: Vec<_> = ici.members.iter().map(|m| m.name.as_str()).collect();
     assert!(names.contains(&"sType"));
     assert!(names.contains(&"pApplicationInfo"));
@@ -103,7 +123,10 @@ fn parse_struct_fields() {
 #[test]
 fn parse_command_params() {
     let reg = make_registry();
-    let ci = reg.commands.get("vkCreateInstance").expect("vkCreateInstance");
+    let ci = reg
+        .commands
+        .get("vkCreateInstance")
+        .expect("vkCreateInstance");
     assert_eq!(ci.params.len(), 3);
     assert_eq!(ci.return_type.base, "VkResult");
 }
@@ -129,7 +152,10 @@ fn parse_bitmask_is_bitmask() {
 #[test]
 fn parse_64bit_bitmask() {
     let reg = make_registry();
-    let ps = reg.enums.get("VkPipelineStageFlagBits2").expect("VkPipelineStageFlagBits2");
+    let ps = reg
+        .enums
+        .get("VkPipelineStageFlagBits2")
+        .expect("VkPipelineStageFlagBits2");
     assert_eq!(ps.bit_width, 64);
 }
 
@@ -139,18 +165,22 @@ fn provided_by_tracking() {
     let ici = &reg.structs["VkInstanceCreateInfo"];
     assert!(
         ici.provided_by.contains(&"VK_VERSION_1_0".to_owned()),
-        "VkInstanceCreateInfo.provided_by = {:?}", ici.provided_by
+        "VkInstanceCreateInfo.provided_by = {:?}",
+        ici.provided_by
     );
     let cmd = &reg.commands["vkCreateSwapchainKHR"];
     assert!(
         cmd.provided_by.contains(&"VK_KHR_swapchain".to_owned()),
-        "vkCreateSwapchainKHR.provided_by = {:?}", cmd.provided_by
+        "vkCreateSwapchainKHR.provided_by = {:?}",
+        cmd.provided_by
     );
 }
 
-// ── Code generation ───────────────────────────────────────────────────────────
+// -- Code generation -----------------------------------------------------------
 
-fn generate() -> codegen::GeneratedFiles { codegen::generate(&make_registry()) }
+fn generate() -> codegen::GeneratedFiles {
+    codegen::generate(&make_registry())
+}
 
 #[test]
 fn cargo_toml_has_features() {
@@ -164,15 +194,19 @@ fn cargo_toml_has_features() {
 #[test]
 fn cargo_toml_no_disabled_ext() {
     let f = generate();
-    assert!(!f.cargo_toml.contains("VK_LUNARG_test_disabled"),
-        "disabled extension leaked into Cargo.toml");
+    assert!(
+        !f.cargo_toml.contains("VK_LUNARG_test_disabled"),
+        "disabled extension leaked into Cargo.toml"
+    );
 }
 
 #[test]
 fn cargo_toml_feature_deps_correct() {
     let f = generate();
-    assert!(f.cargo_toml.contains("\"VK_KHR_surface\""),
-        "VK_KHR_surface dep missing from toml");
+    assert!(
+        f.cargo_toml.contains("\"VK_KHR_surface\""),
+        "VK_KHR_surface dep missing from toml"
+    );
 }
 
 #[test]
@@ -193,8 +227,10 @@ fn types_rs_has_cfg_gates() {
 #[test]
 fn types_rs_has_defaults() {
     let f = generate();
-    assert!(f.types_rs.contains("DEFAULT") || f.types_rs.contains("fn new"),
-        "no DEFAULT or new() in types.rs");
+    assert!(
+        f.types_rs.contains("DEFAULT") || f.types_rs.contains("fn new"),
+        "no DEFAULT or new() in types.rs"
+    );
 }
 
 #[test]
@@ -236,14 +272,20 @@ fn extension_name_consts_in_consts_rs() {
     // not in loader.rs. The old EXT_NAME_ pattern was wrong.
     let f = generate();
     // loader.rs must NOT have the old EXT_NAME_ pattern
-    assert!(!f.loader_rs.contains("EXT_NAME_"),
-        "EXT_NAME_ pattern found in loader.rs — extension names must be in consts.rs");
+    assert!(
+        !f.loader_rs.contains("EXT_NAME_"),
+        "EXT_NAME_ pattern found in loader.rs - extension names must be in consts.rs"
+    );
     // We can't test specific extension names without adding them to the fixture,
     // but we can verify the overall constant infrastructure is working.
     // consts.rs should at minimum have the API version constants.
-    assert!(f.consts_rs.contains("VK_FALSE") || f.consts_rs.contains("VK_TRUE")
-        || f.consts_rs.contains("VK_MAX") || f.consts_rs.contains("VK_WHOLE"),
-        "consts.rs should contain API constants");
+    assert!(
+        f.consts_rs.contains("VK_FALSE")
+            || f.consts_rs.contains("VK_TRUE")
+            || f.consts_rs.contains("VK_MAX")
+            || f.consts_rs.contains("VK_WHOLE"),
+        "consts.rs should contain API constants"
+    );
 }
 
 #[test]
@@ -264,25 +306,38 @@ fn dot_graph_is_valid() {
 fn spec_urls_use_docs_vulkan_org() {
     let f = generate();
     let combined = format!("{}{}", f.types_rs, f.commands_rs);
-    assert!(combined.contains("docs.vulkan.org"), "URLs not using docs.vulkan.org");
-    assert!(!f.types_rs.contains("registry.khronos.org"), "old URL in types.rs");
+    assert!(
+        combined.contains("docs.vulkan.org"),
+        "URLs not using docs.vulkan.org"
+    );
+    assert!(
+        !f.types_rs.contains("registry.khronos.org"),
+        "old URL in types.rs"
+    );
 }
 
 #[test]
 fn consts_rs_has_urls() {
     let f = generate();
-    assert!(f.consts_rs.contains("docs.vulkan.org"),
-        "consts.rs missing spec URLs");
+    assert!(
+        f.consts_rs.contains("docs.vulkan.org"),
+        "consts.rs missing spec URLs"
+    );
 }
 
 #[test]
 fn superseded_by_preserved() {
     let reg = make_registry();
-    let ext = reg.extensions.iter()
+    let ext = reg
+        .extensions
+        .iter()
         .find(|e| e.name == "VK_KHR_synchronization2")
         .expect("VK_KHR_synchronization2");
-    assert!(ext.depr.promoted_to.is_some(),
-        "promotedto not captured: {:?}", ext.depr);
+    assert!(
+        ext.depr.promoted_to.is_some(),
+        "promotedto not captured: {:?}",
+        ext.depr
+    );
 }
 
 #[test]
@@ -290,28 +345,48 @@ fn offset_enum_values_in_generated_code() {
     let reg = make_registry();
     // After apply_require_extensions, VkStructureType should have the offset-derived variants
     let stype = reg.enums.get("VkStructureType").expect("VkStructureType");
-    let map_info = stype.variants.iter()
+    let map_info = stype
+        .variants
+        .iter()
         .find(|v| v.name == "VK_STRUCTURE_TYPE_MEMORY_MAP_INFO");
-    let unmap_info = stype.variants.iter()
+    let unmap_info = stype
+        .variants
+        .iter()
         .find(|v| v.name == "VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO");
-    assert!(map_info.is_some(), "VK_STRUCTURE_TYPE_MEMORY_MAP_INFO not found");
-    assert!(unmap_info.is_some(), "VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO not found");
+    assert!(
+        map_info.is_some(),
+        "VK_STRUCTURE_TYPE_MEMORY_MAP_INFO not found"
+    );
+    assert!(
+        unmap_info.is_some(),
+        "VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO not found"
+    );
 
     // Verify the computed values
     if let Some(v) = map_info {
-        assert_eq!(v.value.resolve(), Some(1_000_271_000),
-            "wrong value for MEMORY_MAP_INFO: {:?}", v.value);
+        assert_eq!(
+            v.value.resolve(),
+            Some(1_000_271_000),
+            "wrong value for MEMORY_MAP_INFO: {:?}",
+            v.value
+        );
     }
     if let Some(v) = unmap_info {
-        assert_eq!(v.value.resolve(), Some(1_000_271_001),
-            "wrong value for MEMORY_UNMAP_INFO: {:?}", v.value);
+        assert_eq!(
+            v.value.resolve(),
+            Some(1_000_271_001),
+            "wrong value for MEMORY_UNMAP_INFO: {:?}",
+            v.value
+        );
     }
 }
 
 #[test]
 fn extension_stub_is_disabled() {
     let reg = make_registry();
-    let stub = reg.extensions.iter()
+    let stub = reg
+        .extensions
+        .iter()
         .find(|e| e.name == "VK_KHR_extension_123")
         .expect("VK_KHR_extension_123");
     assert!(stub.is_disabled(), "extension stub should be disabled");
@@ -322,8 +397,10 @@ fn complex_dep_in_generated_cargo_toml() {
     let f = generate();
     // VK_KHR_dynamic_rendering has complex ((A,B)+C),D depends
     // All atoms should appear as deps in Cargo.toml
-    assert!(f.cargo_toml.contains("VK_KHR_dynamic_rendering"),
-        "VK_KHR_dynamic_rendering missing from Cargo.toml");
+    assert!(
+        f.cargo_toml.contains("VK_KHR_dynamic_rendering"),
+        "VK_KHR_dynamic_rendering missing from Cargo.toml"
+    );
     // At least one of its deps must appear
     let has_dep = f.cargo_toml.contains("VK_VERSION_1_2")
         || f.cargo_toml.contains("VK_KHR_depth_stencil_resolve");
@@ -333,34 +410,49 @@ fn complex_dep_in_generated_cargo_toml() {
 #[test]
 fn superseded_command_has_depr_info() {
     let reg = make_registry();
-    let cmd = reg.commands.get("vkCreateRenderPass")
+    let cmd = reg
+        .commands
+        .get("vkCreateRenderPass")
         .expect("vkCreateRenderPass");
     assert!(
         cmd.depr.superseded_by.is_some(),
-        "vkCreateRenderPass.depr.superseded_by should be set; got: {:?}", cmd.depr
+        "vkCreateRenderPass.depr.superseded_by should be set; got: {:?}",
+        cmd.depr
     );
 }
 
-// ── New: opaque extern types ──────────────────────────────────────────────────
+// -- New: opaque extern types --------------------------------------------------
 
 #[test]
 fn opaque_basetype_struct_parsed() {
     let reg = make_registry();
     // "struct <n>ANativeWindow</n>;" should be parsed as OpaqueExtern
-    let td = reg.typedefs.get("ANativeWindow")
+    let td = reg
+        .typedefs
+        .get("ANativeWindow")
         .expect("ANativeWindow typedef");
-    assert_eq!(td.kind, vk_codegen::ir::TypedefKind::OpaqueExtern,
-        "ANativeWindow should be OpaqueExtern, got {:?}", td.kind);
+    assert_eq!(
+        td.kind,
+        vk_codegen::ir::TypedefKind::OpaqueExtern,
+        "ANativeWindow should be OpaqueExtern, got {:?}",
+        td.kind
+    );
 }
 
 #[test]
 fn objc_ifdef_basetype_parsed_as_opaque() {
     let reg = make_registry();
     // The CAMetalLayer #ifdef block should parse as OpaqueExtern
-    let td = reg.typedefs.get("CAMetalLayer")
+    let td = reg
+        .typedefs
+        .get("CAMetalLayer")
         .expect("CAMetalLayer typedef");
-    assert_eq!(td.kind, vk_codegen::ir::TypedefKind::OpaqueExtern,
-        "CAMetalLayer should be OpaqueExtern, got {:?}", td.kind);
+    assert_eq!(
+        td.kind,
+        vk_codegen::ir::TypedefKind::OpaqueExtern,
+        "CAMetalLayer should be OpaqueExtern, got {:?}",
+        td.kind
+    );
 }
 
 #[test]
@@ -368,31 +460,43 @@ fn opaque_types_emitted_as_repr_c_struct() {
     // Opaque types are only emitted when they have provided_by set (i.e. some
     // extension requires them).  In this fixture, ANativeWindow and CAMetalLayer
     // are declared but not required by any active extension, so they must be
-    // absent from types.rs entirely (empty provided_by → skip).
+    // absent from types.rs entirely (empty provided_by -> skip).
     // The key invariant tested here is that the *parser* correctly identified them
-    // as OpaqueExtern — see `opaque_basetype_struct_parsed` and
+    // as OpaqueExtern - see `opaque_basetype_struct_parsed` and
     // `objc_ifdef_basetype_parsed_as_opaque` for that.
     // If an extension DID require ANativeWindow, it must not be emitted as a
     // type alias (no valid RHS for opaque C structs).
     let f = generate();
-    assert!(!f.types_rs.contains("pub type ANativeWindow"),
-        "ANativeWindow wrongly emitted as type alias — must be repr(C) struct or absent");
-    assert!(!f.types_rs.contains("pub type CAMetalLayer"),
-        "CAMetalLayer wrongly emitted as type alias — must be repr(C) struct or absent");
+    assert!(
+        !f.types_rs.contains("pub type ANativeWindow"),
+        "ANativeWindow wrongly emitted as type alias - must be repr(C) struct or absent"
+    );
+    assert!(
+        !f.types_rs.contains("pub type CAMetalLayer"),
+        "CAMetalLayer wrongly emitted as type alias - must be repr(C) struct or absent"
+    );
 }
 
-// ── New: video struct with enum-based array sizes ─────────────────────────────
+// -- New: video struct with enum-based array sizes -----------------------------
 
 #[test]
 fn video_struct_with_enum_array_size_parsed() {
     let reg = make_registry();
-    let s = reg.structs.get("StdVideoH265LongTermRefPics")
+    let s = reg
+        .structs
+        .get("StdVideoH265LongTermRefPics")
         .expect("StdVideoH265LongTermRefPics");
     // Find the array member
-    let arr_member = s.members.iter().find(|m| m.name == "lt_idx_sps")
+    let arr_member = s
+        .members
+        .iter()
+        .find(|m| m.name == "lt_idx_sps")
         .expect("lt_idx_sps member");
-    assert!(arr_member.ty.is_array.is_some(),
-        "lt_idx_sps should have array size; got: {:?}", arr_member.ty);
+    assert!(
+        arr_member.ty.is_array.is_some(),
+        "lt_idx_sps should have array size; got: {:?}",
+        arr_member.ty
+    );
     assert_eq!(
         arr_member.ty.is_array.as_deref(),
         Some("STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS"),
@@ -400,25 +504,35 @@ fn video_struct_with_enum_array_size_parsed() {
     );
 }
 
-// ── New: video codec header remapping ─────────────────────────────────────────
+// -- New: video codec header remapping -----------------------------------------
 
 #[test]
 fn video_extension_is_not_disabled() {
     let reg = make_registry();
-    let ext = reg.extensions.iter()
+    let ext = reg
+        .extensions
+        .iter()
         .find(|e| e.name == "vulkan_video_codec_h264std_decode")
         .expect("vulkan_video_codec_h264std_decode");
     // is_disabled() should be false so types get provided_by during parse
-    assert!(!ext.is_disabled(), "video header should not be fully disabled during parse");
+    assert!(
+        !ext.is_disabled(),
+        "video header should not be fully disabled during parse"
+    );
     // is_video_header() should be true so it's excluded from output features
-    assert!(ext.is_video_header(), "video header should report is_video_header()");
+    assert!(
+        ext.is_video_header(),
+        "video header should report is_video_header()"
+    );
 }
 
 #[test]
 fn video_ext_not_in_cargo_toml_features() {
     let f = generate();
-    assert!(!f.cargo_toml.contains("vulkan_video_codec"),
-        "video codec header name leaked into Cargo.toml features");
+    assert!(
+        !f.cargo_toml.contains("vulkan_video_codec"),
+        "video codec header name leaked into Cargo.toml features"
+    );
 }
 
 #[test]
@@ -427,72 +541,102 @@ fn video_types_remapped_to_vk_feature() {
     // should contain VK_KHR_video_decode_h264 (mapped from vulkan_video_codec_h264std_decode)
     let mut reg = make_registry();
     reg.remap_video_header_names();
-    let s = reg.structs.get("StdVideoH265LongTermRefPics")
+    let s = reg
+        .structs
+        .get("StdVideoH265LongTermRefPics")
         .expect("StdVideoH265LongTermRefPics");
     assert!(
-        s.provided_by.contains(&"VK_KHR_video_decode_h264".to_owned()),
+        s.provided_by
+            .contains(&"VK_KHR_video_decode_h264".to_owned()),
         "video struct not remapped to VK_KHR_video_decode_h264; got: {:?}",
         s.provided_by
     );
 }
 
-// ── New: disabled extension items scrubbed ────────────────────────────────────
+// -- New: disabled extension items scrubbed ------------------------------------
 
 #[test]
 fn disabled_extension_items_not_in_types_rs() {
     let f = generate();
-    // VK_KHR_extension_123 and VK_LUNARG_test_disabled are disabled —
+    // VK_KHR_extension_123 and VK_LUNARG_test_disabled are disabled -
     // any items they uniquely provide must not appear in output.
     // (Our fixture doesn't add unique types for these, but the cargo_toml check
     //  verifies the extension itself is absent.)
-    assert!(!f.cargo_toml.contains("VK_KHR_extension_123"),
-        "disabled placeholder ext in Cargo.toml");
-    assert!(!f.cargo_toml.contains("VK_LUNARG_test_disabled"),
-        "explicitly disabled ext in Cargo.toml");
+    assert!(
+        !f.cargo_toml.contains("VK_KHR_extension_123"),
+        "disabled placeholder ext in Cargo.toml"
+    );
+    assert!(
+        !f.cargo_toml.contains("VK_LUNARG_test_disabled"),
+        "explicitly disabled ext in Cargo.toml"
+    );
 }
 
-// ── New: correct URL format ───────────────────────────────────────────────────
+// -- New: correct URL format ---------------------------------------------------
 
 #[test]
 fn refpage_urls_use_correct_path() {
     let f = generate();
     let combined = format!("{}{}{}", f.types_rs, f.commands_rs, f.consts_rs);
     // Correct path: /refpages/latest/refpages/source/
-    assert!(combined.contains("refpages/latest/refpages/source/"),
-        "URL does not use expected /refpages/latest/refpages/source/ path");
+    assert!(
+        combined.contains("refpages/latest/refpages/source/"),
+        "URL does not use expected /refpages/latest/refpages/source/ path"
+    );
     // Wrong path must not appear
-    assert!(!combined.contains("spec/latest/chapters/refpages"),
-        "old spec/latest/chapters URL still present");
+    assert!(
+        !combined.contains("spec/latest/chapters/refpages"),
+        "old spec/latest/chapters URL still present"
+    );
 }
 
-// ── New: duplicate API-variant members ───────────────────────────────────────
+// -- New: duplicate API-variant members ---------------------------------------
 
 #[test]
 fn api_variant_members_deduped_in_ir() {
-    // VkTestApiVariantStruct has `dataSize` twice — once for vulkan, once for vulkansc.
+    // VkTestApiVariantStruct has `dataSize` twice - once for vulkan, once for vulkansc.
     // After parsing the struct should still have it twice (both members preserved in IR)
     // but only ONCE in the generated output after deduplication.
     let reg = make_registry();
-    let s = reg.structs.get("VkTestApiVariantStruct")
+    let s = reg
+        .structs
+        .get("VkTestApiVariantStruct")
         .expect("VkTestApiVariantStruct");
     // Both members present in raw IR
     let data_size_count = s.members.iter().filter(|m| m.name == "dataSize").count();
     assert!(data_size_count >= 1, "dataSize member missing entirely");
     // The XML has two entries so count should be 2 in raw IR
-    assert_eq!(data_size_count, 2, "expected 2 raw dataSize entries (one per api variant)");
+    assert_eq!(
+        data_size_count, 2,
+        "expected 2 raw dataSize entries (one per api variant)"
+    );
 }
 
 #[test]
 fn api_variant_dedup_in_generated_types() {
     let f = generate();
-    // The generated types.rs must not contain duplicate field names.
-    // Count occurrences of `pub dataSize:` — must be exactly 1.
-    let count = f.types_rs.matches("pub dataSize:").count();
-    assert_eq!(count, 1,
-        "duplicate field `dataSize` in generated types.rs (found {count} occurrences)");
-    // The whole struct must still be present
-    assert!(f.types_rs.contains("VkTestApiVariantStruct"),
-        "VkTestApiVariantStruct missing from types.rs");
+    // VkTestApiVariantStruct must be present
+    assert!(
+        f.types_rs.contains("VkTestApiVariantStruct"),
+        "VkTestApiVariantStruct missing from types.rs"
+    );
+    // Find the struct block and check dedup within it only
+    let start = f
+        .types_rs
+        .find("struct VkTestApiVariantStruct")
+        .expect("struct VkTestApiVariantStruct not found");
+    // The struct block ends at the next top-level `pub struct` or `pub union`
+    let block_end = f.types_rs[start..]
+        .find("\npub struct ")
+        .or_else(|| f.types_rs[start..].find("\npub union "))
+        .map(|i| start + i)
+        .unwrap_or(f.types_rs.len());
+    let struct_block = &f.types_rs[start..block_end];
+    let count = struct_block.matches("pub dataSize:").count();
+    assert_eq!(
+        count, 1,
+        "duplicate field `dataSize` within VkTestApiVariantStruct (found {count} occurrences):\n{struct_block}"
+    );
 }
 
 #[test]
@@ -500,74 +644,110 @@ fn stype_uses_full_const_name() {
     let f = generate();
     // sType default must use the full VK_STRUCTURE_TYPE_APPLICATION_INFO constant,
     // NOT a stripped "APPLICATION_INFO" variant.
-    assert!(f.types_rs.contains("VK_STRUCTURE_TYPE_APPLICATION_INFO"),
-        "sType default does not use full VK_STRUCTURE_TYPE_ constant name");
+    assert!(
+        f.types_rs.contains("VK_STRUCTURE_TYPE_APPLICATION_INFO"),
+        "sType default does not use full VK_STRUCTURE_TYPE_ constant name"
+    );
     // The broken stripped form must not appear
-    assert!(!f.types_rs.contains("VkStructureType::APPLICATION_INFO"),
-        "sType using stripped variant name — must use full VK_STRUCTURE_TYPE_* const");
+    assert!(
+        !f.types_rs.contains("VkStructureType::APPLICATION_INFO"),
+        "sType using stripped variant name - must use full VK_STRUCTURE_TYPE_* const"
+    );
 }
 
-// ── New: funcpointers emitted ─────────────────────────────────────────────────
+// -- New: funcpointers emitted -------------------------------------------------
 
 #[test]
 fn funcpointers_parsed() {
     let reg = make_registry();
-    let pfn = reg.typedefs.get("PFN_vkVoidFunction")
+    let pfn = reg
+        .typedefs
+        .get("PFN_vkVoidFunction")
         .expect("PFN_vkVoidFunction typedef");
-    assert_eq!(pfn.kind, vk_codegen::ir::TypedefKind::FuncPointer,
-        "PFN_vkVoidFunction should be FuncPointer");
+    assert_eq!(
+        pfn.kind,
+        vk_codegen::ir::TypedefKind::FuncPointer,
+        "PFN_vkVoidFunction should be FuncPointer"
+    );
 
-    let pfn2 = reg.typedefs.get("PFN_vkInternalAllocationNotification")
+    let pfn2 = reg
+        .typedefs
+        .get("PFN_vkInternalAllocationNotification")
         .expect("PFN_vkInternalAllocationNotification typedef");
     assert_eq!(pfn2.kind, vk_codegen::ir::TypedefKind::FuncPointer);
     // Encoded signature must have return type and parameters
     let enc = pfn2.ty.as_deref().expect("encoded signature");
-    assert!(enc.contains('|'), "encoded signature must have '|' separator");
-    assert!(enc.contains("pUserData"), "encoded signature must include param name");
+    assert!(
+        enc.contains('|'),
+        "encoded signature must have '|' separator"
+    );
+    assert!(
+        enc.contains("pUserData"),
+        "encoded signature must include param name"
+    );
 }
 
 #[test]
 fn funcpointers_emitted_in_types_rs() {
     let f = generate();
     // Funcpointer types must appear in types.rs as Option<unsafe extern "system" fn(...)>
-    assert!(f.types_rs.contains("PFN_vkVoidFunction"),
-        "PFN_vkVoidFunction missing from types.rs");
-    assert!(f.types_rs.contains("PFN_vkInternalAllocationNotification"),
-        "PFN_vkInternalAllocationNotification missing from types.rs");
-    assert!(f.types_rs.contains("unsafe extern"),
-        "funcpointers must use unsafe extern in types.rs");
-    assert!(f.types_rs.contains("Option<"),
-        "funcpointers must be Option-wrapped in types.rs");
+    assert!(
+        f.types_rs.contains("PFN_vkVoidFunction"),
+        "PFN_vkVoidFunction missing from types.rs"
+    );
+    assert!(
+        f.types_rs.contains("PFN_vkInternalAllocationNotification"),
+        "PFN_vkInternalAllocationNotification missing from types.rs"
+    );
+    assert!(
+        f.types_rs.contains("unsafe extern"),
+        "funcpointers must use unsafe extern in types.rs"
+    );
+    assert!(
+        f.types_rs.contains("Option<"),
+        "funcpointers must be Option-wrapped in types.rs"
+    );
 }
 
-// ── New: const-safe defaults without unsafe ───────────────────────────────────
+// -- New: const-safe defaults without unsafe -----------------------------------
 
 #[test]
 fn integer_alias_fields_are_const_safe() {
     // VkInstanceCreateInfo has VkInstanceCreateFlags (typedef u32) and other integer
-    // fields — its DEFAULT should be const (no fn new() with unsafe block).
+    // fields - its DEFAULT should be const (no fn new() with unsafe block).
     let f = generate();
     // Find the VkInstanceCreateInfo impl block region
-    let idx = f.types_rs.find("VkInstanceCreateInfo").expect("struct in types.rs");
+    let idx = f
+        .types_rs
+        .find("VkInstanceCreateInfo")
+        .expect("struct in types.rs");
     let snippet = &f.types_rs[idx..idx.saturating_add(800)];
-    assert!(snippet.contains("pub const DEFAULT"),
+    assert!(
+        snippet.contains("pub const DEFAULT"),
         "VkInstanceCreateInfo should have const DEFAULT (no unsafe fields);\n\
-         snippet: {snippet}");
+         snippet: {snippet}"
+    );
 }
 
-// ── New: typed zero defaults ──────────────────────────────────────────────────
+// -- New: typed zero defaults --------------------------------------------------
 
 #[test]
 fn enum_fields_use_typed_zero() {
     // VkSwapchainCreateInfoKHR has VkFormat and VkPresentModeKHR fields.
     // Their defaults must be VkFormat(0) and VkPresentModeKHR(0), not plain 0.
     let f = generate();
-    assert!(f.types_rs.contains("VkFormat(0)"),
-        "VkFormat field should default to VkFormat(0), not 0");
-    assert!(f.types_rs.contains("VkPresentModeKHR(0)"),
-        "VkPresentModeKHR field should default to VkPresentModeKHR(0)");
-    assert!(f.types_rs.contains("VkColorSpaceKHR(0)"),
-        "VkColorSpaceKHR field should default to VkColorSpaceKHR(0)");
+    assert!(
+        f.types_rs.contains("VkFormat(0)"),
+        "VkFormat field should default to VkFormat(0), not 0"
+    );
+    assert!(
+        f.types_rs.contains("VkPresentModeKHR(0)"),
+        "VkPresentModeKHR field should default to VkPresentModeKHR(0)"
+    );
+    assert!(
+        f.types_rs.contains("VkColorSpaceKHR(0)"),
+        "VkColorSpaceKHR field should default to VkColorSpaceKHR(0)"
+    );
 }
 
 #[test]
@@ -575,46 +755,59 @@ fn nested_struct_uses_default_not_zeroed() {
     // VkViewportWithExtent has a VkExtent2D field.
     // Its default must be VkExtent2D::DEFAULT, not unsafe { zeroed() }.
     let f = generate();
-    assert!(f.types_rs.contains("VkExtent2D::DEFAULT"),
+    assert!(
+        f.types_rs.contains("VkExtent2D::DEFAULT"),
         "nested VkExtent2D field should use VkExtent2D::DEFAULT;\n\
-         types_rs snippet: {}", 
-        &f.types_rs[f.types_rs.find("VkViewportWithExtent").unwrap_or(0)..
-                    f.types_rs.find("VkViewportWithExtent").unwrap_or(0) + 300]);
+         types_rs snippet: {}",
+        &f.types_rs[f.types_rs.find("VkViewportWithExtent").unwrap_or(0)
+            ..f.types_rs.find("VkViewportWithExtent").unwrap_or(0) + 300]
+    );
     // The struct containing a nested struct should still be const DEFAULT
-    let idx = f.types_rs.find("impl VkViewportWithExtent").expect("VkViewportWithExtent impl");
+    let idx = f
+        .types_rs
+        .find("impl VkViewportWithExtent")
+        .expect("VkViewportWithExtent impl");
     let snippet = &f.types_rs[idx..idx + 400];
-    assert!(snippet.contains("pub const DEFAULT"),
+    assert!(
+        snippet.contains("pub const DEFAULT"),
         "VkViewportWithExtent should have const DEFAULT (nested struct uses ::DEFAULT);\n\
-         snippet: {snippet}");
+         snippet: {snippet}"
+    );
 }
 
 #[test]
 fn handle_fields_use_zero_not_typed() {
-    // Handles are typedef u64 — plain 0 is correct (not a newtype, so no Foo(0)).
+    // Handles are typedef u64 - plain 0 is correct (not a newtype, so no Foo(0)).
     let f = generate();
     // VkSwapchainCreateInfoKHR.surface is VkSurfaceKHR (a handle = u64 typedef)
     // It should be `surface: 0`, not `surface: VkSurfaceKHR(0)`
-    assert!(f.types_rs.contains("surface: 0"),
-        "handle field surface should default to plain 0 (it's a typedef u64)");
+    assert!(
+        f.types_rs.contains("surface: 0"),
+        "handle field surface should default to plain 0 (it's a typedef u64)"
+    );
 }
 
 #[test]
 fn video_enum_uses_typed_zero() {
     // VkVideoSessionCreateInfoKHR has VkVideoCodecOperationFlagBitsKHR field
     let f = generate();
-    assert!(f.types_rs.contains("VkVideoCodecOperationFlagBitsKHR(0)"),
-        "VkVideoCodecOperationFlagBitsKHR should use typed zero");
+    assert!(
+        f.types_rs.contains("VkVideoCodecOperationFlagBitsKHR(0)"),
+        "VkVideoCodecOperationFlagBitsKHR should use typed zero"
+    );
 }
 
-// ── New: array field type uses `as usize` ─────────────────────────────────────
+// -- New: array field type uses `as usize` -------------------------------------
 
 #[test]
 fn array_field_uses_as_usize_cast() {
     let f = generate();
     // Named-constant array sizes must be cast to usize in the field type.
     // e.g. `pub lt_idx_sps: [u8; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize]`
-    assert!(f.types_rs.contains("as usize]"),
-        "array field type missing `as usize` cast for named constant size");
+    assert!(
+        f.types_rs.contains("as usize]"),
+        "array field type missing `as usize` cast for named constant size"
+    );
 }
 
 #[test]
@@ -622,60 +815,80 @@ fn array_default_is_const_safe() {
     let f = generate();
     // Array defaults for primitive element types must be const-safe typed zeros.
     // e.g. `lt_idx_sps: [0u8; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize]`
-    assert!(f.types_rs.contains("[0u8;"),
-        "u8 array default should be [0u8; N], got unsafe zeroed");
+    assert!(
+        f.types_rs.contains("[0u8;"),
+        "u8 array default should be [0u8; N], got unsafe zeroed"
+    );
     // The struct containing the array field should have const DEFAULT
-    let idx = f.types_rs.find("StdVideoH265LongTermRefPics")
+    let idx = f
+        .types_rs
+        .find("StdVideoH265LongTermRefPics")
         .expect("StdVideoH265LongTermRefPics in types.rs");
     // Should NOT need unsafe because all elements are primitives
-    // (num_long_term_sps: u8, used_by_curr_pic_lt_flag: u16 — all plain integers)
+    // (num_long_term_sps: u8, used_by_curr_pic_lt_flag: u16 - all plain integers)
     let snippet = &f.types_rs[idx..idx.saturating_add(600)];
-    assert!(snippet.contains("pub const DEFAULT") || snippet.contains("fn new"),
-        "StdVideoH265LongTermRefPics should have DEFAULT or new();\nsnippet: {snippet}");
+    assert!(
+        snippet.contains("pub const DEFAULT") || snippet.contains("fn new"),
+        "StdVideoH265LongTermRefPics should have DEFAULT or new();\nsnippet: {snippet}"
+    );
 }
 
 #[test]
 fn types_rs_imports_consts() {
     let f = generate();
-    assert!(f.types_rs.contains("crate::consts::*"),
-        "types.rs must import crate::consts::* for array size constant names");
+    assert!(
+        f.types_rs.contains("crate::consts::*"),
+        "types.rs must import crate::consts::* for array size constant names"
+    );
 }
 
-// ── New: extension constants in consts.rs ─────────────────────────────────────
+// -- New: extension constants in consts.rs -------------------------------------
 
 #[test]
 fn spec_version_in_consts_rs() {
     let f = generate();
-    assert!(f.consts_rs.contains("VK_KHR_SWAPCHAIN_SPEC_VERSION"),
-        "SPEC_VERSION constant missing from consts.rs");
-    assert!(f.consts_rs.contains("70"),
-        "SPEC_VERSION value (70) missing from consts.rs");
+    assert!(
+        f.consts_rs.contains("VK_KHR_SWAPCHAIN_SPEC_VERSION"),
+        "SPEC_VERSION constant missing from consts.rs"
+    );
+    assert!(
+        f.consts_rs.contains("70"),
+        "SPEC_VERSION value (70) missing from consts.rs"
+    );
 }
 
 #[test]
 fn extension_name_string_in_consts_rs() {
     let f = generate();
-    assert!(f.consts_rs.contains("VK_KHR_SWAPCHAIN_EXTENSION_NAME"),
-        "EXTENSION_NAME constant missing from consts.rs");
+    assert!(
+        f.consts_rs.contains("VK_KHR_SWAPCHAIN_EXTENSION_NAME"),
+        "EXTENSION_NAME constant missing from consts.rs"
+    );
     // Must be a string constant, not a byte array
-    assert!(f.consts_rs.contains("&'static str") || f.consts_rs.contains("VK_KHR_swapchain"),
-        "EXTENSION_NAME should be a string constant in consts.rs");
+    assert!(
+        f.consts_rs.contains("&'static str") || f.consts_rs.contains("VK_KHR_swapchain"),
+        "EXTENSION_NAME should be a string constant in consts.rs"
+    );
 }
 
 #[test]
 fn extension_consts_are_feature_gated() {
     let f = generate();
     // VK_KHR_SWAPCHAIN_EXTENSION_NAME should be gated by the swapchain feature
-    let idx = f.consts_rs.find("VK_KHR_SWAPCHAIN_EXTENSION_NAME")
+    let idx = f
+        .consts_rs
+        .find("VK_KHR_SWAPCHAIN_EXTENSION_NAME")
         .expect("VK_KHR_SWAPCHAIN_EXTENSION_NAME in consts.rs");
     // Walk backward a bit to find the cfg
     let before = &f.consts_rs[idx.saturating_sub(150)..idx];
-    assert!(before.contains("VK_KHR_swapchain"),
+    assert!(
+        before.contains("VK_KHR_swapchain"),
         "VK_KHR_SWAPCHAIN_EXTENSION_NAME should be feature-gated by VK_KHR_swapchain;\n\
-         context before: {before}");
+         context before: {before}"
+    );
 }
 
-// ── New: union fields use ManuallyDrop ────────────────────────────────────────
+// -- New: union fields use ManuallyDrop ----------------------------------------
 
 #[test]
 fn union_fields_are_plain_copy_types() {
@@ -684,17 +897,23 @@ fn union_fields_are_plain_copy_types() {
     // A manual Debug impl is provided instead of #[derive(Debug)].
     let f = generate();
     if f.types_rs.contains("pub union ") {
-        assert!(!f.types_rs.contains("ManuallyDrop"),
-            "union fields must NOT use ManuallyDrop — use plain Copy types");
-        assert!(f.types_rs.contains("impl core::fmt::Debug for"),
-            "union must have a manual Debug impl");
+        assert!(
+            !f.types_rs.contains("ManuallyDrop"),
+            "union fields must NOT use ManuallyDrop - use plain Copy types"
+        );
+        assert!(
+            f.types_rs.contains("impl core::fmt::Debug for"),
+            "union must have a manual Debug impl"
+        );
         // Unions must derive Copy+Clone
-        assert!(f.types_rs.contains("#[derive(Copy, Clone)]"),
-            "union must derive Copy+Clone");
+        assert!(
+            f.types_rs.contains("#[derive(Copy, Clone)]"),
+            "union must derive Copy+Clone"
+        );
     }
 }
 
-// ── Video header remap applies to constants ────────────────────────────────────
+// -- Video header remap applies to constants ------------------------------------
 
 #[test]
 fn video_const_provided_by_is_remapped() {
@@ -713,38 +932,50 @@ fn video_const_provided_by_is_remapped() {
     }
 }
 
-// ── c_char arrays use typed zero literal ──────────────────────────────────────
+// -- c_char arrays use typed zero literal --------------------------------------
 
 #[test]
 fn c_char_array_uses_zero_i8_literal() {
     let f = generate();
     // char[] fields (like deviceName) must default to [0i8; N as usize], not unsafe zeroed
-    assert!(f.types_rs.contains("[0i8;"),
-        "c_char array field should default to [0i8; N], got unsafe zeroed or wrong type");
+    assert!(
+        f.types_rs.contains("[0i8;"),
+        "c_char array field should default to [0i8; N], got unsafe zeroed or wrong type"
+    );
     // Confirm `as usize` is used for named constant sizes
-    assert!(f.types_rs.contains("VK_MAX_PHYSICAL_DEVICE_NAME_SIZE as usize"),
-        "c_char array size should use VK_MAX_PHYSICAL_DEVICE_NAME_SIZE as usize");
+    assert!(
+        f.types_rs
+            .contains("VK_MAX_PHYSICAL_DEVICE_NAME_SIZE as usize"),
+        "c_char array size should use VK_MAX_PHYSICAL_DEVICE_NAME_SIZE as usize"
+    );
 }
 
-// ── Struct-element arrays use ::DEFAULT ───────────────────────────────────────
+// -- Struct-element arrays use ::DEFAULT ---------------------------------------
 
 #[test]
 fn struct_array_element_uses_default() {
-    // The VkTestArrayStruct has extent: VkExtent2D — not an array, but we also need
+    // The VkTestArrayStruct has extent: VkExtent2D - not an array, but we also need
     // struct-element arrays like [VkMemoryType; N] to use [VkMemoryType::DEFAULT; N].
-    // VkTestArrayStruct.extent: VkExtent2D → VkExtent2D::DEFAULT (not an array, tests scalar)
+    // VkTestArrayStruct.extent: VkExtent2D -> VkExtent2D::DEFAULT (not an array, tests scalar)
     let f = generate();
     // The VkExtent2D field in VkTestArrayStruct should use VkExtent2D::DEFAULT
-    assert!(f.types_rs.contains("VkExtent2D::DEFAULT"),
-        "VkExtent2D struct field should use VkExtent2D::DEFAULT");
+    assert!(
+        f.types_rs.contains("VkExtent2D::DEFAULT"),
+        "VkExtent2D struct field should use VkExtent2D::DEFAULT"
+    );
     // VkTestArrayStruct should be fully const (no unsafe fn new)
-    let idx = f.types_rs.find("impl VkTestArrayStruct").expect("VkTestArrayStruct impl");
+    let idx = f
+        .types_rs
+        .find("impl VkTestArrayStruct")
+        .expect("VkTestArrayStruct impl");
     let snippet = &f.types_rs[idx..idx.saturating_add(400)];
-    assert!(snippet.contains("pub const DEFAULT"),
-        "VkTestArrayStruct should have const DEFAULT; snippet:\n{snippet}");
+    assert!(
+        snippet.contains("pub const DEFAULT"),
+        "VkTestArrayStruct should have const DEFAULT; snippet:\n{snippet}"
+    );
 }
 
-// ── Option<T> fields default to None ─────────────────────────────────────────
+// -- Option<T> fields default to None -----------------------------------------
 
 #[test]
 fn option_fields_default_to_none() {
@@ -761,15 +992,17 @@ fn option_fields_default_to_none() {
     // would appear if any Option field existed.
     // At minimum: no field in any struct should default to "0" when its type is Option<...>
     // Check by ensuring Option fields (if any) use None.
-    // This test primarily validates no regression — Option<T>: 0 would be a compile error.
+    // This test primarily validates no regression - Option<T>: 0 would be a compile error.
     assert!(!f.types_rs.contains(": None; //"), "malformed None default");
     // The code path is tested structurally: if Option fields appeared they'd use None.
     // Verify PFN types are Option-wrapped in types.rs
-    assert!(f.types_rs.contains("Option<unsafe extern"),
-        "funcpointer types should be Option<unsafe extern ...> in types.rs");
+    assert!(
+        f.types_rs.contains("Option<unsafe extern"),
+        "funcpointer types should be Option<unsafe extern ...> in types.rs"
+    );
 }
 
-// ── No nested unsafe blocks ───────────────────────────────────────────────────
+// -- No nested unsafe blocks ---------------------------------------------------
 
 #[test]
 fn no_nested_unsafe_in_fn_new() {
@@ -779,17 +1012,21 @@ fn no_nested_unsafe_in_fn_new() {
     // The pattern "unsafe { core::mem::zeroed() }" inside an already-unsafe fn new()
     // would previously produce "unsafe { ... unsafe { zeroed() } ... }".
     // Now defaults are plain expressions like `core::mem::zeroed::<T>()` (no inner unsafe).
-    assert!(!f.types_rs.contains("unsafe { core::mem::zeroed()"),
-        "individual field defaults must not contain `unsafe {{ core::mem::zeroed() }}` — \
-         use `core::mem::zeroed::<T>()` or `[0T; N]` instead");
+    assert!(
+        !f.types_rs.contains("unsafe { core::mem::zeroed()"),
+        "individual field defaults must not contain `unsafe {{ core::mem::zeroed() }}` - \
+         use `core::mem::zeroed::<T>()` or `[0T; N]` instead"
+    );
 }
 
-// ── PFN fields default to None ────────────────────────────────────────────────
+// -- PFN fields default to None ------------------------------------------------
 
 #[test]
 fn pfn_fields_parse_as_funcpointer() {
     let reg = make_registry();
-    let pfn = reg.typedefs.get("PFN_vkVoidFunction")
+    let pfn = reg
+        .typedefs
+        .get("PFN_vkVoidFunction")
         .expect("PFN_vkVoidFunction");
     assert_eq!(pfn.kind, vk_codegen::ir::TypedefKind::FuncPointer);
 }
@@ -797,17 +1034,25 @@ fn pfn_fields_parse_as_funcpointer() {
 #[test]
 fn pfn_struct_fields_default_to_none() {
     let f = generate();
-    // VkTestCallbacks has PFN fields — they must default to None, not 0
-    let idx = f.types_rs.find("impl VkTestCallbacks")
+    // VkTestCallbacks has PFN fields - they must default to None, not 0
+    let idx = f
+        .types_rs
+        .find("impl VkTestCallbacks")
         .expect("VkTestCallbacks impl in types.rs");
     let snippet = &f.types_rs[idx..idx.saturating_add(500)];
-    assert!(snippet.contains("None"),
-        "PFN struct fields must default to None;\nsnippet:\n{snippet}");
-    assert!(!snippet.contains(": 0"),
-        "PFN struct fields must NOT default to 0;\nsnippet:\n{snippet}");
+    assert!(
+        snippet.contains("None"),
+        "PFN struct fields must default to None;\nsnippet:\n{snippet}"
+    );
+    assert!(
+        !snippet.contains(": 0"),
+        "PFN struct fields must NOT default to 0;\nsnippet:\n{snippet}"
+    );
     // Should be fully const since None is const-safe
-    assert!(snippet.contains("pub const DEFAULT"),
-        "VkTestCallbacks should have const DEFAULT (None is const-safe);\nsnippet:\n{snippet}");
+    assert!(
+        snippet.contains("pub const DEFAULT"),
+        "VkTestCallbacks should have const DEFAULT (None is const-safe);\nsnippet:\n{snippet}"
+    );
 }
 
 #[test]
@@ -817,21 +1062,25 @@ fn alias_chain_followed_for_enum_default() {
     // not 0 (which would require classify_type to follow the alias chain).
     // We test the classify_type logic via the generated output of a real struct.
     // Since our fixture doesn't have VkComponentTypeNV, test the principle:
-    // VkColorSpaceKHR is an enum and VkSwapchainCreateInfoKHR has it →
+    // VkColorSpaceKHR is an enum and VkSwapchainCreateInfoKHR has it ->
     // it must appear as VkColorSpaceKHR(0) not plain 0.
     let f = generate();
-    assert!(f.types_rs.contains("VkColorSpaceKHR(0)"),
-        "enum newtype field VkColorSpaceKHR should default to VkColorSpaceKHR(0)");
+    assert!(
+        f.types_rs.contains("VkColorSpaceKHR(0)"),
+        "enum newtype field VkColorSpaceKHR should default to VkColorSpaceKHR(0)"
+    );
 }
 
-// ── Union: no ManuallyDrop, manual Debug ──────────────────────────────────────
+// -- Union: no ManuallyDrop, manual Debug --------------------------------------
 
 #[test]
 fn union_has_no_manually_drop() {
     let f = generate();
     if f.types_rs.contains("pub union ") {
-        assert!(!f.types_rs.contains("ManuallyDrop"),
-            "unions must NOT use ManuallyDrop — all Vulkan union fields are Copy");
+        assert!(
+            !f.types_rs.contains("ManuallyDrop"),
+            "unions must NOT use ManuallyDrop - all Vulkan union fields are Copy"
+        );
     }
 }
 
@@ -839,10 +1088,14 @@ fn union_has_no_manually_drop() {
 fn union_has_manual_debug_impl() {
     let f = generate();
     if f.types_rs.contains("pub union ") {
-        assert!(f.types_rs.contains("impl core::fmt::Debug for"),
-            "unions must have manual Debug impl (cannot auto-derive for union)");
-        assert!(f.types_rs.contains("debug_struct"),
-            "manual Debug impl must use debug_struct format");
+        assert!(
+            f.types_rs.contains("impl core::fmt::Debug for"),
+            "unions must have manual Debug impl (cannot auto-derive for union)"
+        );
+        assert!(
+            f.types_rs.contains("debug_struct"),
+            "manual Debug impl must use debug_struct format"
+        );
     }
 }
 
@@ -851,12 +1104,14 @@ fn union_derives_copy_clone() {
     let f = generate();
     if f.types_rs.contains("pub union ") {
         // Check that Copy+Clone appear before the union declaration
-        assert!(f.types_rs.contains("#[derive(Copy, Clone)]"),
-            "union must derive Copy, Clone");
+        assert!(
+            f.types_rs.contains("#[derive(Copy, Clone)]"),
+            "union must derive Copy, Clone"
+        );
     }
 }
 
-// ── Opaque platform types as *mut c_void ──────────────────────────────────────
+// -- Opaque platform types as *mut c_void --------------------------------------
 
 #[test]
 fn opaque_basetype_emitted_as_ptr_alias() {
@@ -875,32 +1130,48 @@ fn opaque_types_emitted_as_newtype_handles() {
     // NOT as zero-sized structs or raw type aliases.
     let f = generate();
     // No zero-sized _private structs
-    assert!(!f.types_rs.contains("_private: [u8; 0]"),
-        "no zero-sized opaque structs allowed");
+    assert!(
+        !f.types_rs.contains("_private: [u8; 0]"),
+        "no zero-sized opaque structs allowed"
+    );
     // No raw type alias form
-    assert!(!f.types_rs.contains("pub type HWND"),
-        "HWND must be a newtype struct, not a type alias");
+    assert!(
+        !f.types_rs.contains("pub type HWND"),
+        "HWND must be a newtype struct, not a type alias"
+    );
     // HWND must be a proper repr(transparent) newtype
     if f.types_rs.contains("pub struct HWND") {
-        assert!(f.types_rs.contains("pub struct HWND(pub *mut core::ffi::c_void)"),
-            "HWND must be repr(transparent) newtype over *mut c_void");
-        assert!(f.types_rs.contains("NULL: Self = Self(core::ptr::null_mut())"),
-            "HWND must have a NULL constant");
+        assert!(
+            f.types_rs
+                .contains("pub struct HWND(pub *mut core::ffi::c_void)"),
+            "HWND must be repr(transparent) newtype over *mut c_void"
+        );
+        assert!(
+            f.types_rs
+                .contains("NULL: Self = Self(core::ptr::null_mut())"),
+            "HWND must have a NULL constant"
+        );
     }
 }
 
-// ── Platform requires= types parsed and feature-gated ────────────────────────
+// -- Platform requires= types parsed and feature-gated ------------------------
 
 #[test]
 fn platform_requires_types_parsed_as_opaque() {
     let reg = make_registry();
     // HWND, Display, etc. must be registered as OpaqueExtern
     let hwnd = reg.typedefs.get("HWND").expect("HWND in typedefs");
-    assert_eq!(hwnd.kind, vk_codegen::ir::TypedefKind::OpaqueExtern,
-        "HWND should be OpaqueExtern");
+    assert_eq!(
+        hwnd.kind,
+        vk_codegen::ir::TypedefKind::OpaqueExtern,
+        "HWND should be OpaqueExtern"
+    );
     let display = reg.typedefs.get("Display").expect("Display in typedefs");
-    assert_eq!(display.kind, vk_codegen::ir::TypedefKind::OpaqueExtern,
-        "Display should be OpaqueExtern");
+    assert_eq!(
+        display.kind,
+        vk_codegen::ir::TypedefKind::OpaqueExtern,
+        "Display should be OpaqueExtern"
+    );
 }
 
 #[test]
@@ -910,7 +1181,8 @@ fn platform_types_gated_by_extension_feature() {
     // HWND is required by VK_KHR_win32_surface in our fixture
     let hwnd = reg.typedefs.get("HWND").expect("HWND");
     assert!(
-        hwnd.provided_by.contains(&"VK_KHR_win32_surface".to_owned()),
+        hwnd.provided_by
+            .contains(&"VK_KHR_win32_surface".to_owned()),
         "HWND.provided_by should contain VK_KHR_win32_surface; got: {:?}",
         hwnd.provided_by
     );
@@ -919,81 +1191,101 @@ fn platform_types_gated_by_extension_feature() {
 #[test]
 fn platform_types_emitted_with_correct_cfg() {
     let f = generate();
-    // HWND is provided by VK_KHR_win32_surface — must be feature-gated and a newtype handle
+    // HWND is provided by VK_KHR_win32_surface - must be feature-gated and a newtype handle
     if f.types_rs.contains("pub struct HWND") {
         let idx = f.types_rs.find("pub struct HWND").unwrap();
         let before = &f.types_rs[idx.saturating_sub(120)..idx];
-        assert!(before.contains("VK_KHR_win32_surface"),
-            "HWND must be gated by VK_KHR_win32_surface;\nbefore: {before}");
+        assert!(
+            before.contains("VK_KHR_win32_surface"),
+            "HWND must be gated by VK_KHR_win32_surface;\nbefore: {before}"
+        );
         let after = &f.types_rs[idx..idx.saturating_add(80)];
-        assert!(after.contains("*mut core::ffi::c_void"),
-            "HWND must wrap *mut c_void;\nafter: {after}");
+        assert!(
+            after.contains("*mut core::ffi::c_void"),
+            "HWND must wrap *mut c_void;\nafter: {after}"
+        );
     }
 }
 
-// ── Alias chain resolves to canonical enum name ────────────────────────────────
+// -- Alias chain resolves to canonical enum name --------------------------------
 
 #[test]
 fn video_enum_fields_use_typed_init() {
     // StdVideoH265ProfileTierLevel has StdVideoH265ProfileIdc and StdVideoH265LevelIdc
-    // fields — both are enum newtypes.  They must default to TypeName(0), not plain 0.
+    // fields - both are enum newtypes.  They must default to TypeName(0), not plain 0.
     let f = generate();
-    assert!(f.types_rs.contains("StdVideoH265ProfileIdc(0)"),
-        "StdVideoH265ProfileIdc field should default to StdVideoH265ProfileIdc(0)");
-    assert!(f.types_rs.contains("StdVideoH265LevelIdc(0)"),
-        "StdVideoH265LevelIdc field should default to StdVideoH265LevelIdc(0)");
+    assert!(
+        f.types_rs.contains("StdVideoH265ProfileIdc(0)"),
+        "StdVideoH265ProfileIdc field should default to StdVideoH265ProfileIdc(0)"
+    );
+    assert!(
+        f.types_rs.contains("StdVideoH265LevelIdc(0)"),
+        "StdVideoH265LevelIdc field should default to StdVideoH265LevelIdc(0)"
+    );
     // The struct must be const DEFAULT since all fields are const-safe
-    let idx = f.types_rs.find("impl StdVideoH265ProfileTierLevel")
+    let idx = f
+        .types_rs
+        .find("impl StdVideoH265ProfileTierLevel")
         .expect("StdVideoH265ProfileTierLevel impl");
     let snippet = &f.types_rs[idx..idx.saturating_add(300)];
-    assert!(snippet.contains("pub const DEFAULT"),
-        "StdVideoH265ProfileTierLevel should have const DEFAULT;\nsnippet:\n{snippet}");
+    assert!(
+        snippet.contains("pub const DEFAULT"),
+        "StdVideoH265ProfileTierLevel should have const DEFAULT;\nsnippet:\n{snippet}"
+    );
 }
 
-// ── Null ptr alias for OpaqueExtern ───────────────────────────────────────────
+// -- Null ptr alias for OpaqueExtern -------------------------------------------
 
 #[test]
 fn opaque_extern_fields_default_to_null_mut() {
     // If a struct has a field of type HWND (= *mut c_void), its default should be
     // core::ptr::null_mut(), not 0.
-    // Verify via classify_type that OpaqueExtern → NullMutAlias path works.
+    // Verify via classify_type that OpaqueExtern -> NullMutAlias path works.
     let reg = make_registry();
-    // HWND is OpaqueExtern — look it up and verify kind
+    // HWND is OpaqueExtern - look it up and verify kind
     let hwnd = reg.typedefs.get("HWND").expect("HWND");
     assert_eq!(hwnd.kind, vk_codegen::ir::TypedefKind::OpaqueExtern);
     // The generated output should use null_mut() for platform pointer types
     let f = generate();
     // Check the type is emitted as pointer alias
     if f.types_rs.contains("pub type HWND") {
-        assert!(f.types_rs.contains("*mut core::ffi::c_void"),
-            "HWND should be *mut c_void");
+        assert!(
+            f.types_rs.contains("*mut core::ffi::c_void"),
+            "HWND should be *mut c_void"
+        );
     }
 }
 
-// ── All structs derive Copy ───────────────────────────────────────────────────
+// -- All structs derive Copy ---------------------------------------------------
 
 #[test]
 fn structs_derive_copy() {
     let f = generate();
     // All generated structs should derive Copy so they work as union field types
     // and can be used in const array initializers.
-    assert!(f.types_rs.contains("#[derive(Debug, Clone, Copy)]"),
-        "structs should derive Debug, Clone, Copy");
+    assert!(
+        f.types_rs.contains("#[derive(Debug, Clone, Copy)]"),
+        "structs should derive Debug, Clone, Copy"
+    );
     // No struct should use the old Clone-only derive
-    assert!(!f.types_rs.contains("#[derive(Debug, Clone)]"),
-        "structs must not use #[derive(Debug, Clone)] without Copy");
+    assert!(
+        !f.types_rs.contains("#[derive(Debug, Clone)]"),
+        "structs must not use #[derive(Debug, Clone)] without Copy"
+    );
 }
 
 #[test]
 fn unions_still_derive_copy_clone() {
     let f = generate();
     if f.types_rs.contains("pub union ") {
-        assert!(f.types_rs.contains("#[derive(Copy, Clone)]"),
-            "unions should derive Copy, Clone");
+        assert!(
+            f.types_rs.contains("#[derive(Copy, Clone)]"),
+            "unions should derive Copy, Clone"
+        );
     }
 }
 
-// ── Enum alias chains: canonical constructor used in defaults ─────────────────
+// -- Enum alias chains: canonical constructor used in defaults -----------------
 
 #[test]
 fn enum_alias_fields_use_canonical_constructor() {
@@ -1003,33 +1295,46 @@ fn enum_alias_fields_use_canonical_constructor() {
     // We test the classify_type logic by verifying it returns the canonical name.
     let reg = make_registry();
     // Add a simulated enum alias to verify the chain is followed:
-    // VkColorSpaceKHR is an enum newtype in the fixture — its default is VkColorSpaceKHR(0).
+    // VkColorSpaceKHR is an enum newtype in the fixture - its default is VkColorSpaceKHR(0).
     // In the generated output, the VkSwapchainCreateInfoKHR.imageColorSpace field
     // should already be VkColorSpaceKHR(0) (not an alias case, but exercises EnumNewtype).
     let f = generate();
-    assert!(f.types_rs.contains("VkColorSpaceKHR(0)"),
-        "enum field should use typed constructor, not plain 0");
+    assert!(
+        f.types_rs.contains("VkColorSpaceKHR(0)"),
+        "enum field should use typed constructor, not plain 0"
+    );
     // The classify_type function follows Enum.alias chains.
     // Since our minimal fixture doesn't have a two-level enum alias, we verify at
     // the IR level that enum alias is stored correctly.
-    let e = reg.enums.get("VkColorSpaceKHR").expect("VkColorSpaceKHR in enums");
-    assert!(e.alias.is_none(), "VkColorSpaceKHR should not itself be an alias");
+    let e = reg
+        .enums
+        .get("VkColorSpaceKHR")
+        .expect("VkColorSpaceKHR in enums");
+    assert!(
+        e.alias.is_none(),
+        "VkColorSpaceKHR should not itself be an alias"
+    );
 }
 
-// ── Platform handle newtypes ──────────────────────────────────────────────────
+// -- Platform handle newtypes --------------------------------------------------
 
 #[test]
 fn platform_handles_have_null_const() {
     let f = generate();
     // Each platform handle type must have a NULL constant
     if f.types_rs.contains("pub struct HWND") {
-        assert!(f.types_rs.contains("NULL: Self = Self(core::ptr::null_mut())"),
-            "HWND must have a NULL constant");
+        assert!(
+            f.types_rs
+                .contains("NULL: Self = Self(core::ptr::null_mut())"),
+            "HWND must have a NULL constant"
+        );
         // NULL must be feature-gated too (impl block has cfg)
         let idx = f.types_rs.find("impl HWND").expect("impl HWND");
         let before = &f.types_rs[idx.saturating_sub(100)..idx];
-        assert!(before.contains("VK_KHR_win32_surface"),
-            "impl HWND must be feature-gated");
+        assert!(
+            before.contains("VK_KHR_win32_surface"),
+            "impl HWND must be feature-gated"
+        );
     }
 }
 
@@ -1039,24 +1344,34 @@ fn platform_handles_are_distinct_types() {
     // HWND and HINSTANCE are separate newtype structs, not the same *mut c_void alias
     if f.types_rs.contains("pub struct HWND") && f.types_rs.contains("pub struct HINSTANCE") {
         // Both exist as distinct named structs
-        assert!(f.types_rs.contains("pub struct HWND(pub *mut core::ffi::c_void)"),
-            "HWND must be a distinct newtype");
-        assert!(f.types_rs.contains("pub struct HINSTANCE(pub *mut core::ffi::c_void)"),
-            "HINSTANCE must be a distinct newtype");
+        assert!(
+            f.types_rs
+                .contains("pub struct HWND(pub *mut core::ffi::c_void)"),
+            "HWND must be a distinct newtype"
+        );
+        assert!(
+            f.types_rs
+                .contains("pub struct HINSTANCE(pub *mut core::ffi::c_void)"),
+            "HINSTANCE must be a distinct newtype"
+        );
     }
 }
 
-// ── Video codec types are not treated as platform opaques ─────────────────────
+// -- Video codec types are not treated as platform opaques ---------------------
 
 #[test]
 fn video_codec_types_not_opaque_extern() {
     let reg = make_registry();
-    // StdVideoH265ProfileIdc is a video enum — must NOT be OpaqueExtern
-    let e = reg.enums.get("StdVideoH265ProfileIdc")
+    // StdVideoH265ProfileIdc is a video enum - must NOT be OpaqueExtern
+    let e = reg
+        .enums
+        .get("StdVideoH265ProfileIdc")
         .expect("StdVideoH265ProfileIdc must be in enums");
     // It's in reg.enums, not typedefs
-    assert!(reg.typedefs.get("StdVideoH265ProfileIdc").is_none(),
-        "StdVideoH265ProfileIdc must be in enums, not typedefs");
+    assert!(
+        reg.typedefs.get("StdVideoH265ProfileIdc").is_none(),
+        "StdVideoH265ProfileIdc must be in enums, not typedefs"
+    );
     let _ = e;
 }
 
@@ -1064,16 +1379,22 @@ fn video_codec_types_not_opaque_extern() {
 fn video_enum_defaults_are_not_null_ptr() {
     let f = generate();
     // The StdVideoH265ProfileTierLevel struct must not have null_mut() for enum fields
-    let idx = f.types_rs.find("impl StdVideoH265ProfileTierLevel")
+    let idx = f
+        .types_rs
+        .find("impl StdVideoH265ProfileTierLevel")
         .expect("StdVideoH265ProfileTierLevel impl");
     let snippet = &f.types_rs[idx..idx.saturating_add(400)];
-    assert!(!snippet.contains("null_mut()"),
-        "video enum fields must not use null_mut();\nsnippet:\n{snippet}");
-    assert!(snippet.contains("StdVideoH265ProfileIdc(0)"),
-        "video enum field must use typed zero constructor;\nsnippet:\n{snippet}");
+    assert!(
+        !snippet.contains("null_mut()"),
+        "video enum fields must not use null_mut();\nsnippet:\n{snippet}"
+    );
+    assert!(
+        snippet.contains("StdVideoH265ProfileIdc(0)"),
+        "video enum field must use typed zero constructor;\nsnippet:\n{snippet}"
+    );
 }
 
-// ── Platform type back-propagation ────────────────────────────────────────────
+// -- Platform type back-propagation --------------------------------------------
 
 #[test]
 fn platform_types_back_propagated_from_structs() {
@@ -1085,9 +1406,11 @@ fn platform_types_back_propagated_from_structs() {
 
     let wl = reg.typedefs.get("wl_display").expect("wl_display typedef");
     assert!(
-        wl.provided_by.contains(&"VK_KHR_wayland_surface".to_owned()),
+        wl.provided_by
+            .contains(&"VK_KHR_wayland_surface".to_owned()),
         "wl_display must be back-propagated to VK_KHR_wayland_surface via struct member;\n\
-         got: {:?}", wl.provided_by
+         got: {:?}",
+        wl.provided_by
     );
 }
 
@@ -1099,13 +1422,16 @@ fn platform_types_back_propagated_from_explicit_require() {
 
     let display = reg.typedefs.get("Display").expect("Display typedef");
     assert!(
-        display.provided_by.contains(&"VK_KHR_xlib_surface".to_owned()),
+        display
+            .provided_by
+            .contains(&"VK_KHR_xlib_surface".to_owned()),
         "Display must have VK_KHR_xlib_surface in provided_by; got: {:?}",
         display.provided_by
     );
     let hwnd = reg.typedefs.get("HWND").expect("HWND");
     assert!(
-        hwnd.provided_by.contains(&"VK_KHR_win32_surface".to_owned()),
+        hwnd.provided_by
+            .contains(&"VK_KHR_win32_surface".to_owned()),
         "HWND must have VK_KHR_win32_surface in provided_by; got: {:?}",
         hwnd.provided_by
     );
@@ -1115,20 +1441,38 @@ fn platform_types_back_propagated_from_explicit_require() {
 fn all_platform_types_emitted_in_types_rs() {
     let f = generate();
     let required = [
-        "Display", "VisualID", "Window", "RROutput",
-        "wl_display", "wl_surface",
-        "HINSTANCE", "HWND", "HMONITOR", "HANDLE", "DWORD", "LPCWSTR",
-        "xcb_connection_t", "xcb_window_t",
-        "IDirectFB", "zx_handle_t", "GgpStreamDescriptor",
-        "_screen_context", "NvSciSyncAttrList", "NvSciBufAttrList",
+        "Display",
+        "VisualID",
+        "Window",
+        "RROutput",
+        "wl_display",
+        "wl_surface",
+        "HINSTANCE",
+        "HWND",
+        "HMONITOR",
+        "HANDLE",
+        "DWORD",
+        "LPCWSTR",
+        "xcb_connection_t",
+        "xcb_window_t",
+        "IDirectFB",
+        "zx_handle_t",
+        "GgpStreamDescriptor",
+        "_screen_context",
+        "NvSciSyncAttrList",
+        "NvSciBufAttrList",
     ];
     for name in &required {
-        assert!(f.types_rs.contains(&format!("pub struct {name}")),
-            "platform type {name} missing from types.rs");
+        assert!(
+            f.types_rs.contains(&format!("pub struct {name}")),
+            "platform type {name} missing from types.rs"
+        );
         // Each must be a repr(transparent) newtype, not a type alias or zero-sized struct
-        assert!(f.types_rs.contains(
-            &format!("pub struct {name}(pub *mut core::ffi::c_void)")),
-            "{name} must be a repr(transparent) newtype over *mut c_void");
+        assert!(
+            f.types_rs
+                .contains(&format!("pub struct {name}(pub *mut core::ffi::c_void)")),
+            "{name} must be a repr(transparent) newtype over *mut c_void"
+        );
     }
 }
 
@@ -1145,8 +1489,10 @@ fn platform_types_have_null_constant() {
         let marker = format!("impl {name}");
         if let Some(idx) = f.types_rs.find(&marker) {
             let snippet = &f.types_rs[idx..idx.saturating_add(120)];
-            assert!(snippet.contains("NULL"),
-                "{name} impl block must have NULL constant; snippet: {snippet}");
+            assert!(
+                snippet.contains("NULL"),
+                "{name} impl block must have NULL constant; snippet: {snippet}"
+            );
         }
     }
 }
@@ -1156,83 +1502,122 @@ fn platform_types_feature_gated_correctly() {
     let f = generate();
     // Spot-check a few feature gates
     let cases = [
-        ("wl_display",       "VK_KHR_wayland_surface"),
-        ("HWND",             "VK_KHR_win32_surface"),
+        ("wl_display", "VK_KHR_wayland_surface"),
+        ("HWND", "VK_KHR_win32_surface"),
         ("xcb_connection_t", "VK_KHR_xcb_surface"),
-        ("Display",          "VK_KHR_xlib_surface"),
-        ("zx_handle_t",      "VK_FUCHSIA_imagepipe_surface"),
+        ("Display", "VK_KHR_xlib_surface"),
+        ("zx_handle_t", "VK_FUCHSIA_imagepipe_surface"),
     ];
     for (name, feature) in &cases {
         if let Some(idx) = f.types_rs.find(&format!("pub struct {name}")) {
             let before = &f.types_rs[idx.saturating_sub(150)..idx];
-            assert!(before.contains(feature),
-                "{name} must be gated by {feature}; context before: {before}");
+            assert!(
+                before.contains(feature),
+                "{name} must be gated by {feature}; context before: {before}"
+            );
         }
     }
 }
 
-
-// ── Union const DEFAULT ───────────────────────────────────────────────────────
+// -- Union const DEFAULT -------------------------------------------------------
 
 #[test]
 fn union_has_const_default() {
     let f = generate();
-    assert!(f.types_rs.contains("pub union VkClearColorValue"),
-        "VkClearColorValue union must be emitted");
-    let idx = f.types_rs.find("impl VkClearColorValue")
+    assert!(
+        f.types_rs.contains("pub union VkClearColorValue"),
+        "VkClearColorValue union must be emitted"
+    );
+    let idx = f
+        .types_rs
+        .find("impl VkClearColorValue")
         .expect("VkClearColorValue impl block");
     let snippet = &f.types_rs[idx..idx.saturating_add(250)];
-    assert!(snippet.contains("pub const DEFAULT"),
-        "union must have const DEFAULT;\n{snippet}");
-    assert!(snippet.contains("pub const fn new()"),
-        "union must have const fn new();\n{snippet}");
+    assert!(
+        snippet.contains("pub const DEFAULT"),
+        "union must have const DEFAULT;\n{snippet}"
+    );
+    assert!(
+        snippet.contains("pub const fn new()"),
+        "union must have const fn new();\n{snippet}"
+    );
 }
 
 #[test]
 fn struct_with_union_field_is_const_default() {
     // Now that unions have DEFAULT, any struct containing a union field should
-    // also be able to be const DEFAULT — no more fn new() with unsafe block.
+    // also be able to be const DEFAULT - no more fn new() with unsafe block.
     // Check the global invariant: no uses of the old nested unsafe pattern.
     let f = generate();
-    assert!(!f.types_rs.contains("unsafe { core::mem::zeroed()"),
-        "no field-level unsafe zeroed() should remain in defaults — \
-         use outer unsafe block or const DEFAULT");
+    assert!(
+        !f.types_rs.contains("unsafe { core::mem::zeroed()"),
+        "no field-level unsafe zeroed() should remain in defaults - \
+         use outer unsafe block or const DEFAULT"
+    );
 }
 
-// ── Video codec #define constants ─────────────────────────────────────────────
+// -- Video codec #define constants ---------------------------------------------
 
 #[test]
 fn video_defines_parsed() {
     let mut reg = make_registry();
     vk_codegen::parser::apply_require_extensions(&mut reg);
 
-    let maker = reg.typedefs.get("VK_MAKE_VIDEO_STD_VERSION")
+    let maker = reg
+        .typedefs
+        .get("VK_MAKE_VIDEO_STD_VERSION")
         .expect("VK_MAKE_VIDEO_STD_VERSION must be in registry");
     assert_eq!(maker.kind, vk_codegen::ir::TypedefKind::Define);
-    assert!(maker.ty.as_deref().map(|t| t.starts_with("fn:")).unwrap_or(false),
-        "VK_MAKE_VIDEO_STD_VERSION must encode as 'fn:...'; got {:?}", maker.ty);
-    // VK_MAKE_VIDEO_STD_VERSION is a universal utility helper — emitted ungated
-    assert!(maker.provided_by.is_empty(),
+    assert!(
+        maker
+            .ty
+            .as_deref()
+            .map(|t| t.starts_with("fn:"))
+            .unwrap_or(false),
+        "VK_MAKE_VIDEO_STD_VERSION must encode as 'fn:...'; got {:?}",
+        maker.ty
+    );
+    // VK_MAKE_VIDEO_STD_VERSION is a universal utility helper - emitted ungated
+    assert!(
+        maker.provided_by.is_empty(),
         "VK_MAKE_VIDEO_STD_VERSION must be ungated (empty provided_by); got {:?}",
-        maker.provided_by);
+        maker.provided_by
+    );
 
-    let h264 = reg.typedefs.get("VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0")
+    let h264 = reg
+        .typedefs
+        .get("VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0")
         .expect("H264 decode version constant must be in registry");
-    assert!(h264.ty.as_deref().map(|t| t.starts_with("vkver:")).unwrap_or(false),
-        "H264 version constant must encode args as 'vkver:...'; got {:?}", h264.ty);
-    assert!(h264.provided_by.contains(&"VK_KHR_video_decode_h264".to_owned()),
+    assert!(
+        h264.ty
+            .as_deref()
+            .map(|t| t.starts_with("vkver:"))
+            .unwrap_or(false),
+        "H264 version constant must encode args as 'vkver:...'; got {:?}",
+        h264.ty
+    );
+    assert!(
+        h264.provided_by
+            .contains(&"VK_KHR_video_decode_h264".to_owned()),
         "H264 version constant must be gated by VK_KHR_video_decode_h264; got {:?}",
-        h264.provided_by);
+        h264.provided_by
+    );
 }
 
 #[test]
 fn video_make_version_emitted_as_const_fn() {
     let f = generate();
-    assert!(f.consts_rs.contains("pub const fn VK_MAKE_VIDEO_STD_VERSION"),
-        "VK_MAKE_VIDEO_STD_VERSION must be emitted as a const fn");
-    assert!(f.consts_rs.contains("(major << 22) | (minor << 12) | patch"),
-        "const fn body must compute the packed version value");
-    // VK_MAKE_VIDEO_STD_VERSION is a universal helper — emitted without a cfg gate
+    assert!(
+        f.consts_rs
+            .contains("pub const fn VK_MAKE_VIDEO_STD_VERSION"),
+        "VK_MAKE_VIDEO_STD_VERSION must be emitted as a const fn"
+    );
+    assert!(
+        f.consts_rs
+            .contains("(major << 22) | (minor << 12) | patch"),
+        "const fn body must compute the packed version value"
+    );
+    // VK_MAKE_VIDEO_STD_VERSION is a universal helper - emitted without a cfg gate
     assert!(!f.consts_rs.contains("#[cfg(feature = \"VK_KHR_video_queue\")]\n#[inline] pub const fn VK_MAKE_VIDEO_STD_VERSION"),
         "VK_MAKE_VIDEO_STD_VERSION should not be gated by a feature flag");
 }
@@ -1241,102 +1626,147 @@ fn video_make_version_emitted_as_const_fn() {
 fn video_version_consts_emitted_as_u32() {
     let f = generate();
     // VK_MAKE_VIDEO_STD_VERSION(1, 0, 0) = (1<<22)|(0<<12)|0 = 4194304
-    assert!(f.consts_rs.contains(
-        "VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0: u32 = 4194304"),
-        "H264 decode version const must be a pre-evaluated u32 = 4194304");
-    assert!(f.consts_rs.contains(
-        "VK_STD_VULKAN_VIDEO_CODEC_H265_DECODE_API_VERSION_1_0_0: u32 = 4194304"),
-        "H265 decode version const must be emitted");
-    assert!(f.consts_rs.contains(
-        "VK_STD_VULKAN_VIDEO_CODEC_AV1_DECODE_API_VERSION_1_0_0: u32 = 4194304"),
-        "AV1 decode version const must be emitted");
+    assert!(
+        f.consts_rs
+            .contains("VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0: u32 = 4194304"),
+        "H264 decode version const must be a pre-evaluated u32 = 4194304"
+    );
+    assert!(
+        f.consts_rs
+            .contains("VK_STD_VULKAN_VIDEO_CODEC_H265_DECODE_API_VERSION_1_0_0: u32 = 4194304"),
+        "H265 decode version const must be emitted"
+    );
+    assert!(
+        f.consts_rs
+            .contains("VK_STD_VULKAN_VIDEO_CODEC_AV1_DECODE_API_VERSION_1_0_0: u32 = 4194304"),
+        "AV1 decode version const must be emitted"
+    );
 }
 
 #[test]
 fn video_version_consts_feature_gated() {
     let f = generate();
-    // H264 decode → VK_KHR_video_decode_h264
-    let idx = f.consts_rs
+    // H264 decode -> VK_KHR_video_decode_h264
+    let idx = f
+        .consts_rs
         .find("VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0: u32")
         .expect("H264 decode version const in types.rs");
     let before = &f.consts_rs[idx.saturating_sub(150)..idx];
-    assert!(before.contains("VK_KHR_video_decode_h264"),
-        "H264 decode version const must be gated by VK_KHR_video_decode_h264;\nbefore: {before}");
+    assert!(
+        before.contains("VK_KHR_video_decode_h264"),
+        "H264 decode version const must be gated by VK_KHR_video_decode_h264;\nbefore: {before}"
+    );
 
-    // H264 encode → VK_KHR_video_encode_h264
-    if let Some(idx) = f.consts_rs.find("VK_STD_VULKAN_VIDEO_CODEC_H264_ENCODE_API_VERSION_1_0_0: u32") {
+    // H264 encode -> VK_KHR_video_encode_h264
+    if let Some(idx) = f
+        .consts_rs
+        .find("VK_STD_VULKAN_VIDEO_CODEC_H264_ENCODE_API_VERSION_1_0_0: u32")
+    {
         let before = &f.consts_rs[idx.saturating_sub(150)..idx];
-        assert!(before.contains("VK_KHR_video_encode_h264"),
-            "H264 encode version const must be gated by VK_KHR_video_encode_h264");
+        assert!(
+            before.contains("VK_KHR_video_encode_h264"),
+            "H264 encode version const must be gated by VK_KHR_video_encode_h264"
+        );
     }
 }
 
-// ── All defines routed to consts.rs, not types.rs ─────────────────────────────
+// -- All defines routed to consts.rs, not types.rs -----------------------------
 
 #[test]
 fn defines_not_in_types_rs() {
     let f = generate();
-    assert!(!f.types_rs.contains("pub const fn VK_MAKE"),
-        "VK_MAKE_* defines must be in consts.rs, not types.rs");
-    assert!(!f.types_rs.contains("VK_API_VERSION_1_"),
-        "VK_API_VERSION_* defines must be in consts.rs, not types.rs");
-    assert!(!f.types_rs.contains("VK_HEADER_VERSION"),
-        "VK_HEADER_VERSION must be in consts.rs, not types.rs");
+    assert!(
+        !f.types_rs.contains("pub const fn VK_MAKE"),
+        "VK_MAKE_* defines must be in consts.rs, not types.rs"
+    );
+    assert!(
+        !f.types_rs.contains("VK_API_VERSION_1_"),
+        "VK_API_VERSION_* defines must be in consts.rs, not types.rs"
+    );
+    assert!(
+        !f.types_rs.contains("VK_HEADER_VERSION"),
+        "VK_HEADER_VERSION must be in consts.rs, not types.rs"
+    );
 }
 
-// ── vk.xml API version helpers in consts.rs ───────────────────────────────────
+// -- vk.xml API version helpers in consts.rs -----------------------------------
 
 #[test]
 fn vk_make_api_version_const_fn() {
     let f = generate();
-    assert!(f.consts_rs.contains("pub const fn VK_MAKE_API_VERSION"),
-        "VK_MAKE_API_VERSION must be a const fn in consts.rs");
-    assert!(f.consts_rs.contains("variant: u32"),
-        "VK_MAKE_API_VERSION must have variant parameter");
-    assert!(f.consts_rs.contains("(variant << 29) | (major << 22) | (minor << 12) | patch"),
-        "VK_MAKE_API_VERSION body must pack all four fields");
+    assert!(
+        f.consts_rs.contains("pub const fn VK_MAKE_API_VERSION"),
+        "VK_MAKE_API_VERSION must be a const fn in consts.rs"
+    );
+    assert!(
+        f.consts_rs.contains("variant: u32"),
+        "VK_MAKE_API_VERSION must have variant parameter"
+    );
+    assert!(
+        f.consts_rs
+            .contains("(variant << 29) | (major << 22) | (minor << 12) | patch"),
+        "VK_MAKE_API_VERSION body must pack all four fields"
+    );
 }
 
 #[test]
 fn vk_api_version_unpack_fns() {
     let f = generate();
     // Unpacking helpers
-    assert!(f.consts_rs.contains("pub const fn VK_API_VERSION_MAJOR"),
-        "VK_API_VERSION_MAJOR must be emitted");
-    assert!(f.consts_rs.contains("pub const fn VK_API_VERSION_MINOR"),
-        "VK_API_VERSION_MINOR must be emitted");
-    assert!(f.consts_rs.contains("pub const fn VK_MAKE_VERSION"),
-        "VK_MAKE_VERSION must be emitted");
+    assert!(
+        f.consts_rs.contains("pub const fn VK_API_VERSION_MAJOR"),
+        "VK_API_VERSION_MAJOR must be emitted"
+    );
+    assert!(
+        f.consts_rs.contains("pub const fn VK_API_VERSION_MINOR"),
+        "VK_API_VERSION_MINOR must be emitted"
+    );
+    assert!(
+        f.consts_rs.contains("pub const fn VK_MAKE_VERSION"),
+        "VK_MAKE_VERSION must be emitted"
+    );
 }
 
 #[test]
 fn vk_header_version_const() {
     let f = generate();
-    assert!(f.consts_rs.contains("VK_HEADER_VERSION: u32 = 346"),
-        "VK_HEADER_VERSION must be a plain u32 const = 346");
+    assert!(
+        f.consts_rs.contains("VK_HEADER_VERSION: u32 = 346"),
+        "VK_HEADER_VERSION must be a plain u32 const = 346"
+    );
 }
 
 #[test]
 fn vk_api_version_constants_correct_values() {
     let f = generate();
     // VK_MAKE_API_VERSION(0,1,0,0) = 4194304
-    assert!(f.consts_rs.contains("VK_API_VERSION_1_0: u32 = 4194304"),
-        "VK_API_VERSION_1_0 must equal 4194304 = (0<<29)|(1<<22)|(0<<12)|0");
+    assert!(
+        f.consts_rs.contains("VK_API_VERSION_1_0: u32 = 4194304"),
+        "VK_API_VERSION_1_0 must equal 4194304 = (0<<29)|(1<<22)|(0<<12)|0"
+    );
     // VK_MAKE_API_VERSION(0,1,1,0) = 4198400
-    assert!(f.consts_rs.contains("VK_API_VERSION_1_1: u32 = 4198400"),
-        "VK_API_VERSION_1_1 must equal 4198400");
+    assert!(
+        f.consts_rs.contains("VK_API_VERSION_1_1: u32 = 4198400"),
+        "VK_API_VERSION_1_1 must equal 4198400"
+    );
     // VK_MAKE_API_VERSION(0,1,3,0) = 4206592
-    assert!(f.consts_rs.contains("VK_API_VERSION_1_3: u32 = 4206592"),
-        "VK_API_VERSION_1_3 must equal 4206592");
+    assert!(
+        f.consts_rs.contains("VK_API_VERSION_1_3: u32 = 4206592"),
+        "VK_API_VERSION_1_3 must equal 4206592"
+    );
 }
 
 #[test]
 fn api_version_consts_ungated() {
-    // Core API version constants have no feature gate — they're always available
+    // Core API version constants have no feature gate - they're always available
     let f = generate();
-    let idx = f.consts_rs.find("VK_API_VERSION_1_0: u32 = 4194304")
+    let idx = f
+        .consts_rs
+        .find("VK_API_VERSION_1_0: u32 = 4194304")
         .expect("VK_API_VERSION_1_0 in consts.rs");
     let before = &f.consts_rs[idx.saturating_sub(80)..idx];
-    assert!(!before.contains("#[cfg(feature"),
-        "VK_API_VERSION_1_0 must not be feature-gated; before: {before}");
+    assert!(
+        !before.contains("#[cfg(feature"),
+        "VK_API_VERSION_1_0 must not be feature-gated; before: {before}"
+    );
 }

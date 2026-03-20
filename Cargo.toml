@@ -1,3 +1,7 @@
 [workspace]
-members = ["vk-codegen", "vk-sys"]
-resolver = "2"
+members = [
+  "vk-codegen",
+  "vk-rs-bindings",
+]
+
+resolver = "3"

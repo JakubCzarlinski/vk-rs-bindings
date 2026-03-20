@@ -1,0 +1,153 @@
+use crate::cfggen::cfg_any;
+use crate::codegen::{depr_attr, feat_key, pretty, refpage_url};
+use crate::ir::{Registry, TypedefKind};
+use crate::types::const_rust_type;
+use proc_macro2::{Literal, TokenStream};
+use quote::{format_ident, quote};
+use std::collections::BTreeMap;
+
+pub fn gen_consts_rs(reg: &Registry) -> String {
+    // Collect items grouped by feature gate for sorted, compact output.
+    // Key = sorted provided_by vec (empty = ungated).
+    let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
+
+    // -- #define typedefs -> const fn or pub const ------------------------------
+    for td in reg.typedefs.values() {
+        if td.kind != TypedefKind::Define {
+            continue;
+        }
+        let Some(ref ty) = td.ty else { continue };
+        let name_str = &td.name;
+        let url = refpage_url(name_str);
+        let doc = format!(" [`{name_str}`]({url})");
+        let name = format_ident!("{}", name_str);
+        let cfg = cfg_any(&td.provided_by);
+
+        let item_ts: Option<TokenStream> = if let Some(rest) = ty.strip_prefix("fn:") {
+            // "fn:param1,param2|body_expr" - emit as #[inline] pub const fn
+            if let Some((params_str, body_str)) = rest.split_once('|') {
+                // Build the full item as a string, then parse it via syn
+                let param_list: String = params_str
+                    .split(',')
+                    .map(|p| format!("{}: u32", p.trim()))
+                    .collect::<Vec<_>>()
+                    .join(", ");
+                let item_src = format!(
+                    "#[inline] pub const fn {name_str}({param_list}) -> u32 {{ {body_str} }}"
+                );
+                syn::parse_str::<syn::ItemFn>(&item_src)
+                    .ok()
+                    .map(|f| quote! { #[doc = #doc] #cfg #f })
+            } else {
+                None
+            }
+        } else if let Some(rest) = ty.strip_prefix("vkver:") {
+            // Video codec version: "1, 0, 0" -> pre-evaluated u32
+            let parts: Vec<&str> = rest.split(',').map(str::trim).collect();
+            if parts.len() == 3 {
+                let (maj, min, pat) = (parts[0], parts[1], parts[2]);
+                let val = maj.parse::<u32>().unwrap_or(0) << 22
+                    | min.parse::<u32>().unwrap_or(0) << 12
+                    | pat.parse::<u32>().unwrap_or(0);
+                let doc2 = format!(" Encoded as `VK_MAKE_VIDEO_STD_VERSION({maj}, {min}, {pat})`");
+                let v = Literal::u32_suffixed(val);
+                Some(quote! { #[doc = #doc] #[doc = #doc2] #cfg pub const #name: u32 = #v; })
+            } else {
+                None
+            }
+        } else if let Some(rest) = ty.strip_prefix("apiconst:") {
+            // API version constant or simple integer
+            let val: Option<u32> = if let Some(args) = rest.strip_prefix("make_api_version(") {
+                let a = args.trim_end_matches(')');
+                let parts: Vec<&str> = a.split(',').map(str::trim).collect();
+                if parts.len() == 4 {
+                    let variant: u32 = parts[0].parse().unwrap_or(1);
+                    let major: u32 = parts[1].parse().unwrap_or(0);
+                    let minor: u32 = parts[2].parse().unwrap_or(0);
+                    let patch: u32 = parts[3].parse().unwrap_or(0);
+                    Some((variant << 29) | (major << 22) | (minor << 12) | patch)
+                } else {
+                    None
+                }
+            } else {
+                rest.parse::<u32>().ok()
+            };
+            val.map(|v| {
+                let lit = Literal::u32_suffixed(v);
+                quote! { #[doc = #doc] #cfg pub const #name: u32 = #lit; }
+            })
+        } else {
+            None
+        };
+
+        if let Some(ts) = item_ts {
+            groups
+                .entry(feat_key(&td.provided_by))
+                .or_default()
+                .extend(ts);
+        }
+    }
+
+    // -- reg.constants -> API constants and extension name/version strings --------
+    for c in reg.constants.values() {
+        let name = format_ident!("{}", &c.name);
+        let url = refpage_url(&c.name);
+        let doc = format!(" [`{n}`]({url})", n = c.name);
+        let depr = depr_attr(&c.depr);
+        let cfg = cfg_any(&c.provided_by);
+
+        let ts: TokenStream = if let Some(ref alias) = c.alias {
+            let a = format_ident!("{}", alias);
+            quote! { #cfg #[doc = #doc] #depr pub const #name: u32 = #a; }
+        } else if c.ty == "&'static str" {
+            let val_ts: TokenStream = c.value.parse().unwrap_or_else(|_| quote! { "" });
+            quote! { #cfg #[doc = #doc] #depr pub const #name: &'static str = #val_ts; }
+        } else {
+            let ty_str = const_rust_type(&c.ty, &c.value);
+            let ty_ts: TokenStream = ty_str.parse().unwrap_or_else(|_| quote! { u32 });
+            let val_str = normalize_const_value(&c.value, ty_str);
+            let val_ts: TokenStream = val_str.parse().unwrap_or_else(|_| quote! { 0 });
+            quote! { #cfg #[doc = #doc] #depr pub const #name: #ty_ts = #val_ts; }
+        };
+
+        groups
+            .entry(feat_key(&c.provided_by))
+            .or_default()
+            .extend(ts);
+    }
+
+    let mut out = TokenStream::new();
+    out.extend(quote! {
+        //! Vulkan API constants, version helpers, and extension version/name constants.
+    });
+    for (_, items) in groups {
+        out.extend(items);
+    }
+    pretty(out)
+}
+
+fn normalize_const_value(value: &str, ty: &str) -> String {
+    let v = value.trim();
+    match ty {
+        "f32" => format!("{}f32", v.trim_end_matches(['f', 'F'])),
+        "u32" => {
+            if v.starts_with("0x") || v.starts_with("0X") {
+                return v.to_owned();
+            }
+            if v.contains('~') {
+                return "u32::MAX".into();
+            }
+            v.trim_end_matches(['U', 'u']).to_owned()
+        }
+        "u64" => {
+            if v.starts_with("0x") || v.starts_with("0X") {
+                return v.to_owned();
+            }
+            if v.contains('~') {
+                return "u64::MAX".into();
+            }
+            v.trim_end_matches(['U', 'u', 'L', 'l']).to_owned()
+        }
+        _ => v.to_owned(),
+    }
+}

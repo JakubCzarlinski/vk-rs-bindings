@@ -13,6 +13,7 @@ name = "vk_codegen"
 path = "src/lib.rs"
 
 [dependencies]
+clap = { version = "4.5", features = ["derive"] }
 roxmltree  = "0.20"
 proc-macro2 = "1"
 quote       = "1"

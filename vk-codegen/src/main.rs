@@ -4,7 +4,7 @@
 //!   vk-codegen [--vk <vk.xml>] [--video <video.xml>] [--out <dir>]
 //!
 //! Reads the Khronos Vulkan Registry XML files and produces a complete
-//! `vk-sys` crate with feature-gated FFI bindings.
+//! `vk-rs-bindings` crate with feature-gated FFI bindings.
 
 mod cfggen;
 mod codegen;
@@ -24,7 +24,7 @@ fn main() {
     let video_path = arg(&args, "--video").map(PathBuf::from);
     let out_dir = arg(&args, "--out")
         .map(PathBuf::from)
-        .unwrap_or_else(|| PathBuf::from("vk-sys-generated"));
+        .unwrap_or_else(|| PathBuf::from("vk-rs-bindings-generated"));
 
     eprintln!("vk-codegen: reading {}", vk_path.display());
     let vk_xml = fs::read_to_string(&vk_path)

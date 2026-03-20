@@ -3,7 +3,7 @@ use quote::quote;
 
 pub fn gen_lib_rs() -> String {
     let ts = quote! {
-        //! Auto-generated Vulkan FFI (`vk-sys`).
+        //! Auto-generated Vulkan FFI (`vk-rs-bindings`).
         //!
         //! Generated from `vk.xml` + `video.xml` by `vk-codegen`.
         //!
@@ -12,7 +12,7 @@ pub fn gen_lib_rs() -> String {
         //! automatically pulls in all transitive dependencies.
         //!
         //! ```toml
-        //! [dependencies.vk-sys]
+        //! [dependencies.vk-rs-bindings]
         //! features = ["VK_VERSION_1_3", "VK_KHR_swapchain"]
         //! ```
         #![no_std]

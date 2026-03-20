@@ -14,7 +14,7 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
 
     let mut lines: Vec<String> = vec![
         "[package]".into(),
-        "name = \"vk-sys\"".into(),
+        "name = \"vk-rs-bindings\"".into(),
         "version = \"0.1.0\"".into(),
         "edition = \"2024\"".into(),
         "description = \"Auto-generated Vulkan FFI (vk-codegen)\"".into(),

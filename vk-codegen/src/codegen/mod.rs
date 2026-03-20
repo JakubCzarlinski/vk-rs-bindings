@@ -1,4 +1,4 @@
-//! Code generator: IR -> Rust source files for `vk-sys`.
+//! Code generator: IR -> Rust source files for `vk-rs-bindings`.
 mod cargo_toml;
 mod commands_rs;
 mod consts_rs;

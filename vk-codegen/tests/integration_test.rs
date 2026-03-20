@@ -1802,6 +1802,36 @@ fn api_version_consts_ungated() {
 }
 
 #[test]
+fn vksc_api_variant_emitted() {
+    let f = generate();
+    // VKSC_API_VARIANT must be emitted
+    assert!(
+        f.consts_rs.contains("const VKSC_API_VARIANT: u32 ="),
+        "VKSC_API_VARIANT must be emitted as a const u32 in consts.rs"
+    );
+
+    // If we're using vulkansc VK_HEADER_VERSION_COMPLETE must be defined using:
+    // Otherwise: (VKSC_API_VARIANT, 1, 0, VK_HEADER_VERSION)
+    // #define VK_HEADER_VERSION_COMPLETE VK_MAKE_API_VERSION(0, 1, 4, VK_HEADER_VERSION)
+
+    // We need to check that we feature gate the VK_HEADER_VERSION_COMPLETE definition on VKSC_VERSION_1_0, not just emit it unconditionally with the wrong value.
+    let idx = f
+        .consts_rs
+        .find("VK_HEADER_VERSION_COMPLETE: u32 =")
+        .expect("VK_HEADER_VERSION_COMPLETE in consts.rs");
+    let before = &f.consts_rs[idx.saturating_sub(150)..idx];
+    assert!(
+        before.contains("VKSC_VERSION_1_0"),
+        "VK_HEADER_VERSION_COMPLETE must be gated by VKSC_VERSION_1_0;\nbefore: {before}"
+    );
+    let after = &f.consts_rs[idx..idx.saturating_add(150)];
+    assert!(
+        after.contains("VK_MAKE_API_VERSION(0, 1, 0, VK_HEADER_VERSION)"),
+        "VK_HEADER_VERSION_COMPLETE must be defined as VK_MAKE_API_VERSION(0, 1, 0, VK_HEADER_VERSION) when using vulkansc;\nafter: {after}"
+    );
+}
+
+#[test]
 fn pfn_command_cfg_is_strict() {
     let f = generate();
     // Check that the KHR version is properly gated by dynamic rendering + versions

@@ -8,8 +8,6 @@
 //! This handles the full nesting used in practice, e.g.
 //!   ((VK_KHR_get_physical_device_properties2,VK_VERSION_1_1)+VK_KHR_depth_stencil_resolve),VK_VERSION_1_2
 
-#![allow(dead_code)]
-
 use indexmap::IndexMap;
 
 // -- Dependency expression -----------------------------------------------------

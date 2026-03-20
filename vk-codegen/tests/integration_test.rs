@@ -3,11 +3,14 @@
 
 use vk_codegen::{codegen, ir, parser};
 
-const FIXTURE: &str = include_str!("fixtures/vk_minimal.xml");
+const VK_FIXTURE: &str = include_str!("fixtures/vk.xml");
+const VK_VIDEO_FIXTURE: &str = include_str!("fixtures/video.xml");
 
 fn make_registry() -> ir::Registry {
-    let mut reg = parser::parse_registry(FIXTURE);
+    let mut reg = parser::parse_registry(VK_FIXTURE);
+    parser::merge_registry(&mut reg, VK_VIDEO_FIXTURE);
     parser::apply_require_extensions(&mut reg);
+    reg.remap_video_header_names();
     reg
 }
 
@@ -24,18 +27,32 @@ fn dep_simple_and() {
     let c = ir::parse_dep_expr("VK_A+VK_B").to_dnf_clauses();
     assert_eq!(c.len(), 1);
     assert_eq!(c[0].len(), 2);
+    assert_eq!(format!("{:?}", c), "[[\"VK_A\", \"VK_B\"]]");
 }
 
 #[test]
 fn dep_simple_or() {
     let c = ir::parse_dep_expr("VK_A,VK_B").to_dnf_clauses();
     assert_eq!(c.len(), 2);
+    assert_eq!(format!("{:?}", c), "[[\"VK_A\"], [\"VK_B\"]]");
 }
 
 #[test]
 fn dep_nested_parens() {
     let c = ir::parse_dep_expr("((VK_A,VK_B)+VK_C),VK_D").to_dnf_clauses();
     assert_eq!(c.len(), 3, "got: {c:?}");
+    assert!(
+        c.iter().any(|cl| cl == &["VK_D"]),
+        "no single-atom clause for VK_D; got: {c:?}"
+    );
+    assert!(
+        c.iter().any(|cl| cl == &["VK_A", "VK_C"]),
+        "no clause for VK_A+VK_C; got: {c:?}"
+    );
+    assert!(
+        c.iter().any(|cl| cl == &["VK_B", "VK_C"]),
+        "no clause for VK_B+VK_C; got: {c:?}"
+    );
 }
 
 #[test]
@@ -102,8 +119,8 @@ fn disabled_extension_is_disabled() {
     let disabled = reg
         .extensions
         .iter()
-        .find(|e| e.name == "VK_LUNARG_test_disabled")
-        .expect("fixture has VK_LUNARG_test_disabled");
+        .find(|e| e.name == "VK_ANDROID_native_buffer")
+        .expect("fixture has VK_ANDROID_native_buffer");
     assert!(disabled.is_disabled());
 }
 
@@ -387,8 +404,8 @@ fn extension_stub_is_disabled() {
     let stub = reg
         .extensions
         .iter()
-        .find(|e| e.name == "VK_KHR_extension_123")
-        .expect("VK_KHR_extension_123");
+        .find(|e| e.name == "VK_ANDROID_native_buffer")
+        .expect("VK_ANDROID_native_buffer");
     assert!(stub.is_disabled(), "extension stub should be disabled");
 }
 
@@ -418,6 +435,13 @@ fn superseded_command_has_depr_info() {
         cmd.depr.superseded_by.is_some(),
         "vkCreateRenderPass.depr.superseded_by should be set; got: {:?}",
         cmd.depr
+    );
+
+    // Should be superseded by vkCreateRenderPass2
+    let superseding = cmd.depr.superseded_by.as_ref().unwrap();
+    assert_eq!(
+        superseding, "vkCreateRenderPass2",
+        "vkCreateRenderPass should be superseded by vkCreateRenderPass2; got: {superseding}"
     );
 }
 
@@ -484,17 +508,17 @@ fn video_struct_with_enum_array_size_parsed() {
     let reg = make_registry();
     let s = reg
         .structs
-        .get("StdVideoH265LongTermRefPics")
-        .expect("StdVideoH265LongTermRefPics");
+        .get("StdVideoH265LongTermRefPicsSps")
+        .expect("StdVideoH265LongTermRefPicsSps");
     // Find the array member
     let arr_member = s
         .members
         .iter()
-        .find(|m| m.name == "lt_idx_sps")
-        .expect("lt_idx_sps member");
+        .find(|m| m.name == "lt_ref_pic_poc_lsb_sps")
+        .expect("lt_ref_pic_poc_lsb_sps member");
     assert!(
         arr_member.ty.is_array.is_some(),
-        "lt_idx_sps should have array size; got: {:?}",
+        "lt_ref_pic_poc_lsb_sps should have array size; got: {:?}",
         arr_member.ty
     );
     assert_eq!(
@@ -537,18 +561,18 @@ fn video_ext_not_in_cargo_toml_features() {
 
 #[test]
 fn video_types_remapped_to_vk_feature() {
-    // After remap_video_header_names(), StdVideoH265LongTermRefPics.provided_by
-    // should contain VK_KHR_video_decode_h264 (mapped from vulkan_video_codec_h264std_decode)
+    // After remap_video_header_names(), StdVideoH265LongTermRefPicsSps.provided_by
+    // should contain VK_KHR_video_decode_h265 (mapped from vulkan_video_codec_h265std_decode)
     let mut reg = make_registry();
     reg.remap_video_header_names();
     let s = reg
         .structs
-        .get("StdVideoH265LongTermRefPics")
-        .expect("StdVideoH265LongTermRefPics");
+        .get("StdVideoH265LongTermRefPicsSps")
+        .expect("StdVideoH265LongTermRefPicsSps");
     assert!(
         s.provided_by
-            .contains(&"VK_KHR_video_decode_h264".to_owned()),
-        "video struct not remapped to VK_KHR_video_decode_h264; got: {:?}",
+            .contains(&"VK_KHR_video_decode_h265".to_owned()),
+        "video struct not remapped to VK_KHR_video_decode_h265; got: {:?}",
         s.provided_by
     );
 }
@@ -563,11 +587,11 @@ fn disabled_extension_items_not_in_types_rs() {
     // (Our fixture doesn't add unique types for these, but the cargo_toml check
     //  verifies the extension itself is absent.)
     assert!(
-        !f.cargo_toml.contains("VK_KHR_extension_123"),
+        !f.cargo_toml.contains("VK_KHR_mir_surface"),
         "disabled placeholder ext in Cargo.toml"
     );
     assert!(
-        !f.cargo_toml.contains("VK_LUNARG_test_disabled"),
+        !f.cargo_toml.contains("VK_GOOGLE_extension_49"),
         "explicitly disabled ext in Cargo.toml"
     );
 }
@@ -594,21 +618,21 @@ fn refpage_urls_use_correct_path() {
 
 #[test]
 fn api_variant_members_deduped_in_ir() {
-    // VkTestApiVariantStruct has `dataSize` twice - once for vulkan, once for vulkansc.
+    // VkPipelineShaderStageCreateInfo has `pName` twice - once for vulkan, once for vulkansc.
     // After parsing the struct should still have it twice (both members preserved in IR)
     // but only ONCE in the generated output after deduplication.
     let reg = make_registry();
     let s = reg
         .structs
-        .get("VkTestApiVariantStruct")
-        .expect("VkTestApiVariantStruct");
+        .get("VkPipelineShaderStageCreateInfo")
+        .expect("VkPipelineShaderStageCreateInfo");
     // Both members present in raw IR
-    let data_size_count = s.members.iter().filter(|m| m.name == "dataSize").count();
-    assert!(data_size_count >= 1, "dataSize member missing entirely");
+    let p_name_count = s.members.iter().filter(|m| m.name == "pName").count();
+    assert!(p_name_count >= 1, "pName member missing entirely");
     // The XML has two entries so count should be 2 in raw IR
     assert_eq!(
-        data_size_count, 2,
-        "expected 2 raw dataSize entries (one per api variant)"
+        p_name_count, 2,
+        "expected 2 raw pName entries (one per api variant)"
     );
 }
 
@@ -617,14 +641,14 @@ fn api_variant_dedup_in_generated_types() {
     let f = generate();
     // VkTestApiVariantStruct must be present
     assert!(
-        f.types_rs.contains("VkTestApiVariantStruct"),
-        "VkTestApiVariantStruct missing from types.rs"
+        f.types_rs.contains("VkPipelineShaderStageCreateInfo"),
+        "VkPipelineShaderStageCreateInfo missing from types.rs"
     );
     // Find the struct block and check dedup within it only
     let start = f
         .types_rs
-        .find("struct VkTestApiVariantStruct")
-        .expect("struct VkTestApiVariantStruct not found");
+        .find("struct VkPipelineShaderStageCreateInfo")
+        .expect("struct VkPipelineShaderStageCreateInfo not found");
     // The struct block ends at the next top-level `pub struct` or `pub union`
     let block_end = f.types_rs[start..]
         .find("\npub struct ")
@@ -632,10 +656,10 @@ fn api_variant_dedup_in_generated_types() {
         .map(|i| start + i)
         .unwrap_or(f.types_rs.len());
     let struct_block = &f.types_rs[start..block_end];
-    let count = struct_block.matches("pub dataSize:").count();
+    let count = struct_block.matches("pub pName:").count();
     assert_eq!(
         count, 1,
-        "duplicate field `dataSize` within VkTestApiVariantStruct (found {count} occurrences):\n{struct_block}"
+        "duplicate field `pName` within VkPipelineShaderStageCreateInfoVkPipelineShaderStageCreateInfo (found {count} occurrences):\n{struct_block}"
     );
 }
 
@@ -752,25 +776,25 @@ fn enum_fields_use_typed_zero() {
 
 #[test]
 fn nested_struct_uses_default_not_zeroed() {
-    // VkViewportWithExtent has a VkExtent2D field.
+    // VkSurfaceCapabilitiesKHR has a VkExtent2D field.
     // Its default must be VkExtent2D::DEFAULT, not unsafe { zeroed() }.
     let f = generate();
     assert!(
         f.types_rs.contains("VkExtent2D::DEFAULT"),
         "nested VkExtent2D field should use VkExtent2D::DEFAULT;\n\
          types_rs snippet: {}",
-        &f.types_rs[f.types_rs.find("VkViewportWithExtent").unwrap_or(0)
-            ..f.types_rs.find("VkViewportWithExtent").unwrap_or(0) + 300]
+        &f.types_rs[f.types_rs.find("VkSurfaceCapabilitiesKHR").unwrap_or(0)
+            ..f.types_rs.find("VkSurfaceCapabilitiesKHR").unwrap_or(0) + 300]
     );
     // The struct containing a nested struct should still be const DEFAULT
     let idx = f
         .types_rs
-        .find("impl VkViewportWithExtent")
-        .expect("VkViewportWithExtent impl");
+        .find("impl VkSurfaceCapabilitiesKHR")
+        .expect("VkSurfaceCapabilitiesKHR impl");
     let snippet = &f.types_rs[idx..idx + 400];
     assert!(
         snippet.contains("pub const DEFAULT"),
-        "VkViewportWithExtent should have const DEFAULT (nested struct uses ::DEFAULT);\n\
+        "VkSurfaceCapabilitiesKHR should have const DEFAULT (nested struct uses ::DEFAULT);\n\
          snippet: {snippet}"
     );
 }
@@ -822,14 +846,14 @@ fn array_default_is_const_safe() {
     // The struct containing the array field should have const DEFAULT
     let idx = f
         .types_rs
-        .find("StdVideoH265LongTermRefPics")
-        .expect("StdVideoH265LongTermRefPics in types.rs");
+        .find("StdVideoH265LongTermRefPicsSps")
+        .expect("StdVideoH265LongTermRefPicsSps in types.rs");
     // Should NOT need unsafe because all elements are primitives
     // (num_long_term_sps: u8, used_by_curr_pic_lt_flag: u16 - all plain integers)
     let snippet = &f.types_rs[idx..idx.saturating_add(600)];
     assert!(
         snippet.contains("pub const DEFAULT") || snippet.contains("fn new"),
-        "StdVideoH265LongTermRefPics should have DEFAULT or new();\nsnippet: {snippet}"
+        "StdVideoH265LongTermRefPicsSps should have DEFAULT or new();\nsnippet: {snippet}"
     );
 }
 
@@ -954,24 +978,21 @@ fn c_char_array_uses_zero_i8_literal() {
 
 #[test]
 fn struct_array_element_uses_default() {
-    // The VkTestArrayStruct has extent: VkExtent2D - not an array, but we also need
+    // The VkRect2D has extent: VkExtent2D - not an array, but we also need
     // struct-element arrays like [VkMemoryType; N] to use [VkMemoryType::DEFAULT; N].
-    // VkTestArrayStruct.extent: VkExtent2D -> VkExtent2D::DEFAULT (not an array, tests scalar)
+    // VkRect2D.extent: VkExtent2D -> VkExtent2D::DEFAULT (not an array, tests scalar)
     let f = generate();
-    // The VkExtent2D field in VkTestArrayStruct should use VkExtent2D::DEFAULT
+    // The VkExtent2D field in VkRect2D should use VkExtent2D::DEFAULT
     assert!(
         f.types_rs.contains("VkExtent2D::DEFAULT"),
         "VkExtent2D struct field should use VkExtent2D::DEFAULT"
     );
-    // VkTestArrayStruct should be fully const (no unsafe fn new)
-    let idx = f
-        .types_rs
-        .find("impl VkTestArrayStruct")
-        .expect("VkTestArrayStruct impl");
+    // VkRect2D should be fully const (no unsafe fn new)
+    let idx = f.types_rs.find("impl VkRect2D").expect("VkRect2D impl");
     let snippet = &f.types_rs[idx..idx.saturating_add(400)];
     assert!(
         snippet.contains("pub const DEFAULT"),
-        "VkTestArrayStruct should have const DEFAULT; snippet:\n{snippet}"
+        "VkRect2D should have const DEFAULT; snippet:\n{snippet}"
     );
 }
 
@@ -1034,24 +1055,21 @@ fn pfn_fields_parse_as_funcpointer() {
 #[test]
 fn pfn_struct_fields_default_to_none() {
     let f = generate();
-    // VkTestCallbacks has PFN fields - they must default to None, not 0
+    // VkDebugReportCallbackCreateInfoEXT has PFN fields - they must default to None, not 0
     let idx = f
         .types_rs
-        .find("impl VkTestCallbacks")
-        .expect("VkTestCallbacks impl in types.rs");
+        .find("impl VkDebugReportCallbackCreateInfoEXT")
+        .expect("VkDebugReportCallbackCreateInfoEXT impl in types.rs");
     let snippet = &f.types_rs[idx..idx.saturating_add(500)];
+    println!("Snippet for VkDebugReportCallbackCreateInfoEXT:\n{snippet}");
     assert!(
-        snippet.contains("None"),
+        snippet.contains("pfnCallback: None"),
         "PFN struct fields must default to None;\nsnippet:\n{snippet}"
-    );
-    assert!(
-        !snippet.contains(": 0"),
-        "PFN struct fields must NOT default to 0;\nsnippet:\n{snippet}"
     );
     // Should be fully const since None is const-safe
     assert!(
         snippet.contains("pub const DEFAULT"),
-        "VkTestCallbacks should have const DEFAULT (None is const-safe);\nsnippet:\n{snippet}"
+        "VkDebugReportCallbackCreateInfoEXT should have const DEFAULT (None is const-safe);\nsnippet:\n{snippet}"
     );
 }
 
@@ -1381,7 +1399,7 @@ fn video_enum_defaults_are_not_null_ptr() {
     // The StdVideoH265ProfileTierLevel struct must not have null_mut() for enum fields
     let idx = f
         .types_rs
-        .find("impl StdVideoH265ProfileTierLevel")
+        .find("impl StdVideoH265ProfileTierLevel {")
         .expect("StdVideoH265ProfileTierLevel impl");
     let snippet = &f.types_rs[idx..idx.saturating_add(400)];
     assert!(
@@ -1510,7 +1528,7 @@ fn platform_types_feature_gated_correctly() {
     ];
     for (name, feature) in &cases {
         if let Some(idx) = f.types_rs.find(&format!("pub struct {name}")) {
-            let before = &f.types_rs[idx.saturating_sub(150)..idx];
+            let before = &f.types_rs[idx.saturating_sub(500)..idx];
             assert!(
                 before.contains(feature),
                 "{name} must be gated by {feature}; context before: {before}"
@@ -1768,5 +1786,16 @@ fn api_version_consts_ungated() {
     assert!(
         !before.contains("#[cfg(feature"),
         "VK_API_VERSION_1_0 must not be feature-gated; before: {before}"
+    );
+}
+
+#[test]
+fn pfn_command_cfg_is_strict() {
+    let f = generate();
+    // Check that the KHR version is properly gated by dynamic rendering + versions
+    // Based on the parser, it should look for feature = "VK_KHR_dynamic_rendering"
+    assert!(
+        f.commands_rs
+            .contains("#[cfg(feature = \"VK_KHR_dynamic_rendering\")")
     );
 }

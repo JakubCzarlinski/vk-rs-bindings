@@ -2,10 +2,16 @@
 
 use crate::ir::CType;
 
-/// Map a C type name (including multi-word forms) to the Rust equivalent.
-/// Returns `""` if the type should be passed through as-is (e.g. `VkDevice`).
-pub fn c_type_to_rust(c: &str) -> &'static str {
-    match c.trim() {
+/// Maps a C type name to the Rust equivalent.
+///
+/// Arguments:
+///
+/// - `c_type_name`: The C type name string to map.
+///
+/// Returns:
+/// - `&'static str`: The Rust type equivalent, or an empty string if it should be passed through as-is.
+pub fn c_type_to_rust(c_type_name: &str) -> &'static str {
+    match c_type_name.trim() {
         "void" => "core::ffi::c_void",
         "char" => "core::ffi::c_char",
         "int" => "core::ffi::c_int",
@@ -27,53 +33,68 @@ pub fn c_type_to_rust(c: &str) -> &'static str {
     }
 }
 
-/// Convert a `CType` to a Rust type string suitable for inserting into source.
-pub fn ctype_to_rust_str(ty: &CType) -> String {
-    let base = {
-        let mapped = c_type_to_rust(&ty.base);
+/// Converts a `CType` to a Rust type string suitable for inserting into source.
+///
+/// Arguments:
+///
+/// - `type_info`: The `CType` IR representation.
+///
+/// Returns:
+/// - `String`: A string representing the equivalent Rust type.
+pub fn ctype_to_rust_str(type_info: &CType) -> String {
+    let base_type = {
+        let mapped = c_type_to_rust(&type_info.base);
         if mapped.is_empty() {
-            if ty.base.is_empty() {
+            if type_info.base.is_empty() {
                 "core::ffi::c_void".to_owned()
             } else {
-                ty.base.clone()
+                type_info.base.clone()
             }
         } else {
             mapped.to_owned()
         }
     };
 
-    if let Some(ref size) = ty.is_array {
+    if let Some(ref array_size) = type_info.is_array {
         // If the size is a named constant (not a plain integer literal) we must
         // cast it to `usize` so the array type is valid in Rust.
-        let size_expr = if size.parse::<u64>().is_ok() {
-            size.clone() // plain numeric literal - no cast needed
+        let size_expression = if array_size.parse::<u64>().is_ok() {
+            array_size.clone() // plain numeric literal - no cast needed
         } else {
-            format!("{size} as usize") // named constant like VK_UUID_SIZE
+            format!("{array_size} as usize") // named constant like VK_UUID_SIZE
         };
-        return format!("[{base}; {size_expr}]");
+        return format!("[{base_type}; {size_expression}]");
     }
 
-    match ty.pointer_depth {
-        0 => base,
+    match type_info.pointer_depth {
+        0 => base_type,
         1 => {
-            if ty.is_const {
-                format!("*const {base}")
+            if type_info.is_const {
+                format!("*const {base_type}")
             } else {
-                format!("*mut {base}")
+                format!("*mut {base_type}")
             }
         }
         2 => {
-            if ty.is_const {
-                format!("*const *const {base}")
+            if type_info.is_const {
+                format!("*const *const {base_type}")
             } else {
-                format!("*mut *mut {base}")
+                format!("*mut *mut {base_type}")
             }
         }
-        _ => format!("*mut {base}"),
+        _ => format!("*mut {base_type}"),
     }
 }
 
-/// Determine the Rust primitive type for an API constant.
+/// Determines the Rust primitive type for an API constant.
+///
+/// Arguments:
+///
+/// - `xml_type`: The XML type name.
+/// - `value`: The raw constant value string.
+///
+/// Returns:
+/// - `&'static str`: The Rust primitive type for the constant.
 pub fn const_rust_type(xml_type: &str, value: &str) -> &'static str {
     match xml_type.trim() {
         "uint32_t" | "u32" => "u32",
@@ -81,11 +102,11 @@ pub fn const_rust_type(xml_type: &str, value: &str) -> &'static str {
         "float" | "f32" => "f32",
         "size_t" => "usize",
         _ => {
-            let v = value.trim();
-            if v.ends_with('f') || v.ends_with('F') || v.contains('.') {
+            let constant_value = value.trim();
+            if constant_value.ends_with('f') || constant_value.ends_with('F') || constant_value.contains('.') {
                 "f32"
-            } else if v.starts_with("0x") || v.starts_with("0X") {
-                if v.len() > 10 { "u64" } else { "u32" }
+            } else if constant_value.starts_with("0x") || constant_value.starts_with("0X") {
+                if constant_value.len() > 10 { "u64" } else { "u32" }
             } else {
                 "u32"
             }

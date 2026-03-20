@@ -58,25 +58,23 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
             }
         } else if let Some(rest) = ty.strip_prefix("apiconst:") {
             // API version constant or simple integer
-            let val: Option<u32> = if let Some(args) = rest.strip_prefix("make_api_version(") {
+            if let Some(args) = rest.strip_prefix("make_api_version(") {
                 let a = args.trim_end_matches(')');
                 let parts: Vec<&str> = a.split(',').map(str::trim).collect();
                 if parts.len() == 4 {
-                    let variant: u32 = parts[0].parse().unwrap_or(1);
-                    let major: u32 = parts[1].parse().unwrap_or(0);
-                    let minor: u32 = parts[2].parse().unwrap_or(0);
-                    let patch: u32 = parts[3].parse().unwrap_or(0);
-                    Some((variant << 29) | (major << 22) | (minor << 12) | patch)
+                    let ts: TokenStream = format!("VK_MAKE_API_VERSION({})", a)
+                        .parse()
+                        .unwrap_or(quote! { 0 });
+                    Some(quote! { #[doc = #doc] #cfg pub const #name: u32 = #ts; })
                 } else {
                     None
                 }
+            } else if let Ok(val) = rest.parse::<u32>() {
+                let lit = Literal::u32_suffixed(val);
+                Some(quote! { #[doc = #doc] #cfg pub const #name: u32 = #lit; })
             } else {
-                rest.parse::<u32>().ok()
-            };
-            val.map(|v| {
-                let lit = Literal::u32_suffixed(v);
-                quote! { #[doc = #doc] #cfg pub const #name: u32 = #lit; }
-            })
+                None
+            }
         } else {
             None
         };

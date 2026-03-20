@@ -181,7 +181,7 @@ fn provided_by_tracking() {
     let reg = make_registry();
     let ici = &reg.structs["VkInstanceCreateInfo"];
     assert!(
-        ici.provided_by.contains(&"VK_VERSION_1_0".to_owned()),
+        ici.provided_by.contains(&"VK_BASE_VERSION_1_0".to_owned()),
         "VkInstanceCreateInfo.provided_by = {:?}",
         ici.provided_by
     );
@@ -1750,27 +1750,39 @@ fn vk_header_version_const() {
     let f = generate();
     assert!(
         f.consts_rs.contains("VK_HEADER_VERSION: u32 = 346"),
-        "VK_HEADER_VERSION must be a plain u32 const = 346"
+        "VK_HEADER_VERSION must be a plain u32 const = 346\n{}",
+        f.consts_rs
     );
 }
 
 #[test]
 fn vk_api_version_constants_correct_values() {
     let f = generate();
-    // VK_MAKE_API_VERSION(0,1,0,0) = 4194304
     assert!(
-        f.consts_rs.contains("VK_API_VERSION_1_0: u32 = 4194304"),
-        "VK_API_VERSION_1_0 must equal 4194304 = (0<<29)|(1<<22)|(0<<12)|0"
+        f.consts_rs
+            .contains("VK_API_VERSION_1_0: u32 = VK_MAKE_API_VERSION(0, 1, 0, 0)"),
+        "VK_API_VERSION_1_0 must be defined as VK_MAKE_API_VERSION(0, 1, 0, 0)"
     );
-    // VK_MAKE_API_VERSION(0,1,1,0) = 4198400
     assert!(
-        f.consts_rs.contains("VK_API_VERSION_1_1: u32 = 4198400"),
-        "VK_API_VERSION_1_1 must equal 4198400"
+        f.consts_rs
+            .contains("VK_API_VERSION_1_1: u32 = VK_MAKE_API_VERSION(0, 1, 1, 0)"),
+        "VK_API_VERSION_1_1 must be defined as VK_MAKE_API_VERSION(0, 1, 1, 0)"
     );
-    // VK_MAKE_API_VERSION(0,1,3,0) = 4206592
+
     assert!(
-        f.consts_rs.contains("VK_API_VERSION_1_3: u32 = 4206592"),
-        "VK_API_VERSION_1_3 must equal 4206592"
+        f.consts_rs
+            .contains("VK_API_VERSION_1_2: u32 = VK_MAKE_API_VERSION(0, 1, 2, 0)"),
+        "VK_API_VERSION_1_2 must be defined as VK_MAKE_API_VERSION(0, 1, 2, 0)"
+    );
+    assert!(
+        f.consts_rs
+            .contains("VK_API_VERSION_1_3: u32 = VK_MAKE_API_VERSION(0, 1, 3, 0)"),
+        "VK_API_VERSION_1_3 must be defined as VK_MAKE_API_VERSION(0, 1, 3, 0)"
+    );
+    assert!(
+        f.consts_rs
+            .contains("VK_API_VERSION_1_4: u32 = VK_MAKE_API_VERSION(0, 1, 4, 0)"),
+        "VK_API_VERSION_1_4 must be defined as VK_MAKE_API_VERSION(0, 1, 4, 0)"
     );
 }
 
@@ -1780,12 +1792,12 @@ fn api_version_consts_ungated() {
     let f = generate();
     let idx = f
         .consts_rs
-        .find("VK_API_VERSION_1_0: u32 = 4194304")
+        .find("VK_API_VERSION_1_0: u32 = VK_MAKE_API_VERSION(0, 1, 0, 0)")
         .expect("VK_API_VERSION_1_0 in consts.rs");
     let before = &f.consts_rs[idx.saturating_sub(80)..idx];
     assert!(
-        !before.contains("#[cfg(feature"),
-        "VK_API_VERSION_1_0 must not be feature-gated; before: {before}"
+        before.contains("#[cfg(feature = \"VK_BASE_VERSION_1_0\")]"),
+        "VK_API_VERSION_1_0 must only be gated by VK_BASE_VERSION_1_0, not a higher version or extension feature;\nbefore: {before}"
     );
 }
 

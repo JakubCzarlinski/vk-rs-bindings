@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registry>
+    <comment>Minimal representative vk.xml for vk-codegen testing.</comment>
+
+    <types>
+        <type category="basetype">typedef unsigned int <n>VkFlags</n>;</type>
+        <type category="basetype">typedef unsigned long long <n>VkFlags64</n>;</type>
+        <type category="basetype">typedef uint32_t <n>VkBool32</n>;</type>
+        <type category="basetype">typedef uint64_t <n>VkDeviceSize</n>;</type>
+
+        <type category="handle"><n>VkInstance</n></type>
+        <type category="handle"><n>VkPhysicalDevice</n></type>
+        <type category="handle"><n>VkDevice</n></type>
+        <type category="handle"><n>VkQueue</n></type>
+        <type category="handle"><n>VkCommandBuffer</n></type>
+        <type category="handle"><n>VkSemaphore</n></type>
+        <type category="handle"><n>VkFence</n></type>
+        <type category="handle"><n>VkBuffer</n></type>
+        <type category="handle"><n>VkImage</n></type>
+        <type category="handle"><n>VkSwapchainKHR</n></type>
+        <type category="handle"><n>VkSurfaceKHR</n></type>
+        <type category="handle"><n>VkVideoSessionKHR</n></type>
+
+        <type requires="VkInstanceCreateFlagBits" category="bitmask">typedef <type>VkFlags</type> <n>VkInstanceCreateFlags</n>;</type>
+        <type requires="VkQueueFlagBits" category="bitmask">typedef <type>VkFlags</type> <n>VkQueueFlags</n>;</type>
+        <type requires="VkPipelineStageFlagBits2" category="bitmask">typedef <type>VkFlags64</type> <n>VkPipelineStageFlags2</n>;</type>
+        <type requires="VkSwapchainCreateFlagBitsKHR" category="bitmask">typedef <type>VkFlags</type> <n>VkSwapchainCreateFlagsKHR</n>;</type>
+
+        <type category="enum"><n>VkStructureType</n></type>
+        <type category="enum"><n>VkResult</n></type>
+        <type category="enum"><n>VkInstanceCreateFlagBits</n></type>
+        <type category="enum"><n>VkQueueFlagBits</n></type>
+        <type category="enum"><n>VkPipelineStageFlagBits2</n></type>
+        <type category="enum"><n>VkSwapchainCreateFlagBitsKHR</n></type>
+        <type category="enum"><n>VkPresentModeKHR</n></type>
+        <type category="enum"><n>VkFormat</n></type>
+        <type category="enum"><n>VkColorSpaceKHR</n></type>
+        <type category="enum"><n>VkVideoCodecOperationFlagBitsKHR</n></type>
+
+        <!-- Platform types from requires= headers — emitted as newtype handles -->
+        <type requires="X11/Xlib.h" name="Display"/>
+        <type requires="X11/Xlib.h" name="VisualID"/>
+        <type requires="X11/Xlib.h" name="Window"/>
+        <type requires="X11/extensions/Xrandr.h" name="RROutput"/>
+        <type requires="wayland-client.h" name="wl_display"/>
+        <type requires="wayland-client.h" name="wl_surface"/>
+        <type requires="windows.h" name="HINSTANCE"/>
+        <type requires="windows.h" name="HWND"/>
+        <type requires="windows.h" name="HMONITOR"/>
+        <type requires="windows.h" name="HANDLE"/>
+        <type requires="windows.h" name="DWORD"/>
+        <type requires="windows.h" name="LPCWSTR"/>
+        <type requires="xcb/xcb.h" name="xcb_connection_t"/>
+        <type requires="xcb/xcb.h" name="xcb_visualid_t"/>
+        <type requires="xcb/xcb.h" name="xcb_window_t"/>
+        <type requires="directfb.h" name="IDirectFB"/>
+        <type requires="directfb.h" name="IDirectFBSurface"/>
+        <type requires="zircon/types.h" name="zx_handle_t"/>
+        <type requires="ggp_c/vulkan_types.h" name="GgpStreamDescriptor"/>
+        <type requires="screen/screen.h" name="_screen_context"/>
+        <type requires="screen/screen.h" name="_screen_window"/>
+        <type requires="nvscisync.h" name="NvSciSyncAttrList"/>
+        <type requires="nvscibuf.h" name="NvSciBufAttrList"/>
+
+        <!-- Platform surface structs: reference wl_display/xcb_connection_t so
+             back-propagation can infer provided_by for those platform types -->
+        <type category="struct" name="VkWaylandSurfaceCreateInfoKHR">
+            <member values="VK_STRUCTURE_TYPE_WAYLAND_SURFACE_CREATE_INFO_KHR"><type>VkStructureType</type> <n>sType</n></member>
+            <member optional="true"><type>void</type> const* <n>pNext</n></member>
+            <member><type>wl_display</type>*  <n>display</n></member>
+            <member><type>wl_surface</type>*  <n>surface</n></member>
+        </type>
+        <type category="struct" name="VkXcbSurfaceCreateInfoKHR">
+            <member values="VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR"><type>VkStructureType</type> <n>sType</n></member>
+            <member optional="true"><type>void</type> const* <n>pNext</n></member>
+            <member><type>xcb_connection_t</type>*  <n>connection</n></member>
+            <member><type>xcb_window_t</type>       <n>window</n></member>
+        </type>
+
+        <!-- Struct with PFN fields that must default to None -->
+        <type category="struct" name="VkTestCallbacks">
+            <member optional="true"><type>void</type>*                              <n>pUserData</n></member>
+            <member optional="true"><type>PFN_vkInternalAllocationNotification</type> <n>pfnInternalAllocation</n></member>
+            <member optional="true"><type>PFN_vkVoidFunction</type>                 <n>pfnVoidFn</n></member>
+        </type>
+
+        <!-- Opaque extern types — platform-specific forward declarations -->
+        <type category="basetype">struct <n>ANativeWindow</n>;</type>
+        <type category="basetype">#ifdef __OBJC__
+@class CAMetalLayer;
+#else
+typedef void <n>CAMetalLayer</n>;
+#endif</type>
+
+        <!-- Function pointer types -->
+        <type category="funcpointer">typedef void <name>PFN_vkVoidFunction</name>();</type>
+        <type category="funcpointer" requires="VkInstance">
+            <proto><type>void</type>* <name>PFN_vkInternalAllocationNotification</name></proto>
+            <param><type>void</type>*                    <name>pUserData</name></param>
+            <param><type>size_t</type>                   <name>size</name></param>
+        </type>
+
+        <!-- Struct with c_char array (like VkPhysicalDeviceProperties.deviceName) -->
+        <type category="struct" name="VkTestArrayStruct">
+            <member><type>char</type>           <n>deviceName</n>[<enum>VK_MAX_PHYSICAL_DEVICE_NAME_SIZE</enum>]</member>
+            <member><type>uint8_t</type>        <n>pipelineUUID</n>[<enum>VK_UUID_SIZE</enum>]</member>
+            <member><type>VkExtent2D</type>     <n>extent</n></member>
+        </type>
+
+        <!-- Union type — fields must be wrapped in ManuallyDrop -->
+        <type category="union" name="VkClearColorValue">
+            <member><type>float</type>   <n>float32</n>[<enum>4</enum>]</member>
+            <member><type>int32_t</type> <n>int32</n>[<enum>4</enum>]</member>
+            <member><type>uint32_t</type><n>uint32</n>[<enum>4</enum>]</member>
+        </type>
+
+        <!-- Struct containing a nested struct field — tests ::DEFAULT propagation -->
+        <type category="struct" name="VkExtent2D">
+            <member><type>uint32_t</type> <name>width</name></member>
+            <member><type>uint32_t</type> <name>height</name></member>
+        </type>
+        <type category="struct" name="VkRect2D">
+            <member><type>uint32_t</type> <name>x</name></member>
+            <member><type>uint32_t</type> <name>y</name></member>
+        </type>
+        <!-- Viewport has nested VkExtent2D and a float — should use VkExtent2D::DEFAULT -->
+        <type category="struct" name="VkViewportWithExtent">
+            <member><type>VkExtent2D</type> <name>extent</name></member>
+            <member><type>float</type>      <name>minDepth</name></member>
+            <member><type>float</type>      <name>maxDepth</name></member>
+        </type>
+
+        <!-- Struct with api-variant duplicate members (vulkan vs vulkansc) -->
+        <type category="struct" name="VkTestApiVariantStruct">
+            <member values="VK_STRUCTURE_TYPE_APPLICATION_INFO"><type>VkStructureType</type> <name>sType</name></member>
+            <member optional="true"><type>void</type> const* <name>pNext</name></member>
+            <member api="vulkan,vulkanbase" optional="true"><type>size_t</type> <name>dataSize</name></member>
+            <member api="vulkansc"><type>size_t</type> <name>dataSize</name></member>
+            <member><type>uint32_t</type> <name>flags</name></member>
+        </type>
+
+        <!-- Video enum types -->
+        <type category="enum"><n>StdVideoH265ProfileIdc</n></type>
+        <type category="enum"><n>StdVideoH265LevelIdc</n></type>
+        <type category="bitmask">typedef <type>uint32_t</type> <n>StdVideoH265ProfileTierLevelFlags</n>;</type>
+
+        <!-- Video struct with video enum fields — tests canonical enum init -->
+        <type category="struct" name="StdVideoH265ProfileTierLevel">
+            <member><type>StdVideoH265ProfileTierLevelFlags</type> <n>flags</n></member>
+            <member><type>StdVideoH265ProfileIdc</type>            <n>general_profile_idc</n></member>
+            <member><type>StdVideoH265LevelIdc</type>              <n>general_level_idc</n></member>
+        </type>
+
+        <!-- Video codec struct with <enum>-based array size constants -->
+        <type category="struct" name="StdVideoH265LongTermRefPics">
+            <member><type>uint8_t</type>  <n>num_long_term_sps</n></member>
+            <member><type>uint8_t</type>  <n>lt_idx_sps</n>[<enum>STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS</enum>]</member>
+            <member><type>uint16_t</type> <n>used_by_curr_pic_lt_flag</n></member>
+        </type>
+
+        <type category="struct" name="VkApplicationInfo">
+            <member values="VK_STRUCTURE_TYPE_APPLICATION_INFO"><type>VkStructureType</type> <n>sType</n></member>
+            <member optional="true"><type>void</type> const* <n>pNext</n></member>
+            <member optional="true" len="null-terminated"><type>char</type> const* <n>pApplicationName</n></member>
+            <member><type>uint32_t</type> <n>applicationVersion</n></member>
+            <member optional="true" len="null-terminated"><type>char</type> const* <n>pEngineName</n></member>
+            <member><type>uint32_t</type> <n>engineVersion</n></member>
+            <member><type>uint32_t</type> <n>apiVersion</n></member>
+        </type>
+
+        <type category="struct" name="VkInstanceCreateInfo">
+            <member values="VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO"><type>VkStructureType</type> <n>sType</n></member>
+            <member optional="true"><type>void</type> const* <n>pNext</n></member>
+            <member optional="true"><type>VkInstanceCreateFlags</type> <n>flags</n></member>
+            <member optional="true"><type>VkApplicationInfo</type> const* <n>pApplicationInfo</n></member>
+            <member optional="true"><type>uint32_t</type> <n>enabledLayerCount</n></member>
+            <member optional="true" len="enabledLayerCount"><type>char</type> const* const* <n>ppEnabledLayerNames</n></member>
+            <member optional="true"><type>uint32_t</type> <n>enabledExtensionCount</n></member>
+            <member optional="true" len="enabledExtensionCount"><type>char</type> const* const* <n>ppEnabledExtensionNames</n></member>
+        </type>
+
+        <type category="struct" name="VkAllocationCallbacks">
+            <member optional="true"><type>void</type>* <n>pUserData</n></member>
+            <member><type>uint32_t</type> <n>pfnAllocation</n></member>
+            <member><type>uint32_t</type> <n>pfnReallocation</n></member>
+            <member><type>uint32_t</type> <n>pfnFree</n></member>
+        </type>
+
+        <type category="struct" name="VkSwapchainCreateInfoKHR">
+            <member values="VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR"><type>VkStructureType</type> <n>sType</n></member>
+            <member optional="true"><type>void</type> const* <n>pNext</n></member>
+            <member optional="true"><type>VkSwapchainCreateFlagsKHR</type> <n>flags</n></member>
+            <member><type>VkSurfaceKHR</type> <n>surface</n></member>
+            <member><type>uint32_t</type> <n>minImageCount</n></member>
+            <member><type>VkFormat</type> <n>imageFormat</n></member>
+            <member><type>VkColorSpaceKHR</type> <n>imageColorSpace</n></member>
+            <member><type>uint32_t</type> <n>imageArrayLayers</n></member>
+            <member><type>VkPresentModeKHR</type> <n>presentMode</n></member>
+            <member><type>VkBool32</type> <n>clipped</n></member>
+            <member optional="true"><type>VkSwapchainKHR</type> <n>oldSwapchain</n></member>
+        </type>
+
+        <type category="struct" name="VkVideoSessionCreateInfoKHR">
+            <member values="VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR"><type>VkStructureType</type> <n>sType</n></member>
+            <member optional="true"><type>void</type> const* <n>pNext</n></member>
+            <member><type>uint32_t</type> <n>queueFamilyIndex</n></member>
+            <member><type>VkVideoCodecOperationFlagBitsKHR</type> <n>videoCodecOperation</n></member>
+        </type>
+
+        <!-- supersededby example: VkRenderPassCreateInfo superseded by VkRenderPassCreateInfo2 -->
+        <type category="struct" name="VkRenderPassCreateInfo">
+            <member values="VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO"><type>VkStructureType</type> <n>sType</n></member>
+            <member optional="true"><type>void</type> const* <n>pNext</n></member>
+            <member optional="true"><type>uint32_t</type> <n>attachmentCount</n></member>
+        </type>
+        <!-- vk.xml API version helper macros and version constants -->
+        <type category="define">#define <n>VK_MAKE_API_VERSION</n>(variant, major, minor, patch) \
+    ((((uint32_t)(variant)) &lt;&lt; 29U) | (((uint32_t)(major)) &lt;&lt; 22U) | (((uint32_t)(minor)) &lt;&lt; 12U) | ((uint32_t)(patch)))</type>
+        <type category="define">#define <n>VK_API_VERSION_MAJOR</n>(version) (((uint32_t)(version) &gt;&gt; 22U) &amp; 0x7FU)</type>
+        <type category="define">#define <n>VK_API_VERSION_MINOR</n>(version) (((uint32_t)(version) &gt;&gt; 12U) &amp; 0x3FFU)</type>
+        <type category="define">#define <n>VK_API_VERSION_PATCH</n>(version) ((uint32_t)(version) &amp; 0xFFFU)</type>
+        <type category="define">#define <n>VK_MAKE_VERSION</n>(major, minor, patch) \
+    ((((uint32_t)(major)) &lt;&lt; 22U) | (((uint32_t)(minor)) &lt;&lt; 12U) | ((uint32_t)(patch)))</type>
+        <type api="vulkan,vulkanbase" category="define">// Version of this file
+#define <n>VK_HEADER_VERSION</n> 346</type>
+        <type category="define">// Vulkan 1.0 version number
+#define <n>VK_API_VERSION_1_0</n> <type>VK_MAKE_API_VERSION</type>(0, 1, 0, 0)</type>
+        <type category="define">// Vulkan 1.1 version number
+#define <n>VK_API_VERSION_1_1</n> <type>VK_MAKE_API_VERSION</type>(0, 1, 1, 0)</type>
+        <type category="define">// Vulkan 1.3 version number
+#define <n>VK_API_VERSION_1_3</n> <type>VK_MAKE_API_VERSION</type>(0, 1, 3, 0)</type>
+
+        <!-- Video codec version macros — from video.xml category="define" -->
+        <type category="define">#define <name>VK_MAKE_VIDEO_STD_VERSION</name>(major, minor, patch) \
+    ((((uint32_t)(major)) &lt;&lt; 22) | (((uint32_t)(minor)) &lt;&lt; 12) | ((uint32_t)(patch)))</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H264_ENCODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H265_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H265_ENCODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_AV1_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_VP9_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+
+    </types>
+
+    <enums name="API Constants">
+        <enum value="256"  name="VK_MAX_PHYSICAL_DEVICE_NAME_SIZE"/>
+        <enum value="16"   name="VK_UUID_SIZE"/>
+        <enum value="~0U"  name="VK_WHOLE_SIZE" type="uint64_t"/>
+        <enum value="~0U"  name="VK_QUEUE_FAMILY_IGNORED"/>
+        <enum value="0"    name="VK_FALSE" type="uint32_t"/>
+        <enum value="1"    name="VK_TRUE"  type="uint32_t"/>
+    </enums>
+
+    <enums name="VkResult" type="enum">
+        <enum value="0"  name="VK_SUCCESS"                       comment="Command completed successfully"/>
+        <enum value="1"  name="VK_NOT_READY"/>
+        <enum value="5"  name="VK_INCOMPLETE"/>
+        <enum value="-1" name="VK_ERROR_OUT_OF_HOST_MEMORY"      comment="A host memory allocation has failed"/>
+        <enum value="-2" name="VK_ERROR_OUT_OF_DEVICE_MEMORY"/>
+        <enum value="-3" name="VK_ERROR_INITIALIZATION_FAILED"/>
+        <enum value="-4" name="VK_ERROR_DEVICE_LOST"/>
+        <enum value="-7" name="VK_ERROR_EXTENSION_NOT_PRESENT"/>
+        <enum value="-13" name="VK_ERROR_UNKNOWN"/>
+    </enums>
+
+    <enums name="VkStructureType" type="enum">
+        <enum value="0"          name="VK_STRUCTURE_TYPE_APPLICATION_INFO"/>
+        <enum value="1"          name="VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO"/>
+        <enum value="36"         name="VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR"/>
+        <enum value="1000023001" name="VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR"/>
+        <enum value="7"          name="VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO"/>
+    </enums>
+
+    <enums name="VkInstanceCreateFlagBits" type="bitmask">
+        <enum bitpos="0" name="VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR"/>
+    </enums>
+
+    <enums name="VkQueueFlagBits" type="bitmask">
+        <enum bitpos="0" name="VK_QUEUE_GRAPHICS_BIT" comment="Queue supports graphics operations"/>
+        <enum bitpos="1" name="VK_QUEUE_COMPUTE_BIT"  comment="Queue supports compute operations"/>
+        <enum bitpos="2" name="VK_QUEUE_TRANSFER_BIT"/>
+        <enum bitpos="5" name="VK_QUEUE_VIDEO_DECODE_BIT_KHR"/>
+    </enums>
+
+    <enums name="VkPipelineStageFlagBits2" type="bitmask" bitwidth="64">
+        <enum value="0"   name="VK_PIPELINE_STAGE_2_NONE"/>
+        <enum bitpos="0"  name="VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT"/>
+        <enum bitpos="1"  name="VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT"/>
+        <enum bitpos="7"  name="VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT"/>
+        <enum bitpos="26" name="VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR"/>
+    </enums>
+
+    <enums name="VkSwapchainCreateFlagBitsKHR" type="bitmask">
+        <enum bitpos="0" name="VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR"/>
+        <enum bitpos="1" name="VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR"/>
+    </enums>
+
+    <enums name="VkPresentModeKHR" type="enum">
+        <enum value="0" name="VK_PRESENT_MODE_IMMEDIATE_KHR"/>
+        <enum value="1" name="VK_PRESENT_MODE_MAILBOX_KHR"/>
+        <enum value="2" name="VK_PRESENT_MODE_FIFO_KHR"/>
+    </enums>
+
+    <enums name="VkFormat" type="enum">
+        <enum value="0"  name="VK_FORMAT_UNDEFINED"/>
+        <enum value="37" name="VK_FORMAT_R8G8B8A8_UNORM"/>
+        <enum value="43" name="VK_FORMAT_B8G8R8A8_UNORM"/>
+    </enums>
+
+    <enums name="VkColorSpaceKHR" type="enum">
+        <enum value="0" name="VK_COLOR_SPACE_SRGB_NONLINEAR_KHR"/>
+    </enums>
+
+    <enums name="VkVideoCodecOperationFlagBitsKHR" type="bitmask">
+        <enum value="0"   name="VK_VIDEO_CODEC_OPERATION_NONE_KHR"/>
+        <enum bitpos="16" name="VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR"/>
+        <enum bitpos="17" name="VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR"/>
+    </enums>
+
+    <commands>
+        <command successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_INITIALIZATION_FAILED">
+            <proto><type>VkResult</type> <n>vkCreateInstance</n></proto>
+            <param>const <type>VkInstanceCreateInfo</type>* <n>pCreateInfo</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+            <param><type>VkInstance</type>* <n>pInstance</n></param>
+        </command>
+        <command>
+            <proto><type>void</type> <n>vkDestroyInstance</n></proto>
+            <param optional="true"><type>VkInstance</type> <n>instance</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+        </command>
+        <command successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY">
+            <proto><type>VkResult</type> <n>vkEnumeratePhysicalDevices</n></proto>
+            <param><type>VkInstance</type> <n>instance</n></param>
+            <param optional="false,true"><type>uint32_t</type>* <n>pPhysicalDeviceCount</n></param>
+            <param optional="true" len="pPhysicalDeviceCount"><type>VkPhysicalDevice</type>* <n>pPhysicalDevices</n></param>
+        </command>
+        <command successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY">
+            <proto><type>VkResult</type> <n>vkCreateDevice</n></proto>
+            <param><type>VkPhysicalDevice</type> <n>physicalDevice</n></param>
+            <param>const <type>void</type>* <n>pCreateInfo</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+            <param><type>VkDevice</type>* <n>pDevice</n></param>
+        </command>
+        <command>
+            <proto><type>void</type> <n>vkDestroyDevice</n></proto>
+            <param optional="true"><type>VkDevice</type> <n>device</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+        </command>
+        <command successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY">
+            <proto><type>VkResult</type> <n>vkCreateSwapchainKHR</n></proto>
+            <param><type>VkDevice</type> <n>device</n></param>
+            <param>const <type>VkSwapchainCreateInfoKHR</type>* <n>pCreateInfo</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+            <param><type>VkSwapchainKHR</type>* <n>pSwapchain</n></param>
+        </command>
+        <command>
+            <proto><type>void</type> <n>vkDestroySwapchainKHR</n></proto>
+            <param><type>VkDevice</type> <n>device</n></param>
+            <param optional="true"><type>VkSwapchainKHR</type> <n>swapchain</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+        </command>
+        <command successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY">
+            <proto><type>VkResult</type> <n>vkCreateVideoSessionKHR</n></proto>
+            <param><type>VkDevice</type> <n>device</n></param>
+            <param>const <type>VkVideoSessionCreateInfoKHR</type>* <n>pCreateInfo</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+            <param><type>VkVideoSessionKHR</type>* <n>pVideoSession</n></param>
+        </command>
+        <command>
+            <proto><type>void</type> <n>vkDestroyVideoSessionKHR</n></proto>
+            <param><type>VkDevice</type> <n>device</n></param>
+            <param optional="true"><type>VkVideoSessionKHR</type> <n>videoSession</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+        </command>
+        <!-- supersededby example -->
+        <command successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY">
+            <proto><type>VkResult</type> <n>vkCreateRenderPass</n></proto>
+            <param><type>VkDevice</type> <n>device</n></param>
+            <param>const <type>VkRenderPassCreateInfo</type>* <n>pCreateInfo</n></param>
+            <param optional="true">const <type>VkAllocationCallbacks</type>* <n>pAllocator</n></param>
+            <param><type>uint64_t</type>* <n>pRenderPass</n></param>
+        </command>
+        <command successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY">
+            <proto><type>VkResult</type> <n>vkQueueSubmit</n></proto>
+            <param><type>VkQueue</type> <n>queue</n></param>
+            <param optional="true"><type>uint32_t</type> <n>submitCount</n></param>
+            <param optional="true"><type>void</type> const* <n>pSubmits</n></param>
+            <param optional="true"><type>VkFence</type> <n>fence</n></param>
+        </command>
+    </commands>
+
+    <!-- Core versions -->
+    <feature api="vulkan" name="VK_VERSION_1_0" number="1.0">
+        <require>
+            <type name="VkApplicationInfo"/>
+            <type name="VkInstanceCreateInfo"/>
+            <type name="VkAllocationCallbacks"/>
+            <type name="VkStructureType"/>
+            <type name="VkResult"/>
+            <type name="VkBool32"/>
+            <type name="VkFlags"/>
+            <type name="VkDeviceSize"/>
+            <type name="VkInstance"/>
+            <type name="VkPhysicalDevice"/>
+            <type name="VkDevice"/>
+            <type name="VkQueue"/>
+            <type name="VkCommandBuffer"/>
+            <type name="VkSemaphore"/>
+            <type name="VkFence"/>
+            <type name="VkBuffer"/>
+            <type name="VkImage"/>
+            <type name="VkInstanceCreateFlags"/>
+            <type name="VkInstanceCreateFlagBits"/>
+            <type name="VkQueueFlags"/>
+            <type name="VkQueueFlagBits"/>
+            <type name="VkFormat"/>
+            <type name="VkRenderPassCreateInfo"/>
+            <type name="VkTestCallbacks"/>
+
+            <type name="VkClearColorValue"/>
+            <type name="StdVideoH265ProfileTierLevel"/>
+
+            <type name="VkTestArrayStruct"/>
+
+
+            <type name="VkExtent2D"/>
+            <type name="VkRect2D"/>
+            <type name="VkViewportWithExtent"/>
+
+            <type name="PFN_vkVoidFunction"/>
+            <type name="PFN_vkInternalAllocationNotification"/>
+            <type name="VkTestApiVariantStruct"/>
+
+        </require>
+        <require>
+            <command name="vkCreateInstance"/>
+            <command name="vkDestroyInstance"/>
+            <command name="vkEnumeratePhysicalDevices"/>
+            <command name="vkCreateDevice"/>
+            <command name="vkDestroyDevice"/>
+            <command name="vkQueueSubmit"/>
+            <!-- supersededby: vkCreateRenderPass is superseded by vkCreateRenderPass2 in 1.2 -->
+            <command name="vkCreateRenderPass" supersededby="vkCreateRenderPass2"/>
+        </require>
+    </feature>
+
+    <feature api="vulkan" name="VK_VERSION_1_1" number="1.1" depends="VK_VERSION_1_0">
+    </feature>
+
+    <feature api="vulkan" name="VK_VERSION_1_2" number="1.2" depends="VK_VERSION_1_1">
+    </feature>
+
+    <feature api="vulkan" name="VK_VERSION_1_3" number="1.3" depends="VK_VERSION_1_2">
+        <require>
+            <type name="VkPipelineStageFlags2"/>
+            <type name="VkPipelineStageFlagBits2"/>
+        </require>
+    </feature>
+
+    <extensions>
+        <extension name="VK_KHR_surface" number="1" type="instance" supported="vulkan"
+                   depends="VK_VERSION_1_0">
+            <require>
+                <type name="VkSurfaceKHR"/>
+            </require>
+        </extension>
+
+        <extension name="VK_KHR_swapchain" number="2" type="device" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <enum value="70"                                  name="VK_KHR_SWAPCHAIN_SPEC_VERSION"/>
+                <enum value="&quot;VK_KHR_swapchain&quot;"        name="VK_KHR_SWAPCHAIN_EXTENSION_NAME"/>
+                <type name="VkSwapchainKHR"/>
+                <type name="VkSwapchainCreateInfoKHR"/>
+                <type name="VkSwapchainCreateFlagsKHR"/>
+                <type name="VkSwapchainCreateFlagBitsKHR"/>
+                <type name="VkPresentModeKHR"/>
+                <type name="VkColorSpaceKHR"/>
+                <command name="vkCreateSwapchainKHR"/>
+                <command name="vkDestroySwapchainKHR"/>
+                <!-- offset-based stype enum value: extnumber=2, offset=0 → 1000001000 -->
+                <enum offset="0" extnumber="2" extends="VkStructureType"
+                      name="VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR_OFFSET_TEST"/>
+            </require>
+        </extension>
+
+        <extension name="VK_KHR_synchronization2" number="315" type="device" supported="vulkan"
+                   depends="VK_VERSION_1_0" promotedto="VK_VERSION_1_3">
+            <require>
+                <type name="VkPipelineStageFlags2"/>
+                <type name="VkPipelineStageFlagBits2"/>
+            </require>
+        </extension>
+
+        <extension name="VK_KHR_video_queue" number="23" type="device" supported="vulkan"
+                   depends="VK_VERSION_1_1">
+            <require>
+                <type name="VkVideoSessionKHR"/>
+                <type name="VkVideoSessionCreateInfoKHR"/>
+                <type name="VkVideoCodecOperationFlagBitsKHR"/>
+                <command name="vkCreateVideoSessionKHR"/>
+                <command name="vkDestroyVideoSessionKHR"/>
+            </require>
+        </extension>
+
+        <extension name="VK_KHR_video_decode_queue" number="24" type="device" supported="vulkan"
+                   depends="VK_KHR_video_queue+VK_KHR_synchronization2">
+        </extension>
+
+        <extension name="VK_KHR_video_decode_h264" number="40" type="device" supported="vulkan"
+                   depends="VK_KHR_video_decode_queue">
+        </extension>
+
+        <!-- complex nested dependency:
+             ((VK_KHR_get_physical_device_properties2,VK_VERSION_1_1)+VK_KHR_depth_stencil_resolve),VK_VERSION_1_2 -->
+        <extension name="VK_KHR_dynamic_rendering" number="45" type="device" supported="vulkan"
+                   depends="((VK_KHR_get_physical_device_properties2,VK_VERSION_1_1)+VK_KHR_depth_stencil_resolve),VK_VERSION_1_2"
+                   promotedto="VK_VERSION_1_3">
+        </extension>
+
+        <!-- offset enum test: extnumber=272, offset=0 → 1000271000 -->
+        <extension name="VK_KHR_map_memory2" number="272" type="device" supported="vulkan"
+                   depends="VK_VERSION_1_0">
+            <require>
+                <enum offset="0" extnumber="272" extends="VkStructureType"
+                      name="VK_STRUCTURE_TYPE_MEMORY_MAP_INFO"/>
+                <enum offset="1" extnumber="272" extends="VkStructureType"
+                      name="VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO"/>
+            </require>
+        </extension>
+
+        <extension name="VK_EXT_headless_surface" number="257" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+        </extension>
+
+        <extension name="VK_KHR_win32_surface" number="10" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <type name="HWND"/>
+                <type name="HINSTANCE"/>
+            </require>
+        </extension>
+
+        <extension name="VK_KHR_wayland_surface" number="7" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <enum value="6"                                   name="VK_KHR_WAYLAND_SURFACE_SPEC_VERSION"/>
+                <enum value="&quot;VK_KHR_wayland_surface&quot;"  name="VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME"/>
+                <type name="VkWaylandSurfaceCreateInfoKHR"/>
+            </require>
+        </extension>
+        <extension name="VK_KHR_xcb_surface" number="8" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <enum value="6"                                   name="VK_KHR_XCB_SURFACE_SPEC_VERSION"/>
+                <enum value="&quot;VK_KHR_xcb_surface&quot;"      name="VK_KHR_XCB_SURFACE_EXTENSION_NAME"/>
+                <type name="VkXcbSurfaceCreateInfoKHR"/>
+            </require>
+        </extension>
+
+        <!-- X11/Xlib surface extension — uses Display, VisualID, Window -->
+        <extension name="VK_KHR_xlib_surface" number="5" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <enum value="6"                                  name="VK_KHR_XLIB_SURFACE_SPEC_VERSION"/>
+                <enum value="&quot;VK_KHR_xlib_surface&quot;"    name="VK_KHR_XLIB_SURFACE_EXTENSION_NAME"/>
+                <type name="Display"/>
+                <type name="VisualID"/>
+                <type name="Window"/>
+            </require>
+        </extension>
+        <!-- Xrandr extension -->
+        <extension name="VK_EXT_acquire_xlib_display" number="90" type="instance" supported="vulkan">
+            <require>
+                <type name="Display"/>
+                <type name="RROutput"/>
+            </require>
+        </extension>
+        <!-- Win32 extras -->
+        <extension name="VK_KHR_external_memory_win32" number="74" type="device" supported="vulkan">
+            <require>
+                <type name="HANDLE"/>
+                <type name="SECURITY_ATTRIBUTES"/>
+                <type name="DWORD"/>
+                <type name="LPCWSTR"/>
+                <type name="HMONITOR"/>
+            </require>
+        </extension>
+        <!-- DirectFB -->
+        <extension name="VK_EXT_directfb_surface" number="347" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <type name="IDirectFB"/>
+                <type name="IDirectFBSurface"/>
+            </require>
+        </extension>
+        <!-- Zircon/Fuchsia -->
+        <extension name="VK_FUCHSIA_imagepipe_surface" number="215" type="instance" supported="vulkan">
+            <require>
+                <type name="zx_handle_t"/>
+            </require>
+        </extension>
+        <!-- GGP -->
+        <extension name="VK_GGP_stream_descriptor_surface" number="50" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <type name="GgpStreamDescriptor"/>
+            </require>
+        </extension>
+        <!-- Screen (QNX) -->
+        <extension name="VK_QNX_screen_surface" number="379" type="instance" supported="vulkan"
+                   depends="VK_KHR_surface">
+            <require>
+                <type name="_screen_context"/>
+                <type name="_screen_window"/>
+            </require>
+        </extension>
+        <!-- NvSci -->
+        <extension name="VK_NV_external_sci_sync2" number="367" type="device" supported="vulkan">
+            <require>
+                <type name="NvSciSyncAttrList"/>
+                <type name="NvSciBufAttrList"/>
+            </require>
+        </extension>
+
+        <!-- Placeholder/stub — should be excluded from codegen -->
+        <extension name="VK_KHR_extension_123" number="123" supported="disabled">
+        </extension>
+
+        <!-- Video codec version macros — from video.xml category="define" -->
+        <type category="define">#define <name>VK_MAKE_VIDEO_STD_VERSION</name>(major, minor, patch) \
+    ((((uint32_t)(major)) &lt;&lt; 22) | (((uint32_t)(minor)) &lt;&lt; 12) | ((uint32_t)(patch)))</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H264_ENCODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H265_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_H265_ENCODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_AV1_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+        <type category="define" requires="VK_MAKE_VIDEO_STD_VERSION">
+#define <name>VK_STD_VULKAN_VIDEO_CODEC_VP9_DECODE_API_VERSION_1_0_0</name> <type>VK_MAKE_VIDEO_STD_VERSION</type>(1, 0, 0)</type>
+
+        <!-- Video codec header pseudo-extension (from video.xml style) -->
+        <!-- Types here should be gated by VK_KHR_video_decode_h264 after remap -->
+        <extension name="vulkan_video_codec_h264std_decode" number="3" supported="vulkan">
+            <require>
+                <type name="StdVideoH265LongTermRefPics"/>
+            </require>
+        </extension>
+
+        <!-- Disabled by supported="disabled" -->
+        <extension name="VK_LUNARG_test_disabled" number="9999" supported="disabled">
+        </extension>
+    </extensions>
+</registry>

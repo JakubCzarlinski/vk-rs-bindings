@@ -1,0 +1,22 @@
+[package]
+name = "vk-codegen"
+version = "0.1.0"
+edition = "2024"
+description = "Vulkan Rust FFI generator from vk.xml + video.xml"
+
+[[bin]]
+name = "vk-codegen"
+path = "src/main.rs"
+
+[lib]
+name = "vk_codegen"
+path = "src/lib.rs"
+
+[dependencies]
+roxmltree  = "0.20"
+proc-macro2 = "1"
+quote       = "1"
+prettyplease = "0.2"
+syn         = { version = "2", features = ["full"] }
+indexmap    = ">=2.3"   # 2.3+ requires Rust 1.82; pin for MSRV 1.75
+petgraph    = "0.6"

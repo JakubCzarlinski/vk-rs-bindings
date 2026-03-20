@@ -1,0 +1,3 @@
+[workspace]
+members = ["vk-codegen", "vk-sys"]
+resolver = "2"

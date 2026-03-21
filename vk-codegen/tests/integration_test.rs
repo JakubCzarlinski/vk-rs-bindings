@@ -18,6 +18,14 @@ fn make_registry() -> &'static ir::Registry {
     })
 }
 
+fn generate() -> &'static codegen::GeneratedFiles {
+    static GENERATED: OnceLock<codegen::GeneratedFiles> = OnceLock::new();
+    GENERATED.get_or_init(|| {
+        let reg = make_registry();
+        codegen::generate(&reg)
+    })
+}
+
 // -- DepExpr parser ------------------------------------------------------------
 
 #[test]
@@ -209,10 +217,6 @@ fn provided_by_tracking() {
 }
 
 // -- Code generation -----------------------------------------------------------
-
-fn generate() -> codegen::GeneratedFiles {
-    codegen::generate(&make_registry())
-}
 
 #[test]
 fn cargo_toml_has_features() {
@@ -562,7 +566,7 @@ fn video_ext_not_in_cargo_toml_features() {
 #[test]
 fn video_types_remapped_to_vk_feature() {
     // After remap_video_header_names(), StdVideoH265LongTermRefPicsSps.provided_by
-    // should contain VK_KHR_video_decode_h265 (mapped from vulkan_video_codec_h265std_decode)
+    // should contain VK_KHR_video_queue (mapped from vulkan_video_codec_h265std_decode)
     let reg = make_registry();
     let s = reg
         .structs
@@ -571,8 +575,7 @@ fn video_types_remapped_to_vk_feature() {
         .expect("StdVideoH265LongTermRefPicsSps");
 
     assert!(
-        s.provided_by
-            .contains(&"VK_KHR_video_decode_h265".to_owned()),
+        s.provided_by.contains(&"VK_KHR_video_queue".to_owned()),
         "StdVideoH265LongTermRefPicsSps.provided_by should contain VK_KHR_video_decode_h265; got: {:?}",
         s.provided_by
     );
@@ -1994,5 +1997,33 @@ fn correct_cfg_on_vulkansc_api() {
                 .contains(&"VKSC_VERSION_1_0".to_owned()),
         "Non-VKSC PFN_vkCreatePipelineCache entry must be gated on VK_COMPUTE_VERSION_1_0 and not VKSC_VERSION_1_0; got {:?}",
         non_vksc_entry.provided_by
+    );
+
+    let f = generate();
+    // Check the generated output has the correct cfg attributes for both entries
+
+    assert!(
+        f.commands_rs.contains(
+            r#"#[cfg(feature = "VK_COMPUTE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0"))]"
+        pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
+            device: VkDevice,
+            pCreateInfo: *const VkPipelineCacheCreateInfo,
+            pAllocator: *const VkAllocationCallbacks,
+            pPipelineCache: *mut VkPipelineCache,
+            ) -> VkResult;"#
+        ),
+        "Non-VKSC PFN_vkCreatePipelineCache entry must have correct cfg and signature"
+    );
+    assert!(
+        f.commands_rs.contains(
+            r#"#[cfg(feature = "VKSC_VERSION_1_0")]
+        pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
+            device: VkDevice,
+            pCreateInfo: *const VkPipelineCacheCreateInfo,
+            pAllocator: *const VkAllocationCallbacks,
+            pPipelineCache: *mut VkPipelineCache,
+            ) -> VkResult;"#
+        ),
+        "VKSC PFN_vkCreatePipelineCache entry must have correct cfg and signature"
     );
 }

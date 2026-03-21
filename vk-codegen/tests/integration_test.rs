@@ -2020,7 +2020,7 @@ fn correct_cfg_on_vulkansc_api() {
 
     assert!(
         f.commands_rs.contains(
-            r#"#[cfg(feature = "VK_COMPUTE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0"))]"
+            r#"#[cfg(all(feature = "VK_COMPUTE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
         pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
             device: VkDevice,
             pCreateInfo: *const VkPipelineCacheCreateInfo,
@@ -2030,6 +2030,8 @@ fn correct_cfg_on_vulkansc_api() {
         ),
         "Non-VKSC PFN_vkCreatePipelineCache entry must have correct cfg and signature"
     );
+
+    // VKSC_VERSION_1_0 depends on VK_COMPUTE_VERSION_1_0 transitively, so it should also be reduced.
     assert!(
         f.commands_rs.contains(
             r#"#[cfg(feature = "VKSC_VERSION_1_0")]

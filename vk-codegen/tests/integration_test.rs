@@ -1960,15 +1960,23 @@ fn correct_cfg_on_vulkansc_api() {
     // ) -> VkResult;
     let reg = make_registry();
 
-    let pfn_vk_create_pipeline_cache = reg.typedefs.get("PFN_vkCreatePipelineCache");
+    println!("Commands in registry");
+    for (name, entries) in &reg.commands {
+        println!(
+            "  {name}: provided_by={:?}",
+            entries.iter().map(|e| &e.provided_by).collect::<Vec<_>>()
+        );
+    }
+
+    let pfn_vk_create_pipeline_cache = reg.commands.get("vkCreatePipelineCache");
     if pfn_vk_create_pipeline_cache.is_none() {
-        panic!("PFN_vkCreatePipelineCache typedef not found in registry");
+        panic!("PFN_vkCreatePipelineCache command not found in registry");
     }
     // Assert len = 2
     let unwrapped = pfn_vk_create_pipeline_cache.unwrap();
     if unwrapped.len() != 2 {
         panic!(
-            "Expected 2 typedef entries for PFN_vkCreatePipelineCache, got {}",
+            "Expected 2 command entries for PFN_vkCreatePipelineCache, got {}",
             unwrapped.len()
         );
     }
@@ -1976,7 +1984,7 @@ fn correct_cfg_on_vulkansc_api() {
     let first = unwrapped.first();
     let second = unwrapped.last();
     if first.is_none() || second.is_none() {
-        panic!("PFN_vkCreatePipelineCache typedef entries are empty");
+        panic!("PFN_vkCreatePipelineCache command entries are empty");
     }
 
     // Verify that one entry is for VKSC_VERSION_1_0 and the other is for the non-VKSC case

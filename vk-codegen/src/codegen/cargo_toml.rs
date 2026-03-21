@@ -39,7 +39,16 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
         if ext.is_disabled() || ext.is_video_header() {
             continue;
         }
-        let deps = filter_deps(feature_deps.get(&ext.name).cloned().unwrap_or_default());
+
+        // Cargo features can't express OR dependencies.
+        // We only include dependencies that appear in EVERY valid clause of the DNF.
+        let mut common_deps = ext.depends.as_ref()
+            .map(|d| d.common_dependencies())
+            .unwrap_or_default();
+
+        // Filter out any dependencies that aren't actually known features
+        common_deps.retain(|d| known_features.contains(d));
+
         if let Some(ref s) = ext.depr.superseded_by {
             lines.push(format!("# superseded by: {s}"));
         }
@@ -52,7 +61,7 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
         if let Some(ref s) = ext.depr.deprecated {
             lines.push(format!("# deprecated: {s}"));
         }
-        lines.push(format!("{} = [{}]", ext.name, toml_feat_list(&deps)));
+        lines.push(format!("{} = [{}]", ext.name, toml_feat_list(&common_deps)));
     }
 
     lines.join("\n")

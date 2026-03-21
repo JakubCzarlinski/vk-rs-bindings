@@ -71,10 +71,26 @@ fn dep_nested_parens() {
 fn dep_real_world_complex() {
     let s = "((VK_KHR_get_physical_device_properties2,VK_VERSION_1_1)+VK_KHR_depth_stencil_resolve),VK_VERSION_1_2";
     let c = ir::parse_dep_expr(s).to_dnf_clauses();
-    assert_eq!(c.len(), 3, "got: {c:?}");
+    assert!(
+        c.len() == 3,
+        "expected 3 clauses for complex dep expr; got: {c:?}"
+    );
     assert!(
         c.iter().any(|cl| cl == &["VK_VERSION_1_2"]),
-        "no single-atom clause"
+        "no single-atom clause for VK_VERSION_1_2; got: {c:?}"
+    );
+    assert!(
+        c.iter().any(|cl| cl
+            == &[
+                "VK_KHR_get_physical_device_properties2",
+                "VK_KHR_depth_stencil_resolve"
+            ]),
+        "no clause for VK_KHR_get_physical_device_properties2+VK_KHR_depth_stencil_resolve; got: {c:?}"
+    );
+    assert!(
+        c.iter()
+            .any(|cl| cl == &["VK_VERSION_1_1", "VK_KHR_depth_stencil_resolve"]),
+        "no clause for VK_VERSION_1_1+VK_KHR_depth_stencil_resolve; got: {c:?}"
     );
 }
 

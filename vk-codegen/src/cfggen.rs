@@ -1,8 +1,5 @@
 //! Generates `#[cfg(...)]` token streams from `DepExpr` and feature-name lists.
 
-#![allow(dead_code)]
-
-use crate::ir::DepExpr;
 use proc_macro2::TokenStream;
 use quote::quote;
 
@@ -24,27 +21,9 @@ pub fn cfg_any(features: &[String]) -> TokenStream {
     }
 }
 
-/// `#[cfg(...)]` derived from a `DepExpr` (converts to DNF first).
-pub fn cfg_from_dep(dep: &DepExpr) -> TokenStream {
-    let clauses = dep.to_dnf_clauses();
-    let inner = clauses_to_ts(&clauses);
-    quote! { #[cfg(#inner)] }
-}
-
-/// Just the inner `cfg(...)` expression (no `#[...]` wrapper) for a list of features.
-pub fn cfg_expr_any(features: &[String]) -> TokenStream {
-    match features.len() {
-        0 => quote! { all() },
-        1 => {
-            let f = &features[0];
-            quote! { feature = #f }
-        }
-        _ => {
-            let items: Vec<TokenStream> =
-                features.iter().map(|f| quote! { feature = #f }).collect();
-            quote! { any(#(#items),*) }
-        }
-    }
+/// Convert DNF clauses to a `cfg` expression.
+pub fn cfg_expr_from_dnf(clauses: &[Vec<String>]) -> TokenStream {
+    clauses_to_ts(clauses)
 }
 
 fn clauses_to_ts(clauses: &[Vec<String>]) -> TokenStream {

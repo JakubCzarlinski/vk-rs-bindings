@@ -63,6 +63,21 @@ impl DepExpr {
             }
         }
     }
+
+    /// Returns the set of features that are present in every DNF clause.
+    /// These are the features that MUST be enabled for this expression to potentially be true,
+    /// regardless of which branch of an OR is taken.
+    pub fn common_dependencies(&self) -> Vec<String> {
+        let clauses = self.to_dnf_clauses();
+        if let Some(mut first) = clauses.first().cloned() {
+            for next in clauses.iter().skip(1) {
+                first.retain(|item| next.contains(item));
+            }
+            first
+        } else {
+            Vec::new()
+        }
+    }
 }
 
 /// Parse a `depends=` attribute string into a `DepExpr`.

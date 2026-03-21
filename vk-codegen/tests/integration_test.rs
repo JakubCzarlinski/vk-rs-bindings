@@ -570,8 +570,6 @@ fn video_types_remapped_to_vk_feature() {
         .and_then(|v| v.first())
         .expect("StdVideoH265LongTermRefPicsSps");
 
-    println!("StdVideoH265LongTermRefPicsSps.provided_by = {:#?}", s);
-
     assert!(
         s.provided_by
             .contains(&"VK_KHR_video_decode_h265".to_owned()),
@@ -1071,7 +1069,6 @@ fn pfn_struct_fields_default_to_none() {
         .find("impl VkDebugReportCallbackCreateInfoEXT")
         .expect("VkDebugReportCallbackCreateInfoEXT impl in types.rs");
     let snippet = &f.types_rs[idx..idx.saturating_add(500)];
-    println!("Snippet for VkDebugReportCallbackCreateInfoEXT:\n{snippet}");
     assert!(
         snippet.contains("pfnCallback: None"),
         "PFN struct fields must default to None;\nsnippet:\n{snippet}"
@@ -1849,17 +1846,6 @@ fn api_version_consts_ungated() {
 }
 
 #[test]
-fn dbg_consts_dump() {
-    let f = generate();
-    println!("--- CONSTS ---");
-    for l in f.consts_rs.lines() {
-        if l.contains("VK_HEADER") || l.contains("VKSC") {
-            println!("{}", l);
-        }
-    }
-}
-
-#[test]
 fn vksc_api_variant_emitted() {
     let f = generate();
     // VKSC_API_VARIANT must be emitted
@@ -1959,14 +1945,6 @@ fn correct_cfg_on_vulkansc_api() {
     //     pPipelineCache: *mut VkPipelineCache,
     // ) -> VkResult;
     let reg = make_registry();
-
-    println!("Commands in registry");
-    for (name, entries) in &reg.commands {
-        println!(
-            "  {name}: provided_by={:?}",
-            entries.iter().map(|e| &e.provided_by).collect::<Vec<_>>()
-        );
-    }
 
     let pfn_vk_create_pipeline_cache = reg.commands.get("vkCreatePipelineCache");
     if pfn_vk_create_pipeline_cache.is_none() {

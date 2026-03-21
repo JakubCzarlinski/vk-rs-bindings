@@ -111,18 +111,28 @@ fn camel_to_snake(s: &str) -> String {
     let mut i = 0usize;
     while i < n {
         let c = chars[i];
-        if c.is_uppercase() && i > 0 {
+        let not_first = i > 0;
+
+        if !not_first {
+            out.push(c.to_ascii_lowercase());
+            i += 1;
+            continue;
+        }
+
+        if c.is_uppercase() {
             let prev_lower = chars[i - 1].is_lowercase() || chars[i - 1].is_ascii_digit();
             let next_lower = i + 1 < n && chars[i + 1].is_lowercase();
             if prev_lower || next_lower {
                 out.push('_');
             }
         }
-        if c.is_ascii_digit() && i > 0 && chars[i - 1].is_alphabetic() {
-            out.push('_');
-        } else if c.is_alphabetic() && i > 0 && chars[i - 1].is_ascii_digit() {
+
+        if (chars[i - 1].is_alphabetic() && c.is_ascii_digit())
+            || (chars[i - 1].is_ascii_digit() && c.is_alphabetic())
+        {
             out.push('_');
         }
+
         out.push(c.to_ascii_lowercase());
         i += 1;
     }

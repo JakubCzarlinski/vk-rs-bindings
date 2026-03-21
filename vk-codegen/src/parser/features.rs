@@ -353,6 +353,7 @@ pub fn apply_require_extensions(reg: &mut Registry) {
             }
         }
     }
+    // Remove disabled extensions from provided_by lists.
     let scrub = |v: &mut Vec<String>| {
         v.retain(|f| !disabled.contains(f));
     };
@@ -394,38 +395,33 @@ pub fn apply_require_extensions(reg: &mut Registry) {
         .filter(|(_, td)| td.provided_by.is_empty() && td.kind == TypedefKind::OpaqueExtern)
         .map(|(n, _)| n.clone())
         .collect();
+
     for tname in &opaque_names {
-        let mut providers: Vec<String> = Vec::new();
-        for s in reg.structs.values().flatten() {
-            if s.provided_by.is_empty() {
-                continue;
-            }
-            if s.members.iter().any(|m| &m.ty.base == tname) {
-                for pb in &s.provided_by {
-                    if !providers.contains(pb) {
-                        providers.push(pb.clone());
-                    }
-                }
+        let providers: Vec<String> = reg
+            .structs
+            .values()
+            .flatten()
+            .filter(|s| !s.provided_by.is_empty())
+            .filter(|s| s.members.iter().any(|m| &m.ty.base == tname))
+            .flat_map(|s| &s.provided_by)
+            .chain(
+                reg.commands
+                    .values()
+                    .flatten()
+                    .filter(|c| !c.provided_by.is_empty())
+                    .filter(|c| c.params.iter().any(|p| &p.ty.base == tname))
+                    .flat_map(|c| &c.provided_by),
+            )
+            .cloned()
+            .collect::<std::collections::HashSet<_>>()
+            .into_iter()
+            .collect();
+
+        if let Some(tt) = reg.typedefs.get_mut(tname) {
+            for td in tt {
+                td.provided_by = providers.clone();
             }
         }
-        for c in reg.commands.values().flatten() {
-            if c.provided_by.is_empty() {
-                continue;
-            }
-            if c.params.iter().any(|p| &p.ty.base == tname) {
-                for pb in &c.provided_by {
-                    if !providers.contains(pb) {
-                        providers.push(pb.clone());
-                    }
-                }
-            }
-        }
-        if !providers.is_empty()
-            && let Some(tt) = reg.typedefs.get_mut(tname) {
-                for td in tt {
-                    td.provided_by = providers.clone();
-                }
-            }
     }
 }
 

@@ -243,11 +243,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
             let fdoc = m.comment.as_deref().unwrap_or("");
             if fdoc.is_empty() {
-                if s.is_union {
-                    quote! { pub #fname: #ftype, }
-                } else {
-                    quote! { pub #fname: #ftype, }
-                }
+                quote! { pub #fname: #ftype, }
             } else {
                 quote! { #[doc = #fdoc] pub #fname: #ftype, }
             }

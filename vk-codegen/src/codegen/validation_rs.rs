@@ -1,5 +1,5 @@
-use crate::codegen::{pretty, refpage_url};
 use crate::cfggen;
+use crate::codegen::{pretty, refpage_url};
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
 use quote::quote;

@@ -245,9 +245,7 @@ impl LimitType {
             return Vec::new();
         }
 
-        
-        s
-            .split(',')
+        s.split(',')
             .map(|part| match part {
                 "min" => LimitType::Min,
                 "max" => LimitType::Max,

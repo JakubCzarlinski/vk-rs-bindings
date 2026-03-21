@@ -42,7 +42,9 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
 
         // Cargo features can't express OR dependencies.
         // We only include dependencies that appear in EVERY valid clause of the DNF.
-        let mut common_deps = ext.depends.as_ref()
+        let mut common_deps = ext
+            .depends
+            .as_ref()
             .map(|d| d.common_dependencies())
             .unwrap_or_default();
 

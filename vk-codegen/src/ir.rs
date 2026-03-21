@@ -170,6 +170,10 @@ impl ApiSet {
         }
         a
     }
+
+    pub fn intersects(&self, other: &ApiSet) -> bool {
+        (self.vulkan && other.vulkan) || (self.vulkansc && other.vulkansc) || (self.vulkanbase && other.vulkanbase)
+    }
 }
 
 // -- C type --------------------------------------------------------------------
@@ -667,11 +671,11 @@ pub struct RequireEnum {
 
 #[derive(Debug, Default)]
 pub struct Registry {
-    pub typedefs: IndexMap<String, Typedef>,
-    pub structs: IndexMap<String, Struct>,
-    pub enums: IndexMap<String, Enum>,
-    pub commands: IndexMap<String, Command>,
-    pub constants: IndexMap<String, Constant>,
+    pub typedefs: IndexMap<String, Vec<Typedef>>,
+    pub structs: IndexMap<String, Vec<Struct>>,
+    pub enums: IndexMap<String, Vec<Enum>>,
+    pub commands: IndexMap<String, Vec<Command>>,
+    pub constants: IndexMap<String, Vec<Constant>>,
     pub features: Vec<Feature>,
     pub extensions: Vec<Extension>,
 }
@@ -699,6 +703,66 @@ impl Registry {
         map
     }
 
+    pub fn transitive_deps(&self) -> IndexMap<String, std::collections::HashSet<String>> {
+        let direct = self.feature_deps();
+        let mut transitive: IndexMap<String, std::collections::HashSet<String>> = IndexMap::new();
+        for (k, v) in &direct {
+            transitive.insert(k.clone(), v.iter().cloned().collect());
+        }
+        let mut changed = true;
+        while changed {
+            changed = false;
+            let keys: Vec<String> = transitive.keys().cloned().collect();
+            for k in keys {
+                let curr = transitive.get(&k).unwrap().clone();
+                let mut new_deps = curr.clone();
+                for dep in &curr {
+                    if let Some(dep_deps) = transitive.get(dep) {
+                        for dd in dep_deps {
+                            if new_deps.insert(dd.clone()) {
+                                changed = true;
+                            }
+                        }
+                    }
+                }
+                if changed {
+                    transitive.insert(k.clone(), new_deps);
+                }
+            }
+        }
+        transitive
+    }
+
+    pub fn simplify_features(&mut self) {
+        let deps = self.transitive_deps();
+
+        let simplify = |v: &mut Vec<String>| {
+            if v.len() <= 1 { return; }
+            let mut keep = Vec::new();
+            for feat in v.iter() {
+                // Keep this feature if it does NOT transitively depend on any OTHER feature present in `v`.
+                // EXCEPTION: Always keep "VK_VERSION_...", "VKSC_VERSION_...", "VK_BASE_VERSION_..."
+                if feat.starts_with("VK_VERSION_") || feat.starts_with("VKSC_VERSION_") || feat.starts_with("VK_BASE_VERSION_") {
+                    keep.push(feat.clone());
+                    continue;
+                }
+                if !v.iter().any(|f2| f2 != feat && deps.get(feat).is_some_and(|d| d.contains(f2))) {
+                    keep.push(feat.clone());
+                }
+            }
+            *v = keep;
+        };
+
+        for list in self.typedefs.values_mut().flatten() { simplify(&mut list.provided_by); }
+        for list in self.structs.values_mut().flatten() { simplify(&mut list.provided_by); }
+        for list in self.enums.values_mut().flatten() {
+            simplify(&mut list.provided_by);
+            for var in &mut list.variants { simplify(&mut var.provided_by); }
+        }
+        for list in self.commands.values_mut().flatten() { simplify(&mut list.provided_by); }
+        for list in self.constants.values_mut().flatten() { simplify(&mut list.provided_by); }
+    }
+
     pub fn all_feature_names(&self) -> Vec<String> {
         let mut v: Vec<String> = self.features.iter().map(|f| f.name.clone()).collect();
         v.extend(
@@ -719,24 +783,34 @@ impl Registry {
                 }
             }
         };
-        for td in self.typedefs.values_mut() {
-            fix(&mut td.provided_by);
-        }
-        for s in self.structs.values_mut() {
-            fix(&mut s.provided_by);
-        }
-        for e in self.enums.values_mut() {
-            fix(&mut e.provided_by);
-            for v in e.variants.iter_mut() {
-                fix(&mut v.provided_by);
+        for tds in self.typedefs.values_mut() {
+            for td in tds {
+                fix(&mut td.provided_by);
             }
         }
-        for c in self.commands.values_mut() {
-            fix(&mut c.provided_by);
+        for ss in self.structs.values_mut() {
+            for s in ss {
+                fix(&mut s.provided_by);
+            }
+        }
+        for es in self.enums.values_mut() {
+            for e in es {
+                fix(&mut e.provided_by);
+                for v in e.variants.iter_mut() {
+                    fix(&mut v.provided_by);
+                }
+            }
+        }
+        for cs in self.commands.values_mut() {
+            for c in cs {
+                fix(&mut c.provided_by);
+            }
         }
         // Constants include SPEC_VERSION / EXTENSION_NAME from video headers
-        for c in self.constants.values_mut() {
-            fix(&mut c.provided_by);
+        for cs in self.constants.values_mut() {
+            for c in cs {
+                fix(&mut c.provided_by);
+            }
         }
     }
 }

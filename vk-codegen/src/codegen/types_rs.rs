@@ -27,7 +27,7 @@ pub fn gen_types_rs(reg: &Registry) -> String {
 
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
 
-    for td in reg.typedefs.values() {
+    for td in reg.typedefs.values().flatten() {
         if td.provided_by.is_empty() {
             continue;
         }
@@ -39,7 +39,7 @@ pub fn gen_types_rs(reg: &Registry) -> String {
                 .extend(ts);
         }
     }
-    for s in reg.structs.values() {
+    for s in reg.structs.values().flatten() {
         if s.provided_by.is_empty() {
             continue;
         }
@@ -394,7 +394,7 @@ fn classify_type_inner(base: &str, reg: &Registry, depth: u8) -> (TypeClass, Str
         _ => {}
     }
 
-    if let Some(td) = reg.typedefs.get(base) {
+    if let Some(td) = reg.typedefs.get(base).and_then(|v| v.last()) {
         return match td.kind {
             TypedefKind::Handle => (TypeClass::PrimitiveAlias, base.to_owned()),
             TypedefKind::Basetype => (TypeClass::PrimitiveAlias, base.to_owned()),
@@ -413,7 +413,7 @@ fn classify_type_inner(base: &str, reg: &Registry, depth: u8) -> (TypeClass, Str
         };
     }
 
-    if let Some(e) = reg.enums.get(base) {
+    if let Some(e) = reg.enums.get(base).and_then(|v| v.last()) {
         // If this enum is itself an alias (e.g. VkScopeNV = VkScopeKHR),
         // follow the alias to the canonical defining enum so we emit Foo(0)
         // with the real newtype constructor, not a type-alias name.

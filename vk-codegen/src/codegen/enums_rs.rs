@@ -9,7 +9,7 @@ pub fn gen_enums_rs(reg: &Registry) -> String {
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
 
     let mut seen_features = HashSet::new();
-    for e in reg.enums.values() {
+    for e in reg.enums.values().flatten() {
         let token_stream = gen_enum(e);
         if token_stream.is_empty() {
             continue;

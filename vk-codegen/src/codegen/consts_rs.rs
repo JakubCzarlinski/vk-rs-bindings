@@ -12,7 +12,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
 
     // -- #define typedefs -> const fn or pub const ------------------------------
-    for typedef in reg.typedefs.values() {
+    for typedef in reg.typedefs.values().flatten() {
         if typedef.kind != TypedefKind::Define {
             continue;
         }
@@ -88,7 +88,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
     }
 
     // -- reg.constants -> API constants and extension name/version strings --------
-    for c in reg.constants.values() {
+    for c in reg.constants.values().flatten() {
         let name = format_ident!("{}", &c.name);
         let url = refpage_url(&c.name);
         let doc = format!(" [`{n}`]({url})", n = c.name);

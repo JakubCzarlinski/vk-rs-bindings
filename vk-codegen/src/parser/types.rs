@@ -62,8 +62,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
             "define" => parse_define(type_node, reg, name, alias, comment, dep, aset, depr),
             _ => {
                 if alias.is_some() {
-                    reg.typedefs.insert(
-                        name.clone(),
+                    reg.typedefs.entry(name.clone()).or_default().push(
                         Typedef {
                             name,
                             alias,
@@ -96,8 +95,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
                     .iter()
                     .any(|s| req.contains(s))
                 {
-                    reg.typedefs.insert(
-                        name.clone(),
+                    reg.typedefs.entry(name.clone()).or_default().push(
                         Typedef {
                             name,
                             alias: None,
@@ -135,8 +133,7 @@ fn parse_struct_union(
     let struct_extends = attr(node, "structextends")
         .map(|s| s.split(',').map(str::to_owned).collect())
         .unwrap_or_default();
-    reg.structs.insert(
-        name.clone(),
+    reg.structs.entry(name.clone()).or_default().push(
         Struct {
             name,
             alias,
@@ -164,8 +161,7 @@ fn parse_handle(
     aset: ApiSet,
     depr: DeprecationInfo,
 ) {
-    reg.typedefs.insert(
-        name.clone(),
+    reg.typedefs.entry(name.clone()).or_default().push(
         Typedef {
             name,
             alias,
@@ -190,18 +186,20 @@ fn parse_enum(
     aset: ApiSet,
     depr: DeprecationInfo,
 ) {
-    reg.enums.entry(name.clone()).or_insert(Enum {
-        name: name.clone(),
-        alias,
-        variants: vec![],
-        is_bitmask: false,
-        bit_width: 32,
-        api: aset,
-        comment,
-        dep,
-        provided_by: vec![],
-        depr,
-    });
+    if reg.enums.get(&name).is_none() {
+        reg.enums.entry(name.clone()).or_default().push(Enum {
+            name: name.clone(),
+            alias,
+            variants: vec![],
+            is_bitmask: false,
+            bit_width: 32,
+            api: aset,
+            comment,
+            dep,
+            provided_by: vec![],
+            depr,
+        });
+    }
 }
 
 /// Parses a bitmask type definition.
@@ -216,8 +214,7 @@ fn parse_bitmask(
     depr: DeprecationInfo,
 ) {
     let underlying = child_text(node, "type").unwrap_or_else(|| "VkFlags".into());
-    reg.typedefs.insert(
-        name.clone(),
+    reg.typedefs.entry(name.clone()).or_default().push(
         Typedef {
             name,
             alias,
@@ -262,8 +259,7 @@ fn parse_basetype(
             (TypedefKind::Basetype, Some(stripped.trim().to_owned()))
         }
     };
-    reg.typedefs.insert(
-        name.clone(),
+    reg.typedefs.entry(name.clone()).or_default().push(
         Typedef {
             name,
             alias,
@@ -305,8 +301,7 @@ fn parse_funcpointer(
             )
         })
         .collect();
-    reg.typedefs.insert(
-        name.clone(),
+    reg.typedefs.entry(name.clone()).or_default().push(
         Typedef {
             name,
             alias,
@@ -353,11 +348,20 @@ fn parse_define(
         } else {
             None
         }
-    } else if raw.contains("major")
-        || raw.contains("minor")
-        || raw.contains("patch")
-        || raw.contains("version")
-        || raw.contains("variant")
+    } else if let Some(name_str) = Some(name.as_str())
+        && matches!(
+            name_str,
+            "VK_MAKE_VIDEO_STD_VERSION"
+                | "VK_MAKE_VERSION"
+                | "VK_MAKE_API_VERSION"
+                | "VK_VERSION_MAJOR"
+                | "VK_VERSION_MINOR"
+                | "VK_VERSION_PATCH"
+                | "VK_API_VERSION_VARIANT"
+                | "VK_API_VERSION_MAJOR"
+                | "VK_API_VERSION_MINOR"
+                | "VK_API_VERSION_PATCH"
+        )
     {
         match name.as_str() {
             "VK_MAKE_VIDEO_STD_VERSION" | "VK_MAKE_VERSION" => Some("fn:major,minor,patch|(major << 22) | (minor << 12) | patch".to_owned()),
@@ -392,8 +396,7 @@ fn parse_define(
             }
         }
     };
-    reg.typedefs.insert(
-        name.clone(),
+    reg.typedefs.entry(name.clone()).or_default().push(
         Typedef {
             name,
             alias,

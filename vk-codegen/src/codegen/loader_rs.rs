@@ -37,7 +37,7 @@ fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F
     let mut empty_ts = TokenStream::new();
     let mut load_ts = TokenStream::new();
 
-    for cmd in reg.commands.values() {
+    for cmd in reg.commands.values().flatten() {
         if !filter(&cmd.name) || cmd.provided_by.is_empty() {
             continue;
         }

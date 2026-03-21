@@ -30,8 +30,7 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
 
         if alias.is_some() {
             if let Some(name) = name_attr {
-                reg.commands.insert(
-                    name.clone(),
+                reg.commands.entry(name.clone()).or_default().push(
                     Command {
                         name,
                         alias,
@@ -51,7 +50,7 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
                         extern_sync: None,
                         allow_no_queues: false,
                         queues: vec![],
-                        export: vec![],
+                        export: attr(cn, "export").map(ExportScope::parse).unwrap_or_default(),
                     },
                 );
             }
@@ -80,11 +79,10 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
         } else {
             None
         };
-        reg.commands.insert(
-            name.clone(),
+        reg.commands.entry(name.clone()).or_default().push(
             Command {
                 name,
-                alias,
+               alias,
                 return_type,
                 params,
                 api: aset,

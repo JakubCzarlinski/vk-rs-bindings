@@ -8,7 +8,7 @@ use std::collections::BTreeMap;
 
 pub fn gen_commands_rs(reg: &Registry) -> String {
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
-    for cmd in reg.commands.values() {
+    for cmd in reg.commands.values().flatten() {
         let token_stream = gen_command(cmd);
         if !token_stream.is_empty() {
             groups

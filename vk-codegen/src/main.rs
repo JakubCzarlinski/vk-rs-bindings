@@ -57,6 +57,9 @@ fn main() {
     // collected from video header <require> blocks also get their provided_by remapped.
     registry.remap_video_header_names();
 
+    eprintln!("vk-codegen: simplifying redundant transitive dependencies ...");
+    registry.simplify_features();
+
     eprintln!(
         "vk-codegen: {} typedefs, {} structs, {} enums, {} commands, {} constants",
         registry.typedefs.len(),

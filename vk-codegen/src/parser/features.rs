@@ -21,13 +21,18 @@ pub fn parse_feature(node: Node, reg: &mut Registry) {
     let comment = attr(node, "comment").map(str::to_owned);
 
     let mut requires = Vec::new();
-    for rn in node
-        .children()
-        .filter(|n| n.is_element() && n.tag_name().name() == "require")
-    {
+    for rn in node.children().filter(|n| {
+        n.is_element()
+            && (n.tag_name().name() == "require" || n.tag_name().name() == "deprecate")
+    }) {
         let req = parse_require(rn, None);
-        mark_provided_with_depr(&req, &name, rn, reg);
-        requires.push(req);
+        if rn.tag_name().name() == "require" {
+            mark_provided_with_depr(&req, &name, &api, rn, reg);
+            requires.push(req);
+        } else {
+            // Deprecate blocks just apply supersession info, they don't "provide" the item.
+            mark_provided_with_depr(&req, "", &api, rn, reg);
+        }
     }
     reg.features.push(Feature {
         name,
@@ -63,7 +68,7 @@ pub fn parse_extensions(node: Node, reg: &mut Registry) {
             name: name.clone(),
             number,
             depends,
-            api,
+            api: api.clone(),
             supported,
             requires: vec![],
             comment: attr(en, "comment").map(str::to_owned),
@@ -74,15 +79,21 @@ pub fn parse_extensions(node: Node, reg: &mut Registry) {
 
         let disabled = ext_shell.is_disabled();
         let mut requires = Vec::new();
-        for rn in en
-            .children()
-            .filter(|n| n.is_element() && n.tag_name().name() == "require")
-        {
+        for rn in en.children().filter(|n| {
+            n.is_element()
+                && (n.tag_name().name() == "require" || n.tag_name().name() == "deprecate")
+        }) {
             let req = parse_require(rn, Some(number));
             if !disabled {
-                mark_provided_with_depr(&req, &name, rn, reg);
+                if rn.tag_name().name() == "require" {
+                    mark_provided_with_depr(&req, &name, &api, rn, reg);
+                } else {
+                    mark_provided_with_depr(&req, "", &api, rn, reg);
+                }
             }
-            requires.push(req);
+            if rn.tag_name().name() == "require" {
+                requires.push(req);
+            }
         }
         let mut ext = ext_shell;
         ext.requires = requires;
@@ -160,11 +171,13 @@ pub fn parse_require(node: Node, ext_number: Option<u32>) -> Require {
 ///
 /// - `req`: The requirement descriptor.
 /// - `feature_name`: The name of the feature providing these items.
+/// - `feature_api`: The API set of the feature mapping to items.
 /// - `raw_require`: The raw XML node for the require block.
 /// - `reg`: The mutable Registry instance to update.
 pub fn mark_provided_with_depr(
     req: &Require,
     feature_name: &str,
+    feature_api: &ApiSet,
     raw_require: Node,
     reg: &mut Registry,
 ) {
@@ -174,59 +187,106 @@ pub fn mark_provided_with_depr(
         match child.tag_name().name() {
             "type" => {
                 let fname = feature_name.to_owned();
-                if let Some(s) = reg.structs.get_mut(item_name) {
-                    s.provided_by.push(fname.clone());
-                    if item_depr.superseded_by.is_some() && s.depr.superseded_by.is_none() {
-                        s.depr.superseded_by = item_depr.superseded_by.clone();
+                if let Some(ss) = reg.structs.get_mut(item_name) {
+                    for s in ss {
+                        if !s.api.intersects(feature_api) { continue; }
+                        if !fname.is_empty() {
+                            s.provided_by.push(fname.clone());
+                        }
+                        if item_depr.superseded_by.is_some() && s.depr.superseded_by.is_none() {
+                            s.depr.superseded_by = item_depr.superseded_by.clone();
+                        }
+                        if item_depr.deprecated.is_some() && s.depr.deprecated.is_none() {
+                            s.depr.deprecated = item_depr.deprecated.clone();
+                        }
                     }
                 }
-                if let Some(t) = reg.typedefs.get_mut(item_name) {
-                    t.provided_by.push(fname.clone());
-                    if item_depr.superseded_by.is_some() && t.depr.superseded_by.is_none() {
-                        t.depr.superseded_by = item_depr.superseded_by.clone();
+                if let Some(tt) = reg.typedefs.get_mut(item_name) {
+                    for t in tt {
+                        if !t.api.intersects(feature_api) { continue; }
+                        if !fname.is_empty() {
+                            t.provided_by.push(fname.clone());
+                        }
+                        if item_depr.superseded_by.is_some() && t.depr.superseded_by.is_none() {
+                            t.depr.superseded_by = item_depr.superseded_by.clone();
+                        }
+                        if item_depr.deprecated.is_some() && t.depr.deprecated.is_none() {
+                            t.depr.deprecated = item_depr.deprecated.clone();
+                        }
                     }
                 }
-                if let Some(e) = reg.enums.get_mut(item_name) {
-                    e.provided_by.push(fname);
+                if let Some(ee) = reg.enums.get_mut(item_name) {
+                    for e in ee {
+                        if !e.api.intersects(feature_api) { continue; }
+                        if !fname.is_empty() {
+                            e.provided_by.push(fname.clone());
+                        }
+                        if item_depr.superseded_by.is_some() && e.depr.superseded_by.is_none() {
+                            e.depr.superseded_by = item_depr.superseded_by.clone();
+                        }
+                        if item_depr.deprecated.is_some() && e.depr.deprecated.is_none() {
+                            e.depr.deprecated = item_depr.deprecated.clone();
+                        }
+                    }
                 }
             }
             "command" => {
                 let fname = feature_name.to_owned();
-                if let Some(c) = reg.commands.get_mut(item_name) {
-                    c.provided_by.push(fname);
-                    if item_depr.superseded_by.is_some() && c.depr.superseded_by.is_none() {
-                        c.depr.superseded_by = item_depr.superseded_by.clone();
-                    }
-                    if item_depr.deprecated.is_some() && c.depr.deprecated.is_none() {
-                        c.depr.deprecated = item_depr.deprecated.clone();
+                if let Some(cc) = reg.commands.get_mut(item_name) {
+                    for c in cc {
+                        if !c.api.intersects(feature_api) { continue; }
+                        if !fname.is_empty() {
+                            c.provided_by.push(fname.clone());
+                        }
+                        if item_depr.superseded_by.is_some() && c.depr.superseded_by.is_none() {
+                            c.depr.superseded_by = item_depr.superseded_by.clone();
+                        }
+                        if item_depr.deprecated.is_some() && c.depr.deprecated.is_none() {
+                            c.depr.deprecated = item_depr.deprecated.clone();
+                        }
                     }
                 }
             }
             _ => {}
         }
     }
+    if feature_name.is_empty() {
+        return;
+    }
     for tname in &req.types {
-        if let Some(s) = reg.structs.get_mut(tname)
-            && !s.provided_by.contains(&feature_name.to_owned())
-        {
-            s.provided_by.push(feature_name.to_owned());
+        if let Some(ss) = reg.structs.get_mut(tname) {
+            for s in ss {
+                if !s.api.intersects(feature_api) { continue; }
+                if !s.provided_by.contains(&feature_name.to_owned()) {
+                    s.provided_by.push(feature_name.to_owned());
+                }
+            }
         }
-        if let Some(t) = reg.typedefs.get_mut(tname)
-            && !t.provided_by.contains(&feature_name.to_owned())
-        {
-            t.provided_by.push(feature_name.to_owned());
+        if let Some(tt) = reg.typedefs.get_mut(tname) {
+            for t in tt {
+                if !t.api.intersects(feature_api) { continue; }
+                if !t.provided_by.contains(&feature_name.to_owned()) {
+                    t.provided_by.push(feature_name.to_owned());
+                }
+            }
         }
-        if let Some(e) = reg.enums.get_mut(tname)
-            && !e.provided_by.contains(&feature_name.to_owned())
-        {
-            e.provided_by.push(feature_name.to_owned());
+        if let Some(ee) = reg.enums.get_mut(tname) {
+            for e in ee {
+                if !e.api.intersects(feature_api) { continue; }
+                if !e.provided_by.contains(&feature_name.to_owned()) {
+                    e.provided_by.push(feature_name.to_owned());
+                }
+            }
         }
     }
     for cname in &req.commands {
-        if let Some(c) = reg.commands.get_mut(cname)
-            && !c.provided_by.contains(&feature_name.to_owned())
-        {
-            c.provided_by.push(feature_name.to_owned());
+        if let Some(cc) = reg.commands.get_mut(cname) {
+            for c in cc {
+                if !c.api.intersects(feature_api) { continue; }
+                if !c.provided_by.contains(&feature_name.to_owned()) {
+                    c.provided_by.push(feature_name.to_owned());
+                }
+            }
         }
     }
 }
@@ -259,43 +319,47 @@ pub fn apply_require_extensions(reg: &mut Registry) {
         collect_extension_consts(&ext.requires, &ext.name, &mut ext_consts);
     }
     for (enum_name, variant) in to_add {
-        if let Some(e) = reg.enums.get_mut(&enum_name)
-            && !e.variants.iter().any(|v| v.name == variant.name)
-        {
-            e.variants.push(variant);
+        if let Some(ee) = reg.enums.get_mut(&enum_name) {
+            for e in ee {
+                if !e.variants.iter().any(|v| v.name == variant.name) {
+                    e.variants.push(variant.clone());
+                }
+            }
         }
     }
     for (source, constant) in ext_consts {
-        let entry = reg
-            .constants
-            .entry(constant.name.clone())
-            .or_insert(constant);
-        if !entry.provided_by.contains(&source) {
-            entry.provided_by.push(source);
+        let entries = reg.constants.entry(constant.name.clone()).or_default();
+        if entries.is_empty() {
+            entries.push(constant);
+        }
+        for entry in entries {
+            if !entry.provided_by.contains(&source) {
+                entry.provided_by.push(source.clone());
+            }
         }
     }
     let scrub = |v: &mut Vec<String>| {
         v.retain(|f| !disabled.contains(f));
     };
-    for td in reg.typedefs.values_mut() {
+    for td in reg.typedefs.values_mut().flatten() {
         scrub(&mut td.provided_by);
     }
-    for s in reg.structs.values_mut() {
+    for s in reg.structs.values_mut().flatten() {
         scrub(&mut s.provided_by);
     }
-    for e in reg.enums.values_mut() {
+    for e in reg.enums.values_mut().flatten() {
         scrub(&mut e.provided_by);
         for v in e.variants.iter_mut() {
             scrub(&mut v.provided_by);
         }
     }
-    for c in reg.commands.values_mut() {
+    for c in reg.commands.values_mut().flatten() {
         scrub(&mut c.provided_by);
     }
-    for c in reg.constants.values_mut() {
+    for c in reg.constants.values_mut().flatten() {
         scrub(&mut c.provided_by);
     }
-    for e in reg.enums.values_mut() {
+    for e in reg.enums.values_mut().flatten() {
         if e.provided_by.is_empty() {
             let mut inferred: Vec<String> = Vec::new();
             for v in &e.variants {
@@ -311,12 +375,13 @@ pub fn apply_require_extensions(reg: &mut Registry) {
     let opaque_names: Vec<String> = reg
         .typedefs
         .iter()
+        .flat_map(|(n, tds)| tds.iter().map(move |td| (n, td)))
         .filter(|(_, td)| td.provided_by.is_empty() && td.kind == TypedefKind::OpaqueExtern)
         .map(|(n, _)| n.clone())
         .collect();
     for tname in &opaque_names {
         let mut providers: Vec<String> = Vec::new();
-        for s in reg.structs.values() {
+        for s in reg.structs.values().flatten() {
             if s.provided_by.is_empty() {
                 continue;
             }
@@ -328,7 +393,7 @@ pub fn apply_require_extensions(reg: &mut Registry) {
                 }
             }
         }
-        for c in reg.commands.values() {
+        for c in reg.commands.values().flatten() {
             if c.provided_by.is_empty() {
                 continue;
             }
@@ -340,10 +405,12 @@ pub fn apply_require_extensions(reg: &mut Registry) {
                 }
             }
         }
-        if !providers.is_empty()
-            && let Some(td) = reg.typedefs.get_mut(tname)
-        {
-            td.provided_by = providers;
+        if !providers.is_empty() {
+            if let Some(tt) = reg.typedefs.get_mut(tname) {
+                for td in tt {
+                    td.provided_by = providers.clone();
+                }
+            }
         }
     }
 }

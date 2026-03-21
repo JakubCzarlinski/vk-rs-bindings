@@ -1791,17 +1791,22 @@ fn vksc_api_variant_emitted() {
     // We need to check that we feature gate the VK_HEADER_VERSION_COMPLETE definition on VKSC_VERSION_1_0, not just emit it unconditionally with the wrong value.
     let idx = f
         .consts_rs
-        .find("VK_HEADER_VERSION_COMPLETE: u32 =")
+        .find("VK_HEADER_VERSION_COMPLETE: u32 = VK_MAKE_API_VERSION(VKSC_API_VARIANT, 1, 0, VK_HEADER_VERSION)")
         .expect("VK_HEADER_VERSION_COMPLETE in consts.rs");
     let before = &f.consts_rs[idx.saturating_sub(150)..idx];
     assert!(
         before.contains("VKSC_VERSION_1_0"),
         "VK_HEADER_VERSION_COMPLETE must be gated by VKSC_VERSION_1_0;\nbefore: {before}"
     );
-    let after = &f.consts_rs[idx..idx.saturating_add(150)];
+    let idx = f
+        .consts_rs
+        .find("VK_HEADER_VERSION_COMPLETE: u32 = VK_MAKE_API_VERSION(0, 1, 4, VK_HEADER_VERSION)")
+        .expect("VK_HEADER_VERSION_COMPLETE definition in consts.rs");
+
+    let before = &f.consts_rs[idx.saturating_sub(150)..idx];
     assert!(
-        after.contains("VK_MAKE_API_VERSION(0, 1, 0, VK_HEADER_VERSION)"),
-        "VK_HEADER_VERSION_COMPLETE must be defined as VK_MAKE_API_VERSION(0, 1, 0, VK_HEADER_VERSION) when using vulkansc;\nafter: {after}"
+        before.contains("VK_BASE_VERSION_1_0"),
+        "VK_HEADER_VERSION_COMPLETE must have a fallback definition gated on VK_BASE_VERSION_1_0;\nbefore: {before}"
     );
 }
 

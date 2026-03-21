@@ -781,6 +781,45 @@ impl Registry {
         for list in self.constants.values_mut().flatten() {
             simplify(&mut list.provided_by);
         }
+
+        // Special fixups
+        let fix_pb = |name: &str, api: &ApiSet, pb: &mut Vec<String>| {
+            if name == "VK_MAKE_VIDEO_STD_VERSION" {
+                pb.clear();
+            }
+            if api.vulkansc && !api.vulkan && !api.vulkanbase {
+                for p in pb.iter_mut() {
+                    if p.starts_with("VK_BASE_VERSION_") {
+                        *p = p.replace("VK_BASE_VERSION_", "VKSC_VERSION_");
+                    }
+                }
+            }
+        };
+
+        for list in self.typedefs.values_mut().flatten() {
+            fix_pb(&list.name, &list.api, &mut list.provided_by);
+        }
+        for list in self.structs.values_mut().flatten() {
+            fix_pb(&list.name, &list.api, &mut list.provided_by);
+        }
+        for list in self.enums.values_mut().flatten() {
+            fix_pb(&list.name, &list.api, &mut list.provided_by);
+            for var in &mut list.variants {
+                let name = var.name.clone();
+                // Variant might not have full ApiSet, fallback to enum's api
+                // Actually, let's just use the enum's API for the variant.
+                fix_pb(&name, &list.api, &mut var.provided_by);
+            }
+        }
+        for list in self.commands.values_mut().flatten() {
+            fix_pb(&list.name, &list.api, &mut list.provided_by);
+        }
+        for list in self.constants.values_mut().flatten() {
+            // Constants don't have api field today, but that's fine
+            if list.name == "VK_MAKE_VIDEO_STD_VERSION" {
+                list.provided_by.clear();
+            }
+        }
     }
 
     pub fn all_feature_names(&self) -> Vec<String> {

@@ -12,6 +12,7 @@ fn make_registry() -> &'static ir::Registry {
         let mut reg = parser::parse_registry(VK_FIXTURE);
         parser::merge_registry(&mut reg, VK_VIDEO_FIXTURE);
         parser::apply_require_extensions(&mut reg);
+        reg.simplify_features();
         reg.remap_video_header_names();
         reg
     })
@@ -568,6 +569,15 @@ fn video_types_remapped_to_vk_feature() {
         .get("StdVideoH265LongTermRefPicsSps")
         .and_then(|v| v.first())
         .expect("StdVideoH265LongTermRefPicsSps");
+
+    println!("StdVideoH265LongTermRefPicsSps.provided_by = {:#?}", s);
+
+    assert!(
+        s.provided_by
+            .contains(&"VK_KHR_video_decode_h265".to_owned()),
+        "StdVideoH265LongTermRefPicsSps.provided_by should contain VK_KHR_video_decode_h265; got: {:?}",
+        s.provided_by
+    );
 }
 
 // -- New: disabled extension items scrubbed ------------------------------------
@@ -1865,21 +1875,25 @@ fn vksc_api_variant_emitted() {
     // We need to check that we feature gate the VK_HEADER_VERSION_COMPLETE definition on VKSC_VERSION_1_0, not just emit it unconditionally with the wrong value.
     let no_space: String = f.consts_rs.chars().filter(|c| !c.is_whitespace()).collect();
     assert!(
-        no_space.contains("VK_HEADER_VERSION_COMPLETE:u32=VK_MAKE_API_VERSION(VKSC_API_VARIANT,1,0,VK_HEADER_VERSION);"),
+        no_space.contains("VK_HEADER_VERSION_COMPLETE:u32=VK_MAKE_API_VERSION(VKSC_API_VARIANT,1,0,VK_HEADER_VERSION,"),
         "VK_HEADER_VERSION_COMPLETE with VKSC_API_VARIANT missing"
     );
-    let idx = f
-        .consts_rs
-        .find("VK_HEADER_VERSION_COMPLETE:")
-        .expect("found");
+    let idx = f.consts_rs.find("VKSC_API_VARIANT,").expect("found");
     let before = &f.consts_rs[idx.saturating_sub(150)..idx];
     assert!(
         before.contains("VKSC_VERSION_1_0"),
         "VK_HEADER_VERSION_COMPLETE must be gated by VKSC_VERSION_1_0;\nbefore: {before}"
     );
+    assert!(
+        no_space.contains(
+            "VK_HEADER_VERSION_COMPLETE:u32=VK_MAKE_API_VERSION(0,1,4,VK_HEADER_VERSION,"
+        ),
+        "VK_HEADER_VERSION_COMPLETE definition in consts.rs"
+    );
+
     let idx = f
         .consts_rs
-        .find("VK_HEADER_VERSION_COMPLETE: u32 = VK_MAKE_API_VERSION(0, 1, 4, VK_HEADER_VERSION)")
+        .find("VK_MAKE_API_VERSION(\n    0,\n")
         .expect("VK_HEADER_VERSION_COMPLETE definition in consts.rs");
 
     let before = &f.consts_rs[idx.saturating_sub(150)..idx];
@@ -1897,5 +1911,102 @@ fn pfn_command_cfg_is_strict() {
     assert!(
         f.commands_rs
             .contains("#[cfg(feature = \"VK_KHR_dynamic_rendering\")")
+    );
+
+    let idx = f
+        .commands_rs
+        .find("pub type PFN_vkCmdBeginRenderingKHR =")
+        .expect("PFN_vkCmdBeginRenderingKHR in commands.rs");
+    let before = &f.commands_rs[idx.saturating_sub(200)..idx];
+
+    assert!(
+        before.contains("feature = \"VK_KHR_dynamic_rendering\""),
+        "PFN_vkCmdBeginRenderingKHR must be gated by VK_KHR_dynamic_rendering;\nbefore: {before}"
+    );
+}
+
+#[test]
+fn correct_cfg_on_vulkansc_api() {
+    // <command api="vulkan,vulkanbase" export="vulkan" allownoqueues="true" successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_UNKNOWN,VK_ERROR_VALIDATION_FAILED">
+    //     <proto><type>VkResult</type> <name>vkCreatePipelineCache</name></proto>
+    //     <param><type>VkDevice</type> <name>device</name></param>
+    //     <param>const <type>VkPipelineCacheCreateInfo</type>* <name>pCreateInfo</name></param>
+    //     <param optional="true">const <type>VkAllocationCallbacks</type>* <name>pAllocator</name></param>
+    //     <param><type>VkPipelineCache</type>* <name>pPipelineCache</name></param>
+    // </command>
+    // <command api="vulkansc" export="vulkansc" allownoqueues="true" successcodes="VK_SUCCESS" errorcodes="VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_OUT_OF_DEVICE_MEMORY,VK_ERROR_INVALID_PIPELINE_CACHE_DATA,VK_ERROR_UNKNOWN,VK_ERROR_VALIDATION_FAILED">
+    //     <proto><type>VkResult</type> <name>vkCreatePipelineCache</name></proto>
+    //     <param><type>VkDevice</type> <name>device</name></param>
+    //     <param>const <type>VkPipelineCacheCreateInfo</type>* <name>pCreateInfo</name></param>
+    //     <param optional="true">const <type>VkAllocationCallbacks</type>* <name>pAllocator</name></param>
+    //     <param><type>VkPipelineCache</type>* <name>pPipelineCache</name></param>
+    // </command>
+
+    // This should result in:
+    // #[cfg(all(feature = "VK_COMPUTE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
+    // pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
+    //     device: VkDevice,
+    //     pCreateInfo: *const VkPipelineCacheCreateInfo,
+    //     pAllocator: *const VkAllocationCallbacks,
+    //     pPipelineCache: *mut VkPipelineCache,
+    // ) -> VkResult;
+    //
+    // #[cfg(feature = "VKSC_VERSION_1_0")]
+    // pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
+    //     device: VkDevice,
+    //     pCreateInfo: *const VkPipelineCacheCreateInfo,
+    //     pAllocator: *const VkAllocationCallbacks,
+    //     pPipelineCache: *mut VkPipelineCache,
+    // ) -> VkResult;
+    let reg = make_registry();
+
+    let pfn_vk_create_pipeline_cache = reg.typedefs.get("PFN_vkCreatePipelineCache");
+    if pfn_vk_create_pipeline_cache.is_none() {
+        panic!("PFN_vkCreatePipelineCache typedef not found in registry");
+    }
+    // Assert len = 2
+    let unwrapped = pfn_vk_create_pipeline_cache.unwrap();
+    if unwrapped.len() != 2 {
+        panic!(
+            "Expected 2 typedef entries for PFN_vkCreatePipelineCache, got {}",
+            unwrapped.len()
+        );
+    }
+
+    let first = unwrapped.first();
+    let second = unwrapped.last();
+    if first.is_none() || second.is_none() {
+        panic!("PFN_vkCreatePipelineCache typedef entries are empty");
+    }
+
+    // Verify that one entry is for VKSC_VERSION_1_0 and the other is for the non-VKSC case
+    let first = first.unwrap();
+    let second = second.unwrap();
+    let (vksc_entry, non_vksc_entry) = if first.provided_by.contains(&"VKSC_VERSION_1_0".to_owned())
+    {
+        (first, second)
+    } else if second.provided_by.contains(&"VKSC_VERSION_1_0".to_owned()) {
+        (second, first)
+    } else {
+        panic!("Neither PFN_vkCreatePipelineCache entry is gated on VKSC_VERSION_1_0");
+    };
+    // The VKSC entry should be gated on VKSC_VERSION_1_0
+    assert!(
+        vksc_entry
+            .provided_by
+            .contains(&"VKSC_VERSION_1_0".to_owned()),
+        "VKSC PFN_vkCreatePipelineCache entry must be gated on VKSC_VERSION_1_0; got {:?}",
+        vksc_entry.provided_by
+    );
+    // The non-VKSC entry should be gated on VK_COMPUTE_VERSION_1_0 and not VKSC_VERSION_1_0
+    assert!(
+        non_vksc_entry
+            .provided_by
+            .contains(&"VK_COMPUTE_VERSION_1_0".to_owned())
+            && !non_vksc_entry
+                .provided_by
+                .contains(&"VKSC_VERSION_1_0".to_owned()),
+        "Non-VKSC PFN_vkCreatePipelineCache entry must be gated on VK_COMPUTE_VERSION_1_0 and not VKSC_VERSION_1_0; got {:?}",
+        non_vksc_entry.provided_by
     );
 }

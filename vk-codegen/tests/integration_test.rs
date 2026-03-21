@@ -1750,8 +1750,7 @@ fn vk_header_version_const() {
     let f = generate();
     assert!(
         f.consts_rs.contains("VK_HEADER_VERSION: u32 = 346"),
-        "VK_HEADER_VERSION must be a plain u32 const = 346\n{}",
-        f.consts_rs
+        "VK_HEADER_VERSION must be a plain u32 const = 346 in consts.rs",
     );
 }
 

@@ -1,6 +1,6 @@
 //! Generates `#[cfg(...)]` token streams from `DepExpr` and feature-name lists.
 
-// #![allow(dead_code)]
+#![allow(dead_code)]
 
 use crate::ir::DepExpr;
 use proc_macro2::TokenStream;

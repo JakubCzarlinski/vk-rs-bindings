@@ -103,10 +103,17 @@ pub fn const_rust_type(xml_type: &str, value: &str) -> &'static str {
         "size_t" => "usize",
         _ => {
             let constant_value = value.trim();
-            if constant_value.ends_with('f') || constant_value.ends_with('F') || constant_value.contains('.') {
+            if constant_value.ends_with('f')
+                || constant_value.ends_with('F')
+                || constant_value.contains('.')
+            {
                 "f32"
             } else if constant_value.starts_with("0x") || constant_value.starts_with("0X") {
-                if constant_value.len() > 10 { "u64" } else { "u32" }
+                if constant_value.len() > 10 {
+                    "u64"
+                } else {
+                    "u32"
+                }
             } else {
                 "u32"
             }

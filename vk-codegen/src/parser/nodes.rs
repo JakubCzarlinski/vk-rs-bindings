@@ -1,6 +1,6 @@
 //! Helper functions for parsing XML nodes.
 
-use crate::ir::{ApiSet, CType, DeprecationInfo, EnumValue, Member};
+use crate::ir::{ApiSet, CType, DeprecationInfo, EnumValue, LimitType, Member, Optional};
 use roxmltree::Node;
 
 /// Parses an enum value node (e.g., bitpos, offset, or value) into an EnumValue.
@@ -15,41 +15,45 @@ use roxmltree::Node;
 /// - `EnumValue`: The parsed enum value representation.
 pub fn parse_enum_value_node(node: Node, ext_number: Option<u32>) -> EnumValue {
     if let Some(alias) = attr(node, "alias") {
+        // Alias to another enum value
         return EnumValue::Alias(alias.to_owned());
-    }
-    if let Some(bp) = attr(node, "bitpos") {
+    } else if let Some(bp) = attr(node, "bitpos") {
+        // Bit position specified as an integer
         return EnumValue::BitPos(bp.parse().unwrap_or(0));
-    }
-    if let Some(offset_str) = attr(node, "offset") {
+    } else if let Some(offset_str) = attr(node, "offset") {
+        // Offset specified - we need to calculate the actual value based on the extension number and offset
         let offset: u32 = offset_str.parse().unwrap_or(0);
         let extnumber: u32 = attr(node, "extnumber")
             .and_then(|s| s.parse().ok())
             .or(ext_number)
-            .unwrap_or(1);
+            .expect("Failed to parse extnumber attribute or ext_number was not provided");
+
         let negative = attr(node, "dir") == Some("-");
         return EnumValue::Offset {
             extnumber,
             offset,
             negative,
         };
-    }
-    if let Some(value) = attr(node, "value") {
+    } else if let Some(value) = attr(node, "value") {
+        // Value specified directly - could be a hex, decimal, or an expression
         let v = value.trim();
         if v.starts_with("0x") || v.starts_with("0X") {
             let hex_part = v.trim_start_matches("0x").trim_start_matches("0X");
             if let Ok(n) = u64::from_str_radix(hex_part, 16) {
                 return EnumValue::Hex(n);
             }
-        }
-        if v.starts_with('(') || v.starts_with('~') {
+        } else if v.starts_with('(') || v.starts_with('~') {
+            return EnumValue::Expr(v.to_owned());
+        } else if let Ok(n) = v.trim_end_matches(['U', 'u', 'L', 'l']).parse::<i64>() {
+            return EnumValue::Integer(n);
+        } else {
             return EnumValue::Expr(v.to_owned());
         }
-        if let Ok(n) = v.trim_end_matches(['U', 'u', 'L', 'l']).parse::<i64>() {
-            return EnumValue::Integer(n);
-        }
-        return EnumValue::Expr(v.to_owned());
     }
-    EnumValue::Integer(0)
+    panic!(
+        "Enum value node must have either 'alias', 'bitpos', 'offset', or 'value' attribute: {:?}",
+        node
+    );
 }
 
 /// Retrieves an attribute value from a node.
@@ -135,6 +139,39 @@ pub fn depr_info(node: Node) -> DeprecationInfo {
     }
 }
 
+/// Parses a boolean attribute that must be "true" or else panics.
+///
+/// Arguments:
+/// - `attr_name`: The attribute value to check.
+///
+/// Returns:
+/// - `bool`: True if the attribute is "true", otherwise panics.
+pub fn true_or_panic(attr_name: &str) -> bool {
+    if attr_name == "true" {
+        true
+    } else {
+        panic!("Expected 'true' for attribute, got '{}'", attr_name);
+    }
+}
+
+/// Parses a boolean attribute that can be "true", "false".
+///
+/// Arguments:
+/// - `attr_name`: The attribute value to check.
+///
+/// Returns:
+/// - `bool`: True if the attribute is "true", false if "false", otherwise panics.
+pub fn true_false_panic(attr_name: &str) -> bool {
+    match attr_name {
+        "true" => true,
+        "false" => false,
+        _ => panic!(
+            "Expected 'true' or 'false' for attribute, got '{}'",
+            attr_name
+        ),
+    }
+}
+
 /// Parses a member node.
 ///
 /// Arguments:
@@ -143,14 +180,22 @@ pub fn depr_info(node: Node) -> DeprecationInfo {
 /// Returns:
 /// - `Member`: The parsed member.
 pub fn parse_member(node: Node) -> Member {
+    let is_optional = if let Some(opt) = attr(node, "optional") {
+        Optional::parse(opt)
+    } else {
+        Optional::False
+    };
     Member {
         name: child_name(node).unwrap_or_default(),
         ty: parse_c_type(node),
-        optional: attr(node, "optional").is_some_and(|v| v.contains("true")),
+        optional: is_optional,
         len: attr(node, "len").map(str::to_owned),
         values: attr(node, "values").map(str::to_owned),
         api: attr(node, "api").map(ApiSet::parse),
         comment: attr(node, "comment").map(str::to_owned),
+        limit_type: attr(node, "limittype").map(LimitType::parse),
+        no_auto_validity: attr(node, "noautovalidity").is_some_and(true_or_panic),
+        object_type: attr(node, "objecttype").map(str::to_owned),
     }
 }
 

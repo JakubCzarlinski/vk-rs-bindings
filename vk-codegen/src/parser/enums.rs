@@ -1,6 +1,6 @@
 //! Parser for Vulkan enums.
 
-use crate::ir::{ApiSet, Constant, Enum, EnumVariant, Registry};
+use crate::ir::{ApiSet, Constant, DeprecationInfo, Enum, EnumVariant, Registry};
 use crate::parser::nodes::{attr, depr_info, parse_enum_value_node};
 use roxmltree::Node;
 
@@ -60,6 +60,7 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
         comment: comment.clone(),
         dep: None,
         provided_by: vec![],
+        depr: DeprecationInfo::default(),
     });
     entry.is_bitmask = is_bitmask;
     entry.bit_width = bit_width;

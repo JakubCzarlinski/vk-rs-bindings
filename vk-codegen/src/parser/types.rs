@@ -5,6 +5,7 @@ use crate::ir::{
 };
 use crate::parser::nodes::{
     api_set, attr, child_name, child_text, depr_info, parse_c_type, parse_member, text_of,
+    true_or_panic,
 };
 use crate::types::ctype_to_rust_str;
 use roxmltree::Node;
@@ -114,6 +115,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
         }
     }
 }
+
 /// Parses a struct or union type definition.
 fn parse_struct_union(
     node: Node,
@@ -140,7 +142,8 @@ fn parse_struct_union(
             alias,
             members,
             is_union,
-            returned_only: attr(node, "returnedonly") == Some("true"),
+            returned_only: attr(node, "returnedonly").is_some_and(true_or_panic),
+            required_limit_type: attr(node, "requiredlimittype").is_some_and(true_or_panic),
             struct_extends,
             api: aset,
             comment,
@@ -197,6 +200,7 @@ fn parse_enum(
         comment,
         dep,
         provided_by: vec![],
+        depr,
     });
 }
 

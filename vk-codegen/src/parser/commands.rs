@@ -1,7 +1,13 @@
 //! Parser for Vulkan commands.
 
-use crate::ir::{CType, Command, Registry, parse_dep_expr};
-use crate::parser::nodes::{api_set, attr, child_name, depr_info, parse_c_type, parse_member};
+use crate::ir::{
+    CType, CmdBufferLevel, Command, ExportScope, QueueType, Registry, RenderPass, TaskType,
+    parse_dep_expr,
+};
+use crate::parser::nodes::{
+    api_set, attr, child_name, depr_info, parse_c_type, parse_member, true_false_panic,
+    true_or_panic,
+};
 use roxmltree::Node;
 
 /// Parses a commands block from an XML node into the Registry.
@@ -38,6 +44,14 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
                         depr,
                         success_codes: vec![],
                         error_codes: vec![],
+                        contitional_rendering: false,
+                        render_pass: None,
+                        cmd_buffer_levels: vec![],
+                        tasks: vec![],
+                        extern_sync: None,
+                        allow_no_queues: false,
+                        queues: vec![],
+                        export: vec![],
                     },
                 );
             }
@@ -61,6 +75,11 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
             .filter(|n| n.is_element() && n.tag_name().name() == "param")
             .map(parse_member)
             .collect();
+        let render_pass = if let Some(rp) = attr(cn, "renderpass") {
+            Some(RenderPass::parse(rp))
+        } else {
+            None
+        };
         reg.commands.insert(
             name.clone(),
             Command {
@@ -78,6 +97,19 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
                     .unwrap_or_default(),
                 error_codes: attr(cn, "errorcodes")
                     .map(|s| s.split(',').map(str::to_owned).collect())
+                    .unwrap_or_default(),
+                contitional_rendering: attr(cn, "conditionalrendering")
+                    .is_some_and(true_false_panic),
+                render_pass: render_pass,
+                cmd_buffer_levels: attr(cn, "cmdbufferlevels")
+                    .map(CmdBufferLevel::parse)
+                    .unwrap_or_default(),
+                tasks: attr(cn, "tasks").map(TaskType::parse).unwrap_or_default(),
+                extern_sync: attr(cn, "externsync").map(str::to_owned),
+                allow_no_queues: attr(cn, "allownoqueues").is_some_and(true_or_panic),
+                queues: attr(cn, "queues").map(QueueType::parse).unwrap_or_default(),
+                export: attr(cn, "export")
+                    .map(ExportScope::parse)
                     .unwrap_or_default(),
             },
         );

@@ -165,7 +165,7 @@ impl ApiSet {
                 "vulkan" => a.vulkan = true,
                 "vulkansc" => a.vulkansc = true,
                 "vulkanbase" => a.vulkanbase = true,
-                _ => {}
+                _ => panic!("Unknown API set: `{part}`"),
             }
         }
         a
@@ -174,7 +174,7 @@ impl ApiSet {
 
 // -- C type --------------------------------------------------------------------
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct CType {
     pub is_const: bool,
     pub base: String,
@@ -194,16 +194,96 @@ impl CType {
 }
 
 // -- Member --------------------------------------------------------------------
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum LimitType {
+    /// Min limit
+    Min,
+    /// Max limit
+    Max,
+    /// Value must be exactly this.
+    Exact,
+    /// Cannot be trivially compared; must be manually validated in generators.
+    Noauto,
+    /// Power of two
+    Pot,
+    /// Multiplier
+    Mul,
+    /// Bit precision
+    Bits,
+    /// Bitmask corresponding presence of capabilities
+    Bitmask,
+    /// Min/max range
+    Range,
+    /// Member fields should be compared.
+    Struct,
+}
+
+impl LimitType {
+    pub fn parse(s: &str) -> Vec<LimitType> {
+        if s.trim().is_empty() {
+            return Vec::new();
+        }
+
+        let parts = s
+            .split(',')
+            .map(|part| match part {
+                "min" => LimitType::Min,
+                "max" => LimitType::Max,
+                "exact" => LimitType::Exact,
+                "noauto" => LimitType::Noauto,
+                "bits" => LimitType::Bits,
+                "pot" => LimitType::Pot,
+                "mul" => LimitType::Mul,
+                "bitmask" => LimitType::Bitmask,
+                "range" => LimitType::Range,
+                "struct" => LimitType::Struct,
+                _ => panic!("Unknown limit type: `{part}`"),
+            })
+            .collect();
+        parts
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Optional {
+    /// Param is required (default).
+    False,
+    /// Param is optional.
+    True,
+    /// Pointer and param are optional.
+    TrueTrue,
+    /// Pointer is optional, but if not null, values is required.
+    TrueFalse,
+
+    FalseTrue,
+}
+
+impl Optional {
+    pub fn parse(s: &str) -> Self {
+        match s.trim() {
+            "false" => Optional::False,
+            "true" => Optional::True,
+            "true,true" => Optional::TrueTrue,
+            "true,false" => Optional::TrueFalse,
+            "false,true" => Optional::FalseTrue,
+            _ => panic!("Unknown optional value: `{s}`"),
+        }
+    }
+}
 
 #[derive(Debug, Clone)]
 pub struct Member {
     pub name: String,
     pub ty: CType,
-    pub optional: bool,
+    pub optional: Optional,
     pub len: Option<String>,
     pub values: Option<String>,
     pub api: Option<ApiSet>,
     pub comment: Option<String>,
+    pub limit_type: Option<Vec<LimitType>>,
+    pub no_auto_validity: bool,
+    /// Name of member that represent an object handle.
+    pub object_type: Option<String>,
 }
 
 // -- Deprecation info ----------------------------------------------------------
@@ -284,6 +364,7 @@ pub struct Struct {
     pub members: Vec<Member>,
     pub is_union: bool,
     pub returned_only: bool,
+    pub required_limit_type: bool,
     pub struct_extends: Vec<String>,
     pub api: ApiSet,
     pub comment: Option<String>,
@@ -349,9 +430,116 @@ pub struct Enum {
     pub comment: Option<String>,
     pub dep: Option<DepExpr>,
     pub provided_by: Vec<String>,
+    pub depr: DeprecationInfo,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum QueueType {
+    Graphics,
+    Compute,
+    Transfer,
+    SparseBinding,
+    DataGraphArm,
+    VideoDecodeKHR,
+    VideoEncodeKHR,
+    OpticalFlowNV,
+}
+
+impl QueueType {
+    pub fn parse(s: &str) -> Vec<QueueType> {
+        s.split(',')
+            .map(|part| match part.trim() {
+                "VK_QUEUE_GRAPHICS_BIT" => QueueType::Graphics,
+                "VK_QUEUE_COMPUTE_BIT" => QueueType::Compute,
+                "VK_QUEUE_TRANSFER_BIT" => QueueType::Transfer,
+                "VK_QUEUE_SPARSE_BINDING_BIT" => QueueType::SparseBinding,
+                "VK_QUEUE_DATA_GRAPH_BIT_ARM" => QueueType::DataGraphArm,
+                "VK_QUEUE_VIDEO_DECODE_BIT_KHR" => QueueType::VideoDecodeKHR,
+                "VK_QUEUE_VIDEO_ENCODE_BIT_KHR" => QueueType::VideoEncodeKHR,
+                "VK_QUEUE_OPTICAL_FLOW_BIT_NV" => QueueType::OpticalFlowNV,
+                _ => panic!("Unknown queue type: `{part}`"),
+            })
+            .collect()
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum RenderPass {
+    Inside,
+    Outside,
+    Both,
+}
+
+impl RenderPass {
+    pub fn parse(s: &str) -> RenderPass {
+        match s.trim() {
+            "inside" => RenderPass::Inside,
+            "outside" => RenderPass::Outside,
+            "both" => RenderPass::Both,
+            _ => panic!("Unknown renderpass scope: `{s}`"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum CmdBufferLevel {
+    Primary,
+    Secondary,
+}
+
+impl CmdBufferLevel {
+    pub fn parse(s: &str) -> Vec<CmdBufferLevel> {
+        s.split(',')
+            .map(|part| match part.trim() {
+                "primary" => CmdBufferLevel::Primary,
+                "secondary" => CmdBufferLevel::Secondary,
+                _ => panic!("Unknown command buffer level: `{part}`"),
+            })
+            .collect()
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum TaskType {
+    State,
+    Action,
+    Indirection,
+    Synchronization,
+}
+
+impl TaskType {
+    pub fn parse(s: &str) -> Vec<TaskType> {
+        s.split(',')
+            .map(|part| match part.trim() {
+                "state" => TaskType::State,
+                "action" => TaskType::Action,
+                "indirection" => TaskType::Indirection,
+                "synchronization" => TaskType::Synchronization,
+                _ => panic!("Unknown task type: `{part}`"),
+            })
+            .collect()
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum ExportScope {
+    Vulkan,
+    VulkanSC,
+}
+
+impl ExportScope {
+    pub fn parse(s: &str) -> Vec<ExportScope> {
+        s.split(',')
+            .map(|part| match part.trim() {
+                "vulkan" => ExportScope::Vulkan,
+                "vulkansc" => ExportScope::VulkanSC,
+                _ => panic!("Unknown export scope: `{part}`"),
+            })
+            .collect()
+    }
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct Command {
     pub name: String,
     pub alias: Option<String>,
@@ -364,6 +552,26 @@ pub struct Command {
     pub depr: DeprecationInfo,
     pub success_codes: Vec<String>,
     pub error_codes: Vec<String>,
+
+    // Is affected by conditional rendering.
+    pub contitional_rendering: bool,
+
+    /// Can be used on a device with no queues, assumed false.
+    pub allow_no_queues: bool,
+
+    /// Which queue types this command can be submitted to.
+    pub queues: Vec<QueueType>,
+    /// inside, outside or both
+    pub render_pass: Option<RenderPass>,
+    /// primary, secondary
+    pub cmd_buffer_levels: Vec<CmdBufferLevel>,
+    /// state, action, indirection, synchronization
+    pub tasks: Vec<TaskType>,
+    /// true, maybe, some field name (eg pNameInfo-&gt;objectHandle), or false (default)
+    pub extern_sync: Option<String>,
+
+    // Vulkan or VulkanSC, or both. None represents all.
+    pub export: Vec<ExportScope>,
 }
 
 #[derive(Debug, Clone)]

@@ -132,7 +132,8 @@ fn parse_struct_fields() {
     let reg = make_registry();
     let ici = reg
         .structs
-        .get("VkInstanceCreateInfo").and_then(|v| v.first())
+        .get("VkInstanceCreateInfo")
+        .and_then(|v| v.first())
         .expect("VkInstanceCreateInfo");
     let names: Vec<_> = ici.members.iter().map(|m| m.name.as_str()).collect();
     assert!(names.contains(&"sType"));
@@ -145,7 +146,8 @@ fn parse_command_params() {
     let reg = make_registry();
     let ci = reg
         .commands
-        .get("vkCreateInstance").and_then(|v| v.first())
+        .get("vkCreateInstance")
+        .and_then(|v| v.first())
         .expect("vkCreateInstance");
     assert_eq!(ci.params.len(), 3);
     assert_eq!(ci.return_type.base, "VkResult");
@@ -154,7 +156,11 @@ fn parse_command_params() {
 #[test]
 fn parse_enum_variants() {
     let reg = make_registry();
-    let result = reg.enums.get("VkResult").and_then(|v| v.first()).expect("VkResult");
+    let result = reg
+        .enums
+        .get("VkResult")
+        .and_then(|v| v.first())
+        .expect("VkResult");
     let names: Vec<_> = result.variants.iter().map(|v| v.name.as_str()).collect();
     assert!(names.contains(&"VK_SUCCESS"));
     assert!(names.contains(&"VK_ERROR_OUT_OF_HOST_MEMORY"));
@@ -163,7 +169,11 @@ fn parse_enum_variants() {
 #[test]
 fn parse_bitmask_is_bitmask() {
     let reg = make_registry();
-    let qf = reg.enums.get("VkQueueFlagBits").and_then(|v| v.first()).expect("VkQueueFlagBits");
+    let qf = reg
+        .enums
+        .get("VkQueueFlagBits")
+        .and_then(|v| v.first())
+        .expect("VkQueueFlagBits");
     assert!(qf.is_bitmask);
     let names: Vec<_> = qf.variants.iter().map(|v| v.name.as_str()).collect();
     assert!(names.contains(&"VK_QUEUE_GRAPHICS_BIT"));
@@ -174,7 +184,8 @@ fn parse_64bit_bitmask() {
     let reg = make_registry();
     let ps = reg
         .enums
-        .get("VkPipelineStageFlagBits2").and_then(|v| v.first())
+        .get("VkPipelineStageFlagBits2")
+        .and_then(|v| v.first())
         .expect("VkPipelineStageFlagBits2");
     assert_eq!(ps.bit_width, 64);
 }
@@ -341,7 +352,11 @@ fn superseded_by_preserved() {
 fn offset_enum_values_in_generated_code() {
     let reg = make_registry();
     // After apply_require_extensions, VkStructureType should have the offset-derived variants
-    let stype = reg.enums.get("VkStructureType").and_then(|v| v.first()).expect("VkStructureType");
+    let stype = reg
+        .enums
+        .get("VkStructureType")
+        .and_then(|v| v.first())
+        .expect("VkStructureType");
     let map_info = stype
         .variants
         .iter()
@@ -409,7 +424,8 @@ fn superseded_command_has_depr_info() {
     let reg = make_registry();
     let cmd = reg
         .commands
-        .get("vkCreateRenderPass").and_then(|v| v.first())
+        .get("vkCreateRenderPass")
+        .and_then(|v| v.first())
         .expect("vkCreateRenderPass");
     assert!(
         cmd.depr.superseded_by.is_some(),
@@ -433,7 +449,8 @@ fn opaque_basetype_struct_parsed() {
     // "struct <n>ANativeWindow</n>;" should be parsed as OpaqueExtern
     let td = reg
         .typedefs
-        .get("ANativeWindow").and_then(|v| v.first())
+        .get("ANativeWindow")
+        .and_then(|v| v.first())
         .expect("ANativeWindow typedef");
     assert_eq!(
         td.kind,
@@ -449,7 +466,8 @@ fn objc_ifdef_basetype_parsed_as_opaque() {
     // The CAMetalLayer #ifdef block should parse as OpaqueExtern
     let td = reg
         .typedefs
-        .get("CAMetalLayer").and_then(|v| v.first())
+        .get("CAMetalLayer")
+        .and_then(|v| v.first())
         .expect("CAMetalLayer typedef");
     assert_eq!(
         td.kind,
@@ -488,7 +506,8 @@ fn video_struct_with_enum_array_size_parsed() {
     let reg = make_registry();
     let s = reg
         .structs
-        .get("StdVideoH265LongTermRefPicsSps").and_then(|v| v.first())
+        .get("StdVideoH265LongTermRefPicsSps")
+        .and_then(|v| v.first())
         .expect("StdVideoH265LongTermRefPicsSps");
     // Find the array member
     let arr_member = s
@@ -546,7 +565,8 @@ fn video_types_remapped_to_vk_feature() {
     let reg = make_registry();
     let s = reg
         .structs
-        .get("StdVideoH265LongTermRefPicsSps").and_then(|v| v.first())
+        .get("StdVideoH265LongTermRefPicsSps")
+        .and_then(|v| v.first())
         .expect("StdVideoH265LongTermRefPicsSps");
 }
 
@@ -597,7 +617,8 @@ fn api_variant_members_deduped_in_ir() {
     let reg = make_registry();
     let s = reg
         .structs
-        .get("VkPipelineShaderStageCreateInfo").and_then(|v| v.first())
+        .get("VkPipelineShaderStageCreateInfo")
+        .and_then(|v| v.first())
         .expect("VkPipelineShaderStageCreateInfo");
     // Both members present in raw IR
     let p_name_count = s.members.iter().filter(|m| m.name == "pName").count();
@@ -659,7 +680,8 @@ fn funcpointers_parsed() {
     let reg = make_registry();
     let pfn = reg
         .typedefs
-        .get("PFN_vkVoidFunction").and_then(|v| v.first())
+        .get("PFN_vkVoidFunction")
+        .and_then(|v| v.first())
         .expect("PFN_vkVoidFunction typedef");
     assert_eq!(
         pfn.kind,
@@ -669,7 +691,8 @@ fn funcpointers_parsed() {
 
     let pfn2 = reg
         .typedefs
-        .get("PFN_vkInternalAllocationNotification").and_then(|v| v.first())
+        .get("PFN_vkInternalAllocationNotification")
+        .and_then(|v| v.first())
         .expect("PFN_vkInternalAllocationNotification typedef");
     assert_eq!(pfn2.kind, vk_codegen::ir::TypedefKind::FuncPointer);
     // Encoded signature must have return type and parameters
@@ -1023,7 +1046,8 @@ fn pfn_fields_parse_as_funcpointer() {
     let reg = make_registry();
     let pfn = reg
         .typedefs
-        .get("PFN_vkVoidFunction").and_then(|v| v.first())
+        .get("PFN_vkVoidFunction")
+        .and_then(|v| v.first())
         .expect("PFN_vkVoidFunction");
     assert_eq!(pfn.kind, vk_codegen::ir::TypedefKind::FuncPointer);
 }
@@ -1111,9 +1135,17 @@ fn union_derives_copy_clone() {
 fn opaque_basetype_emitted_as_ptr_alias() {
     let reg = make_registry();
     // ANativeWindow and CAMetalLayer must be OpaqueExtern in the IR
-    let an = reg.typedefs.get("ANativeWindow").and_then(|v| v.first()).expect("ANativeWindow");
+    let an = reg
+        .typedefs
+        .get("ANativeWindow")
+        .and_then(|v| v.first())
+        .expect("ANativeWindow");
     assert_eq!(an.kind, vk_codegen::ir::TypedefKind::OpaqueExtern);
-    let ca = reg.typedefs.get("CAMetalLayer").and_then(|v| v.first()).expect("CAMetalLayer");
+    let ca = reg
+        .typedefs
+        .get("CAMetalLayer")
+        .and_then(|v| v.first())
+        .expect("CAMetalLayer");
     assert_eq!(ca.kind, vk_codegen::ir::TypedefKind::OpaqueExtern);
 }
 
@@ -1154,13 +1186,21 @@ fn opaque_types_emitted_as_newtype_handles() {
 fn platform_requires_types_parsed_as_opaque() {
     let reg = make_registry();
     // HWND, Display, etc. must be registered as OpaqueExtern
-    let hwnd = reg.typedefs.get("HWND").and_then(|v| v.first()).expect("HWND in typedefs");
+    let hwnd = reg
+        .typedefs
+        .get("HWND")
+        .and_then(|v| v.first())
+        .expect("HWND in typedefs");
     assert_eq!(
         hwnd.kind,
         vk_codegen::ir::TypedefKind::OpaqueExtern,
         "HWND should be OpaqueExtern"
     );
-    let display = reg.typedefs.get("Display").and_then(|v| v.first()).expect("Display in typedefs");
+    let display = reg
+        .typedefs
+        .get("Display")
+        .and_then(|v| v.first())
+        .expect("Display in typedefs");
     assert_eq!(
         display.kind,
         vk_codegen::ir::TypedefKind::OpaqueExtern,
@@ -1172,7 +1212,11 @@ fn platform_requires_types_parsed_as_opaque() {
 fn platform_types_gated_by_extension_feature() {
     let reg = make_registry();
     // HWND is required by VK_KHR_win32_surface in our fixture
-    let hwnd = reg.typedefs.get("HWND").and_then(|v| v.first()).expect("HWND");
+    let hwnd = reg
+        .typedefs
+        .get("HWND")
+        .and_then(|v| v.first())
+        .expect("HWND");
     assert!(
         hwnd.provided_by
             .contains(&"VK_KHR_win32_surface".to_owned()),
@@ -1236,7 +1280,11 @@ fn opaque_extern_fields_default_to_null_mut() {
     // Verify via classify_type that OpaqueExtern -> NullMutAlias path works.
     let reg = make_registry();
     // HWND is OpaqueExtern - look it up and verify kind
-    let hwnd = reg.typedefs.get("HWND").and_then(|v| v.first()).expect("HWND");
+    let hwnd = reg
+        .typedefs
+        .get("HWND")
+        .and_then(|v| v.first())
+        .expect("HWND");
     assert_eq!(hwnd.kind, vk_codegen::ir::TypedefKind::OpaqueExtern);
     // The generated output should use null_mut() for platform pointer types
     let f = generate();
@@ -1301,7 +1349,8 @@ fn enum_alias_fields_use_canonical_constructor() {
     // the IR level that enum alias is stored correctly.
     let e = reg
         .enums
-        .get("VkColorSpaceKHR").and_then(|v| v.first())
+        .get("VkColorSpaceKHR")
+        .and_then(|v| v.first())
         .expect("VkColorSpaceKHR in enums");
     assert!(
         e.alias.is_none(),
@@ -1358,11 +1407,15 @@ fn video_codec_types_not_opaque_extern() {
     // StdVideoH265ProfileIdc is a video enum - must NOT be OpaqueExtern
     let e = reg
         .enums
-        .get("StdVideoH265ProfileIdc").and_then(|v| v.first())
+        .get("StdVideoH265ProfileIdc")
+        .and_then(|v| v.first())
         .expect("StdVideoH265ProfileIdc must be in enums");
     // It's in reg.enums, not typedefs
     assert!(
-        reg.typedefs.get("StdVideoH265ProfileIdc").and_then(|v| v.first()).is_none(),
+        reg.typedefs
+            .get("StdVideoH265ProfileIdc")
+            .and_then(|v| v.first())
+            .is_none(),
         "StdVideoH265ProfileIdc must be in enums, not typedefs"
     );
     let _ = e;
@@ -1396,7 +1449,11 @@ fn platform_types_back_propagated_from_structs() {
     // The back-propagation pass must infer wl_display's provided_by from the struct.
     let reg = make_registry();
 
-    let wl = reg.typedefs.get("wl_display").and_then(|v| v.first()).expect("wl_display typedef");
+    let wl = reg
+        .typedefs
+        .get("wl_display")
+        .and_then(|v| v.first())
+        .expect("wl_display typedef");
     assert!(
         wl.provided_by
             .contains(&"VK_KHR_wayland_surface".to_owned()),
@@ -1411,7 +1468,11 @@ fn platform_types_back_propagated_from_explicit_require() {
     // Types explicitly listed in <require><type> must also get provided_by set.
     let reg = make_registry();
 
-    let display = reg.typedefs.get("Display").and_then(|v| v.first()).expect("Display typedef");
+    let display = reg
+        .typedefs
+        .get("Display")
+        .and_then(|v| v.first())
+        .expect("Display typedef");
     assert!(
         display
             .provided_by
@@ -1419,7 +1480,11 @@ fn platform_types_back_propagated_from_explicit_require() {
         "Display must have VK_KHR_xlib_surface in provided_by; got: {:?}",
         display.provided_by
     );
-    let hwnd = reg.typedefs.get("HWND").and_then(|v| v.first()).expect("HWND");
+    let hwnd = reg
+        .typedefs
+        .get("HWND")
+        .and_then(|v| v.first())
+        .expect("HWND");
     assert!(
         hwnd.provided_by
             .contains(&"VK_KHR_win32_surface".to_owned()),
@@ -1555,7 +1620,8 @@ fn video_defines_parsed() {
 
     let maker = reg
         .typedefs
-        .get("VK_MAKE_VIDEO_STD_VERSION").and_then(|v| v.first())
+        .get("VK_MAKE_VIDEO_STD_VERSION")
+        .and_then(|v| v.first())
         .expect("VK_MAKE_VIDEO_STD_VERSION must be in registry");
     assert_eq!(maker.kind, vk_codegen::ir::TypedefKind::Define);
     assert!(
@@ -1576,7 +1642,8 @@ fn video_defines_parsed() {
 
     let h264 = reg
         .typedefs
-        .get("VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0").and_then(|v| v.first())
+        .get("VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0")
+        .and_then(|v| v.first())
         .expect("H264 decode version constant must be in registry");
     assert!(
         h264.ty
@@ -1801,7 +1868,10 @@ fn vksc_api_variant_emitted() {
         no_space.contains("VK_HEADER_VERSION_COMPLETE:u32=VK_MAKE_API_VERSION(VKSC_API_VARIANT,1,0,VK_HEADER_VERSION);"),
         "VK_HEADER_VERSION_COMPLETE with VKSC_API_VARIANT missing"
     );
-    let idx = f.consts_rs.find("VK_HEADER_VERSION_COMPLETE:").expect("found");
+    let idx = f
+        .consts_rs
+        .find("VK_HEADER_VERSION_COMPLETE:")
+        .expect("found");
     let before = &f.consts_rs[idx.saturating_sub(150)..idx];
     assert!(
         before.contains("VKSC_VERSION_1_0"),

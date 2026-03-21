@@ -30,29 +30,29 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
 
         if alias.is_some() {
             if let Some(name) = name_attr {
-                reg.commands.entry(name.clone()).or_default().push(
-                    Command {
-                        name,
-                        alias,
-                        return_type: CType::simple("VkResult"),
-                        params: vec![],
-                        api: aset,
-                        comment,
-                        dep,
-                        provided_by: vec![],
-                        depr,
-                        success_codes: vec![],
-                        error_codes: vec![],
-                        contitional_rendering: false,
-                        render_pass: None,
-                        cmd_buffer_levels: vec![],
-                        tasks: vec![],
-                        extern_sync: None,
-                        allow_no_queues: false,
-                        queues: vec![],
-                        export: attr(cn, "export").map(ExportScope::parse).unwrap_or_default(),
-                    },
-                );
+                reg.commands.entry(name.clone()).or_default().push(Command {
+                    name,
+                    alias,
+                    return_type: CType::simple("VkResult"),
+                    params: vec![],
+                    api: aset,
+                    comment,
+                    dep,
+                    provided_by: vec![],
+                    depr,
+                    success_codes: vec![],
+                    error_codes: vec![],
+                    contitional_rendering: false,
+                    render_pass: None,
+                    cmd_buffer_levels: vec![],
+                    tasks: vec![],
+                    extern_sync: None,
+                    allow_no_queues: false,
+                    queues: vec![],
+                    export: attr(cn, "export")
+                        .map(ExportScope::parse)
+                        .unwrap_or_default(),
+                });
             }
             continue;
         }
@@ -74,42 +74,35 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
             .filter(|n| n.is_element() && n.tag_name().name() == "param")
             .map(parse_member)
             .collect();
-        let render_pass = if let Some(rp) = attr(cn, "renderpass") {
-            Some(RenderPass::parse(rp))
-        } else {
-            None
-        };
-        reg.commands.entry(name.clone()).or_default().push(
-            Command {
-                name,
-               alias,
-                return_type,
-                params,
-                api: aset,
-                comment,
-                dep,
-                provided_by: vec![],
-                depr,
-                success_codes: attr(cn, "successcodes")
-                    .map(|s| s.split(',').map(str::to_owned).collect())
-                    .unwrap_or_default(),
-                error_codes: attr(cn, "errorcodes")
-                    .map(|s| s.split(',').map(str::to_owned).collect())
-                    .unwrap_or_default(),
-                contitional_rendering: attr(cn, "conditionalrendering")
-                    .is_some_and(true_false_panic),
-                render_pass: render_pass,
-                cmd_buffer_levels: attr(cn, "cmdbufferlevels")
-                    .map(CmdBufferLevel::parse)
-                    .unwrap_or_default(),
-                tasks: attr(cn, "tasks").map(TaskType::parse).unwrap_or_default(),
-                extern_sync: attr(cn, "externsync").map(str::to_owned),
-                allow_no_queues: attr(cn, "allownoqueues").is_some_and(true_or_panic),
-                queues: attr(cn, "queues").map(QueueType::parse).unwrap_or_default(),
-                export: attr(cn, "export")
-                    .map(ExportScope::parse)
-                    .unwrap_or_default(),
-            },
-        );
+        let render_pass = attr(cn, "renderpass").map(RenderPass::parse);
+        reg.commands.entry(name.clone()).or_default().push(Command {
+            name,
+            alias,
+            return_type,
+            params,
+            api: aset,
+            comment,
+            dep,
+            provided_by: vec![],
+            depr,
+            success_codes: attr(cn, "successcodes")
+                .map(|s| s.split(',').map(str::to_owned).collect())
+                .unwrap_or_default(),
+            error_codes: attr(cn, "errorcodes")
+                .map(|s| s.split(',').map(str::to_owned).collect())
+                .unwrap_or_default(),
+            contitional_rendering: attr(cn, "conditionalrendering").is_some_and(true_false_panic),
+            render_pass,
+            cmd_buffer_levels: attr(cn, "cmdbufferlevels")
+                .map(CmdBufferLevel::parse)
+                .unwrap_or_default(),
+            tasks: attr(cn, "tasks").map(TaskType::parse).unwrap_or_default(),
+            extern_sync: attr(cn, "externsync").map(str::to_owned),
+            allow_no_queues: attr(cn, "allownoqueues").is_some_and(true_or_panic),
+            queues: attr(cn, "queues").map(QueueType::parse).unwrap_or_default(),
+            export: attr(cn, "export")
+                .map(ExportScope::parse)
+                .unwrap_or_default(),
+        });
     }
 }

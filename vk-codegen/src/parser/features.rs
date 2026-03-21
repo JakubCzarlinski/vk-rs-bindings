@@ -22,8 +22,7 @@ pub fn parse_feature(node: Node, reg: &mut Registry) {
 
     let mut requires = Vec::new();
     for rn in node.children().filter(|n| {
-        n.is_element()
-            && (n.tag_name().name() == "require" || n.tag_name().name() == "deprecate")
+        n.is_element() && (n.tag_name().name() == "require" || n.tag_name().name() == "deprecate")
     }) {
         let req = parse_require(rn, None);
         if rn.tag_name().name() == "require" {
@@ -189,7 +188,9 @@ pub fn mark_provided_with_depr(
                 let fname = feature_name.to_owned();
                 if let Some(ss) = reg.structs.get_mut(item_name) {
                     for s in ss {
-                        if !s.api.intersects(feature_api) { continue; }
+                        if !s.api.intersects(feature_api) {
+                            continue;
+                        }
                         if !fname.is_empty() {
                             s.provided_by.push(fname.clone());
                         }
@@ -203,7 +204,9 @@ pub fn mark_provided_with_depr(
                 }
                 if let Some(tt) = reg.typedefs.get_mut(item_name) {
                     for t in tt {
-                        if !t.api.intersects(feature_api) { continue; }
+                        if !t.api.intersects(feature_api) {
+                            continue;
+                        }
                         if !fname.is_empty() {
                             t.provided_by.push(fname.clone());
                         }
@@ -217,7 +220,9 @@ pub fn mark_provided_with_depr(
                 }
                 if let Some(ee) = reg.enums.get_mut(item_name) {
                     for e in ee {
-                        if !e.api.intersects(feature_api) { continue; }
+                        if !e.api.intersects(feature_api) {
+                            continue;
+                        }
                         if !fname.is_empty() {
                             e.provided_by.push(fname.clone());
                         }
@@ -234,7 +239,9 @@ pub fn mark_provided_with_depr(
                 let fname = feature_name.to_owned();
                 if let Some(cc) = reg.commands.get_mut(item_name) {
                     for c in cc {
-                        if !c.api.intersects(feature_api) { continue; }
+                        if !c.api.intersects(feature_api) {
+                            continue;
+                        }
                         if !fname.is_empty() {
                             c.provided_by.push(fname.clone());
                         }
@@ -256,7 +263,9 @@ pub fn mark_provided_with_depr(
     for tname in &req.types {
         if let Some(ss) = reg.structs.get_mut(tname) {
             for s in ss {
-                if !s.api.intersects(feature_api) { continue; }
+                if !s.api.intersects(feature_api) {
+                    continue;
+                }
                 if !s.provided_by.contains(&feature_name.to_owned()) {
                     s.provided_by.push(feature_name.to_owned());
                 }
@@ -264,7 +273,9 @@ pub fn mark_provided_with_depr(
         }
         if let Some(tt) = reg.typedefs.get_mut(tname) {
             for t in tt {
-                if !t.api.intersects(feature_api) { continue; }
+                if !t.api.intersects(feature_api) {
+                    continue;
+                }
                 if !t.provided_by.contains(&feature_name.to_owned()) {
                     t.provided_by.push(feature_name.to_owned());
                 }
@@ -272,7 +283,9 @@ pub fn mark_provided_with_depr(
         }
         if let Some(ee) = reg.enums.get_mut(tname) {
             for e in ee {
-                if !e.api.intersects(feature_api) { continue; }
+                if !e.api.intersects(feature_api) {
+                    continue;
+                }
                 if !e.provided_by.contains(&feature_name.to_owned()) {
                     e.provided_by.push(feature_name.to_owned());
                 }
@@ -282,7 +295,9 @@ pub fn mark_provided_with_depr(
     for cname in &req.commands {
         if let Some(cc) = reg.commands.get_mut(cname) {
             for c in cc {
-                if !c.api.intersects(feature_api) { continue; }
+                if !c.api.intersects(feature_api) {
+                    continue;
+                }
                 if !c.provided_by.contains(&feature_name.to_owned()) {
                     c.provided_by.push(feature_name.to_owned());
                 }
@@ -405,13 +420,12 @@ pub fn apply_require_extensions(reg: &mut Registry) {
                 }
             }
         }
-        if !providers.is_empty() {
-            if let Some(tt) = reg.typedefs.get_mut(tname) {
+        if !providers.is_empty()
+            && let Some(tt) = reg.typedefs.get_mut(tname) {
                 for td in tt {
                     td.provided_by = providers.clone();
                 }
             }
-        }
     }
 }
 

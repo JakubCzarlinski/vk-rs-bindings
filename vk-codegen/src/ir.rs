@@ -172,7 +172,9 @@ impl ApiSet {
     }
 
     pub fn intersects(&self, other: &ApiSet) -> bool {
-        (self.vulkan && other.vulkan) || (self.vulkansc && other.vulkansc) || (self.vulkanbase && other.vulkanbase)
+        (self.vulkan && other.vulkan)
+            || (self.vulkansc && other.vulkansc)
+            || (self.vulkanbase && other.vulkanbase)
     }
 }
 
@@ -228,7 +230,8 @@ impl LimitType {
             return Vec::new();
         }
 
-        let parts = s
+        
+        s
             .split(',')
             .map(|part| match part {
                 "min" => LimitType::Min,
@@ -243,8 +246,7 @@ impl LimitType {
                 "struct" => LimitType::Struct,
                 _ => panic!("Unknown limit type: `{part}`"),
             })
-            .collect();
-        parts
+            .collect()
     }
 }
 
@@ -737,30 +739,48 @@ impl Registry {
         let deps = self.transitive_deps();
 
         let simplify = |v: &mut Vec<String>| {
-            if v.len() <= 1 { return; }
+            if v.len() <= 1 {
+                return;
+            }
             let mut keep = Vec::new();
             for feat in v.iter() {
                 // Keep this feature if it does NOT transitively depend on any OTHER feature present in `v`.
                 // EXCEPTION: Always keep "VK_VERSION_...", "VKSC_VERSION_...", "VK_BASE_VERSION_..."
-                if feat.starts_with("VK_VERSION_") || feat.starts_with("VKSC_VERSION_") || feat.starts_with("VK_BASE_VERSION_") {
+                if feat.starts_with("VK_VERSION_")
+                    || feat.starts_with("VKSC_VERSION_")
+                    || feat.starts_with("VK_BASE_VERSION_")
+                {
                     keep.push(feat.clone());
                     continue;
                 }
-                if !v.iter().any(|f2| f2 != feat && deps.get(feat).is_some_and(|d| d.contains(f2))) {
+                if !v
+                    .iter()
+                    .any(|f2| f2 != feat && deps.get(feat).is_some_and(|d| d.contains(f2)))
+                {
                     keep.push(feat.clone());
                 }
             }
             *v = keep;
         };
 
-        for list in self.typedefs.values_mut().flatten() { simplify(&mut list.provided_by); }
-        for list in self.structs.values_mut().flatten() { simplify(&mut list.provided_by); }
+        for list in self.typedefs.values_mut().flatten() {
+            simplify(&mut list.provided_by);
+        }
+        for list in self.structs.values_mut().flatten() {
+            simplify(&mut list.provided_by);
+        }
         for list in self.enums.values_mut().flatten() {
             simplify(&mut list.provided_by);
-            for var in &mut list.variants { simplify(&mut var.provided_by); }
+            for var in &mut list.variants {
+                simplify(&mut var.provided_by);
+            }
         }
-        for list in self.commands.values_mut().flatten() { simplify(&mut list.provided_by); }
-        for list in self.constants.values_mut().flatten() { simplify(&mut list.provided_by); }
+        for list in self.commands.values_mut().flatten() {
+            simplify(&mut list.provided_by);
+        }
+        for list in self.constants.values_mut().flatten() {
+            simplify(&mut list.provided_by);
+        }
     }
 
     pub fn all_feature_names(&self) -> Vec<String> {

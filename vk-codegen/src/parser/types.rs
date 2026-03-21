@@ -62,19 +62,17 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
             "define" => parse_define(type_node, reg, name, alias, comment, dep, aset, depr),
             _ => {
                 if alias.is_some() {
-                    reg.typedefs.entry(name.clone()).or_default().push(
-                        Typedef {
-                            name,
-                            alias,
-                            ty: None,
-                            kind: TypedefKind::Alias,
-                            api: aset,
-                            comment,
-                            dep,
-                            depr,
-                            provided_by: vec![],
-                        },
-                    );
+                    reg.typedefs.entry(name.clone()).or_default().push(Typedef {
+                        name,
+                        alias,
+                        ty: None,
+                        kind: TypedefKind::Alias,
+                        api: aset,
+                        comment,
+                        dep,
+                        depr,
+                        provided_by: vec![],
+                    });
                 } else if let Some(req) = attr(type_node, "requires")
                     && [
                         "windows.h",
@@ -95,19 +93,17 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
                     .iter()
                     .any(|s| req.contains(s))
                 {
-                    reg.typedefs.entry(name.clone()).or_default().push(
-                        Typedef {
-                            name,
-                            alias: None,
-                            ty: None,
-                            kind: TypedefKind::OpaqueExtern,
-                            api: aset,
-                            comment,
-                            dep,
-                            depr,
-                            provided_by: vec![],
-                        },
-                    );
+                    reg.typedefs.entry(name.clone()).or_default().push(Typedef {
+                        name,
+                        alias: None,
+                        ty: None,
+                        kind: TypedefKind::OpaqueExtern,
+                        api: aset,
+                        comment,
+                        dep,
+                        depr,
+                        provided_by: vec![],
+                    });
                 }
             }
         }
@@ -133,22 +129,20 @@ fn parse_struct_union(
     let struct_extends = attr(node, "structextends")
         .map(|s| s.split(',').map(str::to_owned).collect())
         .unwrap_or_default();
-    reg.structs.entry(name.clone()).or_default().push(
-        Struct {
-            name,
-            alias,
-            members,
-            is_union,
-            returned_only: attr(node, "returnedonly").is_some_and(true_or_panic),
-            required_limit_type: attr(node, "requiredlimittype").is_some_and(true_or_panic),
-            struct_extends,
-            api: aset,
-            comment,
-            dep,
-            provided_by: vec![],
-            depr: depr_info(node),
-        },
-    );
+    reg.structs.entry(name.clone()).or_default().push(Struct {
+        name,
+        alias,
+        members,
+        is_union,
+        returned_only: attr(node, "returnedonly").is_some_and(true_or_panic),
+        required_limit_type: attr(node, "requiredlimittype").is_some_and(true_or_panic),
+        struct_extends,
+        api: aset,
+        comment,
+        dep,
+        provided_by: vec![],
+        depr: depr_info(node),
+    });
 }
 
 /// Parses a handle type definition.
@@ -161,19 +155,17 @@ fn parse_handle(
     aset: ApiSet,
     depr: DeprecationInfo,
 ) {
-    reg.typedefs.entry(name.clone()).or_default().push(
-        Typedef {
-            name,
-            alias,
-            ty: Some("u64".into()),
-            kind: TypedefKind::Handle,
-            api: aset,
-            comment,
-            dep,
-            depr,
-            provided_by: vec![],
-        },
-    );
+    reg.typedefs.entry(name.clone()).or_default().push(Typedef {
+        name,
+        alias,
+        ty: Some("u64".into()),
+        kind: TypedefKind::Handle,
+        api: aset,
+        comment,
+        dep,
+        depr,
+        provided_by: vec![],
+    });
 }
 
 /// Parses an enum type definition.
@@ -214,19 +206,17 @@ fn parse_bitmask(
     depr: DeprecationInfo,
 ) {
     let underlying = child_text(node, "type").unwrap_or_else(|| "VkFlags".into());
-    reg.typedefs.entry(name.clone()).or_default().push(
-        Typedef {
-            name,
-            alias,
-            ty: Some(underlying),
-            kind: TypedefKind::Bitmask,
-            api: aset,
-            comment,
-            dep,
-            depr,
-            provided_by: vec![],
-        },
-    );
+    reg.typedefs.entry(name.clone()).or_default().push(Typedef {
+        name,
+        alias,
+        ty: Some(underlying),
+        kind: TypedefKind::Bitmask,
+        api: aset,
+        comment,
+        dep,
+        depr,
+        provided_by: vec![],
+    });
 }
 
 /// Parses a base type definition.
@@ -259,19 +249,17 @@ fn parse_basetype(
             (TypedefKind::Basetype, Some(stripped.trim().to_owned()))
         }
     };
-    reg.typedefs.entry(name.clone()).or_default().push(
-        Typedef {
-            name,
-            alias,
-            ty,
-            kind,
-            api: aset,
-            comment,
-            dep,
-            depr,
-            provided_by: vec![],
-        },
-    );
+    reg.typedefs.entry(name.clone()).or_default().push(Typedef {
+        name,
+        alias,
+        ty,
+        kind,
+        api: aset,
+        comment,
+        dep,
+        depr,
+        provided_by: vec![],
+    });
 }
 
 /// Parses a function pointer type definition.
@@ -301,19 +289,17 @@ fn parse_funcpointer(
             )
         })
         .collect();
-    reg.typedefs.entry(name.clone()).or_default().push(
-        Typedef {
-            name,
-            alias,
-            ty: Some(format!("{}|{}", ret_rust, params.join(","))),
-            kind: TypedefKind::FuncPointer,
-            api: aset,
-            comment,
-            dep,
-            depr,
-            provided_by: vec![],
-        },
-    );
+    reg.typedefs.entry(name.clone()).or_default().push(Typedef {
+        name,
+        alias,
+        ty: Some(format!("{}|{}", ret_rust, params.join(","))),
+        kind: TypedefKind::FuncPointer,
+        api: aset,
+        comment,
+        dep,
+        depr,
+        provided_by: vec![],
+    });
 }
 
 /// Parses a define type definition.
@@ -396,17 +382,15 @@ fn parse_define(
             }
         }
     };
-    reg.typedefs.entry(name.clone()).or_default().push(
-        Typedef {
-            name,
-            alias,
-            ty: ty_field,
-            kind: TypedefKind::Define,
-            api: aset,
-            comment,
-            dep,
-            depr,
-            provided_by: vec![],
-        },
-    );
+    reg.typedefs.entry(name.clone()).or_default().push(Typedef {
+        name,
+        alias,
+        ty: ty_field,
+        kind: TypedefKind::Define,
+        api: aset,
+        comment,
+        dep,
+        depr,
+        provided_by: vec![],
+    });
 }

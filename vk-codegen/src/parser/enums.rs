@@ -34,8 +34,10 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
             let value = attr(en, "value").unwrap_or("0").to_owned();
             let ty = attr(en, "type").unwrap_or("u32").to_owned();
             let depr = depr_info(en);
-            reg.constants.entry(ename.clone()).or_default().push(
-                Constant {
+            reg.constants
+                .entry(ename.clone())
+                .or_default()
+                .push(Constant {
                     name: ename,
                     value,
                     ty,
@@ -43,13 +45,12 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
                     comment: attr(en, "comment").map(str::to_owned),
                     provided_by: vec![],
                     depr,
-                },
-            );
+                });
         }
         return;
     }
 
-    let mut entries = reg.enums.entry(name.clone()).or_default();
+    let entries = reg.enums.entry(name.clone()).or_default();
     if entries.is_empty() {
         entries.push(Enum {
             name: name.clone(),
@@ -64,7 +65,7 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
             depr: DeprecationInfo::default(),
         });
     }
-    let mut entry = entries.last_mut().unwrap();
+    let entry = entries.last_mut().unwrap();
     entry.is_bitmask = is_bitmask;
     entry.bit_width = bit_width;
     if entry.comment.is_none() {

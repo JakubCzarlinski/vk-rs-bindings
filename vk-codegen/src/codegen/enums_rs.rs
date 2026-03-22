@@ -6,11 +6,18 @@ use quote::{format_ident, quote};
 use std::collections::{BTreeMap, HashSet};
 
 pub fn gen_enums_rs(reg: &Registry) -> String {
+    let disabled: HashSet<String> = reg
+        .extensions
+        .iter()
+        .filter(|e| e.is_disabled())
+        .map(|e| e.name.clone())
+        .collect();
+
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
 
     let mut seen_features = HashSet::new();
     for e in reg.enums.values().flatten() {
-        let token_stream = gen_enum(e);
+        let token_stream = gen_enum(e, &disabled);
         if token_stream.is_empty() {
             continue;
         }
@@ -20,7 +27,8 @@ pub fn gen_enums_rs(reg: &Registry) -> String {
             .provided_by
             .iter()
             .chain(e.variants.iter().flat_map(|v| v.provided_by.iter()))
-            .filter(|&feature| seen_features.insert(feature))
+            .filter(|&feature| !disabled.contains(feature))
+            .filter(|&feature| seen_features.insert(feature.clone()))
             .cloned()
             .collect();
 
@@ -47,16 +55,33 @@ pub fn gen_enums_rs(reg: &Registry) -> String {
     pretty(ts)
 }
 
-fn gen_enum(e: &Enum) -> TokenStream {
-    let mut all_feats: Vec<String> = e.provided_by.clone();
-    for variant in &e.variants {
+fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
+    // Filter variants to those that are enabled or core.
+    let variants: Vec<_> = e
+        .variants
+        .iter()
+        .filter(|v| v.provided_by.is_empty() || v.provided_by.iter().any(|f| !disabled.contains(f)))
+        .cloned()
+        .collect();
+
+    // Features for the enum: its own enabled providers + enabled providers of its kept variants.
+    let mut all_feats: Vec<String> = e
+        .provided_by
+        .iter()
+        .filter(|f| !disabled.contains(*f))
+        .cloned()
+        .collect();
+    for variant in &variants {
         for feature in &variant.provided_by {
-            if !all_feats.contains(feature) {
+            if !disabled.contains(feature) && !all_feats.contains(feature) {
                 all_feats.push(feature.clone());
             }
         }
     }
-    if all_feats.is_empty() && e.variants.is_empty() {
+
+    // If the enum was introduced by an extension (non-empty provided_by) but all its providers
+    // and variants are disabled, skip it entirely.
+    if !e.provided_by.is_empty() && all_feats.is_empty() && variants.is_empty() {
         return quote! {};
     }
 
@@ -80,7 +105,7 @@ fn gen_enum(e: &Enum) -> TokenStream {
     }
 
     if e.is_bitmask {
-        return gen_bitmask_type(e, cfg, name, doc, &all_feats, depr);
+        return gen_bitmask_type(e, cfg, name, doc, &all_feats, depr, disabled);
     }
 
     let inner = if e.bit_width == 64 {
@@ -91,18 +116,23 @@ fn gen_enum(e: &Enum) -> TokenStream {
     let mut variant_token_stream = TokenStream::new();
     let mut seen_features: HashSet<String> = HashSet::new();
 
-    for variant in &e.variants {
+    for variant in variants {
         if !seen_features.insert(variant.name.clone()) {
             continue;
         }
         let variant_name = format_ident!("{}", &variant.name);
         let variant_doc = variant.comment.as_deref().unwrap_or("");
         let variant_depr = deprecate_attr(&variant.depr);
-        let mut variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats
-        {
+        let v_feats: Vec<_> = variant
+            .provided_by
+            .iter()
+            .filter(|f| !disabled.contains(*f))
+            .cloned()
+            .collect();
+        let mut variant_cfg = if v_feats.is_empty() || v_feats == all_feats {
             quote! {}
         } else {
-            cfg_any(&variant.provided_by)
+            cfg_any(&v_feats)
         };
 
         if let Some(ref aset) = variant.api {
@@ -139,6 +169,7 @@ fn gen_bitmask_type(
     doc: String,
     all_feats: &[String],
     depr: TokenStream,
+    disabled: &HashSet<String>,
 ) -> TokenStream {
     let inner = if e.bit_width == 64 {
         quote! {u64}
@@ -156,11 +187,16 @@ fn gen_bitmask_type(
         let variant_name = format_ident!("{}", &variant.name);
         let variant_doc = variant.comment.as_deref().unwrap_or("");
         let variant_depr = deprecate_attr(&variant.depr);
-        let mut variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats
-        {
+        let v_feats: Vec<_> = variant
+            .provided_by
+            .iter()
+            .filter(|f| !disabled.contains(*f))
+            .cloned()
+            .collect();
+        let mut variant_cfg = if v_feats.is_empty() || v_feats == all_feats {
             quote! {}
         } else {
-            cfg_any(&variant.provided_by)
+            cfg_any(&v_feats)
         };
 
         if let Some(ref aset) = variant.api {

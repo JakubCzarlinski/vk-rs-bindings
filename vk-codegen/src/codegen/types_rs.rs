@@ -253,25 +253,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             quote! { VkStructureType::#const_name }
         });
 
-    // Deduplicate api-variant members (vulkan wins over vulkansc)
-    let deduped: Vec<&Member> = {
-        let mut seen: Vec<&str> = Vec::new();
-        let mut out: Vec<&Member> = Vec::new();
-        for m in &s.members {
-            if m.name.is_empty() {
-                continue;
-            }
-            if seen.contains(&m.name.as_str()) {
-                continue;
-            }
-            seen.push(&m.name);
-            out.push(m);
-        }
-        out
-    };
-
     // Build field token streams
-    let field_toks: TokenStream = deduped
+    let field_toks: TokenStream = s.members
         .iter()
         .map(|m| {
             let fname = format_ident!("{}", sanitize_ident(&m.name));
@@ -329,7 +312,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
 
     // Build default expressions for impl block
     let mut needs_unsafe = false;
-    let default_fields: Vec<TokenStream> = deduped
+    let default_fields: Vec<TokenStream> = s.members
         .iter()
         .filter(|m| !(m.name == "sType" && stype_default.is_some()))
         .map(|m| {
@@ -338,24 +321,37 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             if !safe {
                 needs_unsafe = true;
             }
+
+            let fcfg = if let Some(ref aset) = m.api {
+                if aset.vulkansc && !aset.vulkan {
+                    quote! { #[cfg(feature = "VKSC_VERSION_1_0")] }
+                } else if aset.vulkan && !aset.vulkansc {
+                    quote! { #[cfg(not(feature = "VKSC_VERSION_1_0"))] }
+                } else {
+                    quote! {}
+                }
+            } else {
+                quote! {}
+            };
+
             let def = parse_expr(&def_str);
-            quote! { #fname: #def, }
+            quote! { #fcfg #fname: #def, }
         })
         .collect();
     let default_body: TokenStream = default_fields.into_iter().collect();
 
     if s.is_union {
         // Union: Copy+Clone derive, manual Debug, unsafe const DEFAULT
-        let first_fname = deduped
+        let first_fname = s.members
             .first()
             .map(|m| format_ident!("{}", sanitize_ident(&m.name)))
             .unwrap_or_else(|| format_ident!("_"));
-        let first_ftype = deduped
+        let first_ftype = s.members
             .first()
             .map(|m| parse_ty(&ctype_to_rust_str(&m.ty)))
             .unwrap_or_else(|| quote! { u8 });
         let name_str = s.name.as_str();
-        let fname_str = deduped.first().map(|m| m.name.as_str()).unwrap_or("_");
+        let fname_str = s.members.first().map(|m| m.name.as_str()).unwrap_or("_");
         quote! {
             #[doc = #doc] #cfg #depr
             #[repr(C)]

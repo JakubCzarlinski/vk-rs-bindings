@@ -30,3 +30,4 @@ __MACOSX
 *.svg
 registry/
 *.log
+*.dot

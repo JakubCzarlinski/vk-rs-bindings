@@ -4,7 +4,7 @@ use crate::ir::{Member, Registry, Struct, Typedef, TypedefKind};
 use crate::types::{c_type_to_rust, ctype_to_rust_str};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 
 /// Parse a Rust type string into a TokenStream, falling back to a raw identifier.
 fn parse_ty(s: &str) -> TokenStream {
@@ -26,11 +26,13 @@ pub fn gen_types_rs(reg: &Registry) -> String {
     // evaluates each unique cfg expression once rather than per-item.
 
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
+    let mut seen = HashSet::new();
 
     for td in reg.typedefs.values().flatten() {
-        if td.provided_by.is_empty() {
+        if td.provided_by.is_empty() || seen.contains(&td.name) {
             continue;
         }
+        seen.insert(td.name.clone());
         let ts = gen_typedef_ts(td);
         if !ts.is_empty() {
             groups
@@ -40,9 +42,10 @@ pub fn gen_types_rs(reg: &Registry) -> String {
         }
     }
     for s in reg.structs.values().flatten() {
-        if s.provided_by.is_empty() {
+        if s.provided_by.is_empty() || seen.contains(&s.name) {
             continue;
         }
+        seen.insert(s.name.clone());
         let ts = gen_struct_ts(s, reg);
         if !ts.is_empty() {
             groups

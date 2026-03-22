@@ -3,6 +3,7 @@ use crate::codegen::pretty;
 use crate::ir::Registry;
 use proc_macro2::{Literal, TokenStream};
 use quote::{format_ident, quote};
+use std::collections::BTreeMap;
 
 pub fn gen_loader_rs(reg: &Registry) -> String {
     let mut ts = TokenStream::new();
@@ -37,14 +38,25 @@ fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F
     let mut empty_ts = TokenStream::new();
     let mut load_ts = TokenStream::new();
 
+    let mut groups: BTreeMap<String, Vec<&crate::ir::Command>> = BTreeMap::new();
     for cmd in reg.commands.values().flatten() {
-        if !filter(&cmd.name) || cmd.provided_by.is_empty() {
-            continue;
+        if filter(&cmd.name) && !cmd.provided_by.is_empty() {
+            groups.entry(cmd.name.clone()).or_default().push(cmd);
         }
-        let cfg = cfg_any(&cmd.provided_by);
-        let fname = format_ident!("{}", cmd_field_name(&cmd.name));
-        let pfn = format_ident!("PFN_{}", &cmd.name);
-        let clit = Literal::byte_string(format!("{}\0", cmd.name).as_bytes());
+    }
+
+    for (name, cmds) in groups {
+        let mut all_features = Vec::new();
+        for cmd in &cmds {
+            all_features.extend(cmd.provided_by.clone());
+        }
+        all_features.sort();
+        all_features.dedup();
+
+        let cfg = cfg_any(&all_features);
+        let fname = format_ident!("{}", cmd_field_name(&name));
+        let pfn = format_ident!("PFN_{}", &name);
+        let clit = Literal::byte_string(format!("{}\0", name).as_bytes());
 
         fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
         empty_ts.extend(quote! {  #cfg #fname: None, });
@@ -136,7 +148,6 @@ fn camel_to_snake(s: &str) -> String {
         out.push(c.to_ascii_lowercase());
         i += 1;
     }
-    // Collapse double underscores
     let mut res = String::new();
     let mut prev = false;
     for c in out.chars() {

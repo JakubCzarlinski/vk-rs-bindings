@@ -1,6 +1,6 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::pretty;
-use crate::ir::Registry;
+use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::BTreeMap;
@@ -21,13 +21,13 @@ pub fn gen_loader_rs(reg: &Registry) -> String {
         #[allow(unused_imports)] use crate::types::*;
     });
 
-    ts.extend(gen_dispatch_table(reg, "Instance", is_instance_cmd));
-    ts.extend(gen_dispatch_table(reg, "Device", |n| !is_instance_cmd(n)));
+    ts.extend(gen_dispatch_table(reg, "Instance", true));
+    ts.extend(gen_dispatch_table(reg, "Device", false));
 
     pretty(ts)
 }
 
-fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F) -> TokenStream {
+fn gen_dispatch_table(reg: &Registry, kind: &str, is_instance: bool) -> TokenStream {
     let tname = format_ident!("{}DispatchTable", kind);
     let doc = format!(
         " Dispatch table for Vulkan {k} commands.",
@@ -54,7 +54,7 @@ fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F
     let mut ext_groups: BTreeMap<String, Vec<(String, Vec<String>)>> = BTreeMap::new();
 
     for (name, cmds) in &reg.commands {
-        if !filter(name) {
+        if is_instance != cmds.iter().any(is_instance_cmd) {
             continue;
         }
 
@@ -138,18 +138,11 @@ fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F
     }
 }
 
-fn is_instance_cmd(name: &str) -> bool {
-    matches!(
-        name,
-        "vkCreateInstance"
-            | "vkDestroyInstance"
-            | "vkEnumeratePhysicalDevices"
-            | "vkEnumerateInstanceExtensionProperties"
-            | "vkEnumerateInstanceLayerProperties"
-            | "vkEnumerateInstanceVersion"
-            | "vkGetInstanceProcAddr"
-    ) || name.starts_with("vkGetPhysicalDevice")
-        || name.starts_with("vkEnumeratePhysicalDevice")
-        || name.contains("Surface")
-        || name.contains("Display")
+fn is_instance_cmd(cmd: &Command) -> bool {
+    if let Some(param) = cmd.params.first() {
+        param.ty.base == "VkInstance" || param.ty.base == "VkPhysicalDevice"
+    } else {
+        // No params - treat as instance command to be safe: eg vkGetInstanceProcAddr
+        true
+    }
 }

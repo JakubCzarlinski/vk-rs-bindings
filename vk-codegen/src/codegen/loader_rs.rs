@@ -193,7 +193,7 @@ fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
     set
 }
 
-/// Emit a `match r { … }` expression that converts `r: VkResult` into
+/// Emit a `match r { ... }` expression that converts `r: VkResult` into
 /// `Ok(r)` / `Err(r)` using the command's exact success/error code lists.
 ///
 /// Each arm is individually `#[cfg(...)]`-gated on the feature that introduces
@@ -209,7 +209,7 @@ fn vk_result_check(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> Tok
 /// Error-only predicate for the enumerate first call.
 ///
 /// Returns a bool expression that is `true` when `r` is a definite error.
-/// Non-error non-success codes (`VK_INCOMPLETE`, `VK_TIMEOUT`, …) must not
+/// Non-error non-success codes (`VK_INCOMPLETE`, `VK_TIMEOUT`, ...) must not
 /// be treated as errors here - they just mean "continue to the second call".
 fn vk_result_is_err(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> TokenStream {
     if cmd.error_codes.is_empty() {
@@ -276,7 +276,7 @@ fn cfg_grouped_arms(
     }
 
     // Group by the string representation of the cfg so we can merge codes that
-    // share the same guard into a single `A | B | C => …` arm.
+    // share the same guard into a single `A | B | C => ...` arm.
     let mut by_cfg: BTreeMap<String, (TokenStream, Vec<TokenStream>)> = BTreeMap::new();
 
     for s in codes {
@@ -752,7 +752,7 @@ fn gen_create_device_method(
     let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
 
     // Params: physicalDevice, pCreateInfo, pAllocator, pDevice
-    // Exposed: physicalDevice (kept), pCreateInfo (kept), pAllocator -> Option<&…>, pDevice -> stripped (returned)
+    // Exposed: physicalDevice (kept), pCreateInfo (kept), pAllocator -> Option<&...>, pDevice -> stripped (returned)
     let phys_param = cmd.params.first().map(|m| {
         let n = format_ident!("{}", kw_escape(&m.name));
         let t = ctype_to_tokens(&m.ty);
@@ -852,7 +852,7 @@ fn gen_device_wrapper(
         /// `'inst` ties this device to the [`Instance`] that created it.
         ///
         /// **No implicit `Drop`** - call [`Device::vkDestroyDevice`] explicitly,
-        /// after destroying all child resources (buffers, pipelines, …).
+        /// after destroying all child resources (buffers, pipelines, ...).
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct Device<'inst> {
             raw:   VkDevice,
@@ -1027,28 +1027,26 @@ fn safe_method_body(
 
     // Strip param[0] (dispatchable handle - supplied as self_handle).
     let params = cmd.params.get(1..).unwrap_or(&[]);
-    let (clean_params, has_alloc) = strip_allocator(params);
+    let (clean_params, alloc_idx) = strip_allocator(params);
 
+    let has_alloc = alloc_idx.is_some();
     let alloc_param = if has_alloc {
         quote! { allocator: Option<&VkAllocationCallbacks>, }
     } else {
         quote! {}
     };
-    let alloc_arg = if has_alloc {
-        quote! { allocator.map_or(core::ptr::null(), |a| a as *const _), }
-    } else {
-        quote! {}
-    };
+    let alloc_expr = quote! { allocator.map_or(core::ptr::null(), |a| a as *const _) };
 
     match classify_return(cmd, handle_types) {
         // void
         WrapperReturn::Unit => {
-            let (p_defs, p_fwd) = params_to_tokens(&clean_params);
+            let (p_defs, _) = params_to_tokens(&clean_params);
+            let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
             quote! {
                 #cfg
                 #[inline(always)]
                 pub unsafe fn #fname(&self, #alloc_param #(#p_defs),*) {
-                    unsafe { (#fp)(#self_handle, #(#p_fwd,)* #alloc_arg) }
+                    unsafe { (#fp)(#self_handle, #(#fwd_args),*) }
                 }
             }
         }
@@ -1056,12 +1054,13 @@ fn safe_method_body(
         // raw return (non-VkResult)
         WrapperReturn::Raw(ret_ty) => {
             let ret = ctype_to_tokens(ret_ty);
-            let (p_defs, p_fwd) = params_to_tokens(&clean_params);
+            let (p_defs, _) = params_to_tokens(&clean_params);
+            let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
             quote! {
                 #cfg
                 #[inline(always)]
                 pub unsafe fn #fname(&self, #alloc_param #(#p_defs),*) -> #ret {
-                    unsafe { (#fp)(#self_handle, #(#p_fwd,)* #alloc_arg) }
+                    unsafe { (#fp)(#self_handle, #(#fwd_args),*) }
                 }
             }
         }
@@ -1070,8 +1069,17 @@ fn safe_method_body(
         WrapperReturn::ResultHandle { handle_ty } => {
             let h_ty = deref_ctype(handle_ty);
             let inner = strip_out_param(&clean_params);
-            let (p_defs, p_fwd) = params_to_tokens(&inner);
+            let (p_defs, _) = params_to_tokens(&inner);
             let check = vk_result_check(cmd, result_cfgs);
+
+            // Build the forwarding list from the *full* clean_params (including
+            // the out-param slot), then replace the last entry with &mut handle.
+            let mut fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
+            let last_idx = fwd_args.len().saturating_sub(1);
+            if !fwd_args.is_empty() {
+                fwd_args[last_idx] = quote! { &mut handle };
+            }
+
             quote! {
                 #cfg
                 #[inline]
@@ -1081,7 +1089,7 @@ fn safe_method_body(
                     #(#p_defs),*
                 ) -> Result<#h_ty, VkResult> {
                     let mut handle = core::ptr::null_mut::<core::ffi::c_void>() as #h_ty;
-                    let r = unsafe { (#fp)(#self_handle, #(#p_fwd,)* #alloc_arg &mut handle) };
+                    let r = unsafe { (#fp)(#self_handle, #(#fwd_args),*) };
                     #check .map(|_| handle)
                 }
             }
@@ -1095,34 +1103,67 @@ fn safe_method_body(
         } => {
             let elem_ty = deref_ctype(item_ty);
 
-            let alloc_offset = |idx: usize| -> usize {
-                let mut adj = idx.saturating_sub(1);
-                if has_alloc {
-                    let alloc_pos_in_params = cmd
-                        .params
-                        .iter()
-                        .skip(1)
-                        .position(|m| m.ty.base == "VkAllocationCallbacks");
-                    if let Some(ap) = alloc_pos_in_params
-                        && ap < idx.saturating_sub(1)
-                    {
+            // Adjust count and array indices from cmd.params space into
+            // clean_params space (handle at [0] removed; allocator removed).
+            let alloc_raw_idx = alloc_idx.map(|i| i + 1); // back to cmd.params space
+            let adjust = |raw_idx: usize| -> usize {
+                let mut adj = raw_idx.saturating_sub(1); // remove handle
+                if let Some(ai) = alloc_raw_idx {
+                    // allocator was at ai in cmd.params; if it came before
+                    // this param, the clean index is one less
+                    if ai < raw_idx {
                         adj = adj.saturating_sub(1);
                     }
                 }
                 adj
             };
-            let ci_adj = alloc_offset(count_idx);
-            let ai_adj = alloc_offset(array_idx);
+            let ci = adjust(count_idx);
+            let ai = adjust(array_idx);
 
             let keep_params: Vec<Member> = clean_params
                 .iter()
                 .enumerate()
-                .filter(|(i, _)| *i != ci_adj && *i != ai_adj)
+                .filter(|(i, _)| *i != ci && *i != ai)
                 .map(|(_, m)| m.clone())
                 .collect();
-            let (p_defs, p_fwd) = params_to_tokens(&keep_params);
+            let (p_defs, _) = params_to_tokens(&keep_params);
             let is_err = vk_result_is_err(cmd, result_cfgs);
             let check2 = vk_result_check(cmd, result_cfgs);
+
+            // We need to reconstruct a full positional forwarding list for
+            // cmd.params[1..] with count and array substituted.  Build it
+            // by iterating clean_params indices.
+            let full_fwd_first: Vec<TokenStream> = clean_params
+                .iter()
+                .enumerate()
+                .map(|(i, m)| {
+                    if i == ci {
+                        quote! { &mut count }
+                    } else if i == ai {
+                        quote! { core::ptr::null_mut() }
+                    } else {
+                        let n = format_ident!("{}", kw_escape(&m.name));
+                        quote! { #n }
+                    }
+                })
+                .collect();
+            let full_fwd_first = insert_alloc_at(&full_fwd_first, alloc_idx, &alloc_expr, ci, ai);
+
+            let full_fwd_second: Vec<TokenStream> = clean_params
+                .iter()
+                .enumerate()
+                .map(|(i, m)| {
+                    if i == ci {
+                        quote! { &mut count }
+                    } else if i == ai {
+                        quote! { out.as_mut_ptr() }
+                    } else {
+                        let n = format_ident!("{}", kw_escape(&m.name));
+                        quote! { #n }
+                    }
+                })
+                .collect();
+            let full_fwd_second = insert_alloc_at(&full_fwd_second, alloc_idx, &alloc_expr, ci, ai);
 
             quote! {
                 #cfg
@@ -1133,12 +1174,12 @@ fn safe_method_body(
                     #(#p_defs),*
                 ) -> Result<Vec<#elem_ty>, VkResult> {
                     let mut count: u32 = 0;
-                    let r = unsafe { (#fp)(#self_handle, #(#p_fwd,)* &mut count, core::ptr::null_mut(), #alloc_arg) };
+                    let r = unsafe { (#fp)(#self_handle, #(#full_fwd_first),*) };
                     if #is_err { return Err(r); }
                     if count == 0 { return Ok(Vec::new()); }
 
                     let mut out: Vec<#elem_ty> = Vec::with_capacity(count as usize);
-                    let r = unsafe { (#fp)(#self_handle, #(#p_fwd,)* &mut count, out.as_mut_ptr(), #alloc_arg) };
+                    let r = unsafe { (#fp)(#self_handle, #(#full_fwd_second),*) };
                     #check2 .map(|_| { unsafe { out.set_len(count as usize) }; out })
                 }
             }
@@ -1146,7 +1187,8 @@ fn safe_method_body(
 
         // fallible, no clean output -> Result<VkResult, VkResult>
         WrapperReturn::ResultRaw => {
-            let (p_defs, p_fwd) = params_to_tokens(&clean_params);
+            let (p_defs, _) = params_to_tokens(&clean_params);
+            let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
             let check = vk_result_check(cmd, result_cfgs);
             quote! {
                 #cfg
@@ -1156,7 +1198,7 @@ fn safe_method_body(
                     #alloc_param
                     #(#p_defs),*
                 ) -> Result<VkResult, VkResult> {
-                    let r = unsafe { (#fp)(#self_handle, #(#p_fwd,)* #alloc_arg) };
+                    let r = unsafe { (#fp)(#self_handle, #(#fwd_args),*) };
                     #check
                 }
             }
@@ -1188,11 +1230,12 @@ fn collect_groups(
             continue;
         }
 
-        let cmd = variants.last().unwrap();
-        if !cmd.api.vulkan && !cmd.api.vulkanbase {
+        let cmd_raw = variants.last().unwrap();
+        if !cmd_raw.api.vulkan && !cmd_raw.api.vulkanbase {
             continue;
         }
 
+        let cmd = resolve_alias(cmd_raw, reg);
         let mut providers: Vec<String> = variants
             .iter()
             .flat_map(|c| c.provided_by.clone())
@@ -1207,13 +1250,51 @@ fn collect_groups(
         groups
             .entry(primary)
             .or_default()
-            .push((name.clone(), providers, cmd.clone()));
+            .push((name.clone(), providers, cmd));
     }
 
     for cmds in groups.values_mut() {
         cmds.sort_by(|a, b| a.0.cmp(&b.0));
     }
     groups
+}
+
+/// Walk the alias chain of a command to find the canonical definition.
+///
+/// We walk at most 10 steps to avoid infinite loops on malformed data.
+fn resolve_alias<'r>(cmd: &'r Command, reg: &'r Registry) -> Command {
+    let mut current = cmd;
+    for i in 0..10 {
+        // A command needs resolution if it has an alias and no params.
+        // If it has params it is already canonical (or a valid independent entry).
+        if !current.params.is_empty() {
+            break;
+        }
+        let Some(alias_name) = &current.alias else {
+            break;
+        };
+        let Some(alias_variants) = reg.commands.get(alias_name) else {
+            break;
+        };
+        let Some(alias_cmd) = alias_variants.last() else {
+            break;
+        };
+        current = alias_cmd;
+        if i == 9 {
+            panic!("alias chain too long resolving {}", cmd.name);
+        }
+    }
+    // Clone the resolved command but keep the aliased command's success/error
+    // codes if the alias entry has them and the canonical doesn't - some
+    // aliases carry additional result codes (e.g. extension-specific errors).
+    let mut resolved = current.clone();
+    if resolved.success_codes.is_empty() && !cmd.success_codes.is_empty() {
+        resolved.success_codes = cmd.success_codes.clone();
+    }
+    if resolved.error_codes.is_empty() && !cmd.error_codes.is_empty() {
+        resolved.error_codes = cmd.error_codes.clone();
+    }
+    resolved
 }
 
 // Helpers
@@ -1279,9 +1360,13 @@ fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream>) {
         .unzip()
 }
 
-/// Remove the `*const VkAllocationCallbacks` param from the slice.
-/// Returns `(remaining, had_allocator)`.
-fn strip_allocator(params: &[Member]) -> (Vec<Member>, bool) {
+/// Split params into (user-visible params, allocator index if present).
+///
+/// Returns `(params_without_allocator, Option<original_index_in_slice>)`.
+/// The index is into the *input slice* (i.e. already offset past param[0]).
+/// We keep the index so the forwarding call can insert the allocator expression
+/// at the correct position rather than appending it at the end.
+fn strip_allocator(params: &[Member]) -> (Vec<Member>, Option<usize>) {
     match params
         .iter()
         .position(|m| m.ty.base == "VkAllocationCallbacks")
@@ -1289,13 +1374,69 @@ fn strip_allocator(params: &[Member]) -> (Vec<Member>, bool) {
         Some(i) => {
             let mut out = params.to_vec();
             out.remove(i);
-            (out, true)
+            (out, Some(i))
         }
-        None => (params.to_vec(), false),
+        None => (params.to_vec(), None),
     }
 }
 
-/// Remove the last `*mut VkFoo` out-param from the slice.
+/// Build forwarding argument tokens for the full parameter list (excluding
+/// param[0] which is always `self_handle`), re-inserting the allocator
+/// expression at its original position.
+///
+/// `clean_params` has the allocator removed; `alloc_idx` is where to splice
+/// it back in (index into the original post-handle slice).
+fn build_fwd_args(
+    clean_params: &[Member],
+    alloc_idx: Option<usize>,
+    alloc_expr: &TokenStream,
+) -> Vec<TokenStream> {
+    // Generate forwarding idents for the user-visible params.
+    let fwd: Vec<TokenStream> = clean_params
+        .iter()
+        .map(|m| {
+            let n = format_ident!("{}", kw_escape(&m.name));
+            quote! { #n }
+        })
+        .collect();
+
+    match alloc_idx {
+        None => fwd,
+        Some(idx) => {
+            // Splice the allocator expression back at its original position.
+            let mut result = Vec::with_capacity(fwd.len() + 1);
+            result.extend_from_slice(&fwd[..idx]);
+            result.push(alloc_expr.clone());
+            result.extend_from_slice(&fwd[idx..]);
+            result
+        }
+    }
+}
+
+/// Insert the allocator expression at `alloc_idx` into an already-built
+/// forwarding list.  `ci` and `ai` are the count and array indices already
+/// present in the list; they are needed only to correctly offset past the
+/// positions that were substituted - the list was built *without* the allocator
+/// so we splice it in by the original pre-strip index.
+fn insert_alloc_at(
+    args: &[TokenStream],
+    alloc_idx: Option<usize>,
+    alloc_expr: &TokenStream,
+    _ci: usize,
+    _ai: usize,
+) -> Vec<TokenStream> {
+    match alloc_idx {
+        None => args.to_vec(),
+        Some(idx) => {
+            let mut result = Vec::with_capacity(args.len() + 1);
+            result.extend_from_slice(&args[..idx]);
+            result.push(alloc_expr.clone());
+            result.extend_from_slice(&args[idx..]);
+            result
+        }
+    }
+}
+
 fn strip_out_param(params: &[Member]) -> Vec<Member> {
     let mut out = params.to_vec();
     if out
@@ -1321,21 +1462,15 @@ fn deref_ctype(ty: &CType) -> TokenStream {
 /// the generated wrapper can be called through the stored function pointer
 /// without any implicit coercions.
 fn ctype_to_tokens(ty: &CType) -> TokenStream {
-    // void with no indirection = unit return.
     if (ty.base.is_empty() || ty.base == "void") && ty.pointer_depth == 0 && ty.is_array.is_none() {
         return quote! { () };
     }
 
-    // Start from the base type, then wrap in an array if present.
     let base = base_type_tokens(&ty.base);
     let mut ts = if let Some(ref size) = ty.is_array {
-        // Array size may be a plain integer literal or a named constant
-        // (e.g. `VK_UUID_SIZE`).  Named constants need `as usize` so the
-        // array length expression is valid Rust.
         let size_ts: TokenStream = if size.parse::<u64>().is_ok() {
             size.parse().unwrap()
         } else {
-            // Named constant — must cast to usize for array length position.
             format!("{} as usize", size).parse().unwrap()
         };
         quote! { [#base; #size_ts] }
@@ -1343,11 +1478,10 @@ fn ctype_to_tokens(ty: &CType) -> TokenStream {
         base
     };
 
-    // Apply pointer wrapping around the (possibly array) inner type.
-    // is_const applies to the innermost pointer level (C's `const T *`).
-    for d in 0..ty.pointer_depth {
-        let innermost = d == ty.pointer_depth - 1;
-        ts = if ty.is_const && innermost {
+    // Apply const to every pointer level - *const *const T, not *const *mut T.
+    // This matches the PFN typedefs generated from the Vulkan XML.
+    for _ in 0..ty.pointer_depth {
+        ts = if ty.is_const {
             quote! { *const #ts }
         } else {
             quote! { *mut #ts }

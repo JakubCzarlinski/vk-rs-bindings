@@ -362,7 +362,7 @@ fn gen_vulkan_lib() -> TokenStream {
         // macOS: system Vulkan loader only; MoltenVK surfaces via ICD JSON discovery.
         // Set VK_ICD_FILENAMES or DYLD_LIBRARY_PATH to override.
         #[cfg(target_os = "macos")]
-        const VULKAN_LIB_NAMES: &[&str] = &["libvulkan.dylib", "libvulkan.1.dylib"];
+        const VULKAN_LIB_NAMES: &[&str] = &["libMoltenVK.dylib", "libvulkan.dylib", "libvulkan.1.dylib"];
 
         // iOS: no system Vulkan loader; MoltenVK is the only implementation.
         #[cfg(target_os = "ios")]

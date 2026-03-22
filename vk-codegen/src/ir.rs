@@ -380,7 +380,9 @@ pub struct Typedef {
 pub enum TypedefKind {
     Alias,
     Basetype,
-    Handle,
+    Handle {
+        dispatchable: bool,
+    },
     Bitmask,
     FuncPointer,
     Define,

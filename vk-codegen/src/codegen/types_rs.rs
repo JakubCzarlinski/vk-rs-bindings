@@ -111,11 +111,42 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
     let doc = format!(" [`{n}`]({url})\n\n{comment}{extra_doc}", n = td.name);
 
     match td.kind {
-        TypedefKind::Handle => {
-            let inner = parse_ty(td.alias.as_deref().unwrap_or("u64"));
-            quote! {
-                #[doc = #doc] #cfg #depr
-                pub type #name = #inner;
+        TypedefKind::Handle { dispatchable } => {
+            if let Some(ref alias) = td.alias {
+                let a = parse_ty(alias);
+                quote! { #cfg #depr pub type #name = #a; }
+            } else if dispatchable {
+                quote! {
+                    #[doc = #doc] #cfg #depr
+                    #[repr(transparent)]
+                    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+                    pub struct #name(pub *mut core::ffi::c_void);
+                    #cfg #depr
+                    impl #name {
+                        pub const NULL: Self = Self(core::ptr::null_mut());
+                        pub const DEFAULT: Self = Self::NULL;
+                    }
+                    #cfg #depr
+                    impl Default for #name {
+                        fn default() -> Self { Self::NULL }
+                    }
+                }
+            } else {
+                quote! {
+                    #[doc = #doc] #cfg #depr
+                    #[repr(transparent)]
+                    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+                    pub struct #name(pub u64);
+                    #cfg #depr
+                    impl #name {
+                        pub const NULL: Self = Self(0);
+                        pub const DEFAULT: Self = Self::NULL;
+                    }
+                    #cfg #depr
+                    impl Default for #name {
+                        fn default() -> Self { Self::NULL }
+                    }
+                }
             }
         }
         TypedefKind::Bitmask => {
@@ -472,7 +503,7 @@ fn classify_type_inner(base: &str, reg: &Registry, depth: u8) -> (TypeClass, Str
 
     if let Some(td) = reg.typedefs.get(base).and_then(|v| v.last()) {
         return match td.kind {
-            TypedefKind::Handle => (TypeClass::PrimitiveAlias, base.to_owned()),
+            TypedefKind::Handle { .. } => (TypeClass::StructWithDefault, base.to_owned()),
             TypedefKind::Basetype => (TypeClass::PrimitiveAlias, base.to_owned()),
             TypedefKind::Bitmask => (TypeClass::PrimitiveAlias, base.to_owned()),
             TypedefKind::Alias => {

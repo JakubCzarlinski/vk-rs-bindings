@@ -2,6 +2,14 @@
 members = [
   "vk-codegen",
   "vk-rs-bindings",
+  "vk-demo",
 ]
 
 resolver = "3"
+
+[profile.release]
+opt-level = 3
+lto = false
+codegen-units = 1
+strip = "symbols"
+panic = "abort"

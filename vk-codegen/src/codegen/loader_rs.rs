@@ -186,7 +186,10 @@ fn build_result_cfg_map(reg: &Registry) -> HashMap<String, TokenStream> {
 fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
     let mut set = HashSet::new();
     for (name, variants) in &reg.typedefs {
-        if variants.iter().any(|t| t.kind == TypedefKind::Handle) {
+        if variants
+            .iter()
+            .any(|t| matches!(t.kind, TypedefKind::Handle { .. }))
+        {
             set.insert(name.clone());
         }
     }
@@ -444,11 +447,7 @@ fn gen_vulkan_lib() -> TokenStream {
             #[inline]
             pub fn entry_table(&self) -> EntryDispatchTable {
                 EntryDispatchTable::load(|name| {
-                    // A null VkInstance is the correct sentinel for pre-instance
-                    // queries. Use null_mut cast rather than zeroed() to avoid
-                    // the invalid_value lint and stay const-compatible.
-                    let null_instance = core::ptr::null_mut::<core::ffi::c_void>() as VkInstance;
-                    self.get_instance_proc_addr(null_instance, name)
+                    self.get_instance_proc_addr(VkInstance::NULL, name)
                 })
             }
         }
@@ -733,6 +732,7 @@ fn safe_instance_method(
         cmd,
         name,
         providers,
+        Tier::Instance,
         quote! { self.raw },
         quote! { &self.table },
         result_cfgs,
@@ -911,6 +911,7 @@ fn safe_device_method(
         cmd,
         name,
         providers,
+        Tier::Device,
         quote! { self.raw },
         quote! { &self.table },
         result_cfgs,
@@ -994,6 +995,7 @@ fn safe_cmd_buf_method(
         cmd,
         name,
         providers,
+        Tier::Device,
         quote! { self.raw },
         quote! { &self.device.table },
         result_cfgs,
@@ -1009,6 +1011,7 @@ fn safe_method_body(
     cmd: &Command,
     name: &str,
     providers: &[String],
+    tier: Tier,
     self_handle: TokenStream,
     table_expr: TokenStream,
     result_cfgs: &HashMap<String, TokenStream>,
@@ -1025,11 +1028,21 @@ fn safe_method_body(
         quote! { (#table_expr).#fname.expect(#miss) }
     };
 
-    // Strip param[0] (dispatchable handle - supplied as self_handle).
-    let params = cmd.params.get(1..).unwrap_or(&[]);
-    let (clean_params, alloc_idx) = strip_allocator(params);
+    let first_param = cmd.params.first();
+    let matches_tier = first_param.is_some_and(|p| match tier {
+        Tier::Instance => p.ty.base == "VkInstance",
+        Tier::Device => p.ty.base == "VkDevice",
+    });
 
-    let has_alloc = alloc_idx.is_some();
+    let (params_for_sig, _alloc_idx_for_sig) = if matches_tier {
+        strip_allocator(cmd.params.get(1..).unwrap_or(&[]))
+    } else {
+        strip_allocator(cmd.params.as_slice())
+    };
+
+    let (clean_params_full, alloc_idx_full) = strip_allocator(cmd.params.as_slice());
+
+    let has_alloc = _alloc_idx_for_sig.is_some();
     let alloc_param = if has_alloc {
         quote! { allocator: Option<&VkAllocationCallbacks>, }
     } else {
@@ -1037,44 +1050,41 @@ fn safe_method_body(
     };
     let alloc_expr = quote! { allocator.map_or(core::ptr::null(), |a| a as *const _) };
 
+    let mut fwd_args = build_fwd_args(&clean_params_full, alloc_idx_full, &alloc_expr);
+    if matches_tier {
+        fwd_args[0] = quote! { #self_handle };
+    }
+
     match classify_return(cmd, handle_types) {
-        // void
         WrapperReturn::Unit => {
-            let (p_defs, _) = params_to_tokens(&clean_params);
-            let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
+            let (p_defs, _) = params_to_tokens(&params_for_sig);
             quote! {
                 #cfg
                 #[inline(always)]
                 pub unsafe fn #fname(&self, #alloc_param #(#p_defs),*) {
-                    unsafe { (#fp)(#self_handle, #(#fwd_args),*) }
+                    unsafe { (#fp)(#(#fwd_args),*) }
                 }
             }
         }
 
-        // raw return (non-VkResult)
         WrapperReturn::Raw(ret_ty) => {
             let ret = ctype_to_tokens(ret_ty);
-            let (p_defs, _) = params_to_tokens(&clean_params);
-            let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
+            let (p_defs, _) = params_to_tokens(&params_for_sig);
             quote! {
                 #cfg
                 #[inline(always)]
                 pub unsafe fn #fname(&self, #alloc_param #(#p_defs),*) -> #ret {
-                    unsafe { (#fp)(#self_handle, #(#fwd_args),*) }
+                    unsafe { (#fp)(#(#fwd_args),*) }
                 }
             }
         }
 
-        //  single handle out-param -> Result<Handle, VkResult>
         WrapperReturn::ResultHandle { handle_ty } => {
             let h_ty = deref_ctype(handle_ty);
-            let inner = strip_out_param(&clean_params);
+            let inner = strip_out_param(&params_for_sig);
             let (p_defs, _) = params_to_tokens(&inner);
             let check = vk_result_check(cmd, result_cfgs);
 
-            // Build the forwarding list from the *full* clean_params (including
-            // the out-param slot), then replace the last entry with &mut handle.
-            let mut fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
             let last_idx = fwd_args.len().saturating_sub(1);
             if !fwd_args.is_empty() {
                 fwd_args[last_idx] = quote! { &mut handle };
@@ -1088,82 +1098,43 @@ fn safe_method_body(
                     #alloc_param
                     #(#p_defs),*
                 ) -> Result<#h_ty, VkResult> {
-                    let mut handle = core::ptr::null_mut::<core::ffi::c_void>() as #h_ty;
-                    let r = unsafe { (#fp)(#self_handle, #(#fwd_args),*) };
+                    let mut handle = #h_ty::NULL;
+                    let r = unsafe { (#fp)(#(#fwd_args),*) };
                     #check .map(|_| handle)
                 }
             }
         }
 
-        // two-call enumerate -> Result<Vec<T>, VkResult>
         WrapperReturn::Enumerate {
             item_ty,
             count_idx,
             array_idx,
         } => {
             let elem_ty = deref_ctype(item_ty);
+            let ci = count_idx;
+            let ai = array_idx;
 
-            // Adjust count and array indices from cmd.params space into
-            // clean_params space (handle at [0] removed; allocator removed).
-            let alloc_raw_idx = alloc_idx.map(|i| i + 1); // back to cmd.params space
-            let adjust = |raw_idx: usize| -> usize {
-                let mut adj = raw_idx.saturating_sub(1); // remove handle
-                if let Some(ai) = alloc_raw_idx {
-                    // allocator was at ai in cmd.params; if it came before
-                    // this param, the clean index is one less
-                    if ai < raw_idx {
-                        adj = adj.saturating_sub(1);
-                    }
-                }
-                adj
-            };
-            let ci = adjust(count_idx);
-            let ai = adjust(array_idx);
-
-            let keep_params: Vec<Member> = clean_params
+            let keep_params: Vec<Member> = params_for_sig
                 .iter()
                 .enumerate()
-                .filter(|(i, _)| *i != ci && *i != ai)
+                .filter(|(i, _m)| {
+                    let actual_idx = if matches_tier { *i + 1 } else { *i };
+                    actual_idx != ci && actual_idx != ai
+                })
                 .map(|(_, m)| m.clone())
                 .collect();
+
             let (p_defs, _) = params_to_tokens(&keep_params);
             let is_err = vk_result_is_err(cmd, result_cfgs);
             let check2 = vk_result_check(cmd, result_cfgs);
 
-            // We need to reconstruct a full positional forwarding list for
-            // cmd.params[1..] with count and array substituted.  Build it
-            // by iterating clean_params indices.
-            let full_fwd_first: Vec<TokenStream> = clean_params
-                .iter()
-                .enumerate()
-                .map(|(i, m)| {
-                    if i == ci {
-                        quote! { &mut count }
-                    } else if i == ai {
-                        quote! { core::ptr::null_mut() }
-                    } else {
-                        let n = format_ident!("{}", kw_escape(&m.name));
-                        quote! { #n }
-                    }
-                })
-                .collect();
-            let full_fwd_first = insert_alloc_at(&full_fwd_first, alloc_idx, &alloc_expr, ci, ai);
+            let mut fwd_first = fwd_args.clone();
+            fwd_first[ci] = quote! { &mut count };
+            fwd_first[ai] = quote! { core::ptr::null_mut() };
 
-            let full_fwd_second: Vec<TokenStream> = clean_params
-                .iter()
-                .enumerate()
-                .map(|(i, m)| {
-                    if i == ci {
-                        quote! { &mut count }
-                    } else if i == ai {
-                        quote! { out.as_mut_ptr() }
-                    } else {
-                        let n = format_ident!("{}", kw_escape(&m.name));
-                        quote! { #n }
-                    }
-                })
-                .collect();
-            let full_fwd_second = insert_alloc_at(&full_fwd_second, alloc_idx, &alloc_expr, ci, ai);
+            let mut fwd_second = fwd_args.clone();
+            fwd_second[ci] = quote! { &mut count };
+            fwd_second[ai] = quote! { out.as_mut_ptr() };
 
             quote! {
                 #cfg
@@ -1174,21 +1145,19 @@ fn safe_method_body(
                     #(#p_defs),*
                 ) -> Result<Vec<#elem_ty>, VkResult> {
                     let mut count: u32 = 0;
-                    let r = unsafe { (#fp)(#self_handle, #(#full_fwd_first),*) };
+                    let r = unsafe { (#fp)(#(#fwd_first),*) };
                     if #is_err { return Err(r); }
                     if count == 0 { return Ok(Vec::new()); }
 
                     let mut out: Vec<#elem_ty> = Vec::with_capacity(count as usize);
-                    let r = unsafe { (#fp)(#self_handle, #(#full_fwd_second),*) };
+                    let r = unsafe { (#fp)(#(#fwd_second),*) };
                     #check2 .map(|_| { unsafe { out.set_len(count as usize) }; out })
                 }
             }
         }
 
-        // fallible, no clean output -> Result<VkResult, VkResult>
         WrapperReturn::ResultRaw => {
-            let (p_defs, _) = params_to_tokens(&clean_params);
-            let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
+            let (p_defs, _) = params_to_tokens(&params_for_sig);
             let check = vk_result_check(cmd, result_cfgs);
             quote! {
                 #cfg
@@ -1198,7 +1167,7 @@ fn safe_method_body(
                     #alloc_param
                     #(#p_defs),*
                 ) -> Result<VkResult, VkResult> {
-                    let r = unsafe { (#fp)(#self_handle, #(#fwd_args),*) };
+                    let r = unsafe { (#fp)(#(#fwd_args),*) };
                     #check
                 }
             }

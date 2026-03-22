@@ -52,7 +52,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
                 aset,
                 category == "union",
             ),
-            "handle" => parse_handle(reg, name, alias, comment, dep, aset, depr),
+            "handle" => parse_handle(type_node, reg, name, alias, comment, dep, aset, depr),
             "enum" => parse_enum(reg, name, alias, comment, dep, aset, depr),
             "bitmask" => parse_bitmask(type_node, reg, name, alias, comment, dep, aset, depr),
             "basetype" => parse_basetype(type_node, reg, name, alias, comment, dep, aset, depr),
@@ -148,6 +148,7 @@ fn parse_struct_union(
 
 /// Parses a handle type definition.
 fn parse_handle(
+    node: Node,
     reg: &mut Registry,
     name: String,
     alias: Option<String>,
@@ -156,11 +157,15 @@ fn parse_handle(
     aset: ApiSet,
     depr: DeprecationInfo,
 ) {
+    let dispatchable = node
+        .text()
+        .is_none_or(|t| !t.contains("VK_DEFINE_NON_DISPATCHABLE_HANDLE"));
+
     reg.typedefs.entry(name.clone()).or_default().push(Typedef {
         name,
         alias,
-        ty: Some("u64".into()),
-        kind: TypedefKind::Handle,
+        ty: None,
+        kind: TypedefKind::Handle { dispatchable },
         api: aset,
         comment,
         dep,

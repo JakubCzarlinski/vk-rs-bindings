@@ -18,7 +18,7 @@ pub fn gen_loader_rs(reg: &Registry) -> String {
     let mut ts = TokenStream::new();
     ts.extend(gen_preamble());
     ts.extend(gen_vulkan_lib());
-    ts.extend(gen_entry_table(reg));
+    ts.extend(gen_entry_table(reg, &result_cfgs, &handle_types));
     ts.extend(gen_dispatch_table(reg, Tier::Instance));
     ts.extend(gen_dispatch_table(reg, Tier::Device));
     ts.extend(gen_instance_wrapper(reg, &result_cfgs, &handle_types));
@@ -475,11 +475,16 @@ fn entry_set() -> HashSet<&'static str> {
     ENTRY_CMD_NAMES.iter().copied().collect()
 }
 
-fn gen_entry_table(reg: &Registry) -> TokenStream {
+fn gen_entry_table(
+    reg: &Registry,
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+) -> TokenStream {
     let mut fields_ts = TokenStream::new();
     let mut empty_ts = TokenStream::new();
     let mut load_ts = TokenStream::new();
-    let mut methods_ts = TokenStream::new();
+    let mut raw_methods_ts = TokenStream::new();
+    let mut safe_methods_ts = TokenStream::new();
 
     for &raw in ENTRY_CMD_NAMES {
         let Some(variants) = reg.commands.get(raw) else {
@@ -487,8 +492,6 @@ fn gen_entry_table(reg: &Registry) -> TokenStream {
         };
         let cmd = variants.last().unwrap();
 
-        // Collect all providers from every variant so the cfg guard matches
-        // whatever features actually expose this command.
         let mut providers: Vec<String> = variants
             .iter()
             .flat_map(|c| c.provided_by.clone())
@@ -496,8 +499,6 @@ fn gen_entry_table(reg: &Registry) -> TokenStream {
         providers.sort();
         providers.dedup();
 
-        // If there are no providers the command is implicitly always available
-        // (shouldn't happen for well-formed registry data, but be safe).
         let cfg = if providers.is_empty() {
             quote! {}
         } else {
@@ -519,13 +520,24 @@ fn gen_entry_table(reg: &Registry) -> TokenStream {
                     .map(|f| unsafe { core::mem::transmute(f) });
             }
         });
-        methods_ts.extend(quote! {
+
+        // Raw unsafe method (original Vulkan signature, unchanged).
+        raw_methods_ts.extend(quote! {
             #cfg
             #[inline(always)]
             pub unsafe fn #fname(&self, #(#p_defs),*) -> #ret {
                 unsafe { (self.#fname.expect(#miss))(#(#p_fwd),*) }
             }
         });
+
+        // Safe method with VkResult -> Result<_, VkResult> conversion.
+        safe_methods_ts.extend(gen_entry_safe_method(
+            cmd,
+            raw,
+            &providers,
+            result_cfgs,
+            handle_types,
+        ));
     }
 
     quote! {
@@ -547,7 +559,169 @@ fn gen_entry_table(reg: &Registry) -> TokenStream {
                 table
             }
 
-            #methods_ts
+            #raw_methods_ts
+        }
+
+        /// Safe entry-point wrappers.
+        ///
+        /// These mirror the raw methods on [`EntryDispatchTable`] but return
+        /// `Result<T, VkResult>` for fallible commands and `Result<Vec<T>, VkResult>`
+        /// for two-call enumerate commands.
+        impl EntryDispatchTable {
+            #safe_methods_ts
+        }
+    }
+}
+
+/// Generate a single safe wrapper method for an entry-table command.
+///
+/// Uses the same classify_return / WrapperReturn logic as the instance/device
+/// wrappers so that enumerate commands (e.g. vkEnumerateInstanceExtensionProperties)
+/// get the two-call Vec pattern and handle-returning commands get Result<H, VkResult>.
+fn gen_entry_safe_method(
+    cmd: &Command,
+    name: &str,
+    providers: &[String],
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+) -> TokenStream {
+    let cfg = if providers.is_empty() {
+        quote! {}
+    } else {
+        cfg_any(providers)
+    };
+    let fname = format_ident!("{}", name);
+    let safe_fname = format_ident!("{}_safe", name);
+    let miss = format!("entry point not loaded: {}", name);
+
+    // Entry commands have no implicit first-handle param to strip (unlike
+    // instance/device commands where param[0] is the dispatchable handle that
+    // becomes `self`).  We keep all params visible and forward them as-is,
+    // except for the allocator which is turned into Option<&VkAllocationCallbacks>.
+    let (clean_params, alloc_idx) = strip_allocator(cmd.params.as_slice());
+    let has_alloc = alloc_idx.is_some();
+    let alloc_param = if has_alloc {
+        quote! { allocator: Option<&VkAllocationCallbacks>, }
+    } else {
+        quote! {}
+    };
+    let alloc_expr = quote! { allocator.map_or(core::ptr::null(), |a| a as *const _) };
+    let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
+
+    match classify_return(cmd, handle_types) {
+        WrapperReturn::Unit => {
+            let (p_defs, _) = params_to_tokens(&clean_params);
+            quote! {
+                #cfg
+                #[inline(always)]
+                pub unsafe fn #safe_fname(&self, #alloc_param #(#p_defs),*) {
+                    unsafe { (self.#fname.expect(#miss))(#(#fwd_args),*) }
+                }
+            }
+        }
+
+        WrapperReturn::Raw(ret_ty) => {
+            let ret = ctype_to_tokens(ret_ty);
+            let (p_defs, _) = params_to_tokens(&clean_params);
+            quote! {
+                #cfg
+                #[inline(always)]
+                pub unsafe fn #safe_fname(&self, #alloc_param #(#p_defs),*) -> #ret {
+                    unsafe { (self.#fname.expect(#miss))(#(#fwd_args),*) }
+                }
+            }
+        }
+
+        WrapperReturn::ResultHandle { handle_ty } => {
+            let h_ty = deref_ctype(handle_ty);
+            let inner = strip_out_param(&clean_params);
+            let (p_defs, _) = params_to_tokens(&inner);
+            let check = vk_result_check(cmd, result_cfgs);
+
+            let mut fa = fwd_args.clone();
+            let last = fa.len().saturating_sub(1);
+            if !fa.is_empty() {
+                fa[last] = quote! { &mut handle };
+            }
+
+            quote! {
+                #cfg
+                #[inline]
+                pub unsafe fn #safe_fname(
+                    &self,
+                    #alloc_param
+                    #(#p_defs),*
+                ) -> Result<#h_ty, VkResult> {
+                    let mut handle = #h_ty::NULL;
+                    let r = unsafe { (self.#fname.expect(#miss))(#(#fa),*) };
+                    #check .map(|_| handle)
+                }
+            }
+        }
+
+        WrapperReturn::Enumerate {
+            item_ty,
+            count_idx,
+            array_idx,
+        } => {
+            let elem_ty = deref_ctype(item_ty);
+            let ci = count_idx;
+            let ai = array_idx;
+
+            let keep_params: Vec<Member> = clean_params
+                .iter()
+                .enumerate()
+                .filter(|(i, _)| *i != ci && *i != ai)
+                .map(|(_, m)| m.clone())
+                .collect();
+            let (p_defs, _) = params_to_tokens(&keep_params);
+
+            let is_err = vk_result_is_err(cmd, result_cfgs);
+            let check2 = vk_result_check(cmd, result_cfgs);
+
+            let mut fwd_first = fwd_args.clone();
+            fwd_first[ci] = quote! { &mut count };
+            fwd_first[ai] = quote! { core::ptr::null_mut() };
+
+            let mut fwd_second = fwd_args.clone();
+            fwd_second[ci] = quote! { &mut count };
+            fwd_second[ai] = quote! { out.as_mut_ptr() };
+
+            quote! {
+                #cfg
+                #[inline]
+                pub unsafe fn #safe_fname(
+                    &self,
+                    #alloc_param
+                    #(#p_defs),*
+                ) -> Result<Box<#elem_ty>, VkResult> {
+                    let mut count: u32 = 0;
+                    let r = unsafe { (self.#fname.expect(#miss))(#(#fwd_first),*) };
+                    if #is_err { return Err(r); }
+                    if count == 0 { return Ok(Box::new()); }
+
+                    let mut out: Box<#elem_ty> = Box::with_capacity(count as usize);
+                    let r = unsafe { (self.#fname.expect(#miss))(#(#fwd_second),*) };
+                    #check2 .map(|_| { unsafe { out.set_len(count as usize) }; out })
+                }
+            }
+        }
+
+        WrapperReturn::ResultRaw => {
+            let (p_defs, _) = params_to_tokens(&clean_params);
+            let check = vk_result_check(cmd, result_cfgs);
+            quote! {
+                #cfg
+                #[inline(always)]
+                pub unsafe fn #safe_fname(
+                    &self,
+                    #alloc_param
+                    #(#p_defs),*
+                ) -> Result<VkResult, VkResult> {
+                    let r = unsafe { (self.#fname.expect(#miss))(#(#fwd_args),*) };
+                    #check
+                }
+            }
         }
     }
 }
@@ -857,7 +1031,6 @@ fn gen_device_wrapper(
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct Device<'inst> {
             raw:   VkDevice,
-            /// Heap-allocated so that moving a `Device` doesn't relocate ~1500 fn ptrs.
             table: Box<DeviceDispatchTable>,
             _inst: core::marker::PhantomData<&'inst Instance<'inst>>,
         }
@@ -1144,15 +1317,15 @@ fn safe_method_body(
                     &self,
                     #alloc_param
                     #(#p_defs),*
-                ) -> Result<Vec<#elem_ty>, VkResult> {
+                ) -> Result<Box<[#elem_ty]>, VkResult> {
                     let mut count: u32 = 0;
                     let r = unsafe { (#fp)(#(#fwd_first),*) };
                     if #is_err { return Err(r); }
-                    if count == 0 { return Ok(Vec::new()); }
+                    if count == 0 { return Ok(Box::default()); }
 
-                    let mut out: Vec<#elem_ty> = Vec::with_capacity(count as usize);
+                    let mut out = Box::<[#elem_ty]>::new_uninit_slice(count as usize);
                     let r = unsafe { (#fp)(#(#fwd_second),*) };
-                    #check2 .map(|_| { unsafe { out.set_len(count as usize) }; out })
+                    #check2 .map(|_| unsafe { out.assume_init() })
                 }
             }
         }

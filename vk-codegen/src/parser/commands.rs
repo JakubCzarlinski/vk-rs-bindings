@@ -69,11 +69,22 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
             continue;
         }
 
-        let params = cn
+        let mut params: Vec<crate::ir::Member> = Vec::new();
+        for pn in cn
             .children()
             .filter(|n| n.is_element() && n.tag_name().name() == "param")
-            .map(parse_member)
-            .collect();
+        {
+            let p = parse_member(pn);
+            if let Some(existing) = params.iter_mut().find(|m| m.name == p.name) {
+                if let (Some(a1), Some(a2)) = (&mut existing.api, &p.api) {
+                    a1.vulkan |= a2.vulkan;
+                    a1.vulkansc |= a2.vulkansc;
+                    a1.vulkanbase |= a2.vulkanbase;
+                }
+            } else {
+                params.push(p);
+            }
+        }
         let render_pass = attr(cn, "renderpass").map(RenderPass::parse);
         reg.commands.entry(name.clone()).or_default().push(Command {
             name,

@@ -2,21 +2,27 @@
 mod cargo_toml;
 mod commands_rs;
 mod consts_rs;
+mod device_rs;
 mod dot;
+mod entry_rs;
 mod enums_rs;
+mod instance_rs;
 mod lib_rs;
-mod loader_rs;
 mod types_rs;
+mod utils;
 mod validation_rs;
 
 use crate::codegen::cargo_toml::gen_cargo_toml;
 use crate::codegen::commands_rs::gen_commands_rs;
 use crate::codegen::consts_rs::gen_consts_rs;
+use crate::codegen::device_rs::gen_device_rs;
 use crate::codegen::dot::gen_dot_graph;
+use crate::codegen::entry_rs::gen_entry_rs;
 use crate::codegen::enums_rs::gen_enums_rs;
+use crate::codegen::instance_rs::gen_instance_rs;
 use crate::codegen::lib_rs::gen_lib_rs;
-use crate::codegen::loader_rs::gen_loader_rs;
 use crate::codegen::types_rs::gen_types_rs;
+use crate::codegen::utils::{build_handle_type_set, build_result_cfg_map};
 use crate::codegen::validation_rs::gen_validation_rs;
 use crate::ir::{DeprecationInfo, Registry};
 use proc_macro2::TokenStream;
@@ -31,12 +37,16 @@ pub struct GeneratedFiles {
     pub enums_rs: String,
     pub consts_rs: String,
     pub commands_rs: String,
-    pub loader_rs: String,
     pub validation_rs: String,
+    pub entry_rs: String,
+    pub instance_rs: String,
+    pub device_rs: String,
     pub dot_graph: String,
 }
 
 pub fn generate(reg: &Registry) -> GeneratedFiles {
+    let result_cfgs = build_result_cfg_map(reg);
+    let handle_types = build_handle_type_set(reg);
     GeneratedFiles {
         cargo_toml: gen_cargo_toml(reg),
         lib_rs: gen_lib_rs(),
@@ -44,8 +54,10 @@ pub fn generate(reg: &Registry) -> GeneratedFiles {
         enums_rs: gen_enums_rs(reg),
         consts_rs: gen_consts_rs(reg),
         commands_rs: gen_commands_rs(reg),
-        loader_rs: gen_loader_rs(reg),
         validation_rs: gen_validation_rs(reg),
+        entry_rs: gen_entry_rs(reg, &result_cfgs, &handle_types),
+        instance_rs: gen_instance_rs(reg, &result_cfgs, &handle_types),
+        device_rs: gen_device_rs(reg, &result_cfgs, &handle_types),
         dot_graph: gen_dot_graph(reg),
     }
 }

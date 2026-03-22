@@ -98,7 +98,9 @@ fn main() {
     write_file(&src_dir, "enums.rs", &files.enums_rs);
     write_file(&src_dir, "consts.rs", &files.consts_rs);
     write_file(&src_dir, "commands.rs", &files.commands_rs);
-    write_file(&src_dir, "loader.rs", &files.loader_rs);
+    write_file(&src_dir, "entry.rs", &files.entry_rs);
+    write_file(&src_dir, "instance.rs", &files.instance_rs);
+    write_file(&src_dir, "device.rs", &files.device_rs);
     write_file(&src_dir, "validation.rs", &files.validation_rs);
     write_file(&args.out, "vk-features.dot", &files.dot_graph);
 

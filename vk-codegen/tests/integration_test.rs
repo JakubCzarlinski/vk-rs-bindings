@@ -283,23 +283,10 @@ fn commands_rs_has_pfn() {
 }
 
 #[test]
-fn loader_rs_has_dispatch_table() {
-    let f = generate();
-    assert!(f.loader_rs.contains("DispatchTable"));
-    assert!(f.loader_rs.contains("EMPTY"));
-    assert!(f.loader_rs.contains("fn load"));
-}
-
-#[test]
 fn extension_name_consts_in_consts_rs() {
     // Extension SPEC_VERSION and EXTENSION_NAME constants must be in consts.rs,
     // not in loader.rs. The old EXT_NAME_ pattern was wrong.
     let f = generate();
-    // loader.rs must NOT have the old EXT_NAME_ pattern
-    assert!(
-        !f.loader_rs.contains("EXT_NAME_"),
-        "EXT_NAME_ pattern found in loader.rs - extension names must be in consts.rs"
-    );
     // We can't test specific extension names without adding them to the fixture,
     // but we can verify the overall constant infrastructure is working.
     // consts.rs should at minimum have the API version constants.

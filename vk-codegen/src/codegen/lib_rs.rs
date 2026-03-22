@@ -22,14 +22,18 @@ pub fn gen_lib_rs() -> String {
 
         pub mod commands;
         pub mod consts;
+        pub mod device;
+        pub mod entry;
         pub mod enums;
-        pub mod loader;
+        pub mod instance;
         pub mod types;
         pub mod validation;
         pub use commands::*;
         pub use consts::*;
+        pub use device::*;
+        pub use entry::*;
         pub use enums::*;
-        pub use loader::*;
+        pub use instance::*;
         pub use types::*;
         pub use validation::*;
     };

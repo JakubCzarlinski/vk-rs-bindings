@@ -71,6 +71,7 @@ fn sanitize_ident(s: &str) -> &str {
 /// Vulkan refpage URL for a named symbol.
 /// Format: https://docs.vulkan.org/refpages/latest/refpages/source/<name>.html
 pub fn refpage_url(name: &str) -> String {
+    let name = name.replace("FlagBits", "Flags");
     format!("https://docs.vulkan.org/refpages/latest/refpages/source/{name}.html")
 }
 

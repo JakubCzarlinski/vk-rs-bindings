@@ -81,12 +81,13 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 let a = args.trim_end_matches(')');
                 let parts: Vec<&str> = a.split(',').map(str::trim).collect();
                 if parts.len() == 4 {
-                    let (major, minor, patch) = (parts[0], parts[1], parts[2]);
+                    let (variant, major, minor, patch) = (parts[0], parts[1], parts[2], parts[3]);
+                    let variant_val = variant.parse::<u32>().unwrap_or(0);
                     let major_val = major.parse::<u32>().unwrap_or(0);
                     let minor_val = minor.parse::<u32>().unwrap_or(0);
                     let patch_val = patch.parse::<u32>().unwrap_or(0);
                     Some(
-                        quote! { #[doc = #doc] #cfg pub const #name: u32 = VK_MAKE_API_VERSION(#major_val, #minor_val, #patch_val); },
+                        quote! { #[doc = #doc] #cfg pub const #name: u32 = VK_MAKE_API_VERSION(#variant_val, #major_val, #minor_val, #patch_val); },
                     )
                 } else {
                     None

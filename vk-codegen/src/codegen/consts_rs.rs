@@ -27,8 +27,10 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
         let Some(ref ty) = typedef.ty else { continue };
         let name_str = &typedef.name;
         let url = refpage_url(name_str);
-        let doc = format!(" [`{name_str}`]({url})");
+        let comment = typedef.comment.as_deref().unwrap_or("");
+        let doc = format!(" [`{name_str}`]({url})\n\n{comment}");
         let name = format_ident!("{}", name_str);
+        let depr = deprecate_attr(&typedef.depr);
 
         let cfg = if name_str == "VK_HEADER_VERSION" || name_str == "VK_HEADER_VERSION_COMPLETE" {
             if typedef
@@ -57,7 +59,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 );
                 syn::parse_str::<syn::ItemFn>(&item_src)
                     .ok()
-                    .map(|f| quote! { #[doc = #doc] #cfg #f })
+                    .map(|f| quote! { #[doc = #doc] #cfg #depr #f })
             } else {
                 None
             }
@@ -70,7 +72,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 let minor_val = minor.parse::<u32>().unwrap_or(0);
                 let patch_val = patch.parse::<u32>().unwrap_or(0);
                 Some(
-                    quote! { #[doc = #doc] #cfg pub const #name: u32 = VK_MAKE_VIDEO_STD_VERSION(#major_val, #minor_val, #patch_val); },
+                    quote! { #[doc = #doc] #cfg #depr pub const #name: u32 = VK_MAKE_VIDEO_STD_VERSION(#major_val, #minor_val, #patch_val); },
                 )
             } else {
                 None
@@ -87,14 +89,14 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                     let minor_val = minor.parse::<u32>().unwrap_or(0);
                     let patch_val = patch.parse::<u32>().unwrap_or(0);
                     Some(
-                        quote! { #[doc = #doc] #cfg pub const #name: u32 = VK_MAKE_API_VERSION(#variant_val, #major_val, #minor_val, #patch_val); },
+                        quote! { #[doc = #doc] #cfg #depr pub const #name: u32 = VK_MAKE_API_VERSION(#variant_val, #major_val, #minor_val, #patch_val); },
                     )
                 } else {
                     None
                 }
             } else if let Ok(val) = rest.parse::<u32>() {
                 let lit = Literal::u32_suffixed(val);
-                Some(quote! { #[doc = #doc] #cfg pub const #name: u32 = #lit; })
+                Some(quote! { #[doc = #doc] #cfg #depr pub const #name: u32 = #lit; })
             } else {
                 None
             }
@@ -119,7 +121,8 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
 
         let name = format_ident!("{}", &c.name);
         let url = refpage_url(&c.name);
-        let doc = format!(" [`{n}`]({url})", n = c.name);
+        let comment = c.comment.as_deref().unwrap_or("");
+        let doc = format!(" [`{n}`]({url})\n\n{comment}", n = c.name);
         let depr = deprecate_attr(&c.depr);
 
         let cfg = if c.name == "VK_HEADER_VERSION" || c.name == "VK_HEADER_VERSION_COMPLETE" {

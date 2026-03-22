@@ -111,6 +111,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
 }
 
 /// Parses a struct or union type definition.
+#[allow(clippy::too_many_arguments)]
 fn parse_struct_union(
     node: Node,
     reg: &mut Registry,
@@ -195,6 +196,7 @@ fn parse_enum(
 }
 
 /// Parses a bitmask type definition.
+#[allow(clippy::too_many_arguments)]
 fn parse_bitmask(
     node: Node,
     reg: &mut Registry,
@@ -220,6 +222,7 @@ fn parse_bitmask(
 }
 
 /// Parses a base type definition.
+#[allow(clippy::too_many_arguments)]
 fn parse_basetype(
     node: Node,
     reg: &mut Registry,
@@ -263,6 +266,7 @@ fn parse_basetype(
 }
 
 /// Parses a function pointer type definition.
+#[allow(clippy::too_many_arguments)]
 fn parse_funcpointer(
     node: Node,
     reg: &mut Registry,
@@ -303,6 +307,7 @@ fn parse_funcpointer(
 }
 
 /// Parses a define type definition.
+#[allow(clippy::too_many_arguments)]
 fn parse_define(
     node: Node,
     reg: &mut Registry,

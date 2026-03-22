@@ -42,7 +42,7 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
                     depr,
                     success_codes: vec![],
                     error_codes: vec![],
-                    contitional_rendering: false,
+                    conditional_rendering: false,
                     render_pass: None,
                     cmd_buffer_levels: vec![],
                     tasks: vec![],
@@ -91,7 +91,7 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
             error_codes: attr(cn, "errorcodes")
                 .map(|s| s.split(',').map(str::to_owned).collect())
                 .unwrap_or_default(),
-            contitional_rendering: attr(cn, "conditionalrendering").is_some_and(true_false_panic),
+            conditional_rendering: attr(cn, "conditionalrendering").is_some_and(true_false_panic),
             render_pass,
             cmd_buffer_levels: attr(cn, "cmdbufferlevels")
                 .map(CmdBufferLevel::parse)

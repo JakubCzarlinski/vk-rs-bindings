@@ -7,9 +7,9 @@
 //!
 //! This handles the full nesting used in practice, e.g.
 //!   ((VK_KHR_get_physical_device_properties2,VK_VERSION_1_1)+VK_KHR_depth_stencil_resolve),VK_VERSION_1_2
-#![allow(dead_code)]
 
 use indexmap::IndexMap;
+use std::fmt::Debug;
 
 // -- Dependency expression -----------------------------------------------------
 
@@ -167,12 +167,7 @@ impl ApiSet {
             vulkanbase: true,
         }
     }
-    pub fn vulkan_only() -> Self {
-        ApiSet {
-            vulkan: true,
-            ..Default::default()
-        }
-    }
+
     pub fn parse(s: &str) -> Self {
         let mut a = ApiSet::default();
         for part in s.split(',') {
@@ -263,7 +258,7 @@ impl LimitType {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Clone, PartialEq, Eq)]
 pub enum Optional {
     /// Param is required (default).
     False,
@@ -273,8 +268,24 @@ pub enum Optional {
     TrueTrue,
     /// Pointer is optional, but if not null, values is required.
     TrueFalse,
-
+    /// Param is required, but if not null, values is optional.
     FalseTrue,
+}
+
+impl Debug for Optional {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Optional::False => write!(f, "false"),
+            Optional::True => write!(f, "true"),
+            Optional::TrueTrue => write!(f, "pointer, values optional"),
+            Optional::TrueFalse => {
+                write!(f, "pointer optional, values required if pointer not null")
+            }
+            Optional::FalseTrue => {
+                write!(f, "pointer required, values optional if pointer not null")
+            }
+        }
+    }
 }
 
 impl Optional {
@@ -303,6 +314,7 @@ pub struct Member {
     pub no_auto_validity: bool,
     /// Name of member that represent an object handle.
     pub object_type: Option<String>,
+    pub depr: DeprecationInfo,
 }
 
 // -- Deprecation info ----------------------------------------------------------
@@ -417,25 +429,6 @@ pub enum EnumValue {
     },
     Alias(String),
     Expr(String),
-}
-
-impl EnumValue {
-    pub fn resolve(&self) -> Option<i64> {
-        match self {
-            EnumValue::Integer(n) => Some(*n),
-            EnumValue::Hex(n) => Some(*n as i64),
-            EnumValue::BitPos(p) => Some(1i64 << p),
-            EnumValue::Offset {
-                extnumber,
-                offset,
-                negative,
-            } => {
-                let v = 1_000_000_000i64 + (*extnumber as i64 - 1) * 1000 + *offset as i64;
-                Some(if *negative { -v } else { v })
-            }
-            EnumValue::Alias(_) | EnumValue::Expr(_) => None,
-        }
-    }
 }
 
 #[derive(Debug, Clone)]
@@ -573,7 +566,7 @@ pub struct Command {
     pub error_codes: Vec<String>,
 
     // Is affected by conditional rendering.
-    pub contitional_rendering: bool,
+    pub conditional_rendering: bool,
 
     /// Can be used on a device with no queues, assumed false.
     pub allow_no_queues: bool,
@@ -587,6 +580,7 @@ pub struct Command {
     /// state, action, indirection, synchronization
     pub tasks: Vec<TaskType>,
     /// true, maybe, some field name (eg pNameInfo-&gt;objectHandle), or false (default)
+    /// -&gt; needs to be replaced with pNameInfo::objectHandle
     pub extern_sync: Option<String>,
 
     // Vulkan or VulkanSC, or both. None represents all.
@@ -972,26 +966,5 @@ mod tests {
         let c = clauses(s);
         assert_eq!(c.len(), 3, "got: {:?}", c);
         assert!(c.iter().any(|cl| cl == &["VK_VERSION_1_2"]));
-    }
-    #[test]
-    fn offset_enum_value() {
-        assert_eq!(
-            EnumValue::Offset {
-                extnumber: 272,
-                offset: 0,
-                negative: false
-            }
-            .resolve(),
-            Some(1_000_271_000)
-        );
-        assert_eq!(
-            EnumValue::Offset {
-                extnumber: 272,
-                offset: 1,
-                negative: false
-            }
-            .resolve(),
-            Some(1_000_271_001)
-        );
     }
 }

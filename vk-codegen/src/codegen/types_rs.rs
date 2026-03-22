@@ -97,9 +97,15 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
 
     let cfg = cfg_any(&td.provided_by);
     let url = refpage_url(&td.name);
-    let doc = format!(" [`{n}`]({url})", n = td.name);
+    let comment = td.comment.as_deref().unwrap_or("");
     let depr = deprecate_attr(&td.depr);
     let name = format_ident!("{}", &td.name);
+
+    let mut extra_doc = String::new();
+    if let Some(ref dep) = td.dep {
+        extra_doc.push_str(&format!("\n\n **Availability:** depends on `{}`", dep.atoms().join(" + ")));
+    }
+    let doc = format!(" [`{n}`]({url})\n\n{comment}{extra_doc}", n = td.name);
 
     match td.kind {
         TypedefKind::Handle => {
@@ -199,7 +205,33 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
 
     let cfg = cfg_any(&s.provided_by);
     let url = refpage_url(&s.name);
-    let doc = format!(" [`{n}`]({url})", n = s.name);
+    let comment = s.comment.as_deref().unwrap_or("");
+    let returned = if s.returned_only {
+        "\n\n *Note: This is a **returned only** struct.*"
+    } else {
+        ""
+    };
+    let rl = if s.required_limit_type {
+        "\n\n *Note: This struct has **required limit types**.*"
+    } else {
+        ""
+    };
+    let extends = if !s.struct_extends.is_empty() {
+        format!("\n\n **Extends:** {}", s.struct_extends.join(", "))
+    } else {
+        String::new()
+    };
+    let mut extra_doc = String::new();
+    if let Some(ref dep) = s.dep {
+        extra_doc.push_str(&format!(
+            "\n\n **Availability:** depends on `{}`",
+            dep.atoms().join(" + ")
+        ));
+    }
+    let doc = format!(
+        " [`{n}`]({url})\n\n{comment}{returned}{rl}{extends}{extra_doc}",
+        n = s.name
+    );
     let depr = deprecate_attr(&s.depr);
     let name = format_ident!("{}", &s.name);
 
@@ -245,10 +277,52 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             let fname = format_ident!("{}", sanitize_ident(&m.name));
             let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
             let fdoc = m.comment.as_deref().unwrap_or("");
-            if fdoc.is_empty() {
-                quote! { pub #fname: #ftype, }
+            let fdepr = deprecate_attr(&m.depr);
+
+            let fcfg = if let Some(ref aset) = m.api {
+                if aset.vulkansc && !aset.vulkan {
+                    quote! { #[cfg(feature = "VKSC_VERSION_1_0")] }
+                } else if aset.vulkan && !aset.vulkansc {
+                    quote! { #[cfg(not(feature = "VKSC_VERSION_1_0"))] }
+                } else {
+                    quote! {}
+                }
             } else {
-                quote! { #[doc = #fdoc] pub #fname: #ftype, }
+                quote! {}
+            };
+
+            let mut extra = Vec::new();
+            if m.optional != crate::ir::Optional::False {
+                extra.push(format!("Optional: {:?}", m.optional));
+            }
+            if let Some(ref len) = m.len {
+                extra.push(format!("Length: {}", len));
+            }
+            if let Some(ref vals) = m.values {
+                extra.push(format!("Values: {}", vals));
+            }
+            if let Some(ref lt) = m.limit_type {
+                extra.push(format!("Limit Type: {:?}", lt));
+            }
+            if m.no_auto_validity {
+                extra.push("No Auto-Validity".to_string());
+            }
+            if let Some(ref ot) = m.object_type {
+                extra.push(format!("Object Type: {}", ot));
+            }
+
+            let full_doc = if extra.is_empty() {
+                fdoc.to_owned()
+            } else if fdoc.is_empty() {
+                extra.join(", ")
+            } else {
+                format!("{} ({})", fdoc, extra.join(", "))
+            };
+
+            if full_doc.is_empty() {
+                quote! { #fcfg #fdepr pub #fname: #ftype, }
+            } else {
+                quote! { #fcfg #[doc = #full_doc] #fdepr pub #fname: #ftype, }
             }
         })
         .collect();

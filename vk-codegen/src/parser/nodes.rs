@@ -196,6 +196,7 @@ pub fn parse_member(node: Node) -> Member {
         limit_type: attr(node, "limittype").map(LimitType::parse),
         no_auto_validity: attr(node, "noautovalidity").is_some_and(true_or_panic),
         object_type: attr(node, "objecttype").map(str::to_owned),
+        depr: depr_info(node),
     }
 }
 

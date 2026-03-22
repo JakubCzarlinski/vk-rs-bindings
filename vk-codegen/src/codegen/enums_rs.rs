@@ -63,7 +63,16 @@ fn gen_enum(e: &Enum) -> TokenStream {
     let cfg = cfg_any(&all_feats);
     let name = format_ident!("{}", &e.name);
     let url = refpage_url(&e.name);
-    let doc = format!(" [`{n}`]({url})", n = e.name);
+    let comment = e.comment.as_deref().unwrap_or("");
+    let mut extra_doc = String::new();
+    if let Some(ref dep) = e.dep {
+        extra_doc.push_str(&format!(
+            "\n\n **Availability:** depends on `{}`",
+            dep.atoms().join(" + ")
+        ));
+    }
+    let doc = format!(" [`{n}`]({url})\n\n{comment}{extra_doc}", n = e.name);
+    let depr = deprecate_attr(&e.depr);
 
     if let Some(ref alias) = e.alias {
         let a = format_ident!("{}", alias);
@@ -71,7 +80,7 @@ fn gen_enum(e: &Enum) -> TokenStream {
     }
 
     if e.is_bitmask {
-        return gen_bitmask_type(e, cfg, name, doc, &all_feats);
+        return gen_bitmask_type(e, cfg, name, doc, &all_feats, depr);
     }
 
     let inner = if e.bit_width == 64 {
@@ -86,14 +95,24 @@ fn gen_enum(e: &Enum) -> TokenStream {
         if !seen_features.insert(variant.name.clone()) {
             continue;
         }
-        let variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats {
+        let variant_name = format_ident!("{}", &variant.name);
+        let variant_doc = variant.comment.as_deref().unwrap_or("");
+        let variant_depr = deprecate_attr(&variant.depr);
+        let mut variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats
+        {
             quote! {}
         } else {
             cfg_any(&variant.provided_by)
         };
-        let variant_name = format_ident!("{}", &variant.name);
-        let variant_doc = variant.comment.as_deref().unwrap_or("");
-        let variant_depr = deprecate_attr(&variant.depr);
+
+        if let Some(ref aset) = variant.api {
+            if aset.vulkansc && !aset.vulkan {
+                variant_cfg = quote! { #variant_cfg #[cfg(feature = "VKSC_VERSION_1_0")] };
+            } else if aset.vulkan && !aset.vulkansc {
+                variant_cfg = quote! { #variant_cfg #[cfg(not(feature = "VKSC_VERSION_1_0"))] };
+            }
+        }
+
         let val = enum_val_tokens(&variant.value, false);
         variant_token_stream.extend(quote! {
             #variant_cfg #[doc = #variant_doc] #variant_depr
@@ -102,7 +121,7 @@ fn gen_enum(e: &Enum) -> TokenStream {
     }
 
     quote! {
-        #[doc = #doc]
+        #[doc = #doc] #depr
         #cfg
         #[repr(transparent)]
         #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -119,6 +138,7 @@ fn gen_bitmask_type(
     name: proc_macro2::Ident,
     doc: String,
     all_feats: &[String],
+    depr: TokenStream,
 ) -> TokenStream {
     let inner = if e.bit_width == 64 {
         quote! {u64}
@@ -132,14 +152,25 @@ fn gen_bitmask_type(
         if !seen_features.insert(variant.name.clone()) {
             continue;
         }
-        let variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats {
+
+        let variant_name = format_ident!("{}", &variant.name);
+        let variant_doc = variant.comment.as_deref().unwrap_or("");
+        let variant_depr = deprecate_attr(&variant.depr);
+        let mut variant_cfg = if variant.provided_by.is_empty() || variant.provided_by == all_feats
+        {
             quote! {}
         } else {
             cfg_any(&variant.provided_by)
         };
-        let variant_name = format_ident!("{}", &variant.name);
-        let variant_doc = variant.comment.as_deref().unwrap_or("");
-        let variant_depr = deprecate_attr(&variant.depr);
+
+        if let Some(ref aset) = variant.api {
+            if aset.vulkansc && !aset.vulkan {
+                variant_cfg = quote! { #variant_cfg #[cfg(feature = "VKSC_VERSION_1_0")] };
+            } else if aset.vulkan && !aset.vulkansc {
+                variant_cfg = quote! { #variant_cfg #[cfg(not(feature = "VKSC_VERSION_1_0"))] };
+            }
+        }
+
         let val = enum_val_tokens(&variant.value, true);
         bit_token_stream.extend(quote! {
             #variant_cfg #[doc = #variant_doc] #variant_depr
@@ -148,7 +179,7 @@ fn gen_bitmask_type(
     }
 
     quote! {
-        #[doc = #doc]
+        #[doc = #doc] #depr
         #cfg
         #[repr(transparent)]
         #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]

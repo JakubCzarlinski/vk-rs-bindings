@@ -29,6 +29,10 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
 
     lines.push("# Core Vulkan versions".into());
     for feat in &reg.features {
+        if let Some(ref comment) = feat.comment {
+            lines.push(format!("# {}", comment));
+        }
+        lines.push(format!("# version: {}", feat.number));
         let deps = filter_deps(feature_deps.get(&feat.name).cloned().unwrap_or_default());
         lines.push(format!("{} = [{}]", feat.name, toml_feat_list(&deps)));
     }
@@ -62,6 +66,15 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
         }
         if let Some(ref s) = ext.depr.deprecated {
             lines.push(format!("# deprecated: {s}"));
+        }
+        if let Some(ref s) = ext.requires_core {
+            lines.push(format!("# requires core: {s}"));
+        }
+        if let Some(ref s) = ext.ext_type {
+            lines.push(format!("# type: {s}"));
+        }
+        if let Some(ref s) = ext.comment {
+            lines.push(format!("# {s}"));
         }
         lines.push(format!("{} = [{}]", ext.name, toml_feat_list(&common_deps)));
     }

@@ -124,7 +124,7 @@ fn gen_enum(e: &Enum) -> TokenStream {
         #[doc = #doc] #depr
         #cfg
         #[repr(transparent)]
-        #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+        #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
         pub struct #name(pub #inner);
 
         #cfg

@@ -20,7 +20,7 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
         "description = \"Auto-generated Vulkan FFI (vk-codegen)\"".into(),
         "".into(),
         "[dependencies]".into(),
-        "".into(),
+        "libloading = \"0.9.0\"\n".into(),
         "[features]".into(),
         "# Vulkan 1.0 enabled by default".into(),
         "default = [\"VK_VERSION_1_0\"]".into(),

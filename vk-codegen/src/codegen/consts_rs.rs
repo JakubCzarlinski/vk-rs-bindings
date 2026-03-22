@@ -10,18 +10,38 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
     // Collect items grouped by feature gate for sorted, compact output.
     // Key = sorted provided_by vec (empty = ungated).
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
+    let mut emitted = std::collections::HashSet::new();
 
     // -- #define typedefs -> const fn or pub const ------------------------------
     for typedef in reg.typedefs.values().flatten() {
         if typedef.kind != TypedefKind::Define {
             continue;
         }
+
+        // Cross-loop and intra-loop deduplication: name + set of providing features
+        let key = (typedef.name.clone(), feature_key(&typedef.provided_by));
+        if !emitted.insert(key) {
+            continue;
+        }
+
         let Some(ref ty) = typedef.ty else { continue };
         let name_str = &typedef.name;
         let url = refpage_url(name_str);
         let doc = format!(" [`{name_str}`]({url})");
         let name = format_ident!("{}", name_str);
-        let cfg = cfg_any(&typedef.provided_by);
+
+        let cfg = if name_str == "VK_HEADER_VERSION" || name_str == "VK_HEADER_VERSION_COMPLETE" {
+            if typedef
+                .provided_by
+                .contains(&"VKSC_VERSION_1_0".to_string())
+            {
+                quote! { #[cfg(feature = "VKSC_VERSION_1_0")] }
+            } else {
+                quote! { #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))] }
+            }
+        } else {
+            cfg_any(&typedef.provided_by)
+        };
 
         let item_ts: Option<TokenStream> = if let Some(rest) = ty.strip_prefix("fn:") {
             // "fn:param1,param2|body_expr" - emit as #[inline] pub const fn
@@ -46,13 +66,12 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
             let parts: Vec<&str> = rest.split(',').map(str::trim).collect();
             if parts.len() == 3 {
                 let (major, minor, patch) = (parts[0], parts[1], parts[2]);
-                let val = major.parse::<u32>().unwrap_or(0) << 22
-                    | minor.parse::<u32>().unwrap_or(0) << 12
-                    | patch.parse::<u32>().unwrap_or(0);
-                let doc2 =
-                    format!(" Encoded as `VK_MAKE_VIDEO_STD_VERSION({major}, {minor}, {patch})`");
-                let v = Literal::u32_suffixed(val);
-                Some(quote! { #[doc = #doc] #[doc = #doc2] #cfg pub const #name: u32 = #v; })
+                let major_val = major.parse::<u32>().unwrap_or(0);
+                let minor_val = minor.parse::<u32>().unwrap_or(0);
+                let patch_val = patch.parse::<u32>().unwrap_or(0);
+                Some(
+                    quote! { #[doc = #doc] #cfg pub const #name: u32 = VK_MAKE_VIDEO_STD_VERSION(#major_val, #minor_val, #patch_val); },
+                )
             } else {
                 None
             }
@@ -62,10 +81,13 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 let a = args.trim_end_matches(')');
                 let parts: Vec<&str> = a.split(',').map(str::trim).collect();
                 if parts.len() == 4 {
-                    let ts: TokenStream = format!("VK_MAKE_API_VERSION({})", a)
-                        .parse()
-                        .unwrap_or(quote! { 0 });
-                    Some(quote! { #[doc = #doc] #cfg pub const #name: u32 = #ts; })
+                    let (major, minor, patch) = (parts[0], parts[1], parts[2]);
+                    let major_val = major.parse::<u32>().unwrap_or(0);
+                    let minor_val = minor.parse::<u32>().unwrap_or(0);
+                    let patch_val = patch.parse::<u32>().unwrap_or(0);
+                    Some(
+                        quote! { #[doc = #doc] #cfg pub const #name: u32 = VK_MAKE_API_VERSION(#major_val, #minor_val, #patch_val); },
+                    )
                 } else {
                     None
                 }
@@ -89,11 +111,25 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
 
     // -- reg.constants -> API constants and extension name/version strings --------
     for c in reg.constants.values().flatten() {
+        let key = (c.name.clone(), feature_key(&c.provided_by));
+        if !emitted.insert(key) {
+            continue;
+        }
+
         let name = format_ident!("{}", &c.name);
         let url = refpage_url(&c.name);
         let doc = format!(" [`{n}`]({url})", n = c.name);
         let depr = deprecate_attr(&c.depr);
-        let cfg = cfg_any(&c.provided_by);
+
+        let cfg = if c.name == "VK_HEADER_VERSION" || c.name == "VK_HEADER_VERSION_COMPLETE" {
+            if c.provided_by.contains(&"VKSC_VERSION_1_0".to_string()) {
+                quote! { #[cfg(feature = "VKSC_VERSION_1_0")] }
+            } else {
+                quote! { #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))] }
+            }
+        } else {
+            cfg_any(&c.provided_by)
+        };
 
         let token_stream: TokenStream = if let Some(ref alias) = c.alias {
             let a = format_ident!("{}", alias);

@@ -1,0 +1,14 @@
+[package]
+name = "vk-demo"
+version = "0.1.0"
+edition = "2024"
+description = "Vulkan Rust FFI generator from vk.xml + video.xml"
+
+
+[[bin]]
+name = "vk-demo"
+path = "src/main.rs"
+
+
+[dependencies]
+vk-rs-bindings = { path = "../vk-rs-bindings", features = ["VK_VERSION_1_4"] }

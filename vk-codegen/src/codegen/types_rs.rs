@@ -103,7 +103,10 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
 
     let mut extra_doc = String::new();
     if let Some(ref dep) = td.dep {
-        extra_doc.push_str(&format!("\n\n **Availability:** depends on `{}`", dep.atoms().join(" + ")));
+        extra_doc.push_str(&format!(
+            "\n\n **Availability:** depends on `{}`",
+            dep.atoms().join(" + ")
+        ));
     }
     let doc = format!(" [`{n}`]({url})\n\n{comment}{extra_doc}", n = td.name);
 
@@ -254,7 +257,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         });
 
     // Build field token streams
-    let field_toks: TokenStream = s.members
+    let field_toks: TokenStream = s
+        .members
         .iter()
         .map(|m| {
             let fname = format_ident!("{}", sanitize_ident(&m.name));
@@ -312,7 +316,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
 
     // Build default expressions for impl block
     let mut needs_unsafe = false;
-    let default_fields: Vec<TokenStream> = s.members
+    let default_fields: Vec<TokenStream> = s
+        .members
         .iter()
         .filter(|m| !(m.name == "sType" && stype_default.is_some()))
         .map(|m| {
@@ -342,11 +347,13 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
 
     if s.is_union {
         // Union: Copy+Clone derive, manual Debug, unsafe const DEFAULT
-        let first_fname = s.members
+        let first_fname = s
+            .members
             .first()
             .map(|m| format_ident!("{}", sanitize_ident(&m.name)))
             .unwrap_or_else(|| format_ident!("_"));
-        let first_ftype = s.members
+        let first_ftype = s
+            .members
             .first()
             .map(|m| parse_ty(&ctype_to_rust_str(&m.ty)))
             .unwrap_or_else(|| quote! { u8 });

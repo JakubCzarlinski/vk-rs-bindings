@@ -1,7 +1,7 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::pretty;
 use crate::ir::Registry;
-use proc_macro2::{Literal, TokenStream};
+use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::BTreeMap;
 

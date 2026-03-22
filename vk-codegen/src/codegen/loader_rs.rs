@@ -38,36 +38,76 @@ fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F
     let mut empty_ts = TokenStream::new();
     let mut load_ts = TokenStream::new();
 
-    let mut groups: BTreeMap<String, Vec<&crate::ir::Command>> = BTreeMap::new();
-    for cmd in reg.commands.values().flatten() {
-        if filter(&cmd.name) && !cmd.provided_by.is_empty() {
-            groups.entry(cmd.name.clone()).or_default().push(cmd);
-        }
-    }
+    let enabled_features: std::collections::HashSet<String> = reg
+        .features
+        .iter()
+        .map(|f| f.name.clone())
+        .chain(
+            reg.extensions
+                .iter()
+                .filter(|e| !e.is_disabled())
+                .map(|e| e.name.clone()),
+        )
+        .collect();
 
-    for (name, cmds) in groups {
-        let mut all_features = Vec::new();
-        for cmd in &cmds {
-            all_features.extend(cmd.provided_by.clone());
+    // Map primary feature name -> Vec<(command_name, all_providing_features)>
+    let mut ext_groups: BTreeMap<String, Vec<(String, Vec<String>)>> = BTreeMap::new();
+
+    for (name, cmds) in &reg.commands {
+        if !filter(name) {
+            continue;
         }
+
+        let mut all_features: Vec<String> =
+            cmds.iter().flat_map(|c| c.provided_by.clone()).collect();
         all_features.sort();
         all_features.dedup();
 
-        let cfg = cfg_any(&all_features);
-        let fname = format_ident!("{}", cmd_field_name(&name));
-        let pfn = format_ident!("PFN_{}", &name);
-        let clit = Literal::byte_string(format!("{}\0", name).as_bytes());
+        // Skip commands that have no enabled providers.
+        if all_features.is_empty() {
+            continue;
+        }
 
-        fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
-        empty_ts.extend(quote! {  #cfg #fname: None, });
-        load_ts.extend(quote! {
-            #cfg {
-                let raw = loader(#clit.as_ptr() as *const c_char);
-                if !raw.is_null() {
-                    table.#fname = Some(unsafe { core::mem::transmute(raw) });
+        // Grouping: Prefer core-ish versions, then any enabled feature.
+        let primary = all_features
+            .iter()
+            .find(|f| {
+                f.starts_with("VK_BASE_VERSION_")
+                    || f.starts_with("VK_VERSION_")
+                    || f.starts_with("VK_EXT_")
+                    || f.starts_with("VK_KHR_")
+            })
+            .or_else(|| all_features.iter().find(|f| enabled_features.contains(*f)))
+            .cloned()
+            .unwrap_or_else(|| all_features[0].clone());
+
+        ext_groups
+            .entry(primary)
+            .or_default()
+            .push((name.clone(), all_features));
+    }
+
+    for (ext_name, cmds) in ext_groups {
+        let ext_doc = format!(" Commands from {}", ext_name);
+        fields_ts.extend(quote! { #[doc = #ext_doc] });
+
+        for (name, features) in cmds {
+            let cfg = cfg_any(&features);
+            // Preserve Vulkan naming
+            let pfn = format_ident!("PFN_{}", &name);
+            let clit = Literal::byte_string(format!("{}\0", name).as_bytes());
+
+            fields_ts.extend(quote! { #cfg pub #name: Option<#pfn>, });
+            empty_ts.extend(quote! {  #cfg #name: None, });
+            load_ts.extend(quote! {
+                #cfg {
+                    let raw = loader(#clit.as_ptr() as *const c_char);
+                    if !raw.is_null() {
+                        table.#name = Some(unsafe { core::mem::transmute(raw) });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     quote! {
@@ -110,56 +150,4 @@ fn is_instance_cmd(name: &str) -> bool {
         || name.starts_with("vkEnumeratePhysicalDevice")
         || name.contains("Surface")
         || name.contains("Display")
-}
-
-fn cmd_field_name(cmd: &str) -> String {
-    camel_to_snake(cmd.strip_prefix("vk").unwrap_or(cmd))
-}
-
-fn camel_to_snake(s: &str) -> String {
-    let chars: Vec<char> = s.chars().collect();
-    let n = chars.len();
-    let mut out = String::with_capacity(n + 8);
-    let mut i = 0usize;
-    while i < n {
-        let c = chars[i];
-        let not_first = i > 0;
-
-        if !not_first {
-            out.push(c.to_ascii_lowercase());
-            i += 1;
-            continue;
-        }
-
-        if c.is_uppercase() {
-            let prev_lower = chars[i - 1].is_lowercase() || chars[i - 1].is_ascii_digit();
-            let next_lower = i + 1 < n && chars[i + 1].is_lowercase();
-            if prev_lower || next_lower {
-                out.push('_');
-            }
-        }
-
-        if (chars[i - 1].is_alphabetic() && c.is_ascii_digit())
-            || (chars[i - 1].is_ascii_digit() && c.is_alphabetic())
-        {
-            out.push('_');
-        }
-
-        out.push(c.to_ascii_lowercase());
-        i += 1;
-    }
-    let mut res = String::new();
-    let mut prev = false;
-    for c in out.chars() {
-        if c == '_' {
-            if !prev && !res.is_empty() {
-                res.push('_');
-            }
-            prev = true;
-        } else {
-            res.push(c);
-            prev = false;
-        }
-    }
-    res.trim_matches('_').to_owned()
 }

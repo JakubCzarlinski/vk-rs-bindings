@@ -96,13 +96,14 @@ fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F
             // Preserve Vulkan naming (minus 'vk' prefix).
             let fname = format_ident!("{}", name);
             let pfn = format_ident!("PFN_{}", &name);
-            let clit = Literal::byte_string(format!("{}\0", name).as_bytes());
+            let clit = format!("c\"{}\"", name);
+            let clit_ts: TokenStream = clit.parse().unwrap();
 
             fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
             empty_ts.extend(quote! {  #cfg #fname: None, });
             load_ts.extend(quote! {
                 #cfg {
-                    let raw = loader(#clit.as_ptr() as *const c_char);
+                    let raw = loader(#clit_ts.as_ptr());
                     if !raw.is_null() {
                         table.#fname = Some(unsafe { core::mem::transmute(raw) });
                     }

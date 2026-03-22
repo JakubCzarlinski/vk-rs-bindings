@@ -243,7 +243,7 @@ fn result_check_arms(
     // their cfg guard and emit one arm per unique guard.
     //
     // e.g.:
-    //   #[cfg(feature = "VK_VERSION_1_0")]
+    //   #[cfg(feature = "VK_BASE_VERSION_1_0")]
     //   VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
     //   #[cfg(feature = "VK_KHR_swapchain")]
     //   VkResult::VK_SUBOPTIMAL_KHR => Ok(r),
@@ -414,12 +414,16 @@ fn gen_vulkan_lib() -> TokenStream {
                         continue;
                     };
                     let sym = unsafe {
-                        lib.get::<PFN_vkGetInstanceProcAddr>(b"vkGetInstanceProcAddr\0")
+                        lib.get::<PFN_vkGetInstanceProcAddr>(c"vkGetInstanceProcAddr")
                     };
-                    return match sym {
-                        Ok(s)  => Ok(VulkanLib { _lib: lib, get_instance_proc_addr: *s }),
-                        Err(_) => Err(LoadError::MissingGetInstanceProcAddr),
+                    let sym = match sym {
+                        Ok(s) => *s,
+                        Err(_) => return Err(LoadError::MissingGetInstanceProcAddr),
                     };
+                    return Ok(VulkanLib {
+                        _lib: lib,
+                        get_instance_proc_addr: sym,
+                    });
                 }
                 Err(LoadError::LibraryNotFound)
             }
@@ -599,11 +603,11 @@ fn gen_dispatch_table(reg: &Registry, tier: Tier) -> TokenStream {
 
     quote! {
         #[doc = #table_doc]
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         #[derive(Clone)]
         pub struct #table_ty { #fields_ts }
 
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl #table_ty {
             pub const EMPTY: Self = Self { #empty_ts };
 
@@ -688,13 +692,13 @@ fn gen_instance_wrapper(
         ///
         /// **No implicit `Drop`** - call [`Instance::vkDestroyInstance`] explicitly,
         /// after all child `Device`s have been destroyed.
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct Instance<'table> {
             raw:   VkInstance,
             table: &'table InstanceDispatchTable,
         }
 
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'table> Instance<'table> {
             /// Wrap a `VkInstance` with a reference to its dispatch table.
             ///
@@ -849,7 +853,7 @@ fn gen_device_wrapper(
         ///
         /// **No implicit `Drop`** - call [`Device::vkDestroyDevice`] explicitly,
         /// after destroying all child resources (buffers, pipelines, …).
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct Device<'inst> {
             raw:   VkDevice,
             /// Heap-allocated so that moving a `Device` doesn't relocate ~1500 fn ptrs.
@@ -857,7 +861,7 @@ fn gen_device_wrapper(
             _inst: core::marker::PhantomData<&'inst Instance<'inst>>,
         }
 
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'inst> Device<'inst> {
             /// Internal constructor called from `Instance::vkCreateDevice`.
             #[inline]
@@ -951,13 +955,13 @@ fn gen_command_buffer_wrapper(
         ///
         /// Recording, submission, and lifecycle management (allocation, reset, free)
         /// remain the caller's responsibility.
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct CommandBuffer<'dev, 'inst: 'dev> {
             raw:    VkCommandBuffer,
             device: &'dev Device<'inst>,
         }
 
-        #[cfg(feature = "VK_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'dev, 'inst: 'dev> CommandBuffer<'dev, 'inst> {
             /// The raw `VkCommandBuffer` handle.
             #[inline(always)]
@@ -1100,9 +1104,10 @@ fn safe_method_body(
                         .skip(1)
                         .position(|m| m.ty.base == "VkAllocationCallbacks");
                     if let Some(ap) = alloc_pos_in_params
-                        && ap < idx.saturating_sub(1) {
-                            adj = adj.saturating_sub(1);
-                        }
+                        && ap < idx.saturating_sub(1)
+                    {
+                        adj = adj.saturating_sub(1);
+                    }
                 }
                 adj
             };
@@ -1312,26 +1317,36 @@ fn deref_ctype(ty: &CType) -> TokenStream {
 
 /// Translate a `CType` into a Rust type `TokenStream`.
 ///
-/// Uses `crate::types::c_type_to_rust` to map C primitive type names to their
-/// Rust equivalents before emitting, so that `uint32_t` becomes `u32`, `char`
-/// becomes `core::ffi::c_char`, etc.
-///
-/// Fixed-size arrays (`is_array.is_some()`) are emitted as `[T; N]` in struct
-/// contexts but as an extra pointer level at the ABI boundary - here we always
-/// use the pointer form since `ctype_to_tokens` is only called for function
-/// parameter and return types, never for struct fields.
+/// The output must exactly match the corresponding `PFN_*` typedef so that
+/// the generated wrapper can be called through the stored function pointer
+/// without any implicit coercions.
 fn ctype_to_tokens(ty: &CType) -> TokenStream {
-    // void with no pointer = unit return.
+    // void with no indirection = unit return.
     if (ty.base.is_empty() || ty.base == "void") && ty.pointer_depth == 0 && ty.is_array.is_none() {
         return quote! { () };
     }
 
-    let mut ts = base_type_tokens(&ty.base);
+    // Start from the base type, then wrap in an array if present.
+    let base = base_type_tokens(&ty.base);
+    let mut ts = if let Some(ref size) = ty.is_array {
+        // Array size may be a plain integer literal or a named constant
+        // (e.g. `VK_UUID_SIZE`).  Named constants need `as usize` so the
+        // array length expression is valid Rust.
+        let size_ts: TokenStream = if size.parse::<u64>().is_ok() {
+            size.parse().unwrap()
+        } else {
+            // Named constant — must cast to usize for array length position.
+            format!("{} as usize", size).parse().unwrap()
+        };
+        quote! { [#base; #size_ts] }
+    } else {
+        base
+    };
 
-    // Arrays in parameter position decay to a pointer (same as C ABI).
-    let depth = ty.pointer_depth + u8::from(ty.is_array.is_some());
-    for d in 0..depth {
-        let innermost = d == depth - 1;
+    // Apply pointer wrapping around the (possibly array) inner type.
+    // is_const applies to the innermost pointer level (C's `const T *`).
+    for d in 0..ty.pointer_depth {
+        let innermost = d == ty.pointer_depth - 1;
         ts = if ty.is_const && innermost {
             quote! { *const #ts }
         } else {

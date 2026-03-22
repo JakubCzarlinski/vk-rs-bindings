@@ -1,6 +1,7 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::pretty;
 use crate::ir::{CType, Command, Member, Optional, Registry, TypedefKind};
+use crate::types::c_type_to_rust;
 use proc_macro2::TokenStream;
 use quote::{ToTokens, format_ident, quote};
 use std::collections::{BTreeMap, HashMap, HashSet};
@@ -1382,30 +1383,6 @@ fn build_fwd_args(
     }
 }
 
-/// Insert the allocator expression at `alloc_idx` into an already-built
-/// forwarding list.  `ci` and `ai` are the count and array indices already
-/// present in the list; they are needed only to correctly offset past the
-/// positions that were substituted - the list was built *without* the allocator
-/// so we splice it in by the original pre-strip index.
-fn insert_alloc_at(
-    args: &[TokenStream],
-    alloc_idx: Option<usize>,
-    alloc_expr: &TokenStream,
-    _ci: usize,
-    _ai: usize,
-) -> Vec<TokenStream> {
-    match alloc_idx {
-        None => args.to_vec(),
-        Some(idx) => {
-            let mut result = Vec::with_capacity(args.len() + 1);
-            result.extend_from_slice(&args[..idx]);
-            result.push(alloc_expr.clone());
-            result.extend_from_slice(&args[idx..]);
-            result
-        }
-    }
-}
-
 fn strip_out_param(params: &[Member]) -> Vec<Member> {
     let mut out = params.to_vec();
     if out
@@ -1466,8 +1443,6 @@ fn ctype_to_tokens(ty: &CType) -> TokenStream {
 /// Paths like `core::ffi::c_void` are parsed rather than wrapped in
 /// `format_ident!` because they contain `::` separators.
 fn base_type_tokens(base: &str) -> TokenStream {
-    use crate::types::c_type_to_rust;
-
     let resolved = c_type_to_rust(base);
     let name = if resolved.is_empty() {
         // Vulkan type or unknown - pass through as-is.  Empty base means void.

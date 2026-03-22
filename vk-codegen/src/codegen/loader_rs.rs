@@ -93,17 +93,18 @@ fn gen_dispatch_table<F: Fn(&str) -> bool>(reg: &Registry, kind: &str, filter: F
 
         for (name, features) in cmds {
             let cfg = cfg_any(&features);
-            // Preserve Vulkan naming
+            // Preserve Vulkan naming (minus 'vk' prefix).
+            let fname = format_ident!("{}", name);
             let pfn = format_ident!("PFN_{}", &name);
             let clit = Literal::byte_string(format!("{}\0", name).as_bytes());
 
-            fields_ts.extend(quote! { #cfg pub #name: Option<#pfn>, });
-            empty_ts.extend(quote! {  #cfg #name: None, });
+            fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
+            empty_ts.extend(quote! {  #cfg #fname: None, });
             load_ts.extend(quote! {
                 #cfg {
                     let raw = loader(#clit.as_ptr() as *const c_char);
                     if !raw.is_null() {
-                        table.#name = Some(unsafe { core::mem::transmute(raw) });
+                        table.#fname = Some(unsafe { core::mem::transmute(raw) });
                     }
                 }
             });

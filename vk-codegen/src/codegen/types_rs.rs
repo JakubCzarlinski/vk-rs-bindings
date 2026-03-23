@@ -258,35 +258,45 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     }
 
     let cfg = cfg_any(&s.provided_by);
-    let url = refpage_url(&s.name);
-    let comment = s.comment.as_deref().unwrap_or("");
-    let returned = if s.returned_only {
-        "\n\n *Note: This is a **returned only** struct.*"
-    } else {
-        ""
-    };
-    let rl = if s.required_limit_type {
-        "\n\n *Note: This struct has **required limit types**.*"
-    } else {
-        ""
-    };
-    let extends = if !s.struct_extends.is_empty() {
-        format!("\n\n **Extends:** {}", s.struct_extends.join(", "))
-    } else {
-        String::new()
-    };
-    let mut extra_doc = String::new();
-    if let Some(ref dep) = s.dep {
-        extra_doc.push_str(&format!(
-            "\n\n **Availability:** depends on `{}`",
-            dep.atoms().join(" + ")
-        ));
+    let name_str = &s.name;
+    let url_str = format!(" [{}]({})", name_str, refpage_url(name_str));
+    let mut doc = quote! { #[doc = #url_str] };
+    if let Some(ref comment) = s.comment {
+        let comment = comment.trim();
+        if !comment.is_empty() {
+            doc.extend(quote! { #[doc = " "] });
+            let comment = " ".to_string() + comment;
+            doc.extend(quote! { #[doc = #comment] });
+        }
     }
-    let doc = format!(
-        " [`{n}`]({url})\n\n{comment}{returned}{rl}{extends}{extra_doc}",
-        n = s.name
-    );
-    let doc = doc.trim();
+    if s.returned_only {
+        doc.extend(quote! {
+            #[doc = " "]
+            #[doc = " *Note: This is a **returned only** struct.*"]
+        });
+    }
+    if s.required_limit_type {
+        doc.extend(quote! {
+            #[doc = " "]
+            #[doc = " *Note: This struct has **required limit types**.*"]
+        });
+    }
+    if !s.struct_extends.is_empty() {
+        let extends = s.struct_extends.join(", ");
+        let comment = format!(" **Extends:** {}.", extends);
+        doc.extend(quote! {
+            #[doc = " "]
+            #[doc = #comment]
+        });
+    }
+    if let Some(ref dep) = s.dep {
+        let depends_on = dep.atoms().join(" + ");
+        let comment = format!(" **Availability:** depends on `{}`.", depends_on);
+        doc.extend(quote! {
+            #[doc = " "]
+            #[doc = #comment]
+        });
+    }
 
     let depr = deprecate_attr(&s.depr);
     let name = format_ident!("{}", &s.name);
@@ -412,8 +422,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             .unwrap_or_else(|| quote! { u8 });
         let name_str = s.name.as_str();
         let fname_str = s.members.first().map(|m| m.name.as_str()).unwrap_or("_");
-        quote! {
-            #[doc = #doc] #cfg #depr
+        doc.extend(quote! {
+            #cfg #depr
             #[repr(C)]
             #[derive(Copy, Clone)]
             pub union #name { #field_toks }
@@ -436,7 +446,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
                      .finish()
                 }
             }
-        }
+        });
+        doc
     } else {
         // Struct: Debug+Clone+Copy derive
         let impl_body: TokenStream = if let Some(ref sv) = stype_default {
@@ -469,16 +480,16 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             }
         };
 
-        // TODO(czarlinski): fix docs.
-        quote! {
-            #[doc = #doc] #cfg #depr
+        doc.extend(quote! {
+            #cfg #depr
             #[repr(C)]
             #[derive(Debug, Clone, Copy)]
             pub struct #name { #field_toks }
 
             #cfg
             impl #name { #impl_body }
-        }
+        });
+        doc
     }
 }
 

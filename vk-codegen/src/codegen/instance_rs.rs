@@ -31,6 +31,7 @@ fn preamble() -> TokenStream {
             clippy::missing_safety_doc,
         )]
 
+        use core::ptr;
         use core::ffi::{c_char, c_void};
         use crate::commands::*;
         use crate::types::*;

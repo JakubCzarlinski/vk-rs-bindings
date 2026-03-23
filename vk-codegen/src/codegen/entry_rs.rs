@@ -65,10 +65,10 @@ fn preamble() -> TokenStream {
             clippy::missing_safety_doc,
         )]
 
-        use core::ffi::{c_char, c_void};
         use crate::commands::*;
         use crate::types::*;
         use crate::enums::*;
+        use core::ffi::{c_char, c_void};
     }
 }
 
@@ -117,8 +117,6 @@ fn gen_vulkan_lib() -> TokenStream {
             }
         }
 
-        #[cfg(feature = "std")]
-        impl std::error::Error for LoadError {}
 
         /// Handle to the platform Vulkan shared library.
         ///

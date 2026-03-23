@@ -251,6 +251,82 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
     }
 }
 
+/// Returns true if a member's Rust type involves a raw pointer at the top level
+/// (i.e. pointer_depth > 0), meaning its setter cannot be `const fn`.
+fn member_is_pointer(m: &Member) -> bool {
+    m.ty.pointer_depth > 0
+}
+
+/// Emit a per-field cfg guard matching the one used on the field declaration itself.
+fn member_cfg(m: &Member) -> TokenStream {
+    if let Some(ref aset) = m.api {
+        if aset.vulkansc && !aset.vulkan {
+            return quote! { #[cfg(feature = "VKSC_VERSION_1_0")] };
+        } else if aset.vulkan && !aset.vulkansc {
+            return quote! { #[cfg(not(feature = "VKSC_VERSION_1_0"))] };
+        }
+    }
+    quote! {}
+}
+
+/// Generate builder setter methods for all struct members except `sType`.
+///
+/// - Non-pointer fields  -> `pub const fn with_<name>(mut self, val: T) -> Self`
+/// - Pointer fields      -> `pub fn with_<name>(mut self, val: T) -> Self`
+///                         with a `// SAFETY:` doc comment reminding callers of
+///                         their lifetime obligations.
+///
+/// Each setter carries the same `#[cfg(...)]` guard as its corresponding field.
+fn gen_builder_setters(s: &Struct) -> TokenStream {
+    let mut ts = TokenStream::new();
+
+    for m in &s.members {
+        // sType is always fixed by the spec - no setter.
+        if m.name == "sType" {
+            continue;
+        }
+
+        let fname = format_ident!("{}", sanitize_ident(&m.name));
+        // Builder method keeps original Vulkan casing: with_pNext, with_stageIndexOffset, etc.
+        let method_name = format_ident!("with_{}", &m.name);
+        let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
+        let fcfg = member_cfg(m);
+        let fdepr = deprecate_attr(&m.depr);
+
+        if member_is_pointer(m) {
+            // Raw pointer setter: safe fn (caller asserts lifetime), not const fn
+            // (ptr-to-int casts are not stable in const context).
+            let safety_doc = " # Safety\n \
+                 The caller must ensure `val` remains valid and outlives \
+                 any use of this struct instance. The pointer is stored as-is \
+                 without any lifetime tracking.".to_string();
+            ts.extend(quote! {
+                #fcfg
+                #fdepr
+                #[doc = #safety_doc]
+                #[inline]
+                pub const fn #method_name(mut self, val: #ftype) -> Self {
+                    self.#fname = val;
+                    self
+                }
+            });
+        } else {
+            // Non-pointer setter: const fn, always safe.
+            ts.extend(quote! {
+                #fcfg
+                #fdepr
+                #[inline]
+                pub const fn #method_name(mut self, val: #ftype) -> Self {
+                    self.#fname = val;
+                    self
+                }
+            });
+        }
+    }
+
+    ts
+}
+
 /// Generate struct/union tokens using quote!.
 fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     if s.provided_by.is_empty() {
@@ -329,17 +405,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             let fdoc = m.comment.as_deref().unwrap_or("");
             let fdepr = deprecate_attr(&m.depr);
 
-            let fcfg = if let Some(ref aset) = m.api {
-                if aset.vulkansc && !aset.vulkan {
-                    quote! { #[cfg(feature = "VKSC_VERSION_1_0")] }
-                } else if aset.vulkan && !aset.vulkansc {
-                    quote! { #[cfg(not(feature = "VKSC_VERSION_1_0"))] }
-                } else {
-                    quote! {}
-                }
-            } else {
-                quote! {}
-            };
+            let fcfg = member_cfg(m);
 
             let mut extra = Vec::new();
             if m.optional != crate::ir::Optional::False {
@@ -390,17 +456,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
                 needs_unsafe = true;
             }
 
-            let fcfg = if let Some(ref aset) = m.api {
-                if aset.vulkansc && !aset.vulkan {
-                    quote! { #[cfg(feature = "VKSC_VERSION_1_0")] }
-                } else if aset.vulkan && !aset.vulkansc {
-                    quote! { #[cfg(not(feature = "VKSC_VERSION_1_0"))] }
-                } else {
-                    quote! {}
-                }
-            } else {
-                quote! {}
-            };
+            let fcfg = member_cfg(m);
 
             let def = parse_expr(&def_str);
             quote! { #fcfg #fname: #def, }
@@ -409,7 +465,9 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     let default_body: TokenStream = default_fields.into_iter().collect();
 
     if s.is_union {
-        // Union: Copy+Clone derive, manual Debug, unsafe const DEFAULT
+        // Union: Copy+Clone derive, manual Debug, unsafe const DEFAULT.
+        // Builder setters are intentionally omitted for unions - their fields
+        // are semantically exclusive and a setter on one variant is misleading.
         let first_fname = s
             .members
             .first()
@@ -450,6 +508,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         doc
     } else {
         // Struct: Debug+Clone+Copy derive
+        let builder_setters = gen_builder_setters(s);
         let impl_body: TokenStream = if let Some(ref sv) = stype_default {
             if needs_unsafe {
                 quote! {
@@ -457,12 +516,14 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
                         // SAFETY: zeroed fields are valid C-layout types.
                         unsafe { Self { sType: #sv, #default_body } }
                     }
+                    #builder_setters
                 }
             } else {
                 quote! {
                     pub const DEFAULT: Self = Self { sType: #sv, #default_body };
                     #[inline]
                     pub const fn new() -> Self { Self::DEFAULT }
+                    #builder_setters
                 }
             }
         } else if needs_unsafe {
@@ -471,12 +532,14 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
                     // SAFETY: zeroed fields are valid C-layout types.
                     unsafe { Self { #default_body } }
                 }
+                #builder_setters
             }
         } else {
             quote! {
                 pub const DEFAULT: Self = Self { #default_body };
                 #[inline]
                 pub const fn new() -> Self { Self::DEFAULT }
+                #builder_setters
             }
         };
 
@@ -571,7 +634,7 @@ fn classify_type_inner(base: &str, reg: &Registry, depth: u8) -> (TypeClass, Str
 
     if reg.structs.contains_key(base) {
         // All structs and unions now have a const DEFAULT.
-        // Unions use `unsafe { zeroed() }` for their first field, which is const-safe on Rust ≥ 1.75.
+        // Unions use `unsafe { zeroed() }` for their first field, which is const-safe on Rust >= 1.75.
         return (TypeClass::StructWithDefault, base.to_owned());
     }
 

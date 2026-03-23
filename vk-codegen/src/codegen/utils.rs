@@ -462,14 +462,19 @@ pub fn safe_method(
 ) -> TokenStream {
     let cfg = cfg_any(providers);
     let fname = format_ident!("{}", name);
-    let miss = format!("command not loaded: {}", name);
-
-    let core_fn = is_core(providers);
-    let fp = if core_fn {
-        quote! { (#table_expr).#fname.unwrap_unchecked() }
-    } else {
-        quote! { (#table_expr).#fname.expect(#miss) }
+    let safety_comment = " SAFETY: table is fully loaded at creation.";
+    let fp = quote! {
+        (#table_expr).#fname.unwrap_unchecked()
     };
+
+    // TODO(czarlinski): decide what is better - maybe we generate a debug version and release version.
+    // let miss = format!("command not loaded: {}", name);
+    // let core_fn = is_core(providers);
+    // let fp = if core_fn {
+    //     quote! { (#table_expr).#fname.unwrap_unchecked() }
+    // } else {
+    //     quote! { (#table_expr).#fname.expect(#miss) }
+    // };
 
     // Strip param[0] when it matches the wrapper's handle type.
     let strips_first = !handle_base.is_empty()
@@ -512,7 +517,10 @@ pub fn safe_method(
             #cfg #depr
             #[inline(always)]
             pub fn #fname(&self, #(#p_defs),*) {
-                unsafe { (#fp)(#(#fwd),*) }
+                unsafe {
+                  #[comment = #safety_comment]
+                  (#fp)(#(#fwd),*)
+                }
             }
         },
 
@@ -522,7 +530,10 @@ pub fn safe_method(
                 #cfg #depr
                 #[inline(always)]
                 pub fn #fname(&self, #(#p_defs),*) -> #ret {
-                    unsafe { (#fp)(#(#fwd),*) }
+                    unsafe {
+                      #[comment = #safety_comment]
+                      (#fp)(#(#fwd),*)
+                    }
                 }
             }
         }

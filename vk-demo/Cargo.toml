@@ -11,4 +11,4 @@ path = "src/main.rs"
 
 
 [dependencies]
-vk-rs-bindings = { path = "../vk-rs-bindings", features = ["VK_VERSION_1_4"] }
+vk = { path = "../vk-rs-bindings", features = ["VK_VERSION_1_4"], package = "vk-rs-bindings" }

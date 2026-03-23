@@ -3,8 +3,6 @@
 use proc_macro2::TokenStream;
 use quote::quote;
 
-// -- Public API ----------------------------------------------------------------
-
 /// `#[cfg(feature = "A")]`  or  `#[cfg(any(feature="A", feature="B", ...))]`
 pub fn cfg_any(features: &[String]) -> TokenStream {
     match features.len() {

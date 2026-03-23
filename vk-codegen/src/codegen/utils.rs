@@ -11,25 +11,36 @@ pub enum Tier {
     Device,
 }
 
-/// Describes what a generated safe wrapper method should return.
+// Commands pinned to the instance tier.
+//
+// `vkCreateDevice` has `VkPhysicalDevice` as param[0], which is instance-tier
+// by convention.  Some registry alias chains resolve to a variant with a
+// different first param and would misroute it into the device tier, leaving
+// `InstanceDispatchTable` without the field.  Pinning it here prevents that.
+//
+// `vkGetDeviceProcAddr` has `VkDevice` as param[0], which would normally route
+// it to the device tier.  It is however a core instance-tier command: it is
+// resolved via `vkGetInstanceProcAddr` and lives on `InstanceDispatchTable` so
+// that `Instance::vkCreateDevice` can use it to load the device table.
+const INSTANCE_PINNED: &[&str] = &["vkCreateDevice", "vkGetDeviceProcAddr"];
+
 pub enum WrapperReturn<'a> {
-    /// `void` return -> `()`
+    /// `void` -> `()`
     Unit,
-    /// Non-`VkResult` return -> forward the raw type
+    /// Non-`VkResult` -> forward raw return type
     Raw(&'a CType),
-    /// `VkResult` + single `*mut VkFoo` out-param at end -> `Result<VkFoo, VkResult>`
+    /// `VkResult` + single handle out-param -> `Result<Handle, VkResult>`
     ResultHandle { handle_ty: &'a CType },
-    /// Two-call enumerate pattern -> `Result<Box<[T]>, VkResult>`
+    /// Two-call enumerate -> `Result<Box<[T]>, VkResult>`
     Enumerate {
         item_ty: &'a CType,
         count_idx: usize,
         array_idx: usize,
     },
-    /// Everything else fallible -> `Result<VkResult, VkResult>`
+    /// All other `VkResult` commands -> `Result<VkResult, VkResult>`
     ResultRaw,
 }
 
-/// Classify a command's return shape for safe wrapper generation.
 pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> WrapperReturn<'a> {
     let ret = &cmd.return_type;
 
@@ -40,7 +51,7 @@ pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> 
         return WrapperReturn::Raw(ret);
     }
 
-    // Enumerate pattern
+    // Enumerate: *mut u32 count param followed by Optional::TrueTrue array param.
     let count_idx = cmd
         .params
         .iter()
@@ -62,8 +73,8 @@ pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> 
         }
     }
 
-    // Single out-handle: pointer_depth==1, not const, no array, Optional::False,
-    // is a genuine handle type, and is the last parameter.
+    // Single out-handle: writable pointer, no array, Optional::False, genuine
+    // handle type, last parameter.
     let out_params: Vec<(usize, &Member)> = cmd
         .params
         .iter()
@@ -86,8 +97,6 @@ pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> 
 
     WrapperReturn::ResultRaw
 }
-
-// VkResult cfg map + handle type set
 
 pub fn build_result_cfg_map(reg: &Registry) -> HashMap<String, TokenStream> {
     let mut map = HashMap::new();
@@ -120,28 +129,24 @@ pub fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
     set
 }
 
-// VkResult check helpers
 pub fn vk_result_check(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> TokenStream {
     result_check_arms(&cmd.success_codes, &cmd.error_codes, cfg_map)
 }
 
 pub fn vk_result_is_err(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> TokenStream {
     if cmd.error_codes.is_empty() {
-        quote! { r < VkResult::VK_SUCCESS }
-    } else {
-        let arms: Vec<TokenStream> = cmd
-            .error_codes
-            .iter()
-            .map(|s| {
-                let id = format_ident!("{}", s);
-                let cfg = cfg_map.get(s).cloned().unwrap_or_default();
-                quote! { #cfg VkResult::#id }
-            })
-            .collect();
-        quote! {
-            matches!(r, #(#arms)|*) || r < VkResult::VK_SUCCESS
-        }
+        return quote! { r < VkResult::VK_SUCCESS };
     }
+    let arms: Vec<TokenStream> = cmd
+        .error_codes
+        .iter()
+        .map(|s| {
+            let id = format_ident!("{}", s);
+            let cfg = cfg_map.get(s).cloned().unwrap_or_default();
+            quote! { #cfg VkResult::#id }
+        })
+        .collect();
+    quote! { matches!(r, #(#arms)|*) || r < VkResult::VK_SUCCESS }
 }
 
 pub fn result_check_arms(
@@ -172,9 +177,8 @@ fn cfg_grouped_arms(
     for s in codes {
         let id = format_ident!("{}", s);
         let cfg = cfg_map.get(s).cloned().unwrap_or_default();
-        let key = cfg.to_string();
         by_cfg
-            .entry(key)
+            .entry(cfg.to_string())
             .or_insert_with(|| (cfg, Vec::new()))
             .1
             .push(quote! { VkResult::#id });
@@ -193,6 +197,10 @@ fn cfg_grouped_arms(
 }
 
 // Command grouping
+
+/// Feature-keyed map of `(name, providers, resolved_command)`.
+/// Commands within each bucket are sorted alphabetically; both the dispatch
+/// table and the safe wrapper iterate this in the same order.
 pub type Groups = BTreeMap<String, Vec<(String, Vec<String>, Command)>>;
 
 pub fn collect_groups(
@@ -201,24 +209,33 @@ pub fn collect_groups(
     skip: &HashSet<&str>,
     enabled: &HashSet<String>,
 ) -> Groups {
+    let pinned: HashSet<&str> = INSTANCE_PINNED.iter().copied().collect();
     let mut groups: Groups = BTreeMap::new();
 
     for (name, variants) in &reg.commands {
         if skip.contains(name.as_str()) {
             continue;
         }
+
+        let is_instance = variants.iter().any(is_instance_cmd) || pinned.contains(name.as_str());
+
         let matches = match tier {
-            Tier::Instance => variants.iter().any(is_instance_cmd),
-            Tier::Device => !variants.iter().any(is_instance_cmd),
+            Tier::Instance => is_instance,
+            Tier::Device => !is_instance,
         };
         if !matches {
             continue;
         }
+
         let cmd_raw = variants.last().unwrap();
-        if !cmd_raw.api.vulkan && !cmd_raw.api.vulkanbase {
+        if !variants.iter().any(|c| c.api.vulkan || c.api.vulkanbase) {
             continue;
         }
-        let cmd = resolve_alias(cmd_raw, reg);
+        let cmd = if pinned.contains(name.as_str()) {
+            resolve_pinned(name, reg)
+        } else {
+            resolve_alias(cmd_raw, reg)
+        };
         let mut providers: Vec<String> = variants
             .iter()
             .flat_map(|c| c.provided_by.clone())
@@ -241,6 +258,20 @@ pub fn collect_groups(
     groups
 }
 
+/// For pinned commands: find the first variant with non-empty params rather
+/// than following the alias chain, which may end at a device-tier variant.
+fn resolve_pinned(name: &str, reg: &Registry) -> Command {
+    let variants = reg
+        .commands
+        .get(name)
+        .unwrap_or_else(|| panic!("pinned command {name} not found in registry"));
+    variants
+        .iter()
+        .find(|c| !c.params.is_empty())
+        .or_else(|| variants.last())
+        .unwrap()
+        .clone()
+}
 pub fn resolve_alias(cmd: &Command, reg: &Registry) -> Command {
     let mut current = cmd;
     for i in 0..10 {
@@ -316,16 +347,6 @@ pub fn is_cmd_buf_cmd(cmd: &Command) -> bool {
 }
 
 // Token helpers
-pub fn first_param_tokens(cmd: &Command) -> (TokenStream, TokenStream) {
-    match cmd.params.first() {
-        Some(m) => {
-            let n = format_ident!("{}", kw_escape(&m.name));
-            let t = ctype_to_tokens(&m.ty);
-            (quote! { #n: #t }, quote! { #n })
-        }
-        None => (quote! { _handle: *mut c_void }, quote! { _handle }),
-    }
-}
 
 pub fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream>) {
     params
@@ -338,42 +359,8 @@ pub fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream
         .unzip()
 }
 
-pub fn strip_allocator(params: &[Member]) -> (Vec<Member>, Option<usize>) {
-    match params
-        .iter()
-        .position(|m| m.ty.base == "VkAllocationCallbacks")
-    {
-        Some(i) => {
-            let mut out = params.to_vec();
-            out.remove(i);
-            (out, Some(i))
-        }
-        None => (params.to_vec(), None),
-    }
-}
-
-pub fn build_fwd_args(
-    clean_params: &[Member],
-    alloc_idx: Option<usize>,
-    alloc_expr: &TokenStream,
-) -> Vec<TokenStream> {
-    let fwd: Vec<TokenStream> = clean_params
-        .iter()
-        .map(|m| {
-            let n = format_ident!("{}", kw_escape(&m.name));
-            quote! { #n }
-        })
-        .collect();
-    match alloc_idx {
-        None => fwd,
-        Some(idx) => {
-            let mut result = Vec::with_capacity(fwd.len() + 1);
-            result.extend_from_slice(&fwd[..idx]);
-            result.push(alloc_expr.clone());
-            result.extend_from_slice(&fwd[idx..]);
-            result
-        }
-    }
+pub fn strip_first_param(params: &[Member]) -> &[Member] {
+    params.get(1..).unwrap_or(&[])
 }
 
 pub fn strip_out_param(params: &[Member]) -> Vec<Member> {
@@ -452,44 +439,23 @@ pub fn kw_escape(name: &str) -> &str {
     }
 }
 
-// Raw dispatch method (shared by Instance and Device table generators)
-
-pub fn raw_dispatch_method(
+// Safe method body
+//
+// Shared by Entry, Instance, Device, CommandBuffer.  The caller supplies:
+//   - `handle_base`  - the Vulkan type string of param[0] to strip from the
+//                      signature and replace with `self_handle` in the call
+//                      (e.g. "VkInstance").  Pass "" for Entry, where there is
+//                      no dispatchable param[0] to strip.
+//   - `self_handle`  - tokens for the handle value (`self.raw`, etc.)
+//   - `table_expr`   - tokens to reach the dispatch table (`&self.table`, etc.)
+#[allow(clippy::too_many_arguments)]
+pub fn safe_method(
     cmd: &Command,
     name: &str,
     providers: &[String],
-    core_fn: bool,
-) -> TokenStream {
-    let cfg = cfg_any(providers);
-    let fname = format_ident!("{}", name);
-    let miss = format!("command not loaded: {}", name);
-    let (handle_def, handle_fwd) = first_param_tokens(cmd);
-    let rest = cmd.params.get(1..).unwrap_or(&[]);
-    let (p_defs, p_fwd) = params_to_tokens(rest);
-    let ret = ctype_to_tokens(&cmd.return_type);
-    let fp = if core_fn {
-        quote! { self.#fname.unwrap_unchecked() }
-    } else {
-        quote! { self.#fname.expect(#miss) }
-    };
-    quote! {
-        #cfg
-        #[inline(always)]
-        pub unsafe fn #fname(&self, #handle_def, #(#p_defs),*) -> #ret {
-            unsafe { (#fp)(#handle_fwd, #(#p_fwd),*) }
-        }
-    }
-}
-
-// Safe method body (shared by Instance, Device, CommandBuffer)
-
-pub fn safe_method_body(
-    cmd: &Command,
-    name: &str,
-    providers: &[String],
-    tier: Tier,
-    self_handle: TokenStream,
-    table_expr: TokenStream,
+    handle_base: &str,        // "" = no stripping (Entry)
+    self_handle: TokenStream, // value to substitute for param[0]
+    table_expr: TokenStream,  // how to reach the PFN table
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
 ) -> TokenStream {
@@ -504,78 +470,71 @@ pub fn safe_method_body(
         quote! { (#table_expr).#fname.expect(#miss) }
     };
 
-    let first_param = cmd.params.first();
-    let matches_tier = first_param.is_some_and(|p| match tier {
-        Tier::Instance => p.ty.base == "VkInstance",
-        Tier::Device => p.ty.base == "VkDevice",
-    });
+    // Strip param[0] when it matches the wrapper's handle type.
+    let strips_first = !handle_base.is_empty()
+        && cmd
+            .params
+            .first()
+            .map(|p| p.ty.base == handle_base)
+            .unwrap_or(false);
 
-    let (params_for_sig, _alloc_idx_for_sig) = if matches_tier {
-        strip_allocator(cmd.params.get(1..).unwrap_or(&[]))
+    let sig_params: &[Member] = if strips_first {
+        strip_first_param(&cmd.params)
     } else {
-        strip_allocator(cmd.params.as_slice())
+        &cmd.params
     };
 
-    let (clean_params_full, alloc_idx_full) = strip_allocator(cmd.params.as_slice());
-
-    let has_alloc = _alloc_idx_for_sig.is_some();
-    let alloc_param = if has_alloc {
-        quote! { allocator: Option<&VkAllocationCallbacks>, }
-    } else {
-        quote! {}
-    };
-    let alloc_expr = quote! { allocator.map_or(core::ptr::null(), |a| a as *const _) };
-
-    let mut fwd_args = build_fwd_args(&clean_params_full, alloc_idx_full, &alloc_expr);
-    if matches_tier {
-        fwd_args[0] = quote! { #self_handle };
+    // Build the forwarding argument list.  param[0] becomes self_handle when
+    // we strip it; the rest forward their names directly.
+    let mut fwd: Vec<TokenStream> = cmd
+        .params
+        .iter()
+        .map(|m| {
+            let n = format_ident!("{}", kw_escape(&m.name));
+            quote! { #n }
+        })
+        .collect();
+    if strips_first {
+        fwd[0] = quote! { #self_handle };
     }
 
+    let (p_defs, _) = params_to_tokens(sig_params);
+
     match classify_return(cmd, handle_types) {
-        WrapperReturn::Unit => {
-            let (p_defs, _) = params_to_tokens(&params_for_sig);
-            quote! {
-                #cfg
-                #[inline(always)]
-                pub unsafe fn #fname(&self, #alloc_param #(#p_defs),*) {
-                    unsafe { (#fp)(#(#fwd_args),*) }
-                }
+        WrapperReturn::Unit => quote! {
+            #cfg
+            #[inline(always)]
+            pub fn #fname(&self, #(#p_defs),*) {
+                unsafe { (#fp)(#(#fwd),*) }
             }
-        }
+        },
 
         WrapperReturn::Raw(ret_ty) => {
             let ret = ctype_to_tokens(ret_ty);
-            let (p_defs, _) = params_to_tokens(&params_for_sig);
             quote! {
                 #cfg
                 #[inline(always)]
-                pub unsafe fn #fname(&self, #alloc_param #(#p_defs),*) -> #ret {
-                    unsafe { (#fp)(#(#fwd_args),*) }
+                pub fn #fname(&self, #(#p_defs),*) -> #ret {
+                    unsafe { (#fp)(#(#fwd),*) }
                 }
             }
         }
 
         WrapperReturn::ResultHandle { handle_ty } => {
             let h_ty = deref_ctype(handle_ty);
-            let inner = strip_out_param(&params_for_sig);
+            let inner = strip_out_param(sig_params);
             let (p_defs, _) = params_to_tokens(&inner);
             let check = vk_result_check(cmd, result_cfgs);
-
-            let last_idx = fwd_args.len().saturating_sub(1);
-            if !fwd_args.is_empty() {
-                fwd_args[last_idx] = quote! { &mut handle };
+            let last = fwd.len().saturating_sub(1);
+            if !fwd.is_empty() {
+                fwd[last] = quote! { &mut handle };
             }
-
             quote! {
                 #cfg
                 #[inline]
-                pub unsafe fn #fname(
-                    &self,
-                    #alloc_param
-                    #(#p_defs),*
-                ) -> Result<#h_ty, VkResult> {
+                pub fn #fname(&self, #(#p_defs),*) -> Result<#h_ty, VkResult> {
                     let mut handle = #h_ty::NULL;
-                    let r = unsafe { (#fp)(#(#fwd_args),*) };
+                    let r = unsafe { (#fp)(#(#fwd),*) };
                     #check .map(|_| handle)
                 }
             }
@@ -590,41 +549,38 @@ pub fn safe_method_body(
             let ci = count_idx;
             let ai = array_idx;
 
-            let keep_params: Vec<Member> = params_for_sig
+            // Signature: drop the count and array params, keep everything else.
+            let keep: Vec<Member> = sig_params
                 .iter()
                 .enumerate()
                 .filter(|(i, _)| {
-                    let actual_idx = if matches_tier { *i + 1 } else { *i };
-                    actual_idx != ci && actual_idx != ai
+                    // Adjust index back to the full param list to compare with ci/ai.
+                    let full = if strips_first { *i + 1 } else { *i };
+                    full != ci && full != ai
                 })
                 .map(|(_, m)| m.clone())
                 .collect();
+            let (p_defs, _) = params_to_tokens(&keep);
 
-            let (p_defs, _) = params_to_tokens(&keep_params);
             let is_err = vk_result_is_err(cmd, result_cfgs);
             let check2 = vk_result_check(cmd, result_cfgs);
 
-            let mut fwd_first = fwd_args.clone();
+            let mut fwd_first = fwd.clone();
             fwd_first[ci] = quote! { &mut count };
             fwd_first[ai] = quote! { core::ptr::null_mut() };
 
-            let mut fwd_second = fwd_args.clone();
+            let mut fwd_second = fwd.clone();
             fwd_second[ci] = quote! { &mut count };
             fwd_second[ai] = quote! { out.as_mut_ptr() };
 
             quote! {
                 #cfg
                 #[inline]
-                pub unsafe fn #fname(
-                    &self,
-                    #alloc_param
-                    #(#p_defs),*
-                ) -> Result<Box<[#elem_ty]>, VkResult> {
+                pub fn #fname(&self, #(#p_defs),*) -> Result<Box<[#elem_ty]>, VkResult> {
                     let mut count: u32 = 0;
                     let r = unsafe { (#fp)(#(#fwd_first),*) };
                     if #is_err { return Err(r); }
                     if count == 0 { return Ok(Box::default()); }
-
                     let mut out = Box::<[#elem_ty]>::new_uninit_slice(count as usize);
                     let r = unsafe { (#fp)(#(#fwd_second),*) };
                     #check2 .map(|_| unsafe { out.assume_init() })
@@ -633,168 +589,12 @@ pub fn safe_method_body(
         }
 
         WrapperReturn::ResultRaw => {
-            let (p_defs, _) = params_to_tokens(&params_for_sig);
             let check = vk_result_check(cmd, result_cfgs);
             quote! {
                 #cfg
                 #[inline(always)]
-                pub unsafe fn #fname(
-                    &self,
-                    #alloc_param
-                    #(#p_defs),*
-                ) -> Result<VkResult, VkResult> {
-                    let r = unsafe { (#fp)(#(#fwd_args),*) };
-                    #check
-                }
-            }
-        }
-    }
-}
-
-// Entry-specific safe method helper
-
-/// Generate a safe wrapper for an entry-table command.
-///
-/// Unlike instance/device wrappers there is no implicit dispatchable handle
-/// param[0] to strip - all params are user-visible except the allocator.
-/// The method is `pub fn` (not `pub unsafe fn`) because all unsafe pointer
-/// work is contained inside the body.
-pub fn entry_safe_method(
-    cmd: &Command,
-    name: &str,
-    providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
-    handle_types: &HashSet<String>,
-) -> TokenStream {
-    let cfg = if providers.is_empty() {
-        quote! {}
-    } else {
-        cfg_any(providers)
-    };
-    let raw_fname = format_ident!("{}", name);
-    let safe_fname = format_ident!("{}_safe", name);
-    let miss = format!("entry point not loaded: {}", name);
-
-    let (clean_params, alloc_idx) = strip_allocator(cmd.params.as_slice());
-    let has_alloc = alloc_idx.is_some();
-    let alloc_param = if has_alloc {
-        quote! { allocator: Option<&VkAllocationCallbacks>, }
-    } else {
-        quote! {}
-    };
-    let alloc_expr = quote! { allocator.map_or(core::ptr::null(), |a| a as *const _) };
-    let fwd_args = build_fwd_args(&clean_params, alloc_idx, &alloc_expr);
-
-    match classify_return(cmd, handle_types) {
-        WrapperReturn::Unit => {
-            let (p_defs, _) = params_to_tokens(&clean_params);
-            quote! {
-                #cfg
-                #[inline(always)]
-                pub fn #safe_fname(&self, #alloc_param #(#p_defs),*) {
-                    unsafe { (self.#raw_fname.expect(#miss))(#(#fwd_args),*) }
-                }
-            }
-        }
-
-        WrapperReturn::Raw(ret_ty) => {
-            let ret = ctype_to_tokens(ret_ty);
-            let (p_defs, _) = params_to_tokens(&clean_params);
-            quote! {
-                #cfg
-                #[inline(always)]
-                pub fn #safe_fname(&self, #alloc_param #(#p_defs),*) -> #ret {
-                    unsafe { (self.#raw_fname.expect(#miss))(#(#fwd_args),*) }
-                }
-            }
-        }
-
-        WrapperReturn::ResultHandle { handle_ty } => {
-            let h_ty = deref_ctype(handle_ty);
-            let inner = strip_out_param(&clean_params);
-            let (p_defs, _) = params_to_tokens(&inner);
-            let check = vk_result_check(cmd, result_cfgs);
-
-            let mut fa = fwd_args.clone();
-            let last = fa.len().saturating_sub(1);
-            if !fa.is_empty() {
-                fa[last] = quote! { &mut handle };
-            }
-
-            quote! {
-                #cfg
-                #[inline]
-                pub fn #safe_fname(
-                    &self,
-                    #alloc_param
-                    #(#p_defs),*
-                ) -> Result<#h_ty, VkResult> {
-                    let mut handle = #h_ty::NULL;
-                    let r = unsafe { (self.#raw_fname.expect(#miss))(#(#fa),*) };
-                    #check .map(|_| handle)
-                }
-            }
-        }
-
-        WrapperReturn::Enumerate {
-            item_ty,
-            count_idx,
-            array_idx,
-        } => {
-            let elem_ty = deref_ctype(item_ty);
-            let ci = count_idx;
-            let ai = array_idx;
-
-            let keep_params: Vec<Member> = clean_params
-                .iter()
-                .enumerate()
-                .filter(|(i, _)| *i != ci && *i != ai)
-                .map(|(_, m)| m.clone())
-                .collect();
-            let (p_defs, _) = params_to_tokens(&keep_params);
-            let is_err = vk_result_is_err(cmd, result_cfgs);
-            let check2 = vk_result_check(cmd, result_cfgs);
-
-            let mut fwd_first = fwd_args.clone();
-            fwd_first[ci] = quote! { &mut count };
-            fwd_first[ai] = quote! { core::ptr::null_mut() };
-
-            let mut fwd_second = fwd_args.clone();
-            fwd_second[ci] = quote! { &mut count };
-            fwd_second[ai] = quote! { out.as_mut_ptr() };
-
-            quote! {
-                #cfg
-                #[inline]
-                pub fn #safe_fname(
-                    &self,
-                    #alloc_param
-                    #(#p_defs),*
-                ) -> Result<Box<[#elem_ty]>, VkResult> {
-                    let mut count: u32 = 0;
-                    let r = unsafe { (self.#raw_fname.expect(#miss))(#(#fwd_first),*) };
-                    if #is_err { return Err(r); }
-                    if count == 0 { return Ok(Box::default()); }
-
-                    let mut out = Box::<[#elem_ty]>::new_uninit_slice(count as usize);
-                    let r = unsafe { (self.#raw_fname.expect(#miss))(#(#fwd_second),*) };
-                    #check2 .map(|_| unsafe { out.assume_init() })
-                }
-            }
-        }
-
-        WrapperReturn::ResultRaw => {
-            let (p_defs, _) = params_to_tokens(&clean_params);
-            let check = vk_result_check(cmd, result_cfgs);
-            quote! {
-                #cfg
-                #[inline(always)]
-                pub fn #safe_fname(
-                    &self,
-                    #alloc_param
-                    #(#p_defs),*
-                ) -> Result<VkResult, VkResult> {
-                    let r = unsafe { (self.#raw_fname.expect(#miss))(#(#fwd_args),*) };
+                pub fn #fname(&self, #(#p_defs),*) -> Result<VkResult, VkResult> {
+                    let r = unsafe { (#fp)(#(#fwd),*) };
                     #check
                 }
             }

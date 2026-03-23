@@ -22,11 +22,11 @@ fn generate() -> &'static codegen::GeneratedFiles {
     static GENERATED: OnceLock<codegen::GeneratedFiles> = OnceLock::new();
     GENERATED.get_or_init(|| {
         let reg = make_registry();
-        codegen::generate(&reg)
+        codegen::generate(reg)
     })
 }
 
-// -- DepExpr parser ------------------------------------------------------------
+//  DepExpr parser
 
 #[test]
 fn dep_simple_atom() {
@@ -94,7 +94,7 @@ fn dep_real_world_complex() {
     );
 }
 
-// -- XML parsing ---------------------------------------------------------------
+//  XML parsing
 
 #[test]
 fn parse_core_features() {
@@ -204,8 +204,7 @@ fn provided_by_tracking() {
     );
 }
 
-// -- Code generation -----------------------------------------------------------
-
+//  Code generation
 #[test]
 fn cargo_toml_has_features() {
     let f = generate();
@@ -403,8 +402,7 @@ fn superseded_command_has_depr_info() {
     );
 }
 
-// -- New: opaque extern types --------------------------------------------------
-
+//  New: opaque extern types
 #[test]
 fn opaque_basetype_struct_parsed() {
     let reg = make_registry();
@@ -461,8 +459,7 @@ fn opaque_types_emitted_as_repr_c_struct() {
     );
 }
 
-// -- New: video struct with enum-based array sizes -----------------------------
-
+//  New: video struct with enum-based array sizes
 #[test]
 fn video_struct_with_enum_array_size_parsed() {
     let reg = make_registry();
@@ -489,8 +486,7 @@ fn video_struct_with_enum_array_size_parsed() {
     );
 }
 
-// -- New: video codec header remapping -----------------------------------------
-
+//  New: video codec header remapping
 #[test]
 fn video_extension_is_not_disabled() {
     let reg = make_registry();
@@ -538,7 +534,7 @@ fn video_types_remapped_to_vk_feature() {
     );
 }
 
-// -- New: disabled extension items scrubbed ------------------------------------
+//  New: disabled extension items scrubbed
 
 #[test]
 fn disabled_extension_items_not_in_types_rs() {
@@ -557,7 +553,7 @@ fn disabled_extension_items_not_in_types_rs() {
     );
 }
 
-// -- New: correct URL format ---------------------------------------------------
+//  New: correct URL format
 
 #[test]
 fn refpage_urls_use_correct_path() {
@@ -575,7 +571,7 @@ fn refpage_urls_use_correct_path() {
     );
 }
 
-// -- New: duplicate API-variant members ---------------------------------------
+//  New: duplicate API-variant members
 
 #[test]
 fn api_variant_members_deduped_in_ir() {
@@ -641,7 +637,7 @@ fn stype_uses_full_const_name() {
     );
 }
 
-// -- New: funcpointers emitted -------------------------------------------------
+//  New: funcpointers emitted -
 
 #[test]
 fn funcpointers_parsed() {
@@ -697,8 +693,7 @@ fn funcpointers_emitted_in_types_rs() {
     );
 }
 
-// -- New: const-safe defaults without unsafe -----------------------------------
-
+//  New: const-safe defaults without unsafe
 #[test]
 fn integer_alias_fields_are_const_safe() {
     // VkInstanceCreateInfo has VkInstanceCreateFlags (typedef u32) and other integer
@@ -717,8 +712,7 @@ fn integer_alias_fields_are_const_safe() {
     );
 }
 
-// -- New: typed zero defaults --------------------------------------------------
-
+//  New: typed zero defaults
 #[test]
 fn enum_fields_use_typed_zero() {
     // VkSwapchainCreateInfoKHR has VkFormat and VkPresentModeKHR fields.
@@ -785,7 +779,7 @@ fn video_enum_uses_typed_zero() {
     );
 }
 
-// -- New: array field type uses `as usize` -------------------------------------
+//  New: array field type uses `as usize` -
 
 #[test]
 fn array_field_uses_as_usize_cast() {
@@ -830,7 +824,7 @@ fn types_rs_imports_consts() {
     );
 }
 
-// -- New: extension constants in consts.rs -------------------------------------
+//  New: extension constants in consts.rs -
 
 #[test]
 fn spec_version_in_consts_rs() {
@@ -872,7 +866,7 @@ fn extension_consts_are_feature_gated() {
     );
 }
 
-// -- New: union fields use ManuallyDrop ----------------------------------------
+//  New: union fields use ManuallyDrop -
 
 #[test]
 fn union_fields_are_plain_copy_types() {
@@ -903,7 +897,7 @@ fn union_fields_are_plain_copy_types() {
     }
 }
 
-// -- Video header remap applies to constants ------------------------------------
+//  Video header remap applies to constants
 
 #[test]
 fn video_const_provided_by_is_remapped() {
@@ -923,8 +917,7 @@ fn video_const_provided_by_is_remapped() {
     }
 }
 
-// -- c_char arrays use typed zero literal --------------------------------------
-
+//  c_char arrays use typed zero literal
 #[test]
 fn c_char_array_uses_zero_i8_literal() {
     let f = generate();
@@ -941,7 +934,7 @@ fn c_char_array_uses_zero_i8_literal() {
     );
 }
 
-// -- Struct-element arrays use ::DEFAULT ---------------------------------------
+//  Struct-element arrays use ::DEFAULT
 
 #[test]
 fn struct_array_element_uses_default() {
@@ -963,8 +956,7 @@ fn struct_array_element_uses_default() {
     );
 }
 
-// -- Option<T> fields default to None -----------------------------------------
-
+//  Option<T> fields default to None
 #[test]
 fn option_fields_default_to_none() {
     // Function pointer typedefs are emitted as Option<unsafe extern "system" fn(...)>.
@@ -990,7 +982,7 @@ fn option_fields_default_to_none() {
     );
 }
 
-// -- No nested unsafe blocks ---------------------------------------------------
+//  No nested unsafe blocks
 
 #[test]
 fn no_nested_unsafe_in_fn_new() {
@@ -1007,7 +999,7 @@ fn no_nested_unsafe_in_fn_new() {
     );
 }
 
-// -- PFN fields default to None ------------------------------------------------
+//  PFN fields default to None
 
 #[test]
 fn pfn_fields_parse_as_funcpointer() {
@@ -1056,8 +1048,7 @@ fn alias_chain_followed_for_enum_default() {
     );
 }
 
-// -- Union: no ManuallyDrop, manual Debug --------------------------------------
-
+//  Union: no ManuallyDrop, manual Debug
 #[test]
 fn union_has_no_manually_drop() {
     let f = generate();
@@ -1096,8 +1087,7 @@ fn union_derives_copy_clone() {
     }
 }
 
-// -- Opaque platform types as *mut c_void --------------------------------------
-
+//  Opaque platform types as *mut c_void
 #[test]
 fn opaque_basetype_emitted_as_ptr_alias() {
     let reg = make_registry();
@@ -1147,7 +1137,7 @@ fn opaque_types_emitted_as_newtype_handles() {
     }
 }
 
-// -- Platform requires= types parsed and feature-gated ------------------------
+//  Platform requires= types parsed and feature-gated
 
 #[test]
 fn platform_requires_types_parsed_as_opaque() {
@@ -1211,8 +1201,7 @@ fn platform_types_emitted_with_correct_cfg() {
     }
 }
 
-// -- Alias chain resolves to canonical enum name --------------------------------
-
+//  Alias chain resolves to canonical enum name
 #[test]
 fn video_enum_fields_use_typed_init() {
     // StdVideoH265ProfileTierLevel has StdVideoH265ProfileIdc and StdVideoH265LevelIdc
@@ -1238,7 +1227,7 @@ fn video_enum_fields_use_typed_init() {
     );
 }
 
-// -- Null ptr alias for OpaqueExtern -------------------------------------------
+//  Null ptr alias for OpaqueExtern -
 
 #[test]
 fn opaque_extern_fields_default_to_null_mut() {
@@ -1264,7 +1253,7 @@ fn opaque_extern_fields_default_to_null_mut() {
     }
 }
 
-// -- All structs derive Copy ---------------------------------------------------
+//  All structs derive Copy
 
 #[test]
 fn structs_derive_copy() {
@@ -1293,8 +1282,7 @@ fn unions_still_derive_copy_clone() {
     }
 }
 
-// -- Enum alias chains: canonical constructor used in defaults -----------------
-
+//  Enum alias chains: canonical constructor used in defaults
 #[test]
 fn enum_alias_fields_use_canonical_constructor() {
     // When a struct field has an enum alias type (e.g. VkScopeNV = VkScopeKHR),
@@ -1325,8 +1313,7 @@ fn enum_alias_fields_use_canonical_constructor() {
     );
 }
 
-// -- Platform handle newtypes --------------------------------------------------
-
+//  Platform handle newtypes
 #[test]
 fn platform_handles_have_null_const() {
     let f = generate();
@@ -1366,7 +1353,7 @@ fn platform_handles_are_distinct_types() {
     }
 }
 
-// -- Video codec types are not treated as platform opaques ---------------------
+//  Video codec types are not treated as platform opaques
 
 #[test]
 fn video_codec_types_not_opaque_extern() {
@@ -1407,8 +1394,7 @@ fn video_enum_defaults_are_not_null_ptr() {
     );
 }
 
-// -- Platform type back-propagation --------------------------------------------
-
+//  Platform type back-propagation
 #[test]
 fn platform_types_back_propagated_from_structs() {
     // wl_display is not listed in <require><type> for VK_KHR_wayland_surface,
@@ -1542,7 +1528,7 @@ fn platform_types_feature_gated_correctly() {
     }
 }
 
-// -- Union const DEFAULT -------------------------------------------------------
+//  Union const DEFAULT -
 
 #[test]
 fn union_has_const_default() {
@@ -1579,7 +1565,7 @@ fn struct_with_union_field_is_const_default() {
     );
 }
 
-// -- Video codec #define constants ---------------------------------------------
+//  Video codec #define constants
 
 #[test]
 fn video_defines_parsed() {
@@ -1693,8 +1679,7 @@ fn video_version_consts_feature_gated() {
     );
 }
 
-// -- All defines routed to consts.rs, not types.rs -----------------------------
-
+//  All defines routed to consts.rs, not types.rs
 #[test]
 fn defines_not_in_types_rs() {
     let f = generate();
@@ -1712,8 +1697,7 @@ fn defines_not_in_types_rs() {
     );
 }
 
-// -- vk.xml API version helpers in consts.rs -----------------------------------
-
+//  vk.xml API version helpers in consts.rs
 #[test]
 fn vk_make_api_version_const_fn() {
     let f = generate();

@@ -564,7 +564,7 @@ fn classify_type_inner(base: &str, reg: &Registry, depth: u8) -> (TypeClass, Str
 ///   - Option fn-ptrs   -> `None`                             (const-safe)
 ///   - Unknown          -> `core::mem::zeroed()`              (needs unsafe wrapper)
 fn member_default_const(m: &Member, reg: &Registry) -> (String, bool) {
-    // -- Pointer fields ----------------------------------------------------------
+    // Pointer fields
     if m.ty.pointer_depth > 0 {
         let expr = if m.ty.is_const {
             "core::ptr::null()"
@@ -574,7 +574,7 @@ fn member_default_const(m: &Member, reg: &Registry) -> (String, bool) {
         return (expr.into(), true);
     }
 
-    // -- Static array fields -----------------------------------------------------
+    // Static array fields
     if let Some(ref size) = m.ty.is_array {
         let size_expr = if size.parse::<u64>().is_ok() {
             size.clone()
@@ -630,7 +630,7 @@ fn member_default_const(m: &Member, reg: &Registry) -> (String, bool) {
         };
     }
 
-    // -- Scalar fields -----------------------------------------------------------
+    // Scalar fields
     let t = ctype_to_rust_str(&m.ty);
 
     // Option<T> (function pointers)

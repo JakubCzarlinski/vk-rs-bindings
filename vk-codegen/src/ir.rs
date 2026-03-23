@@ -11,7 +11,7 @@
 use indexmap::IndexMap;
 use std::fmt::Debug;
 
-// -- Dependency expression -----------------------------------------------------
+// Dependency expression
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum DepExpr {
@@ -150,7 +150,7 @@ fn parse_atom(b: &[u8], i: usize) -> (DepExpr, usize) {
     (DepExpr::Atom(ident), j)
 }
 
-// -- API set -------------------------------------------------------------------
+// API set
 
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct ApiSet {
@@ -188,7 +188,7 @@ impl ApiSet {
     }
 }
 
-// -- C type --------------------------------------------------------------------
+// C type
 
 #[derive(Debug, Clone, Default)]
 pub struct CType {
@@ -209,7 +209,7 @@ impl CType {
     }
 }
 
-// -- Member --------------------------------------------------------------------
+// Member
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum LimitType {
     /// Min limit
@@ -317,7 +317,7 @@ pub struct Member {
     pub depr: DeprecationInfo,
 }
 
-// -- Deprecation info ----------------------------------------------------------
+// Deprecation info
 
 /// Aggregates all forms of Vulkan deprecation/supersession found in the XML.
 #[derive(Debug, Clone, Default)]
@@ -361,7 +361,7 @@ impl DeprecationInfo {
     }
 }
 
-// -- IR nodes ------------------------------------------------------------------
+// IR nodes
 
 #[derive(Debug, Clone)]
 pub struct Typedef {
@@ -600,7 +600,7 @@ pub struct Constant {
     pub alias: Option<String>,
 }
 
-// -- Feature / Extension -------------------------------------------------------
+// Feature / Extension
 
 #[derive(Debug, Clone)]
 pub struct Feature {
@@ -678,7 +678,7 @@ pub struct RequireEnum {
     pub extnumber: Option<u32>,
 }
 
-// -- Registry ------------------------------------------------------------------
+// Registry
 
 #[derive(Debug, Default)]
 pub struct Registry {

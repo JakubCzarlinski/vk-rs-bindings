@@ -28,8 +28,6 @@ use crate::ir::{DeprecationInfo, Registry};
 use proc_macro2::TokenStream;
 use quote::quote;
 
-// -- Public API ----------------------------------------------------------------
-
 pub struct GeneratedFiles {
     pub cargo_toml: String,
     pub lib_rs: String,
@@ -78,8 +76,6 @@ fn sanitize_ident(s: &str) -> &str {
     }
 }
 
-// -- URL helpers ---------------------------------------------------------------
-
 /// Vulkan refpage URL for a named symbol.
 /// Format: https://docs.vulkan.org/refpages/latest/refpages/source/<name>.html
 pub fn refpage_url(name: &str) -> String {
@@ -87,8 +83,7 @@ pub fn refpage_url(name: &str) -> String {
     format!("https://docs.vulkan.org/refpages/latest/refpages/source/{name}.html")
 }
 
-// -- Token helpers -------------------------------------------------------------
-
+// Token helpers
 fn deprecate_attr(d: &DeprecationInfo) -> TokenStream {
     if !d.is_any() {
         return quote! {};

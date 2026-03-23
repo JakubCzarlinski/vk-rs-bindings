@@ -12,7 +12,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
     let mut emitted = std::collections::HashSet::new();
 
-    // -- #define typedefs -> const fn or pub const ------------------------------
+    // #define typedefs -> const fn or pub const
     for typedef in reg.typedefs.values().flatten() {
         if typedef.kind != TypedefKind::Define {
             continue;
@@ -112,7 +112,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
         }
     }
 
-    // -- reg.constants -> API constants and extension name/version strings --------
+    // reg.constants -> API constants and extension name/version strings
     for c in reg.constants.values().flatten() {
         let key = (c.name.clone(), feature_key(&c.provided_by));
         if !emitted.insert(key) {

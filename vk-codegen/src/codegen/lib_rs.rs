@@ -36,6 +36,8 @@ pub fn gen_lib_rs() -> String {
         pub use instance::*;
         pub use types::*;
         pub use validation::*;
+
+        pub use core::ptr::null;
     };
     pretty(ts)
 }

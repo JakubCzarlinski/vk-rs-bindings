@@ -1,4 +1,4 @@
-use std::ffi::CStr;
+use core::ffi::CStr;
 use vk::{
     Device, Entry, Instance, PhysicalDevice, VkDeviceCreateInfo, VkInstanceCreateInfo,
     VkStructureType, VulkanLib,
@@ -15,16 +15,10 @@ const APP_INFO: vk::VkApplicationInfo = vk::VkApplicationInfo {
 };
 const VALIDATION_LAYER: &CStr = c"VK_LAYER_KHRONOS_validation";
 const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
-const INSTANCE_CREATE_INFO: VkInstanceCreateInfo = VkInstanceCreateInfo {
-    sType: VkStructureType::VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-    pNext: vk::null(),
-    flags: 0,
-    pApplicationInfo: &APP_INFO,
-    enabledLayerCount: 1,
-    ppEnabledLayerNames: LAYER_NAMES.as_ptr(),
-    enabledExtensionCount: 0,
-    ppEnabledExtensionNames: vk::null(),
-};
+const INSTANCE_CREATE_INFO: VkInstanceCreateInfo = VkInstanceCreateInfo::DEFAULT
+    .with_enabledLayerCount(LAYER_NAMES.len() as u32)
+    .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
+    .with_pApplicationInfo(&APP_INFO);
 const DEVICE_CREATE_INFO: VkDeviceCreateInfo = vk::VkDeviceCreateInfo::DEFAULT;
 
 fn main() {

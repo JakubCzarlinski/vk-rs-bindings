@@ -59,31 +59,32 @@ fn main() {
     }
 
     // Get the physical device properties of each GPU
-    let mut properties = vk::VkPhysicalDeviceProperties::DEFAULT;
+    let mut props_outer = vk::VkPhysicalDeviceProperties2::DEFAULT;
     for gpu in gpu_vec.iter() {
-        instance.vkGetPhysicalDeviceProperties(*gpu, &mut properties);
+        instance.vkGetPhysicalDeviceProperties2(*gpu, &mut props_outer);
+        let props = props_outer.properties;
 
-        let device_name = cstr_to_string(&properties.deviceName);
+        let device_name = cstr_to_string(&props.deviceName);
         println!(
             "API Version: {}.{}.{}",
-            vk::VK_VERSION_MAJOR(properties.apiVersion),
-            vk::VK_VERSION_MINOR(properties.apiVersion),
-            vk::VK_VERSION_PATCH(properties.apiVersion)
+            vk::VK_VERSION_MAJOR(props.apiVersion),
+            vk::VK_VERSION_MINOR(props.apiVersion),
+            vk::VK_VERSION_PATCH(props.apiVersion)
         );
         println!(
             "Driver Version: {}.{}.{}",
-            vk::VK_VERSION_MAJOR(properties.driverVersion),
-            vk::VK_VERSION_MINOR(properties.driverVersion),
-            vk::VK_VERSION_PATCH(properties.driverVersion)
+            vk::VK_VERSION_MAJOR(props.driverVersion),
+            vk::VK_VERSION_MINOR(props.driverVersion),
+            vk::VK_VERSION_PATCH(props.driverVersion)
         );
-        println!("Vendor ID: {:X}", properties.vendorID);
-        println!("Device ID: {:X}", properties.deviceID);
-        println!("Pipeline Cache UUID: {:02X?}", properties.pipelineCacheUUID);
+        println!("Vendor ID: {:X}", props.vendorID);
+        println!("Device ID: {:X}", props.deviceID);
+        println!("Pipeline Cache UUID: {:02X?}", props.pipelineCacheUUID);
         println!("GPU {}", device_name);
     }
 
     // Create device
-    let device = match instance.vkCreateDevice(gpu_vec[0], &DEVICE_CREATE_INFO, vk::null()) {
+    let _device = match instance.vkCreateDevice(gpu_vec[0], &DEVICE_CREATE_INFO, vk::null()) {
         Ok(dev) => dev,
         Err(err) => {
             eprintln!("Failed to create Vulkan device: {:?}", err);

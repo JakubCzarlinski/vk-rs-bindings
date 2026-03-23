@@ -87,16 +87,23 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
 
     let cfg = cfg_any(&all_feats);
     let name = format_ident!("{}", &e.name);
-    let url = refpage_url(&e.name);
-    let comment = e.comment.as_deref().unwrap_or("");
-    let mut extra_doc = String::new();
-    if let Some(ref dep) = e.dep {
-        extra_doc.push_str(&format!(
-            "\n\n **Availability:** depends on `{}`",
-            dep.atoms().join(" + ")
-        ));
+    let url_str = format!(" [{}]({})", &e.name, refpage_url(&e.name));
+    let mut doc = quote! { #[doc = #url_str] };
+    if let Some(ref comment) = e.comment {
+        let comment = comment.trim();
+        if !comment.is_empty() {
+            doc.extend(quote! { #[doc = " "] });
+            let comment = " ".to_string() + comment;
+            doc.extend(quote! { #[doc = #comment] });
+        }
     }
-    let doc = format!(" [`{n}`]({url})\n\n{comment}{extra_doc}", n = e.name);
+    if let Some(ref dep) = e.dep {
+        doc.extend(quote! { #[doc = " "] });
+        let depends_on = dep.atoms().join("`, `");
+        let comment = format!(" **Availability:** depends on `{}`.", depends_on);
+        doc.extend(quote! { #[doc = #comment] });
+    }
+
     let depr = deprecate_attr(&e.depr);
 
     if let Some(ref alias) = e.alias {
@@ -105,7 +112,7 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
     }
 
     if e.is_bitmask {
-        return gen_bitmask_type(e, cfg, name, doc, &all_feats, depr, disabled);
+        return gen_bitmask_type(e, cfg, name, doc.clone(), &all_feats, depr, disabled);
     }
 
     let inner = if e.bit_width == 64 {
@@ -144,33 +151,41 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
         }
 
         let val = enum_val_tokens(&variant.value, false);
-        variant_token_stream.extend(quote! {
-            #variant_cfg #[doc = #variant_doc] #variant_depr
-            pub const #variant_name: Self = Self(#val);
-        });
+        if variant_doc.is_empty() {
+            variant_token_stream.extend(quote! {
+                #variant_cfg #variant_depr
+                pub const #variant_name: Self = Self(#val);
+            });
+        } else {
+            variant_token_stream.extend(quote! {
+                #variant_cfg #[doc = #variant_doc] #variant_depr
+                pub const #variant_name: Self = Self(#val);
+            });
+        }
     }
 
-    quote! {
-        #[doc = #doc] #depr
-        #cfg
+    doc.extend(quote! {
+        #cfg #depr
         #[repr(transparent)]
         #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
         pub struct #name(pub #inner);
 
         #cfg
         impl #name { #variant_token_stream }
-    }
+    });
+    doc
 }
 
 fn gen_bitmask_type(
     e: &Enum,
     cfg: TokenStream,
     name: proc_macro2::Ident,
-    doc: String,
+    doc: TokenStream,
     all_feats: &[String],
     depr: TokenStream,
     disabled: &HashSet<String>,
 ) -> TokenStream {
+    let mut doc = doc;
     let inner = if e.bit_width == 64 {
         quote! {u64}
     } else {
@@ -208,35 +223,44 @@ fn gen_bitmask_type(
         }
 
         let val = enum_val_tokens(&variant.value, true);
-        bit_token_stream.extend(quote! {
-            #variant_cfg #[doc = #variant_doc] #variant_depr
-            pub const #variant_name: Self = Self(#val);
-        });
-    }
-
-    quote! {
-        #[doc = #doc] #depr
-        #cfg
-        #[repr(transparent)]
-        #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-        pub struct #name(pub #inner);
-
-        #cfg
-        impl #name {
-            pub const EMPTY: Self = Self(0);
-            #bit_token_stream
-            #[inline] pub const fn contains(self, o: Self) -> bool { (self.0 & o.0) == o.0 }
-            #[inline] pub const fn intersects(self, o: Self) -> bool { (self.0 & o.0) != 0 }
-            #[inline] pub const fn is_empty(self) -> bool { self.0 == 0 }
+        if variant_doc.is_empty() {
+            bit_token_stream.extend(quote! {
+                #variant_cfg #variant_depr
+                pub const #variant_name: Self = Self(#val);
+            });
+        } else {
+            bit_token_stream.extend(quote! {
+                #variant_cfg #[doc = #variant_doc] #variant_depr
+                pub const #variant_name: Self = Self(#val);
+            });
         }
-        #cfg impl core::ops::BitOr        for #name { type Output=Self; #[inline] fn bitor   (self,r:Self)->Self{Self(self.0|r.0)} }
-        #cfg impl core::ops::BitOrAssign  for #name { #[inline] fn bitor_assign   (&mut self,r:Self){self.0|=r.0} }
-        #cfg impl core::ops::BitAnd       for #name { type Output=Self; #[inline] fn bitand  (self,r:Self)->Self{Self(self.0&r.0)} }
-        #cfg impl core::ops::BitAndAssign for #name { #[inline] fn bitand_assign  (&mut self,r:Self){self.0&=r.0} }
-        #cfg impl core::ops::BitXor       for #name { type Output=Self; #[inline] fn bitxor  (self,r:Self)->Self{Self(self.0^r.0)} }
-        #cfg impl core::ops::BitXorAssign for #name { #[inline] fn bitxor_assign  (&mut self,r:Self){self.0^=r.0} }
-        #cfg impl core::ops::Not          for #name { type Output=Self; #[inline] fn not(self)->Self{Self(!self.0)} }
     }
+
+    doc.extend(
+        quote! {
+            #cfg #depr
+            #[repr(transparent)]
+            #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+            pub struct #name(pub #inner);
+
+            #cfg
+            impl #name {
+                pub const EMPTY: Self = Self(0);
+                #bit_token_stream
+                #[inline] pub const fn contains(self, o: Self) -> bool { (self.0 & o.0) == o.0 }
+                #[inline] pub const fn intersects(self, o: Self) -> bool { (self.0 & o.0) != 0 }
+                #[inline] pub const fn is_empty(self) -> bool { self.0 == 0 }
+            }
+            #cfg impl core::ops::BitOr        for #name { type Output=Self; #[inline] fn bitor   (self,r:Self)->Self{Self(self.0|r.0)} }
+            #cfg impl core::ops::BitOrAssign  for #name { #[inline] fn bitor_assign   (&mut self,r:Self){self.0|=r.0} }
+            #cfg impl core::ops::BitAnd       for #name { type Output=Self; #[inline] fn bitand  (self,r:Self)->Self{Self(self.0&r.0)} }
+            #cfg impl core::ops::BitAndAssign for #name { #[inline] fn bitand_assign  (&mut self,r:Self){self.0&=r.0} }
+            #cfg impl core::ops::BitXor       for #name { type Output=Self; #[inline] fn bitxor  (self,r:Self)->Self{Self(self.0^r.0)} }
+            #cfg impl core::ops::BitXorAssign for #name { #[inline] fn bitxor_assign  (&mut self,r:Self){self.0^=r.0} }
+            #cfg impl core::ops::Not          for #name { type Output=Self; #[inline] fn not(self)->Self{Self(!self.0)} }
+        }
+    );
+    doc
 }
 
 fn enum_val_tokens(val: &EnumValue, unsigned: bool) -> TokenStream {

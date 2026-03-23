@@ -52,10 +52,7 @@ fn gen_device_dispatch_table(reg: &Registry) -> TokenStream {
     let mut empty_ts = TokenStream::new();
     let mut load_ts = TokenStream::new();
 
-    for (feature, cmds) in &groups {
-        let sec = format!(" `{}`", feature);
-        fields_ts.extend(quote! { #[doc = #sec] });
-
+    for cmds in groups.values() {
         for (name, providers, _cmd) in cmds {
             let cfg = cfg_any(providers);
             let fname = format_ident!("{}", name);

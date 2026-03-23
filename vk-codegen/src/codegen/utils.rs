@@ -1,4 +1,5 @@
 use crate::cfggen::cfg_any;
+use crate::codegen::{deprecate_attr, refpage_url};
 use crate::ir::{CType, Command, Member, Optional, Registry, TypedefKind};
 use crate::types::c_type_to_rust;
 use proc_macro2::TokenStream;
@@ -500,9 +501,15 @@ pub fn safe_method(
 
     let (p_defs, _) = params_to_tokens(sig_params);
 
-    match classify_return(cmd, handle_types) {
+    let depr = deprecate_attr(&cmd.depr);
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    let func = match classify_return(cmd, handle_types) {
         WrapperReturn::Unit => quote! {
-            #cfg
+            #cfg #depr
             #[inline(always)]
             pub fn #fname(&self, #(#p_defs),*) {
                 unsafe { (#fp)(#(#fwd),*) }
@@ -512,7 +519,7 @@ pub fn safe_method(
         WrapperReturn::Raw(ret_ty) => {
             let ret = ctype_to_tokens(ret_ty);
             quote! {
-                #cfg
+                #cfg #depr
                 #[inline(always)]
                 pub fn #fname(&self, #(#p_defs),*) -> #ret {
                     unsafe { (#fp)(#(#fwd),*) }
@@ -530,7 +537,7 @@ pub fn safe_method(
                 fwd[last] = quote! { &mut handle };
             }
             quote! {
-                #cfg
+                #cfg #depr
                 #[inline]
                 pub fn #fname(&self, #(#p_defs),*) -> Result<#h_ty, VkResult> {
                     let mut handle = #h_ty::NULL;
@@ -574,7 +581,7 @@ pub fn safe_method(
             fwd_second[ai] = quote! { out.as_mut_ptr() };
 
             quote! {
-                #cfg
+                #cfg #depr
                 #[inline]
                 pub fn #fname(&self, #(#p_defs),*) -> Result<Box<[#elem_ty]>, VkResult> {
                     let mut count: u32 = 0;
@@ -591,7 +598,7 @@ pub fn safe_method(
         WrapperReturn::ResultRaw => {
             let check = vk_result_check(cmd, result_cfgs);
             quote! {
-                #cfg
+                #cfg #depr
                 #[inline(always)]
                 pub fn #fname(&self, #(#p_defs),*) -> Result<VkResult, VkResult> {
                     let r = unsafe { (#fp)(#(#fwd),*) };
@@ -599,5 +606,112 @@ pub fn safe_method(
                 }
             }
         }
+    };
+    token_stream.extend(func);
+    token_stream
+}
+
+pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
+    let url = refpage_url(&cmd.name);
+    let provided: String = all_features
+        .iter()
+        .map(|f| format!(" - `{f}`"))
+        .collect::<Vec<_>>()
+        .join("\n");
+    let comment = cmd.comment.as_deref().unwrap_or("");
+    let mut doc = format!(
+        " [`{n}`]({url})\n\n Provided by:\n{provided}\n{comment}",
+        n = cmd.name
+    );
+
+    if !cmd.queues.is_empty() {
+        let q_names: Vec<_> = cmd.queues.iter().map(|q| format!("{:?}", q)).collect();
+        doc.push_str(&format!("\n - **Queues:** {}", q_names.join(", ")));
     }
+    if let Some(ref rp) = cmd.render_pass {
+        doc.push_str(&format!("\n - **Render Pass:** {:?}", rp));
+    }
+    if cmd.conditional_rendering {
+        doc.push_str("\n - **Conditional Rendering:** Affected");
+    }
+    if cmd.allow_no_queues {
+        doc.push_str("\n - **Allow No Queues:** True");
+    }
+    if !cmd.tasks.is_empty() {
+        let t_names: Vec<_> = cmd.tasks.iter().map(|t| format!("{:?}", t)).collect();
+        doc.push_str(&format!("\n - **Tasks:** {}", t_names.join(", ")));
+    }
+    if let Some(ref dep) = cmd.dep {
+        doc.push_str(&format!(
+            "\n - **Availability:** depends on `{}`",
+            dep.atoms().join(" + ")
+        ));
+    }
+    if !cmd.cmd_buffer_levels.is_empty() {
+        let l_names: Vec<_> = cmd
+            .cmd_buffer_levels
+            .iter()
+            .map(|l| format!("{:?}", l))
+            .collect();
+        doc.push_str(&format!(
+            "\n - **Command Buffer Levels:** {}",
+            l_names.join(", ")
+        ));
+    }
+    if let Some(ref es) = cmd.extern_sync {
+        doc.push_str(&format!("\n - **External Sync:** {}", es));
+    }
+    if !cmd.export.is_empty() {
+        let e_names: Vec<_> = cmd.export.iter().map(|e| format!("{:?}", e)).collect();
+        doc.push_str(&format!("\n - **Export Scopes:** {}", e_names.join(", ")));
+    }
+
+    if !cmd.params.is_empty() {
+        doc.push_str("\n\n # Parameters");
+
+        for p in &cmd.params {
+            let mut line = format!(" - `{}`", p.name);
+
+            let mut p_meta = Vec::new();
+            if p.optional != crate::ir::Optional::False {
+                p_meta.push(format!("optional: {:?}", p.optional));
+            }
+            if let Some(ref len) = p.len {
+                p_meta.push(format!("len: {}", len));
+            }
+            if let Some(ref vals) = p.values {
+                p_meta.push(format!("values: {}", vals));
+            }
+            if let Some(ref ot) = p.object_type {
+                p_meta.push(format!("object_type: {}", ot));
+            }
+
+            if !p_meta.is_empty() {
+                line.push_str(&format!(": {}", p_meta.join(", ")));
+            }
+
+            doc.push_str(&format!("\n{}", line));
+        }
+    }
+
+    if !cmd.success_codes.is_empty() || !cmd.error_codes.is_empty() {
+        doc.push_str("\n\n # Returns");
+    }
+
+    if !cmd.success_codes.is_empty() {
+        doc.push_str(&format!(
+            "\n **Success Codes:**\n - {}",
+            cmd.success_codes.join("\n - ")
+        ));
+    }
+    if !cmd.error_codes.is_empty() {
+        doc.push_str(&format!(
+            "\n **Error Codes:**\n   - {}",
+            cmd.error_codes.join("\n   - ")
+        ));
+    }
+
+    doc.push('\n');
+
+    doc
 }

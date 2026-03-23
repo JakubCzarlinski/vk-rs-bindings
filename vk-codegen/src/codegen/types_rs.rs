@@ -96,19 +96,25 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
     }
 
     let cfg = cfg_any(&td.provided_by);
-    let url = refpage_url(&td.name);
-    let comment = td.comment.as_deref().unwrap_or("");
     let depr = deprecate_attr(&td.depr);
     let name = format_ident!("{}", &td.name);
 
-    let mut extra_doc = String::new();
-    if let Some(ref dep) = td.dep {
-        extra_doc.push_str(&format!(
-            "\n\n **Availability:** depends on `{}`",
-            dep.atoms().join(" + ")
-        ));
+    let url_str = format!(" [{}]({})", &td.name, refpage_url(&td.name));
+    let mut doc = quote! { #[doc = #url_str] };
+    if let Some(ref comment) = td.comment {
+        let comment = comment.trim();
+        if !comment.is_empty() {
+            doc.extend(quote! { #[doc = " "] });
+            let comment = " ".to_string() + comment;
+            doc.extend(quote! { #[doc = #comment] });
+        }
     }
-    let doc = format!(" [`{n}`]({url})\n\n{comment}{extra_doc}", n = td.name);
+    if let Some(ref dep) = td.dep {
+        doc.extend(quote! { #[doc = " "] });
+        let depends_on = dep.atoms().join("`, `");
+        let comment = format!(" **Availability:** depends on `{}`.", depends_on);
+        doc.extend(quote! { #[doc = #comment] });
+    }
 
     match td.kind {
         TypedefKind::Handle { dispatchable } => {
@@ -116,8 +122,8 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                 let a = parse_ty(alias);
                 quote! { #cfg #depr pub type #name = #a; }
             } else if dispatchable {
-                quote! {
-                    #[doc = #doc] #cfg #depr
+                doc.extend(quote! {
+                    #cfg #depr
                     #[repr(transparent)]
                     #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
                     pub struct #name(pub *mut core::ffi::c_void);
@@ -130,10 +136,11 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                     impl Default for #name {
                         fn default() -> Self { Self::NULL }
                     }
-                }
+                });
+                doc
             } else {
-                quote! {
-                    #[doc = #doc] #cfg #depr
+                doc.extend(quote! {
+                    #cfg #depr
                     #[repr(transparent)]
                     #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
                     pub struct #name(pub u64);
@@ -146,7 +153,8 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                     impl Default for #name {
                         fn default() -> Self { Self::NULL }
                     }
-                }
+                });
+                doc
             }
         }
         TypedefKind::Bitmask => {
@@ -156,16 +164,27 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
             } else if let Some(ref ty) = td.ty {
                 let mapped = c_type_to_rust(ty);
                 let rty = parse_ty(if mapped.is_empty() { ty } else { mapped });
-                quote! { #[doc = #doc] #cfg pub type #name = #rty; }
+                doc.extend(quote! {
+                    #cfg
+                    pub type #name = #rty;
+                });
+                doc
             } else {
-                quote! { #cfg pub type #name = u32; }
+                quote! {
+                    #cfg
+                    pub type #name = u32;
+                }
             }
         }
         TypedefKind::Basetype => {
             if let Some(ref ty) = td.ty {
                 let mapped = c_type_to_rust(ty);
                 let rty = parse_ty(if mapped.is_empty() { ty } else { mapped });
-                quote! { #[doc = #doc] #cfg pub type #name = #rty; }
+                doc.extend(quote! {
+                    #cfg
+                    pub type #name = #rty;
+                });
+                doc
             } else {
                 quote! {}
             }
@@ -203,10 +222,11 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                         quote! { #pname: #ptype, }
                     })
                     .collect();
-                quote! {
-                    #[doc = #doc] #cfg #depr
+                doc.extend(quote! {
+                    #cfg #depr
                     pub type #name = Option<unsafe extern "system" fn(#params_ts) #ret_ts>;
-                }
+                });
+                doc
             } else {
                 quote! {}
             }
@@ -214,8 +234,7 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
         TypedefKind::OpaqueExtern => {
             // repr(transparent) newtype over *mut c_void - nominally distinct per platform type
             let doc2 = " Opaque platform handle - always used as a raw pointer.";
-            quote! {
-                #[doc = #doc]
+            doc.extend(quote! {
                 #[doc = #doc2]
                 #cfg
                 #[repr(transparent)]
@@ -225,7 +244,8 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                 impl #name {
                     pub const NULL: Self = Self(core::ptr::null_mut());
                 }
-            }
+            });
+            doc
         }
         TypedefKind::Define => quote! {}, // emitted in consts.rs
     }
@@ -266,6 +286,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         " [`{n}`]({url})\n\n{comment}{returned}{rl}{extends}{extra_doc}",
         n = s.name
     );
+    let doc = doc.trim();
+
     let depr = deprecate_attr(&s.depr);
     let name = format_ident!("{}", &s.name);
 
@@ -311,22 +333,22 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
 
             let mut extra = Vec::new();
             if m.optional != crate::ir::Optional::False {
-                extra.push(format!("Optional: {:?}", m.optional));
+                extra.push(format!(" Optional: {:?}", m.optional));
             }
             if let Some(ref len) = m.len {
-                extra.push(format!("Length: {}", len));
+                extra.push(format!(" Length: {}", len));
             }
             if let Some(ref vals) = m.values {
-                extra.push(format!("Values: {}", vals));
+                extra.push(format!(" Values: {}", vals));
             }
             if let Some(ref lt) = m.limit_type {
-                extra.push(format!("Limit Type: {:?}", lt));
+                extra.push(format!(" Limit Type: {:?}", lt));
             }
             if m.no_auto_validity {
-                extra.push("No Auto-Validity".to_string());
+                extra.push(" No Auto-Validity".to_string());
             }
             if let Some(ref ot) = m.object_type {
-                extra.push(format!("Object Type: {}", ot));
+                extra.push(format!(" Object Type: {}", ot));
             }
 
             let full_doc = if extra.is_empty() {
@@ -447,6 +469,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             }
         };
 
+        // TODO(czarlinski): fix docs.
         quote! {
             #[doc = #doc] #cfg #depr
             #[repr(C)]

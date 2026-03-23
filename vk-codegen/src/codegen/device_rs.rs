@@ -145,8 +145,9 @@ fn gen_device(
         /// Holds [`DeviceDispatchTable`] by value.
         ///
         /// # Cleanup
-        /// No implicit `Drop`.  Call [`Device::vkDestroyDevice`] explicitly after
-        /// destroying all child resources.
+        /// On drop, if the raw `VkDevice` is non-null and `vkDestroyDevice` is
+        /// present in the dispatch table, it is called with `self.raw` and
+        /// `pAllocator = null`.
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct Device<'inst> {
             pub(crate) raw:   VkDevice,
@@ -183,6 +184,17 @@ fn gen_device(
             }
 
             #methods_ts
+        }
+
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        impl<'inst> Drop for Device<'inst> {
+            fn drop(&mut self) {
+                if self.raw.0.is_null() {
+                    return;
+                } else if let Some(destroy) = self.table.vkDestroyDevice {
+                    unsafe { destroy(self.raw, core::ptr::null()) };
+                }
+            }
         }
     }
 }

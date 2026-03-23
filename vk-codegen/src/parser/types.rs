@@ -147,6 +147,7 @@ fn parse_struct_union(
 }
 
 /// Parses a handle type definition.
+#[allow(clippy::too_many_arguments)]
 fn parse_handle(
     node: Node,
     reg: &mut Registry,

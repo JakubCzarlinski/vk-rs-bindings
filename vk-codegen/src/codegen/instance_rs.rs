@@ -144,8 +144,8 @@ fn gen_instance(
         /// Holds [`InstanceDispatchTable`] by value.
         ///
         /// # Cleanup
-        /// No implicit `Drop`.  Call [`Instance::vkDestroyInstance`] explicitly
-        /// after all child [`Device`]s have been destroyed.
+        /// `Instance` automatically destroys itself on `Drop` if it has not already
+        /// been destroyed by the user.  The user does not need to call `vkDestroyInstance`.
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct Instance<'lib> {
             pub(crate) raw:   VkInstance,
@@ -173,6 +173,19 @@ fn gen_instance(
             pub fn table(&self) -> &InstanceDispatchTable { &self.table }
 
             #methods_ts
+        }
+
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        impl<'lib> Drop for Instance<'lib> {
+            #[inline]
+            fn drop(&mut self) {
+                // Enusre that destroy was not already called by the user.
+                if self.raw.0.is_null() {
+                    return;
+                } else if let Some(destroy) = self.table.vkDestroyInstance {
+                    unsafe { destroy(self.raw, std::ptr::null()) };
+                }
+            }
         }
     }
 }

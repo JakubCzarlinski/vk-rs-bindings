@@ -123,6 +123,9 @@ fn gen_vulkan_lib() -> TokenStream {
         ///
         /// Must outlive all [`Entry`], [`Instance`], and [`Device`] values
         /// derived from it - the lifetime chain is enforced by the borrow checker.
+        ///
+        /// # Cleanup
+        /// No cleanup required. The library is closed when this value is dropped.
         pub struct VulkanLib {
             _lib: libloading::Library,
             pub(crate) get_instance_proc_addr: PFN_vkGetInstanceProcAddr,

@@ -711,13 +711,13 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
 
     if !cmd.success_codes.is_empty() {
         doc.push_str(&format!(
-            "\n **Success Codes:**\n - {}",
-            cmd.success_codes.join("\n - ")
+            "\n\n **Success Codes:**\n   - {}",
+            cmd.success_codes.join("\n   - ")
         ));
     }
     if !cmd.error_codes.is_empty() {
         doc.push_str(&format!(
-            "\n **Error Codes:**\n   - {}",
+            "\n\n **Error Codes:**\n   - {}",
             cmd.error_codes.join("\n   - ")
         ));
     }

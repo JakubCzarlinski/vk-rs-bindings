@@ -74,7 +74,7 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
         /// Fields are `Option<PFN_*>`; `None` means absent at load time.
         /// Use [`Instance`] for the safe API.
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        #[derive(Clone)]
+        #[derive(Debug, Clone)]
         pub struct InstanceDispatchTable { #fields_ts }
 
         #[cfg(feature = "VK_BASE_VERSION_1_0")]

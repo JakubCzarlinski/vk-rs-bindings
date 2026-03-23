@@ -196,7 +196,7 @@ fn gen_entry_dispatch_table(reg: &Registry) -> TokenStream {
         ///
         /// Fields are `Option<PFN_*>`; `None` means absent at load time.
         /// Use [`Entry`] for the safe API.
-        #[derive(Clone)]
+        #[derive(Debug, Clone)]
         pub struct EntryDispatchTable { #fields_ts }
 
         impl EntryDispatchTable {

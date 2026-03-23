@@ -76,7 +76,7 @@ fn gen_device_dispatch_table(reg: &Registry) -> TokenStream {
         /// Fields are `Option<PFN_*>`; `None` means absent at load time.
         /// Use [`Device`] for the safe API and [`CommandBuffer`] for `vkCmd*`.
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        #[derive(Clone)]
+        #[derive(Debug, Clone)]
         pub struct DeviceDispatchTable { #fields_ts }
 
         #[cfg(feature = "VK_BASE_VERSION_1_0")]

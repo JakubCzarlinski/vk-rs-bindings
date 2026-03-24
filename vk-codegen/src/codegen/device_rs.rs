@@ -18,14 +18,13 @@ pub fn gen_device_rs(
     ts.extend(preamble());
     ts.extend(gen_device_dispatch_table(reg));
     ts.extend(gen_device(reg, result_cfgs, handle_types));
-    ts.extend(gen_command_buffer(reg, result_cfgs, handle_types));
     pretty(ts)
 }
 
 // Preamble
 fn preamble() -> TokenStream {
     quote! {
-        //! Device-tier dispatch table, safe [`Device`] wrapper, and [`CommandBuffer`].
+        //! Device-tier dispatch table and safe [`Device`] wrapper.
 
         #![allow(
             non_snake_case,
@@ -149,6 +148,9 @@ fn gen_device(
         pub struct Device<'inst> {
             pub(crate) raw:   VkDevice,
             pub(crate) table: DeviceDispatchTable,
+            pub(crate) queue_table: crate::queue::QueueDispatchTable,
+            pub(crate) command_pool_table: crate::command_pool::CommandPoolDispatchTable,
+            pub(crate) command_buffer_table: crate::command_buffer::CommandBufferDispatchTable,
             _inst: core::marker::PhantomData<&'inst Instance<'inst>>,
         }
 
@@ -159,8 +161,14 @@ fn gen_device(
             /// # Safety
             /// `raw` must be a valid live `VkDevice` for `'inst`.
             #[inline]
-            pub unsafe fn from_raw(raw: VkDevice, table: DeviceDispatchTable) -> Self {
-                Self { raw, table, _inst: core::marker::PhantomData }
+            pub unsafe fn from_raw(
+                raw: VkDevice,
+                table: DeviceDispatchTable,
+                queue_table: crate::queue::QueueDispatchTable,
+                command_pool_table: crate::command_pool::CommandPoolDispatchTable,
+                command_buffer_table: crate::command_buffer::CommandBufferDispatchTable,
+            ) -> Self {
+                Self { raw, table, queue_table, command_pool_table, command_buffer_table, _inst: core::marker::PhantomData }
             }
 
             /// The raw `VkDevice` handle.
@@ -170,15 +178,6 @@ fn gen_device(
             /// The underlying dispatch table.
             #[inline(always)]
             pub fn table(&self) -> &DeviceDispatchTable { &self.table }
-
-            /// Borrow a [`CommandBuffer`] wrapper for recording.
-            ///
-            /// The returned [`CommandBuffer`] borrows this `Device` and cannot
-            /// outlive it.
-            #[inline(always)]
-            pub fn command_buffer(&self, raw: VkCommandBuffer) -> CommandBuffer<'_> {
-                CommandBuffer { raw, device: self }
-            }
 
             #methods_ts
         }
@@ -196,63 +195,4 @@ fn gen_device(
     }
 }
 
-// CommandBuffer<'dev>
-//
-// Borrows Device<'inst>, so it cannot outlive it.  Only vkCmd* commands live
-// here.  param[0] is VkCommandBuffer - stripped and supplied from self.raw.
-fn gen_command_buffer(
-    reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
-    handle_types: &HashSet<String>,
-) -> TokenStream {
-    let skip = entry_cmd_set();
-    let enabled = enabled_set(reg);
-    let groups = collect_groups(reg, Tier::Device, &skip, &enabled);
 
-    let mut methods_ts = TokenStream::new();
-    for cmds in groups.values() {
-        for (name, providers, cmd) in cmds {
-            if !is_cmd_buf_cmd(cmd) {
-                continue;
-            }
-            methods_ts.extend(safe_method(
-                cmd,
-                name,
-                providers,
-                "VkCommandBuffer", // strip param[0] = VkCommandBuffer
-                quote! { self.raw },
-                quote! { &self.device.table },
-                result_cfgs,
-                handle_types,
-            ));
-        }
-    }
-
-    quote! {
-        /// Borrowed `VkCommandBuffer` wrapper.
-        ///
-        /// Borrows the [`Device`] it was obtained from; cannot outlive it.
-        /// Obtain via [`Device::command_buffer`].
-        ///
-        /// All `vkCmd*` commands are methods here; `commandBuffer` is supplied
-        /// from `self.raw`.
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        pub struct CommandBuffer<'dev> {
-            raw:    VkCommandBuffer,
-            device: &'dev Device<'dev>,
-        }
-
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        impl<'dev> CommandBuffer<'dev> {
-            /// The raw `VkCommandBuffer` handle.
-            #[inline(always)]
-            pub fn raw(&self) -> VkCommandBuffer { self.raw }
-
-            /// The parent [`Device`].
-            #[inline(always)]
-            pub fn device(&self) -> &Device<'dev> { self.device }
-
-            #methods_ts
-        }
-    }
-}

@@ -6,10 +6,15 @@ use proc_macro2::TokenStream;
 use quote::{ToTokens, format_ident, quote};
 use std::collections::{BTreeMap, HashMap, HashSet};
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Debug, Eq, Hash)]
 pub enum Tier {
+    Entry,
     Instance,
+    PhysicalDevice,
     Device,
+    Queue,
+    CommandPool,
+    CommandBuffer,
 }
 
 // Commands pinned to the instance tier.
@@ -23,7 +28,46 @@ pub enum Tier {
 // it to the device tier.  It is however a core instance-tier command: it is
 // resolved via `vkGetInstanceProcAddr` and lives on `InstanceDispatchTable` so
 // that `Instance::vkCreateDevice` can use it to load the device table.
-const INSTANCE_PINNED: &[&str] = &["vkCreateDevice", "vkGetDeviceProcAddr"];
+const INSTANCE_PINNED: &[&str] = &["vkGetDeviceProcAddr"];
+
+pub fn cmd_tier(cmd: &Command, name: &str) -> Tier {
+    // ENTRY_CMDS should be classified as Entry
+    const ENTRY_CMDS: &[&str] = &[
+        "vkCreateInstance",
+        "vkEnumerateInstanceExtensionProperties",
+        "vkEnumerateInstanceLayerProperties",
+        "vkEnumerateInstanceVersion",
+    ];
+    if ENTRY_CMDS.contains(&name) {
+        return Tier::Entry;
+    }
+    if INSTANCE_PINNED.contains(&name) {
+        return Tier::Instance;
+    }
+    
+    // CommandPool special casing
+    if name == "vkAllocateCommandBuffers"
+        || name.starts_with("vkResetCommandPool")
+        || name.starts_with("vkTrimCommandPool")
+        || name.starts_with("vkFreeCommandBuffers")
+    {
+        return Tier::CommandPool;
+    }
+
+    if let Some(m) = cmd.params.first() {
+        match m.ty.base.as_str() {
+            "VkInstance" => Tier::Instance,
+            "VkPhysicalDevice" => Tier::PhysicalDevice,
+            "VkDevice" => Tier::Device,
+            "VkQueue" => Tier::Queue,
+            "VkCommandBuffer" => Tier::CommandBuffer,
+            "VkCommandPool" => Tier::CommandPool,
+            _ => Tier::Entry, // Fallback, shouldn't really happen for Vulkan methods
+        }
+    } else {
+        Tier::Entry
+    }
+}
 
 pub enum WrapperReturn<'a> {
     /// `void` -> `()`
@@ -210,7 +254,6 @@ pub fn collect_groups(
     skip: &HashSet<&str>,
     enabled: &HashSet<String>,
 ) -> Groups {
-    let pinned: HashSet<&str> = INSTANCE_PINNED.iter().copied().collect();
     let mut groups: Groups = BTreeMap::new();
 
     for (name, variants) in &reg.commands {
@@ -218,21 +261,21 @@ pub fn collect_groups(
             continue;
         }
 
-        let is_instance = variants.iter().any(is_instance_cmd) || pinned.contains(name.as_str());
-
-        let matches = match tier {
-            Tier::Instance => is_instance,
-            Tier::Device => !is_instance,
-        };
-        if !matches {
+        let cmd_raw = variants.last().unwrap();
+        let owned_resolved = if name != "vkCreateDevice" && name != "vkGetDeviceProcAddr" {
+             Some(resolve_alias(cmd_raw, reg))
+        } else { None };
+        let resolved = owned_resolved.as_ref().unwrap_or(cmd_raw);
+        
+        let t = cmd_tier(resolved, name);
+        if t != tier {
             continue;
         }
 
-        let cmd_raw = variants.last().unwrap();
         if !variants.iter().any(|c| c.api.vulkan || c.api.vulkanbase) {
             continue;
         }
-        let cmd = if pinned.contains(name.as_str()) {
+        let cmd = if name == "vkCreateDevice" || name == "vkGetDeviceProcAddr" {
             resolve_pinned(name, reg)
         } else {
             resolve_alias(cmd_raw, reg)

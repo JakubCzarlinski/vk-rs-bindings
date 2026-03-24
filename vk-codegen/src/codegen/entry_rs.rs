@@ -337,7 +337,10 @@ fn gen_create_instance(
             let table = InstanceDispatchTable::load(|name| unsafe {
                 (self.lib.get_instance_proc_addr)(raw, name)
             });
-            Ok(unsafe { Instance::from_raw(raw, table) })
+            let pd_table = crate::physical_device::PhysicalDeviceDispatchTable::load(|name| unsafe {
+                (self.lib.get_instance_proc_addr)(raw, name)
+            });
+            Ok(unsafe { Instance::from_raw(raw, table, pd_table) })
         }
     }
 }

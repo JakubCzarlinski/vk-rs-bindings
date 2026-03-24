@@ -100,7 +100,11 @@ fn main() {
     write_file(&src_dir, "commands.rs", &files.commands_rs);
     write_file(&src_dir, "entry.rs", &files.entry_rs);
     write_file(&src_dir, "instance.rs", &files.instance_rs);
+    write_file(&src_dir, "physical_device.rs", &files.physical_device_rs);
     write_file(&src_dir, "device.rs", &files.device_rs);
+    write_file(&src_dir, "queue.rs", &files.queue_rs);
+    write_file(&src_dir, "command_pool.rs", &files.command_pool_rs);
+    write_file(&src_dir, "command_buffer.rs", &files.command_buffer_rs);
     write_file(&src_dir, "validation.rs", &files.validation_rs);
     write_file(&args.out, "vk-features.dot", &files.dot_graph);
 

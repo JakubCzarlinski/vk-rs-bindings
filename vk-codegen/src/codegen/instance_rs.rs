@@ -147,6 +147,7 @@ fn gen_instance(
         pub struct Instance<'lib> {
             pub(crate) raw:   VkInstance,
             pub(crate) table: InstanceDispatchTable,
+            pub(crate) physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable,
             _lib: core::marker::PhantomData<&'lib VulkanLib>,
         }
 
@@ -157,8 +158,12 @@ fn gen_instance(
             /// # Safety
             /// `raw` must be a valid live `VkInstance` for `'lib`.
             #[inline]
-            pub unsafe fn from_raw(raw: VkInstance, table: InstanceDispatchTable) -> Self {
-                Self { raw, table, _lib: core::marker::PhantomData }
+            pub unsafe fn from_raw(
+                raw: VkInstance,
+                table: InstanceDispatchTable,
+                physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable,
+            ) -> Self {
+                Self { raw, table, physical_device_table, _lib: core::marker::PhantomData }
             }
 
             /// The raw `VkInstance` handle.
@@ -234,7 +239,10 @@ fn gen_create_device(
             if let Err(e) = { #result_check } { return Err(e); }
             let gdpa  = unsafe { self.table.vkGetDeviceProcAddr.unwrap_unchecked() };
             let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            Ok(unsafe { Device::from_raw(raw, table) })
+            let q_table = crate::queue::QueueDispatchTable::load(|name| unsafe { gdpa(raw, name) });
+            let cp_table = crate::command_pool::CommandPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
+            let cb_table = crate::command_buffer::CommandBufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
+            Ok(unsafe { Device::from_raw(raw, table, q_table, cp_table, cb_table) })
         }
     }
 }

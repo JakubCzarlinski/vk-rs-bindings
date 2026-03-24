@@ -119,16 +119,22 @@ fn gen_device(
             if is_cmd_buf_cmd(cmd) {
                 continue;
             }
-            methods_ts.extend(safe_method(
-                cmd,
-                name,
-                providers,
-                "VkDevice", // strip param[0] = VkDevice
-                quote! { self.raw },
-                quote! { &self.table },
-                result_cfgs,
-                handle_types,
-            ));
+            if name == "vkGetDeviceQueue" {
+                methods_ts.extend(gen_get_device_queue(cmd, providers));
+            } else if name == "vkCreateCommandPool" {
+                methods_ts.extend(gen_create_command_pool(cmd, providers, result_cfgs));
+            } else {
+                methods_ts.extend(safe_method(
+                    cmd,
+                    name,
+                    providers,
+                    "VkDevice", // strip param[0] = VkDevice
+                    quote! { self.raw },
+                    quote! { &self.table },
+                    result_cfgs,
+                    handle_types,
+                ));
+            }
         }
     }
 
@@ -195,4 +201,45 @@ fn gen_device(
     }
 }
 
+fn gen_get_device_queue(_cmd: &crate::ir::Command, providers: &[String]) -> TokenStream {
+    let cfg = cfg_any(providers);
+    quote! {
+        #cfg
+        #[inline]
+        pub fn vkGetDeviceQueue(
+            &self,
+            queueFamilyIndex: u32,
+            queueIndex: u32,
+        ) -> crate::queue::Queue<'_> {
+            let mut raw = VkQueue::NULL;
+            let fp = unsafe { self.table.vkGetDeviceQueue.unwrap_unchecked() };
+            unsafe { fp(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
+            crate::queue::Queue { raw, device: self }
+        }
+    }
+}
 
+fn gen_create_command_pool(
+    cmd: &crate::ir::Command,
+    providers: &[String],
+    result_cfgs: &HashMap<String, TokenStream>,
+) -> TokenStream {
+    let cfg = cfg_any(providers);
+    let result_check =
+        crate::codegen::utils::result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
+    quote! {
+        #cfg
+        #[inline]
+        pub fn vkCreateCommandPool(
+            &self,
+            pCreateInfo: *const VkCommandPoolCreateInfo,
+            pAllocator: *const VkAllocationCallbacks,
+        ) -> Result<crate::command_pool::CommandPool<'_>, VkResult> {
+            let mut raw = VkCommandPool::NULL;
+            let fp = unsafe { self.table.vkCreateCommandPool.unwrap_unchecked() };
+            let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
+            if let Err(e) = { #result_check } { return Err(e); }
+            Ok(crate::command_pool::CommandPool { raw, device: self })
+        }
+    }
+}

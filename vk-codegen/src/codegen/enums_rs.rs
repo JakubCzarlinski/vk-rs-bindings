@@ -258,6 +258,13 @@ fn gen_bitmask_type(
             #cfg impl core::ops::BitXor       for #name { type Output=Self; #[inline] fn bitxor  (self,r:Self)->Self{Self(self.0^r.0)} }
             #cfg impl core::ops::BitXorAssign for #name { #[inline] fn bitxor_assign  (&mut self,r:Self){self.0^=r.0} }
             #cfg impl core::ops::Not          for #name { type Output=Self; #[inline] fn not(self)->Self{Self(!self.0)} }
+
+            #cfg impl core::ops::BitOr        <#inner> for #name { type Output=Self; #[inline] fn bitor   (self,r:#inner)-> Self{Self(self.0|r)} }
+            #cfg impl core::ops::BitOrAssign  <#inner> for #name { #[inline] fn bitor_assign   (&mut self,r:#inner){self.0|=r} }
+            #cfg impl core::ops::BitAnd       <#inner> for #name { type Output=Self; #[inline] fn bitand  (self,r:#inner)-> Self{Self(self.0&r)} }
+            #cfg impl core::ops::BitAndAssign  <#inner> for #name { #[inline] fn bitand_assign  (&mut self,r:#inner){self.0&=r} }
+            #cfg impl core::ops::BitXor       <#inner> for #name { type Output=Self; #[inline] fn bitxor  (self,r:#inner)-> Self{Self(self.0^r)} }
+            #cfg impl core::ops::BitXorAssign  <#inner> for #name { #[inline] fn bitxor_assign  (&mut self,r:#inner){self.0^=r} }
         }
     );
     doc

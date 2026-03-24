@@ -1,6 +1,7 @@
 use std::ffi::CStr;
 use vk::{
-    Entry, VkDeviceCreateInfo, VkInstanceCreateInfo, VkPhysicalDevice, VkStructureType, VulkanLib,
+    Device, Entry, Instance, PhysicalDevice, VkDeviceCreateInfo, VkInstanceCreateInfo,
+    VkStructureType, VulkanLib,
 };
 
 const APP_INFO: vk::VkApplicationInfo = vk::VkApplicationInfo {
@@ -36,7 +37,7 @@ fn main() {
     };
 
     let entry = Entry::new(&library);
-    let instance = match entry.vkCreateInstance(&INSTANCE_CREATE_INFO, vk::null()) {
+    let instance: Instance = match entry.vkCreateInstance(&INSTANCE_CREATE_INFO, vk::null()) {
         Ok(inst) => inst,
         Err(err) => {
             eprintln!("Failed to create Vulkan instance: {:?}", err);
@@ -44,53 +45,95 @@ fn main() {
         }
     };
 
-    let mut num_gpus = 0;
-    if let Err(err) = instance.vkEnumeratePhysicalDevices(&mut num_gpus, std::ptr::null_mut()) {
-        eprintln!("Failed to enumerate physical devices: {:?}", err);
-    } else if num_gpus == 0 {
-        eprintln!("No physical devices found.");
-    }
-    println!("Number of physical devices: {}", num_gpus);
-
-    let gpu_vec = vec![VkPhysicalDevice::default(); num_gpus as usize];
-    let gpus: *mut VkPhysicalDevice = gpu_vec.as_ptr() as *mut VkPhysicalDevice;
-    if let Err(err) = instance.vkEnumeratePhysicalDevices(&mut num_gpus, gpus) {
-        eprintln!("Failed to enumerate physical devices: {:?}", err);
-    }
-
-    // Get the physical device properties of each GPU
-    let mut props_outer = vk::VkPhysicalDeviceProperties2::DEFAULT;
-    for gpu in gpu_vec.iter() {
-        instance.vkGetPhysicalDeviceProperties2(*gpu, &mut props_outer);
-        let props = props_outer.properties;
-
-        let device_name = cstr_to_string(&props.deviceName);
-        println!(
-            "API Version: {}.{}.{}",
-            vk::VK_VERSION_MAJOR(props.apiVersion),
-            vk::VK_VERSION_MINOR(props.apiVersion),
-            vk::VK_VERSION_PATCH(props.apiVersion)
-        );
-        println!(
-            "Driver Version: {}.{}.{}",
-            vk::VK_VERSION_MAJOR(props.driverVersion),
-            vk::VK_VERSION_MINOR(props.driverVersion),
-            vk::VK_VERSION_PATCH(props.driverVersion)
-        );
-        println!("Vendor ID: {:X}", props.vendorID);
-        println!("Device ID: {:X}", props.deviceID);
-        println!("Pipeline Cache UUID: {:02X?}", props.pipelineCacheUUID);
-        println!("GPU {}", device_name);
-    }
-
-    // Create device
-    let _device = match instance.vkCreateDevice(gpu_vec[0], &DEVICE_CREATE_INFO, vk::null()) {
-        Ok(dev) => dev,
+    let physical_devices: Vec<PhysicalDevice> = match instance.vkEnumeratePhysicalDevices() {
+        Ok(devs) => devs,
         Err(err) => {
-            eprintln!("Failed to create Vulkan device: {:?}", err);
+            eprintln!("Failed to enumerate physical devices: {:?}", err);
             return;
         }
     };
+
+    println!("Found {} physical devices:", physical_devices.len());
+    for (i, device) in physical_devices.iter().enumerate() {
+        let mut props = vk::VkPhysicalDeviceProperties2::DEFAULT;
+        device.vkGetPhysicalDeviceProperties2(&mut props);
+        let device_name = cstr_to_string(&props.properties.deviceName);
+        println!("  {}: {}", i, device_name);
+    }
+
+    let device = match physical_devices.first() {
+        Some(dev) => dev,
+        None => {
+            eprintln!("No physical devices found");
+            return;
+        }
+    };
+
+    // Get family properties of the physical device
+    let mut queue_family_count = 0;
+    device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut queue_family_count, vk::null_mut());
+    if queue_family_count == 0 {
+        eprintln!("No queue families found");
+        return;
+    }
+    let mut queue_families =
+        vec![vk::VkQueueFamilyProperties2::DEFAULT; queue_family_count as usize];
+    device.vkGetPhysicalDeviceQueueFamilyProperties2(
+        &mut queue_family_count,
+        queue_families.as_mut_ptr(),
+    );
+    println!("Found {} queue families", queue_family_count);
+
+    // Get a queue from the logical device
+    let mut queue_count = 0;
+    device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut queue_count, vk::null_mut());
+    if queue_count == 0 {
+        eprintln!("No queue families found");
+        return;
+    }
+    let mut queue_families = vec![vk::VkQueueFamilyProperties2::DEFAULT; queue_count as usize];
+    device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut queue_count, queue_families.as_mut_ptr());
+    let mut queue_family_index = None;
+    for (i, family) in queue_families.iter().enumerate() {
+        let flags = family.queueFamilyProperties.queueFlags;
+        if vk::VkQueueFlagBits::VK_QUEUE_GRAPHICS_BIT & flags != vk::VkQueueFlagBits::EMPTY {
+            queue_family_index = Some(i as u32);
+            break;
+        }
+    }
+
+    let queue_family_index = match queue_family_index {
+        Some(index) => index,
+        None => {
+            eprintln!("No suitable queue family found");
+            return;
+        }
+    };
+
+    let logical_device: Device = match device.vkCreateDevice(&DEVICE_CREATE_INFO, vk::null()) {
+        Ok(dev) => dev,
+        Err(err) => {
+            eprintln!("Failed to create logical device: {:?}", err);
+            return;
+        }
+    };
+    println!("Logical device created successfully");
+
+    // Create a queue from the logical device
+    let _queue = logical_device.vkGetDeviceQueue(queue_family_index, 0);
+    println!("Queue obtained successfully");
+
+    // Create a command pool
+    let mut command_info = vk::VkCommandPoolCreateInfo::DEFAULT;
+    command_info.queueFamilyIndex = queue_family_index;
+    let _command_pool = match logical_device.vkCreateCommandPool(&command_info, vk::null()) {
+        Ok(pool) => pool,
+        Err(err) => {
+            eprintln!("Failed to create command pool: {:?}", err);
+            return;
+        }
+    };
+    println!("Command pool created successfully");
 }
 
 fn cstr_to_string(cstr: &[i8]) -> String {

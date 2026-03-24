@@ -117,6 +117,7 @@ fn gen_vulkan_lib() -> TokenStream {
             }
         }
 
+        #[cfg(feature = "std")]
         impl std::error::Error for LoadError {}
 
         /// Handle to the platform Vulkan shared library.

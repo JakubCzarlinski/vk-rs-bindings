@@ -44,7 +44,7 @@ pub fn cmd_tier(cmd: &Command, name: &str) -> Tier {
     if INSTANCE_PINNED.contains(&name) {
         return Tier::Instance;
     }
-    
+
     // CommandPool special casing
     if name == "vkAllocateCommandBuffers"
         || name.starts_with("vkResetCommandPool")
@@ -182,16 +182,13 @@ pub fn vk_result_is_err(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -
     if cmd.error_codes.is_empty() {
         return quote! { r < VkResult::VK_SUCCESS };
     }
-    let arms: Vec<TokenStream> = cmd
-        .error_codes
-        .iter()
-        .map(|s| {
-            let id = format_ident!("{}", s);
-            let cfg = cfg_map.get(s).cloned().unwrap_or_default();
-            quote! { #cfg VkResult::#id }
-        })
-        .collect();
-    quote! { matches!(r, #(#arms)|*) || r < VkResult::VK_SUCCESS }
+    let err_arms = cfg_grouped_arms(&cmd.error_codes, cfg_map, quote! { true });
+    quote! {
+        match r {
+            #(#err_arms)*
+            _ => r < VkResult::VK_SUCCESS,
+        }
+    }
 }
 
 pub fn result_check_arms(
@@ -199,8 +196,8 @@ pub fn result_check_arms(
     error_codes: &[String],
     cfg_map: &HashMap<String, TokenStream>,
 ) -> TokenStream {
-    let ok_arms = cfg_grouped_arms(success_codes, cfg_map, true);
-    let err_arms = cfg_grouped_arms(error_codes, cfg_map, false);
+    let ok_arms = cfg_grouped_arms(success_codes, cfg_map, quote! { Ok(r) });
+    let err_arms = cfg_grouped_arms(error_codes, cfg_map, quote! { Err(r) });
     quote! {
         match r {
             #(#ok_arms)*
@@ -213,7 +210,7 @@ pub fn result_check_arms(
 fn cfg_grouped_arms(
     codes: &[String],
     cfg_map: &HashMap<String, TokenStream>,
-    is_ok: bool,
+    result_expr: TokenStream,
 ) -> Vec<TokenStream> {
     if codes.is_empty() {
         return vec![];
@@ -231,12 +228,7 @@ fn cfg_grouped_arms(
     by_cfg
         .into_values()
         .map(|(cfg, pats)| {
-            let result = if is_ok {
-                quote! { Ok(r) }
-            } else {
-                quote! { Err(r) }
-            };
-            quote! { #cfg #(#pats)|* => #result, }
+            quote! { #cfg #(#pats)|* => #result_expr, }
         })
         .collect()
 }
@@ -263,10 +255,12 @@ pub fn collect_groups(
 
         let cmd_raw = variants.last().unwrap();
         let owned_resolved = if name != "vkCreateDevice" && name != "vkGetDeviceProcAddr" {
-             Some(resolve_alias(cmd_raw, reg))
-        } else { None };
+            Some(resolve_alias(cmd_raw, reg))
+        } else {
+            None
+        };
         let resolved = owned_resolved.as_ref().unwrap_or(cmd_raw);
-        
+
         let t = cmd_tier(resolved, name);
         if t != tier {
             continue;
@@ -637,14 +631,17 @@ pub fn safe_method(
             quote! {
                 #cfg #depr
                 #[inline]
-                pub fn #fname(&self, #(#p_defs),*) -> Result<Box<[#elem_ty]>, VkResult> {
+                pub fn #fname(&self, #(#p_defs),*) -> Result<alloc::vec::Vec<#elem_ty>, VkResult> {
                     let mut count: u32 = 0;
                     let r = unsafe { (#fp)(#(#fwd_first),*) };
                     if #is_err { return Err(r); }
-                    if count == 0 { return Ok(Box::default()); }
-                    let mut out = Box::<[#elem_ty]>::new_uninit_slice(count as usize);
+                    if count == 0 { return Ok(alloc::vec::Vec::new()); }
+                    let mut out = alloc::vec::Vec::with_capacity(count as usize);
                     let r = unsafe { (#fp)(#(#fwd_second),*) };
-                    #check2 .map(|_| unsafe { out.assume_init() })
+                    #check2 .map(|_| {
+                        unsafe { out.set_len(count as usize); }
+                        out
+                    })
                 }
             }
         }

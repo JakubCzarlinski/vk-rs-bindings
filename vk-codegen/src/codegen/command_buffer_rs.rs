@@ -7,7 +7,11 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::{HashMap, HashSet};
 
-pub fn gen_command_buffer_rs(reg: &Registry, result_cfgs: &HashMap<String, TokenStream>, handle_types: &HashSet<String>) -> String {
+pub fn gen_command_buffer_rs(
+    reg: &Registry,
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_command_buffer_dispatch_table(reg));
@@ -63,14 +67,27 @@ fn gen_command_buffer_dispatch_table(reg: &Registry) -> TokenStream {
     }
 }
 
-fn gen_command_buffer(reg: &Registry, result_cfgs: &HashMap<String, TokenStream>, handle_types: &HashSet<String>) -> TokenStream {
+fn gen_command_buffer(
+    reg: &Registry,
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
     let groups = collect_groups(reg, Tier::CommandBuffer, &skip, &enabled);
     let mut methods_ts = TokenStream::new();
     for cmds in groups.values() {
         for (name, providers, cmd) in cmds {
-            methods_ts.extend(safe_method(cmd, name, providers, "VkCommandBuffer", quote!{ self.raw }, quote!{ &self.pool.device().command_buffer_table }, result_cfgs, handle_types));
+            methods_ts.extend(safe_method(
+                cmd,
+                name,
+                providers,
+                "VkCommandBuffer",
+                quote! { self.raw },
+                quote! { &self.pool.device().command_buffer_table },
+                result_cfgs,
+                handle_types,
+            ));
         }
     }
     quote! {

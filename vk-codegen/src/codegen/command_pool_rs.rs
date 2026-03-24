@@ -7,7 +7,12 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::{HashMap, HashSet};
 
-pub fn gen_command_pool_rs(reg: &Registry, result_cfgs: &HashMap<String, TokenStream>, handle_types: &HashSet<String>) -> String {
+// TODO(czarlinski): add drop
+pub fn gen_command_pool_rs(
+    reg: &Registry,
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_command_pool_dispatch_table(reg));
@@ -63,7 +68,11 @@ fn gen_command_pool_dispatch_table(reg: &Registry) -> TokenStream {
     }
 }
 
-fn gen_command_pool(reg: &Registry, result_cfgs: &HashMap<String, TokenStream>, handle_types: &HashSet<String>) -> TokenStream {
+fn gen_command_pool(
+    reg: &Registry,
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
     let groups = collect_groups(reg, Tier::CommandPool, &skip, &enabled);
@@ -81,8 +90,8 @@ fn gen_command_pool(reg: &Registry, result_cfgs: &HashMap<String, TokenStream>, 
                     name,
                     providers,
                     "VkDevice",
-                    quote!{ self.device.raw() },
-                    quote!{ &self.device.command_pool_table },
+                    quote! { self.device.raw() },
+                    quote! { &self.device.command_pool_table },
                     result_cfgs,
                     handle_types,
                 ));
@@ -104,28 +113,32 @@ fn gen_command_pool(reg: &Registry, result_cfgs: &HashMap<String, TokenStream>, 
     }
 }
 
-fn gen_allocate_command_buffers(cmd: &Command, providers: &[String], result_cfgs: &HashMap<String, TokenStream>) -> TokenStream {
+fn gen_allocate_command_buffers(
+    cmd: &Command,
+    providers: &[String],
+    result_cfgs: &HashMap<String, TokenStream>,
+) -> TokenStream {
     let cfg = cfg_any(providers);
     let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
-    
+
     // PFN requires (device, allocateInfo, pCommandBuffers).
-    // We take &VkCommandBufferAllocateInfo. But we also want to return Vec<crate::command_buffer::CommandBuffer<'pool>> 
+    // We take &VkCommandBufferAllocateInfo. But we also want to return Vec<crate::command_buffer::CommandBuffer<'pool>>
     // Wait, the allocate info provides commandPool. The pool wrapper already holds `raw`.
-    
+
     quote! {
         #cfg
         #[inline]
         pub fn vkAllocateCommandBuffers(
             &self,
             pAllocateInfo: *const VkCommandBufferAllocateInfo,
-        ) -> Result<std::vec::Vec<crate::command_buffer::CommandBuffer<'_>>, VkResult> {
+        ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'_>>, VkResult> {
             let mut count = unsafe { (*pAllocateInfo).commandBufferCount };
-            let mut raw_buffers = std::vec::Vec::with_capacity(count as usize);
+            let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
             let fp = unsafe { self.device.command_pool_table.vkAllocateCommandBuffers.unwrap_unchecked() };
             let r = unsafe { fp(self.device.raw(), pAllocateInfo, raw_buffers.as_mut_ptr()) };
             if let Err(e) = { #result_check } { return Err(e); }
             unsafe { raw_buffers.set_len(count as usize); }
-            
+
             Ok(raw_buffers.into_iter().map(|raw| crate::command_buffer::CommandBuffer { raw, pool: self }).collect())
         }
     }

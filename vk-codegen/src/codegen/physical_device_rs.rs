@@ -67,14 +67,31 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
     }
 }
 
-fn gen_physical_device(reg: &Registry, result_cfgs: &HashMap<String, TokenStream>, handle_types: &HashSet<String>) -> TokenStream {
+fn gen_physical_device(
+    reg: &Registry,
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
     let groups = collect_groups(reg, Tier::PhysicalDevice, &skip, &enabled);
     let mut methods_ts = TokenStream::new();
     for cmds in groups.values() {
         for (name, providers, cmd) in cmds {
-            methods_ts.extend(safe_method(cmd, name, providers, "VkPhysicalDevice", quote!{ self.raw }, quote!{ &self.instance.physical_device_table }, result_cfgs, handle_types));
+            if name == "vkCreateDevice" {
+                methods_ts.extend(gen_create_device(cmd, providers, result_cfgs));
+            } else {
+                methods_ts.extend(safe_method(
+                    cmd,
+                    name,
+                    providers,
+                    "VkPhysicalDevice",
+                    quote! { self.raw },
+                    quote! { self.table },
+                    result_cfgs,
+                    handle_types,
+                ));
+            }
         }
     }
     quote! {
@@ -82,12 +99,56 @@ fn gen_physical_device(reg: &Registry, result_cfgs: &HashMap<String, TokenStream
         pub struct PhysicalDevice<'inst> {
             pub(crate) raw: VkPhysicalDevice,
             pub(crate) instance: &'inst Instance<'inst>,
+            pub(crate) table: &'inst PhysicalDeviceDispatchTable,
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'inst> PhysicalDevice<'inst> {
             #[inline] pub fn raw(&self) -> VkPhysicalDevice { self.raw }
             #[inline] pub fn instance(&self) -> &Instance<'inst> { self.instance }
             #methods_ts
+        }
+    }
+}
+
+fn gen_create_device(
+    cmd: &crate::ir::Command,
+    providers: &[String],
+    result_cfgs: &HashMap<String, TokenStream>,
+) -> TokenStream {
+    let cfg = cfg_any(providers);
+    let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
+    // remove parameter [0] since it gets replaced by `self.raw`
+    let sig_params: Vec<_> = crate::codegen::utils::strip_first_param(&cmd.params)
+        .iter()
+        .filter(|m| !(m.ty.pointer_depth == 1 && !m.ty.is_const && m.ty.base == "VkDevice"))
+        .collect();
+    let (p_defs, p_fwd): (Vec<_>, Vec<_>) = sig_params
+        .iter()
+        .map(|m| {
+            let n = format_ident!("{}", kw_escape(&m.name));
+            let t = ctype_to_tokens(&m.ty);
+            (quote! { #n: #t }, quote! { #n })
+        })
+        .unzip();
+    quote! {
+        #cfg
+        #[inline]
+        pub fn vkCreateDevice(
+            &self,
+            #(#p_defs,)*
+        ) -> Result<crate::device::Device<'_>, VkResult> {
+            use crate::device::{Device, DeviceDispatchTable};
+            let fp  = unsafe { self.table.vkCreateDevice.unwrap_unchecked() };
+            let mut raw = VkDevice::NULL;
+            // first parameter is physically self.raw
+            let r = unsafe { fp(self.raw, #(#p_fwd,)* &mut raw) };
+            if let Err(e) = { #result_check } { return Err(e); }
+            let gdpa  = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
+            let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
+            let q_table = crate::queue::QueueDispatchTable::load(|name| unsafe { gdpa(raw, name) });
+            let cp_table = crate::command_pool::CommandPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
+            let cb_table = crate::command_buffer::CommandBufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
+            Ok(unsafe { Device::from_raw(raw, table, q_table, cp_table, cb_table) })
         }
     }
 }

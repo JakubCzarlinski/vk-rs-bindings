@@ -2,7 +2,7 @@ use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::*;
-use crate::ir::{Command, Member, Registry};
+use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::{HashMap, HashSet};
@@ -115,8 +115,8 @@ fn gen_instance(
     let mut methods_ts = TokenStream::new();
     for cmds in groups.values() {
         for (name, providers, cmd) in cmds {
-            if name == "vkCreateDevice" {
-                methods_ts.extend(gen_create_device(cmd, providers, result_cfgs));
+            if name == "vkEnumeratePhysicalDevices" {
+                methods_ts.extend(gen_enumerate_physical_devices(cmd, providers, result_cfgs));
             } else {
                 methods_ts.extend(safe_method(
                     cmd,
@@ -185,64 +185,44 @@ fn gen_instance(
                 if self.raw.0.is_null() {
                     return;
                 } else if let Some(destroy) = self.table.vkDestroyInstance {
-                    unsafe { destroy(self.raw, std::ptr::null()) };
+                    unsafe { destroy(self.raw, core::ptr::null()) };
                 }
             }
         }
     }
 }
 
-// vkCreateDevice - special-cased to return Device<'inst>
-fn gen_create_device(
+fn gen_enumerate_physical_devices(
     cmd: &Command,
     providers: &[String],
     result_cfgs: &HashMap<String, TokenStream>,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
     let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
-
-    // Strip the VkDevice out-param (returned as Device) and build sig from the rest.
-    let sig_params: Vec<&Member> = cmd
-        .params
-        .iter()
-        .filter(|m| !(m.ty.pointer_depth == 1 && !m.ty.is_const && m.ty.base == "VkDevice"))
-        .collect();
-    let (p_defs, p_fwd): (Vec<_>, Vec<_>) = sig_params
-        .iter()
-        .map(|m| {
-            let n = format_ident!("{}", kw_escape(&m.name));
-            let t = ctype_to_tokens(&m.ty);
-            (quote! { #n: #t }, quote! { #n })
-        })
-        .unzip();
+    let is_err = vk_result_is_err(cmd, result_cfgs);
 
     quote! {
         #cfg
-        /// Create a logical device.
-        ///
-        /// On success returns a [`Device`] whose lifetime is tied to this
-        /// `Instance`.  The device dispatch table is loaded immediately via
-        /// `vkGetDeviceProcAddr`, bypassing the loader for direct driver ptrs.
-        ///
-        /// # Safety
-        /// `physicalDevice` must have been enumerated from this instance.
-        /// All pointer parameters must satisfy Vulkan validity rules.
         #[inline]
-        pub fn vkCreateDevice(
+        pub fn vkEnumeratePhysicalDevices(
             &self,
-            #(#p_defs,)*
-        ) -> Result<crate::device::Device<'_>, VkResult> {
-            use crate::device::{Device, DeviceDispatchTable};
-            let fp  = unsafe { self.table.vkCreateDevice.unwrap_unchecked() };
-            let mut raw = VkDevice::NULL;
-            let r = unsafe { fp(#(#p_fwd,)* &mut raw) };
+        ) -> Result<alloc::vec::Vec<crate::physical_device::PhysicalDevice<'_>>, VkResult> {
+            use crate::physical_device::PhysicalDevice;
+            let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
+            let mut count = 0;
+            let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
+            if #is_err { return Err(r); }
+            if count == 0 { return Ok(alloc::vec::Vec::new()); }
+            let mut raw_gpus = alloc::vec::Vec::with_capacity(count as usize);
+            let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr()) };
             if let Err(e) = { #result_check } { return Err(e); }
-            let gdpa  = unsafe { self.table.vkGetDeviceProcAddr.unwrap_unchecked() };
-            let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            let q_table = crate::queue::QueueDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            let cp_table = crate::command_pool::CommandPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            let cb_table = crate::command_buffer::CommandBufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            Ok(unsafe { Device::from_raw(raw, table, q_table, cp_table, cb_table) })
+            unsafe { raw_gpus.set_len(count as usize); }
+
+            Ok(raw_gpus.into_iter().map(|raw| PhysicalDevice {
+                raw,
+                instance: self,
+                table: &self.physical_device_table,
+            }).collect())
         }
     }
 }

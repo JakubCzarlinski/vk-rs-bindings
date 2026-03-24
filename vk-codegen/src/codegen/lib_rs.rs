@@ -2,6 +2,7 @@ use quote::quote;
 
 pub fn gen_lib_rs() -> String {
     let ts = quote! {
+        #![no_std]
         #![allow(
             non_snake_case,
             non_camel_case_types,
@@ -11,6 +12,8 @@ pub fn gen_lib_rs() -> String {
             clippy::all,
             deprecated,
         )]
+
+        extern crate alloc;
 
         pub mod commands;
         pub mod consts;
@@ -28,6 +31,7 @@ pub fn gen_lib_rs() -> String {
         pub use commands::*;
         pub use consts::*;
         pub use core::ptr::null;
+        pub use core::ptr::null_mut;
         pub use device::*;
         pub use entry::*;
         pub use enums::*;

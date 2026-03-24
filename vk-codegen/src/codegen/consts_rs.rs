@@ -166,10 +166,15 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 pub const #name: u32 = #a;
             }
         } else if c.ty == "&'static str" {
-            let val_ts: TokenStream = c.value.parse().unwrap_or_else(|_| quote! { "" });
+            // TODO(czarlinski): url needs fixing to properly cased, rather than all uppercase.
+            let mut val = c.value.clone();
+            if val.starts_with('"') && val.ends_with('"') {
+                val.insert(0, 'c');
+            }
+            let val_ts: TokenStream = val.parse().unwrap_or_else(|_| quote! { c"" });
             quote! {
                 #cfg #depr
-                pub const #name: &'static str = #val_ts;
+                pub const #name: &'static core::ffi::CStr = #val_ts;
             }
         } else {
             let type_str = const_rust_type(&c.ty, &c.value);

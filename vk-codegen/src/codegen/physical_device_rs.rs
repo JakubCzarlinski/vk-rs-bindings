@@ -136,7 +136,7 @@ fn gen_create_device(
         pub fn vkCreateDevice(
             &self,
             #(#p_defs,)*
-        ) -> Result<crate::device::Device<'_>, VkResult> {
+        ) -> Result<crate::device::Device<'inst>, VkResult> {
             use crate::device::{Device, DeviceDispatchTable};
             let fp  = unsafe { self.table.vkCreateDevice.unwrap_unchecked() };
             let mut raw = VkDevice::NULL;

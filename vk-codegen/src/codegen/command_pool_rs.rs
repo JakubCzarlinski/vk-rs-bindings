@@ -91,7 +91,7 @@ fn gen_command_pool(
                     providers,
                     "VkDevice",
                     quote! { self.device.raw() },
-                    quote! { &self.device.command_pool_table },
+                    quote! { self.table },
                     result_cfgs,
                     handle_types,
                 ));
@@ -103,11 +103,23 @@ fn gen_command_pool(
         pub struct CommandPool<'dev> {
             pub(crate) raw: VkCommandPool,
             pub(crate) device: &'dev Device<'dev>,
+            pub(crate) table: &'dev CommandPoolDispatchTable,
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        impl<'dev> Drop for CommandPool<'dev> {
+            fn drop(&mut self) {
+                if self.raw.0.is_null() {
+                    return;
+                } else if let Some(destroy) = self.device.table().vkDestroyCommandPool {
+                    unsafe { destroy(self.device.raw(), self.raw, core::ptr::null()) };
+                }
+            }
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'dev> CommandPool<'dev> {
             #[inline] pub fn raw(&self) -> VkCommandPool { self.raw }
             #[inline] pub fn device(&self) -> &Device<'dev> { self.device }
+            #[inline] pub fn table(&self) -> &CommandPoolDispatchTable { self.table }
             #methods_ts
         }
     }
@@ -121,10 +133,6 @@ fn gen_allocate_command_buffers(
     let cfg = cfg_any(providers);
     let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
 
-    // PFN requires (device, allocateInfo, pCommandBuffers).
-    // We take &VkCommandBufferAllocateInfo. But we also want to return Vec<crate::command_buffer::CommandBuffer<'pool>>
-    // Wait, the allocate info provides commandPool. The pool wrapper already holds `raw`.
-
     quote! {
         #cfg
         #[inline]
@@ -134,12 +142,12 @@ fn gen_allocate_command_buffers(
         ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'_>>, VkResult> {
             let count = unsafe { (*pAllocateInfo).commandBufferCount };
             let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
-            let fp = unsafe { self.device.command_pool_table.vkAllocateCommandBuffers.unwrap_unchecked() };
+            let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
             let r = unsafe { fp(self.device.raw(), pAllocateInfo, raw_buffers.as_mut_ptr()) };
             if let Err(e) = { #result_check } { return Err(e); }
             unsafe { raw_buffers.set_len(count as usize); }
 
-            Ok(raw_buffers.into_iter().map(|raw| crate::command_buffer::CommandBuffer { raw, pool: self }).collect())
+            Ok(raw_buffers.into_iter().map(|raw| crate::command_buffer::CommandBuffer { raw, pool: self, table: &self.device.command_buffer_table }).collect())
         }
     }
 }
@@ -154,7 +162,7 @@ fn gen_free_command_buffers(_cmd: &Command, providers: &[String]) -> TokenStream
             commandBufferCount: u32,
             pCommandBuffers: *const VkCommandBuffer,
         ) {
-            let fp = unsafe { self.device.command_pool_table.vkFreeCommandBuffers.unwrap_unchecked() };
+            let fp = unsafe { self.table.vkFreeCommandBuffers.unwrap_unchecked() };
             unsafe { fp(self.device.raw(), self.raw, commandBufferCount, pCommandBuffers) }
         }
     }

@@ -84,7 +84,7 @@ fn gen_queue(
                 providers,
                 "VkQueue",
                 quote! { self.raw },
-                quote! { &self.device.queue_table },
+                quote! { self.table },
                 result_cfgs,
                 handle_types,
             ));
@@ -95,11 +95,13 @@ fn gen_queue(
         pub struct Queue<'dev> {
             pub(crate) raw: VkQueue,
             pub(crate) device: &'dev Device<'dev>,
+            pub(crate) table: &'dev QueueDispatchTable,
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'dev> Queue<'dev> {
             #[inline] pub fn raw(&self) -> VkQueue { self.raw }
             #[inline] pub fn device(&self) -> &Device<'dev> { self.device }
+            #[inline] pub fn table(&self) -> &QueueDispatchTable { self.table }
             #methods_ts
         }
     }

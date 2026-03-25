@@ -214,7 +214,7 @@ fn gen_get_device_queue(_cmd: &crate::ir::Command, providers: &[String]) -> Toke
             let mut raw = VkQueue::NULL;
             let fp = unsafe { self.table.vkGetDeviceQueue.unwrap_unchecked() };
             unsafe { fp(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
-            crate::queue::Queue { raw, device: self }
+            crate::queue::Queue { raw, device: self, table: &self.queue_table }
         }
     }
 }
@@ -239,7 +239,7 @@ fn gen_create_command_pool(
             let fp = unsafe { self.table.vkCreateCommandPool.unwrap_unchecked() };
             let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
             if let Err(e) = { #result_check } { return Err(e); }
-            Ok(crate::command_pool::CommandPool { raw, device: self })
+            Ok(crate::command_pool::CommandPool { raw, device: self, table: &self.command_pool_table })
         }
     }
 }

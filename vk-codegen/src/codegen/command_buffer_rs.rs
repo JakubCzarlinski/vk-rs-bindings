@@ -84,7 +84,7 @@ fn gen_command_buffer(
                 providers,
                 "VkCommandBuffer",
                 quote! { self.raw },
-                quote! { &self.pool.device().command_buffer_table },
+                quote! { self.table },
                 result_cfgs,
                 handle_types,
             ));
@@ -95,11 +95,22 @@ fn gen_command_buffer(
         pub struct CommandBuffer<'pool> {
             pub(crate) raw: VkCommandBuffer,
             pub(crate) pool: &'pool CommandPool<'pool>,
+            pub(crate) table: &'pool CommandBufferDispatchTable,
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        impl<'pool> Drop for CommandBuffer<'pool> {
+            fn drop(&mut self) {
+                if self.raw.0.is_null() {
+                    return;
+                }
+                self.pool.vkFreeCommandBuffers(1, &self.raw);
+            }
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'pool> CommandBuffer<'pool> {
             #[inline] pub fn raw(&self) -> VkCommandBuffer { self.raw }
             #[inline] pub fn pool(&self) -> &CommandPool<'pool> { self.pool }
+            #[inline] pub fn table(&self) -> &CommandBufferDispatchTable { self.table }
             #methods_ts
         }
     }

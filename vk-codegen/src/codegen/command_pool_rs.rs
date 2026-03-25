@@ -132,7 +132,7 @@ fn gen_allocate_command_buffers(
             &self,
             pAllocateInfo: *const VkCommandBufferAllocateInfo,
         ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'_>>, VkResult> {
-            let mut count = unsafe { (*pAllocateInfo).commandBufferCount };
+            let count = unsafe { (*pAllocateInfo).commandBufferCount };
             let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
             let fp = unsafe { self.device.command_pool_table.vkAllocateCommandBuffers.unwrap_unchecked() };
             let r = unsafe { fp(self.device.raw(), pAllocateInfo, raw_buffers.as_mut_ptr()) };

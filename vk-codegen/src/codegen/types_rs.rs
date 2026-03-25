@@ -299,7 +299,8 @@ fn gen_builder_setters(s: &Struct) -> TokenStream {
             let safety_doc = " # Safety\n \
                  The caller must ensure `val` remains valid and outlives \
                  any use of this struct instance. The pointer is stored as-is \
-                 without any lifetime tracking.".to_string();
+                 without any lifetime tracking."
+                .to_string();
             ts.extend(quote! {
                 #fcfg
                 #fdepr

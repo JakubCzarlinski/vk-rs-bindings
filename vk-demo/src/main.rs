@@ -1,595 +1,380 @@
 #![allow(deprecated, unused_variables, unused_mut, unused_imports, dead_code)]
 
 use core::ffi::CStr;
+use std::alloc::{Layout, alloc, dealloc, realloc};
 use std::ffi::c_void;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use vk::{
-    CommandBuffer, Device, Entry, Instance, PhysicalDevice, Queue, VkDeviceCreateInfo,
-    VkInstanceCreateInfo, VulkanLib,
+    CommandBuffer, CommandPool, Device, Entry, Instance, PhysicalDevice, Queue, VK_API_VERSION_1_4,
+    VK_MAKE_VERSION, VkApplicationInfo, VkBuffer, VkBufferCreateInfo, VkBufferUsageFlagBits,
+    VkCommandBufferAllocateInfo, VkCommandBufferBeginInfo, VkCommandBufferLevel,
+    VkCommandPoolCreateFlagBits, VkCommandPoolCreateInfo, VkComputePipelineCreateInfo,
+    VkDescriptorBufferInfo, VkDescriptorPool, VkDescriptorPoolCreateInfo, VkDescriptorPoolSize,
+    VkDescriptorSet, VkDescriptorSetAllocateInfo, VkDescriptorSetLayout,
+    VkDescriptorSetLayoutBinding, VkDescriptorSetLayoutCreateInfo, VkDescriptorType,
+    VkDeviceCreateInfo, VkDeviceMemory, VkDeviceQueueCreateInfo, VkFence, VkInstanceCreateInfo,
+    VkMemoryAllocateInfo, VkMemoryPropertyFlagBits, VkMemoryRequirements,
+    VkPhysicalDeviceMemoryProperties, VkPhysicalDeviceMemoryProperties2, VkPipeline,
+    VkPipelineBindPoint, VkPipelineCache, VkPipelineLayout, VkPipelineLayoutCreateInfo,
+    VkPipelineShaderStageCreateInfo, VkQueueFamilyProperties2, VkQueueFlagBits,
+    VkShaderModuleCreateInfo, VkShaderStageFlagBits, VkSharingMode, VkSubmitInfo,
+    VkWriteDescriptorSet, VulkanLib, null, null_mut,
 };
 
 // Minimal SPIR-V compute shader: result = a + b
 const COMPUTE_SHADER_SPV: &[u8] = include_bytes!("shader.spv");
 
-const APP_INFO: vk::VkApplicationInfo =
-    vk::VkApplicationInfo::DEFAULT.with_apiVersion(vk::VK_API_VERSION_1_3);
-// const VALIDATION_LAYER: &CStr = c"VK_LAYER_KHRONOS_validation";
-// const INSTANCE_EXTENSIONS: [*const i8; 1] = [vk::VK_EXT_METAL_SURFACE_EXTENSION_NAME.as_ptr()];
-// const LAYER_NAMES: [*const i8; 0] = []; // [VALIDATION_LAYER.as_ptr()];
+const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
+    .with_apiVersion(VK_API_VERSION_1_4)
+    .with_applicationVersion(VK_MAKE_VERSION(0, 1, 0))
+    .with_engineVersion(VK_MAKE_VERSION(0, 1, 0))
+    .with_pEngineName(c"vk-demo".as_ptr())
+    .with_pApplicationName(c"Vulkan Compute Demo".as_ptr());
+const VALIDATION_LAYER: &CStr = c"VK_LAYER_KHRONOS_validation";
+const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
 const INSTANCE_CREATE_INFO: VkInstanceCreateInfo = VkInstanceCreateInfo::DEFAULT
-    // .with_enabledLayerCount(LAYER_NAMES.len() as u32)
+    .with_enabledLayerCount(LAYER_NAMES.len() as u32)
+    .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
     .with_pApplicationInfo(&APP_INFO);
-const DEVICE_CREATE_INFO: VkDeviceCreateInfo = vk::VkDeviceCreateInfo::DEFAULT;
+const DEVICE_CREATE_INFO: VkDeviceCreateInfo = VkDeviceCreateInfo::DEFAULT;
+
+fn create_device<'inst>(
+    instance: &'inst Instance,
+) -> (Device<'inst>, VkPhysicalDeviceMemoryProperties, u32) {
+    let physical_devices = instance
+        .vkEnumeratePhysicalDevices()
+        .expect("Failed to enumerate physical devices");
+    let physical_device = &physical_devices.first().expect("No physical devices found");
+
+    let mut props = VkPhysicalDeviceMemoryProperties2::DEFAULT;
+    physical_device.vkGetPhysicalDeviceMemoryProperties2(&mut props);
+    let memory_properties = props.memoryProperties;
+
+    let queue_family_index =
+        find_queue_family(physical_device).expect("No suitable queue family found");
+
+    const PRIORITIES: [f32; 1] = [1.0f32];
+    let queue_info = VkDeviceQueueCreateInfo::DEFAULT
+        .with_queueCount(1)
+        .with_pQueuePriorities(PRIORITIES.as_ptr())
+        .with_queueFamilyIndex(queue_family_index);
+
+    let device = physical_device
+        .vkCreateDevice(
+            &DEVICE_CREATE_INFO
+                .with_queueCreateInfoCount(1)
+                .with_pQueueCreateInfos(&queue_info),
+            null(),
+        )
+        .expect("Failed to create logical device");
+
+    (device, memory_properties, queue_family_index)
+}
 
 fn main() {
-    let library = match VulkanLib::load() {
-        Ok(lib) => lib,
-        Err(err) => {
-            eprintln!("Failed to load Vulkan library: {:?}", err);
-            return;
-        }
-    };
-
+    let library = VulkanLib::load().expect("Failed to load Vulkan library");
     let entry = Entry::new(&library);
-    let instance: Instance = match entry.vkCreateInstance(&INSTANCE_CREATE_INFO, vk::null()) {
-        Ok(inst) => inst,
-        Err(err) => {
-            eprintln!("Failed to create Vulkan instance: {:?}", err);
-            return;
-        }
-    };
+    let instance = entry
+        .vkCreateInstance(&INSTANCE_CREATE_INFO, null())
+        .expect("Failed to create instance");
+    let (device, memory_properties, queue_family_index) = create_device(&instance);
 
-    let physical_devices: Vec<PhysicalDevice> = match instance.vkEnumeratePhysicalDevices() {
-        Ok(devs) => devs,
-        Err(err) => {
-            eprintln!("Failed to enumerate physical devices: {:?}", err);
-            return;
-        }
-    };
+    let result: u32;
 
-    println!("Found {} physical devices:", physical_devices.len());
-    for (i, device) in physical_devices.iter().enumerate() {
-        let mut props = vk::VkPhysicalDeviceProperties2::DEFAULT;
-        device.vkGetPhysicalDeviceProperties2(&mut props);
-        let device_name = cstr_to_string(&props.properties.deviceName);
-        println!("  {}: {}", i, device_name);
-    }
+    // Sleep for 10
+    std::thread::sleep(std::time::Duration::from_secs(10));
+    {
+        let queue = device.vkGetDeviceQueue(queue_family_index, 0);
 
-    let device = match physical_devices.first() {
-        Some(dev) => dev,
-        None => {
-            eprintln!("No physical devices found");
-            return;
-        }
-    };
+        let (ds_layout, pipeline_layout, pipeline) =
+            create_compute_pipeline(&device).expect("Failed to create pipeline");
 
-    // Get family properties of the physical device
-    let mut queue_family_count = 0;
-    device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut queue_family_count, vk::null_mut());
-    if queue_family_count == 0 {
-        eprintln!("No queue families found");
-        return;
-    }
-    let mut queue_families =
-        vec![vk::VkQueueFamilyProperties2::DEFAULT; queue_family_count as usize];
-    device.vkGetPhysicalDeviceQueueFamilyProperties2(
-        &mut queue_family_count,
-        queue_families.as_mut_ptr(),
-    );
-    println!("Found {} queue families", queue_family_count);
+        let buffer_size = 2 * std::mem::size_of::<u32>() as u64;
+        let (input_buffer, input_memory) =
+            create_storage_buffer(&device, memory_properties, buffer_size)
+                .expect("Failed to create input buffer");
+        let (output_buffer, output_memory) = create_storage_buffer(&device, memory_properties, 4)
+            .expect("Failed to create output buffer");
 
-    // Get a queue from the logical device
-    let mut queue_family_count = 0;
-    device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut queue_family_count, vk::null_mut());
-    if queue_family_count == 0 {
-        eprintln!("No queue families found");
-        return;
-    }
-    let mut queue_families =
-        vec![vk::VkQueueFamilyProperties2::DEFAULT; queue_family_count as usize];
-    device.vkGetPhysicalDeviceQueueFamilyProperties2(
-        &mut queue_family_count,
-        queue_families.as_mut_ptr(),
-    );
-    let mut queue_family_index = None;
-    for (i, family) in queue_families.iter().enumerate() {
-        let flags = family.queueFamilyProperties.queueFlags;
-        println!(
-            "Queue family {}: flags = {:?} count = {}",
-            i, flags, family.queueFamilyProperties.queueCount
-        );
-        if vk::VkQueueFlagBits::VK_QUEUE_GRAPHICS_BIT & flags == vk::VkQueueFlagBits::EMPTY {
-            continue;
-        }
+        upload_to_buffer(&device, input_memory, &[3u32, 2u32]).expect("Failed to upload data");
 
-        queue_family_index = Some(i as u32);
-        break;
-    }
+        let (ds_pool, descriptor_set) =
+            setup_descriptor_set(&device, ds_layout, input_buffer, output_buffer, buffer_size)
+                .expect("Failed to setup descriptor set");
 
-    let queue_family_index = match queue_family_index {
-        Some(index) => {
-            println!("Selected queue family index: {}", index);
-            index
-        }
-        None => {
-            eprintln!("No suitable queue family found");
-            return;
-        }
-    };
-
-    const QUEUE_PRIORITIES: [f32; 1] = [1.0f32];
-    let queue_create_info = vk::VkDeviceQueueCreateInfo::DEFAULT
-        .with_queueFamilyIndex(queue_family_index)
-        .with_queueCount(QUEUE_PRIORITIES.len() as u32)
-        .with_pQueuePriorities(QUEUE_PRIORITIES.as_ptr());
-
-    // Create a logical device with the selected queue family
-    // let extensions: [*const i8; 1] = [vk::VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
-    let logical_device: Device = match device.vkCreateDevice(
-        &DEVICE_CREATE_INFO
-            .with_queueCreateInfoCount(1)
-            .with_pQueueCreateInfos(&queue_create_info),
-        // .with_enabledExtensionCount(extensions.len() as u32)
-        // .with_ppEnabledExtensionNames(extensions.as_ptr()),
-        vk::null(),
-    ) {
-        Ok(dev) => {
-            println!("Logical device created successfully");
-            dev
-        }
-        Err(err) => {
-            eprintln!("Failed to create logical device: {:?}", err);
-            return;
-        }
-    };
-    let compute_shader_u32: &[u32] = unsafe {
-        std::slice::from_raw_parts(
-            COMPUTE_SHADER_SPV.as_ptr() as *const u32,
-            COMPUTE_SHADER_SPV.len() / 4,
+        run_compute(
+            &device,
+            &queue,
+            queue_family_index,
+            pipeline,
+            pipeline_layout,
+            descriptor_set,
         )
-    };
+        .expect("Failed to run compute");
 
-    let shader_module_create_info = vk::VkShaderModuleCreateInfo::DEFAULT
-        .with_codeSize(COMPUTE_SHADER_SPV.len())
-        .with_pCode(compute_shader_u32.as_ptr());
+        result = read_from_buffer::<u32>(&device, output_memory).expect("Failed to read result");
 
-    let shader_module =
-        match logical_device.vkCreateShaderModule(&shader_module_create_info, vk::null()) {
-            Ok(sm) => {
-                println!("Shader module created successfully");
-                sm
-            }
-            Err(err) => {
-                eprintln!("Failed to create shader module: {:?}", err);
-                return;
-            }
-        };
-
-    // 2. Create descriptor set layout
-    let bindings = [
-        // Input buffer binding
-        vk::VkDescriptorSetLayoutBinding::DEFAULT
-            .with_binding(0)
-            .with_descriptorType(vk::VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
-            .with_stageFlags(vk::VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
-        // Output buffer binding
-        vk::VkDescriptorSetLayoutBinding::DEFAULT
-            .with_binding(1)
-            .with_descriptorType(vk::VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
-            .with_stageFlags(vk::VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
-    ];
-
-    let descriptor_set_layout_create_info = vk::VkDescriptorSetLayoutCreateInfo::DEFAULT
-        .with_bindingCount(bindings.len() as u32)
-        .with_pBindings(bindings.as_ptr());
-
-    let descriptor_set_layout = match logical_device
-        .vkCreateDescriptorSetLayout(&descriptor_set_layout_create_info, vk::null())
-    {
-        Ok(dsl) => {
-            println!("Descriptor set layout created successfully");
-            dsl
-        }
-        Err(err) => {
-            eprintln!("Failed to create descriptor set layout: {:?}", err);
-            return;
-        }
-    };
-
-    // 3. Create pipeline layout
-    let pipeline_layout_create_info = vk::VkPipelineLayoutCreateInfo::DEFAULT
-        .with_setLayoutCount(1)
-        .with_pSetLayouts(&descriptor_set_layout);
-
-    let pipeline_layout =
-        match logical_device.vkCreatePipelineLayout(&pipeline_layout_create_info, vk::null()) {
-            Ok(pl) => {
-                println!("Pipeline layout created successfully");
-                pl
-            }
-            Err(err) => {
-                eprintln!("Failed to create pipeline layout: {:?}", err);
-                return;
-            }
-        };
-
-    // 4. Create compute pipeline
-    let pipeline_shader_stage_create_info = vk::VkPipelineShaderStageCreateInfo::DEFAULT
-        .with_stage(vk::VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT)
-        .with_module(shader_module)
-        .with_pName(c"main".as_ptr());
-
-    let compute_pipeline_create_info = vk::VkComputePipelineCreateInfo::DEFAULT
-        .with_stage(pipeline_shader_stage_create_info)
-        .with_layout(pipeline_layout);
-
-    let pipeline = match logical_device.vkCreateComputePipelines(
-        vk::VkPipelineCache::NULL,
-        1,
-        &compute_pipeline_create_info,
-        vk::null(),
-    ) {
-        Ok(pipelines) => {
-            println!("Compute pipeline created successfully");
-            pipelines
-        }
-        Err(err) => {
-            eprintln!("Failed to create compute pipeline: {:?}", err);
-            return;
-        }
-    };
-
-    // ============== BUFFER CREATION ==============
-
-    // 5. Create input buffer with values [3, 2]
-    let buffer_size = 2 * std::mem::size_of::<u32>() as u64;
-
-    let input_buffer_create_info = vk::VkBufferCreateInfo::DEFAULT
-        .with_size(buffer_size)
-        .with_usage(vk::VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT.0)
-        .with_sharingMode(vk::VkSharingMode::VK_SHARING_MODE_EXCLUSIVE);
-
-    let input_buffer = match logical_device.vkCreateBuffer(&input_buffer_create_info, vk::null()) {
-        Ok(buf) => {
-            println!("Input buffer created successfully");
-            buf
-        }
-        Err(err) => {
-            eprintln!("Failed to create input buffer: {:?}", err);
-            return;
-        }
-    };
-
-    // 6. Create output buffer
-    let output_buffer_create_info = vk::VkBufferCreateInfo::DEFAULT
-        .with_size(std::mem::size_of::<u32>() as u64)
-        .with_usage(vk::VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT.0)
-        .with_sharingMode(vk::VkSharingMode::VK_SHARING_MODE_EXCLUSIVE);
-
-    let output_buffer = match logical_device.vkCreateBuffer(&output_buffer_create_info, vk::null())
-    {
-        Ok(buf) => {
-            println!("Output buffer created successfully");
-            buf
-        }
-        Err(err) => {
-            eprintln!("Failed to create output buffer: {:?}", err);
-            return;
-        }
-    };
-
-    // 7. Allocate device memory and bind to buffers
-    // Get memory requirements
-    let mut input_mem_reqs = vk::VkMemoryRequirements::DEFAULT;
-    logical_device.vkGetBufferMemoryRequirements(input_buffer, &mut input_mem_reqs);
-
-    let mut output_mem_reqs = vk::VkMemoryRequirements::DEFAULT;
-    logical_device.vkGetBufferMemoryRequirements(output_buffer, &mut output_mem_reqs);
-
-    // Find suitable memory type (host visible for easy upload)
-    let mut mem_properties = vk::VkPhysicalDeviceMemoryProperties2::DEFAULT;
-    device.vkGetPhysicalDeviceMemoryProperties2(&mut mem_properties);
-
-    let memory_type_index = find_memory_type(
-        &mem_properties,
-        input_mem_reqs.memoryTypeBits,
-        vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
-            | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
-    )
-    .expect("Failed to find suitable memory type");
-
-    // Allocate memory for input buffer
-    let input_memory_alloc_info = vk::VkMemoryAllocateInfo::DEFAULT
-        .with_allocationSize(input_mem_reqs.size)
-        .with_memoryTypeIndex(memory_type_index);
-
-    let input_memory = match logical_device.vkAllocateMemory(&input_memory_alloc_info, vk::null()) {
-        Ok(mem) => {
-            println!("Input memory allocated successfully");
-            mem
-        }
-        Err(err) => {
-            eprintln!("Failed to allocate input memory: {:?}", err);
-            return;
-        }
-    };
-
-    match logical_device.vkBindBufferMemory(input_buffer, input_memory, 0) {
-        Ok(_) => {
-            println!("Input buffer bound to memory successfully");
-        }
-        Err(err) => {
-            eprintln!("Failed to bind input buffer to memory: {:?}", err);
-            return;
-        }
+        device.vkDestroyBuffer(input_buffer, null());
+        device.vkFreeMemory(input_memory, null());
+        device.vkDestroyBuffer(output_buffer, null());
+        device.vkFreeMemory(output_memory, null());
+        device.vkDestroyDescriptorPool(ds_pool, null());
+        device.vkDestroyPipeline(pipeline, null());
+        device.vkDestroyPipelineLayout(pipeline_layout, null());
+        device.vkDestroyDescriptorSetLayout(ds_layout, null());
     }
 
-    // Allocate memory for output buffer
-    let output_memory_alloc_info = vk::VkMemoryAllocateInfo::DEFAULT
-        .with_allocationSize(output_mem_reqs.size)
-        .with_memoryTypeIndex(memory_type_index);
+    // Sleep for 3 seconds to allow validation layers to print messages before we clean up resources and exit.
+    // Clean up resources.
 
-    let output_memory = match logical_device.vkAllocateMemory(&output_memory_alloc_info, vk::null())
-    {
-        Ok(mem) => {
-            println!("Output memory allocated successfully");
-            mem
-        }
-        Err(err) => {
-            eprintln!("Failed to allocate output memory: {:?}", err);
-            return;
-        }
-    };
-
-    match logical_device.vkBindBufferMemory(output_buffer, output_memory, 0) {
-        Ok(_) => {
-            println!("Output buffer bound to memory successfully");
-        }
-        Err(err) => {
-            eprintln!("Failed to bind output buffer to memory: {:?}", err);
-            return;
-        }
-    }
-
-    // 8. Upload data to input buffer: [3, 2]
-    let input_data: [u32; 2] = [3, 2];
-    let mut data_ptr: *mut c_void = std::ptr::null_mut();
-    match logical_device.vkMapMemory(input_memory, 0, buffer_size, 0, &mut data_ptr) {
-        Ok(_) => {
-            unsafe { std::ptr::copy_nonoverlapping(input_data.as_ptr(), data_ptr as *mut u32, 2) };
-            logical_device.vkUnmapMemory(input_memory);
-            println!("Uploaded input data: [3, 2]");
-        }
-        Err(err) => {
-            eprintln!("Failed to map input memory: {:?}", err);
-            return;
-        }
-    }
-
-    // ============== DESCRIPTOR SET ==============
-
-    // 9. Create descriptor pool
-    let pool_sizes = [vk::VkDescriptorPoolSize::DEFAULT
-        .with_type(vk::VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-        .with_descriptorCount(2)];
-
-    let descriptor_pool_create_info = vk::VkDescriptorPoolCreateInfo::DEFAULT
-        .with_maxSets(1)
-        .with_poolSizeCount(pool_sizes.len() as u32)
-        .with_pPoolSizes(pool_sizes.as_ptr());
-
-    let descriptor_pool =
-        match logical_device.vkCreateDescriptorPool(&descriptor_pool_create_info, vk::null()) {
-            Ok(pool) => {
-                println!("Descriptor pool created successfully");
-                pool
-            }
-            Err(err) => {
-                eprintln!("Failed to create descriptor pool: {:?}", err);
-                return;
-            }
-        };
-
-    // 10. Allocate descriptor set
-    let descriptor_set_alloc_info = vk::VkDescriptorSetAllocateInfo::DEFAULT
-        .with_descriptorPool(descriptor_pool)
-        .with_descriptorSetCount(1)
-        .with_pSetLayouts(&descriptor_set_layout);
-
-    let descriptor_sets: vk::VkDescriptorSet =
-        match logical_device.vkAllocateDescriptorSets(&descriptor_set_alloc_info) {
-            Ok(sets) => {
-                println!("Descriptor set allocated successfully");
-                sets
-            }
-            Err(err) => {
-                eprintln!("Failed to allocate descriptor sets: {:?}", err);
-                return;
-            }
-        };
-    // let descriptor_set = descriptor_sets[0];
-
-    // 11. Update descriptor set with buffer info
-    let buffer_infos = [
-        vk::VkDescriptorBufferInfo::DEFAULT
-            .with_buffer(input_buffer)
-            .with_offset(0)
-            .with_range(buffer_size),
-        vk::VkDescriptorBufferInfo::DEFAULT
-            .with_buffer(output_buffer)
-            .with_offset(0)
-            .with_range(std::mem::size_of::<u32>() as u64),
-    ];
-
-    let write_descriptor_sets = [
-        vk::VkWriteDescriptorSet::DEFAULT
-            .with_dstSet(descriptor_sets)
-            .with_dstBinding(0)
-            .with_dstArrayElement(0)
-            .with_descriptorType(vk::VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
-            .with_pBufferInfo(&buffer_infos[0]),
-        vk::VkWriteDescriptorSet::DEFAULT
-            .with_dstSet(descriptor_sets)
-            .with_dstBinding(1)
-            .with_dstArrayElement(0)
-            .with_descriptorType(vk::VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
-            .with_pBufferInfo(&buffer_infos[1]),
-    ];
-
-    logical_device.vkUpdateDescriptorSets(
-        write_descriptor_sets.len() as u32,
-        write_descriptor_sets.as_ptr(),
-        0,
-        std::ptr::null(),
-    );
-    println!("Descriptor set updated");
-
-    // ============== COMMAND RECORDING & EXECUTION ==============
-
-    // 12. Create command pool and buffer (you already have this, but ensure it's for compute)
-    let command_pool_create_info = vk::VkCommandPoolCreateInfo::DEFAULT
-        .with_queueFamilyIndex(queue_family_index)
-        .with_flags(
-            vk::VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT.0,
-        );
-    let command_pool =
-        match logical_device.vkCreateCommandPool(&command_pool_create_info, vk::null()) {
-            Ok(pool) => {
-                println!("Command pool created successfully");
-                pool
-            }
-            Err(err) => {
-                eprintln!("Failed to create command pool: {:?}", err);
-                return;
-            }
-        };
-
-    let command_buffer_allocate_info = vk::VkCommandBufferAllocateInfo::DEFAULT
-        .with_level(vk::VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY)
-        .with_commandBufferCount(1)
-        .with_commandPool(command_pool.raw());
-
-    let command_buffers: Vec<CommandBuffer> =
-        match command_pool.vkAllocateCommandBuffers(&command_buffer_allocate_info) {
-            Ok(buffers) => {
-                println!("Command buffer allocated successfully");
-                buffers
-            }
-            Err(err) => {
-                eprintln!("Failed to allocate command buffer: {:?}", err);
-                return;
-            }
-        };
-    let command_buffer = &command_buffers[0];
-
-    // 13. Record commands
-    let command_buffer_begin_info = vk::VkCommandBufferBeginInfo::DEFAULT;
-    match command_buffer.vkBeginCommandBuffer(&command_buffer_begin_info) {
-        Ok(_) => println!("Began recording command buffer"),
-        Err(err) => {
-            eprintln!("Failed to begin command buffer: {:?}", err);
-            return;
-        }
-    };
-
-    command_buffer.vkCmdBindPipeline(
-        vk::VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_COMPUTE,
-        pipeline,
-    );
-
-    command_buffer.vkCmdBindDescriptorSets(
-        vk::VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_COMPUTE,
-        pipeline_layout,
-        0,
-        1,
-        &descriptor_sets,
-        0,
-        std::ptr::null(),
-    );
-    command_buffer.vkCmdDispatch(1, 1, 1);
-    match command_buffer.vkEndCommandBuffer() {
-        Ok(_) => println!("Finished recording command buffer"),
-        Err(err) => {
-            eprintln!("Failed to end command buffer: {:?}", err);
-            return;
-        }
-    };
-
-    // 14. Submit command buffer and wait for completion
-    let queue: Queue = logical_device.vkGetDeviceQueue(queue_family_index, 0);
-    let submit_info = vk::VkSubmitInfo::DEFAULT
-        .with_commandBufferCount(1)
-        .with_pCommandBuffers(&command_buffer.raw());
-    match queue.vkQueueSubmit(1, &submit_info, vk::VkFence::NULL) {
-        Ok(_) => println!("Command buffer submitted successfully"),
-        Err(err) => {
-            eprintln!("Failed to submit command buffer: {:?}", err);
-            return;
-        }
-    };
-    match queue.vkQueueWaitIdle() {
-        Ok(_) => println!("Queue is idle, compute shader execution complete"),
-        Err(err) => {
-            eprintln!("Failed to wait for queue idle: {:?}", err);
-            return;
-        }
-    };
-
-    // 15. Read back result from output buffer
-    let mut output_data: u32;
-    let mut output_data_ptr: *mut c_void = std::ptr::null_mut();
-    match logical_device.vkMapMemory(
-        output_memory,
-        0,
-        std::mem::size_of::<u32>() as u64,
-        0,
-        &mut output_data_ptr,
-    ) {
-        Ok(_) => {
-            output_data = unsafe { *(output_data_ptr as *const u32) };
-            logical_device.vkUnmapMemory(output_memory);
-            println!("Output data read back: {}", output_data);
-        }
-        Err(err) => {
-            eprintln!("Failed to map output memory: {:?}", err);
-            return;
-        }
-    }
-
-    // 16. Verify result
-    if output_data == 5 {
-        println!(
-            "Success! The compute shader correctly computed 3 + 2 = {}",
-            output_data
-        );
+    if result == 5 {
+        println!("Success! 3 + 2 = {}", result);
     } else {
-        eprintln!("Error: Expected 5 but got {}", output_data);
+        println!("Error: expected 5, got {}", result);
     }
 
-    // Cleanup happens automatically via Drop implementations
     println!("Compute shader execution complete!");
 }
 
-// Helper function to find memory type
-fn find_memory_type(
-    mem_properties: &vk::VkPhysicalDeviceMemoryProperties2,
-    type_filter: u32,
-    properties: u32,
-) -> Option<u32> {
-    (0..mem_properties.memoryProperties.memoryTypeCount).find(|&i| {
-        (type_filter & (1 << i)) != 0
-            && (mem_properties.memoryProperties.memoryTypes[i as usize].propertyFlags & properties)
-                == properties
+fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
+    let mut count = 0;
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, null_mut());
+    let mut props = vec![VkQueueFamilyProperties2::DEFAULT; count as usize];
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, props.as_mut_ptr());
+
+    props.iter().enumerate().find_map(|(i, p)| {
+        if (p.queueFamilyProperties.queueFlags & VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT.0) != 0 {
+            Some(i as u32)
+        } else {
+            None
+        }
     })
 }
-fn cstr_to_string(cstr: &[i8]) -> String {
-    let bytes: Vec<u8> = cstr
-        .iter()
-        .map(|&c| c as u8)
-        .take_while(|&c| c != 0)
-        .collect();
-    String::from_utf8_lossy(&bytes).to_string()
+
+fn create_compute_pipeline<'a>(
+    device: &Device<'a>,
+) -> Result<(VkDescriptorSetLayout, VkPipelineLayout, VkPipeline), String> {
+    let sm_info = VkShaderModuleCreateInfo::DEFAULT
+        .with_codeSize(COMPUTE_SHADER_SPV.len())
+        .with_pCode(COMPUTE_SHADER_SPV.as_ptr() as *const u32);
+    let shader_module = device
+        .vkCreateShaderModule(&sm_info, null())
+        .map_err(|e| format!("ShaderModule: {:?}", e))?;
+
+    const BINDINGS: [VkDescriptorSetLayoutBinding; 2] = [
+        VkDescriptorSetLayoutBinding::DEFAULT
+            .with_binding(0)
+            .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+            .with_descriptorCount(1)
+            .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
+        VkDescriptorSetLayoutBinding::DEFAULT
+            .with_binding(1)
+            .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+            .with_descriptorCount(1)
+            .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
+    ];
+
+    const DSL_INFO: VkDescriptorSetLayoutCreateInfo = VkDescriptorSetLayoutCreateInfo::DEFAULT
+        .with_bindingCount(2)
+        .with_pBindings(BINDINGS.as_ptr());
+    let ds_layout = device
+        .vkCreateDescriptorSetLayout(&DSL_INFO, null())
+        .map_err(|e| format!("DSLayout: {:?}", e))?;
+
+    let pll_info = VkPipelineLayoutCreateInfo::DEFAULT
+        .with_setLayoutCount(1)
+        .with_pSetLayouts(&ds_layout);
+    let pipeline_layout = device
+        .vkCreatePipelineLayout(&pll_info, null())
+        .map_err(|e| format!("PLLayout: {:?}", e))?;
+
+    let stage = VkPipelineShaderStageCreateInfo::DEFAULT
+        .with_stage(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT)
+        .with_pName(c"main".as_ptr())
+        .with_module(shader_module);
+    let pipe_info = VkComputePipelineCreateInfo::DEFAULT
+        .with_stage(stage)
+        .with_layout(pipeline_layout);
+    let pipeline = device
+        .vkCreateComputePipelines(VkPipelineCache::NULL, 1, &pipe_info, null())
+        .map_err(|e| format!("Pipeline: {:?}", e))?;
+
+    // Destroy shader module after pipeline creation, leaks if we crash in the middle of creation.
+    device.vkDestroyShaderModule(shader_module, null());
+
+    Ok((ds_layout, pipeline_layout, pipeline))
+}
+
+fn create_storage_buffer<'a>(
+    device: &Device<'a>,
+    memory_properties: VkPhysicalDeviceMemoryProperties,
+    size: u64,
+) -> Result<(VkBuffer, VkDeviceMemory), String> {
+    let b_info = VkBufferCreateInfo::DEFAULT
+        .with_usage(VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT.0)
+        .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
+        .with_size(size);
+    let buffer = device
+        .vkCreateBuffer(&b_info, null())
+        .map_err(|e| format!("Buffer: {:?}", e))?;
+
+    let mut reqs = VkMemoryRequirements::DEFAULT;
+    device.vkGetBufferMemoryRequirements(buffer, &mut reqs);
+
+    const FLAGS: u32 = VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
+        | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0;
+    let mem_type = (0..memory_properties.memoryTypeCount)
+        .find(|&i| {
+            (reqs.memoryTypeBits & (1 << i)) != 0
+                && (memory_properties.memoryTypes[i as usize].propertyFlags & FLAGS) == FLAGS
+        })
+        .ok_or("Memory type not found")?;
+
+    let a_info = VkMemoryAllocateInfo::DEFAULT
+        .with_allocationSize(reqs.size)
+        .with_memoryTypeIndex(mem_type);
+    let memory = device
+        .vkAllocateMemory(&a_info, null())
+        .map_err(|e| format!("Allocate: {:?}", e))?;
+    device
+        .vkBindBufferMemory(buffer, memory, 0)
+        .map_err(|e| format!("Bind: {:?}", e))?;
+
+    Ok((buffer, memory))
+}
+
+fn upload_to_buffer<T>(device: &Device, memory: VkDeviceMemory, data: &[T]) -> Result<(), String> {
+    let size = std::mem::size_of_val(data) as u64;
+    let mut ptr: *mut c_void = null_mut();
+    device
+        .vkMapMemory(memory, 0, size, 0, &mut ptr)
+        .map_err(|e| format!("Map: {:?}", e))?;
+    unsafe {
+        std::ptr::copy_nonoverlapping(data.as_ptr(), ptr as *mut T, data.len());
+    }
+    device.vkUnmapMemory(memory);
+    Ok(())
+}
+
+fn read_from_buffer<T: Copy>(device: &Device, memory: VkDeviceMemory) -> Result<T, String> {
+    let mut ptr: *mut c_void = null_mut();
+    device
+        .vkMapMemory(memory, 0, std::mem::size_of::<T>() as u64, 0, &mut ptr)
+        .map_err(|e| format!("MapRead: {:?}", e))?;
+    let val = unsafe { *(ptr as *const T) };
+    device.vkUnmapMemory(memory);
+    Ok(val)
+}
+
+fn setup_descriptor_set<'a>(
+    device: &Device<'a>,
+    layout: VkDescriptorSetLayout,
+    input: VkBuffer,
+    output: VkBuffer,
+    input_size: u64,
+) -> Result<(VkDescriptorPool, VkDescriptorSet), String> {
+    const POOL_SIZE: VkDescriptorPoolSize = VkDescriptorPoolSize::DEFAULT
+        .with_type(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+        .with_descriptorCount(2);
+    const POOL_INFO: VkDescriptorPoolCreateInfo = VkDescriptorPoolCreateInfo::DEFAULT
+        .with_maxSets(1)
+        .with_poolSizeCount(1)
+        .with_pPoolSizes(&POOL_SIZE);
+    let pool = device
+        .vkCreateDescriptorPool(&POOL_INFO, null())
+        .map_err(|e| format!("Pool: {:?}", e))?;
+
+    let alloc_info = VkDescriptorSetAllocateInfo::DEFAULT
+        .with_descriptorSetCount(1)
+        .with_descriptorPool(pool)
+        .with_pSetLayouts(&layout);
+    let ds = device
+        .vkAllocateDescriptorSets(&alloc_info)
+        .map_err(|e| format!("DSAlloc: {:?}", e))?;
+
+    let b_infos = [
+        VkDescriptorBufferInfo::DEFAULT
+            .with_buffer(input)
+            .with_offset(0)
+            .with_range(input_size),
+        VkDescriptorBufferInfo::DEFAULT
+            .with_buffer(output)
+            .with_offset(0)
+            .with_range(4),
+    ];
+    let writes = [
+        VkWriteDescriptorSet::DEFAULT
+            .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+            .with_descriptorCount(1)
+            .with_dstBinding(0)
+            .with_pBufferInfo(&b_infos[0])
+            .with_dstSet(ds),
+        VkWriteDescriptorSet::DEFAULT
+            .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+            .with_descriptorCount(1)
+            .with_dstBinding(1)
+            .with_pBufferInfo(&b_infos[1])
+            .with_dstSet(ds),
+    ];
+    device.vkUpdateDescriptorSets(2, writes.as_ptr(), 0, null());
+
+    Ok((pool, ds))
+}
+
+fn run_compute<'a>(
+    device: &Device<'a>,
+    queue: &Queue<'a>,
+    qfi: u32,
+    pipeline: VkPipeline,
+    layout: VkPipelineLayout,
+    ds: VkDescriptorSet,
+) -> Result<(), String> {
+    let pool_info = VkCommandPoolCreateInfo::DEFAULT
+        .with_flags(VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT.0)
+        .with_queueFamilyIndex(qfi);
+    let cp: CommandPool<'_> = device
+        .vkCreateCommandPool(&pool_info, null())
+        .map_err(|e| format!("CommandPool: {:?}", e))?;
+
+    let cb_info = VkCommandBufferAllocateInfo::DEFAULT
+        .with_level(VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY)
+        .with_commandBufferCount(1)
+        .with_commandPool(cp.raw());
+    let cbs: Vec<CommandBuffer<'_>> = cp
+        .vkAllocateCommandBuffers(&cb_info)
+        .map_err(|e| format!("CBAlloc: {:?}", e))?;
+    let raw_cbs = [cbs[0].raw()];
+    let cb: &CommandBuffer<'_> = &cbs[0];
+
+    cb.vkBeginCommandBuffer(&VkCommandBufferBeginInfo::DEFAULT)
+        .map_err(|e| format!("BeginCB: {:?}", e))?;
+    cb.vkCmdBindPipeline(
+        VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_COMPUTE,
+        pipeline,
+    );
+    cb.vkCmdBindDescriptorSets(
+        VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_COMPUTE,
+        layout,
+        0,
+        1,
+        &ds,
+        0,
+        null(),
+    );
+    cb.vkCmdDispatch(1, 1, 1);
+    cb.vkEndCommandBuffer()
+        .map_err(|e| format!("EndCB: {:?}", e))?;
+
+    let submit = VkSubmitInfo::DEFAULT
+        .with_commandBufferCount(1)
+        .with_pCommandBuffers(raw_cbs.as_ptr());
+    println!("Submitting compute command buffer...");
+    queue
+        .vkQueueSubmit(1, &submit, VkFence::NULL)
+        .map_err(|e| format!("Submit: {:?}", e))?;
+    queue
+        .vkQueueWaitIdle()
+        .map_err(|e| format!("WaitIdle: {:?}", e))?;
+
+    Ok(())
 }

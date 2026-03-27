@@ -14,7 +14,7 @@ path = "src/main.rs"
 vk = {
   path = "../vk-rs-bindings",
   features = [
-    "VK_VERSION_1_3",
+    "VK_VERSION_1_4",
   ],
   package = "vk-rs-bindings",
 }

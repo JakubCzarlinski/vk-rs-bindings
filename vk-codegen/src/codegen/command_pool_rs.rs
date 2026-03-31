@@ -136,10 +136,10 @@ fn gen_allocate_command_buffers(
     quote! {
         #cfg
         #[inline]
-        pub fn vkAllocateCommandBuffers(
-            &self,
+        pub fn vkAllocateCommandBuffers<'pool>(
+            &'pool self,
             pAllocateInfo: *const VkCommandBufferAllocateInfo,
-        ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'_>>, VkResult> {
+        ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'pool>>, VkResult> {
             let count = unsafe { (*pAllocateInfo).commandBufferCount };
             let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
             let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };

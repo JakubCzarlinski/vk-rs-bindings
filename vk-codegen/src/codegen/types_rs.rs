@@ -273,8 +273,8 @@ fn member_cfg(m: &Member) -> TokenStream {
 ///
 /// - Non-pointer fields  -> `pub const fn with_<name>(mut self, val: T) -> Self`
 /// - Pointer fields      -> `pub fn with_<name>(mut self, val: T) -> Self`
-///                         with a `// SAFETY:` doc comment reminding callers of
-///                         their lifetime obligations.
+///   with a `// SAFETY:` doc comment reminding callers of
+///   their lifetime obligations.
 ///
 /// Each setter carries the same `#[cfg(...)]` guard as its corresponding field.
 fn gen_builder_setters(s: &Struct) -> TokenStream {

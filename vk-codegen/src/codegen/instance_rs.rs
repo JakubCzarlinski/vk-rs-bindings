@@ -205,9 +205,9 @@ fn gen_enumerate_physical_devices(
     quote! {
         #cfg
         #[inline]
-        pub fn vkEnumeratePhysicalDevices(
-            &self,
-        ) -> Result<alloc::vec::Vec<crate::physical_device::PhysicalDevice<'_>>, VkResult> {
+        pub fn vkEnumeratePhysicalDevices<'inst>(
+            &'inst self,
+        ) -> Result<alloc::vec::Vec<crate::physical_device::PhysicalDevice<'inst>>, VkResult> {
             use crate::physical_device::PhysicalDevice;
             let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
             let mut count = 0;

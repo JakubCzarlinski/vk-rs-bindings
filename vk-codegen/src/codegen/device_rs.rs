@@ -206,11 +206,11 @@ fn gen_get_device_queue(_cmd: &crate::ir::Command, providers: &[String]) -> Toke
     quote! {
         #cfg
         #[inline]
-        pub fn vkGetDeviceQueue(
-            &self,
+        pub fn vkGetDeviceQueue<'dev>(
+            &'dev self,
             queueFamilyIndex: u32,
             queueIndex: u32,
-        ) -> crate::queue::Queue<'_> {
+        ) -> crate::queue::Queue<'dev> {
             let mut raw = VkQueue::NULL;
             let fp = unsafe { self.table.vkGetDeviceQueue.unwrap_unchecked() };
             unsafe { fp(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
@@ -230,11 +230,11 @@ fn gen_create_command_pool(
     quote! {
         #cfg
         #[inline]
-        pub fn vkCreateCommandPool(
-            &self,
+        pub fn vkCreateCommandPool<'dev>(
+            &'dev self,
             pCreateInfo: *const VkCommandPoolCreateInfo,
             pAllocator: *const VkAllocationCallbacks,
-        ) -> Result<crate::command_pool::CommandPool<'_>, VkResult> {
+        ) -> Result<crate::command_pool::CommandPool<'dev>, VkResult> {
             let mut raw = VkCommandPool::NULL;
             let fp = unsafe { self.table.vkCreateCommandPool.unwrap_unchecked() };
             let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };

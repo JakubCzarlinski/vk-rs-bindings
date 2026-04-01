@@ -117,7 +117,7 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
     }
 
     match td.kind {
-        TypedefKind::Handle { dispatchable } => {
+        TypedefKind::Handle { dispatchable, .. } => {
             if let Some(ref alias) = td.alias {
                 let a = parse_ty(alias);
                 quote! { #cfg #depr pub type #name = #a; }

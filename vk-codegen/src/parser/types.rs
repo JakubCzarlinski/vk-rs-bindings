@@ -162,11 +162,18 @@ fn parse_handle(
         .text()
         .is_none_or(|t| !t.contains("VK_DEFINE_NON_DISPATCHABLE_HANDLE"));
 
+    let parent = node.attribute("parent").map(String::from);
+    let objtypeenum = node.attribute("objtypeenum").map(String::from);
+
     reg.typedefs.entry(name.clone()).or_default().push(Typedef {
         name,
         alias,
         ty: None,
-        kind: TypedefKind::Handle { dispatchable },
+        kind: TypedefKind::Handle {
+            dispatchable,
+            parent,
+            objtypeenum,
+        },
         api: aset,
         comment,
         dep,

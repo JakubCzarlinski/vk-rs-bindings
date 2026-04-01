@@ -1,7 +1,7 @@
 use quote::quote;
 
-pub fn gen_lib_rs() -> String {
-    let ts = quote! {
+pub fn gen_lib_rs(handles: &[String]) -> String {
+    let mut ts = quote! {
         #![no_std]
         #![allow(
             non_snake_case,
@@ -22,12 +22,16 @@ pub fn gen_lib_rs() -> String {
         pub mod device;
         pub mod physical_device;
         pub mod instance;
-        pub mod queue;
-        pub mod command_pool;
-        pub mod command_buffer;
         pub mod types;
         pub mod validation;
+    };
 
+    for h in handles {
+        let ident = quote::format_ident!("{}", h);
+        ts.extend(quote! { pub mod #ident; });
+    }
+
+    ts.extend(quote! {
         pub use commands::*;
         pub use consts::*;
         pub use core::ptr::null;
@@ -37,11 +41,13 @@ pub fn gen_lib_rs() -> String {
         pub use enums::*;
         pub use physical_device::*;
         pub use instance::*;
-        pub use queue::*;
-        pub use command_pool::*;
-        pub use command_buffer::*;
         pub use types::*;
         pub use validation::*;
-    };
+    });
+
+    for h in handles {
+        let ident = quote::format_ident!("{}", h);
+        ts.extend(quote! { pub use #ident::*; });
+    }
     crate::codegen::pretty(ts)
 }

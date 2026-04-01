@@ -11,11 +11,17 @@ pub fn gen_physical_device_rs(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_physical_device_dispatch_table(reg));
-    ts.extend(gen_physical_device(reg, result_cfgs, handle_types));
+    ts.extend(gen_physical_device(
+        reg,
+        result_cfgs,
+        handle_types,
+        handle_meta,
+    ));
     pretty(ts)
 }
 
@@ -71,6 +77,7 @@ fn gen_physical_device(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
@@ -79,7 +86,7 @@ fn gen_physical_device(
     for cmds in groups.values() {
         for (name, providers, cmd) in cmds {
             if name == "vkCreateDevice" {
-                methods_ts.extend(gen_create_device(cmd, providers, result_cfgs));
+                methods_ts.extend(gen_create_device(cmd, providers, result_cfgs, handle_meta));
             } else {
                 methods_ts.extend(safe_method(
                     cmd,
@@ -90,6 +97,8 @@ fn gen_physical_device(
                     quote! { self.table },
                     result_cfgs,
                     handle_types,
+                    None,
+                    quote! {},
                 ));
             }
         }
@@ -114,6 +123,7 @@ fn gen_create_device(
     cmd: &crate::ir::Command,
     providers: &[String],
     result_cfgs: &HashMap<String, TokenStream>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
     let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
@@ -130,6 +140,19 @@ fn gen_create_device(
             (quote! { #n: #t }, quote! { #n })
         })
         .unzip();
+
+    let mut tb_load = TokenStream::new();
+    let mut tb_args = TokenStream::new();
+    for m in handle_meta.values() {
+        let name = format_ident!("{}_table", m.mod_name);
+        let tb = format_ident!("{}", m.table_name);
+        let md = format_ident!("{}", m.mod_name);
+        tb_load.extend(
+            quote! { let #name = crate::#md::#tb::load(|name| unsafe { gdpa(raw, name) }); },
+        );
+        tb_args.extend(quote! { #name, });
+    }
+
     quote! {
         #cfg
         #[inline]
@@ -145,10 +168,8 @@ fn gen_create_device(
             if let Err(e) = { #result_check } { return Err(e); }
             let gdpa  = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
             let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            let q_table = crate::queue::QueueDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            let cp_table = crate::command_pool::CommandPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            let cb_table = crate::command_buffer::CommandBufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            Ok(unsafe { Device::from_raw(raw, table, q_table, cp_table, cb_table) })
+            #tb_load
+            Ok(unsafe { Device::from_raw(raw, table, #tb_args) })
         }
     }
 }

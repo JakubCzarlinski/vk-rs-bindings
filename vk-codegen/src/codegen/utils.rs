@@ -6,15 +6,13 @@ use proc_macro2::TokenStream;
 use quote::{ToTokens, format_ident, quote};
 use std::collections::{BTreeMap, HashMap, HashSet};
 
-#[derive(Clone, Copy, PartialEq, Debug, Eq, Hash)]
+#[derive(Clone, PartialEq, Debug, Eq, Hash)]
 pub enum Tier {
     Entry,
     Instance,
     PhysicalDevice,
     Device,
-    Queue,
-    CommandPool,
-    CommandBuffer,
+    Handle(String),
 }
 
 // Commands pinned to the instance tier.
@@ -30,7 +28,7 @@ pub enum Tier {
 // that `Instance::vkCreateDevice` can use it to load the device table.
 const INSTANCE_PINNED: &[&str] = &["vkGetDeviceProcAddr"];
 
-pub fn cmd_tier(cmd: &Command, name: &str) -> Tier {
+pub fn cmd_tier(cmd: &Command, name: &str, reg: &Registry) -> Tier {
     // ENTRY_CMDS should be classified as Entry
     const ENTRY_CMDS: &[&str] = &[
         "vkCreateInstance",
@@ -51,18 +49,40 @@ pub fn cmd_tier(cmd: &Command, name: &str) -> Tier {
         || name.starts_with("vkTrimCommandPool")
         || name.starts_with("vkFreeCommandBuffers")
     {
-        return Tier::CommandPool;
+        return Tier::Handle("VkCommandPool".to_string());
     }
 
-    if let Some(m) = cmd.params.first() {
-        match m.ty.base.as_str() {
-            "VkInstance" => Tier::Instance,
-            "VkPhysicalDevice" => Tier::PhysicalDevice,
-            "VkDevice" => Tier::Device,
-            "VkQueue" => Tier::Queue,
-            "VkCommandBuffer" => Tier::CommandBuffer,
-            "VkCommandPool" => Tier::CommandPool,
-            _ => Tier::Entry, // Fallback, shouldn't really happen for Vulkan methods
+    if name == "vkAllocateDescriptorSets" || name == "vkFreeDescriptorSets" {
+        return Tier::Handle("VkDescriptorPool".to_string());
+    }
+
+    if let Some(m0) = cmd.params.first() {
+        let m0_ty = m0.ty.base.as_str();
+        if m0_ty == "VkInstance" {
+            Tier::Instance
+        } else if m0_ty == "VkPhysicalDevice" {
+            Tier::PhysicalDevice
+        } else if m0_ty == "VkDevice" {
+            if let Some(m1) = cmd.params.get(1) {
+                let m1_ty = m1.ty.base.as_str();
+                if let Some(tds) = reg.typedefs.get(m1_ty) {
+                    for td in tds {
+                        if let TypedefKind::Handle { .. } = &td.kind {
+                            return Tier::Handle(m1_ty.to_string());
+                        }
+                    }
+                }
+            }
+            Tier::Device
+        } else {
+            if let Some(tds) = reg.typedefs.get(m0_ty) {
+                for td in tds {
+                    if let TypedefKind::Handle { .. } = &td.kind {
+                        return Tier::Handle(m0_ty.to_string());
+                    }
+                }
+            }
+            Tier::Entry
         }
     } else {
         Tier::Entry
@@ -128,6 +148,7 @@ pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> 
             m.ty.pointer_depth == 1
                 && !m.ty.is_const
                 && m.ty.is_array.is_none()
+                && m.len.is_none()
                 && matches!(m.optional, Optional::False)
                 && handle_types.contains(&m.ty.base)
         })
@@ -261,7 +282,7 @@ pub fn collect_groups(
         };
         let resolved = owned_resolved.as_ref().unwrap_or(cmd_raw);
 
-        let t = cmd_tier(resolved, name);
+        let t = cmd_tier(resolved, name, reg);
         if t != tier {
             continue;
         }
@@ -496,6 +517,8 @@ pub fn safe_method(
     table_expr: TokenStream,  // how to reach the PFN table
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: Option<&BTreeMap<String, crate::codegen::handles_rs::HandleMeta>>,
+    device_accessor: TokenStream,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
     let fname = format_ident!("{}", name);
@@ -514,21 +537,21 @@ pub fn safe_method(
     // };
 
     // Strip param[0] when it matches the wrapper's handle type.
-    let strips_first = !handle_base.is_empty()
-        && cmd
-            .params
-            .first()
-            .map(|p| p.ty.base == handle_base)
-            .unwrap_or(false);
+    // Or strip param[0] and param[1] when param[1] matches.
+    let mut strip_count = 0;
+    if !handle_base.is_empty()
+        && let Some(p0) = cmd.params.first() {
+            if p0.ty.base == handle_base {
+                strip_count = 1;
+            } else if let Some(p1) = cmd.params.get(1)
+                && p1.ty.base == handle_base {
+                    strip_count = 2;
+                }
+        }
 
-    let sig_params: &[Member] = if strips_first {
-        strip_first_param(&cmd.params)
-    } else {
-        &cmd.params
-    };
+    let sig_params: &[Member] = &cmd.params[strip_count..];
 
-    // Build the forwarding argument list.  param[0] becomes self_handle when
-    // we strip it; the rest forward their names directly.
+    // Build the forwarding argument list.
     let mut fwd: Vec<TokenStream> = cmd
         .params
         .iter()
@@ -537,8 +560,21 @@ pub fn safe_method(
             quote! { #n }
         })
         .collect();
-    if strips_first {
+
+    if strip_count == 1 {
         fwd[0] = quote! { #self_handle };
+    } else if strip_count == 2 {
+        // In the tier resolution, this usually implies param[0] is the device/parent.
+        // If we are in a handle, device_accessor represents the parent/device tree.
+        // Actually, if param[0] is exactly the parent type, we should use self.parent().raw().
+        // As a strong convention: if strip_count == 2, param[0] is the creator/parent.
+        let p0_ty = cmd.params[0].ty.base.as_str();
+        if p0_ty == "VkDevice" {
+            fwd[0] = quote! { self.device().raw() };
+        } else {
+            fwd[0] = quote! { self.parent().raw() };
+        }
+        fwd[1] = quote! { #self_handle };
     }
 
     let (p_defs, _) = params_to_tokens(sig_params);
@@ -577,6 +613,7 @@ pub fn safe_method(
 
         WrapperReturn::ResultHandle { handle_ty } => {
             let h_ty = deref_ctype(handle_ty);
+            let h_ty_str = h_ty.to_string();
             let inner = strip_out_param(sig_params);
             let (p_defs, _) = params_to_tokens(&inner);
             let check = vk_result_check(cmd, result_cfgs);
@@ -584,13 +621,44 @@ pub fn safe_method(
             if !fwd.is_empty() {
                 fwd[last] = quote! { &mut handle };
             }
-            quote! {
-                #cfg #depr
-                #[inline]
-                pub fn #fname(&self, #(#p_defs),*) -> Result<#h_ty, VkResult> {
-                    let mut handle = #h_ty::NULL;
-                    let r = unsafe { (#fp)(#(#fwd),*) };
-                    #check .map(|_| handle)
+
+            let is_handle = handle_meta.is_some_and(|m| m.contains_key(&h_ty_str));
+            if is_handle {
+                let meta = handle_meta.unwrap().get(&h_ty_str).unwrap();
+                let md = format_ident!("{}", meta.mod_name);
+                let st = format_ident!("{}", meta.struct_name);
+                let tf = format_ident!("{}", meta.table_field);
+
+                let parent_expr = if meta.parent_vk_name == handle_base {
+                    quote! { self }
+                } else if meta.parent_vk_name == "VkDevice" && handle_base != "VkDevice" {
+                    quote! { #device_accessor }
+                } else {
+                    quote! { self }
+                };
+
+                quote! {
+                    #cfg #depr
+                    #[inline]
+                    pub fn #fname<'ret>(&'ret self, #(#p_defs),*) -> Result<crate::#md::#st<'ret>, VkResult> {
+                        let mut handle = #h_ty::NULL;
+                        let r = unsafe { (#fp)(#(#fwd),*) };
+                        #check .map(|_| crate::#md::#st {
+                            raw: handle,
+                            parent: #parent_expr,
+                            table: &#device_accessor.#tf
+                        })
+                    }
+                }
+            } else {
+                quote! {
+                    #cfg #depr
+                    #[inline]
+                    pub fn #fname(&self, #(#p_defs),*) -> Result<#h_ty, VkResult> {
+                        let mut handle = #h_ty::NULL;
+                        let r = unsafe { (#fp)(#(#fwd),*) };
+                        #check .map(|_| handle)
+                    }
                 }
             }
         }
@@ -610,7 +678,7 @@ pub fn safe_method(
                 .enumerate()
                 .filter(|(i, _)| {
                     // Adjust index back to the full param list to compare with ci/ai.
-                    let full = if strips_first { *i + 1 } else { *i };
+                    let full = i + strip_count;
                     full != ci && full != ai
                 })
                 .map(|(_, m)| m.clone())

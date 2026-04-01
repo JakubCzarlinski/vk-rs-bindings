@@ -382,6 +382,8 @@ pub enum TypedefKind {
     Basetype,
     Handle {
         dispatchable: bool,
+        parent: Option<String>,
+        objtypeenum: Option<String>,
     },
     Bitmask,
     FuncPointer,

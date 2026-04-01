@@ -253,6 +253,8 @@ fn gen_entry(
                 quote! { &self.table },
                 result_cfgs,
                 handle_types,
+                None,
+                quote! {},
             ));
         }
     }

@@ -13,11 +13,12 @@ pub fn gen_device_rs(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_device_dispatch_table(reg));
-    ts.extend(gen_device(reg, result_cfgs, handle_types));
+    ts.extend(gen_device(reg, result_cfgs, handle_types, handle_meta));
     pretty(ts)
 }
 
@@ -108,6 +109,7 @@ fn gen_device(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
@@ -133,9 +135,23 @@ fn gen_device(
                     quote! { &self.table },
                     result_cfgs,
                     handle_types,
+                    Some(handle_meta),
+                    quote! { self },
                 ));
             }
         }
+    }
+
+    let mut handle_fields = TokenStream::new();
+    let mut handle_args = TokenStream::new();
+    let mut handle_init = TokenStream::new();
+    for m in handle_meta.values() {
+        let field_name = format_ident!("{}", m.table_field);
+        let md = format_ident!("{}", m.mod_name);
+        let tb = format_ident!("{}", m.table_name);
+        handle_fields.extend(quote! { pub(crate) #field_name: crate::#md::#tb, });
+        handle_args.extend(quote! { #field_name: crate::#md::#tb, });
+        handle_init.extend(quote! { #field_name, });
     }
 
     quote! {
@@ -154,9 +170,7 @@ fn gen_device(
         pub struct Device<'inst> {
             pub(crate) raw:   VkDevice,
             pub(crate) table: DeviceDispatchTable,
-            pub(crate) queue_table: crate::queue::QueueDispatchTable,
-            pub(crate) command_pool_table: crate::command_pool::CommandPoolDispatchTable,
-            pub(crate) command_buffer_table: crate::command_buffer::CommandBufferDispatchTable,
+            #handle_fields
             _inst: core::marker::PhantomData<&'inst Instance<'inst>>,
         }
 
@@ -170,11 +184,9 @@ fn gen_device(
             pub unsafe fn from_raw(
                 raw: VkDevice,
                 table: DeviceDispatchTable,
-                queue_table: crate::queue::QueueDispatchTable,
-                command_pool_table: crate::command_pool::CommandPoolDispatchTable,
-                command_buffer_table: crate::command_buffer::CommandBufferDispatchTable,
+                #handle_args
             ) -> Self {
-                Self { raw, table, queue_table, command_pool_table, command_buffer_table, _inst: core::marker::PhantomData }
+                Self { raw, table, #handle_init _inst: core::marker::PhantomData }
             }
 
             /// The raw `VkDevice` handle.
@@ -214,7 +226,7 @@ fn gen_get_device_queue(_cmd: &crate::ir::Command, providers: &[String]) -> Toke
             let mut raw = VkQueue::NULL;
             let fp = unsafe { self.table.vkGetDeviceQueue.unwrap_unchecked() };
             unsafe { fp(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
-            crate::queue::Queue { raw, device: self, table: &self.queue_table }
+            crate::queue::Queue { raw, parent: self, table: &self.queue_table }
         }
     }
 }
@@ -239,7 +251,7 @@ fn gen_create_command_pool(
             let fp = unsafe { self.table.vkCreateCommandPool.unwrap_unchecked() };
             let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
             if let Err(e) = { #result_check } { return Err(e); }
-            Ok(crate::command_pool::CommandPool { raw, device: self, table: &self.command_pool_table })
+            Ok(crate::command_pool::CommandPool { raw, parent: self, table: &self.command_pool_table })
         }
     }
 }

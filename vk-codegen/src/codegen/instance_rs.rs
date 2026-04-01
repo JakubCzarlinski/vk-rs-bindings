@@ -128,6 +128,8 @@ fn gen_instance(
                     quote! { &self.table },
                     result_cfgs,
                     handle_types,
+                    None,
+                    quote! {},
                 ));
             }
         }

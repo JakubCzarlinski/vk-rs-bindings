@@ -56,6 +56,10 @@ pub fn cmd_tier(cmd: &Command, name: &str, reg: &Registry) -> Tier {
         return Tier::Handle("VkDescriptorPool".to_string());
     }
 
+    if name.starts_with("vkCreate") && name.ends_with("Pipelines") {
+        return Tier::Device;
+    }
+
     if let Some(m0) = cmd.params.first() {
         let m0_ty = m0.ty.base.as_str();
         if m0_ty == "VkInstance" {
@@ -540,14 +544,16 @@ pub fn safe_method(
     // Or strip param[0] and param[1] when param[1] matches.
     let mut strip_count = 0;
     if !handle_base.is_empty()
-        && let Some(p0) = cmd.params.first() {
-            if p0.ty.base == handle_base {
-                strip_count = 1;
-            } else if let Some(p1) = cmd.params.get(1)
-                && p1.ty.base == handle_base {
-                    strip_count = 2;
-                }
+        && let Some(p0) = cmd.params.first()
+    {
+        if p0.ty.base == handle_base {
+            strip_count = 1;
+        } else if let Some(p1) = cmd.params.get(1)
+            && p1.ty.base == handle_base
+        {
+            strip_count = 2;
         }
+    }
 
     let sig_params: &[Member] = &cmd.params[strip_count..];
 

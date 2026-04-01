@@ -40,10 +40,9 @@ pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
     while changed {
         changed = false;
         for (child, p) in &parents {
-            if (p == "VkDevice" || desc.contains(p))
-                && desc.insert(child.clone()) {
-                    changed = true;
-                }
+            if (p == "VkDevice" || desc.contains(p)) && desc.insert(child.clone()) {
+                changed = true;
+            }
         }
     }
 

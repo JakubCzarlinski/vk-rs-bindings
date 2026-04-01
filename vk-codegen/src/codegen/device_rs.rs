@@ -125,6 +125,8 @@ fn gen_device(
                 methods_ts.extend(gen_get_device_queue(cmd, providers));
             } else if name == "vkCreateCommandPool" {
                 methods_ts.extend(gen_create_command_pool(cmd, providers, result_cfgs));
+            } else if name.starts_with("vkCreate") && name.ends_with("Pipelines") {
+                methods_ts.extend(gen_create_pipelines(cmd, providers, result_cfgs));
             } else {
                 methods_ts.extend(safe_method(
                     cmd,
@@ -252,6 +254,53 @@ fn gen_create_command_pool(
             let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
             if let Err(e) = { #result_check } { return Err(e); }
             Ok(crate::command_pool::CommandPool { raw, parent: self, table: &self.command_pool_table })
+        }
+    }
+}
+
+fn gen_create_pipelines(
+    cmd: &crate::ir::Command,
+    providers: &[String],
+    result_cfgs: &HashMap<String, TokenStream>,
+) -> TokenStream {
+    use crate::codegen::utils::{ctype_to_tokens, kw_escape, strip_first_param};
+    let cfg = cfg_any(providers);
+    let result_check =
+        crate::codegen::utils::result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
+    let fname = format_ident!("{}", cmd.name);
+    let sig_params: Vec<_> = strip_first_param(&cmd.params)
+        .iter()
+        .filter(|m| m.ty.base != "VkPipeline")
+        .cloned()
+        .collect();
+    let (p_defs, p_fwd): (Vec<_>, Vec<_>) = sig_params
+        .iter()
+        .map(|m| {
+            let n = format_ident!("{}", kw_escape(&m.name));
+            let t = ctype_to_tokens(&m.ty);
+            (quote! { #n: #t }, quote! { #n })
+        })
+        .unzip();
+
+    quote! {
+        #cfg
+        #[inline]
+        pub fn #fname<'dev>(
+            &'dev self,
+            #(#p_defs,)*
+        ) -> Result<alloc::vec::Vec<crate::pipeline::Pipeline<'dev>>, VkResult> {
+            let count = createInfoCount;
+            let mut raw_pipelines = alloc::vec::Vec::with_capacity(count as usize);
+            let fp = unsafe { self.table.#fname.unwrap_unchecked() };
+            let r = unsafe { fp(self.raw, #(#p_fwd,)* raw_pipelines.as_mut_ptr()) };
+            if let Err(e) = { #result_check } { return Err(e); }
+            unsafe { raw_pipelines.set_len(count as usize); }
+
+            Ok(raw_pipelines.into_iter().map(|raw| crate::pipeline::Pipeline {
+                raw,
+                parent: self,
+                table: &self.pipeline_table
+            }).collect())
         }
     }
 }

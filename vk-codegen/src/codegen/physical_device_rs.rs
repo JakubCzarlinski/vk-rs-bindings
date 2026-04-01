@@ -147,10 +147,15 @@ fn gen_create_device(
         let name = format_ident!("{}_table", m.mod_name);
         let tb = format_ident!("{}", m.table_name);
         let md = format_ident!("{}", m.mod_name);
-        tb_load.extend(
-            quote! { let #name = crate::#md::#tb::load(|name| unsafe { gdpa(raw, name) }); },
-        );
-        tb_args.extend(quote! { #name, });
+        let cfg = cfg_any(&m.providers);
+        tb_load.extend(quote! {
+            #cfg
+            let #name = crate::#md::#tb::load(|name| unsafe { gdpa(raw, name) });
+        });
+        tb_args.extend(quote! {
+            #cfg
+            #name,
+        });
     }
 
     quote! {

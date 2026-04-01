@@ -144,19 +144,40 @@ fn gen_handle_module(
 
     let mut destroy_stmt = quote! {};
     let destroy_name = format!("vkDestroy{}", meta.struct_name);
-    let free_name = format!("vkFree{}s", meta.struct_name);
+    let free_group_name = format!("vkFree{}s", meta.struct_name);
+    let free_name = format!("vkFree{}", meta.struct_name);
+    let custom_free_name = if meta.vk_name == "VkDeviceMemory" {
+        "vkFreeMemory".to_string()
+    } else {
+        "".to_string()
+    };
+
     if reg.commands.contains_key(&destroy_name) {
         let fp = format_ident!("{}", destroy_name);
         destroy_stmt = quote! {
             if let Some(destroy_fn) = self.table().#fp {
-                unsafe { (destroy_fn)(self.parent().raw(), self.raw, core::ptr::null()) };
+                unsafe { (destroy_fn)(self.device().raw(), self.raw, core::ptr::null()) };
+            }
+        };
+    } else if reg.commands.contains_key(&free_group_name) {
+        let fp = format_ident!("{}", free_group_name);
+        destroy_stmt = quote! {
+            if let Some(free_fn) = self.parent().table().#fp {
+                unsafe { (free_fn)(self.device().raw(), self.parent().raw(), 1, &self.raw) };
             }
         };
     } else if reg.commands.contains_key(&free_name) {
         let fp = format_ident!("{}", free_name);
         destroy_stmt = quote! {
-            if let Some(free_fn) = self.parent().table().#fp {
-                unsafe { (free_fn)(self.device().raw(), self.parent().raw(), 1, &self.raw) };
+            if let Some(free_fn) = self.table().#fp {
+                unsafe { (free_fn)(self.device().raw(), self.raw, core::ptr::null()) };
+            }
+        };
+    } else if !custom_free_name.is_empty() && reg.commands.contains_key(&custom_free_name) {
+        let fp = format_ident!("{}", custom_free_name);
+        destroy_stmt = quote! {
+            if let Some(free_fn) = self.table().#fp {
+                unsafe { (free_fn)(self.device().raw(), self.raw, core::ptr::null()) };
             }
         };
     }
@@ -183,11 +204,7 @@ fn gen_handle_module(
             } else if cmd_name == "vkFreeDescriptorSets" {
                 methods_ts.extend(gen_free_descriptor_sets(cmd, providers));
             } else {
-                let device_acc = if meta.vk_name == "VkCommandPool" {
-                    quote! { self.device() }
-                } else {
-                    quote! { self.device() }
-                };
+                let device_acc = quote! { self.device() };
                 methods_ts.extend(safe_method(
                     cmd,
                     cmd_name,

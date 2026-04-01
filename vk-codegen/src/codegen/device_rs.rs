@@ -151,9 +151,19 @@ fn gen_device(
         let field_name = format_ident!("{}", m.table_field);
         let md = format_ident!("{}", m.mod_name);
         let tb = format_ident!("{}", m.table_name);
-        handle_fields.extend(quote! { pub(crate) #field_name: crate::#md::#tb, });
-        handle_args.extend(quote! { #field_name: crate::#md::#tb, });
-        handle_init.extend(quote! { #field_name, });
+        let cfg = cfg_any(&m.providers);
+        handle_fields.extend(quote! {
+            #cfg
+            pub(crate) #field_name: crate::#md::#tb,
+        });
+        handle_args.extend(quote! {
+            #cfg
+            #field_name: crate::#md::#tb,
+        });
+        handle_init.extend(quote! {
+            #cfg
+            #field_name,
+        });
     }
 
     quote! {

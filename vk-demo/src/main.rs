@@ -1,5 +1,3 @@
-#![allow(deprecated)]
-
 use core::ffi::CStr;
 use std::ffi::c_void;
 use vk::*;
@@ -13,11 +11,12 @@ const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
     .with_engineVersion(VK_MAKE_VERSION(0, 1, 0))
     .with_pEngineName(c"vk-demo".as_ptr())
     .with_pApplicationName(c"Vulkan Compute Demo".as_ptr());
+// We are on MacOS, where validation layers are not available, so skip enabling them
 const VALIDATION_LAYER: &CStr = c"VK_LAYER_KHRONOS_validation";
 const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
 const INSTANCE_CREATE_INFO: VkInstanceCreateInfo = VkInstanceCreateInfo::DEFAULT
-    .with_enabledLayerCount(LAYER_NAMES.len() as u32)
-    .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
+    // .with_enabledLayerCount(LAYER_NAMES.len() as u32)
+    // .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
     .with_pApplicationInfo(&APP_INFO);
 const DEVICE_CREATE_INFO: VkDeviceCreateInfo = VkDeviceCreateInfo::DEFAULT;
 
@@ -201,9 +200,11 @@ fn create_storage_buffer<'a>(
     memory_properties: VkPhysicalDeviceMemoryProperties,
     size: u64,
 ) -> Result<(Buffer<'a>, DeviceMemory<'a>), String> {
+    let buffer_usage_info = VkBufferUsageFlags2CreateInfo::DEFAULT
+        .with_usage(VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0);
     let buffer_info = VkBufferCreateInfo::DEFAULT
-        .with_usage(VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT.0)
         .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
+        .with_pNext(&buffer_usage_info as *const _ as *const c_void)
         .with_size(size);
     let buffer = device
         .vkCreateBuffer(&buffer_info, null())
@@ -343,7 +344,6 @@ fn run_compute<'a>(
     let cmd_buffers: Vec<CommandBuffer<'_>> = cmd_pool
         .vkAllocateCommandBuffers(&cmd_buffer_info)
         .map_err(|e| format!("CBAlloc: {:?}", e))?;
-    let raw_cmd_buffers = [cmd_buffers[0].raw()];
     let cmd_buffer: &CommandBuffer<'_> = &cmd_buffers[0];
 
     cmd_buffer
@@ -354,26 +354,25 @@ fn run_compute<'a>(
         pipeline.raw(),
     );
     let raw_ds = [descriptor_set.raw()];
-    cmd_buffer.vkCmdBindDescriptorSets(
-        VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_COMPUTE,
-        layout.raw(),
-        0,
-        1,
-        raw_ds.as_ptr(),
-        0,
-        null(),
-    );
+    let bind_descriptor_sets_info = VkBindDescriptorSetsInfo::DEFAULT
+        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0)
+        .with_descriptorSetCount(1)
+        .with_pDescriptorSets(raw_ds.as_ptr())
+        .with_layout(layout.raw());
+
+    cmd_buffer.vkCmdBindDescriptorSets2(&bind_descriptor_sets_info);
     cmd_buffer.vkCmdDispatch(1, 1, 1);
     cmd_buffer
         .vkEndCommandBuffer()
         .map_err(|e| format!("EndCB: {:?}", e))?;
-
-    let submit = VkSubmitInfo::DEFAULT
-        .with_commandBufferCount(1)
-        .with_pCommandBuffers(raw_cmd_buffers.as_ptr());
+    let commna_buffer_infos =
+        [VkCommandBufferSubmitInfo::DEFAULT.with_commandBuffer(cmd_buffer.raw())];
+    let submit = VkSubmitInfo2::DEFAULT
+        .with_commandBufferInfoCount(1)
+        .with_pCommandBufferInfos(commna_buffer_infos.as_ptr());
     println!("Submitting compute command buffer...");
     queue
-        .vkQueueSubmit(1, &submit, VkFence::NULL)
+        .vkQueueSubmit2(1, &submit, VkFence::NULL)
         .map_err(|e| format!("Submit: {:?}", e))?;
     queue
         .vkQueueWaitIdle()

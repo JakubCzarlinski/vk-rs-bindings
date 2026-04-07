@@ -3,11 +3,16 @@ name = "vk-demo"
 version = "0.1.0"
 edition = "2024"
 description = "Vulkan Rust FFI generator from vk.xml + video.xml"
+build = "build.rs"
 
 
 [[bin]]
 name = "vk-demo"
 path = "src/main.rs"
+
+[[bin]]
+name = "spinning-triangle"
+path = "src/spinning_triangle.rs"
 
 
 [dependencies]
@@ -15,6 +20,13 @@ vk = {
   path = "../vk-rs-bindings",
   features = [
     "VK_VERSION_1_4",
+    "VK_KHR_surface",
+    "VK_KHR_display",
+    "VK_EXT_metal_surface",
+    "VK_KHR_swapchain",
   ],
   package = "vk-rs-bindings",
 }
+winit = "0.29"
+raw-window-handle = "0.6.2"
+raw-window-metal = "1.1.0"

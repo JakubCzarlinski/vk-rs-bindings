@@ -292,7 +292,11 @@ fn parse_funcpointer(
 ) {
     let ret_rust = node
         .children()
-        .find(|n| n.is_element() && n.tag_name().name() == "proto").map_or_else(|| "core::ffi::c_void".into(), |proto| ctype_to_rust_str(&parse_c_type(proto)));
+        .find(|n| n.is_element() && n.tag_name().name() == "proto")
+        .map_or_else(
+            || "core::ffi::c_void".into(),
+            |proto| ctype_to_rust_str(&parse_c_type(proto)),
+        );
     let params: Vec<String> = node
         .children()
         .filter(|n| n.is_element() && n.tag_name().name() == "param")

@@ -617,7 +617,7 @@ pub fn safe_method(
             pub fn #fname(&self, #(#p_defs),*) {
                 unsafe {
                   #[comment = #safety_comment]
-                  (#fp)(#(#fwd),*)
+                  #fp(#(#fwd),*)
                 }
             }
         },
@@ -630,7 +630,7 @@ pub fn safe_method(
                 pub fn #fname(&self, #(#p_defs),*) -> #ret {
                     unsafe {
                       #[comment = #safety_comment]
-                      (#fp)(#(#fwd),*)
+                      #fp(#(#fwd),*)
                     }
                 }
             }
@@ -667,7 +667,7 @@ pub fn safe_method(
                     #[inline]
                     pub fn #fname<'ret>(&'ret self, #(#p_defs),*) -> Result<crate::#md::#st<'ret>, VkResult> {
                         let mut handle = #h_ty::NULL;
-                        let r = unsafe { (#fp)(#(#fwd),*) };
+                        let r = unsafe { #fp(#(#fwd),*) };
                         #check .map(|_| crate::#md::#st {
                             raw: handle,
                             parent: #parent_expr,
@@ -681,7 +681,7 @@ pub fn safe_method(
                     #[inline]
                     pub fn #fname(&self, #(#p_defs),*) -> Result<#h_ty, VkResult> {
                         let mut handle = #h_ty::NULL;
-                        let r = unsafe { (#fp)(#(#fwd),*) };
+                        let r = unsafe { #fp(#(#fwd),*) };
                         #check .map(|_| handle)
                     }
                 }
@@ -726,11 +726,11 @@ pub fn safe_method(
                 #[inline]
                 pub fn #fname(&self, #(#p_defs),*) -> Result<alloc::vec::Vec<#elem_ty>, VkResult> {
                     let mut count: u32 = 0;
-                    let r = unsafe { (#fp)(#(#fwd_first),*) };
+                    let r = unsafe { #fp(#(#fwd_first),*) };
                     if #is_err { return Err(r); }
                     if count == 0 { return Ok(alloc::vec::Vec::new()); }
                     let mut out = alloc::vec::Vec::with_capacity(count as usize);
-                    let r = unsafe { (#fp)(#(#fwd_second),*) };
+                    let r = unsafe { #fp(#(#fwd_second),*) };
                     #check2 .map(|_| {
                         unsafe { out.set_len(count as usize); }
                         out
@@ -745,7 +745,7 @@ pub fn safe_method(
                 #cfg #depr
                 #[inline(always)]
                 pub fn #fname(&self, #(#p_defs),*) -> Result<VkResult, VkResult> {
-                    let r = unsafe { (#fp)(#(#fwd),*) };
+                    let r = unsafe { #fp(#(#fwd),*) };
                     #check
                 }
             }

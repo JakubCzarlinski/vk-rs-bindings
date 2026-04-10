@@ -22,7 +22,7 @@ pub enum DepExpr {
 
 impl DepExpr {
     /// All leaf feature names referenced anywhere in this expression.
-    #[must_use] 
+    #[must_use]
     pub fn atoms(&self) -> Vec<String> {
         match self {
             DepExpr::Atom(s) => vec![s.clone()],
@@ -39,7 +39,7 @@ impl DepExpr {
     }
 
     /// Convert to DNF: a list of AND-clauses whose disjunction equals this expression.
-    #[must_use] 
+    #[must_use]
     pub fn to_dnf_clauses(&self) -> Vec<Vec<String>> {
         match self {
             DepExpr::Atom(s) => vec![vec![s.clone()]],
@@ -69,7 +69,7 @@ impl DepExpr {
     /// Returns the set of features that are present in every DNF clause.
     /// These are the features that MUST be enabled for this expression to potentially be true,
     /// regardless of which branch of an OR is taken.
-    #[must_use] 
+    #[must_use]
     pub fn common_dependencies(&self) -> Vec<String> {
         let clauses = self.to_dnf_clauses();
         if let Some(mut first) = clauses.first().cloned() {
@@ -85,7 +85,7 @@ impl DepExpr {
 
 /// Parse a `depends=` attribute string into a `DepExpr`.
 /// Supports full nesting with parentheses.
-#[must_use] 
+#[must_use]
 pub fn parse_dep_expr(s: &str) -> DepExpr {
     let b = s.as_bytes();
     let (expr, _) = parse_or(b, 0);
@@ -164,7 +164,7 @@ pub struct ApiSet {
 }
 
 impl ApiSet {
-    #[must_use] 
+    #[must_use]
     pub fn all() -> Self {
         ApiSet {
             vulkan: true,
@@ -173,7 +173,7 @@ impl ApiSet {
         }
     }
 
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> Self {
         let mut a = ApiSet::default();
         for part in s.split(',') {
@@ -187,7 +187,7 @@ impl ApiSet {
         a
     }
 
-    #[must_use] 
+    #[must_use]
     pub fn intersects(&self, other: &ApiSet) -> bool {
         (self.vulkan && other.vulkan)
             || (self.vulkansc && other.vulkansc)
@@ -206,7 +206,7 @@ pub struct CType {
 }
 
 impl CType {
-    #[must_use] 
+    #[must_use]
     pub fn simple(name: &str) -> Self {
         CType {
             is_const: false,
@@ -243,7 +243,7 @@ pub enum LimitType {
 }
 
 impl LimitType {
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> Vec<LimitType> {
         if s.trim().is_empty() {
             return Vec::new();
@@ -298,7 +298,7 @@ impl Debug for Optional {
 }
 
 impl Optional {
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> Self {
         match s.trim() {
             "false" => Optional::False,
@@ -339,14 +339,14 @@ pub struct DeprecationInfo {
 }
 
 impl DeprecationInfo {
-    #[must_use] 
+    #[must_use]
     pub fn is_any(&self) -> bool {
         self.deprecated.is_some()
             || self.superseded_by.is_some()
             || self.obsoleted_by.is_some()
             || self.promoted_to.is_some()
     }
-    #[must_use] 
+    #[must_use]
     pub fn note(&self) -> String {
         let mut parts: Vec<String> = Vec::new();
         if let Some(ref s) = self.superseded_by {
@@ -474,7 +474,7 @@ pub enum QueueType {
 }
 
 impl QueueType {
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> Vec<QueueType> {
         s.split(',')
             .map(|part| match part.trim() {
@@ -500,7 +500,7 @@ pub enum RenderPass {
 }
 
 impl RenderPass {
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> RenderPass {
         match s.trim() {
             "inside" => RenderPass::Inside,
@@ -518,7 +518,7 @@ pub enum CmdBufferLevel {
 }
 
 impl CmdBufferLevel {
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> Vec<CmdBufferLevel> {
         s.split(',')
             .map(|part| match part.trim() {
@@ -539,7 +539,7 @@ pub enum TaskType {
 }
 
 impl TaskType {
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> Vec<TaskType> {
         s.split(',')
             .map(|part| match part.trim() {
@@ -560,7 +560,7 @@ pub enum ExportScope {
 }
 
 impl ExportScope {
-    #[must_use] 
+    #[must_use]
     pub fn parse(s: &str) -> Vec<ExportScope> {
         s.split(',')
             .map(|part| match part.trim() {
@@ -648,7 +648,7 @@ pub struct Extension {
 impl Extension {
     /// True when this extension should be excluded from code generation output
     /// (Cargo.toml features, DOT graph enabled nodes, validation checks).
-    #[must_use] 
+    #[must_use]
     pub fn is_disabled(&self) -> bool {
         if self.supported == "disabled" || self.supported.is_empty() {
             return true;
@@ -672,7 +672,7 @@ impl Extension {
     /// True if this is a video.xml codec header pseudo-extension (e.g. `vulkan_video_codec_h264std`).
     /// These are processed during parsing to populate types/constants but are NOT
     /// emitted as Cargo features - their items are remapped to real `VK_KHR`_* features.
-    #[must_use] 
+    #[must_use]
     pub fn is_video_header(&self) -> bool {
         self.name.starts_with("vulkan_video_")
     }
@@ -713,11 +713,15 @@ pub struct Registry {
 }
 
 impl Registry {
-    #[must_use] 
+    #[must_use]
     pub fn feature_deps(&self) -> IndexMap<String, Vec<String>> {
         let mut map: IndexMap<String, Vec<String>> = IndexMap::new();
         for feat in &self.features {
-            let deps = feat.depends.as_ref().map(DepExpr::atoms).unwrap_or_default();
+            let deps = feat
+                .depends
+                .as_ref()
+                .map(DepExpr::atoms)
+                .unwrap_or_default();
             map.entry(feat.name.clone()).or_default().extend(deps);
         }
         for ext in &self.extensions {
@@ -736,7 +740,7 @@ impl Registry {
         map
     }
 
-    #[must_use] 
+    #[must_use]
     pub fn transitive_deps(&self) -> IndexMap<String, std::collections::HashSet<String>> {
         let direct = self.feature_deps();
         let mut transitive: IndexMap<String, std::collections::HashSet<String>> = IndexMap::new();
@@ -854,7 +858,7 @@ impl Registry {
         }
     }
 
-    #[must_use] 
+    #[must_use]
     pub fn all_feature_names(&self) -> Vec<String> {
         let mut v: Vec<String> = self.features.iter().map(|f| f.name.clone()).collect();
         v.extend(
@@ -907,7 +911,7 @@ impl Registry {
     }
 }
 
-#[must_use] 
+#[must_use]
 pub fn video_header_remap() -> IndexMap<&'static str, &'static str> {
     // Maps video.xml extension names -> the VK_KHR_* feature that gates them.
     // "vulkan_video_codecs_common" covers VkVideoCodecOperationFlagBitsKHR etc.

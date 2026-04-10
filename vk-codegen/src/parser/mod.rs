@@ -21,7 +21,7 @@ use roxmltree::Document;
 ///
 /// Returns:
 /// - `Registry`: The fully populated registry.
-#[must_use] 
+#[must_use]
 pub fn parse_registry(xml: &str) -> Registry {
     let doc = Document::parse(xml).expect("valid XML");
     let root = doc.root_element();

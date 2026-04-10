@@ -4,7 +4,7 @@ use proc_macro2::TokenStream;
 use quote::quote;
 
 /// `#[cfg(feature = "A")]`  or  `#[cfg(any(feature="A", feature="B", ...))]`
-#[must_use] 
+#[must_use]
 pub fn cfg_any(features: &[String]) -> TokenStream {
     match features.len() {
         0 => quote! {},
@@ -21,7 +21,7 @@ pub fn cfg_any(features: &[String]) -> TokenStream {
 }
 
 /// Convert DNF clauses to a `cfg` expression.
-#[must_use] 
+#[must_use]
 pub fn cfg_expr_from_dnf(clauses: &[Vec<String>]) -> TokenStream {
     clauses_to_ts(clauses)
 }

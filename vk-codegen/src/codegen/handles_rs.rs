@@ -50,8 +50,8 @@ pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
     for name in desc {
         let struct_name = name.replace("Vk", "");
         let mod_name = snake_case(&struct_name);
-        let table_name = format!("{}DispatchTable", struct_name);
-        let table_field = format!("{}_table", mod_name);
+        let table_name = format!("{struct_name}DispatchTable");
+        let table_field = format!("{mod_name}_table");
         let parent = parents
             .get(&name)
             .cloned()
@@ -94,7 +94,7 @@ pub fn gen_handles(
             &skip,
             &enabled,
         );
-        map.insert(meta.mod_name.clone(), pretty(content));
+        map.insert(meta.mod_name.clone(), pretty(&content));
     }
     map
 }
@@ -149,7 +149,7 @@ fn gen_handle_module(
     let custom_free_name = if meta.vk_name == "VkDeviceMemory" {
         "vkFreeMemory".to_string()
     } else {
-        "".to_string()
+        String::new()
     };
 
     if reg.commands.contains_key(&destroy_name) {

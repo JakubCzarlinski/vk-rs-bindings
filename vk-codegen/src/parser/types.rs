@@ -57,7 +57,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
             "bitmask" => parse_bitmask(type_node, reg, name, alias, comment, dep, aset, depr),
             "basetype" => parse_basetype(type_node, reg, name, alias, comment, dep, aset, depr),
             "funcpointer" => {
-                parse_funcpointer(type_node, reg, name, alias, comment, dep, aset, depr)
+                parse_funcpointer(type_node, reg, name, alias, comment, dep, aset, depr);
             }
             "define" => parse_define(type_node, reg, name, alias, comment, dep, aset, depr),
             _ => {
@@ -292,9 +292,7 @@ fn parse_funcpointer(
 ) {
     let ret_rust = node
         .children()
-        .find(|n| n.is_element() && n.tag_name().name() == "proto")
-        .map(|proto| ctype_to_rust_str(&parse_c_type(proto)))
-        .unwrap_or_else(|| "core::ffi::c_void".into());
+        .find(|n| n.is_element() && n.tag_name().name() == "proto").map_or_else(|| "core::ffi::c_void".into(), |proto| ctype_to_rust_str(&parse_c_type(proto)));
     let params: Vec<String> = node
         .children()
         .filter(|n| n.is_element() && n.tag_name().name() == "param")
@@ -346,9 +344,9 @@ fn parse_define(
         if tail.is_empty() {
             None
         } else if tc == "VK_MAKE_VIDEO_STD_VERSION" {
-            Some(format!("vkver:{}", tail))
+            Some(format!("vkver:{tail}"))
         } else if tc == "VK_MAKE_API_VERSION" {
-            Some(format!("apiconst:make_api_version({})", tail))
+            Some(format!("apiconst:make_api_version({tail})"))
         } else {
             None
         }
@@ -394,7 +392,7 @@ fn parse_define(
                 .trim()
                 .to_owned();
             if let Ok(v) = name_tail.parse::<u32>() {
-                Some(format!("apiconst:{}", v))
+                Some(format!("apiconst:{v}"))
             } else {
                 None
             }

@@ -24,6 +24,14 @@ fn compile_shader(src: &str, stage: &str, out_name: &str) {
 }
 
 fn main() {
-    compile_shader("src/spinning_triangle.vert", "vert", "spinning_triangle.vert.spv");
-    compile_shader("src/spinning_triangle.frag", "frag", "spinning_triangle.frag.spv");
+    compile_shader(
+        "src/spinning_triangle.vert",
+        "vert",
+        "spinning_triangle.vert.spv",
+    );
+    compile_shader(
+        "src/spinning_triangle.frag",
+        "frag",
+        "spinning_triangle.frag.spv",
+    );
 }

@@ -19,7 +19,7 @@ pub fn gen_device_rs(
     ts.extend(preamble());
     ts.extend(gen_device_dispatch_table(reg));
     ts.extend(gen_device(reg, result_cfgs, handle_types, handle_meta));
-    pretty(ts)
+    pretty(&ts)
 }
 
 // Preamble

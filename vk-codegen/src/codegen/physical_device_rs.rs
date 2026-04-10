@@ -1,7 +1,10 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
-use crate::codegen::utils::*;
+use crate::codegen::utils::{
+    Tier, c_str_lit, collect_groups, ctype_to_tokens, enabled_set, kw_escape, result_check_arms,
+    safe_method,
+};
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
@@ -22,7 +25,7 @@ pub fn gen_physical_device_rs(
         handle_types,
         handle_meta,
     ));
-    pretty(ts)
+    pretty(&ts)
 }
 
 fn preamble() -> TokenStream {

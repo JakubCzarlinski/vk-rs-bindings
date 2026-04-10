@@ -1,3 +1,4 @@
+use crate::codegen::pretty;
 use quote::quote;
 
 pub fn gen_lib_rs(handles: &[String]) -> String {
@@ -49,5 +50,5 @@ pub fn gen_lib_rs(handles: &[String]) -> String {
         let ident = quote::format_ident!("{}", h);
         ts.extend(quote! { pub use #ident::*; });
     }
-    crate::codegen::pretty(ts)
+    pretty(&ts)
 }

@@ -3,7 +3,7 @@
 use crate::ir::{ApiSet, CType, DeprecationInfo, EnumValue, LimitType, Member, Optional};
 use roxmltree::Node;
 
-/// Parses an enum value node (e.g., bitpos, offset, or value) into an EnumValue.
+/// Parses an enum value node (e.g., bitpos, offset, or value) into an `EnumValue`.
 ///
 /// Arguments:
 ///
@@ -13,6 +13,7 @@ use roxmltree::Node;
 /// Returns:
 ///
 /// - `EnumValue`: The parsed enum value representation.
+#[must_use]
 pub fn parse_enum_value_node(node: Node, ext_number: Option<u32>) -> EnumValue {
     if let Some(alias) = attr(node, "alias") {
         // Alias to another enum value
@@ -51,8 +52,7 @@ pub fn parse_enum_value_node(node: Node, ext_number: Option<u32>) -> EnumValue {
         }
     }
     panic!(
-        "Enum value node must have either 'alias', 'bitpos', 'offset', or 'value' attribute: {:?}",
-        node
+        "Enum value node must have either 'alias', 'bitpos', 'offset', or 'value' attribute: {node:?}"
     );
 }
 
@@ -64,6 +64,7 @@ pub fn parse_enum_value_node(node: Node, ext_number: Option<u32>) -> EnumValue {
 ///
 /// Returns:
 /// - `Option<&str>`: The attribute value if present.
+#[must_use]
 pub fn attr<'a>(node: Node<'a, '_>, name: &str) -> Option<&'a str> {
     node.attribute(name)
 }
@@ -75,9 +76,10 @@ pub fn attr<'a>(node: Node<'a, '_>, name: &str) -> Option<&'a str> {
 ///
 /// Returns:
 /// - `String`: The trimmed text content.
+#[must_use]
 pub fn text_of(node: Node) -> String {
     node.children()
-        .filter(|n| n.is_text())
+        .filter(roxmltree::Node::is_text)
         .map(|n| n.text().unwrap_or(""))
         .collect::<String>()
         .trim()
@@ -106,6 +108,7 @@ pub fn child_text(node: Node, tag: &str) -> Option<String> {
 ///
 /// Returns:
 /// - `Option<String>`: The name if present.
+#[must_use]
 pub fn child_name(node: Node) -> Option<String> {
     child_text(node, "name").or_else(|| child_text(node, "n"))
 }
@@ -118,9 +121,7 @@ pub fn child_name(node: Node) -> Option<String> {
 /// Returns:
 /// - `ApiSet`: The API set.
 pub fn api_set(node: Node) -> ApiSet {
-    attr(node, "api")
-        .map(ApiSet::parse)
-        .unwrap_or_else(ApiSet::all)
+    attr(node, "api").map_or_else(ApiSet::all, ApiSet::parse)
 }
 
 /// Retrieves deprecation information from a node.
@@ -146,11 +147,12 @@ pub fn depr_info(node: Node) -> DeprecationInfo {
 ///
 /// Returns:
 /// - `bool`: True if the attribute is "true", otherwise panics.
+#[must_use]
 pub fn true_or_panic(attr_name: &str) -> bool {
     if attr_name == "true" {
         true
     } else {
-        panic!("Expected 'true' for attribute, got '{}'", attr_name);
+        panic!("Expected 'true' for attribute, got '{attr_name}'");
     }
 }
 
@@ -161,14 +163,12 @@ pub fn true_or_panic(attr_name: &str) -> bool {
 ///
 /// Returns:
 /// - `bool`: True if the attribute is "true", false if "false", otherwise panics.
+#[must_use]
 pub fn true_false_panic(attr_name: &str) -> bool {
     match attr_name {
         "true" => true,
         "false" => false,
-        _ => panic!(
-            "Expected 'true' or 'false' for attribute, got '{}'",
-            attr_name
-        ),
+        _ => panic!("Expected 'true' or 'false' for attribute, got '{attr_name}'"),
     }
 }
 
@@ -207,6 +207,7 @@ pub fn parse_member(node: Node) -> Member {
 ///
 /// Returns:
 /// - `CType`: The parsed C type.
+#[must_use]
 pub fn parse_c_type(node: Node) -> CType {
     let mut base = String::new();
     let mut is_const = false;

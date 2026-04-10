@@ -31,7 +31,7 @@ pub fn gen_entry_rs(
     ts.extend(gen_vulkan_lib());
     ts.extend(gen_entry_dispatch_table(reg));
     ts.extend(gen_entry(reg, result_cfgs, handle_types));
-    pretty(ts)
+    pretty(&ts)
 }
 
 fn preamble() -> TokenStream {

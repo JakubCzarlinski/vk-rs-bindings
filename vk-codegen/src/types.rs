@@ -10,6 +10,7 @@ use crate::ir::CType;
 ///
 /// Returns:
 /// - `&'static str`: The Rust type equivalent, or an empty string if it should be passed through as-is.
+#[must_use]
 pub fn c_type_to_rust(c_type_name: &str) -> &'static str {
     match c_type_name.trim() {
         "void" => "core::ffi::c_void",
@@ -23,12 +24,10 @@ pub fn c_type_to_rust(c_type_name: &str) -> &'static str {
         "short" | "int16_t" => "i16",
         "int32_t" => "i32",
         "long long" | "int64_t" => "i64",
-        "size_t" => "usize",
-        "ptrdiff_t" => "isize",
+        "size_t" | "uintptr_t" => "usize",
+        "ptrdiff_t" | "intptr_t" => "isize",
         "float" => "f32",
         "double" => "f64",
-        "uintptr_t" => "usize",
-        "intptr_t" => "isize",
         _ => "",
     }
 }
@@ -41,6 +40,7 @@ pub fn c_type_to_rust(c_type_name: &str) -> &'static str {
 ///
 /// Returns:
 /// - `String`: A string representing the equivalent Rust type.
+#[must_use]
 pub fn ctype_to_rust_str(type_info: &CType) -> String {
     let base_type = {
         let mapped = c_type_to_rust(&type_info.base);
@@ -95,6 +95,7 @@ pub fn ctype_to_rust_str(type_info: &CType) -> String {
 ///
 /// Returns:
 /// - `&'static str`: The Rust primitive type for the constant.
+#[must_use]
 pub fn const_rust_type(xml_type: &str, value: &str) -> &'static str {
     match xml_type.trim() {
         "uint32_t" | "u32" => "u32",

@@ -202,7 +202,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
     for (_, items) in groups {
         out.extend(items);
     }
-    pretty(out)
+    pretty(&out)
 }
 
 fn normalize_const_value(value: &str, ty: &str) -> String {

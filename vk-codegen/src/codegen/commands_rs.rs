@@ -75,5 +75,5 @@ pub fn gen_commands_rs(reg: &Registry) -> String {
             pub type #pfn = unsafe extern "system" fn(#params) #ret_ts;
         });
     }
-    pretty(token_stream)
+    pretty(&token_stream)
 }

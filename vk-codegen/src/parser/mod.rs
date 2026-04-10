@@ -21,11 +21,12 @@ use roxmltree::Document;
 ///
 /// Returns:
 /// - `Registry`: The fully populated registry.
+#[must_use] 
 pub fn parse_registry(xml: &str) -> Registry {
     let doc = Document::parse(xml).expect("valid XML");
     let root = doc.root_element();
     let mut reg = Registry::default();
-    for child in root.children().filter(|n| n.is_element()) {
+    for child in root.children().filter(roxmltree::Node::is_element) {
         match child.tag_name().name() {
             "types" => parse_types(child, &mut reg),
             "enums" => parse_enums_block(child, &mut reg),

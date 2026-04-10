@@ -1,7 +1,9 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
-use crate::codegen::utils::*;
+use crate::codegen::utils::{
+    Tier, c_str_lit, collect_groups, enabled_set, result_check_arms, safe_method, vk_result_is_err,
+};
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
@@ -16,7 +18,7 @@ pub fn gen_instance_rs(
     ts.extend(preamble());
     ts.extend(gen_instance_dispatch_table(reg));
     ts.extend(gen_instance(reg, result_cfgs, handle_types));
-    pretty(ts)
+    pretty(&ts)
 }
 
 // Preamble

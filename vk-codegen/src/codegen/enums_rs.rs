@@ -52,7 +52,7 @@ pub fn gen_enums_rs(reg: &Registry) -> String {
         ts.extend(items);
     }
 
-    pretty(ts)
+    pretty(&ts)
 }
 
 fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
@@ -100,7 +100,7 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
     if let Some(ref dep) = e.dep {
         doc.extend(quote! { #[doc = " "] });
         let depends_on = dep.atoms().join("`, `");
-        let comment = format!(" **Availability:** depends on `{}`.", depends_on);
+        let comment = format!(" **Availability:** depends on `{depends_on}`.");
         doc.extend(quote! { #[doc = #comment] });
     }
 
@@ -286,7 +286,7 @@ fn enum_val_tokens(val: &EnumValue, unsigned: bool) -> TokenStream {
             quote! {#l}
         }
         EnumValue::BitPos(p) => {
-            let p = *p as u64;
+            let p = u64::from(*p);
             quote! { 1 << #p }
         }
         EnumValue::Offset {
@@ -294,7 +294,7 @@ fn enum_val_tokens(val: &EnumValue, unsigned: bool) -> TokenStream {
             offset,
             negative,
         } => {
-            let v = 1_000_000_000i64 + (*extnumber as i64 - 1) * 1000 + *offset as i64;
+            let v = 1_000_000_000i64 + (i64::from(*extnumber) - 1) * 1000 + i64::from(*offset);
             let v = if *negative { -v } else { v };
             let l = Literal::i64_unsuffixed(v);
             quote! {#l}

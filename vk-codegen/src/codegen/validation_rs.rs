@@ -45,5 +45,5 @@ pub fn gen_validation_rs(reg: &Registry) -> String {
             compile_error!(#msg);
         });
     }
-    pretty(ts)
+    pretty(&ts)
 }

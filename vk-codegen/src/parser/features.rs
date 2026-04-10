@@ -116,7 +116,7 @@ pub fn parse_require(node: Node, ext_number: Option<u32>) -> Require {
         api: attr(node, "api").map(ApiSet::parse),
         ..Default::default()
     };
-    for child in node.children().filter(|n| n.is_element()) {
+    for child in node.children().filter(roxmltree::Node::is_element) {
         match child.tag_name().name() {
             "type" => {
                 if let Some(n) = attr(child, "name") {
@@ -180,7 +180,7 @@ pub fn mark_provided_with_depr(
     raw_require: Node,
     reg: &mut Registry,
 ) {
-    for child in raw_require.children().filter(|n| n.is_element()) {
+    for child in raw_require.children().filter(roxmltree::Node::is_element) {
         let item_name = attr(child, "name").unwrap_or("");
         let item_depr = depr_info(child);
         match child.tag_name().name() {
@@ -365,7 +365,7 @@ pub fn apply_require_extensions(reg: &mut Registry) {
     }
     for e in reg.enums.values_mut().flatten() {
         scrub(&mut e.provided_by);
-        for v in e.variants.iter_mut() {
+        for v in &mut e.variants {
             scrub(&mut v.provided_by);
         }
     }
@@ -465,8 +465,7 @@ fn collect_extend_enums(
                 None => re
                     .alias
                     .as_ref()
-                    .map(|a| EnumValue::Alias(a.clone()))
-                    .unwrap_or(EnumValue::Integer(0)),
+                    .map_or(EnumValue::Integer(0), |a| EnumValue::Alias(a.clone())),
             };
             out.push((
                 extends.clone(),

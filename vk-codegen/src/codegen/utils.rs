@@ -28,6 +28,7 @@ pub enum Tier {
 // that `Instance::vkCreateDevice` can use it to load the device table.
 const INSTANCE_PINNED: &[&str] = &["vkGetDeviceProcAddr"];
 
+#[must_use]
 pub fn cmd_tier(cmd: &Command, name: &str, reg: &Registry) -> Tier {
     // ENTRY_CMDS should be classified as Entry
     const ENTRY_CMDS: &[&str] = &[
@@ -110,6 +111,7 @@ pub enum WrapperReturn<'a> {
     ResultRaw,
 }
 
+#[must_use]
 pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> WrapperReturn<'a> {
     let ret = &cmd.return_type;
 
@@ -168,6 +170,7 @@ pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> 
     WrapperReturn::ResultRaw
 }
 
+#[must_use]
 pub fn build_result_cfg_map(reg: &Registry) -> HashMap<String, TokenStream> {
     let mut map = HashMap::new();
     let Some(variants) = reg.enums.get("VkResult") else {
@@ -186,6 +189,7 @@ pub fn build_result_cfg_map(reg: &Registry) -> HashMap<String, TokenStream> {
     map
 }
 
+#[must_use]
 pub fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
     let mut set = HashSet::new();
     for (name, variants) in &reg.typedefs {
@@ -199,10 +203,12 @@ pub fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
     set
 }
 
+#[must_use]
 pub fn vk_result_check(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> TokenStream {
     result_check_arms(&cmd.success_codes, &cmd.error_codes, cfg_map)
 }
 
+#[must_use]
 pub fn vk_result_is_err(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> TokenStream {
     if cmd.error_codes.is_empty() {
         return quote! { r < VkResult::VK_SUCCESS };
@@ -216,6 +222,7 @@ pub fn vk_result_is_err(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -
     }
 }
 
+#[must_use]
 pub fn result_check_arms(
     success_codes: &[String],
     error_codes: &[String],
@@ -265,6 +272,7 @@ fn cfg_grouped_arms(
 /// table and the safe wrapper iterate this in the same order.
 pub type Groups = BTreeMap<String, Vec<(String, Vec<String>, Command)>>;
 
+#[must_use]
 pub fn collect_groups(
     reg: &Registry,
     tier: Tier,
@@ -335,6 +343,7 @@ fn resolve_pinned(name: &str, reg: &Registry) -> Command {
         .unwrap()
         .clone()
 }
+#[must_use]
 pub fn resolve_alias(cmd: &Command, reg: &Registry) -> Command {
     let mut current = cmd;
     for i in 0..10 {
@@ -351,9 +360,7 @@ pub fn resolve_alias(cmd: &Command, reg: &Registry) -> Command {
             break;
         };
         current = alias_cmd;
-        if i == 9 {
-            panic!("alias chain too long resolving {}", cmd.name);
-        }
+        assert!(i != 9, "alias chain too long resolving {}", cmd.name)
     }
     let mut resolved = current.clone();
     if resolved.success_codes.is_empty() && !cmd.success_codes.is_empty() {
@@ -365,6 +372,7 @@ pub fn resolve_alias(cmd: &Command, reg: &Registry) -> Command {
     resolved
 }
 
+#[must_use]
 pub fn enabled_set(reg: &Registry) -> HashSet<String> {
     reg.features
         .iter()
@@ -378,6 +386,7 @@ pub fn enabled_set(reg: &Registry) -> HashSet<String> {
         .collect()
 }
 
+#[must_use]
 pub fn pick_primary(providers: &[String], enabled: &HashSet<String>) -> String {
     providers
         .iter()
@@ -389,12 +398,14 @@ pub fn pick_primary(providers: &[String], enabled: &HashSet<String>) -> String {
         .unwrap_or_else(|| providers[0].clone())
 }
 
+#[must_use]
 pub fn is_core(providers: &[String]) -> bool {
     providers
         .iter()
         .any(|f| f.starts_with("VK_BASE_VERSION_") || f.starts_with("VK_VERSION_"))
 }
 
+#[must_use]
 pub fn is_instance_cmd(cmd: &Command) -> bool {
     match cmd.params.first() {
         Some(m) => m.ty.base == "VkInstance" || m.ty.base == "VkPhysicalDevice",
@@ -402,15 +413,16 @@ pub fn is_instance_cmd(cmd: &Command) -> bool {
     }
 }
 
+#[must_use]
 pub fn is_cmd_buf_cmd(cmd: &Command) -> bool {
     cmd.params
         .first()
-        .map(|m| m.ty.base == "VkCommandBuffer")
-        .unwrap_or(false)
+        .is_some_and(|m| m.ty.base == "VkCommandBuffer")
 }
 
 // Token helpers
 
+#[must_use]
 pub fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream>) {
     params
         .iter()
@@ -422,26 +434,29 @@ pub fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream
         .unzip()
 }
 
+#[must_use]
 pub fn strip_first_param(params: &[Member]) -> &[Member] {
     params.get(1..).unwrap_or(&[])
 }
 
+#[must_use]
 pub fn strip_out_param(params: &[Member]) -> Vec<Member> {
     let mut out = params.to_vec();
     if out
         .last()
-        .map(|m| m.ty.pointer_depth == 1 && !m.ty.is_const && m.ty.base.starts_with("Vk"))
-        .unwrap_or(false)
+        .is_some_and(|m| m.ty.pointer_depth == 1 && !m.ty.is_const && m.ty.base.starts_with("Vk"))
     {
         out.pop();
     }
     out
 }
 
+#[must_use]
 pub fn deref_ctype(ty: &CType) -> TokenStream {
     base_type_tokens(&ty.base)
 }
 
+#[must_use]
 pub fn ctype_to_tokens(ty: &CType) -> TokenStream {
     if (ty.base.is_empty() || ty.base == "void") && ty.pointer_depth == 0 && ty.is_array.is_none() {
         return quote! { () };
@@ -451,7 +466,7 @@ pub fn ctype_to_tokens(ty: &CType) -> TokenStream {
         let size_ts: TokenStream = if size.parse::<u64>().is_ok() {
             size.parse().unwrap()
         } else {
-            format!("{} as usize", size).parse().unwrap()
+            format!("{size} as usize").parse().unwrap()
         };
         quote! { [#base; #size_ts] }
     } else {
@@ -467,6 +482,7 @@ pub fn ctype_to_tokens(ty: &CType) -> TokenStream {
     ts
 }
 
+#[must_use]
 pub fn base_type_tokens(base: &str) -> TokenStream {
     let resolved = c_type_to_rust(base);
     let name = if resolved.is_empty() {
@@ -482,10 +498,12 @@ pub fn base_type_tokens(base: &str) -> TokenStream {
         .unwrap_or_else(|_| format_ident!("{}", name).into_token_stream())
 }
 
+#[must_use]
 pub fn c_str_lit(name: &str) -> TokenStream {
-    format!("c\"{}\"", name).parse().unwrap()
+    format!("c\"{name}\"").parse().unwrap()
 }
 
+#[must_use]
 pub fn kw_escape(name: &str) -> &str {
     match name {
         "type" => "ty",
@@ -512,6 +530,7 @@ pub fn kw_escape(name: &str) -> &str {
 //   - `self_handle`  - tokens for the handle value (`self.raw`, etc.)
 //   - `table_expr`   - tokens to reach the dispatch table (`&self.table`, etc.)
 #[allow(clippy::too_many_arguments)]
+#[must_use]
 pub fn safe_method(
     cmd: &Command,
     name: &str,
@@ -750,11 +769,11 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
     );
 
     if !cmd.queues.is_empty() {
-        let q_names: Vec<_> = cmd.queues.iter().map(|q| format!("{:?}", q)).collect();
+        let q_names: Vec<_> = cmd.queues.iter().map(|q| format!("{q:?}")).collect();
         doc.push_str(&format!("\n - **Queues:** {}", q_names.join(", ")));
     }
     if let Some(ref rp) = cmd.render_pass {
-        doc.push_str(&format!("\n - **Render Pass:** {:?}", rp));
+        doc.push_str(&format!("\n - **Render Pass:** {rp:?}"));
     }
     if cmd.conditional_rendering {
         doc.push_str("\n - **Conditional Rendering:** Affected");
@@ -763,7 +782,7 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
         doc.push_str("\n - **Allow No Queues:** True");
     }
     if !cmd.tasks.is_empty() {
-        let t_names: Vec<_> = cmd.tasks.iter().map(|t| format!("{:?}", t)).collect();
+        let t_names: Vec<_> = cmd.tasks.iter().map(|t| format!("{t:?}")).collect();
         doc.push_str(&format!("\n - **Tasks:** {}", t_names.join(", ")));
     }
     if let Some(ref dep) = cmd.dep {
@@ -776,7 +795,7 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
         let l_names: Vec<_> = cmd
             .cmd_buffer_levels
             .iter()
-            .map(|l| format!("{:?}", l))
+            .map(|l| format!("{l:?}"))
             .collect();
         doc.push_str(&format!(
             "\n - **Command Buffer Levels:** {}",
@@ -784,10 +803,10 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
         ));
     }
     if let Some(ref es) = cmd.extern_sync {
-        doc.push_str(&format!("\n - **External Sync:** {}", es));
+        doc.push_str(&format!("\n - **External Sync:** {es}"));
     }
     if !cmd.export.is_empty() {
-        let e_names: Vec<_> = cmd.export.iter().map(|e| format!("{:?}", e)).collect();
+        let e_names: Vec<_> = cmd.export.iter().map(|e| format!("{e:?}")).collect();
         doc.push_str(&format!("\n - **Export Scopes:** {}", e_names.join(", ")));
     }
 
@@ -802,20 +821,20 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
                 p_meta.push(format!("optional: {:?}", p.optional));
             }
             if let Some(ref len) = p.len {
-                p_meta.push(format!("len: {}", len));
+                p_meta.push(format!("len: {len}"));
             }
             if let Some(ref vals) = p.values {
-                p_meta.push(format!("values: {}", vals));
+                p_meta.push(format!("values: {vals}"));
             }
             if let Some(ref ot) = p.object_type {
-                p_meta.push(format!("object_type: {}", ot));
+                p_meta.push(format!("object_type: {ot}"));
             }
 
             if !p_meta.is_empty() {
                 line.push_str(&format!(": {}", p_meta.join(", ")));
             }
 
-            doc.push_str(&format!("\n{}", line));
+            doc.push_str(&format!("\n{line}"));
         }
     }
 

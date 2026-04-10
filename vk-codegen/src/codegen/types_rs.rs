@@ -6,18 +6,14 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::{BTreeMap, HashSet};
 
-/// Parse a Rust type string into a TokenStream, falling back to a raw identifier.
+/// Parse a Rust type string into a `TokenStream`, falling back to a raw identifier.
 fn parse_ty(s: &str) -> TokenStream {
-    syn::parse_str::<syn::Type>(s)
-        .map(|t| quote! { #t })
-        .unwrap_or_else(|_| s.parse().unwrap_or_default())
+    syn::parse_str::<syn::Type>(s).map_or_else(|_| s.parse().unwrap_or_default(), |t| quote! { #t })
 }
 
-/// Parse a Rust expression string into a TokenStream.
+/// Parse a Rust expression string into a `TokenStream`.
 fn parse_expr(s: &str) -> TokenStream {
-    syn::parse_str::<syn::Expr>(s)
-        .map(|e| quote! { #e })
-        .unwrap_or_else(|_| s.parse().unwrap_or_default())
+    syn::parse_str::<syn::Expr>(s).map_or_else(|_| s.parse().unwrap_or_default(), |e| quote! { #e })
 }
 
 pub fn gen_types_rs(reg: &Registry) -> String {
@@ -86,7 +82,7 @@ pub fn gen_types_rs(reg: &Registry) -> String {
     for (_key, items) in groups {
         out.extend(items);
     }
-    pretty(out)
+    pretty(&out)
 }
 
 /// Generate typedef tokens using quote!.
@@ -112,7 +108,7 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
     if let Some(ref dep) = td.dep {
         doc.extend(quote! { #[doc = " "] });
         let depends_on = dep.atoms().join("`, `");
-        let comment = format!(" **Availability:** depends on `{}`.", depends_on);
+        let comment = format!(" **Availability:** depends on `{depends_on}`.");
         doc.extend(quote! { #[doc = #comment] });
     }
 
@@ -252,7 +248,7 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
 }
 
 /// Returns true if a member's Rust type involves a raw pointer at the top level
-/// (i.e. pointer_depth > 0), meaning its setter cannot be `const fn`.
+/// (i.e. `pointer_depth` > 0), meaning its setter cannot be `const fn`.
 fn member_is_pointer(m: &Member) -> bool {
     m.ty.pointer_depth > 0
 }
@@ -360,7 +356,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     }
     if !s.struct_extends.is_empty() {
         let extends = s.struct_extends.join(", ");
-        let comment = format!(" **Extends:** {}.", extends);
+        let comment = format!(" **Extends:** {extends}.");
         doc.extend(quote! {
             #[doc = " "]
             #[doc = #comment]
@@ -368,7 +364,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     }
     if let Some(ref dep) = s.dep {
         let depends_on = dep.atoms().join(" + ");
-        let comment = format!(" **Availability:** depends on `{}`.", depends_on);
+        let comment = format!(" **Availability:** depends on `{depends_on}`.");
         doc.extend(quote! {
             #[doc = " "]
             #[doc = #comment]
@@ -413,19 +409,19 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
                 extra.push(format!(" Optional: {:?}", m.optional));
             }
             if let Some(ref len) = m.len {
-                extra.push(format!(" Length: {}", len));
+                extra.push(format!(" Length: {len}"));
             }
             if let Some(ref vals) = m.values {
-                extra.push(format!(" Values: {}", vals));
+                extra.push(format!(" Values: {vals}"));
             }
             if let Some(ref lt) = m.limit_type {
-                extra.push(format!(" Limit Type: {:?}", lt));
+                extra.push(format!(" Limit Type: {lt:?}"));
             }
             if m.no_auto_validity {
                 extra.push(" No Auto-Validity".to_string());
             }
             if let Some(ref ot) = m.object_type {
-                extra.push(format!(" Object Type: {}", ot));
+                extra.push(format!(" Object Type: {ot}"));
             }
 
             let full_doc = if extra.is_empty() {
@@ -469,18 +465,16 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         // Union: Copy+Clone derive, manual Debug, unsafe const DEFAULT.
         // Builder setters are intentionally omitted for unions - their fields
         // are semantically exclusive and a setter on one variant is misleading.
-        let first_fname = s
-            .members
-            .first()
-            .map(|m| format_ident!("{}", sanitize_ident(&m.name)))
-            .unwrap_or_else(|| format_ident!("_"));
+        let first_fname = s.members.first().map_or_else(
+            || format_ident!("_"),
+            |m| format_ident!("{}", sanitize_ident(&m.name)),
+        );
         let first_ftype = s
             .members
             .first()
-            .map(|m| parse_ty(&ctype_to_rust_str(&m.ty)))
-            .unwrap_or_else(|| quote! { u8 });
+            .map_or_else(|| quote! { u8 }, |m| parse_ty(&ctype_to_rust_str(&m.ty)));
         let name_str = s.name.as_str();
-        let fname_str = s.members.first().map(|m| m.name.as_str()).unwrap_or("_");
+        let fname_str = s.members.first().map_or("_", |m| m.name.as_str());
         doc.extend(quote! {
             #cfg #depr
             #[repr(C)]
@@ -564,7 +558,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
 enum TypeClass {
     /// Primitive Rust integer/float/bool or typedef alias to one.
     PrimitiveAlias,
-    /// Platform opaque handle newtype (repr(transparent) over *mut c_void).
+    /// Platform opaque handle newtype (repr(transparent) over *mut `c_void`).
     /// Default is `TypeName::NULL`.
     NullMutAlias,
     /// Function pointer type alias - emitted as `Option<fn(...)>`, defaults to `None`.
@@ -578,7 +572,7 @@ enum TypeClass {
     StructUnsafe,
 }
 
-/// Resolve a type name through aliases to find the canonical TypeClass and name.
+/// Resolve a type name through aliases to find the canonical `TypeClass` and name.
 fn classify_type(base: &str, reg: &Registry) -> (TypeClass, String) {
     classify_type_inner(base, reg, 0)
 }

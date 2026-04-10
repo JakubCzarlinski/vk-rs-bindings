@@ -49,6 +49,7 @@ pub struct GeneratedFiles {
     pub dot_graph: String,
 }
 
+#[must_use]
 pub fn generate(reg: &Registry) -> GeneratedFiles {
     let result_cfgs = build_result_cfg_map(reg);
     let handle_types = build_handle_type_set(reg);
@@ -72,7 +73,7 @@ pub fn generate(reg: &Registry) -> GeneratedFiles {
 }
 
 /// Canonical key for grouping items by their cfg gate.
-/// Items with identical sorted provided_by sets share a group.
+/// Items with identical sorted `provided_by` sets share a group.
 fn feature_key(provided_by: &[String]) -> Vec<String> {
     let mut v = provided_by.to_vec();
     v.sort();
@@ -88,7 +89,8 @@ fn sanitize_ident(s: &str) -> &str {
 }
 
 /// Vulkan refpage URL for a named symbol.
-/// Format: https://docs.vulkan.org/refpages/latest/refpages/source/<name>.html
+/// Format: <https://docs.vulkan.org/refpages/latest/refpages/source>/<name>.html
+#[must_use]
 pub fn refpage_url(name: &str) -> String {
     let name = name.replace("FlagBits", "Flags");
     format!("https://docs.vulkan.org/refpages/latest/refpages/source/{name}.html")
@@ -103,7 +105,7 @@ fn deprecate_attr(d: &DeprecationInfo) -> TokenStream {
     quote! { #[deprecated(note = #note)] }
 }
 
-fn pretty(ts: TokenStream) -> String {
+fn pretty(ts: &TokenStream) -> String {
     match syn::parse2::<syn::File>(ts.clone()) {
         Ok(f) => prettyplease::unparse(&f),
         Err(e) => {

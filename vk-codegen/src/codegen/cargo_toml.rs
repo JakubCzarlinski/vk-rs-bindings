@@ -1,10 +1,12 @@
+use std::collections::HashSet;
+
+use crate::ir::DepExpr;
 use crate::ir::Registry;
 
 pub fn gen_cargo_toml(reg: &Registry) -> String {
     let feature_deps = reg.feature_deps();
     // Build the complete set of known feature names so deps can be filtered
-    let known_features: std::collections::HashSet<String> =
-        reg.all_feature_names().into_iter().collect();
+    let known_features: HashSet<String> = reg.all_feature_names().into_iter().collect();
 
     let filter_deps = |deps: Vec<String>| -> Vec<String> {
         deps.into_iter()
@@ -18,25 +20,25 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
         "version = \"0.1.0\"".into(),
         "edition = \"2024\"".into(),
         "description = \"Auto-generated Vulkan FFI (vk-codegen)\"".into(),
-        "".into(),
+        String::new(),
         "[dependencies]".into(),
         "libloading = \"0.9.0\"\n".into(),
         "[features]".into(),
         "# Vulkan 1.0 enabled by default".into(),
         "default = [\"VK_VERSION_1_0\"]".into(),
-        "".into(),
+        String::new(),
     ];
 
     lines.push("# Core Vulkan versions".into());
     for feat in &reg.features {
         if let Some(ref comment) = feat.comment {
-            lines.push(format!("# {}", comment));
+            lines.push(format!("# {comment}"));
         }
         lines.push(format!("# version: {}", feat.number));
         let deps = filter_deps(feature_deps.get(&feat.name).cloned().unwrap_or_default());
         lines.push(format!("{} = [{}]", feat.name, toml_feat_list(&deps)));
     }
-    lines.push("".into());
+    lines.push(String::new());
 
     lines.push("# Extensions".into());
     for ext in &reg.extensions {
@@ -49,7 +51,7 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
         let mut common_deps = ext
             .depends
             .as_ref()
-            .map(|d| d.common_dependencies())
+            .map(DepExpr::common_dependencies)
             .unwrap_or_default();
 
         // Filter out any dependencies that aren't actually known features

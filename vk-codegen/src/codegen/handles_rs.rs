@@ -155,29 +155,29 @@ fn gen_handle_module(
     if reg.commands.contains_key(&destroy_name) {
         let fp = format_ident!("{}", destroy_name);
         destroy_stmt = quote! {
-            if let Some(destroy_fn) = self.table().#fp {
-                unsafe { (destroy_fn)(self.device().raw(), self.raw, core::ptr::null()) };
+            if let Some(destroy_fn) = self.table.#fp {
+                unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
             }
         };
     } else if reg.commands.contains_key(&free_group_name) {
         let fp = format_ident!("{}", free_group_name);
         destroy_stmt = quote! {
-            if let Some(free_fn) = self.parent().table().#fp {
-                unsafe { (free_fn)(self.device().raw(), self.parent().raw(), 1, &self.raw) };
+            if let Some(free_fn) = self.parent.table.#fp {
+                unsafe { free_fn(self.device().raw, self.parent.raw, 1, &self.raw) };
             }
         };
     } else if reg.commands.contains_key(&free_name) {
         let fp = format_ident!("{}", free_name);
         destroy_stmt = quote! {
-            if let Some(free_fn) = self.table().#fp {
-                unsafe { (free_fn)(self.device().raw(), self.raw, core::ptr::null()) };
+            if let Some(free_fn) = self.table.#fp {
+                unsafe { free_fn(self.device().raw, self.raw, core::ptr::null()) };
             }
         };
     } else if !custom_free_name.is_empty() && reg.commands.contains_key(&custom_free_name) {
         let fp = format_ident!("{}", custom_free_name);
         destroy_stmt = quote! {
-            if let Some(free_fn) = self.table().#fp {
-                unsafe { (free_fn)(self.device().raw(), self.raw, core::ptr::null()) };
+            if let Some(free_fn) = self.table.#fp {
+                unsafe { free_fn(self.device().raw, self.raw, core::ptr::null()) };
             }
         };
     }
@@ -210,8 +210,8 @@ fn gen_handle_module(
                     cmd_name,
                     providers,
                     &meta.vk_name, // handle_base to strip
-                    quote! { self.raw() },
-                    quote! { self.table() },
+                    quote! { self.raw },
+                    quote! { self.table },
                     result_cfgs,
                     handle_types,
                     Some(meta_map),
@@ -227,15 +227,15 @@ fn gen_handle_module(
     let (parent_ty_decl, device_accessor) = if meta.parent_vk_name == "VkDevice" {
         (
             quote! { crate::device::Device<'dev> },
-            quote! { self.parent() },
+            quote! { self.parent },
         )
     } else {
         (
             quote! { crate::#parent_mod::#parent_type<'dev> },
-            quote! { self.parent().device() },
+            quote! { self.parent.device() },
         )
     };
-    let wrapper_cfg = crate::cfggen::cfg_any(&meta.providers);
+    let wrapper_cfg = cfg_any(&meta.providers);
 
     quote! {
         #![allow(non_snake_case, unused_imports, clippy::too_many_arguments, clippy::missing_safety_doc)]
@@ -304,8 +304,8 @@ fn gen_allocate_command_buffers(
         ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'pool>>, VkResult> {
             let count = unsafe { (*pAllocateInfo).commandBufferCount };
             let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
-            let fp = unsafe { self.table().vkAllocateCommandBuffers.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw(), pAllocateInfo, raw_buffers.as_mut_ptr()) };
+            let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
+            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr()) };
             if let Err(e) = { #result_check } { return Err(e); }
             unsafe { raw_buffers.set_len(count as usize); }
 
@@ -328,8 +328,8 @@ fn gen_free_command_buffers(_cmd: &Command, providers: &[String]) -> TokenStream
             commandBufferCount: u32,
             pCommandBuffers: *const VkCommandBuffer,
         ) {
-            let fp = unsafe { self.table().vkFreeCommandBuffers.unwrap_unchecked() };
-            unsafe { fp(self.device().raw(), self.raw(), commandBufferCount, pCommandBuffers) }
+            let fp = unsafe { self.table.vkFreeCommandBuffers.unwrap_unchecked() };
+            unsafe { fp(self.device().raw, self.raw, commandBufferCount, pCommandBuffers) }
         }
     }
 }
@@ -351,8 +351,8 @@ fn gen_allocate_descriptor_sets(
         ) -> Result<alloc::vec::Vec<crate::descriptor_set::DescriptorSet<'pool>>, VkResult> {
             let count = unsafe { (*pAllocateInfo).descriptorSetCount };
             let mut raw_sets = alloc::vec::Vec::with_capacity(count as usize);
-            let fp = unsafe { self.table().vkAllocateDescriptorSets.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw(), pAllocateInfo, raw_sets.as_mut_ptr()) };
+            let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
+            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr()) };
             if let Err(e) = { #result_check } { return Err(e); }
             unsafe { raw_sets.set_len(count as usize); }
 
@@ -375,8 +375,8 @@ fn gen_free_descriptor_sets(_cmd: &Command, providers: &[String]) -> TokenStream
             descriptorSetCount: u32,
             pDescriptorSets: *const VkDescriptorSet,
         ) -> Result<VkResult, VkResult> {
-            let fp = unsafe { self.table().vkFreeDescriptorSets.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw(), self.raw(), descriptorSetCount, pDescriptorSets) };
+            let fp = unsafe { self.table.vkFreeDescriptorSets.unwrap_unchecked() };
+            let r = unsafe { fp(self.device().raw, self.raw, descriptorSetCount, pDescriptorSets) };
             if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
         }
     }

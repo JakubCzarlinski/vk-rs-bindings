@@ -1,6 +1,9 @@
+#[cfg(target_os = "linux")]
+use raw_window_handle::{HasDisplayHandle, RawDisplayHandle};
 use raw_window_handle::{HasWindowHandle, RawWindowHandle};
+#[cfg(target_os = "macos")]
 use raw_window_metal::Layer;
-use std::ffi::c_void;
+use std::ffi::{c_char, c_void};
 use std::ptr::{null, null_mut};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
@@ -11,7 +14,7 @@ use winit::dpi::PhysicalSize;
 use winit::event::{Event, WindowEvent};
 use winit::event_loop::EventLoop;
 use winit::platform::pump_events::{EventLoopExtPumpEvents, PumpStatus};
-use winit::window::WindowBuilder;
+use winit::window::{Window, WindowBuilder};
 
 const VERT_SHADER_SPV: &[u8] =
     include_bytes!(concat!(env!("OUT_DIR"), "/spinning_triangle.vert.spv"));
@@ -32,16 +35,22 @@ fn main() {
     let window = WindowBuilder::new()
         .with_title("vk-demo: spinning triangle")
         .with_inner_size(PhysicalSize::new(1024, 768))
-        // .with_transparent(true)
-        // .with_decorations(false)
+        .with_transparent(true)
+        .with_decorations(false)
         .build(&event_loop)
         .expect("failed to create window");
 
     let vulkan_lib = VulkanLib::load().expect("failed to load Vulkan loader");
     let entry = Entry::new(&vulkan_lib);
-    let instance = create_instance(&entry);
-    let metal_layer = create_metal_layer(&window);
-    let surface = create_surface(&instance, &metal_layer);
+    let instance = create_instance(&entry, &window);
+    #[cfg(target_os = "macos")]
+    let mut metal_layer = None;
+    let surface = create_surface(
+        &instance,
+        &window,
+        #[cfg(target_os = "macos")]
+        &mut metal_layer,
+    );
 
     let physical_devices = instance
         .vkEnumeratePhysicalDevices()
@@ -105,9 +114,8 @@ fn main() {
     });
 
     while running {
-        sleep(render_step / 2);
-
-        let status = event_loop.pump_events(Some(Duration::ZERO), |event, elwt| match event {
+        let timeout = Some(next_render_tick.saturating_duration_since(Instant::now()));
+        let status = event_loop.pump_events(timeout, |event, elwt| match event {
             Event::WindowEvent {
                 event: WindowEvent::CloseRequested,
                 window_id,
@@ -132,12 +140,7 @@ fn main() {
                 window_id,
             } if window_id == window.id() => {
                 let now = Instant::now();
-                if now < next_render_tick {
-                    return;
-                }
-
                 let angle = f32::from_bits(shared_angle.load(Ordering::Relaxed));
-
                 let size = pending_resize.unwrap_or_else(|| window.inner_size());
                 if size.width == 0 || size.height == 0 {
                     return;
@@ -164,6 +167,7 @@ fn main() {
                 }
 
                 match draw_frame(
+                    &window,
                     &device,
                     &queue,
                     &pipeline,
@@ -197,6 +201,7 @@ fn main() {
                                 &mut framebuffers,
                                 &mut images_in_flight,
                             );
+                            window.request_redraw();
                         }
                     }
                     Err(false) => {
@@ -234,7 +239,7 @@ fn read_hz(key: &str, default: f64) -> f64 {
         .unwrap_or(default)
 }
 
-fn create_instance<'a>(entry: &'a Entry<'a>) -> Instance<'a> {
+fn create_instance<'a>(entry: &'a Entry<'a>, window: &Window) -> Instance<'a> {
     let app_info = VkApplicationInfo::DEFAULT
         .with_apiVersion(VK_API_VERSION_1_4)
         .with_applicationVersion(VK_MAKE_VERSION(0, 1, 0))
@@ -242,10 +247,7 @@ fn create_instance<'a>(entry: &'a Entry<'a>) -> Instance<'a> {
         .with_pEngineName(c"vk-demo".as_ptr())
         .with_pApplicationName(c"Spinning Triangle Demo".as_ptr());
 
-    let instance_extensions = [
-        VK_KHR_SURFACE_EXTENSION_NAME.as_ptr(),
-        VK_EXT_METAL_SURFACE_EXTENSION_NAME.as_ptr(),
-    ];
+    let instance_extensions = required_instance_extensions(window);
 
     let create_info = VkInstanceCreateInfo::DEFAULT
         .with_pApplicationInfo(&app_info)
@@ -257,7 +259,38 @@ fn create_instance<'a>(entry: &'a Entry<'a>) -> Instance<'a> {
         .expect("vkCreateInstance failed")
 }
 
-fn create_metal_layer(window: &winit::window::Window) -> Layer {
+fn required_instance_extensions(window: &Window) -> Vec<*const c_char> {
+    let mut extensions = vec![VK_KHR_SURFACE_EXTENSION_NAME.as_ptr()];
+    let window_handle = window
+        .window_handle()
+        .expect("window handle unavailable")
+        .as_raw();
+
+    match window_handle {
+        #[cfg(target_os = "linux")]
+        RawWindowHandle::Wayland(_) => {
+            extensions.push(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME.as_ptr())
+        }
+        #[cfg(not(target_os = "linux"))]
+        RawWindowHandle::Wayland(_) => {
+            panic!("Wayland surfaces are only supported in Linux builds")
+        }
+        #[cfg(target_os = "macos")]
+        RawWindowHandle::AppKit(_) => extensions.push(VK_EXT_METAL_SURFACE_EXTENSION_NAME.as_ptr()),
+        #[cfg(not(target_os = "macos"))]
+        RawWindowHandle::AppKit(_) => {
+            panic!("AppKit surfaces are only supported in macOS builds")
+        }
+        other => panic!(
+            "unsupported window backend: {other:?}; Wayland is supported on Linux (X11 is intentionally unsupported)"
+        ),
+    }
+
+    extensions
+}
+
+#[cfg(target_os = "macos")]
+fn create_metal_layer(window: &Window) -> Layer {
     let handle = window
         .window_handle()
         .expect("window handle unavailable")
@@ -268,17 +301,68 @@ fn create_metal_layer(window: &winit::window::Window) -> Layer {
             // SAFETY: AppKit handle is provided by winit and points to a valid NSView.
             unsafe { Layer::from_ns_view(appkit.ns_view) }
         }
-        other => panic!("unsupported window handle on this platform: {other:?}"),
+        other => panic!("unsupported window backend for macOS Metal surface: {other:?}"),
     }
 }
 
-fn create_surface(instance: &Instance<'_>, metal_layer: &Layer) -> VkSurfaceKHR {
-    let create_info = VkMetalSurfaceCreateInfoEXT::DEFAULT
-        .with_pLayer(metal_layer.as_ptr().as_ptr().cast::<CAMetalLayer>());
+fn create_surface(
+    instance: &Instance<'_>,
+    window: &Window,
+    #[cfg(target_os = "macos")] metal_layer: &mut Option<Layer>,
+) -> VkSurfaceKHR {
+    let window_handle = window
+        .window_handle()
+        .expect("window handle unavailable")
+        .as_raw();
 
-    instance
-        .vkCreateMetalSurfaceEXT(&create_info, null())
-        .expect("vkCreateMetalSurfaceEXT failed")
+    match window_handle {
+        #[cfg(target_os = "linux")]
+        RawWindowHandle::Wayland(wayland_window) => {
+            let display_handle = window
+                .display_handle()
+                .expect("display handle unavailable")
+                .as_raw();
+            let wayland_display = match display_handle {
+                RawDisplayHandle::Wayland(wayland_display) => wayland_display,
+                other => {
+                    panic!(
+                        "window/display backend mismatch; expected Wayland display, got {other:?}"
+                    )
+                }
+            };
+
+            let create_info = VkWaylandSurfaceCreateInfoKHR::DEFAULT
+                .with_display(wayland_display.display.as_ptr().cast::<wl_display>())
+                .with_surface(wayland_window.surface.as_ptr().cast::<wl_surface>());
+
+            instance
+                .vkCreateWaylandSurfaceKHR(&create_info, null())
+                .expect("vkCreateWaylandSurfaceKHR failed")
+        }
+        #[cfg(not(target_os = "linux"))]
+        RawWindowHandle::Wayland(_) => {
+            panic!("Wayland surfaces are only supported in Linux builds")
+        }
+        #[cfg(target_os = "macos")]
+        RawWindowHandle::AppKit(_) => {
+            let layer = create_metal_layer(window);
+            let create_info = VkMetalSurfaceCreateInfoEXT::DEFAULT
+                .with_pLayer(layer.as_ptr().as_ptr().cast::<CAMetalLayer>());
+
+            let surface = instance
+                .vkCreateMetalSurfaceEXT(&create_info, null())
+                .expect("vkCreateMetalSurfaceEXT failed");
+            *metal_layer = Some(layer);
+            surface
+        }
+        #[cfg(not(target_os = "macos"))]
+        RawWindowHandle::AppKit(_) => {
+            panic!("AppKit surfaces are only supported in macOS builds")
+        }
+        other => panic!(
+            "unsupported window backend: {other:?}; Wayland is supported on Linux (X11 is intentionally unsupported)"
+        ),
+    }
 }
 
 fn find_graphics_present_queue_family(
@@ -489,10 +573,10 @@ fn choose_extent(caps: VkSurfaceCapabilitiesKHR, window_size: PhysicalSize<u32>)
 
 fn choose_composite_alpha(supported: VkCompositeAlphaFlagsKHR) -> VkCompositeAlphaFlagBitsKHR {
     let options = [
+        VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
         VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
         VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR,
         VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
-        VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
     ];
     options
         .into_iter()
@@ -738,6 +822,7 @@ fn create_command_buffers<'p>(command_pools: &'p [CommandPool<'_>]) -> Vec<Comma
 
 #[allow(clippy::too_many_arguments)]
 fn draw_frame(
+    window: &Window,
     device: &Device<'_>,
     queue: &Queue<'_>,
     pipeline: &Pipeline<'_>,
@@ -839,6 +924,8 @@ fn draw_frame(
         .with_pSwapchains(swapchains.as_ptr())
         .with_pImageIndices(image_indices.as_ptr());
 
+    window.pre_present_notify();
+
     match queue.vkQueuePresentKHR(&present_info) {
         Ok(VkResult::VK_SUCCESS) => {}
         Ok(VkResult::VK_SUBOPTIMAL_KHR) | Err(VkResult::VK_ERROR_OUT_OF_DATE_KHR) => {
@@ -873,7 +960,7 @@ fn record_command_buffer(
         .expect("vkBeginCommandBuffer failed");
 
     let clear_color = VkClearColorValue {
-        float32: [0.05, 0.06, 0.09, 0.0],
+        float32: [0.05, 0.06, 0.09, 0.1],
     };
     let clear_value = VkClearValue { color: clear_color };
     let clear_values = [clear_value];

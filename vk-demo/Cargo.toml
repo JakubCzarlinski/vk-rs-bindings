@@ -8,7 +8,7 @@ build = "build.rs"
 
 [[bin]]
 name = "vk-demo"
-path = "src/main.rs"
+path = "src/compute.rs"
 
 [[bin]]
 name = "spinning-triangle"

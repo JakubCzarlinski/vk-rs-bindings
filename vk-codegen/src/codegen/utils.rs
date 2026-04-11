@@ -755,6 +755,110 @@ pub fn safe_method(
     token_stream
 }
 
+// Safe method body for commands that must mutate wrapper state after calling
+// into Vulkan (for example explicit destroy/free wrappers that null `self.raw`).
+//
+// For non-unit return commands this falls back to `safe_method`.
+#[allow(clippy::too_many_arguments)]
+#[must_use]
+pub fn safe_method_unit_with_overrides(
+    cmd: &Command,
+    name: &str,
+    providers: &[String],
+    handle_base: &str,        // "" = no stripping (Entry)
+    self_handle: TokenStream, // value to substitute for param[0]
+    table_expr: TokenStream,  // how to reach the PFN table
+    result_cfgs: &HashMap<String, TokenStream>,
+    handle_types: &HashSet<String>,
+    handle_meta: Option<&BTreeMap<String, crate::codegen::handles_rs::HandleMeta>>,
+    device_accessor: TokenStream,
+    receiver: TokenStream,
+    pre_call: TokenStream,
+    post_call: TokenStream,
+) -> TokenStream {
+    if !matches!(classify_return(cmd, handle_types), WrapperReturn::Unit) {
+        return safe_method(
+            cmd,
+            name,
+            providers,
+            handle_base,
+            self_handle,
+            table_expr,
+            result_cfgs,
+            handle_types,
+            handle_meta,
+            device_accessor,
+        );
+    }
+
+    let cfg = cfg_any(providers);
+    let fname = format_ident!("{}", name);
+    let safety_comment = " SAFETY: table is fully loaded at creation.";
+    let fp = quote! {
+        (#table_expr).#fname.unwrap_unchecked()
+    };
+
+    // Strip param[0] when it matches the wrapper's handle type.
+    // Or strip param[0] and param[1] when param[1] matches.
+    let mut strip_count = 0;
+    if !handle_base.is_empty()
+        && let Some(p0) = cmd.params.first()
+    {
+        if p0.ty.base == handle_base {
+            strip_count = 1;
+        } else if let Some(p1) = cmd.params.get(1)
+            && p1.ty.base == handle_base
+        {
+            strip_count = 2;
+        }
+    }
+
+    let sig_params: &[Member] = &cmd.params[strip_count..];
+
+    // Build the forwarding argument list.
+    let mut fwd: Vec<TokenStream> = cmd
+        .params
+        .iter()
+        .map(|m| {
+            let n = format_ident!("{}", kw_escape(&m.name));
+            quote! { #n }
+        })
+        .collect();
+
+    if strip_count == 1 {
+        fwd[0] = quote! { #self_handle };
+    } else if strip_count == 2 {
+        let p0_ty = cmd.params[0].ty.base.as_str();
+        if p0_ty == "VkDevice" {
+            fwd[0] = quote! { self.device().raw() };
+        } else {
+            fwd[0] = quote! { self.parent().raw() };
+        }
+        fwd[1] = quote! { #self_handle };
+    }
+
+    let (p_defs, _) = params_to_tokens(sig_params);
+    let depr = deprecate_attr(&cmd.depr);
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
+        #cfg #depr
+        #[inline(always)]
+        pub fn #fname(#receiver, #(#p_defs),*) {
+            #pre_call
+            unsafe {
+              #[comment = #safety_comment]
+              #fp(#(#fwd),*)
+            }
+            #post_call
+        }
+    });
+    token_stream
+}
+
 pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
     let url = refpage_url(&cmd.name);
     let provided: String = all_features

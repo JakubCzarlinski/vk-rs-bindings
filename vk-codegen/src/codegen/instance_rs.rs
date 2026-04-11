@@ -2,7 +2,8 @@ use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, enabled_set, result_check_arms, safe_method, vk_result_is_err,
+    Tier, c_str_lit, collect_groups, enabled_set, result_check_arms, safe_method,
+    safe_method_unit_with_overrides, vk_result_is_err,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -120,6 +121,28 @@ fn gen_instance(
         for (name, providers, cmd) in cmds {
             if name == "vkEnumeratePhysicalDevices" {
                 methods_ts.extend(gen_enumerate_physical_devices(cmd, providers, result_cfgs));
+            } else if name == "vkDestroyInstance" {
+                methods_ts.extend(safe_method_unit_with_overrides(
+                    cmd,
+                    name,
+                    providers,
+                    "VkInstance", // strip param[0] = VkInstance
+                    quote! { self.raw },
+                    quote! { &self.table },
+                    result_cfgs,
+                    handle_types,
+                    None,
+                    quote! {},
+                    quote! { &mut self },
+                    quote! {
+                        if self.raw.0.is_null() {
+                            return;
+                        }
+                    },
+                    quote! {
+                        self.raw = VkInstance::NULL;
+                    },
+                ));
             } else {
                 methods_ts.extend(safe_method(
                     cmd,

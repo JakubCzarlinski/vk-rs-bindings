@@ -15,8 +15,8 @@ const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
 const VALIDATION_LAYER: &CStr = c"VK_LAYER_KHRONOS_validation";
 const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
 const INSTANCE_CREATE_INFO: VkInstanceCreateInfo = VkInstanceCreateInfo::DEFAULT
-    // .with_enabledLayerCount(LAYER_NAMES.len() as u32)
-    // .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
+    .with_enabledLayerCount(LAYER_NAMES.len() as u32)
+    .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
     .with_pApplicationInfo(&APP_INFO);
 const DEVICE_CREATE_INFO: VkDeviceCreateInfo = VkDeviceCreateInfo::DEFAULT;
 
@@ -45,57 +45,60 @@ fn main() {
     let library = VulkanLib::load().expect("Failed to load Vulkan library");
     let instance: Instance = create_instance(&library);
 
-    let (device, memory_properties, queue_family_index) = create_device(&instance);
+    let (mut device, memory_properties, queue_family_index) = create_device(&instance);
 
-    let queue = device.vkGetDeviceQueue(queue_family_index, 0);
+    {
+        let queue = device.vkGetDeviceQueue(queue_family_index, 0);
 
-    let (descriptor_set_layout, pipeline_layout, pipeline) =
-        create_compute_pipeline(&device).expect("Failed to create pipeline");
+        let (descriptor_set_layout, pipeline_layout, pipeline) =
+            create_compute_pipeline(&device).expect("Failed to create pipeline");
 
-    let buffer_size = 2 * std::mem::size_of::<u32>() as u64;
-    let (input_buffer, input_memory) =
-        create_storage_buffer(&device, &memory_properties, buffer_size)
-            .expect("Failed to create input buffer");
-    let (output_buffer, output_memory) = create_storage_buffer(&device, &memory_properties, 4)
-        .expect("Failed to create output buffer");
+        let buffer_size = 2 * std::mem::size_of::<u32>() as u64;
+        let (input_buffer, input_memory) =
+            create_storage_buffer(&device, &memory_properties, buffer_size)
+                .expect("Failed to create input buffer");
+        let (output_buffer, output_memory) = create_storage_buffer(&device, &memory_properties, 4)
+            .expect("Failed to create output buffer");
 
-    write_to_buffer(&input_memory, &[3u32, 2u32]).expect("Failed to upload data");
+        write_to_buffer(&input_memory, &[3u32, 2u32]).expect("Failed to upload data");
 
-    let descriptor_pool =
-        create_descriptor_pool(&device).expect("Failed to create descriptor pool");
+        let descriptor_pool =
+            create_descriptor_pool(&device).expect("Failed to create descriptor pool");
 
-    let descriptor_set = create_descriptor_set(
-        &device,
-        &descriptor_pool,
-        &descriptor_set_layout,
-        &input_buffer,
-        &output_buffer,
-        buffer_size,
-    )
-    .expect("Failed to setup descriptor set");
+        let descriptor_set = create_descriptor_set(
+            &device,
+            &descriptor_pool,
+            &descriptor_set_layout,
+            &input_buffer,
+            &output_buffer,
+            buffer_size,
+        )
+        .expect("Failed to setup descriptor set");
 
-    let first_pipeline = pipeline.first().expect("No pipelines created");
-    let first_descriptor_set = descriptor_set
-        .first()
-        .expect("No descriptor sets allocated");
+        let first_pipeline = pipeline.first().expect("No pipelines created");
+        let first_descriptor_set = descriptor_set
+            .first()
+            .expect("No descriptor sets allocated");
 
-    run_compute(
-        &device,
-        &queue,
-        queue_family_index,
-        first_pipeline,
-        &pipeline_layout,
-        first_descriptor_set,
-    )
-    .expect("Failed to run compute");
+        run_compute(
+            &device,
+            &queue,
+            queue_family_index,
+            first_pipeline,
+            &pipeline_layout,
+            first_descriptor_set,
+        )
+        .expect("Failed to run compute");
 
-    let result = read_from_buffer::<u32>(&output_memory).expect("Failed to read result");
+        let result = read_from_buffer::<u32>(&output_memory).expect("Failed to read result");
 
-    if result == 5 {
-        println!("Success! 3 + 2 = {result}");
-    } else {
-        println!("Error: expected 5, got {result}");
+        if result == 5 {
+            println!("Success! 3 + 2 = {result}");
+        } else {
+            println!("Error: expected 5, got {result}");
+        }
     }
+    device.vkDestroyDevice(null());
 
     println!("Compute shader execution complete!");
 }

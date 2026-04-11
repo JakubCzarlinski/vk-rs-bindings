@@ -3,6 +3,7 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
     Tier, c_str_lit, collect_groups, enabled_set, is_cmd_buf_cmd, safe_method,
+    safe_method_unit_with_overrides,
 };
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
@@ -123,6 +124,28 @@ fn gen_device(
             }
             if name == "vkGetDeviceQueue" {
                 methods_ts.extend(gen_get_device_queue(cmd, providers));
+            } else if name == "vkDestroyDevice" {
+                methods_ts.extend(safe_method_unit_with_overrides(
+                    cmd,
+                    name,
+                    providers,
+                    "VkDevice", // strip param[0] = VkDevice
+                    quote! { self.raw },
+                    quote! { &self.table },
+                    result_cfgs,
+                    handle_types,
+                    Some(handle_meta),
+                    quote! { self },
+                    quote! { &mut self },
+                    quote! {
+                        if self.raw.0.is_null() {
+                            return;
+                        }
+                    },
+                    quote! {
+                        self.raw = VkDevice::NULL;
+                    },
+                ));
             } else if name == "vkCreateCommandPool" {
                 methods_ts.extend(gen_create_command_pool(cmd, providers, result_cfgs));
             } else if name.starts_with("vkCreate") && name.ends_with("Pipelines") {

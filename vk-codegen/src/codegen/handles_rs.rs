@@ -3,6 +3,7 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
     c_str_lit, collect_groups, enabled_set, result_check_arms, safe_method,
+    safe_method_unit_with_overrides,
 };
 use crate::ir::{Command, Registry, TypedefKind};
 use proc_macro2::TokenStream;
@@ -119,6 +120,26 @@ pub fn snake_case(s: &str) -> String {
         .replace("n_v", "_nv")
 }
 
+fn is_self_destructor_command(cmd_name: &str, cmd: &Command, meta: &HandleMeta) -> bool {
+    let destroy_name = format!("vkDestroy{}", meta.struct_name);
+    let free_group_name = format!("vkFree{}s", meta.struct_name);
+    let free_name = format!("vkFree{}", meta.struct_name);
+    let custom_free_name = if meta.vk_name == "VkDeviceMemory" {
+        Some("vkFreeMemory")
+    } else {
+        None
+    };
+
+    let is_match = |name: &str| {
+        name == destroy_name
+            || name == free_group_name
+            || name == free_name
+            || custom_free_name.is_some_and(|custom| name == custom)
+    };
+
+    is_match(cmd_name) || cmd.alias.as_deref().is_some_and(is_match)
+}
+
 fn gen_handle_module(
     reg: &Registry,
     meta: &HandleMeta,
@@ -203,6 +224,29 @@ fn gen_handle_module(
                 methods_ts.extend(gen_allocate_descriptor_sets(cmd, providers, result_cfgs));
             } else if cmd_name == "vkFreeDescriptorSets" {
                 methods_ts.extend(gen_free_descriptor_sets(cmd, providers));
+            } else if is_self_destructor_command(cmd_name, cmd, meta) {
+                let handle_ty = format_ident!("{}", meta.vk_name);
+                methods_ts.extend(safe_method_unit_with_overrides(
+                    cmd,
+                    cmd_name,
+                    providers,
+                    &meta.vk_name, // handle_base to strip
+                    quote! { self.raw },
+                    quote! { self.table },
+                    result_cfgs,
+                    handle_types,
+                    Some(meta_map),
+                    quote! { self.device() },
+                    quote! { &mut self },
+                    quote! {
+                        if self.raw.0.is_null() {
+                            return;
+                        }
+                    },
+                    quote! {
+                        self.raw = #handle_ty::NULL;
+                    },
+                ));
             } else {
                 let device_acc = quote! { self.device() };
                 methods_ts.extend(safe_method(

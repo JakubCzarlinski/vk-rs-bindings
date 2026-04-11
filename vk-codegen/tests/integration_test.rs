@@ -282,6 +282,107 @@ fn commands_rs_has_pfn() {
 }
 
 #[test]
+fn handle_destroy_method_uses_mut_self_and_nulls_raw() {
+    let f = generate();
+    let shader_module = f
+        .handles
+        .get("shader_module")
+        .expect("shader_module handle module");
+    assert!(
+        shader_module.contains("pub fn vkDestroyShaderModule(")
+            && shader_module.contains("&mut self"),
+        "vkDestroyShaderModule should take &mut self;\n{shader_module}"
+    );
+    assert!(
+        shader_module.contains("self.raw = VkShaderModule::NULL;"),
+        "vkDestroyShaderModule should null raw handle;\n{shader_module}"
+    );
+    assert!(
+        shader_module.contains("if self.raw.0.is_null()"),
+        "vkDestroyShaderModule should no-op when handle is already null;\n{shader_module}"
+    );
+}
+
+#[test]
+fn handle_free_method_uses_mut_self_and_nulls_raw() {
+    let f = generate();
+    let device_memory = f
+        .handles
+        .get("device_memory")
+        .expect("device_memory handle module");
+    assert!(
+        device_memory.contains("pub fn vkFreeMemory(") && device_memory.contains("&mut self"),
+        "vkFreeMemory should take &mut self;\n{device_memory}"
+    );
+    assert!(
+        device_memory.contains("self.raw = VkDeviceMemory::NULL;"),
+        "vkFreeMemory should null raw handle;\n{device_memory}"
+    );
+}
+
+#[test]
+fn alias_destroy_method_uses_mut_self_and_nulls_raw() {
+    let f = generate();
+    let private_data_slot = f
+        .handles
+        .get("private_data_slot")
+        .expect("private_data_slot handle module");
+    assert!(
+        private_data_slot.contains("pub fn vkDestroyPrivateDataSlotEXT(")
+            && private_data_slot.contains("&mut self"),
+        "vkDestroyPrivateDataSlotEXT should take &mut self;\n{private_data_slot}"
+    );
+    assert!(
+        private_data_slot.contains("self.raw = VkPrivateDataSlot::NULL;"),
+        "vkDestroyPrivateDataSlotEXT should null raw handle;\n{private_data_slot}"
+    );
+}
+
+#[test]
+fn descriptor_pool_free_descriptor_sets_stays_non_mutating() {
+    let f = generate();
+    let descriptor_pool = f
+        .handles
+        .get("descriptor_pool")
+        .expect("descriptor_pool handle module");
+    assert!(
+        descriptor_pool.contains("pub fn vkFreeDescriptorSets(\n        &self,"),
+        "vkFreeDescriptorSets should remain non-mutating (&self);\n{descriptor_pool}"
+    );
+    assert!(
+        !descriptor_pool.contains("pub fn vkFreeDescriptorSets(\n        &mut self,"),
+        "vkFreeDescriptorSets must not require &mut self;\n{descriptor_pool}"
+    );
+}
+
+#[test]
+fn instance_and_device_destroy_methods_use_mut_self_and_null_raw() {
+    let f = generate();
+    assert!(
+        f.instance_rs.contains("pub fn vkDestroyInstance(")
+            && f.instance_rs.contains("&mut self"),
+        "vkDestroyInstance should take &mut self;\n{}",
+        f.instance_rs
+    );
+    assert!(
+        f.instance_rs.contains("self.raw = VkInstance::NULL;"),
+        "vkDestroyInstance should null raw handle;\n{}",
+        f.instance_rs
+    );
+
+    assert!(
+        f.device_rs.contains("pub fn vkDestroyDevice(") && f.device_rs.contains("&mut self"),
+        "vkDestroyDevice should take &mut self;\n{}",
+        f.device_rs
+    );
+    assert!(
+        f.device_rs.contains("self.raw = VkDevice::NULL;"),
+        "vkDestroyDevice should null raw handle;\n{}",
+        f.device_rs
+    );
+}
+
+#[test]
 fn extension_name_consts_in_consts_rs() {
     // Extension SPEC_VERSION and EXTENSION_NAME constants must be in consts.rs,
     // not in loader.rs. The old EXT_NAME_ pattern was wrong.

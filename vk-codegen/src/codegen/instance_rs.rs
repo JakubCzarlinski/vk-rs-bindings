@@ -1,5 +1,6 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
+use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
     Tier, c_str_lit, collect_groups, enabled_set, result_check_arms, safe_method,
@@ -8,13 +9,13 @@ use crate::codegen::utils::{
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 
 pub fn gen_instance_rs(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
+    handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
@@ -112,7 +113,7 @@ fn gen_instance(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
+    handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);

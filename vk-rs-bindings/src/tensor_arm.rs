@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct TensorARMDispatchTable {
@@ -28,8 +28,8 @@ impl TensorARMDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkDestroyTensorARM = loader(c"vkDestroyTensorARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyTensorARM =
+                loader(c"vkDestroyTensorARM".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -47,7 +47,7 @@ impl<'dev> Drop for TensorARM<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyTensorARM {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -64,6 +64,10 @@ impl<'dev> TensorARM<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &TensorARMDispatchTable {
@@ -87,9 +91,11 @@ impl<'dev> TensorARM<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyTensorARM
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyTensorARM.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkTensorARM::NULL;
     }

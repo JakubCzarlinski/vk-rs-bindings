@@ -4,27 +4,23 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct BufferCollectionFUCHSIADispatchTable {
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
     pub vkDestroyBufferCollectionFUCHSIA: Option<PFN_vkDestroyBufferCollectionFUCHSIA>,
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-    pub vkGetBufferCollectionPropertiesFUCHSIA: Option<
-        PFN_vkGetBufferCollectionPropertiesFUCHSIA,
-    >,
+    pub vkGetBufferCollectionPropertiesFUCHSIA: Option<PFN_vkGetBufferCollectionPropertiesFUCHSIA>,
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-    pub vkSetBufferCollectionBufferConstraintsFUCHSIA: Option<
-        PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA,
-    >,
+    pub vkSetBufferCollectionBufferConstraintsFUCHSIA:
+        Option<PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA>,
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-    pub vkSetBufferCollectionImageConstraintsFUCHSIA: Option<
-        PFN_vkSetBufferCollectionImageConstraintsFUCHSIA,
-    >,
+    pub vkSetBufferCollectionImageConstraintsFUCHSIA:
+        Option<PFN_vkSetBufferCollectionImageConstraintsFUCHSIA>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl BufferCollectionFUCHSIADispatchTable {
@@ -46,31 +42,27 @@ impl BufferCollectionFUCHSIADispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
         {
-            table.vkDestroyBufferCollectionFUCHSIA = loader(
-                    c"vkDestroyBufferCollectionFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyBufferCollectionFUCHSIA =
+                loader(c"vkDestroyBufferCollectionFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
         {
-            table.vkGetBufferCollectionPropertiesFUCHSIA = loader(
-                    c"vkGetBufferCollectionPropertiesFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetBufferCollectionPropertiesFUCHSIA =
+                loader(c"vkGetBufferCollectionPropertiesFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
         {
-            table.vkSetBufferCollectionBufferConstraintsFUCHSIA = loader(
-                    c"vkSetBufferCollectionBufferConstraintsFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSetBufferCollectionBufferConstraintsFUCHSIA =
+                loader(c"vkSetBufferCollectionBufferConstraintsFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
         {
-            table.vkSetBufferCollectionImageConstraintsFUCHSIA = loader(
-                    c"vkSetBufferCollectionImageConstraintsFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSetBufferCollectionImageConstraintsFUCHSIA =
+                loader(c"vkSetBufferCollectionImageConstraintsFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -88,7 +80,7 @@ impl<'dev> Drop for BufferCollectionFUCHSIA<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyBufferCollectionFUCHSIA {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -107,6 +99,10 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &BufferCollectionFUCHSIADispatchTable {
         self.table
     }
@@ -122,10 +118,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
     #[inline(always)]
-    pub fn vkDestroyBufferCollectionFUCHSIA(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyBufferCollectionFUCHSIA(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
@@ -176,7 +169,13 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetBufferCollectionBufferConstraintsFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetBufferCollectionBufferConstraintsFUCHSIA.html)
@@ -211,9 +210,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
             (self.table)
                 .vkSetBufferCollectionBufferConstraintsFUCHSIA
                 .unwrap_unchecked()(
-                self.device().raw(),
-                self.raw,
-                pBufferConstraintsInfo,
+                self.device().raw(), self.raw, pBufferConstraintsInfo
             )
         };
         match r {
@@ -224,7 +221,13 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetBufferCollectionImageConstraintsFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetBufferCollectionImageConstraintsFUCHSIA.html)
@@ -268,7 +271,13 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

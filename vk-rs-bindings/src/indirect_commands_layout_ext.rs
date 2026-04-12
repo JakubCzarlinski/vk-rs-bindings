@@ -4,17 +4,15 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct IndirectCommandsLayoutEXTDispatchTable {
     #[cfg(feature = "VK_EXT_device_generated_commands")]
-    pub vkDestroyIndirectCommandsLayoutEXT: Option<
-        PFN_vkDestroyIndirectCommandsLayoutEXT,
-    >,
+    pub vkDestroyIndirectCommandsLayoutEXT: Option<PFN_vkDestroyIndirectCommandsLayoutEXT>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl IndirectCommandsLayoutEXTDispatchTable {
@@ -30,10 +28,9 @@ impl IndirectCommandsLayoutEXTDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkDestroyIndirectCommandsLayoutEXT = loader(
-                    c"vkDestroyIndirectCommandsLayoutEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyIndirectCommandsLayoutEXT =
+                loader(c"vkDestroyIndirectCommandsLayoutEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -51,7 +48,7 @@ impl<'dev> Drop for IndirectCommandsLayoutEXT<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyIndirectCommandsLayoutEXT {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -70,6 +67,10 @@ impl<'dev> IndirectCommandsLayoutEXT<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &IndirectCommandsLayoutEXTDispatchTable {
         self.table
     }
@@ -85,10 +86,7 @@ impl<'dev> IndirectCommandsLayoutEXT<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     #[inline(always)]
-    pub fn vkDestroyIndirectCommandsLayoutEXT(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyIndirectCommandsLayoutEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }

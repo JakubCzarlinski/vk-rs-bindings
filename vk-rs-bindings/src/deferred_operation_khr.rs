@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct DeferredOperationKHRDispatchTable {
@@ -26,21 +26,16 @@ pub struct DeferredOperationKHRDispatchTable {
     #[cfg(feature = "VK_KHR_acceleration_structure")]
     pub vkCopyAccelerationStructureKHR: Option<PFN_vkCopyAccelerationStructureKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkCopyAccelerationStructureToMemoryKHR: Option<
-        PFN_vkCopyAccelerationStructureToMemoryKHR,
-    >,
+    pub vkCopyAccelerationStructureToMemoryKHR: Option<PFN_vkCopyAccelerationStructureToMemoryKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkCopyMemoryToAccelerationStructureKHR: Option<
-        PFN_vkCopyMemoryToAccelerationStructureKHR,
-    >,
+    pub vkCopyMemoryToAccelerationStructureKHR: Option<PFN_vkCopyMemoryToAccelerationStructureKHR>,
     #[cfg(feature = "VK_KHR_deferred_host_operations")]
     pub vkDeferredOperationJoinKHR: Option<PFN_vkDeferredOperationJoinKHR>,
     #[cfg(feature = "VK_KHR_deferred_host_operations")]
     pub vkDestroyDeferredOperationKHR: Option<PFN_vkDestroyDeferredOperationKHR>,
     #[cfg(feature = "VK_KHR_deferred_host_operations")]
-    pub vkGetDeferredOperationMaxConcurrencyKHR: Option<
-        PFN_vkGetDeferredOperationMaxConcurrencyKHR,
-    >,
+    pub vkGetDeferredOperationMaxConcurrencyKHR:
+        Option<PFN_vkGetDeferredOperationMaxConcurrencyKHR>,
     #[cfg(feature = "VK_KHR_deferred_host_operations")]
     pub vkGetDeferredOperationResultKHR: Option<PFN_vkGetDeferredOperationResultKHR>,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
@@ -86,97 +81,80 @@ impl DeferredOperationKHRDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkCreateDataGraphPipelinesARM = loader(
-                    c"vkCreateDataGraphPipelinesARM".as_ptr(),
-                )
+            table.vkCreateDataGraphPipelinesARM = loader(c"vkCreateDataGraphPipelinesARM".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkBuildMicromapsEXT = loader(c"vkBuildMicromapsEXT".as_ptr())
+            table.vkBuildMicromapsEXT =
+                loader(c"vkBuildMicromapsEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_opacity_micromap")]
+        {
+            table.vkCopyMemoryToMicromapEXT = loader(c"vkCopyMemoryToMicromapEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkCopyMemoryToMicromapEXT = loader(
-                    c"vkCopyMemoryToMicromapEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCopyMicromapEXT =
+                loader(c"vkCopyMicromapEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkCopyMicromapEXT = loader(c"vkCopyMicromapEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCopyMicromapToMemoryEXT = loader(
-                    c"vkCopyMicromapToMemoryEXT".as_ptr(),
-                )
+            table.vkCopyMicromapToMemoryEXT = loader(c"vkCopyMicromapToMemoryEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkBuildAccelerationStructuresKHR = loader(
-                    c"vkBuildAccelerationStructuresKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkBuildAccelerationStructuresKHR =
+                loader(c"vkBuildAccelerationStructuresKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCopyAccelerationStructureKHR = loader(
-                    c"vkCopyAccelerationStructureKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCopyAccelerationStructureKHR =
+                loader(c"vkCopyAccelerationStructureKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCopyAccelerationStructureToMemoryKHR = loader(
-                    c"vkCopyAccelerationStructureToMemoryKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCopyAccelerationStructureToMemoryKHR =
+                loader(c"vkCopyAccelerationStructureToMemoryKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCopyMemoryToAccelerationStructureKHR = loader(
-                    c"vkCopyMemoryToAccelerationStructureKHR".as_ptr(),
-                )
+            table.vkCopyMemoryToAccelerationStructureKHR =
+                loader(c"vkCopyMemoryToAccelerationStructureKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_deferred_host_operations")]
+        {
+            table.vkDeferredOperationJoinKHR = loader(c"vkDeferredOperationJoinKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_deferred_host_operations")]
         {
-            table.vkDeferredOperationJoinKHR = loader(
-                    c"vkDeferredOperationJoinKHR".as_ptr(),
-                )
+            table.vkDestroyDeferredOperationKHR = loader(c"vkDestroyDeferredOperationKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_deferred_host_operations")]
         {
-            table.vkDestroyDeferredOperationKHR = loader(
-                    c"vkDestroyDeferredOperationKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeferredOperationMaxConcurrencyKHR =
+                loader(c"vkGetDeferredOperationMaxConcurrencyKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_deferred_host_operations")]
         {
-            table.vkGetDeferredOperationMaxConcurrencyKHR = loader(
-                    c"vkGetDeferredOperationMaxConcurrencyKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        {
-            table.vkGetDeferredOperationResultKHR = loader(
-                    c"vkGetDeferredOperationResultKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeferredOperationResultKHR =
+                loader(c"vkGetDeferredOperationResultKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
         {
-            table.vkCreateRayTracingPipelinesKHR = loader(
-                    c"vkCreateRayTracingPipelinesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateRayTracingPipelinesKHR =
+                loader(c"vkCreateRayTracingPipelinesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -194,7 +172,7 @@ impl<'dev> Drop for DeferredOperationKHR<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyDeferredOperationKHR {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -211,6 +189,10 @@ impl<'dev> DeferredOperationKHR<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &DeferredOperationKHRDispatchTable {
@@ -274,7 +256,13 @@ impl<'dev> DeferredOperationKHR<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkBuildMicromapsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildMicromapsEXT.html)
@@ -309,21 +297,29 @@ impl<'dev> DeferredOperationKHR<'dev> {
         pInfos: *const VkMicromapBuildInfoEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkBuildMicromapsEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, infoCount, pInfos)
+            (self.table).vkBuildMicromapsEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                infoCount,
+                pInfos,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyMemoryToMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToMicromapEXT.html)
@@ -356,21 +352,28 @@ impl<'dev> DeferredOperationKHR<'dev> {
         pInfo: *const VkCopyMemoryToMicromapInfoEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkCopyMemoryToMicromapEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, pInfo)
+            (self.table).vkCopyMemoryToMicromapEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMicromapEXT.html)
@@ -403,21 +406,24 @@ impl<'dev> DeferredOperationKHR<'dev> {
         pInfo: *const VkCopyMicromapInfoEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkCopyMicromapEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, pInfo)
+            (self.table).vkCopyMicromapEXT.unwrap_unchecked()(self.device().raw(), self.raw, pInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyMicromapToMemoryEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMicromapToMemoryEXT.html)
@@ -450,21 +456,28 @@ impl<'dev> DeferredOperationKHR<'dev> {
         pInfo: *const VkCopyMicromapToMemoryInfoEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkCopyMicromapToMemoryEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, pInfo)
+            (self.table).vkCopyMicromapToMemoryEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkBuildAccelerationStructuresKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildAccelerationStructuresKHR.html)
@@ -514,14 +527,19 @@ impl<'dev> DeferredOperationKHR<'dev> {
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyAccelerationStructureKHR.html)
@@ -561,14 +579,19 @@ impl<'dev> DeferredOperationKHR<'dev> {
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyAccelerationStructureToMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyAccelerationStructureToMemoryKHR.html)
@@ -608,14 +631,19 @@ impl<'dev> DeferredOperationKHR<'dev> {
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyMemoryToAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToAccelerationStructureKHR.html)
@@ -655,14 +683,19 @@ impl<'dev> DeferredOperationKHR<'dev> {
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDeferredOperationJoinKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDeferredOperationJoinKHR.html)
@@ -691,9 +724,10 @@ impl<'dev> DeferredOperationKHR<'dev> {
     #[inline(always)]
     pub fn vkDeferredOperationJoinKHR(&self) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkDeferredOperationJoinKHR
-                .unwrap_unchecked()(self.device().raw(), self.raw)
+            (self.table).vkDeferredOperationJoinKHR.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -704,7 +738,13 @@ impl<'dev> DeferredOperationKHR<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroyDeferredOperationKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDeferredOperationKHR.html)
@@ -719,10 +759,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_KHR_deferred_host_operations")]
     #[inline(always)]
-    pub fn vkDestroyDeferredOperationKHR(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyDeferredOperationKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
@@ -785,7 +822,13 @@ impl<'dev> DeferredOperationKHR<'dev> {
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateRayTracingPipelinesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesKHR.html)
@@ -848,8 +891,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
             #[cfg(feature = "VK_EXT_pipeline_creation_cache_control")]
             VkResult::VK_PIPELINE_COMPILE_REQUIRED_EXT => Ok(r),
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
-            VkResult::VK_OPERATION_DEFERRED_KHR
-            | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
+            VkResult::VK_OPERATION_DEFERRED_KHR | VkResult::VK_OPERATION_NOT_DEFERRED_KHR => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
@@ -861,7 +903,13 @@ impl<'dev> DeferredOperationKHR<'dev> {
             VkResult::VK_ERROR_OUT_OF_POOL_MEMORY => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_2")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

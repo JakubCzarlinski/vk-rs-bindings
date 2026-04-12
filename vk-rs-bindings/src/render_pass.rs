@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct RenderPassDispatchTable {
@@ -16,9 +16,8 @@ pub struct RenderPassDispatchTable {
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     pub vkGetRenderAreaGranularity: Option<PFN_vkGetRenderAreaGranularity>,
     #[cfg(feature = "VK_HUAWEI_subpass_shading")]
-    pub vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI: Option<
-        PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI,
-    >,
+    pub vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI:
+        Option<PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl RenderPassDispatchTable {
@@ -38,22 +37,19 @@ impl RenderPassDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkDestroyRenderPass = loader(c"vkDestroyRenderPass".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyRenderPass =
+                loader(c"vkDestroyRenderPass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkGetRenderAreaGranularity = loader(
-                    c"vkGetRenderAreaGranularity".as_ptr(),
-                )
+            table.vkGetRenderAreaGranularity = loader(c"vkGetRenderAreaGranularity".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_HUAWEI_subpass_shading")]
         {
-            table.vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI = loader(
-                    c"vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI =
+                loader(c"vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -71,7 +67,7 @@ impl<'dev> Drop for RenderPass<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyRenderPass {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -88,6 +84,10 @@ impl<'dev> RenderPass<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &RenderPassDispatchTable {
@@ -112,9 +112,11 @@ impl<'dev> RenderPass<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyRenderPass
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyRenderPass.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkRenderPass::NULL;
     }
@@ -134,9 +136,11 @@ impl<'dev> RenderPass<'dev> {
     pub fn vkGetRenderAreaGranularity(&self, pGranularity: *mut VkExtent2D) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetRenderAreaGranularity
-                .unwrap_unchecked()(self.device().raw(), self.raw, pGranularity)
+            (self.table).vkGetRenderAreaGranularity.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pGranularity,
+            )
         }
     }
     /// [`vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html)
@@ -181,7 +185,13 @@ impl<'dev> RenderPass<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

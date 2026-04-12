@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct QueryPoolDispatchTable {
@@ -40,8 +40,8 @@ impl QueryPoolDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkDestroyQueryPool = loader(c"vkDestroyQueryPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyQueryPool =
+                loader(c"vkDestroyQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -50,13 +50,13 @@ impl QueryPoolDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_2")]
         {
-            table.vkResetQueryPool = loader(c"vkResetQueryPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkResetQueryPool =
+                loader(c"vkResetQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_host_query_reset")]
         {
-            table.vkResetQueryPoolEXT = loader(c"vkResetQueryPoolEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkResetQueryPoolEXT =
+                loader(c"vkResetQueryPoolEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -74,7 +74,7 @@ impl<'dev> Drop for QueryPool<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyQueryPool {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -91,6 +91,10 @@ impl<'dev> QueryPool<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &QueryPoolDispatchTable {
@@ -115,9 +119,11 @@ impl<'dev> QueryPool<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyQueryPool
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyQueryPool.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkQueryPool::NULL;
     }
@@ -162,9 +168,7 @@ impl<'dev> QueryPool<'dev> {
         flags: VkQueryResultFlags,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetQueryPoolResults
-                .unwrap_unchecked()(
+            (self.table).vkGetQueryPoolResults.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 firstQuery,
@@ -183,7 +187,13 @@ impl<'dev> QueryPool<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkResetQueryPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetQueryPool.html)
@@ -203,9 +213,7 @@ impl<'dev> QueryPool<'dev> {
     pub fn vkResetQueryPool(&self, firstQuery: u32, queryCount: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkResetQueryPool
-                .unwrap_unchecked()(
+            (self.table).vkResetQueryPool.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 firstQuery,
@@ -230,9 +238,7 @@ impl<'dev> QueryPool<'dev> {
     pub fn vkResetQueryPoolEXT(&self, firstQuery: u32, queryCount: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkResetQueryPoolEXT
-                .unwrap_unchecked()(
+            (self.table).vkResetQueryPoolEXT.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 firstQuery,

@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct BufferViewDispatchTable {
@@ -28,8 +28,8 @@ impl BufferViewDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkDestroyBufferView = loader(c"vkDestroyBufferView".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyBufferView =
+                loader(c"vkDestroyBufferView".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -47,7 +47,7 @@ impl<'dev> Drop for BufferView<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyBufferView {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -64,6 +64,10 @@ impl<'dev> BufferView<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &BufferViewDispatchTable {
@@ -88,9 +92,11 @@ impl<'dev> BufferView<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyBufferView
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyBufferView.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkBufferView::NULL;
     }

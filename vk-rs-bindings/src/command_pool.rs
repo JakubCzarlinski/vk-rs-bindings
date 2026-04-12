@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct CommandPoolDispatchTable {
@@ -52,10 +52,9 @@ impl CommandPoolDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VKSC_VERSION_1_0")]
         {
-            table.vkGetCommandPoolMemoryConsumption = loader(
-                    c"vkGetCommandPoolMemoryConsumption".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetCommandPoolMemoryConsumption =
+                loader(c"vkGetCommandPoolMemoryConsumption".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -74,13 +73,13 @@ impl CommandPoolDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkResetCommandPool = loader(c"vkResetCommandPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkResetCommandPool =
+                loader(c"vkResetCommandPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkTrimCommandPool = loader(c"vkTrimCommandPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkTrimCommandPool =
+                loader(c"vkTrimCommandPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance1")]
         {
@@ -103,7 +102,7 @@ impl<'dev> Drop for CommandPool<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyCommandPool {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -120,6 +119,10 @@ impl<'dev> CommandPool<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &CommandPoolDispatchTable {
@@ -149,10 +152,7 @@ impl<'dev> CommandPool<'dev> {
             (self.table)
                 .vkGetCommandPoolMemoryConsumption
                 .unwrap_unchecked()(
-                self.device().raw(),
-                self.raw,
-                commandBuffer,
-                pConsumption,
+                self.device().raw(), self.raw, commandBuffer, pConsumption
             )
         }
     }
@@ -165,9 +165,7 @@ impl<'dev> CommandPool<'dev> {
         let count = unsafe { (*pAllocateInfo).commandBufferCount };
         let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
         let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
-        let r = unsafe {
-            fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr())
-        };
+        let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr()) };
         if let Err(e) = {
             match r {
                 VkResult::VK_SUCCESS => Ok(r),
@@ -176,7 +174,13 @@ impl<'dev> CommandPool<'dev> {
                 | VkResult::VK_ERROR_UNKNOWN => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_0")]
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -184,16 +188,14 @@ impl<'dev> CommandPool<'dev> {
         unsafe {
             raw_buffers.set_len(count as usize);
         }
-        Ok(
-            raw_buffers
-                .into_iter()
-                .map(|raw| crate::command_buffer::CommandBuffer {
-                    raw,
-                    parent: self,
-                    table: &self.device().command_buffer_table,
-                })
-                .collect(),
-        )
+        Ok(raw_buffers
+            .into_iter()
+            .map(|raw| crate::command_buffer::CommandBuffer {
+                raw,
+                parent: self,
+                table: &self.device().command_buffer_table,
+            })
+            .collect())
     }
     /// [`vkDestroyCommandPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCommandPool.html)
     ///
@@ -214,9 +216,11 @@ impl<'dev> CommandPool<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyCommandPool
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyCommandPool.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkCommandPool::NULL;
     }
@@ -228,7 +232,14 @@ impl<'dev> CommandPool<'dev> {
         pCommandBuffers: *const VkCommandBuffer,
     ) {
         let fp = unsafe { self.table.vkFreeCommandBuffers.unwrap_unchecked() };
-        unsafe { fp(self.device().raw, self.raw, commandBufferCount, pCommandBuffers) }
+        unsafe {
+            fp(
+                self.device().raw,
+                self.raw,
+                commandBufferCount,
+                pCommandBuffers,
+            )
+        }
     }
     /// [`vkResetCommandPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetCommandPool.html)
     ///
@@ -253,23 +264,22 @@ impl<'dev> CommandPool<'dev> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkResetCommandPool(
-        &self,
-        flags: VkCommandPoolResetFlags,
-    ) -> Result<VkResult, VkResult> {
+    pub fn vkResetCommandPool(&self, flags: VkCommandPoolResetFlags) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkResetCommandPool
-                .unwrap_unchecked()(self.device().raw(), self.raw, flags)
+            (self.table).vkResetCommandPool.unwrap_unchecked()(self.device().raw(), self.raw, flags)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkTrimCommandPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkTrimCommandPool.html)
@@ -288,9 +298,7 @@ impl<'dev> CommandPool<'dev> {
     pub fn vkTrimCommandPool(&self, flags: VkCommandPoolTrimFlags) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkTrimCommandPool
-                .unwrap_unchecked()(self.device().raw(), self.raw, flags)
+            (self.table).vkTrimCommandPool.unwrap_unchecked()(self.device().raw(), self.raw, flags)
         }
     }
     /// [`vkTrimCommandPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkTrimCommandPool.html)
@@ -309,9 +317,11 @@ impl<'dev> CommandPool<'dev> {
     pub fn vkTrimCommandPoolKHR(&self, flags: VkCommandPoolTrimFlags) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkTrimCommandPoolKHR
-                .unwrap_unchecked()(self.device().raw(), self.raw, flags)
+            (self.table).vkTrimCommandPoolKHR.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                flags,
+            )
         }
     }
 }

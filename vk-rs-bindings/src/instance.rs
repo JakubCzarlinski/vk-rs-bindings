@@ -3,14 +3,14 @@
     non_snake_case,
     unused_imports,
     clippy::too_many_arguments,
-    clippy::missing_safety_doc,
+    clippy::missing_safety_doc
 )]
-use core::ptr;
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
-use crate::enums::*;
 use crate::entry::VulkanLib;
+use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
+use core::ptr;
 /// Raw instance-tier function pointer table.
 ///
 /// Fields are `Option<PFN_*>`; `None` means absent at load time.
@@ -49,15 +49,11 @@ pub struct InstanceDispatchTable {
     #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
     pub vkCreateImagePipeSurfaceFUCHSIA: Option<PFN_vkCreateImagePipeSurfaceFUCHSIA>,
     #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
-    pub vkCreateStreamDescriptorSurfaceGGP: Option<
-        PFN_vkCreateStreamDescriptorSurfaceGGP,
-    >,
+    pub vkCreateStreamDescriptorSurfaceGGP: Option<PFN_vkCreateStreamDescriptorSurfaceGGP>,
     #[cfg(feature = "VK_KHR_android_surface")]
     pub vkCreateAndroidSurfaceKHR: Option<PFN_vkCreateAndroidSurfaceKHR>,
     #[cfg(feature = "VK_KHR_device_group_creation")]
-    pub vkEnumeratePhysicalDeviceGroupsKHR: Option<
-        PFN_vkEnumeratePhysicalDeviceGroupsKHR,
-    >,
+    pub vkEnumeratePhysicalDeviceGroupsKHR: Option<PFN_vkEnumeratePhysicalDeviceGroupsKHR>,
     #[cfg(feature = "VK_KHR_display")]
     pub vkCreateDisplayPlaneSurfaceKHR: Option<PFN_vkCreateDisplayPlaneSurfaceKHR>,
     #[cfg(feature = "VK_KHR_surface")]
@@ -155,20 +151,18 @@ impl InstanceDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkDestroyInstance = loader(c"vkDestroyInstance".as_ptr())
+            table.vkDestroyInstance =
+                loader(c"vkDestroyInstance".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkEnumeratePhysicalDevices = loader(c"vkEnumeratePhysicalDevices".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkEnumeratePhysicalDevices = loader(
-                    c"vkEnumeratePhysicalDevices".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetDeviceProcAddr = loader(c"vkGetDeviceProcAddr".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceProcAddr =
+                loader(c"vkGetDeviceProcAddr".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -177,17 +171,15 @@ impl InstanceDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkEnumeratePhysicalDeviceGroups = loader(
-                    c"vkEnumeratePhysicalDeviceGroups".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEnumeratePhysicalDeviceGroups =
+                loader(c"vkEnumeratePhysicalDeviceGroups".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_report")]
         {
-            table.vkCreateDebugReportCallbackEXT = loader(
-                    c"vkCreateDebugReportCallbackEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateDebugReportCallbackEXT =
+                loader(c"vkCreateDebugReportCallbackEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_report")]
         {
@@ -196,44 +188,35 @@ impl InstanceDispatchTable {
         }
         #[cfg(feature = "VK_EXT_debug_report")]
         {
-            table.vkDestroyDebugReportCallbackEXT = loader(
-                    c"vkDestroyDebugReportCallbackEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyDebugReportCallbackEXT =
+                loader(c"vkDestroyDebugReportCallbackEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkCreateDebugUtilsMessengerEXT = loader(
-                    c"vkCreateDebugUtilsMessengerEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateDebugUtilsMessengerEXT =
+                loader(c"vkCreateDebugUtilsMessengerEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkDestroyDebugUtilsMessengerEXT = loader(
-                    c"vkDestroyDebugUtilsMessengerEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyDebugUtilsMessengerEXT =
+                loader(c"vkDestroyDebugUtilsMessengerEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkSubmitDebugUtilsMessageEXT = loader(
-                    c"vkSubmitDebugUtilsMessageEXT".as_ptr(),
-                )
+            table.vkSubmitDebugUtilsMessageEXT = loader(c"vkSubmitDebugUtilsMessageEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_directfb_surface")]
         {
-            table.vkCreateDirectFBSurfaceEXT = loader(
-                    c"vkCreateDirectFBSurfaceEXT".as_ptr(),
-                )
+            table.vkCreateDirectFBSurfaceEXT = loader(c"vkCreateDirectFBSurfaceEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_headless_surface")]
         {
-            table.vkCreateHeadlessSurfaceEXT = loader(
-                    c"vkCreateHeadlessSurfaceEXT".as_ptr(),
-                )
+            table.vkCreateHeadlessSurfaceEXT = loader(c"vkCreateHeadlessSurfaceEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_metal_surface")]
@@ -243,49 +226,41 @@ impl InstanceDispatchTable {
         }
         #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
         {
-            table.vkCreateImagePipeSurfaceFUCHSIA = loader(
-                    c"vkCreateImagePipeSurfaceFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateImagePipeSurfaceFUCHSIA =
+                loader(c"vkCreateImagePipeSurfaceFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
         {
-            table.vkCreateStreamDescriptorSurfaceGGP = loader(
-                    c"vkCreateStreamDescriptorSurfaceGGP".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateStreamDescriptorSurfaceGGP =
+                loader(c"vkCreateStreamDescriptorSurfaceGGP".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_android_surface")]
         {
-            table.vkCreateAndroidSurfaceKHR = loader(
-                    c"vkCreateAndroidSurfaceKHR".as_ptr(),
-                )
+            table.vkCreateAndroidSurfaceKHR = loader(c"vkCreateAndroidSurfaceKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_group_creation")]
         {
-            table.vkEnumeratePhysicalDeviceGroupsKHR = loader(
-                    c"vkEnumeratePhysicalDeviceGroupsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEnumeratePhysicalDeviceGroupsKHR =
+                loader(c"vkEnumeratePhysicalDeviceGroupsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_display")]
         {
-            table.vkCreateDisplayPlaneSurfaceKHR = loader(
-                    c"vkCreateDisplayPlaneSurfaceKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateDisplayPlaneSurfaceKHR =
+                loader(c"vkCreateDisplayPlaneSurfaceKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_surface")]
         {
-            table.vkDestroySurfaceKHR = loader(c"vkDestroySurfaceKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroySurfaceKHR =
+                loader(c"vkDestroySurfaceKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_wayland_surface")]
         {
-            table.vkCreateWaylandSurfaceKHR = loader(
-                    c"vkCreateWaylandSurfaceKHR".as_ptr(),
-                )
+            table.vkCreateWaylandSurfaceKHR = loader(c"vkCreateWaylandSurfaceKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_win32_surface")]
@@ -315,13 +290,13 @@ impl InstanceDispatchTable {
         }
         #[cfg(feature = "VK_NN_vi_surface")]
         {
-            table.vkCreateViSurfaceNN = loader(c"vkCreateViSurfaceNN".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateViSurfaceNN =
+                loader(c"vkCreateViSurfaceNN".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_OHOS_surface")]
         {
-            table.vkCreateSurfaceOHOS = loader(c"vkCreateSurfaceOHOS".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateSurfaceOHOS =
+                loader(c"vkCreateSurfaceOHOS".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_QNX_screen_surface")]
         {
@@ -358,6 +333,14 @@ pub struct Instance<'lib> {
     pub(crate) raw: VkInstance,
     pub(crate) table: InstanceDispatchTable,
     pub(crate) physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable,
+    #[cfg(feature = "VK_EXT_debug_report")]
+    pub(crate) debug_report_callback_ext_table:
+        crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable,
+    #[cfg(feature = "VK_EXT_debug_utils")]
+    pub(crate) debug_utils_messenger_ext_table:
+        crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable,
+    #[cfg(feature = "VK_KHR_surface")]
+    pub(crate) surface_khr_table: crate::surface_khr::SurfaceKHRDispatchTable,
     _lib: core::marker::PhantomData<&'lib VulkanLib>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -371,11 +354,23 @@ impl<'lib> Instance<'lib> {
         raw: VkInstance,
         table: InstanceDispatchTable,
         physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable,
+        #[cfg(feature = "VK_EXT_debug_report")]
+        debug_report_callback_ext_table: crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable,
+        #[cfg(feature = "VK_EXT_debug_utils")]
+        debug_utils_messenger_ext_table: crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable,
+        #[cfg(feature = "VK_KHR_surface")]
+        surface_khr_table: crate::surface_khr::SurfaceKHRDispatchTable,
     ) -> Self {
         Self {
             raw,
             table,
             physical_device_table,
+            #[cfg(feature = "VK_EXT_debug_report")]
+            debug_report_callback_ext_table,
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            debug_utils_messenger_ext_table,
+            #[cfg(feature = "VK_KHR_surface")]
+            surface_khr_table,
             _lib: core::marker::PhantomData,
         }
     }
@@ -415,10 +410,7 @@ impl<'lib> Instance<'lib> {
     #[inline]
     pub fn vkEnumeratePhysicalDevices<'inst>(
         &'inst self,
-    ) -> Result<
-        alloc::vec::Vec<crate::physical_device::PhysicalDevice<'inst>>,
-        VkResult,
-    > {
+    ) -> Result<alloc::vec::Vec<crate::physical_device::PhysicalDevice<'inst>>, VkResult> {
         use crate::physical_device::PhysicalDevice;
         let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
         let mut count = 0;
@@ -448,7 +440,13 @@ impl<'lib> Instance<'lib> {
                 | VkResult::VK_ERROR_UNKNOWN => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_0")]
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -456,16 +454,14 @@ impl<'lib> Instance<'lib> {
         unsafe {
             raw_gpus.set_len(count as usize);
         }
-        Ok(
-            raw_gpus
-                .into_iter()
-                .map(|raw| PhysicalDevice {
-                    raw,
-                    instance: self,
-                    table: &self.physical_device_table,
-                })
-                .collect(),
-        )
+        Ok(raw_gpus
+            .into_iter()
+            .map(|raw| PhysicalDevice {
+                raw,
+                instance: self,
+                table: &self.physical_device_table,
+            })
+            .collect())
     }
     /// [`vkGetDeviceProcAddr`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceProcAddr.html)
     ///
@@ -501,10 +497,7 @@ impl<'lib> Instance<'lib> {
     /// - `pName`: len: null-terminated
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkGetInstanceProcAddr(
-        &self,
-        pName: *const core::ffi::c_char,
-    ) -> PFN_vkVoidFunction {
+    pub fn vkGetInstanceProcAddr(&self, pName: *const core::ffi::c_char) -> PFN_vkVoidFunction {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (&self.table).vkGetInstanceProcAddr.unwrap_unchecked()(self.raw, pName)
@@ -558,7 +551,13 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateDebugReportCallbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDebugReportCallbackEXT.html)
@@ -584,11 +583,11 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_EXT_debug_report")]
     #[inline]
-    pub fn vkCreateDebugReportCallbackEXT(
-        &self,
+    pub fn vkCreateDebugReportCallbackEXT<'ret>(
+        &'ret self,
         pCreateInfo: *const VkDebugReportCallbackCreateInfoEXT,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkDebugReportCallbackEXT, VkResult> {
+    ) -> Result<crate::debug_report_callback_ext::DebugReportCallbackEXT<'ret>, VkResult> {
         let mut handle = VkDebugReportCallbackEXT::NULL;
         let r = unsafe {
             (&self.table)
@@ -600,9 +599,21 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(
+            |_| crate::debug_report_callback_ext::DebugReportCallbackEXT {
+                raw: handle,
+                parent: self,
+                table: &self.debug_report_callback_ext_table,
+            },
+        )
     }
     /// [`vkDebugReportMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugReportMessageEXT.html)
     ///
@@ -633,9 +644,7 @@ impl<'lib> Instance<'lib> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkDebugReportMessageEXT
-                .unwrap_unchecked()(
+            (&self.table).vkDebugReportMessageEXT.unwrap_unchecked()(
                 self.raw,
                 flags,
                 objectType,
@@ -694,11 +703,11 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_EXT_debug_utils")]
     #[inline]
-    pub fn vkCreateDebugUtilsMessengerEXT(
-        &self,
+    pub fn vkCreateDebugUtilsMessengerEXT<'ret>(
+        &'ret self,
         pCreateInfo: *const VkDebugUtilsMessengerCreateInfoEXT,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkDebugUtilsMessengerEXT, VkResult> {
+    ) -> Result<crate::debug_utils_messenger_ext::DebugUtilsMessengerEXT<'ret>, VkResult> {
         let mut handle = VkDebugUtilsMessengerEXT::NULL;
         let r = unsafe {
             (&self.table)
@@ -710,9 +719,21 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(
+            |_| crate::debug_utils_messenger_ext::DebugUtilsMessengerEXT {
+                raw: handle,
+                parent: self,
+                table: &self.debug_utils_messenger_ext_table,
+            },
+        )
     }
     /// [`vkDestroyDebugUtilsMessengerEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugUtilsMessengerEXT.html)
     ///
@@ -762,10 +783,7 @@ impl<'lib> Instance<'lib> {
             (&self.table)
                 .vkSubmitDebugUtilsMessageEXT
                 .unwrap_unchecked()(
-                self.raw,
-                messageSeverity,
-                messageTypes,
-                pCallbackData,
+                self.raw, messageSeverity, messageTypes, pCallbackData
             )
         }
     }
@@ -793,16 +811,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_EXT_directfb_surface")]
     #[inline]
-    pub fn vkCreateDirectFBSurfaceEXT(
-        &self,
+    pub fn vkCreateDirectFBSurfaceEXT<'ret>(
+        &'ret self,
         pCreateInfo: *const VkDirectFBSurfaceCreateInfoEXT,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateDirectFBSurfaceEXT
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateDirectFBSurfaceEXT.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -811,9 +832,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateHeadlessSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateHeadlessSurfaceEXT.html)
     ///
@@ -839,16 +870,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_EXT_headless_surface")]
     #[inline]
-    pub fn vkCreateHeadlessSurfaceEXT(
-        &self,
+    pub fn vkCreateHeadlessSurfaceEXT<'ret>(
+        &'ret self,
         pCreateInfo: *const VkHeadlessSurfaceCreateInfoEXT,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateHeadlessSurfaceEXT
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateHeadlessSurfaceEXT.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -857,9 +891,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateMetalSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMetalSurfaceEXT.html)
     ///
@@ -886,16 +930,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_EXT_metal_surface")]
     #[inline]
-    pub fn vkCreateMetalSurfaceEXT(
-        &self,
+    pub fn vkCreateMetalSurfaceEXT<'ret>(
+        &'ret self,
         pCreateInfo: *const VkMetalSurfaceCreateInfoEXT,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateMetalSurfaceEXT
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateMetalSurfaceEXT.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -906,9 +953,19 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateImagePipeSurfaceFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImagePipeSurfaceFUCHSIA.html)
     ///
@@ -934,11 +991,11 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
     #[inline]
-    pub fn vkCreateImagePipeSurfaceFUCHSIA(
-        &self,
+    pub fn vkCreateImagePipeSurfaceFUCHSIA<'ret>(
+        &'ret self,
         pCreateInfo: *const VkImagePipeSurfaceCreateInfoFUCHSIA,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
             (&self.table)
@@ -952,9 +1009,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateStreamDescriptorSurfaceGGP`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateStreamDescriptorSurfaceGGP.html)
     ///
@@ -981,11 +1048,11 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
     #[inline]
-    pub fn vkCreateStreamDescriptorSurfaceGGP(
-        &self,
+    pub fn vkCreateStreamDescriptorSurfaceGGP<'ret>(
+        &'ret self,
         pCreateInfo: *const VkStreamDescriptorSurfaceCreateInfoGGP,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
             (&self.table)
@@ -1001,9 +1068,19 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateAndroidSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAndroidSurfaceKHR.html)
     ///
@@ -1030,16 +1107,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_KHR_android_surface")]
     #[inline]
-    pub fn vkCreateAndroidSurfaceKHR(
-        &self,
+    pub fn vkCreateAndroidSurfaceKHR<'ret>(
+        &'ret self,
         pCreateInfo: *const VkAndroidSurfaceCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateAndroidSurfaceKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateAndroidSurfaceKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1050,9 +1130,19 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkEnumeratePhysicalDeviceGroups`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceGroups.html)
     ///
@@ -1102,7 +1192,13 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateDisplayPlaneSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDisplayPlaneSurfaceKHR.html)
@@ -1129,11 +1225,11 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_KHR_display")]
     #[inline]
-    pub fn vkCreateDisplayPlaneSurfaceKHR(
-        &self,
+    pub fn vkCreateDisplayPlaneSurfaceKHR<'ret>(
+        &'ret self,
         pCreateInfo: *const VkDisplaySurfaceCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
             (&self.table)
@@ -1147,9 +1243,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkDestroySurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySurfaceKHR.html)
     ///
@@ -1170,9 +1276,7 @@ impl<'lib> Instance<'lib> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkDestroySurfaceKHR
-                .unwrap_unchecked()(self.raw, surface, pAllocator)
+            (&self.table).vkDestroySurfaceKHR.unwrap_unchecked()(self.raw, surface, pAllocator)
         }
     }
     /// [`vkCreateWaylandSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWaylandSurfaceKHR.html)
@@ -1199,16 +1303,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_KHR_wayland_surface")]
     #[inline]
-    pub fn vkCreateWaylandSurfaceKHR(
-        &self,
+    pub fn vkCreateWaylandSurfaceKHR<'ret>(
+        &'ret self,
         pCreateInfo: *const VkWaylandSurfaceCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateWaylandSurfaceKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateWaylandSurfaceKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1217,9 +1324,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateWin32SurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWin32SurfaceKHR.html)
     ///
@@ -1245,16 +1362,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_KHR_win32_surface")]
     #[inline]
-    pub fn vkCreateWin32SurfaceKHR(
-        &self,
+    pub fn vkCreateWin32SurfaceKHR<'ret>(
+        &'ret self,
         pCreateInfo: *const VkWin32SurfaceCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateWin32SurfaceKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateWin32SurfaceKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1263,9 +1383,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateXcbSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXcbSurfaceKHR.html)
     ///
@@ -1291,16 +1421,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_KHR_xcb_surface")]
     #[inline]
-    pub fn vkCreateXcbSurfaceKHR(
-        &self,
+    pub fn vkCreateXcbSurfaceKHR<'ret>(
+        &'ret self,
         pCreateInfo: *const VkXcbSurfaceCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateXcbSurfaceKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateXcbSurfaceKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1309,9 +1442,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateXlibSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXlibSurfaceKHR.html)
     ///
@@ -1337,16 +1480,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_KHR_xlib_surface")]
     #[inline]
-    pub fn vkCreateXlibSurfaceKHR(
-        &self,
+    pub fn vkCreateXlibSurfaceKHR<'ret>(
+        &'ret self,
         pCreateInfo: *const VkXlibSurfaceCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateXlibSurfaceKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateXlibSurfaceKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1355,9 +1501,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateIOSSurfaceMVK`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIOSSurfaceMVK.html)
     ///
@@ -1384,16 +1540,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_MVK_ios_surface")]
     #[inline]
-    pub fn vkCreateIOSSurfaceMVK(
-        &self,
+    pub fn vkCreateIOSSurfaceMVK<'ret>(
+        &'ret self,
         pCreateInfo: *const VkIOSSurfaceCreateInfoMVK,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateIOSSurfaceMVK
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateIOSSurfaceMVK.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1404,9 +1563,19 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateMacOSSurfaceMVK`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMacOSSurfaceMVK.html)
     ///
@@ -1433,16 +1602,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_MVK_macos_surface")]
     #[inline]
-    pub fn vkCreateMacOSSurfaceMVK(
-        &self,
+    pub fn vkCreateMacOSSurfaceMVK<'ret>(
+        &'ret self,
         pCreateInfo: *const VkMacOSSurfaceCreateInfoMVK,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateMacOSSurfaceMVK
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateMacOSSurfaceMVK.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1453,9 +1625,19 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateViSurfaceNN`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateViSurfaceNN.html)
     ///
@@ -1482,16 +1664,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_NN_vi_surface")]
     #[inline]
-    pub fn vkCreateViSurfaceNN(
-        &self,
+    pub fn vkCreateViSurfaceNN<'ret>(
+        &'ret self,
         pCreateInfo: *const VkViSurfaceCreateInfoNN,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateViSurfaceNN
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateViSurfaceNN.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1502,9 +1687,19 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateSurfaceOHOS`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSurfaceOHOS.html)
     ///
@@ -1530,16 +1725,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_OHOS_surface")]
     #[inline]
-    pub fn vkCreateSurfaceOHOS(
-        &self,
+    pub fn vkCreateSurfaceOHOS<'ret>(
+        &'ret self,
         pCreateInfo: *const VkSurfaceCreateInfoOHOS,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateSurfaceOHOS
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateSurfaceOHOS.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1548,9 +1746,19 @@ impl<'lib> Instance<'lib> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateScreenSurfaceQNX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateScreenSurfaceQNX.html)
     ///
@@ -1576,16 +1784,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_QNX_screen_surface")]
     #[inline]
-    pub fn vkCreateScreenSurfaceQNX(
-        &self,
+    pub fn vkCreateScreenSurfaceQNX<'ret>(
+        &'ret self,
         pCreateInfo: *const VkScreenSurfaceCreateInfoQNX,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateScreenSurfaceQNX
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateScreenSurfaceQNX.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1594,9 +1805,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
     /// [`vkCreateUbmSurfaceSEC`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateUbmSurfaceSEC.html)
     ///
@@ -1622,16 +1843,19 @@ impl<'lib> Instance<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_SEC_ubm_surface")]
     #[inline]
-    pub fn vkCreateUbmSurfaceSEC(
-        &self,
+    pub fn vkCreateUbmSurfaceSEC<'ret>(
+        &'ret self,
         pCreateInfo: *const VkUbmSurfaceCreateInfoSEC,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<VkSurfaceKHR, VkResult> {
+    ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
         let mut handle = VkSurfaceKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateUbmSurfaceSEC
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateUbmSurfaceSEC.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -1640,9 +1864,19 @@ impl<'lib> Instance<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| crate::surface_khr::SurfaceKHR {
+            raw: handle,
+            parent: self,
+            table: &self.surface_khr_table,
+        })
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

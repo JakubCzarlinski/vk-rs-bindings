@@ -4,19 +4,18 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct DescriptorSetLayoutDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub vkDestroyDescriptorSetLayout: Option<PFN_vkDestroyDescriptorSetLayout>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkGetDescriptorSetLayoutBindingOffsetEXT: Option<
-        PFN_vkGetDescriptorSetLayoutBindingOffsetEXT,
-    >,
+    pub vkGetDescriptorSetLayoutBindingOffsetEXT:
+        Option<PFN_vkGetDescriptorSetLayoutBindingOffsetEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     pub vkGetDescriptorSetLayoutSizeEXT: Option<PFN_vkGetDescriptorSetLayoutSizeEXT>,
 }
@@ -38,24 +37,20 @@ impl DescriptorSetLayoutDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkDestroyDescriptorSetLayout = loader(
-                    c"vkDestroyDescriptorSetLayout".as_ptr(),
-                )
+            table.vkDestroyDescriptorSetLayout = loader(c"vkDestroyDescriptorSetLayout".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetDescriptorSetLayoutBindingOffsetEXT = loader(
-                    c"vkGetDescriptorSetLayoutBindingOffsetEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDescriptorSetLayoutBindingOffsetEXT =
+                loader(c"vkGetDescriptorSetLayoutBindingOffsetEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetDescriptorSetLayoutSizeEXT = loader(
-                    c"vkGetDescriptorSetLayoutSizeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDescriptorSetLayoutSizeEXT =
+                loader(c"vkGetDescriptorSetLayoutSizeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -73,7 +68,7 @@ impl<'dev> Drop for DescriptorSetLayout<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyDescriptorSetLayout {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -92,6 +87,10 @@ impl<'dev> DescriptorSetLayout<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &DescriptorSetLayoutDispatchTable {
         self.table
     }
@@ -108,18 +107,17 @@ impl<'dev> DescriptorSetLayout<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkDestroyDescriptorSetLayout(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyDescriptorSetLayout(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyDescriptorSetLayout
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyDescriptorSetLayout.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkDescriptorSetLayout::NULL;
     }
@@ -160,10 +158,7 @@ impl<'dev> DescriptorSetLayout<'dev> {
     /// - `pLayoutSizeInBytes`
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     #[inline(always)]
-    pub fn vkGetDescriptorSetLayoutSizeEXT(
-        &self,
-        pLayoutSizeInBytes: *mut VkDeviceSize,
-    ) {
+    pub fn vkGetDescriptorSetLayoutSizeEXT(&self, pLayoutSizeInBytes: *mut VkDeviceSize) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)

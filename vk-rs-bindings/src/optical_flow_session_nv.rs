@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct OpticalFlowSessionNVDispatchTable {
@@ -32,16 +32,13 @@ impl OpticalFlowSessionNVDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_NV_optical_flow")]
         {
-            table.vkBindOpticalFlowSessionImageNV = loader(
-                    c"vkBindOpticalFlowSessionImageNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkBindOpticalFlowSessionImageNV =
+                loader(c"vkBindOpticalFlowSessionImageNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_optical_flow")]
         {
-            table.vkDestroyOpticalFlowSessionNV = loader(
-                    c"vkDestroyOpticalFlowSessionNV".as_ptr(),
-                )
+            table.vkDestroyOpticalFlowSessionNV = loader(c"vkDestroyOpticalFlowSessionNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -60,7 +57,7 @@ impl<'dev> Drop for OpticalFlowSessionNV<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyOpticalFlowSessionNV {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -77,6 +74,10 @@ impl<'dev> OpticalFlowSessionNV<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &OpticalFlowSessionNVDispatchTable {
@@ -117,11 +118,7 @@ impl<'dev> OpticalFlowSessionNV<'dev> {
             (self.table)
                 .vkBindOpticalFlowSessionImageNV
                 .unwrap_unchecked()(
-                self.device().raw(),
-                self.raw,
-                bindingPoint,
-                view,
-                layout,
+                self.device().raw(), self.raw, bindingPoint, view, layout
             )
         };
         match r {
@@ -131,7 +128,13 @@ impl<'dev> OpticalFlowSessionNV<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroyOpticalFlowSessionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyOpticalFlowSessionNV.html)
@@ -146,10 +149,7 @@ impl<'dev> OpticalFlowSessionNV<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_NV_optical_flow")]
     #[inline(always)]
-    pub fn vkDestroyOpticalFlowSessionNV(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyOpticalFlowSessionNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }

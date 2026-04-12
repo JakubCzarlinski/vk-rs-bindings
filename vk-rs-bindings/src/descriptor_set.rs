@@ -4,23 +4,19 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct DescriptorSetDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
     pub vkUpdateDescriptorSetWithTemplate: Option<PFN_vkUpdateDescriptorSetWithTemplate>,
     #[cfg(feature = "VK_KHR_descriptor_update_template")]
-    pub vkUpdateDescriptorSetWithTemplateKHR: Option<
-        PFN_vkUpdateDescriptorSetWithTemplateKHR,
-    >,
+    pub vkUpdateDescriptorSetWithTemplateKHR: Option<PFN_vkUpdateDescriptorSetWithTemplateKHR>,
     #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
-    pub vkGetDescriptorSetHostMappingVALVE: Option<
-        PFN_vkGetDescriptorSetHostMappingVALVE,
-    >,
+    pub vkGetDescriptorSetHostMappingVALVE: Option<PFN_vkGetDescriptorSetHostMappingVALVE>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl DescriptorSetDispatchTable {
@@ -40,24 +36,21 @@ impl DescriptorSetDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         {
-            table.vkUpdateDescriptorSetWithTemplate = loader(
-                    c"vkUpdateDescriptorSetWithTemplate".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUpdateDescriptorSetWithTemplate =
+                loader(c"vkUpdateDescriptorSetWithTemplate".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_descriptor_update_template")]
         {
-            table.vkUpdateDescriptorSetWithTemplateKHR = loader(
-                    c"vkUpdateDescriptorSetWithTemplateKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUpdateDescriptorSetWithTemplateKHR =
+                loader(c"vkUpdateDescriptorSetWithTemplateKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
         {
-            table.vkGetDescriptorSetHostMappingVALVE = loader(
-                    c"vkGetDescriptorSetHostMappingVALVE".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDescriptorSetHostMappingVALVE =
+                loader(c"vkGetDescriptorSetHostMappingVALVE".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -92,6 +85,10 @@ impl<'dev> DescriptorSet<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent.device()
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &DescriptorSetDispatchTable {
@@ -171,10 +168,7 @@ impl<'dev> DescriptorSet<'dev> {
     /// - `ppData`
     #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
     #[inline(always)]
-    pub fn vkGetDescriptorSetHostMappingVALVE(
-        &self,
-        ppData: *mut *mut core::ffi::c_void,
-    ) {
+    pub fn vkGetDescriptorSetHostMappingVALVE(&self, ppData: *mut *mut core::ffi::c_void) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)

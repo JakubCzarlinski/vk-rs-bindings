@@ -25,12 +25,13 @@ pub fn gen_entry_rs(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_vulkan_lib());
     ts.extend(gen_entry_dispatch_table(reg));
-    ts.extend(gen_entry(reg, result_cfgs, handle_types));
+    ts.extend(gen_entry(reg, result_cfgs, handle_types, handle_meta));
     pretty(&ts)
 }
 
@@ -224,6 +225,7 @@ fn gen_entry(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let mut methods_ts = TokenStream::new();
 
@@ -241,7 +243,12 @@ fn gen_entry(
         providers.dedup();
 
         if name == "vkCreateInstance" {
-            methods_ts.extend(gen_create_instance(cmd, &providers, result_cfgs));
+            methods_ts.extend(gen_create_instance(
+                cmd,
+                &providers,
+                result_cfgs,
+                handle_meta,
+            ));
         } else {
             // No param[0] stripping for entry commands (handle_base = "").
             methods_ts.extend(safe_method(
@@ -254,6 +261,7 @@ fn gen_entry(
                 result_cfgs,
                 handle_types,
                 None,
+                quote! {},
                 quote! {},
             ));
         }
@@ -296,6 +304,7 @@ fn gen_create_instance(
     cmd: &crate::ir::Command,
     providers: &[String],
     result_cfgs: &HashMap<String, TokenStream>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
     let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
@@ -314,6 +323,28 @@ fn gen_create_instance(
             (quote! { #n: #t }, quote! { #n })
         })
         .unzip();
+
+    let mut handle_load = TokenStream::new();
+    let mut handle_args = TokenStream::new();
+    for m in handle_meta
+        .values()
+        .filter(|m| m.root_vk_name == "VkInstance")
+    {
+        let name = format_ident!("{}_table", m.mod_name);
+        let tb = format_ident!("{}", m.table_name);
+        let md = format_ident!("{}", m.mod_name);
+        let cfg = cfg_any(&m.providers);
+        handle_load.extend(quote! {
+            #cfg
+            let #name = crate::#md::#tb::load(|name| unsafe {
+                (self.lib.get_instance_proc_addr)(raw, name)
+            });
+        });
+        handle_args.extend(quote! {
+            #cfg
+            #name,
+        });
+    }
 
     quote! {
         #cfg
@@ -341,7 +372,8 @@ fn gen_create_instance(
             let pd_table = crate::physical_device::PhysicalDeviceDispatchTable::load(|name| unsafe {
                 (self.lib.get_instance_proc_addr)(raw, name)
             });
-            Ok(unsafe { Instance::from_raw(raw, table, pd_table) })
+            #handle_load
+            Ok(unsafe { Instance::from_raw(raw, table, pd_table, #handle_args) })
         }
     }
 }

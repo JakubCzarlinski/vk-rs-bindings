@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct ValidationCacheEXTDispatchTable {
@@ -36,23 +36,17 @@ impl ValidationCacheEXTDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_EXT_validation_cache")]
         {
-            table.vkDestroyValidationCacheEXT = loader(
-                    c"vkDestroyValidationCacheEXT".as_ptr(),
-                )
+            table.vkDestroyValidationCacheEXT = loader(c"vkDestroyValidationCacheEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_validation_cache")]
         {
-            table.vkGetValidationCacheDataEXT = loader(
-                    c"vkGetValidationCacheDataEXT".as_ptr(),
-                )
+            table.vkGetValidationCacheDataEXT = loader(c"vkGetValidationCacheDataEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_validation_cache")]
         {
-            table.vkMergeValidationCachesEXT = loader(
-                    c"vkMergeValidationCachesEXT".as_ptr(),
-                )
+            table.vkMergeValidationCachesEXT = loader(c"vkMergeValidationCachesEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -71,7 +65,7 @@ impl<'dev> Drop for ValidationCacheEXT<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyValidationCacheEXT {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -90,6 +84,10 @@ impl<'dev> ValidationCacheEXT<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &ValidationCacheEXTDispatchTable {
         self.table
     }
@@ -105,18 +103,17 @@ impl<'dev> ValidationCacheEXT<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_EXT_validation_cache")]
     #[inline(always)]
-    pub fn vkDestroyValidationCacheEXT(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyValidationCacheEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyValidationCacheEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyValidationCacheEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkValidationCacheEXT::NULL;
     }
@@ -151,9 +148,12 @@ impl<'dev> ValidationCacheEXT<'dev> {
         pData: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetValidationCacheDataEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, pDataSize, pData)
+            (self.table).vkGetValidationCacheDataEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pDataSize,
+                pData,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
@@ -162,7 +162,13 @@ impl<'dev> ValidationCacheEXT<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkMergeValidationCachesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkMergeValidationCachesEXT.html)
@@ -195,9 +201,7 @@ impl<'dev> ValidationCacheEXT<'dev> {
         pSrcCaches: *const VkValidationCacheEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkMergeValidationCachesEXT
-                .unwrap_unchecked()(
+            (self.table).vkMergeValidationCachesEXT.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 srcCacheCount,
@@ -211,7 +215,13 @@ impl<'dev> ValidationCacheEXT<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

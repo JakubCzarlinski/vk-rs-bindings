@@ -542,6 +542,7 @@ pub fn safe_method(
     handle_types: &HashSet<String>,
     handle_meta: Option<&BTreeMap<String, crate::codegen::handles_rs::HandleMeta>>,
     device_accessor: TokenStream,
+    instance_accessor: TokenStream,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
     let fname = format_ident!("{}", name);
@@ -658,8 +659,15 @@ pub fn safe_method(
                     quote! { self }
                 } else if meta.parent_vk_name == "VkDevice" && handle_base != "VkDevice" {
                     quote! { #device_accessor }
+                } else if meta.parent_vk_name == "VkInstance" && handle_base != "VkInstance" {
+                    quote! { #instance_accessor }
                 } else {
                     quote! { self }
+                };
+                let table_owner = if meta.root_vk_name == "VkDevice" {
+                    quote! { #device_accessor }
+                } else {
+                    quote! { #instance_accessor }
                 };
 
                 quote! {
@@ -671,7 +679,7 @@ pub fn safe_method(
                         #check .map(|_| crate::#md::#st {
                             raw: handle,
                             parent: #parent_expr,
-                            table: &#device_accessor.#tf
+                            table: &#table_owner.#tf
                         })
                     }
                 }
@@ -772,6 +780,7 @@ pub fn safe_method_unit_with_overrides(
     handle_types: &HashSet<String>,
     handle_meta: Option<&BTreeMap<String, crate::codegen::handles_rs::HandleMeta>>,
     device_accessor: TokenStream,
+    instance_accessor: TokenStream,
     receiver: TokenStream,
     pre_call: TokenStream,
     post_call: TokenStream,
@@ -788,6 +797,7 @@ pub fn safe_method_unit_with_overrides(
             handle_types,
             handle_meta,
             device_accessor,
+            instance_accessor,
         );
     }
 

@@ -14,11 +14,12 @@ pub fn gen_instance_rs(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_instance_dispatch_table(reg));
-    ts.extend(gen_instance(reg, result_cfgs, handle_types));
+    ts.extend(gen_instance(reg, result_cfgs, handle_types, handle_meta));
     pretty(&ts)
 }
 
@@ -111,6 +112,7 @@ fn gen_instance(
     reg: &Registry,
     result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
+    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
@@ -131,8 +133,9 @@ fn gen_instance(
                     quote! { &self.table },
                     result_cfgs,
                     handle_types,
-                    None,
+                    Some(handle_meta),
                     quote! {},
+                    quote! { self },
                     quote! { &mut self },
                     quote! {
                         if self.raw.0.is_null() {
@@ -153,11 +156,37 @@ fn gen_instance(
                     quote! { &self.table },
                     result_cfgs,
                     handle_types,
-                    None,
+                    Some(handle_meta),
                     quote! {},
+                    quote! { self },
                 ));
             }
         }
+    }
+
+    let mut handle_fields = TokenStream::new();
+    let mut handle_args = TokenStream::new();
+    let mut handle_init = TokenStream::new();
+    for m in handle_meta
+        .values()
+        .filter(|m| m.root_vk_name == "VkInstance")
+    {
+        let field_name = format_ident!("{}", m.table_field);
+        let md = format_ident!("{}", m.mod_name);
+        let tb = format_ident!("{}", m.table_name);
+        let cfg = cfg_any(&m.providers);
+        handle_fields.extend(quote! {
+            #cfg
+            pub(crate) #field_name: crate::#md::#tb,
+        });
+        handle_args.extend(quote! {
+            #cfg
+            #field_name: crate::#md::#tb,
+        });
+        handle_init.extend(quote! {
+            #cfg
+            #field_name,
+        });
     }
 
     quote! {
@@ -176,6 +205,7 @@ fn gen_instance(
             pub(crate) raw:   VkInstance,
             pub(crate) table: InstanceDispatchTable,
             pub(crate) physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable,
+            #handle_fields
             _lib: core::marker::PhantomData<&'lib VulkanLib>,
         }
 
@@ -190,8 +220,9 @@ fn gen_instance(
                 raw: VkInstance,
                 table: InstanceDispatchTable,
                 physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable,
+                #handle_args
             ) -> Self {
-                Self { raw, table, physical_device_table, _lib: core::marker::PhantomData }
+                Self { raw, table, physical_device_table, #handle_init _lib: core::marker::PhantomData }
             }
 
             /// The raw `VkInstance` handle.

@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct IndirectCommandsLayoutNVDispatchTable {
@@ -28,10 +28,9 @@ impl IndirectCommandsLayoutNVDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_NV_device_generated_commands")]
         {
-            table.vkDestroyIndirectCommandsLayoutNV = loader(
-                    c"vkDestroyIndirectCommandsLayoutNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyIndirectCommandsLayoutNV =
+                loader(c"vkDestroyIndirectCommandsLayoutNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -49,7 +48,7 @@ impl<'dev> Drop for IndirectCommandsLayoutNV<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyIndirectCommandsLayoutNV {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -68,6 +67,10 @@ impl<'dev> IndirectCommandsLayoutNV<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &IndirectCommandsLayoutNVDispatchTable {
         self.table
     }
@@ -83,10 +86,7 @@ impl<'dev> IndirectCommandsLayoutNV<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_NV_device_generated_commands")]
     #[inline(always)]
-    pub fn vkDestroyIndirectCommandsLayoutNV(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyIndirectCommandsLayoutNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }

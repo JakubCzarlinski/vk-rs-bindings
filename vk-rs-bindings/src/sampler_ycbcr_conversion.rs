@@ -4,19 +4,17 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct SamplerYcbcrConversionDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
     pub vkDestroySamplerYcbcrConversion: Option<PFN_vkDestroySamplerYcbcrConversion>,
     #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-    pub vkDestroySamplerYcbcrConversionKHR: Option<
-        PFN_vkDestroySamplerYcbcrConversionKHR,
-    >,
+    pub vkDestroySamplerYcbcrConversionKHR: Option<PFN_vkDestroySamplerYcbcrConversionKHR>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl SamplerYcbcrConversionDispatchTable {
@@ -34,17 +32,15 @@ impl SamplerYcbcrConversionDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         {
-            table.vkDestroySamplerYcbcrConversion = loader(
-                    c"vkDestroySamplerYcbcrConversion".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroySamplerYcbcrConversion =
+                loader(c"vkDestroySamplerYcbcrConversion".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
         {
-            table.vkDestroySamplerYcbcrConversionKHR = loader(
-                    c"vkDestroySamplerYcbcrConversionKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroySamplerYcbcrConversionKHR =
+                loader(c"vkDestroySamplerYcbcrConversionKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -62,7 +58,7 @@ impl<'dev> Drop for SamplerYcbcrConversion<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroySamplerYcbcrConversion {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -81,6 +77,10 @@ impl<'dev> SamplerYcbcrConversion<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &SamplerYcbcrConversionDispatchTable {
         self.table
     }
@@ -97,10 +97,7 @@ impl<'dev> SamplerYcbcrConversion<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
     #[inline(always)]
-    pub fn vkDestroySamplerYcbcrConversion(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroySamplerYcbcrConversion(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
@@ -125,10 +122,7 @@ impl<'dev> SamplerYcbcrConversion<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
     #[inline(always)]
-    pub fn vkDestroySamplerYcbcrConversionKHR(
-        &self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroySamplerYcbcrConversionKHR(&self, pAllocator: *const VkAllocationCallbacks) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)

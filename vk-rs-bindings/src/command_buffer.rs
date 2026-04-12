@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct CommandBufferDispatchTable {
@@ -16,13 +16,9 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
     pub vkCmdDispatchGraphIndirectAMDX: Option<PFN_vkCmdDispatchGraphIndirectAMDX>,
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
-    pub vkCmdDispatchGraphIndirectCountAMDX: Option<
-        PFN_vkCmdDispatchGraphIndirectCountAMDX,
-    >,
+    pub vkCmdDispatchGraphIndirectCountAMDX: Option<PFN_vkCmdDispatchGraphIndirectCountAMDX>,
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
-    pub vkCmdInitializeGraphScratchMemoryAMDX: Option<
-        PFN_vkCmdInitializeGraphScratchMemoryAMDX,
-    >,
+    pub vkCmdInitializeGraphScratchMemoryAMDX: Option<PFN_vkCmdInitializeGraphScratchMemoryAMDX>,
     #[cfg(feature = "VK_AMD_buffer_marker")]
     pub vkCmdWriteBufferMarker2AMD: Option<PFN_vkCmdWriteBufferMarker2AMD>,
     #[cfg(feature = "VK_AMD_buffer_marker")]
@@ -34,9 +30,7 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_ARM_data_graph")]
     pub vkCmdDispatchDataGraphARM: Option<PFN_vkCmdDispatchDataGraphARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
-    pub vkCmdBeginShaderInstrumentationARM: Option<
-        PFN_vkCmdBeginShaderInstrumentationARM,
-    >,
+    pub vkCmdBeginShaderInstrumentationARM: Option<PFN_vkCmdBeginShaderInstrumentationARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     pub vkCmdEndShaderInstrumentationARM: Option<PFN_vkCmdEndShaderInstrumentationARM>,
     #[cfg(feature = "VK_ARM_tensors")]
@@ -122,17 +116,12 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
     pub vkCmdPushDescriptorSet2: Option<PFN_vkCmdPushDescriptorSet2>,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-    pub vkCmdPushDescriptorSetWithTemplate: Option<
-        PFN_vkCmdPushDescriptorSetWithTemplate,
-    >,
+    pub vkCmdPushDescriptorSetWithTemplate: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-    pub vkCmdPushDescriptorSetWithTemplate2: Option<
-        PFN_vkCmdPushDescriptorSetWithTemplate2,
-    >,
+    pub vkCmdPushDescriptorSetWithTemplate2: Option<PFN_vkCmdPushDescriptorSetWithTemplate2>,
     #[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
-    pub vkCmdSetAttachmentFeedbackLoopEnableEXT: Option<
-        PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT,
-    >,
+    pub vkCmdSetAttachmentFeedbackLoopEnableEXT:
+        Option<PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT>,
     #[cfg(feature = "VK_EXT_color_write_enable")]
     pub vkCmdSetColorWriteEnableEXT: Option<PFN_vkCmdSetColorWriteEnableEXT>,
     #[cfg(feature = "VK_EXT_conditional_rendering")]
@@ -155,18 +144,18 @@ pub struct CommandBufferDispatchTable {
     pub vkCmdInsertDebugUtilsLabelEXT: Option<PFN_vkCmdInsertDebugUtilsLabelEXT>,
     #[cfg(feature = "VK_EXT_depth_bias_control")]
     pub vkCmdSetDepthBias2EXT: Option<PFN_vkCmdSetDepthBias2EXT>,
-    #[cfg(any(feature = "VK_EXT_depth_clamp_control", feature = "VK_EXT_shader_object"))]
+    #[cfg(any(
+        feature = "VK_EXT_depth_clamp_control",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthClampRangeEXT: Option<PFN_vkCmdSetDepthClampRangeEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkCmdBindDescriptorBufferEmbeddedSamplersEXT: Option<
-        PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT,
-    >,
+    pub vkCmdBindDescriptorBufferEmbeddedSamplersEXT:
+        Option<PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     pub vkCmdBindDescriptorBuffersEXT: Option<PFN_vkCmdBindDescriptorBuffersEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkCmdSetDescriptorBufferOffsetsEXT: Option<
-        PFN_vkCmdSetDescriptorBufferOffsetsEXT,
-    >,
+    pub vkCmdSetDescriptorBufferOffsetsEXT: Option<PFN_vkCmdSetDescriptorBufferOffsetsEXT>,
     #[cfg(feature = "VK_EXT_descriptor_heap")]
     pub vkCmdBindResourceHeapEXT: Option<PFN_vkCmdBindResourceHeapEXT>,
     #[cfg(feature = "VK_EXT_descriptor_heap")]
@@ -176,220 +165,256 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     pub vkCmdExecuteGeneratedCommandsEXT: Option<PFN_vkCmdExecuteGeneratedCommandsEXT>,
     #[cfg(feature = "VK_EXT_device_generated_commands")]
-    pub vkCmdPreprocessGeneratedCommandsEXT: Option<
-        PFN_vkCmdPreprocessGeneratedCommandsEXT,
-    >,
+    pub vkCmdPreprocessGeneratedCommandsEXT: Option<PFN_vkCmdPreprocessGeneratedCommandsEXT>,
     #[cfg(feature = "VK_EXT_discard_rectangles")]
     pub vkCmdSetDiscardRectangleEXT: Option<PFN_vkCmdSetDiscardRectangleEXT>,
     #[cfg(feature = "VK_EXT_discard_rectangles")]
     pub vkCmdSetDiscardRectangleEnableEXT: Option<PFN_vkCmdSetDiscardRectangleEnableEXT>,
     #[cfg(feature = "VK_EXT_discard_rectangles")]
     pub vkCmdSetDiscardRectangleModeEXT: Option<PFN_vkCmdSetDiscardRectangleModeEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdBindVertexBuffers2EXT: Option<PFN_vkCmdBindVertexBuffers2EXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetCullModeEXT: Option<PFN_vkCmdSetCullModeEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthBoundsTestEnableEXT: Option<PFN_vkCmdSetDepthBoundsTestEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthCompareOpEXT: Option<PFN_vkCmdSetDepthCompareOpEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthTestEnableEXT: Option<PFN_vkCmdSetDepthTestEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthWriteEnableEXT: Option<PFN_vkCmdSetDepthWriteEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetFrontFaceEXT: Option<PFN_vkCmdSetFrontFaceEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetPrimitiveTopologyEXT: Option<PFN_vkCmdSetPrimitiveTopologyEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetScissorWithCountEXT: Option<PFN_vkCmdSetScissorWithCountEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetStencilOpEXT: Option<PFN_vkCmdSetStencilOpEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetStencilTestEnableEXT: Option<PFN_vkCmdSetStencilTestEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetViewportWithCountEXT: Option<PFN_vkCmdSetViewportWithCountEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthBiasEnableEXT: Option<PFN_vkCmdSetDepthBiasEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetLogicOpEXT: Option<PFN_vkCmdSetLogicOpEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetPatchControlPointsEXT: Option<PFN_vkCmdSetPatchControlPointsEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetPrimitiveRestartEnableEXT: Option<PFN_vkCmdSetPrimitiveRestartEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
-    pub vkCmdSetRasterizerDiscardEnableEXT: Option<
-        PFN_vkCmdSetRasterizerDiscardEnableEXT,
-    >,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
+    pub vkCmdSetRasterizerDiscardEnableEXT: Option<PFN_vkCmdSetRasterizerDiscardEnableEXT>,
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetAlphaToCoverageEnableEXT: Option<PFN_vkCmdSetAlphaToCoverageEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetAlphaToOneEnableEXT: Option<PFN_vkCmdSetAlphaToOneEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetColorBlendAdvancedEXT: Option<PFN_vkCmdSetColorBlendAdvancedEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetColorBlendEnableEXT: Option<PFN_vkCmdSetColorBlendEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetColorBlendEquationEXT: Option<PFN_vkCmdSetColorBlendEquationEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetColorWriteMaskEXT: Option<PFN_vkCmdSetColorWriteMaskEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
-    pub vkCmdSetConservativeRasterizationModeEXT: Option<
-        PFN_vkCmdSetConservativeRasterizationModeEXT,
-    >,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
+    pub vkCmdSetConservativeRasterizationModeEXT:
+        Option<PFN_vkCmdSetConservativeRasterizationModeEXT>,
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetCoverageModulationModeNV: Option<PFN_vkCmdSetCoverageModulationModeNV>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
-    pub vkCmdSetCoverageModulationTableEnableNV: Option<
-        PFN_vkCmdSetCoverageModulationTableEnableNV,
-    >,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
+    pub vkCmdSetCoverageModulationTableEnableNV:
+        Option<PFN_vkCmdSetCoverageModulationTableEnableNV>,
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetCoverageModulationTableNV: Option<PFN_vkCmdSetCoverageModulationTableNV>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetCoverageReductionModeNV: Option<PFN_vkCmdSetCoverageReductionModeNV>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetCoverageToColorEnableNV: Option<PFN_vkCmdSetCoverageToColorEnableNV>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetCoverageToColorLocationNV: Option<PFN_vkCmdSetCoverageToColorLocationNV>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthClampEnableEXT: Option<PFN_vkCmdSetDepthClampEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetDepthClipEnableEXT: Option<PFN_vkCmdSetDepthClipEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
-    pub vkCmdSetDepthClipNegativeOneToOneEXT: Option<
-        PFN_vkCmdSetDepthClipNegativeOneToOneEXT,
-    >,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
-    pub vkCmdSetExtraPrimitiveOverestimationSizeEXT: Option<
-        PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT,
-    >,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
+    pub vkCmdSetDepthClipNegativeOneToOneEXT: Option<PFN_vkCmdSetDepthClipNegativeOneToOneEXT>,
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
+    pub vkCmdSetExtraPrimitiveOverestimationSizeEXT:
+        Option<PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT>,
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetLineRasterizationModeEXT: Option<PFN_vkCmdSetLineRasterizationModeEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetLineStippleEnableEXT: Option<PFN_vkCmdSetLineStippleEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetLogicOpEnableEXT: Option<PFN_vkCmdSetLogicOpEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetPolygonModeEXT: Option<PFN_vkCmdSetPolygonModeEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetProvokingVertexModeEXT: Option<PFN_vkCmdSetProvokingVertexModeEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetRasterizationSamplesEXT: Option<PFN_vkCmdSetRasterizationSamplesEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetRasterizationStreamEXT: Option<PFN_vkCmdSetRasterizationStreamEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
-    pub vkCmdSetRepresentativeFragmentTestEnableNV: Option<
-        PFN_vkCmdSetRepresentativeFragmentTestEnableNV,
-    >,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
+    pub vkCmdSetRepresentativeFragmentTestEnableNV:
+        Option<PFN_vkCmdSetRepresentativeFragmentTestEnableNV>,
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetSampleLocationsEnableEXT: Option<PFN_vkCmdSetSampleLocationsEnableEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetSampleMaskEXT: Option<PFN_vkCmdSetSampleMaskEXT>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetShadingRateImageEnableNV: Option<PFN_vkCmdSetShadingRateImageEnableNV>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
-    pub vkCmdSetTessellationDomainOriginEXT: Option<
-        PFN_vkCmdSetTessellationDomainOriginEXT,
-    >,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
+    pub vkCmdSetTessellationDomainOriginEXT: Option<PFN_vkCmdSetTessellationDomainOriginEXT>,
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetViewportSwizzleNV: Option<PFN_vkCmdSetViewportSwizzleNV>,
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     pub vkCmdSetViewportWScalingEnableNV: Option<PFN_vkCmdSetViewportWScalingEnableNV>,
     #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
     pub vkCmdEndRendering2EXT: Option<PFN_vkCmdEndRendering2EXT>,
@@ -398,15 +423,11 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_EXT_memory_decompression")]
     pub vkCmdDecompressMemoryEXT: Option<PFN_vkCmdDecompressMemoryEXT>,
     #[cfg(feature = "VK_EXT_memory_decompression")]
-    pub vkCmdDecompressMemoryIndirectCountEXT: Option<
-        PFN_vkCmdDecompressMemoryIndirectCountEXT,
-    >,
+    pub vkCmdDecompressMemoryIndirectCountEXT: Option<PFN_vkCmdDecompressMemoryIndirectCountEXT>,
     #[cfg(feature = "VK_EXT_mesh_shader")]
     pub vkCmdDrawMeshTasksEXT: Option<PFN_vkCmdDrawMeshTasksEXT>,
     #[cfg(feature = "VK_EXT_mesh_shader")]
-    pub vkCmdDrawMeshTasksIndirectCountEXT: Option<
-        PFN_vkCmdDrawMeshTasksIndirectCountEXT,
-    >,
+    pub vkCmdDrawMeshTasksIndirectCountEXT: Option<PFN_vkCmdDrawMeshTasksIndirectCountEXT>,
     #[cfg(feature = "VK_EXT_mesh_shader")]
     pub vkCmdDrawMeshTasksIndirectEXT: Option<PFN_vkCmdDrawMeshTasksIndirectEXT>,
     #[cfg(feature = "VK_EXT_multi_draw")]
@@ -427,21 +448,17 @@ pub struct CommandBufferDispatchTable {
     pub vkCmdSetSampleLocationsEXT: Option<PFN_vkCmdSetSampleLocationsEXT>,
     #[cfg(feature = "VK_EXT_shader_object")]
     pub vkCmdBindShadersEXT: Option<PFN_vkCmdBindShadersEXT>,
-    #[cfg(
-        any(
-            feature = "VK_EXT_shader_object",
-            feature = "VK_EXT_vertex_input_dynamic_state"
-        )
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_EXT_vertex_input_dynamic_state"
+    ))]
     pub vkCmdSetVertexInputEXT: Option<PFN_vkCmdSetVertexInputEXT>,
     #[cfg(feature = "VK_EXT_transform_feedback")]
     pub vkCmdBeginQueryIndexedEXT: Option<PFN_vkCmdBeginQueryIndexedEXT>,
     #[cfg(feature = "VK_EXT_transform_feedback")]
     pub vkCmdBeginTransformFeedbackEXT: Option<PFN_vkCmdBeginTransformFeedbackEXT>,
     #[cfg(feature = "VK_EXT_transform_feedback")]
-    pub vkCmdBindTransformFeedbackBuffersEXT: Option<
-        PFN_vkCmdBindTransformFeedbackBuffersEXT,
-    >,
+    pub vkCmdBindTransformFeedbackBuffersEXT: Option<PFN_vkCmdBindTransformFeedbackBuffersEXT>,
     #[cfg(feature = "VK_EXT_transform_feedback")]
     pub vkCmdDrawIndirectByteCountEXT: Option<PFN_vkCmdDrawIndirectByteCountEXT>,
     #[cfg(feature = "VK_EXT_transform_feedback")]
@@ -545,13 +562,10 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
     pub vkCmdSetLineStipple: Option<PFN_vkCmdSetLineStipple>,
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
-    pub vkCmdSetRenderingAttachmentLocations: Option<
-        PFN_vkCmdSetRenderingAttachmentLocations,
-    >,
+    pub vkCmdSetRenderingAttachmentLocations: Option<PFN_vkCmdSetRenderingAttachmentLocations>,
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
-    pub vkCmdSetRenderingInputAttachmentIndices: Option<
-        PFN_vkCmdSetRenderingInputAttachmentIndices,
-    >,
+    pub vkCmdSetRenderingInputAttachmentIndices:
+        Option<PFN_vkCmdSetRenderingInputAttachmentIndices>,
     #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
     pub vkCmdDrawClusterHUAWEI: Option<PFN_vkCmdDrawClusterHUAWEI>,
     #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
@@ -565,31 +579,23 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_INTEL_performance_query")]
     pub vkCmdSetPerformanceOverrideINTEL: Option<PFN_vkCmdSetPerformanceOverrideINTEL>,
     #[cfg(feature = "VK_INTEL_performance_query")]
-    pub vkCmdSetPerformanceStreamMarkerINTEL: Option<
-        PFN_vkCmdSetPerformanceStreamMarkerINTEL,
-    >,
+    pub vkCmdSetPerformanceStreamMarkerINTEL: Option<PFN_vkCmdSetPerformanceStreamMarkerINTEL>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkCmdBuildAccelerationStructuresIndirectKHR: Option<
-        PFN_vkCmdBuildAccelerationStructuresIndirectKHR,
-    >,
+    pub vkCmdBuildAccelerationStructuresIndirectKHR:
+        Option<PFN_vkCmdBuildAccelerationStructuresIndirectKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkCmdBuildAccelerationStructuresKHR: Option<
-        PFN_vkCmdBuildAccelerationStructuresKHR,
-    >,
+    pub vkCmdBuildAccelerationStructuresKHR: Option<PFN_vkCmdBuildAccelerationStructuresKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
     pub vkCmdCopyAccelerationStructureKHR: Option<PFN_vkCmdCopyAccelerationStructureKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkCmdCopyAccelerationStructureToMemoryKHR: Option<
-        PFN_vkCmdCopyAccelerationStructureToMemoryKHR,
-    >,
+    pub vkCmdCopyAccelerationStructureToMemoryKHR:
+        Option<PFN_vkCmdCopyAccelerationStructureToMemoryKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkCmdCopyMemoryToAccelerationStructureKHR: Option<
-        PFN_vkCmdCopyMemoryToAccelerationStructureKHR,
-    >,
+    pub vkCmdCopyMemoryToAccelerationStructureKHR:
+        Option<PFN_vkCmdCopyMemoryToAccelerationStructureKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkCmdWriteAccelerationStructuresPropertiesKHR: Option<
-        PFN_vkCmdWriteAccelerationStructuresPropertiesKHR,
-    >,
+    pub vkCmdWriteAccelerationStructuresPropertiesKHR:
+        Option<PFN_vkCmdWriteAccelerationStructuresPropertiesKHR>,
     #[cfg(feature = "VK_KHR_copy_commands2")]
     pub vkCmdBlitImage2KHR: Option<PFN_vkCmdBlitImage2KHR>,
     #[cfg(feature = "VK_KHR_copy_commands2")]
@@ -612,27 +618,19 @@ pub struct CommandBufferDispatchTable {
     pub vkCmdEndRenderPass2KHR: Option<PFN_vkCmdEndRenderPass2KHR>,
     #[cfg(feature = "VK_KHR_create_renderpass2")]
     pub vkCmdNextSubpass2KHR: Option<PFN_vkCmdNextSubpass2KHR>,
-    #[cfg(
-        any(
-            feature = "VK_KHR_descriptor_update_template",
-            feature = "VK_KHR_push_descriptor"
-        )
-    )]
-    pub vkCmdPushDescriptorSetWithTemplateKHR: Option<
-        PFN_vkCmdPushDescriptorSetWithTemplateKHR,
-    >,
+    #[cfg(any(
+        feature = "VK_KHR_descriptor_update_template",
+        feature = "VK_KHR_push_descriptor"
+    ))]
+    pub vkCmdPushDescriptorSetWithTemplateKHR: Option<PFN_vkCmdPushDescriptorSetWithTemplateKHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
-    pub vkCmdBeginConditionalRendering2EXT: Option<
-        PFN_vkCmdBeginConditionalRendering2EXT,
-    >,
+    pub vkCmdBeginConditionalRendering2EXT: Option<PFN_vkCmdBeginConditionalRendering2EXT>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCmdBeginTransformFeedback2EXT: Option<PFN_vkCmdBeginTransformFeedback2EXT>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCmdBindIndexBuffer3KHR: Option<PFN_vkCmdBindIndexBuffer3KHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
-    pub vkCmdBindTransformFeedbackBuffers2EXT: Option<
-        PFN_vkCmdBindTransformFeedbackBuffers2EXT,
-    >,
+    pub vkCmdBindTransformFeedbackBuffers2EXT: Option<PFN_vkCmdBindTransformFeedbackBuffers2EXT>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCmdBindVertexBuffers3KHR: Option<PFN_vkCmdBindVertexBuffers3KHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
@@ -642,9 +640,7 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCmdCopyMemoryToImageKHR: Option<PFN_vkCmdCopyMemoryToImageKHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
-    pub vkCmdCopyQueryPoolResultsToMemoryKHR: Option<
-        PFN_vkCmdCopyQueryPoolResultsToMemoryKHR,
-    >,
+    pub vkCmdCopyQueryPoolResultsToMemoryKHR: Option<PFN_vkCmdCopyQueryPoolResultsToMemoryKHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCmdDispatchIndirect2KHR: Option<PFN_vkCmdDispatchIndirect2KHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
@@ -660,9 +656,7 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCmdDrawMeshTasksIndirect2EXT: Option<PFN_vkCmdDrawMeshTasksIndirect2EXT>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
-    pub vkCmdDrawMeshTasksIndirectCount2EXT: Option<
-        PFN_vkCmdDrawMeshTasksIndirectCount2EXT,
-    >,
+    pub vkCmdDrawMeshTasksIndirectCount2EXT: Option<PFN_vkCmdDrawMeshTasksIndirectCount2EXT>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCmdEndTransformFeedback2EXT: Option<PFN_vkCmdEndTransformFeedback2EXT>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
@@ -684,13 +678,11 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_KHR_dynamic_rendering")]
     pub vkCmdEndRenderingKHR: Option<PFN_vkCmdEndRenderingKHR>,
     #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
-    pub vkCmdSetRenderingAttachmentLocationsKHR: Option<
-        PFN_vkCmdSetRenderingAttachmentLocationsKHR,
-    >,
+    pub vkCmdSetRenderingAttachmentLocationsKHR:
+        Option<PFN_vkCmdSetRenderingAttachmentLocationsKHR>,
     #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
-    pub vkCmdSetRenderingInputAttachmentIndicesKHR: Option<
-        PFN_vkCmdSetRenderingInputAttachmentIndicesKHR,
-    >,
+    pub vkCmdSetRenderingInputAttachmentIndicesKHR:
+        Option<PFN_vkCmdSetRenderingInputAttachmentIndicesKHR>,
     #[cfg(feature = "VK_KHR_fragment_shading_rate")]
     pub vkCmdSetFragmentShadingRateKHR: Option<PFN_vkCmdSetFragmentShadingRateKHR>,
     #[cfg(feature = "VK_KHR_line_rasterization")]
@@ -700,9 +692,8 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_KHR_maintenance5")]
     pub vkCmdBindIndexBuffer2KHR: Option<PFN_vkCmdBindIndexBuffer2KHR>,
     #[cfg(feature = "VK_KHR_maintenance6")]
-    pub vkCmdBindDescriptorBufferEmbeddedSamplers2EXT: Option<
-        PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT,
-    >,
+    pub vkCmdBindDescriptorBufferEmbeddedSamplers2EXT:
+        Option<PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT>,
     #[cfg(feature = "VK_KHR_maintenance6")]
     pub vkCmdBindDescriptorSets2KHR: Option<PFN_vkCmdBindDescriptorSets2KHR>,
     #[cfg(feature = "VK_KHR_maintenance6")]
@@ -710,13 +701,9 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_KHR_maintenance6")]
     pub vkCmdPushDescriptorSet2KHR: Option<PFN_vkCmdPushDescriptorSet2KHR>,
     #[cfg(feature = "VK_KHR_maintenance6")]
-    pub vkCmdPushDescriptorSetWithTemplate2KHR: Option<
-        PFN_vkCmdPushDescriptorSetWithTemplate2KHR,
-    >,
+    pub vkCmdPushDescriptorSetWithTemplate2KHR: Option<PFN_vkCmdPushDescriptorSetWithTemplate2KHR>,
     #[cfg(feature = "VK_KHR_maintenance6")]
-    pub vkCmdSetDescriptorBufferOffsets2EXT: Option<
-        PFN_vkCmdSetDescriptorBufferOffsets2EXT,
-    >,
+    pub vkCmdSetDescriptorBufferOffsets2EXT: Option<PFN_vkCmdSetDescriptorBufferOffsets2EXT>,
     #[cfg(feature = "VK_KHR_object_refresh")]
     pub vkCmdRefreshObjectsKHR: Option<PFN_vkCmdRefreshObjectsKHR>,
     #[cfg(feature = "VK_KHR_push_descriptor")]
@@ -724,9 +711,7 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
     pub vkCmdTraceRaysIndirect2KHR: Option<PFN_vkCmdTraceRaysIndirect2KHR>,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-    pub vkCmdSetRayTracingPipelineStackSizeKHR: Option<
-        PFN_vkCmdSetRayTracingPipelineStackSizeKHR,
-    >,
+    pub vkCmdSetRayTracingPipelineStackSizeKHR: Option<PFN_vkCmdSetRayTracingPipelineStackSizeKHR>,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
     pub vkCmdTraceRaysIndirectKHR: Option<PFN_vkCmdTraceRaysIndirectKHR>,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
@@ -756,17 +741,12 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_NV_clip_space_w_scaling")]
     pub vkCmdSetViewportWScalingNV: Option<PFN_vkCmdSetViewportWScalingNV>,
     #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-    pub vkCmdBuildClusterAccelerationStructureIndirectNV: Option<
-        PFN_vkCmdBuildClusterAccelerationStructureIndirectNV,
-    >,
+    pub vkCmdBuildClusterAccelerationStructureIndirectNV:
+        Option<PFN_vkCmdBuildClusterAccelerationStructureIndirectNV>,
     #[cfg(feature = "VK_NV_compute_occupancy_priority")]
-    pub vkCmdSetComputeOccupancyPriorityNV: Option<
-        PFN_vkCmdSetComputeOccupancyPriorityNV,
-    >,
+    pub vkCmdSetComputeOccupancyPriorityNV: Option<PFN_vkCmdSetComputeOccupancyPriorityNV>,
     #[cfg(feature = "VK_NV_cooperative_vector")]
-    pub vkCmdConvertCooperativeVectorMatrixNV: Option<
-        PFN_vkCmdConvertCooperativeVectorMatrixNV,
-    >,
+    pub vkCmdConvertCooperativeVectorMatrixNV: Option<PFN_vkCmdConvertCooperativeVectorMatrixNV>,
     #[cfg(feature = "VK_NV_copy_memory_indirect")]
     pub vkCmdCopyMemoryIndirectNV: Option<PFN_vkCmdCopyMemoryIndirectNV>,
     #[cfg(feature = "VK_NV_copy_memory_indirect")]
@@ -780,19 +760,13 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_NV_device_generated_commands")]
     pub vkCmdExecuteGeneratedCommandsNV: Option<PFN_vkCmdExecuteGeneratedCommandsNV>,
     #[cfg(feature = "VK_NV_device_generated_commands")]
-    pub vkCmdPreprocessGeneratedCommandsNV: Option<
-        PFN_vkCmdPreprocessGeneratedCommandsNV,
-    >,
+    pub vkCmdPreprocessGeneratedCommandsNV: Option<PFN_vkCmdPreprocessGeneratedCommandsNV>,
     #[cfg(feature = "VK_NV_device_generated_commands_compute")]
-    pub vkCmdUpdatePipelineIndirectBufferNV: Option<
-        PFN_vkCmdUpdatePipelineIndirectBufferNV,
-    >,
+    pub vkCmdUpdatePipelineIndirectBufferNV: Option<PFN_vkCmdUpdatePipelineIndirectBufferNV>,
     #[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
     pub vkCmdSetFragmentShadingRateEnumNV: Option<PFN_vkCmdSetFragmentShadingRateEnumNV>,
     #[cfg(feature = "VK_NV_memory_decompression")]
-    pub vkCmdDecompressMemoryIndirectCountNV: Option<
-        PFN_vkCmdDecompressMemoryIndirectCountNV,
-    >,
+    pub vkCmdDecompressMemoryIndirectCountNV: Option<PFN_vkCmdDecompressMemoryIndirectCountNV>,
     #[cfg(feature = "VK_NV_memory_decompression")]
     pub vkCmdDecompressMemoryNV: Option<PFN_vkCmdDecompressMemoryNV>,
     #[cfg(feature = "VK_NV_mesh_shader")]
@@ -804,9 +778,8 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_NV_optical_flow")]
     pub vkCmdOpticalFlowExecuteNV: Option<PFN_vkCmdOpticalFlowExecuteNV>,
     #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
-    pub vkCmdBuildPartitionedAccelerationStructuresNV: Option<
-        PFN_vkCmdBuildPartitionedAccelerationStructuresNV,
-    >,
+    pub vkCmdBuildPartitionedAccelerationStructuresNV:
+        Option<PFN_vkCmdBuildPartitionedAccelerationStructuresNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
     pub vkCmdBuildAccelerationStructureNV: Option<PFN_vkCmdBuildAccelerationStructureNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
@@ -814,9 +787,8 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_NV_ray_tracing")]
     pub vkCmdTraceRaysNV: Option<PFN_vkCmdTraceRaysNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
-    pub vkCmdWriteAccelerationStructuresPropertiesNV: Option<
-        PFN_vkCmdWriteAccelerationStructuresPropertiesNV,
-    >,
+    pub vkCmdWriteAccelerationStructuresPropertiesNV:
+        Option<PFN_vkCmdWriteAccelerationStructuresPropertiesNV>,
     #[cfg(feature = "VK_NV_scissor_exclusive")]
     pub vkCmdSetExclusiveScissorEnableNV: Option<PFN_vkCmdSetExclusiveScissorEnableNV>,
     #[cfg(feature = "VK_NV_scissor_exclusive")]
@@ -826,9 +798,7 @@ pub struct CommandBufferDispatchTable {
     #[cfg(feature = "VK_NV_shading_rate_image")]
     pub vkCmdSetCoarseSampleOrderNV: Option<PFN_vkCmdSetCoarseSampleOrderNV>,
     #[cfg(feature = "VK_NV_shading_rate_image")]
-    pub vkCmdSetViewportShadingRatePaletteNV: Option<
-        PFN_vkCmdSetViewportShadingRatePaletteNV,
-    >,
+    pub vkCmdSetViewportShadingRatePaletteNV: Option<PFN_vkCmdSetViewportShadingRatePaletteNV>,
     #[cfg(feature = "VK_QCOM_tile_memory_heap")]
     pub vkCmdBindTileMemoryQCOM: Option<PFN_vkCmdBindTileMemoryQCOM>,
     #[cfg(feature = "VK_QCOM_tile_shading")]
@@ -973,9 +943,10 @@ impl CommandBufferDispatchTable {
         vkCmdInsertDebugUtilsLabelEXT: None,
         #[cfg(feature = "VK_EXT_depth_bias_control")]
         vkCmdSetDepthBias2EXT: None,
-        #[cfg(
-            any(feature = "VK_EXT_depth_clamp_control", feature = "VK_EXT_shader_object")
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_depth_clamp_control",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthClampRangeEXT: None,
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         vkCmdBindDescriptorBufferEmbeddedSamplersEXT: None,
@@ -999,341 +970,245 @@ impl CommandBufferDispatchTable {
         vkCmdSetDiscardRectangleEnableEXT: None,
         #[cfg(feature = "VK_EXT_discard_rectangles")]
         vkCmdSetDiscardRectangleModeEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdBindVertexBuffers2EXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetCullModeEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthBoundsTestEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthCompareOpEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthTestEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthWriteEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetFrontFaceEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetPrimitiveTopologyEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetScissorWithCountEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetStencilOpEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetStencilTestEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetViewportWithCountEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthBiasEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetLogicOpEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetPatchControlPointsEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetPrimitiveRestartEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetRasterizerDiscardEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetAlphaToCoverageEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetAlphaToOneEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetColorBlendAdvancedEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetColorBlendEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetColorBlendEquationEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetColorWriteMaskEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetConservativeRasterizationModeEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetCoverageModulationModeNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetCoverageModulationTableEnableNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetCoverageModulationTableNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetCoverageReductionModeNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetCoverageToColorEnableNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetCoverageToColorLocationNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthClampEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthClipEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetDepthClipNegativeOneToOneEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetExtraPrimitiveOverestimationSizeEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetLineRasterizationModeEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetLineStippleEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetLogicOpEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetPolygonModeEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetProvokingVertexModeEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetRasterizationSamplesEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetRasterizationStreamEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetRepresentativeFragmentTestEnableNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetSampleLocationsEnableEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetSampleMaskEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetShadingRateImageEnableNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetTessellationDomainOriginEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetViewportSwizzleNV: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         vkCmdSetViewportWScalingEnableNV: None,
         #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
         vkCmdEndRendering2EXT: None,
@@ -1367,12 +1242,10 @@ impl CommandBufferDispatchTable {
         vkCmdSetSampleLocationsEXT: None,
         #[cfg(feature = "VK_EXT_shader_object")]
         vkCmdBindShadersEXT: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_shader_object",
-                feature = "VK_EXT_vertex_input_dynamic_state"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_shader_object",
+            feature = "VK_EXT_vertex_input_dynamic_state"
+        ))]
         vkCmdSetVertexInputEXT: None,
         #[cfg(feature = "VK_EXT_transform_feedback")]
         vkCmdBeginQueryIndexedEXT: None,
@@ -1534,12 +1407,10 @@ impl CommandBufferDispatchTable {
         vkCmdEndRenderPass2KHR: None,
         #[cfg(feature = "VK_KHR_create_renderpass2")]
         vkCmdNextSubpass2KHR: None,
-        #[cfg(
-            any(
-                feature = "VK_KHR_descriptor_update_template",
-                feature = "VK_KHR_push_descriptor"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_KHR_descriptor_update_template",
+            feature = "VK_KHR_push_descriptor"
+        ))]
         vkCmdPushDescriptorSetWithTemplateKHR: None,
         #[cfg(feature = "VK_KHR_device_address_commands")]
         vkCmdBeginConditionalRendering2EXT: None,
@@ -1733,78 +1604,64 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_AMDX_shader_enqueue")]
         {
-            table.vkCmdDispatchGraphIndirectAMDX = loader(
-                    c"vkCmdDispatchGraphIndirectAMDX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDispatchGraphIndirectAMDX =
+                loader(c"vkCmdDispatchGraphIndirectAMDX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMDX_shader_enqueue")]
         {
-            table.vkCmdDispatchGraphIndirectCountAMDX = loader(
-                    c"vkCmdDispatchGraphIndirectCountAMDX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDispatchGraphIndirectCountAMDX =
+                loader(c"vkCmdDispatchGraphIndirectCountAMDX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMDX_shader_enqueue")]
         {
-            table.vkCmdInitializeGraphScratchMemoryAMDX = loader(
-                    c"vkCmdInitializeGraphScratchMemoryAMDX".as_ptr(),
-                )
+            table.vkCmdInitializeGraphScratchMemoryAMDX =
+                loader(c"vkCmdInitializeGraphScratchMemoryAMDX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_AMD_buffer_marker")]
+        {
+            table.vkCmdWriteBufferMarker2AMD = loader(c"vkCmdWriteBufferMarker2AMD".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMD_buffer_marker")]
         {
-            table.vkCmdWriteBufferMarker2AMD = loader(
-                    c"vkCmdWriteBufferMarker2AMD".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMD_buffer_marker")]
-        {
-            table.vkCmdWriteBufferMarkerAMD = loader(
-                    c"vkCmdWriteBufferMarkerAMD".as_ptr(),
-                )
+            table.vkCmdWriteBufferMarkerAMD = loader(c"vkCmdWriteBufferMarkerAMD".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMD_draw_indirect_count")]
         {
-            table.vkCmdDrawIndexedIndirectCountAMD = loader(
-                    c"vkCmdDrawIndexedIndirectCountAMD".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawIndexedIndirectCountAMD =
+                loader(c"vkCmdDrawIndexedIndirectCountAMD".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMD_draw_indirect_count")]
         {
-            table.vkCmdDrawIndirectCountAMD = loader(
-                    c"vkCmdDrawIndirectCountAMD".as_ptr(),
-                )
+            table.vkCmdDrawIndirectCountAMD = loader(c"vkCmdDrawIndirectCountAMD".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkCmdDispatchDataGraphARM = loader(
-                    c"vkCmdDispatchDataGraphARM".as_ptr(),
-                )
+            table.vkCmdDispatchDataGraphARM = loader(c"vkCmdDispatchDataGraphARM".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         {
-            table.vkCmdBeginShaderInstrumentationARM = loader(
-                    c"vkCmdBeginShaderInstrumentationARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginShaderInstrumentationARM =
+                loader(c"vkCmdBeginShaderInstrumentationARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         {
-            table.vkCmdEndShaderInstrumentationARM = loader(
-                    c"vkCmdEndShaderInstrumentationARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdEndShaderInstrumentationARM =
+                loader(c"vkCmdEndShaderInstrumentationARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkCmdCopyTensorARM = loader(c"vkCmdCopyTensorARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyTensorARM =
+                loader(c"vkCmdCopyTensorARM".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -1813,13 +1670,13 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdBeginQuery = loader(c"vkCmdBeginQuery".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginQuery =
+                loader(c"vkCmdBeginQuery".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdCopyBuffer = loader(c"vkCmdCopyBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyBuffer =
+                loader(c"vkCmdCopyBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -1828,8 +1685,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdCopyImage = loader(c"vkCmdCopyImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyImage =
+                loader(c"vkCmdCopyImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -1838,15 +1695,13 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdCopyQueryPoolResults = loader(
-                    c"vkCmdCopyQueryPoolResults".as_ptr(),
-                )
+            table.vkCmdCopyQueryPoolResults = loader(c"vkCmdCopyQueryPoolResults".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdEndQuery = loader(c"vkCmdEndQuery".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdEndQuery =
+                loader(c"vkCmdEndQuery".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -1855,8 +1710,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdFillBuffer = loader(c"vkCmdFillBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdFillBuffer =
+                loader(c"vkCmdFillBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -1865,23 +1720,23 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdResetQueryPool = loader(c"vkCmdResetQueryPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdResetQueryPool =
+                loader(c"vkCmdResetQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdUpdateBuffer = loader(c"vkCmdUpdateBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdUpdateBuffer =
+                loader(c"vkCmdUpdateBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCmdWriteTimestamp = loader(c"vkCmdWriteTimestamp".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdWriteTimestamp =
+                loader(c"vkCmdWriteTimestamp".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkEndCommandBuffer = loader(c"vkEndCommandBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEndCommandBuffer =
+                loader(c"vkEndCommandBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
@@ -1890,13 +1745,13 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkCmdSetDeviceMask = loader(c"vkCmdSetDeviceMask".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDeviceMask =
+                loader(c"vkCmdSetDeviceMask".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkCmdCopyBuffer2 = loader(c"vkCmdCopyBuffer2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyBuffer2 =
+                loader(c"vkCmdCopyBuffer2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
@@ -1905,8 +1760,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkCmdCopyImage2 = loader(c"vkCmdCopyImage2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyImage2 =
+                loader(c"vkCmdCopyImage2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
@@ -1930,8 +1785,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCmdBindPipeline = loader(c"vkCmdBindPipeline".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBindPipeline =
+                loader(c"vkCmdBindPipeline".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
@@ -1940,8 +1795,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCmdDispatch = loader(c"vkCmdDispatch".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDispatch =
+                loader(c"vkCmdDispatch".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
@@ -1950,43 +1805,43 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCmdPushConstants = loader(c"vkCmdPushConstants".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPushConstants =
+                loader(c"vkCmdPushConstants".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCmdResetEvent = loader(c"vkCmdResetEvent".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdResetEvent =
+                loader(c"vkCmdResetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCmdSetEvent = loader(c"vkCmdSetEvent".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetEvent =
+                loader(c"vkCmdSetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCmdWaitEvents = loader(c"vkCmdWaitEvents".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdWaitEvents =
+                loader(c"vkCmdWaitEvents".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         {
-            table.vkCmdDispatchBase = loader(c"vkCmdDispatchBase".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDispatchBase =
+                loader(c"vkCmdDispatchBase".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
         {
-            table.vkCmdResetEvent2 = loader(c"vkCmdResetEvent2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdResetEvent2 =
+                loader(c"vkCmdResetEvent2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
         {
-            table.vkCmdSetEvent2 = loader(c"vkCmdSetEvent2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetEvent2 =
+                loader(c"vkCmdSetEvent2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
         {
-            table.vkCmdWaitEvents2 = loader(c"vkCmdWaitEvents2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdWaitEvents2 =
+                loader(c"vkCmdWaitEvents2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
         {
@@ -1995,8 +1850,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
         {
-            table.vkCmdPushConstants2 = loader(c"vkCmdPushConstants2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPushConstants2 =
+                loader(c"vkCmdPushConstants2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
         {
@@ -2010,51 +1865,42 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
         {
-            table.vkCmdPushDescriptorSetWithTemplate = loader(
-                    c"vkCmdPushDescriptorSetWithTemplate".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPushDescriptorSetWithTemplate =
+                loader(c"vkCmdPushDescriptorSetWithTemplate".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
         {
-            table.vkCmdPushDescriptorSetWithTemplate2 = loader(
-                    c"vkCmdPushDescriptorSetWithTemplate2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPushDescriptorSetWithTemplate2 =
+                loader(c"vkCmdPushDescriptorSetWithTemplate2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
         {
-            table.vkCmdSetAttachmentFeedbackLoopEnableEXT = loader(
-                    c"vkCmdSetAttachmentFeedbackLoopEnableEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetAttachmentFeedbackLoopEnableEXT =
+                loader(c"vkCmdSetAttachmentFeedbackLoopEnableEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_color_write_enable")]
         {
-            table.vkCmdSetColorWriteEnableEXT = loader(
-                    c"vkCmdSetColorWriteEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetColorWriteEnableEXT = loader(c"vkCmdSetColorWriteEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_conditional_rendering")]
         {
-            table.vkCmdBeginConditionalRenderingEXT = loader(
-                    c"vkCmdBeginConditionalRenderingEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginConditionalRenderingEXT =
+                loader(c"vkCmdBeginConditionalRenderingEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_conditional_rendering")]
         {
-            table.vkCmdEndConditionalRenderingEXT = loader(
-                    c"vkCmdEndConditionalRenderingEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdEndConditionalRenderingEXT =
+                loader(c"vkCmdEndConditionalRenderingEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_custom_resolve")]
         {
-            table.vkCmdBeginCustomResolveEXT = loader(
-                    c"vkCmdBeginCustomResolveEXT".as_ptr(),
-                )
+            table.vkCmdBeginCustomResolveEXT = loader(c"vkCmdBeginCustomResolveEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_marker")]
@@ -2069,30 +1915,22 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_EXT_debug_marker")]
         {
-            table.vkCmdDebugMarkerInsertEXT = loader(
-                    c"vkCmdDebugMarkerInsertEXT".as_ptr(),
-                )
+            table.vkCmdDebugMarkerInsertEXT = loader(c"vkCmdDebugMarkerInsertEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkCmdBeginDebugUtilsLabelEXT = loader(
-                    c"vkCmdBeginDebugUtilsLabelEXT".as_ptr(),
-                )
+            table.vkCmdBeginDebugUtilsLabelEXT = loader(c"vkCmdBeginDebugUtilsLabelEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkCmdEndDebugUtilsLabelEXT = loader(
-                    c"vkCmdEndDebugUtilsLabelEXT".as_ptr(),
-                )
+            table.vkCmdEndDebugUtilsLabelEXT = loader(c"vkCmdEndDebugUtilsLabelEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkCmdInsertDebugUtilsLabelEXT = loader(
-                    c"vkCmdInsertDebugUtilsLabelEXT".as_ptr(),
-                )
+            table.vkCmdInsertDebugUtilsLabelEXT = loader(c"vkCmdInsertDebugUtilsLabelEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_depth_bias_control")]
@@ -2100,35 +1938,30 @@ impl CommandBufferDispatchTable {
             table.vkCmdSetDepthBias2EXT = loader(c"vkCmdSetDepthBias2EXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(feature = "VK_EXT_depth_clamp_control", feature = "VK_EXT_shader_object")
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_depth_clamp_control",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetDepthClampRangeEXT = loader(
-                    c"vkCmdSetDepthClampRangeEXT".as_ptr(),
-                )
+            table.vkCmdSetDepthClampRangeEXT = loader(c"vkCmdSetDepthClampRangeEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkCmdBindDescriptorBufferEmbeddedSamplersEXT = loader(
-                    c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT".as_ptr(),
-                )
+            table.vkCmdBindDescriptorBufferEmbeddedSamplersEXT =
+                loader(c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_descriptor_buffer")]
+        {
+            table.vkCmdBindDescriptorBuffersEXT = loader(c"vkCmdBindDescriptorBuffersEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkCmdBindDescriptorBuffersEXT = loader(
-                    c"vkCmdBindDescriptorBuffersEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkCmdSetDescriptorBufferOffsetsEXT = loader(
-                    c"vkCmdSetDescriptorBufferOffsetsEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDescriptorBufferOffsetsEXT =
+                loader(c"vkCmdSetDescriptorBufferOffsetsEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_heap")]
         {
@@ -2142,605 +1975,443 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_EXT_descriptor_heap")]
         {
-            table.vkCmdPushDataEXT = loader(c"vkCmdPushDataEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPushDataEXT =
+                loader(c"vkCmdPushDataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkCmdExecuteGeneratedCommandsEXT = loader(
-                    c"vkCmdExecuteGeneratedCommandsEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdExecuteGeneratedCommandsEXT =
+                loader(c"vkCmdExecuteGeneratedCommandsEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkCmdPreprocessGeneratedCommandsEXT = loader(
-                    c"vkCmdPreprocessGeneratedCommandsEXT".as_ptr(),
-                )
+            table.vkCmdPreprocessGeneratedCommandsEXT =
+                loader(c"vkCmdPreprocessGeneratedCommandsEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_discard_rectangles")]
+        {
+            table.vkCmdSetDiscardRectangleEXT = loader(c"vkCmdSetDiscardRectangleEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_discard_rectangles")]
         {
-            table.vkCmdSetDiscardRectangleEXT = loader(
-                    c"vkCmdSetDiscardRectangleEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDiscardRectangleEnableEXT =
+                loader(c"vkCmdSetDiscardRectangleEnableEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_discard_rectangles")]
         {
-            table.vkCmdSetDiscardRectangleEnableEXT = loader(
-                    c"vkCmdSetDiscardRectangleEnableEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDiscardRectangleModeEXT =
+                loader(c"vkCmdSetDiscardRectangleModeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_EXT_discard_rectangles")]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetDiscardRectangleModeEXT = loader(
-                    c"vkCmdSetDiscardRectangleModeEXT".as_ptr(),
-                )
+            table.vkCmdBindVertexBuffers2EXT = loader(c"vkCmdBindVertexBuffers2EXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdBindVertexBuffers2EXT = loader(
-                    c"vkCmdBindVertexBuffers2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetCullModeEXT =
+                loader(c"vkCmdSetCullModeEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetCullModeEXT = loader(c"vkCmdSetCullModeEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDepthBoundsTestEnableEXT =
+                loader(c"vkCmdSetDepthBoundsTestEnableEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetDepthBoundsTestEnableEXT = loader(
-                    c"vkCmdSetDepthBoundsTestEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetDepthCompareOpEXT = loader(c"vkCmdSetDepthCompareOpEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetDepthCompareOpEXT = loader(
-                    c"vkCmdSetDepthCompareOpEXT".as_ptr(),
-                )
+            table.vkCmdSetDepthTestEnableEXT = loader(c"vkCmdSetDepthTestEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetDepthTestEnableEXT = loader(
-                    c"vkCmdSetDepthTestEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetDepthWriteEnableEXT = loader(c"vkCmdSetDepthWriteEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetDepthWriteEnableEXT = loader(
-                    c"vkCmdSetDepthWriteEnableEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
             table.vkCmdSetFrontFaceEXT = loader(c"vkCmdSetFrontFaceEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetPrimitiveTopologyEXT = loader(
-                    c"vkCmdSetPrimitiveTopologyEXT".as_ptr(),
-                )
+            table.vkCmdSetPrimitiveTopologyEXT = loader(c"vkCmdSetPrimitiveTopologyEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetScissorWithCountEXT = loader(
-                    c"vkCmdSetScissorWithCountEXT".as_ptr(),
-                )
+            table.vkCmdSetScissorWithCountEXT = loader(c"vkCmdSetScissorWithCountEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
             table.vkCmdSetStencilOpEXT = loader(c"vkCmdSetStencilOpEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetStencilTestEnableEXT = loader(
-                    c"vkCmdSetStencilTestEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetStencilTestEnableEXT = loader(c"vkCmdSetStencilTestEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetViewportWithCountEXT = loader(
-                    c"vkCmdSetViewportWithCountEXT".as_ptr(),
-                )
+            table.vkCmdSetViewportWithCountEXT = loader(c"vkCmdSetViewportWithCountEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetDepthBiasEnableEXT = loader(
-                    c"vkCmdSetDepthBiasEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetDepthBiasEnableEXT = loader(c"vkCmdSetDepthBiasEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetLogicOpEXT = loader(c"vkCmdSetLogicOpEXT".as_ptr())
+            table.vkCmdSetLogicOpEXT =
+                loader(c"vkCmdSetLogicOpEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetPatchControlPointsEXT = loader(c"vkCmdSetPatchControlPointsEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetPatchControlPointsEXT = loader(
-                    c"vkCmdSetPatchControlPointsEXT".as_ptr(),
-                )
+            table.vkCmdSetPrimitiveRestartEnableEXT =
+                loader(c"vkCmdSetPrimitiveRestartEnableEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state2",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetRasterizerDiscardEnableEXT =
+                loader(c"vkCmdSetRasterizerDiscardEnableEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetAlphaToCoverageEnableEXT =
+                loader(c"vkCmdSetAlphaToCoverageEnableEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetAlphaToOneEnableEXT = loader(c"vkCmdSetAlphaToOneEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetPrimitiveRestartEnableEXT = loader(
-                    c"vkCmdSetPrimitiveRestartEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetColorBlendAdvancedEXT = loader(c"vkCmdSetColorBlendAdvancedEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state2",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetRasterizerDiscardEnableEXT = loader(
-                    c"vkCmdSetRasterizerDiscardEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetColorBlendEnableEXT = loader(c"vkCmdSetColorBlendEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetAlphaToCoverageEnableEXT = loader(
-                    c"vkCmdSetAlphaToCoverageEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetColorBlendEquationEXT = loader(c"vkCmdSetColorBlendEquationEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetAlphaToOneEnableEXT = loader(
-                    c"vkCmdSetAlphaToOneEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetColorWriteMaskEXT = loader(c"vkCmdSetColorWriteMaskEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetColorBlendAdvancedEXT = loader(
-                    c"vkCmdSetColorBlendAdvancedEXT".as_ptr(),
-                )
+            table.vkCmdSetConservativeRasterizationModeEXT =
+                loader(c"vkCmdSetConservativeRasterizationModeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetCoverageModulationModeNV =
+                loader(c"vkCmdSetCoverageModulationModeNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetCoverageModulationTableEnableNV =
+                loader(c"vkCmdSetCoverageModulationTableEnableNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetCoverageModulationTableNV =
+                loader(c"vkCmdSetCoverageModulationTableNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetCoverageReductionModeNV =
+                loader(c"vkCmdSetCoverageReductionModeNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetCoverageToColorEnableNV =
+                loader(c"vkCmdSetCoverageToColorEnableNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetCoverageToColorLocationNV =
+                loader(c"vkCmdSetCoverageToColorLocationNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetDepthClampEnableEXT = loader(c"vkCmdSetDepthClampEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetColorBlendEnableEXT = loader(
-                    c"vkCmdSetColorBlendEnableEXT".as_ptr(),
-                )
+            table.vkCmdSetDepthClipEnableEXT = loader(c"vkCmdSetDepthClipEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetColorBlendEquationEXT = loader(
-                    c"vkCmdSetColorBlendEquationEXT".as_ptr(),
-                )
+            table.vkCmdSetDepthClipNegativeOneToOneEXT =
+                loader(c"vkCmdSetDepthClipNegativeOneToOneEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetExtraPrimitiveOverestimationSizeEXT =
+                loader(c"vkCmdSetExtraPrimitiveOverestimationSizeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetLineRasterizationModeEXT =
+                loader(c"vkCmdSetLineRasterizationModeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetLineStippleEnableEXT = loader(c"vkCmdSetLineStippleEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetColorWriteMaskEXT = loader(
-                    c"vkCmdSetColorWriteMaskEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetConservativeRasterizationModeEXT = loader(
-                    c"vkCmdSetConservativeRasterizationModeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetCoverageModulationModeNV = loader(
-                    c"vkCmdSetCoverageModulationModeNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetCoverageModulationTableEnableNV = loader(
-                    c"vkCmdSetCoverageModulationTableEnableNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetCoverageModulationTableNV = loader(
-                    c"vkCmdSetCoverageModulationTableNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetCoverageReductionModeNV = loader(
-                    c"vkCmdSetCoverageReductionModeNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetCoverageToColorEnableNV = loader(
-                    c"vkCmdSetCoverageToColorEnableNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetCoverageToColorLocationNV = loader(
-                    c"vkCmdSetCoverageToColorLocationNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetDepthClampEnableEXT = loader(
-                    c"vkCmdSetDepthClampEnableEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetDepthClipEnableEXT = loader(
-                    c"vkCmdSetDepthClipEnableEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetDepthClipNegativeOneToOneEXT = loader(
-                    c"vkCmdSetDepthClipNegativeOneToOneEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetExtraPrimitiveOverestimationSizeEXT = loader(
-                    c"vkCmdSetExtraPrimitiveOverestimationSizeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetLineRasterizationModeEXT = loader(
-                    c"vkCmdSetLineRasterizationModeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetLineStippleEnableEXT = loader(
-                    c"vkCmdSetLineStippleEnableEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
             table.vkCmdSetLogicOpEnableEXT = loader(c"vkCmdSetLogicOpEnableEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
             table.vkCmdSetPolygonModeEXT = loader(c"vkCmdSetPolygonModeEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetProvokingVertexModeEXT = loader(
-                    c"vkCmdSetProvokingVertexModeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetProvokingVertexModeEXT =
+                loader(c"vkCmdSetProvokingVertexModeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetRasterizationSamplesEXT = loader(
-                    c"vkCmdSetRasterizationSamplesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRasterizationSamplesEXT =
+                loader(c"vkCmdSetRasterizationSamplesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetRasterizationStreamEXT = loader(
-                    c"vkCmdSetRasterizationStreamEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRasterizationStreamEXT =
+                loader(c"vkCmdSetRasterizationStreamEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetRepresentativeFragmentTestEnableNV = loader(
-                    c"vkCmdSetRepresentativeFragmentTestEnableNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRepresentativeFragmentTestEnableNV =
+                loader(c"vkCmdSetRepresentativeFragmentTestEnableNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetSampleLocationsEnableEXT = loader(
-                    c"vkCmdSetSampleLocationsEnableEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetSampleLocationsEnableEXT =
+                loader(c"vkCmdSetSampleLocationsEnableEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
             table.vkCmdSetSampleMaskEXT = loader(c"vkCmdSetSampleMaskEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetShadingRateImageEnableNV = loader(
-                    c"vkCmdSetShadingRateImageEnableNV".as_ptr(),
-                )
+            table.vkCmdSetShadingRateImageEnableNV =
+                loader(c"vkCmdSetShadingRateImageEnableNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetTessellationDomainOriginEXT =
+                loader(c"vkCmdSetTessellationDomainOriginEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
+        {
+            table.vkCmdSetViewportSwizzleNV = loader(c"vkCmdSetViewportSwizzleNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_extended_dynamic_state3",
+            feature = "VK_EXT_shader_object"
+        ))]
         {
-            table.vkCmdSetTessellationDomainOriginEXT = loader(
-                    c"vkCmdSetTessellationDomainOriginEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetViewportSwizzleNV = loader(
-                    c"vkCmdSetViewportSwizzleNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(
-            any(
-                feature = "VK_EXT_extended_dynamic_state3",
-                feature = "VK_EXT_shader_object"
-            )
-        )]
-        {
-            table.vkCmdSetViewportWScalingEnableNV = loader(
-                    c"vkCmdSetViewportWScalingEnableNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetViewportWScalingEnableNV =
+                loader(c"vkCmdSetViewportWScalingEnableNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
         {
@@ -2759,10 +2430,9 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_EXT_memory_decompression")]
         {
-            table.vkCmdDecompressMemoryIndirectCountEXT = loader(
-                    c"vkCmdDecompressMemoryIndirectCountEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDecompressMemoryIndirectCountEXT =
+                loader(c"vkCmdDecompressMemoryIndirectCountEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_mesh_shader")]
         {
@@ -2771,22 +2441,19 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_EXT_mesh_shader")]
         {
-            table.vkCmdDrawMeshTasksIndirectCountEXT = loader(
-                    c"vkCmdDrawMeshTasksIndirectCountEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawMeshTasksIndirectCountEXT =
+                loader(c"vkCmdDrawMeshTasksIndirectCountEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_mesh_shader")]
         {
-            table.vkCmdDrawMeshTasksIndirectEXT = loader(
-                    c"vkCmdDrawMeshTasksIndirectEXT".as_ptr(),
-                )
+            table.vkCmdDrawMeshTasksIndirectEXT = loader(c"vkCmdDrawMeshTasksIndirectEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_multi_draw")]
         {
-            table.vkCmdDrawMultiEXT = loader(c"vkCmdDrawMultiEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawMultiEXT =
+                loader(c"vkCmdDrawMultiEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_multi_draw")]
         {
@@ -2800,9 +2467,7 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkCmdCopyMemoryToMicromapEXT = loader(
-                    c"vkCmdCopyMemoryToMicromapEXT".as_ptr(),
-                )
+            table.vkCmdCopyMemoryToMicromapEXT = loader(c"vkCmdCopyMemoryToMicromapEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
@@ -2812,66 +2477,53 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkCmdCopyMicromapToMemoryEXT = loader(
-                    c"vkCmdCopyMicromapToMemoryEXT".as_ptr(),
-                )
+            table.vkCmdCopyMicromapToMemoryEXT = loader(c"vkCmdCopyMicromapToMemoryEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkCmdWriteMicromapsPropertiesEXT = loader(
-                    c"vkCmdWriteMicromapsPropertiesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdWriteMicromapsPropertiesEXT =
+                loader(c"vkCmdWriteMicromapsPropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_sample_locations")]
         {
-            table.vkCmdSetSampleLocationsEXT = loader(
-                    c"vkCmdSetSampleLocationsEXT".as_ptr(),
-                )
+            table.vkCmdSetSampleLocationsEXT = loader(c"vkCmdSetSampleLocationsEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_shader_object")]
         {
-            table.vkCmdBindShadersEXT = loader(c"vkCmdBindShadersEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBindShadersEXT =
+                loader(c"vkCmdBindShadersEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_shader_object",
-                feature = "VK_EXT_vertex_input_dynamic_state"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_shader_object",
+            feature = "VK_EXT_vertex_input_dynamic_state"
+        ))]
         {
             table.vkCmdSetVertexInputEXT = loader(c"vkCmdSetVertexInputEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_transform_feedback")]
         {
-            table.vkCmdBeginQueryIndexedEXT = loader(
-                    c"vkCmdBeginQueryIndexedEXT".as_ptr(),
-                )
+            table.vkCmdBeginQueryIndexedEXT = loader(c"vkCmdBeginQueryIndexedEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_transform_feedback")]
         {
-            table.vkCmdBeginTransformFeedbackEXT = loader(
-                    c"vkCmdBeginTransformFeedbackEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginTransformFeedbackEXT =
+                loader(c"vkCmdBeginTransformFeedbackEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_transform_feedback")]
         {
-            table.vkCmdBindTransformFeedbackBuffersEXT = loader(
-                    c"vkCmdBindTransformFeedbackBuffersEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBindTransformFeedbackBuffersEXT =
+                loader(c"vkCmdBindTransformFeedbackBuffersEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_transform_feedback")]
         {
-            table.vkCmdDrawIndirectByteCountEXT = loader(
-                    c"vkCmdDrawIndirectByteCountEXT".as_ptr(),
-                )
+            table.vkCmdDrawIndirectByteCountEXT = loader(c"vkCmdDrawIndirectByteCountEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_transform_feedback")]
@@ -2881,9 +2533,7 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_EXT_transform_feedback")]
         {
-            table.vkCmdEndTransformFeedbackEXT = loader(
-                    c"vkCmdEndTransformFeedbackEXT".as_ptr(),
-                )
+            table.vkCmdEndTransformFeedbackEXT = loader(c"vkCmdEndTransformFeedbackEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -2903,8 +2553,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdBlitImage = loader(c"vkCmdBlitImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBlitImage =
+                loader(c"vkCmdBlitImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
@@ -2913,20 +2563,18 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdClearDepthStencilImage = loader(
-                    c"vkCmdClearDepthStencilImage".as_ptr(),
-                )
+            table.vkCmdClearDepthStencilImage = loader(c"vkCmdClearDepthStencilImage".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdDraw = loader(c"vkCmdDraw".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDraw =
+                loader(c"vkCmdDraw".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdDrawIndexed = loader(c"vkCmdDrawIndexed".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawIndexed =
+                loader(c"vkCmdDrawIndexed".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
@@ -2935,23 +2583,23 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdDrawIndirect = loader(c"vkCmdDrawIndirect".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawIndirect =
+                loader(c"vkCmdDrawIndirect".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdEndRenderPass = loader(c"vkCmdEndRenderPass".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdEndRenderPass =
+                loader(c"vkCmdEndRenderPass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdNextSubpass = loader(c"vkCmdNextSubpass".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdNextSubpass =
+                loader(c"vkCmdNextSubpass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdResolveImage = loader(c"vkCmdResolveImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdResolveImage =
+                loader(c"vkCmdResolveImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
@@ -2960,29 +2608,27 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdSetDepthBias = loader(c"vkCmdSetDepthBias".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDepthBias =
+                loader(c"vkCmdSetDepthBias".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdSetDepthBounds = loader(c"vkCmdSetDepthBounds".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDepthBounds =
+                loader(c"vkCmdSetDepthBounds".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdSetLineWidth = loader(c"vkCmdSetLineWidth".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetLineWidth =
+                loader(c"vkCmdSetLineWidth".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdSetScissor = loader(c"vkCmdSetScissor".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetScissor =
+                loader(c"vkCmdSetScissor".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdSetStencilCompareMask = loader(
-                    c"vkCmdSetStencilCompareMask".as_ptr(),
-                )
+            table.vkCmdSetStencilCompareMask = loader(c"vkCmdSetStencilCompareMask".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -2997,8 +2643,8 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCmdSetViewport = loader(c"vkCmdSetViewport".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetViewport =
+                loader(c"vkCmdSetViewport".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
         {
@@ -3007,9 +2653,7 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
         {
-            table.vkCmdDrawIndexedIndirectCount = loader(
-                    c"vkCmdDrawIndexedIndirectCount".as_ptr(),
-                )
+            table.vkCmdDrawIndexedIndirectCount = loader(c"vkCmdDrawIndexedIndirectCount".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
@@ -3019,18 +2663,18 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
         {
-            table.vkCmdEndRenderPass2 = loader(c"vkCmdEndRenderPass2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdEndRenderPass2 =
+                loader(c"vkCmdEndRenderPass2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
         {
-            table.vkCmdNextSubpass2 = loader(c"vkCmdNextSubpass2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdNextSubpass2 =
+                loader(c"vkCmdNextSubpass2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdBeginRendering = loader(c"vkCmdBeginRendering".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginRendering =
+                loader(c"vkCmdBeginRendering".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
@@ -3039,23 +2683,23 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdBlitImage2 = loader(c"vkCmdBlitImage2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBlitImage2 =
+                loader(c"vkCmdBlitImage2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdEndRendering = loader(c"vkCmdEndRendering".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdEndRendering =
+                loader(c"vkCmdEndRendering".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdResolveImage2 = loader(c"vkCmdResolveImage2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdResolveImage2 =
+                loader(c"vkCmdResolveImage2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdSetCullMode = loader(c"vkCmdSetCullMode".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetCullMode =
+                loader(c"vkCmdSetCullMode".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
@@ -3064,9 +2708,7 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdSetDepthBoundsTestEnable = loader(
-                    c"vkCmdSetDepthBoundsTestEnable".as_ptr(),
-                )
+            table.vkCmdSetDepthBoundsTestEnable = loader(c"vkCmdSetDepthBoundsTestEnable".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
@@ -3086,29 +2728,25 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdSetFrontFace = loader(c"vkCmdSetFrontFace".as_ptr())
+            table.vkCmdSetFrontFace =
+                loader(c"vkCmdSetFrontFace".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+        {
+            table.vkCmdSetPrimitiveRestartEnable =
+                loader(c"vkCmdSetPrimitiveRestartEnable".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+        {
+            table.vkCmdSetPrimitiveTopology = loader(c"vkCmdSetPrimitiveTopology".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdSetPrimitiveRestartEnable = loader(
-                    c"vkCmdSetPrimitiveRestartEnable".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetPrimitiveTopology = loader(
-                    c"vkCmdSetPrimitiveTopology".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetRasterizerDiscardEnable = loader(
-                    c"vkCmdSetRasterizerDiscardEnable".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRasterizerDiscardEnable =
+                loader(c"vkCmdSetRasterizerDiscardEnable".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
@@ -3117,21 +2755,17 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdSetStencilOp = loader(c"vkCmdSetStencilOp".as_ptr())
+            table.vkCmdSetStencilOp =
+                loader(c"vkCmdSetStencilOp".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+        {
+            table.vkCmdSetStencilTestEnable = loader(c"vkCmdSetStencilTestEnable".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
         {
-            table.vkCmdSetStencilTestEnable = loader(
-                    c"vkCmdSetStencilTestEnable".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetViewportWithCount = loader(
-                    c"vkCmdSetViewportWithCount".as_ptr(),
-                )
+            table.vkCmdSetViewportWithCount = loader(c"vkCmdSetViewportWithCount".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
@@ -3141,22 +2775,20 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
         {
-            table.vkCmdSetLineStipple = loader(c"vkCmdSetLineStipple".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetLineStipple =
+                loader(c"vkCmdSetLineStipple".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
         {
-            table.vkCmdSetRenderingAttachmentLocations = loader(
-                    c"vkCmdSetRenderingAttachmentLocations".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRenderingAttachmentLocations =
+                loader(c"vkCmdSetRenderingAttachmentLocations".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
         {
-            table.vkCmdSetRenderingInputAttachmentIndices = loader(
-                    c"vkCmdSetRenderingInputAttachmentIndices".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRenderingInputAttachmentIndices =
+                loader(c"vkCmdSetRenderingInputAttachmentIndices".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
         {
@@ -3165,115 +2797,97 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
         {
-            table.vkCmdDrawClusterIndirectHUAWEI = loader(
-                    c"vkCmdDrawClusterIndirectHUAWEI".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawClusterIndirectHUAWEI =
+                loader(c"vkCmdDrawClusterIndirectHUAWEI".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_HUAWEI_invocation_mask")]
         {
-            table.vkCmdBindInvocationMaskHUAWEI = loader(
-                    c"vkCmdBindInvocationMaskHUAWEI".as_ptr(),
-                )
+            table.vkCmdBindInvocationMaskHUAWEI = loader(c"vkCmdBindInvocationMaskHUAWEI".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_HUAWEI_subpass_shading")]
         {
-            table.vkCmdSubpassShadingHUAWEI = loader(
-                    c"vkCmdSubpassShadingHUAWEI".as_ptr(),
-                )
+            table.vkCmdSubpassShadingHUAWEI = loader(c"vkCmdSubpassShadingHUAWEI".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkCmdSetPerformanceMarkerINTEL = loader(
-                    c"vkCmdSetPerformanceMarkerINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetPerformanceMarkerINTEL =
+                loader(c"vkCmdSetPerformanceMarkerINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkCmdSetPerformanceOverrideINTEL = loader(
-                    c"vkCmdSetPerformanceOverrideINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetPerformanceOverrideINTEL =
+                loader(c"vkCmdSetPerformanceOverrideINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkCmdSetPerformanceStreamMarkerINTEL = loader(
-                    c"vkCmdSetPerformanceStreamMarkerINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetPerformanceStreamMarkerINTEL =
+                loader(c"vkCmdSetPerformanceStreamMarkerINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCmdBuildAccelerationStructuresIndirectKHR = loader(
-                    c"vkCmdBuildAccelerationStructuresIndirectKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBuildAccelerationStructuresIndirectKHR =
+                loader(c"vkCmdBuildAccelerationStructuresIndirectKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCmdBuildAccelerationStructuresKHR = loader(
-                    c"vkCmdBuildAccelerationStructuresKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBuildAccelerationStructuresKHR =
+                loader(c"vkCmdBuildAccelerationStructuresKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCmdCopyAccelerationStructureKHR = loader(
-                    c"vkCmdCopyAccelerationStructureKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyAccelerationStructureKHR =
+                loader(c"vkCmdCopyAccelerationStructureKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCmdCopyAccelerationStructureToMemoryKHR = loader(
-                    c"vkCmdCopyAccelerationStructureToMemoryKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyAccelerationStructureToMemoryKHR =
+                loader(c"vkCmdCopyAccelerationStructureToMemoryKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCmdCopyMemoryToAccelerationStructureKHR = loader(
-                    c"vkCmdCopyMemoryToAccelerationStructureKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyMemoryToAccelerationStructureKHR =
+                loader(c"vkCmdCopyMemoryToAccelerationStructureKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCmdWriteAccelerationStructuresPropertiesKHR = loader(
-                    c"vkCmdWriteAccelerationStructuresPropertiesKHR".as_ptr(),
-                )
+            table.vkCmdWriteAccelerationStructuresPropertiesKHR =
+                loader(c"vkCmdWriteAccelerationStructuresPropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_copy_commands2")]
+        {
+            table.vkCmdBlitImage2KHR =
+                loader(c"vkCmdBlitImage2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_copy_commands2")]
+        {
+            table.vkCmdCopyBuffer2KHR =
+                loader(c"vkCmdCopyBuffer2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_copy_commands2")]
+        {
+            table.vkCmdCopyBufferToImage2KHR = loader(c"vkCmdCopyBufferToImage2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_copy_commands2")]
         {
-            table.vkCmdBlitImage2KHR = loader(c"vkCmdBlitImage2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyImage2KHR =
+                loader(c"vkCmdCopyImage2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_copy_commands2")]
         {
-            table.vkCmdCopyBuffer2KHR = loader(c"vkCmdCopyBuffer2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdCopyBufferToImage2KHR = loader(
-                    c"vkCmdCopyBufferToImage2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdCopyImage2KHR = loader(c"vkCmdCopyImage2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdCopyImageToBuffer2KHR = loader(
-                    c"vkCmdCopyImageToBuffer2KHR".as_ptr(),
-                )
+            table.vkCmdCopyImageToBuffer2KHR = loader(c"vkCmdCopyImageToBuffer2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_copy_commands2")]
@@ -3283,17 +2897,14 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_copy_memory_indirect")]
         {
-            table.vkCmdCopyMemoryIndirectKHR = loader(
-                    c"vkCmdCopyMemoryIndirectKHR".as_ptr(),
-                )
+            table.vkCmdCopyMemoryIndirectKHR = loader(c"vkCmdCopyMemoryIndirectKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_copy_memory_indirect")]
         {
-            table.vkCmdCopyMemoryToImageIndirectKHR = loader(
-                    c"vkCmdCopyMemoryToImageIndirectKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyMemoryToImageIndirectKHR =
+                loader(c"vkCmdCopyMemoryToImageIndirectKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_create_renderpass2")]
         {
@@ -3310,31 +2921,26 @@ impl CommandBufferDispatchTable {
             table.vkCmdNextSubpass2KHR = loader(c"vkCmdNextSubpass2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_KHR_descriptor_update_template",
-                feature = "VK_KHR_push_descriptor"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_KHR_descriptor_update_template",
+            feature = "VK_KHR_push_descriptor"
+        ))]
         {
-            table.vkCmdPushDescriptorSetWithTemplateKHR = loader(
-                    c"vkCmdPushDescriptorSetWithTemplateKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPushDescriptorSetWithTemplateKHR =
+                loader(c"vkCmdPushDescriptorSetWithTemplateKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdBeginConditionalRendering2EXT = loader(
-                    c"vkCmdBeginConditionalRendering2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginConditionalRendering2EXT =
+                loader(c"vkCmdBeginConditionalRendering2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdBeginTransformFeedback2EXT = loader(
-                    c"vkCmdBeginTransformFeedback2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginTransformFeedback2EXT =
+                loader(c"vkCmdBeginTransformFeedback2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
@@ -3343,64 +2949,51 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdBindTransformFeedbackBuffers2EXT = loader(
-                    c"vkCmdBindTransformFeedbackBuffers2EXT".as_ptr(),
-                )
+            table.vkCmdBindTransformFeedbackBuffers2EXT =
+                loader(c"vkCmdBindTransformFeedbackBuffers2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_address_commands")]
+        {
+            table.vkCmdBindVertexBuffers3KHR = loader(c"vkCmdBindVertexBuffers3KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdBindVertexBuffers3KHR = loader(
-                    c"vkCmdBindVertexBuffers3KHR".as_ptr(),
-                )
+            table.vkCmdCopyImageToMemoryKHR = loader(c"vkCmdCopyImageToMemoryKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdCopyImageToMemoryKHR = loader(
-                    c"vkCmdCopyImageToMemoryKHR".as_ptr(),
-                )
+            table.vkCmdCopyMemoryKHR =
+                loader(c"vkCmdCopyMemoryKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_address_commands")]
+        {
+            table.vkCmdCopyMemoryToImageKHR = loader(c"vkCmdCopyMemoryToImageKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdCopyMemoryKHR = loader(c"vkCmdCopyMemoryKHR".as_ptr())
+            table.vkCmdCopyQueryPoolResultsToMemoryKHR =
+                loader(c"vkCmdCopyQueryPoolResultsToMemoryKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_address_commands")]
+        {
+            table.vkCmdDispatchIndirect2KHR = loader(c"vkCmdDispatchIndirect2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdCopyMemoryToImageKHR = loader(
-                    c"vkCmdCopyMemoryToImageKHR".as_ptr(),
-                )
+            table.vkCmdDrawIndexedIndirect2KHR = loader(c"vkCmdDrawIndexedIndirect2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdCopyQueryPoolResultsToMemoryKHR = loader(
-                    c"vkCmdCopyQueryPoolResultsToMemoryKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDispatchIndirect2KHR = loader(
-                    c"vkCmdDispatchIndirect2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawIndexedIndirect2KHR = loader(
-                    c"vkCmdDrawIndexedIndirect2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawIndexedIndirectCount2KHR = loader(
-                    c"vkCmdDrawIndexedIndirectCount2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawIndexedIndirectCount2KHR =
+                loader(c"vkCmdDrawIndexedIndirectCount2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
@@ -3409,43 +3002,36 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdDrawIndirectByteCount2EXT = loader(
-                    c"vkCmdDrawIndirectByteCount2EXT".as_ptr(),
-                )
+            table.vkCmdDrawIndirectByteCount2EXT =
+                loader(c"vkCmdDrawIndirectByteCount2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_address_commands")]
+        {
+            table.vkCmdDrawIndirectCount2KHR = loader(c"vkCmdDrawIndirectCount2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdDrawIndirectCount2KHR = loader(
-                    c"vkCmdDrawIndirectCount2KHR".as_ptr(),
-                )
+            table.vkCmdDrawMeshTasksIndirect2EXT =
+                loader(c"vkCmdDrawMeshTasksIndirect2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_address_commands")]
+        {
+            table.vkCmdDrawMeshTasksIndirectCount2EXT =
+                loader(c"vkCmdDrawMeshTasksIndirectCount2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_address_commands")]
+        {
+            table.vkCmdEndTransformFeedback2EXT = loader(c"vkCmdEndTransformFeedback2EXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdDrawMeshTasksIndirect2EXT = loader(
-                    c"vkCmdDrawMeshTasksIndirect2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawMeshTasksIndirectCount2EXT = loader(
-                    c"vkCmdDrawMeshTasksIndirectCount2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdEndTransformFeedback2EXT = loader(
-                    c"vkCmdEndTransformFeedback2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdFillMemoryKHR = loader(c"vkCmdFillMemoryKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdFillMemoryKHR =
+                loader(c"vkCmdFillMemoryKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
@@ -3454,9 +3040,7 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCmdWriteMarkerToMemoryAMD = loader(
-                    c"vkCmdWriteMarkerToMemoryAMD".as_ptr(),
-                )
+            table.vkCmdWriteMarkerToMemoryAMD = loader(c"vkCmdWriteMarkerToMemoryAMD".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_group")]
@@ -3471,16 +3055,13 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_draw_indirect_count")]
         {
-            table.vkCmdDrawIndexedIndirectCountKHR = loader(
-                    c"vkCmdDrawIndexedIndirectCountKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawIndexedIndirectCountKHR =
+                loader(c"vkCmdDrawIndexedIndirectCountKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_draw_indirect_count")]
         {
-            table.vkCmdDrawIndirectCountKHR = loader(
-                    c"vkCmdDrawIndirectCountKHR".as_ptr(),
-                )
+            table.vkCmdDrawIndirectCountKHR = loader(c"vkCmdDrawIndirectCountKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_dynamic_rendering")]
@@ -3495,24 +3076,21 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
         {
-            table.vkCmdSetRenderingAttachmentLocationsKHR = loader(
-                    c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRenderingAttachmentLocationsKHR =
+                loader(c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
         {
-            table.vkCmdSetRenderingInputAttachmentIndicesKHR = loader(
-                    c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetRenderingInputAttachmentIndicesKHR =
+                loader(c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_fragment_shading_rate")]
         {
-            table.vkCmdSetFragmentShadingRateKHR = loader(
-                    c"vkCmdSetFragmentShadingRateKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetFragmentShadingRateKHR =
+                loader(c"vkCmdSetFragmentShadingRateKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_line_rasterization")]
         {
@@ -3531,16 +3109,13 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_maintenance6")]
         {
-            table.vkCmdBindDescriptorBufferEmbeddedSamplers2EXT = loader(
-                    c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBindDescriptorBufferEmbeddedSamplers2EXT =
+                loader(c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance6")]
         {
-            table.vkCmdBindDescriptorSets2KHR = loader(
-                    c"vkCmdBindDescriptorSets2KHR".as_ptr(),
-                )
+            table.vkCmdBindDescriptorSets2KHR = loader(c"vkCmdBindDescriptorSets2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance6")]
@@ -3550,24 +3125,20 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_maintenance6")]
         {
-            table.vkCmdPushDescriptorSet2KHR = loader(
-                    c"vkCmdPushDescriptorSet2KHR".as_ptr(),
-                )
+            table.vkCmdPushDescriptorSet2KHR = loader(c"vkCmdPushDescriptorSet2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance6")]
         {
-            table.vkCmdPushDescriptorSetWithTemplate2KHR = loader(
-                    c"vkCmdPushDescriptorSetWithTemplate2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPushDescriptorSetWithTemplate2KHR =
+                loader(c"vkCmdPushDescriptorSetWithTemplate2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance6")]
         {
-            table.vkCmdSetDescriptorBufferOffsets2EXT = loader(
-                    c"vkCmdSetDescriptorBufferOffsets2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetDescriptorBufferOffsets2EXT =
+                loader(c"vkCmdSetDescriptorBufferOffsets2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_object_refresh")]
         {
@@ -3576,36 +3147,29 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_push_descriptor")]
         {
-            table.vkCmdPushDescriptorSetKHR = loader(
-                    c"vkCmdPushDescriptorSetKHR".as_ptr(),
-                )
+            table.vkCmdPushDescriptorSetKHR = loader(c"vkCmdPushDescriptorSetKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
         {
-            table.vkCmdTraceRaysIndirect2KHR = loader(
-                    c"vkCmdTraceRaysIndirect2KHR".as_ptr(),
-                )
+            table.vkCmdTraceRaysIndirect2KHR = loader(c"vkCmdTraceRaysIndirect2KHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
         {
-            table.vkCmdSetRayTracingPipelineStackSizeKHR = loader(
-                    c"vkCmdSetRayTracingPipelineStackSizeKHR".as_ptr(),
-                )
+            table.vkCmdSetRayTracingPipelineStackSizeKHR =
+                loader(c"vkCmdSetRayTracingPipelineStackSizeKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+        {
+            table.vkCmdTraceRaysIndirectKHR = loader(c"vkCmdTraceRaysIndirectKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
         {
-            table.vkCmdTraceRaysIndirectKHR = loader(
-                    c"vkCmdTraceRaysIndirectKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkCmdTraceRaysKHR = loader(c"vkCmdTraceRaysKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdTraceRaysKHR =
+                loader(c"vkCmdTraceRaysKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_synchronization2")]
         {
@@ -3614,18 +3178,18 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_synchronization2")]
         {
-            table.vkCmdResetEvent2KHR = loader(c"vkCmdResetEvent2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdResetEvent2KHR =
+                loader(c"vkCmdResetEvent2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_synchronization2")]
         {
-            table.vkCmdSetEvent2KHR = loader(c"vkCmdSetEvent2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetEvent2KHR =
+                loader(c"vkCmdSetEvent2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_synchronization2")]
         {
-            table.vkCmdWaitEvents2KHR = loader(c"vkCmdWaitEvents2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdWaitEvents2KHR =
+                loader(c"vkCmdWaitEvents2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_synchronization2")]
         {
@@ -3634,13 +3198,13 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_video_decode_queue")]
         {
-            table.vkCmdDecodeVideoKHR = loader(c"vkCmdDecodeVideoKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDecodeVideoKHR =
+                loader(c"vkCmdDecodeVideoKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_encode_queue")]
         {
-            table.vkCmdEncodeVideoKHR = loader(c"vkCmdEncodeVideoKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdEncodeVideoKHR =
+                loader(c"vkCmdEncodeVideoKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
@@ -3649,9 +3213,7 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkCmdControlVideoCodingKHR = loader(
-                    c"vkCmdControlVideoCodingKHR".as_ptr(),
-                )
+            table.vkCmdControlVideoCodingKHR = loader(c"vkCmdControlVideoCodingKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_queue")]
@@ -3666,45 +3228,37 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_NV_clip_space_w_scaling")]
         {
-            table.vkCmdSetViewportWScalingNV = loader(
-                    c"vkCmdSetViewportWScalingNV".as_ptr(),
-                )
+            table.vkCmdSetViewportWScalingNV = loader(c"vkCmdSetViewportWScalingNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
         {
-            table.vkCmdBuildClusterAccelerationStructureIndirectNV = loader(
-                    c"vkCmdBuildClusterAccelerationStructureIndirectNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBuildClusterAccelerationStructureIndirectNV =
+                loader(c"vkCmdBuildClusterAccelerationStructureIndirectNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_compute_occupancy_priority")]
         {
-            table.vkCmdSetComputeOccupancyPriorityNV = loader(
-                    c"vkCmdSetComputeOccupancyPriorityNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetComputeOccupancyPriorityNV =
+                loader(c"vkCmdSetComputeOccupancyPriorityNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cooperative_vector")]
         {
-            table.vkCmdConvertCooperativeVectorMatrixNV = loader(
-                    c"vkCmdConvertCooperativeVectorMatrixNV".as_ptr(),
-                )
+            table.vkCmdConvertCooperativeVectorMatrixNV =
+                loader(c"vkCmdConvertCooperativeVectorMatrixNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_NV_copy_memory_indirect")]
+        {
+            table.vkCmdCopyMemoryIndirectNV = loader(c"vkCmdCopyMemoryIndirectNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_copy_memory_indirect")]
         {
-            table.vkCmdCopyMemoryIndirectNV = loader(
-                    c"vkCmdCopyMemoryIndirectNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_copy_memory_indirect")]
-        {
-            table.vkCmdCopyMemoryToImageIndirectNV = loader(
-                    c"vkCmdCopyMemoryToImageIndirectNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyMemoryToImageIndirectNV =
+                loader(c"vkCmdCopyMemoryToImageIndirectNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cuda_kernel_launch")]
         {
@@ -3718,45 +3272,39 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_NV_device_generated_commands")]
         {
-            table.vkCmdBindPipelineShaderGroupNV = loader(
-                    c"vkCmdBindPipelineShaderGroupNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBindPipelineShaderGroupNV =
+                loader(c"vkCmdBindPipelineShaderGroupNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_device_generated_commands")]
         {
-            table.vkCmdExecuteGeneratedCommandsNV = loader(
-                    c"vkCmdExecuteGeneratedCommandsNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdExecuteGeneratedCommandsNV =
+                loader(c"vkCmdExecuteGeneratedCommandsNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_device_generated_commands")]
         {
-            table.vkCmdPreprocessGeneratedCommandsNV = loader(
-                    c"vkCmdPreprocessGeneratedCommandsNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdPreprocessGeneratedCommandsNV =
+                loader(c"vkCmdPreprocessGeneratedCommandsNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_device_generated_commands_compute")]
         {
-            table.vkCmdUpdatePipelineIndirectBufferNV = loader(
-                    c"vkCmdUpdatePipelineIndirectBufferNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdUpdatePipelineIndirectBufferNV =
+                loader(c"vkCmdUpdatePipelineIndirectBufferNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
         {
-            table.vkCmdSetFragmentShadingRateEnumNV = loader(
-                    c"vkCmdSetFragmentShadingRateEnumNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetFragmentShadingRateEnumNV =
+                loader(c"vkCmdSetFragmentShadingRateEnumNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_memory_decompression")]
         {
-            table.vkCmdDecompressMemoryIndirectCountNV = loader(
-                    c"vkCmdDecompressMemoryIndirectCountNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDecompressMemoryIndirectCountNV =
+                loader(c"vkCmdDecompressMemoryIndirectCountNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_memory_decompression")]
         {
@@ -3765,16 +3313,13 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_NV_mesh_shader")]
         {
-            table.vkCmdDrawMeshTasksIndirectCountNV = loader(
-                    c"vkCmdDrawMeshTasksIndirectCountNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdDrawMeshTasksIndirectCountNV =
+                loader(c"vkCmdDrawMeshTasksIndirectCountNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_mesh_shader")]
         {
-            table.vkCmdDrawMeshTasksIndirectNV = loader(
-                    c"vkCmdDrawMeshTasksIndirectNV".as_ptr(),
-                )
+            table.vkCmdDrawMeshTasksIndirectNV = loader(c"vkCmdDrawMeshTasksIndirectNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_mesh_shader")]
@@ -3784,78 +3329,64 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_NV_optical_flow")]
         {
-            table.vkCmdOpticalFlowExecuteNV = loader(
-                    c"vkCmdOpticalFlowExecuteNV".as_ptr(),
-                )
+            table.vkCmdOpticalFlowExecuteNV = loader(c"vkCmdOpticalFlowExecuteNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
         {
-            table.vkCmdBuildPartitionedAccelerationStructuresNV = loader(
-                    c"vkCmdBuildPartitionedAccelerationStructuresNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBuildPartitionedAccelerationStructuresNV =
+                loader(c"vkCmdBuildPartitionedAccelerationStructuresNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkCmdBuildAccelerationStructureNV = loader(
-                    c"vkCmdBuildAccelerationStructureNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBuildAccelerationStructureNV =
+                loader(c"vkCmdBuildAccelerationStructureNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkCmdCopyAccelerationStructureNV = loader(
-                    c"vkCmdCopyAccelerationStructureNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdCopyAccelerationStructureNV =
+                loader(c"vkCmdCopyAccelerationStructureNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkCmdTraceRaysNV = loader(c"vkCmdTraceRaysNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdTraceRaysNV =
+                loader(c"vkCmdTraceRaysNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkCmdWriteAccelerationStructuresPropertiesNV = loader(
-                    c"vkCmdWriteAccelerationStructuresPropertiesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdWriteAccelerationStructuresPropertiesNV =
+                loader(c"vkCmdWriteAccelerationStructuresPropertiesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_scissor_exclusive")]
         {
-            table.vkCmdSetExclusiveScissorEnableNV = loader(
-                    c"vkCmdSetExclusiveScissorEnableNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetExclusiveScissorEnableNV =
+                loader(c"vkCmdSetExclusiveScissorEnableNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_scissor_exclusive")]
         {
-            table.vkCmdSetExclusiveScissorNV = loader(
-                    c"vkCmdSetExclusiveScissorNV".as_ptr(),
-                )
+            table.vkCmdSetExclusiveScissorNV = loader(c"vkCmdSetExclusiveScissorNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_shading_rate_image")]
         {
-            table.vkCmdBindShadingRateImageNV = loader(
-                    c"vkCmdBindShadingRateImageNV".as_ptr(),
-                )
+            table.vkCmdBindShadingRateImageNV = loader(c"vkCmdBindShadingRateImageNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_shading_rate_image")]
         {
-            table.vkCmdSetCoarseSampleOrderNV = loader(
-                    c"vkCmdSetCoarseSampleOrderNV".as_ptr(),
-                )
+            table.vkCmdSetCoarseSampleOrderNV = loader(c"vkCmdSetCoarseSampleOrderNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_shading_rate_image")]
         {
-            table.vkCmdSetViewportShadingRatePaletteNV = loader(
-                    c"vkCmdSetViewportShadingRatePaletteNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdSetViewportShadingRatePaletteNV =
+                loader(c"vkCmdSetViewportShadingRatePaletteNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_QCOM_tile_memory_heap")]
         {
@@ -3864,10 +3395,9 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_QCOM_tile_shading")]
         {
-            table.vkCmdBeginPerTileExecutionQCOM = loader(
-                    c"vkCmdBeginPerTileExecutionQCOM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCmdBeginPerTileExecutionQCOM =
+                loader(c"vkCmdBeginPerTileExecutionQCOM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_QCOM_tile_shading")]
         {
@@ -3876,9 +3406,7 @@ impl CommandBufferDispatchTable {
         }
         #[cfg(feature = "VK_QCOM_tile_shading")]
         {
-            table.vkCmdEndPerTileExecutionQCOM = loader(
-                    c"vkCmdEndPerTileExecutionQCOM".as_ptr(),
-                )
+            table.vkCmdEndPerTileExecutionQCOM = loader(c"vkCmdEndPerTileExecutionQCOM".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -3916,6 +3444,10 @@ impl<'dev> CommandBuffer<'dev> {
         self.parent.device()
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &CommandBufferDispatchTable {
         self.table
     }
@@ -3944,9 +3476,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDispatchGraphAMDX
-                .unwrap_unchecked()(self.raw, scratch, scratchSize, pCountInfo)
+            (self.table).vkCmdDispatchGraphAMDX.unwrap_unchecked()(
+                self.raw,
+                scratch,
+                scratchSize,
+                pCountInfo,
+            )
         }
     }
     /// [`vkCmdDispatchGraphIndirectAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphIndirectAMDX.html)
@@ -4065,9 +3600,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWriteBufferMarker2AMD
-                .unwrap_unchecked()(self.raw, stage, dstBuffer, dstOffset, marker)
+            (self.table).vkCmdWriteBufferMarker2AMD.unwrap_unchecked()(
+                self.raw, stage, dstBuffer, dstOffset, marker,
+            )
         }
     }
     /// [`vkCmdWriteBufferMarkerAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteBufferMarkerAMD.html)
@@ -4096,9 +3631,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWriteBufferMarkerAMD
-                .unwrap_unchecked()(
+            (self.table).vkCmdWriteBufferMarkerAMD.unwrap_unchecked()(
                 self.raw,
                 pipelineStage,
                 dstBuffer,
@@ -4186,9 +3719,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawIndirectCountAMD
-                .unwrap_unchecked()(
+            (self.table).vkCmdDrawIndirectCountAMD.unwrap_unchecked()(
                 self.raw,
                 buffer,
                 offset,
@@ -4222,9 +3753,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDispatchDataGraphARM
-                .unwrap_unchecked()(self.raw, session, pInfo)
+            (self.table).vkCmdDispatchDataGraphARM.unwrap_unchecked()(self.raw, session, pInfo)
         }
     }
     /// [`vkCmdBeginShaderInstrumentationARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginShaderInstrumentationARM.html)
@@ -4241,10 +3770,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `instrumentation`
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     #[inline(always)]
-    pub fn vkCmdBeginShaderInstrumentationARM(
-        &self,
-        instrumentation: VkShaderInstrumentationARM,
-    ) {
+    pub fn vkCmdBeginShaderInstrumentationARM(&self, instrumentation: VkShaderInstrumentationARM) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -4268,7 +3794,9 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdEndShaderInstrumentationARM(&self) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table).vkCmdEndShaderInstrumentationARM.unwrap_unchecked()(self.raw)
+            (self.table)
+                .vkCmdEndShaderInstrumentationARM
+                .unwrap_unchecked()(self.raw)
         }
     }
     /// [`vkCmdCopyTensorARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyTensorARM.html)
@@ -4318,9 +3846,8 @@ impl<'dev> CommandBuffer<'dev> {
         &self,
         pBeginInfo: *const VkCommandBufferBeginInfo,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (self.table).vkBeginCommandBuffer.unwrap_unchecked()(self.raw, pBeginInfo)
-        };
+        let r =
+            unsafe { (self.table).vkBeginCommandBuffer.unwrap_unchecked()(self.raw, pBeginInfo) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
@@ -4328,7 +3855,13 @@ impl<'dev> CommandBuffer<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCmdBeginQuery`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginQuery.html)
@@ -4348,17 +3881,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `flags`: optional: true
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkCmdBeginQuery(
-        &self,
-        queryPool: VkQueryPool,
-        query: u32,
-        flags: VkQueryControlFlags,
-    ) {
+    pub fn vkCmdBeginQuery(&self, queryPool: VkQueryPool, query: u32, flags: VkQueryControlFlags) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginQuery
-                .unwrap_unchecked()(self.raw, queryPool, query, flags)
+            (self.table).vkCmdBeginQuery.unwrap_unchecked()(self.raw, queryPool, query, flags)
         }
     }
     /// [`vkCmdCopyBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBuffer.html)
@@ -4388,9 +3914,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyBuffer
-                .unwrap_unchecked()(
+            (self.table).vkCmdCopyBuffer.unwrap_unchecked()(
                 self.raw,
                 srcBuffer,
                 dstBuffer,
@@ -4428,9 +3952,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyBufferToImage
-                .unwrap_unchecked()(
+            (self.table).vkCmdCopyBufferToImage.unwrap_unchecked()(
                 self.raw,
                 srcBuffer,
                 dstImage,
@@ -4471,9 +3993,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyImage
-                .unwrap_unchecked()(
+            (self.table).vkCmdCopyImage.unwrap_unchecked()(
                 self.raw,
                 srcImage,
                 srcImageLayout,
@@ -4513,9 +4033,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyImageToBuffer
-                .unwrap_unchecked()(
+            (self.table).vkCmdCopyImageToBuffer.unwrap_unchecked()(
                 self.raw,
                 srcImage,
                 srcImageLayout,
@@ -4559,17 +4077,8 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyQueryPoolResults
-                .unwrap_unchecked()(
-                self.raw,
-                queryPool,
-                firstQuery,
-                queryCount,
-                dstBuffer,
-                dstOffset,
-                stride,
-                flags,
+            (self.table).vkCmdCopyQueryPoolResults.unwrap_unchecked()(
+                self.raw, queryPool, firstQuery, queryCount, dstBuffer, dstOffset, stride, flags,
             )
         }
     }
@@ -4618,9 +4127,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdExecuteCommands
-                .unwrap_unchecked()(self.raw, commandBufferCount, pCommandBuffers)
+            (self.table).vkCmdExecuteCommands.unwrap_unchecked()(
+                self.raw,
+                commandBufferCount,
+                pCommandBuffers,
+            )
         }
     }
     /// [`vkCmdFillBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdFillBuffer.html)
@@ -4651,9 +4162,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdFillBuffer
-                .unwrap_unchecked()(self.raw, dstBuffer, dstOffset, size, data)
+            (self.table).vkCmdFillBuffer.unwrap_unchecked()(
+                self.raw, dstBuffer, dstOffset, size, data,
+            )
         }
     }
     /// [`vkCmdPipelineBarrier`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier.html)
@@ -4694,9 +4205,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPipelineBarrier
-                .unwrap_unchecked()(
+            (self.table).vkCmdPipelineBarrier.unwrap_unchecked()(
                 self.raw,
                 srcStageMask,
                 dstStageMask,
@@ -4727,17 +4236,12 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `queryCount`
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkCmdResetQueryPool(
-        &self,
-        queryPool: VkQueryPool,
-        firstQuery: u32,
-        queryCount: u32,
-    ) {
+    pub fn vkCmdResetQueryPool(&self, queryPool: VkQueryPool, firstQuery: u32, queryCount: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdResetQueryPool
-                .unwrap_unchecked()(self.raw, queryPool, firstQuery, queryCount)
+            (self.table).vkCmdResetQueryPool.unwrap_unchecked()(
+                self.raw, queryPool, firstQuery, queryCount,
+            )
         }
     }
     /// [`vkCmdUpdateBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdUpdateBuffer.html)
@@ -4768,9 +4272,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdUpdateBuffer
-                .unwrap_unchecked()(self.raw, dstBuffer, dstOffset, dataSize, pData)
+            (self.table).vkCmdUpdateBuffer.unwrap_unchecked()(
+                self.raw, dstBuffer, dstOffset, dataSize, pData,
+            )
         }
     }
     /// [`vkCmdWriteTimestamp`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteTimestamp.html)
@@ -4799,9 +4303,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWriteTimestamp
-                .unwrap_unchecked()(self.raw, pipelineStage, queryPool, query)
+            (self.table).vkCmdWriteTimestamp.unwrap_unchecked()(
+                self.raw,
+                pipelineStage,
+                queryPool,
+                query,
+            )
         }
     }
     /// [`vkEndCommandBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEndCommandBuffer.html)
@@ -4838,7 +4345,13 @@ impl<'dev> CommandBuffer<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_video_encode_queue")]
             VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkResetCommandBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetCommandBuffer.html)
@@ -4867,17 +4380,19 @@ impl<'dev> CommandBuffer<'dev> {
         &self,
         flags: VkCommandBufferResetFlags,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (self.table).vkResetCommandBuffer.unwrap_unchecked()(self.raw, flags)
-        };
+        let r = unsafe { (self.table).vkResetCommandBuffer.unwrap_unchecked()(self.raw, flags) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCmdSetDeviceMask`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDeviceMask.html)
@@ -4939,15 +4454,13 @@ impl<'dev> CommandBuffer<'dev> {
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
     #[deprecated(note = "superseded by `vkCmdCopyMemoryToImageKHR`")]
     #[inline(always)]
-    pub fn vkCmdCopyBufferToImage2(
-        &self,
-        pCopyBufferToImageInfo: *const VkCopyBufferToImageInfo2,
-    ) {
+    pub fn vkCmdCopyBufferToImage2(&self, pCopyBufferToImageInfo: *const VkCopyBufferToImageInfo2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyBufferToImage2
-                .unwrap_unchecked()(self.raw, pCopyBufferToImageInfo)
+            (self.table).vkCmdCopyBufferToImage2.unwrap_unchecked()(
+                self.raw,
+                pCopyBufferToImageInfo,
+            )
         }
     }
     /// [`vkCmdCopyImage2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImage2.html)
@@ -4987,15 +4500,13 @@ impl<'dev> CommandBuffer<'dev> {
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
     #[deprecated(note = "superseded by `vkCmdCopyImageToMemoryKHR`")]
     #[inline(always)]
-    pub fn vkCmdCopyImageToBuffer2(
-        &self,
-        pCopyImageToBufferInfo: *const VkCopyImageToBufferInfo2,
-    ) {
+    pub fn vkCmdCopyImageToBuffer2(&self, pCopyImageToBufferInfo: *const VkCopyImageToBufferInfo2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyImageToBuffer2
-                .unwrap_unchecked()(self.raw, pCopyImageToBufferInfo)
+            (self.table).vkCmdCopyImageToBuffer2.unwrap_unchecked()(
+                self.raw,
+                pCopyImageToBufferInfo,
+            )
         }
     }
     /// [`vkCmdPipelineBarrier2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier2.html)
@@ -5016,9 +4527,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdPipelineBarrier2(&self, pDependencyInfo: *const VkDependencyInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPipelineBarrier2
-                .unwrap_unchecked()(self.raw, pDependencyInfo)
+            (self.table).vkCmdPipelineBarrier2.unwrap_unchecked()(self.raw, pDependencyInfo)
         }
     }
     /// [`vkCmdWriteTimestamp2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteTimestamp2.html)
@@ -5046,9 +4555,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWriteTimestamp2
-                .unwrap_unchecked()(self.raw, stage, queryPool, query)
+            (self.table).vkCmdWriteTimestamp2.unwrap_unchecked()(self.raw, stage, queryPool, query)
         }
     }
     /// [`vkCmdBindDescriptorSets`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorSets.html)
@@ -5084,9 +4591,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindDescriptorSets
-                .unwrap_unchecked()(
+            (self.table).vkCmdBindDescriptorSets.unwrap_unchecked()(
                 self.raw,
                 pipelineBindPoint,
                 layout,
@@ -5114,16 +4619,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pipeline`
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkCmdBindPipeline(
-        &self,
-        pipelineBindPoint: VkPipelineBindPoint,
-        pipeline: VkPipeline,
-    ) {
+    pub fn vkCmdBindPipeline(&self, pipelineBindPoint: VkPipelineBindPoint, pipeline: VkPipeline) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindPipeline
-                .unwrap_unchecked()(self.raw, pipelineBindPoint, pipeline)
+            (self.table).vkCmdBindPipeline.unwrap_unchecked()(self.raw, pipelineBindPoint, pipeline)
         }
     }
     /// [`vkCmdClearColorImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdClearColorImage.html)
@@ -5155,9 +4654,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdClearColorImage
-                .unwrap_unchecked()(
+            (self.table).vkCmdClearColorImage.unwrap_unchecked()(
                 self.raw,
                 image,
                 imageLayout,
@@ -5188,9 +4685,12 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdDispatch(&self, groupCountX: u32, groupCountY: u32, groupCountZ: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDispatch
-                .unwrap_unchecked()(self.raw, groupCountX, groupCountY, groupCountZ)
+            (self.table).vkCmdDispatch.unwrap_unchecked()(
+                self.raw,
+                groupCountX,
+                groupCountY,
+                groupCountZ,
+            )
         }
     }
     /// [`vkCmdDispatchIndirect`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchIndirect.html)
@@ -5214,9 +4714,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdDispatchIndirect(&self, buffer: VkBuffer, offset: VkDeviceSize) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDispatchIndirect
-                .unwrap_unchecked()(self.raw, buffer, offset)
+            (self.table).vkCmdDispatchIndirect.unwrap_unchecked()(self.raw, buffer, offset)
         }
     }
     /// [`vkCmdPushConstants`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants.html)
@@ -5248,9 +4746,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPushConstants
-                .unwrap_unchecked()(self.raw, layout, stageFlags, offset, size, pValues)
+            (self.table).vkCmdPushConstants.unwrap_unchecked()(
+                self.raw, layout, stageFlags, offset, size, pValues,
+            )
         }
     }
     /// [`vkCmdResetEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResetEvent.html)
@@ -5339,9 +4837,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWaitEvents
-                .unwrap_unchecked()(
+            (self.table).vkCmdWaitEvents.unwrap_unchecked()(
                 self.raw,
                 eventCount,
                 pEvents,
@@ -5388,9 +4884,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDispatchBase
-                .unwrap_unchecked()(
+            (self.table).vkCmdDispatchBase.unwrap_unchecked()(
                 self.raw,
                 baseGroupX,
                 baseGroupY,
@@ -5439,16 +4933,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pDependencyInfo`
     #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
     #[inline(always)]
-    pub fn vkCmdSetEvent2(
-        &self,
-        event: VkEvent,
-        pDependencyInfo: *const VkDependencyInfo,
-    ) {
+    pub fn vkCmdSetEvent2(&self, event: VkEvent, pDependencyInfo: *const VkDependencyInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetEvent2
-                .unwrap_unchecked()(self.raw, event, pDependencyInfo)
+            (self.table).vkCmdSetEvent2.unwrap_unchecked()(self.raw, event, pDependencyInfo)
         }
     }
     /// [`vkCmdWaitEvents2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2.html)
@@ -5476,9 +4964,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWaitEvents2
-                .unwrap_unchecked()(self.raw, eventCount, pEvents, pDependencyInfos)
+            (self.table).vkCmdWaitEvents2.unwrap_unchecked()(
+                self.raw,
+                eventCount,
+                pEvents,
+                pDependencyInfos,
+            )
         }
     }
     /// [`vkCmdBindDescriptorSets2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorSets2.html)
@@ -5502,9 +4993,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindDescriptorSets2
-                .unwrap_unchecked()(self.raw, pBindDescriptorSetsInfo)
+            (self.table).vkCmdBindDescriptorSets2.unwrap_unchecked()(
+                self.raw,
+                pBindDescriptorSetsInfo,
+            )
         }
     }
     /// [`vkCmdPushConstants2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants2.html)
@@ -5525,9 +5017,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdPushConstants2(&self, pPushConstantsInfo: *const VkPushConstantsInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPushConstants2
-                .unwrap_unchecked()(self.raw, pPushConstantsInfo)
+            (self.table).vkCmdPushConstants2.unwrap_unchecked()(self.raw, pPushConstantsInfo)
         }
     }
     /// [`vkCmdPushDescriptorSet`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet.html)
@@ -5559,9 +5049,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPushDescriptorSet
-                .unwrap_unchecked()(
+            (self.table).vkCmdPushDescriptorSet.unwrap_unchecked()(
                 self.raw,
                 pipelineBindPoint,
                 layout,
@@ -5586,15 +5074,13 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pPushDescriptorSetInfo`
     #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
     #[inline(always)]
-    pub fn vkCmdPushDescriptorSet2(
-        &self,
-        pPushDescriptorSetInfo: *const VkPushDescriptorSetInfo,
-    ) {
+    pub fn vkCmdPushDescriptorSet2(&self, pPushDescriptorSetInfo: *const VkPushDescriptorSetInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPushDescriptorSet2
-                .unwrap_unchecked()(self.raw, pPushDescriptorSetInfo)
+            (self.table).vkCmdPushDescriptorSet2.unwrap_unchecked()(
+                self.raw,
+                pPushDescriptorSetInfo,
+            )
         }
     }
     /// [`vkCmdPushDescriptorSetWithTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate.html)
@@ -5627,11 +5113,7 @@ impl<'dev> CommandBuffer<'dev> {
             (self.table)
                 .vkCmdPushDescriptorSetWithTemplate
                 .unwrap_unchecked()(
-                self.raw,
-                descriptorUpdateTemplate,
-                layout,
-                set,
-                pData,
+                self.raw, descriptorUpdateTemplate, layout, set, pData
             )
         }
     }
@@ -5675,10 +5157,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `aspectMask`: optional: true
     #[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
     #[inline(always)]
-    pub fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
-        &self,
-        aspectMask: VkImageAspectFlags,
-    ) {
+    pub fn vkCmdSetAttachmentFeedbackLoopEnableEXT(&self, aspectMask: VkImageAspectFlags) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -5708,9 +5187,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetColorWriteEnableEXT
-                .unwrap_unchecked()(self.raw, attachmentCount, pColorWriteEnables)
+            (self.table).vkCmdSetColorWriteEnableEXT.unwrap_unchecked()(
+                self.raw,
+                attachmentCount,
+                pColorWriteEnables,
+            )
         }
     }
     /// [`vkCmdBeginConditionalRenderingEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginConditionalRenderingEXT.html)
@@ -5755,7 +5236,9 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdEndConditionalRenderingEXT(&self) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table).vkCmdEndConditionalRenderingEXT.unwrap_unchecked()(self.raw)
+            (self.table)
+                .vkCmdEndConditionalRenderingEXT
+                .unwrap_unchecked()(self.raw)
         }
     }
     /// [`vkCmdBeginCustomResolveEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginCustomResolveEXT.html)
@@ -5779,9 +5262,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginCustomResolveEXT
-                .unwrap_unchecked()(self.raw, pBeginCustomResolveInfo)
+            (self.table).vkCmdBeginCustomResolveEXT.unwrap_unchecked()(
+                self.raw,
+                pBeginCustomResolveInfo,
+            )
         }
     }
     /// [`vkCmdDebugMarkerBeginEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDebugMarkerBeginEXT.html)
@@ -5798,15 +5282,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pMarkerInfo`
     #[cfg(feature = "VK_EXT_debug_marker")]
     #[inline(always)]
-    pub fn vkCmdDebugMarkerBeginEXT(
-        &self,
-        pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT,
-    ) {
+    pub fn vkCmdDebugMarkerBeginEXT(&self, pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDebugMarkerBeginEXT
-                .unwrap_unchecked()(self.raw, pMarkerInfo)
+            (self.table).vkCmdDebugMarkerBeginEXT.unwrap_unchecked()(self.raw, pMarkerInfo)
         }
     }
     /// [`vkCmdDebugMarkerEndEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDebugMarkerEndEXT.html)
@@ -5842,15 +5321,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pMarkerInfo`
     #[cfg(feature = "VK_EXT_debug_marker")]
     #[inline(always)]
-    pub fn vkCmdDebugMarkerInsertEXT(
-        &self,
-        pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT,
-    ) {
+    pub fn vkCmdDebugMarkerInsertEXT(&self, pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDebugMarkerInsertEXT
-                .unwrap_unchecked()(self.raw, pMarkerInfo)
+            (self.table).vkCmdDebugMarkerInsertEXT.unwrap_unchecked()(self.raw, pMarkerInfo)
         }
     }
     /// [`vkCmdBeginDebugUtilsLabelEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginDebugUtilsLabelEXT.html)
@@ -5870,9 +5344,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdBeginDebugUtilsLabelEXT(&self, pLabelInfo: *const VkDebugUtilsLabelEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginDebugUtilsLabelEXT
-                .unwrap_unchecked()(self.raw, pLabelInfo)
+            (self.table).vkCmdBeginDebugUtilsLabelEXT.unwrap_unchecked()(self.raw, pLabelInfo)
         }
     }
     /// [`vkCmdEndDebugUtilsLabelEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndDebugUtilsLabelEXT.html)
@@ -5908,10 +5380,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pLabelInfo`
     #[cfg(feature = "VK_EXT_debug_utils")]
     #[inline(always)]
-    pub fn vkCmdInsertDebugUtilsLabelEXT(
-        &self,
-        pLabelInfo: *const VkDebugUtilsLabelEXT,
-    ) {
+    pub fn vkCmdInsertDebugUtilsLabelEXT(&self, pLabelInfo: *const VkDebugUtilsLabelEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -5936,9 +5405,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetDepthBias2EXT(&self, pDepthBiasInfo: *const VkDepthBiasInfoEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthBias2EXT
-                .unwrap_unchecked()(self.raw, pDepthBiasInfo)
+            (self.table).vkCmdSetDepthBias2EXT.unwrap_unchecked()(self.raw, pDepthBiasInfo)
         }
     }
     /// [`vkCmdSetDepthClampRangeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthClampRangeEXT.html)
@@ -5955,7 +5422,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `commandBuffer`
     /// - `depthClampMode`
     /// - `pDepthClampRange`: optional: true
-    #[cfg(any(feature = "VK_EXT_depth_clamp_control", feature = "VK_EXT_shader_object"))]
+    #[cfg(any(
+        feature = "VK_EXT_depth_clamp_control",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthClampRangeEXT(
         &self,
@@ -5964,9 +5434,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthClampRangeEXT
-                .unwrap_unchecked()(self.raw, depthClampMode, pDepthClampRange)
+            (self.table).vkCmdSetDepthClampRangeEXT.unwrap_unchecked()(
+                self.raw,
+                depthClampMode,
+                pDepthClampRange,
+            )
         }
     }
     /// [`vkCmdBindDescriptorBufferEmbeddedSamplersEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html)
@@ -6207,9 +5679,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDiscardRectangleEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetDiscardRectangleEXT.unwrap_unchecked()(
                 self.raw,
                 firstDiscardRectangle,
                 discardRectangleCount,
@@ -6253,10 +5723,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `discardRectangleMode`
     #[cfg(feature = "VK_EXT_discard_rectangles")]
     #[inline(always)]
-    pub fn vkCmdSetDiscardRectangleModeEXT(
-        &self,
-        discardRectangleMode: VkDiscardRectangleModeEXT,
-    ) {
+    pub fn vkCmdSetDiscardRectangleModeEXT(&self, discardRectangleMode: VkDiscardRectangleModeEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -6283,9 +5750,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pOffsets`: len: bindingCount
     /// - `pSizes`: optional: true, len: bindingCount
     /// - `pStrides`: optional: true, len: bindingCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdBindVertexBuffers2EXT(
         &self,
@@ -6298,9 +5766,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindVertexBuffers2EXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdBindVertexBuffers2EXT.unwrap_unchecked()(
                 self.raw,
                 firstBinding,
                 bindingCount,
@@ -6325,9 +5791,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `cullMode`: optional: true
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetCullModeEXT(&self, cullMode: VkCullModeFlags) {
         unsafe {
@@ -6349,9 +5816,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `depthBoundsTestEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthBoundsTestEnableEXT(&self, depthBoundsTestEnable: VkBool32) {
         unsafe {
@@ -6375,16 +5843,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `depthCompareOp`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthCompareOpEXT(&self, depthCompareOp: VkCompareOp) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthCompareOpEXT
-                .unwrap_unchecked()(self.raw, depthCompareOp)
+            (self.table).vkCmdSetDepthCompareOpEXT.unwrap_unchecked()(self.raw, depthCompareOp)
         }
     }
     /// [`vkCmdSetDepthTestEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthTestEnable.html)
@@ -6401,16 +5868,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `depthTestEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthTestEnableEXT(&self, depthTestEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthTestEnableEXT
-                .unwrap_unchecked()(self.raw, depthTestEnable)
+            (self.table).vkCmdSetDepthTestEnableEXT.unwrap_unchecked()(self.raw, depthTestEnable)
         }
     }
     /// [`vkCmdSetDepthWriteEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthWriteEnable.html)
@@ -6427,16 +5893,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `depthWriteEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthWriteEnableEXT(&self, depthWriteEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthWriteEnableEXT
-                .unwrap_unchecked()(self.raw, depthWriteEnable)
+            (self.table).vkCmdSetDepthWriteEnableEXT.unwrap_unchecked()(self.raw, depthWriteEnable)
         }
     }
     /// [`vkCmdSetFrontFace`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetFrontFace.html)
@@ -6453,9 +5918,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `frontFace`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetFrontFaceEXT(&self, frontFace: VkFrontFace) {
         unsafe {
@@ -6477,16 +5943,18 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `primitiveTopology`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetPrimitiveTopologyEXT(&self, primitiveTopology: VkPrimitiveTopology) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetPrimitiveTopologyEXT
-                .unwrap_unchecked()(self.raw, primitiveTopology)
+            (self.table).vkCmdSetPrimitiveTopologyEXT.unwrap_unchecked()(
+                self.raw,
+                primitiveTopology,
+            )
         }
     }
     /// [`vkCmdSetScissorWithCount`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetScissorWithCount.html)
@@ -6504,20 +5972,19 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `commandBuffer`
     /// - `scissorCount`
     /// - `pScissors`: len: scissorCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
-    pub fn vkCmdSetScissorWithCountEXT(
-        &self,
-        scissorCount: u32,
-        pScissors: *const VkRect2D,
-    ) {
+    pub fn vkCmdSetScissorWithCountEXT(&self, scissorCount: u32, pScissors: *const VkRect2D) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetScissorWithCountEXT
-                .unwrap_unchecked()(self.raw, scissorCount, pScissors)
+            (self.table).vkCmdSetScissorWithCountEXT.unwrap_unchecked()(
+                self.raw,
+                scissorCount,
+                pScissors,
+            )
         }
     }
     /// [`vkCmdSetStencilOp`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilOp.html)
@@ -6538,9 +6005,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `passOp`
     /// - `depthFailOp`
     /// - `compareOp`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetStencilOpEXT(
         &self,
@@ -6552,9 +6020,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetStencilOpEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetStencilOpEXT.unwrap_unchecked()(
                 self.raw,
                 faceMask,
                 failOp,
@@ -6578,16 +6044,18 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `stencilTestEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetStencilTestEnableEXT(&self, stencilTestEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetStencilTestEnableEXT
-                .unwrap_unchecked()(self.raw, stencilTestEnable)
+            (self.table).vkCmdSetStencilTestEnableEXT.unwrap_unchecked()(
+                self.raw,
+                stencilTestEnable,
+            )
         }
     }
     /// [`vkCmdSetViewportWithCount`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportWithCount.html)
@@ -6605,20 +6073,19 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `commandBuffer`
     /// - `viewportCount`
     /// - `pViewports`: len: viewportCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
-    pub fn vkCmdSetViewportWithCountEXT(
-        &self,
-        viewportCount: u32,
-        pViewports: *const VkViewport,
-    ) {
+    pub fn vkCmdSetViewportWithCountEXT(&self, viewportCount: u32, pViewports: *const VkViewport) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetViewportWithCountEXT
-                .unwrap_unchecked()(self.raw, viewportCount, pViewports)
+            (self.table).vkCmdSetViewportWithCountEXT.unwrap_unchecked()(
+                self.raw,
+                viewportCount,
+                pViewports,
+            )
         }
     }
     /// [`vkCmdSetDepthBiasEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBiasEnable.html)
@@ -6635,16 +6102,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `depthBiasEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthBiasEnableEXT(&self, depthBiasEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthBiasEnableEXT
-                .unwrap_unchecked()(self.raw, depthBiasEnable)
+            (self.table).vkCmdSetDepthBiasEnableEXT.unwrap_unchecked()(self.raw, depthBiasEnable)
         }
     }
     /// [`vkCmdSetLogicOpEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLogicOpEXT.html)
@@ -6660,9 +6126,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `logicOp`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetLogicOpEXT(&self, logicOp: VkLogicOp) {
         unsafe {
@@ -6683,9 +6150,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `patchControlPoints`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetPatchControlPointsEXT(&self, patchControlPoints: u32) {
         unsafe {
@@ -6709,9 +6177,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `primitiveRestartEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetPrimitiveRestartEnableEXT(&self, primitiveRestartEnable: VkBool32) {
         unsafe {
@@ -6735,9 +6204,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `rasterizerDiscardEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state2", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state2",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetRasterizerDiscardEnableEXT(&self, rasterizerDiscardEnable: VkBool32) {
         unsafe {
@@ -6760,9 +6230,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `alphaToCoverageEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetAlphaToCoverageEnableEXT(&self, alphaToCoverageEnable: VkBool32) {
         unsafe {
@@ -6785,16 +6256,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `alphaToOneEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetAlphaToOneEnableEXT(&self, alphaToOneEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetAlphaToOneEnableEXT
-                .unwrap_unchecked()(self.raw, alphaToOneEnable)
+            (self.table).vkCmdSetAlphaToOneEnableEXT.unwrap_unchecked()(self.raw, alphaToOneEnable)
         }
     }
     /// [`vkCmdSetColorBlendAdvancedEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetColorBlendAdvancedEXT.html)
@@ -6812,9 +6282,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `firstAttachment`
     /// - `attachmentCount`
     /// - `pColorBlendAdvanced`: len: attachmentCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetColorBlendAdvancedEXT(
         &self,
@@ -6849,9 +6320,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `firstAttachment`
     /// - `attachmentCount`
     /// - `pColorBlendEnables`: len: attachmentCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetColorBlendEnableEXT(
         &self,
@@ -6861,9 +6333,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetColorBlendEnableEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetColorBlendEnableEXT.unwrap_unchecked()(
                 self.raw,
                 firstAttachment,
                 attachmentCount,
@@ -6886,9 +6356,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `firstAttachment`
     /// - `attachmentCount`
     /// - `pColorBlendEquations`: len: attachmentCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetColorBlendEquationEXT(
         &self,
@@ -6923,9 +6394,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `firstAttachment`
     /// - `attachmentCount`
     /// - `pColorWriteMasks`: optional: pointer required, values optional if pointer not null, len: attachmentCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetColorWriteMaskEXT(
         &self,
@@ -6935,9 +6407,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetColorWriteMaskEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetColorWriteMaskEXT.unwrap_unchecked()(
                 self.raw,
                 firstAttachment,
                 attachmentCount,
@@ -6958,9 +6428,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `conservativeRasterizationMode`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetConservativeRasterizationModeEXT(
         &self,
@@ -6986,9 +6457,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `coverageModulationMode`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetCoverageModulationModeNV(
         &self,
@@ -7014,14 +6486,12 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `coverageModulationTableEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
-    pub fn vkCmdSetCoverageModulationTableEnableNV(
-        &self,
-        coverageModulationTableEnable: VkBool32,
-    ) {
+    pub fn vkCmdSetCoverageModulationTableEnableNV(&self, coverageModulationTableEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -7043,9 +6513,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `commandBuffer`
     /// - `coverageModulationTableCount`
     /// - `pCoverageModulationTable`: len: coverageModulationTableCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetCoverageModulationTableNV(
         &self,
@@ -7076,9 +6547,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `coverageReductionMode`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetCoverageReductionModeNV(
         &self,
@@ -7104,9 +6576,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `coverageToColorEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetCoverageToColorEnableNV(&self, coverageToColorEnable: VkBool32) {
         unsafe {
@@ -7129,9 +6602,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `coverageToColorLocation`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetCoverageToColorLocationNV(&self, coverageToColorLocation: u32) {
         unsafe {
@@ -7154,16 +6628,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `depthClampEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthClampEnableEXT(&self, depthClampEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthClampEnableEXT
-                .unwrap_unchecked()(self.raw, depthClampEnable)
+            (self.table).vkCmdSetDepthClampEnableEXT.unwrap_unchecked()(self.raw, depthClampEnable)
         }
     }
     /// [`vkCmdSetDepthClipEnableEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthClipEnableEXT.html)
@@ -7179,16 +6652,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `depthClipEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthClipEnableEXT(&self, depthClipEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthClipEnableEXT
-                .unwrap_unchecked()(self.raw, depthClipEnable)
+            (self.table).vkCmdSetDepthClipEnableEXT.unwrap_unchecked()(self.raw, depthClipEnable)
         }
     }
     /// [`vkCmdSetDepthClipNegativeOneToOneEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthClipNegativeOneToOneEXT.html)
@@ -7204,9 +6676,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `negativeOneToOne`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetDepthClipNegativeOneToOneEXT(&self, negativeOneToOne: VkBool32) {
         unsafe {
@@ -7229,9 +6702,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `extraPrimitiveOverestimationSize`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
         &self,
@@ -7257,9 +6731,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `lineRasterizationMode`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetLineRasterizationModeEXT(
         &self,
@@ -7285,16 +6760,18 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `stippledLineEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetLineStippleEnableEXT(&self, stippledLineEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetLineStippleEnableEXT
-                .unwrap_unchecked()(self.raw, stippledLineEnable)
+            (self.table).vkCmdSetLineStippleEnableEXT.unwrap_unchecked()(
+                self.raw,
+                stippledLineEnable,
+            )
         }
     }
     /// [`vkCmdSetLogicOpEnableEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLogicOpEnableEXT.html)
@@ -7310,16 +6787,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `logicOpEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetLogicOpEnableEXT(&self, logicOpEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetLogicOpEnableEXT
-                .unwrap_unchecked()(self.raw, logicOpEnable)
+            (self.table).vkCmdSetLogicOpEnableEXT.unwrap_unchecked()(self.raw, logicOpEnable)
         }
     }
     /// [`vkCmdSetPolygonModeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPolygonModeEXT.html)
@@ -7335,9 +6811,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `polygonMode`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetPolygonModeEXT(&self, polygonMode: VkPolygonMode) {
         unsafe {
@@ -7358,14 +6835,12 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `provokingVertexMode`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
-    pub fn vkCmdSetProvokingVertexModeEXT(
-        &self,
-        provokingVertexMode: VkProvokingVertexModeEXT,
-    ) {
+    pub fn vkCmdSetProvokingVertexModeEXT(&self, provokingVertexMode: VkProvokingVertexModeEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -7386,14 +6861,12 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `rasterizationSamples`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
-    pub fn vkCmdSetRasterizationSamplesEXT(
-        &self,
-        rasterizationSamples: VkSampleCountFlagBits,
-    ) {
+    pub fn vkCmdSetRasterizationSamplesEXT(&self, rasterizationSamples: VkSampleCountFlagBits) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -7414,9 +6887,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `rasterizationStream`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetRasterizationStreamEXT(&self, rasterizationStream: u32) {
         unsafe {
@@ -7439,9 +6913,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `representativeFragmentTestEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetRepresentativeFragmentTestEnableNV(
         &self,
@@ -7467,9 +6942,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `sampleLocationsEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetSampleLocationsEnableEXT(&self, sampleLocationsEnable: VkBool32) {
         unsafe {
@@ -7493,9 +6969,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `commandBuffer`
     /// - `samples`
     /// - `pSampleMask`: optional: true, len: latexmath:[\lceil{\mathit{samples} \over 32}\rceil]
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetSampleMaskEXT(
         &self,
@@ -7504,9 +6981,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetSampleMaskEXT
-                .unwrap_unchecked()(self.raw, samples, pSampleMask)
+            (self.table).vkCmdSetSampleMaskEXT.unwrap_unchecked()(self.raw, samples, pSampleMask)
         }
     }
     /// [`vkCmdSetShadingRateImageEnableNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetShadingRateImageEnableNV.html)
@@ -7522,9 +6997,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `shadingRateImageEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetShadingRateImageEnableNV(&self, shadingRateImageEnable: VkBool32) {
         unsafe {
@@ -7547,14 +7023,12 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `domainOrigin`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
-    pub fn vkCmdSetTessellationDomainOriginEXT(
-        &self,
-        domainOrigin: VkTessellationDomainOrigin,
-    ) {
+    pub fn vkCmdSetTessellationDomainOriginEXT(&self, domainOrigin: VkTessellationDomainOrigin) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -7577,9 +7051,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `firstViewport`
     /// - `viewportCount`
     /// - `pViewportSwizzles`: len: viewportCount
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetViewportSwizzleNV(
         &self,
@@ -7589,9 +7064,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetViewportSwizzleNV
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetViewportSwizzleNV.unwrap_unchecked()(
                 self.raw,
                 firstViewport,
                 viewportCount,
@@ -7612,9 +7085,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// # Parameters
     /// - `commandBuffer`
     /// - `viewportWScalingEnable`
-    #[cfg(
-        any(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_EXT_shader_object")
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_shader_object"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetViewportWScalingEnableNV(&self, viewportWScalingEnable: VkBool32) {
         unsafe {
@@ -7638,15 +7112,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pRenderingEndInfo`: optional: true
     #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
     #[inline(always)]
-    pub fn vkCmdEndRendering2EXT(
-        &self,
-        pRenderingEndInfo: *const VkRenderingEndInfoKHR,
-    ) {
+    pub fn vkCmdEndRendering2EXT(&self, pRenderingEndInfo: *const VkRenderingEndInfoKHR) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndRendering2EXT
-                .unwrap_unchecked()(self.raw, pRenderingEndInfo)
+            (self.table).vkCmdEndRendering2EXT.unwrap_unchecked()(self.raw, pRenderingEndInfo)
         }
     }
     /// [`vkCmdSetLineStipple`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStipple.html)
@@ -7665,16 +7134,14 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `lineStipplePattern`
     #[cfg(feature = "VK_EXT_line_rasterization")]
     #[inline(always)]
-    pub fn vkCmdSetLineStippleEXT(
-        &self,
-        lineStippleFactor: u32,
-        lineStipplePattern: u16,
-    ) {
+    pub fn vkCmdSetLineStippleEXT(&self, lineStippleFactor: u32, lineStipplePattern: u16) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetLineStippleEXT
-                .unwrap_unchecked()(self.raw, lineStippleFactor, lineStipplePattern)
+            (self.table).vkCmdSetLineStippleEXT.unwrap_unchecked()(
+                self.raw,
+                lineStippleFactor,
+                lineStipplePattern,
+            )
         }
     }
     /// [`vkCmdDecompressMemoryEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryEXT.html)
@@ -7697,9 +7164,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDecompressMemoryEXT
-                .unwrap_unchecked()(self.raw, pDecompressMemoryInfoEXT)
+            (self.table).vkCmdDecompressMemoryEXT.unwrap_unchecked()(
+                self.raw,
+                pDecompressMemoryInfoEXT,
+            )
         }
     }
     /// [`vkCmdDecompressMemoryIndirectCountEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryIndirectCountEXT.html)
@@ -7759,17 +7227,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `groupCountZ`
     #[cfg(feature = "VK_EXT_mesh_shader")]
     #[inline(always)]
-    pub fn vkCmdDrawMeshTasksEXT(
-        &self,
-        groupCountX: u32,
-        groupCountY: u32,
-        groupCountZ: u32,
-    ) {
+    pub fn vkCmdDrawMeshTasksEXT(&self, groupCountX: u32, groupCountY: u32, groupCountZ: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawMeshTasksEXT
-                .unwrap_unchecked()(self.raw, groupCountX, groupCountY, groupCountZ)
+            (self.table).vkCmdDrawMeshTasksEXT.unwrap_unchecked()(
+                self.raw,
+                groupCountX,
+                groupCountY,
+                groupCountZ,
+            )
         }
     }
     /// [`vkCmdDrawMeshTasksIndirectCountEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectCountEXT.html)
@@ -7879,9 +7345,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawMultiEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdDrawMultiEXT.unwrap_unchecked()(
                 self.raw,
                 drawCount,
                 pVertexInfo,
@@ -7922,9 +7386,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawMultiIndexedEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdDrawMultiIndexedEXT.unwrap_unchecked()(
                 self.raw,
                 drawCount,
                 pIndexInfo,
@@ -7950,16 +7412,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pInfos`: len: infoCount
     #[cfg(feature = "VK_EXT_opacity_micromap")]
     #[inline(always)]
-    pub fn vkCmdBuildMicromapsEXT(
-        &self,
-        infoCount: u32,
-        pInfos: *const VkMicromapBuildInfoEXT,
-    ) {
+    pub fn vkCmdBuildMicromapsEXT(&self, infoCount: u32, pInfos: *const VkMicromapBuildInfoEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBuildMicromapsEXT
-                .unwrap_unchecked()(self.raw, infoCount, pInfos)
+            (self.table).vkCmdBuildMicromapsEXT.unwrap_unchecked()(self.raw, infoCount, pInfos)
         }
     }
     /// [`vkCmdCopyMemoryToMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToMicromapEXT.html)
@@ -7976,10 +7432,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pInfo`
     #[cfg(feature = "VK_EXT_opacity_micromap")]
     #[inline(always)]
-    pub fn vkCmdCopyMemoryToMicromapEXT(
-        &self,
-        pInfo: *const VkCopyMemoryToMicromapInfoEXT,
-    ) {
+    pub fn vkCmdCopyMemoryToMicromapEXT(&self, pInfo: *const VkCopyMemoryToMicromapInfoEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table).vkCmdCopyMemoryToMicromapEXT.unwrap_unchecked()(self.raw, pInfo)
@@ -8019,10 +7472,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pInfo`
     #[cfg(feature = "VK_EXT_opacity_micromap")]
     #[inline(always)]
-    pub fn vkCmdCopyMicromapToMemoryEXT(
-        &self,
-        pInfo: *const VkCopyMicromapToMemoryInfoEXT,
-    ) {
+    pub fn vkCmdCopyMicromapToMemoryEXT(&self, pInfo: *const VkCopyMicromapToMemoryInfoEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table).vkCmdCopyMicromapToMemoryEXT.unwrap_unchecked()(self.raw, pInfo)
@@ -8088,9 +7538,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetSampleLocationsEXT
-                .unwrap_unchecked()(self.raw, pSampleLocationsInfo)
+            (self.table).vkCmdSetSampleLocationsEXT.unwrap_unchecked()(
+                self.raw,
+                pSampleLocationsInfo,
+            )
         }
     }
     /// [`vkCmdBindShadersEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindShadersEXT.html)
@@ -8117,9 +7568,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindShadersEXT
-                .unwrap_unchecked()(self.raw, stageCount, pStages, pShaders)
+            (self.table).vkCmdBindShadersEXT.unwrap_unchecked()(
+                self.raw, stageCount, pStages, pShaders,
+            )
         }
     }
     /// [`vkCmdSetVertexInputEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetVertexInputEXT.html)
@@ -8138,12 +7589,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pVertexBindingDescriptions`: len: vertexBindingDescriptionCount
     /// - `vertexAttributeDescriptionCount`: optional: true
     /// - `pVertexAttributeDescriptions`: len: vertexAttributeDescriptionCount
-    #[cfg(
-        any(
-            feature = "VK_EXT_shader_object",
-            feature = "VK_EXT_vertex_input_dynamic_state"
-        )
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_EXT_vertex_input_dynamic_state"
+    ))]
     #[inline(always)]
     pub fn vkCmdSetVertexInputEXT(
         &self,
@@ -8154,9 +7603,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetVertexInputEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetVertexInputEXT.unwrap_unchecked()(
                 self.raw,
                 vertexBindingDescriptionCount,
                 pVertexBindingDescriptions,
@@ -8191,9 +7638,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginQueryIndexedEXT
-                .unwrap_unchecked()(self.raw, queryPool, query, flags, index)
+            (self.table).vkCmdBeginQueryIndexedEXT.unwrap_unchecked()(
+                self.raw, queryPool, query, flags, index,
+            )
         }
     }
     /// [`vkCmdBeginTransformFeedbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginTransformFeedbackEXT.html)
@@ -8336,17 +7783,12 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `index`
     #[cfg(feature = "VK_EXT_transform_feedback")]
     #[inline(always)]
-    pub fn vkCmdEndQueryIndexedEXT(
-        &self,
-        queryPool: VkQueryPool,
-        query: u32,
-        index: u32,
-    ) {
+    pub fn vkCmdEndQueryIndexedEXT(&self, queryPool: VkQueryPool, query: u32, index: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndQueryIndexedEXT
-                .unwrap_unchecked()(self.raw, queryPool, query, index)
+            (self.table).vkCmdEndQueryIndexedEXT.unwrap_unchecked()(
+                self.raw, queryPool, query, index,
+            )
         }
     }
     /// [`vkCmdEndTransformFeedbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndTransformFeedbackEXT.html)
@@ -8376,9 +7818,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndTransformFeedbackEXT
-                .unwrap_unchecked()(
+            (self.table).vkCmdEndTransformFeedbackEXT.unwrap_unchecked()(
                 self.raw,
                 firstCounterBuffer,
                 counterBufferCount,
@@ -8411,9 +7851,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginRenderPass
-                .unwrap_unchecked()(self.raw, pRenderPassBegin, contents)
+            (self.table).vkCmdBeginRenderPass.unwrap_unchecked()(
+                self.raw,
+                pRenderPassBegin,
+                contents,
+            )
         }
     }
     /// [`vkCmdBindIndexBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer.html)
@@ -8441,9 +7883,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindIndexBuffer
-                .unwrap_unchecked()(self.raw, buffer, offset, indexType)
+            (self.table).vkCmdBindIndexBuffer.unwrap_unchecked()(
+                self.raw, buffer, offset, indexType,
+            )
         }
     }
     /// [`vkCmdBindVertexBuffers`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindVertexBuffers.html)
@@ -8473,9 +7915,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindVertexBuffers
-                .unwrap_unchecked()(
+            (self.table).vkCmdBindVertexBuffers.unwrap_unchecked()(
                 self.raw,
                 firstBinding,
                 bindingCount,
@@ -8517,9 +7957,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBlitImage
-                .unwrap_unchecked()(
+            (self.table).vkCmdBlitImage.unwrap_unchecked()(
                 self.raw,
                 srcImage,
                 srcImageLayout,
@@ -8559,9 +7997,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdClearAttachments
-                .unwrap_unchecked()(
+            (self.table).vkCmdClearAttachments.unwrap_unchecked()(
                 self.raw,
                 attachmentCount,
                 pAttachments,
@@ -8599,9 +8035,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdClearDepthStencilImage
-                .unwrap_unchecked()(
+            (self.table).vkCmdClearDepthStencilImage.unwrap_unchecked()(
                 self.raw,
                 image,
                 imageLayout,
@@ -8639,9 +8073,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDraw
-                .unwrap_unchecked()(
+            (self.table).vkCmdDraw.unwrap_unchecked()(
                 self.raw,
                 vertexCount,
                 instanceCount,
@@ -8680,9 +8112,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawIndexed
-                .unwrap_unchecked()(
+            (self.table).vkCmdDrawIndexed.unwrap_unchecked()(
                 self.raw,
                 indexCount,
                 instanceCount,
@@ -8721,9 +8151,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawIndexedIndirect
-                .unwrap_unchecked()(self.raw, buffer, offset, drawCount, stride)
+            (self.table).vkCmdDrawIndexedIndirect.unwrap_unchecked()(
+                self.raw, buffer, offset, drawCount, stride,
+            )
         }
     }
     /// [`vkCmdDrawIndirect`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirect.html)
@@ -8755,9 +8185,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawIndirect
-                .unwrap_unchecked()(self.raw, buffer, offset, drawCount, stride)
+            (self.table).vkCmdDrawIndirect.unwrap_unchecked()(
+                self.raw, buffer, offset, drawCount, stride,
+            )
         }
     }
     /// [`vkCmdEndRenderPass`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderPass.html)
@@ -8834,9 +8264,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdResolveImage
-                .unwrap_unchecked()(
+            (self.table).vkCmdResolveImage.unwrap_unchecked()(
                 self.raw,
                 srcImage,
                 srcImageLayout,
@@ -8865,9 +8293,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetBlendConstants(&self, blendConstants: [f32; 4]) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetBlendConstants
-                .unwrap_unchecked()(self.raw, blendConstants)
+            (self.table).vkCmdSetBlendConstants.unwrap_unchecked()(self.raw, blendConstants)
         }
     }
     /// [`vkCmdSetDepthBias`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBias.html)
@@ -8895,9 +8321,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthBias
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetDepthBias.unwrap_unchecked()(
                 self.raw,
                 depthBiasConstantFactor,
                 depthBiasClamp,
@@ -8924,9 +8348,11 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetDepthBounds(&self, minDepthBounds: f32, maxDepthBounds: f32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthBounds
-                .unwrap_unchecked()(self.raw, minDepthBounds, maxDepthBounds)
+            (self.table).vkCmdSetDepthBounds.unwrap_unchecked()(
+                self.raw,
+                minDepthBounds,
+                maxDepthBounds,
+            )
         }
     }
     /// [`vkCmdSetLineWidth`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineWidth.html)
@@ -8975,9 +8401,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetScissor
-                .unwrap_unchecked()(self.raw, firstScissor, scissorCount, pScissors)
+            (self.table).vkCmdSetScissor.unwrap_unchecked()(
+                self.raw,
+                firstScissor,
+                scissorCount,
+                pScissors,
+            )
         }
     }
     /// [`vkCmdSetStencilCompareMask`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilCompareMask.html)
@@ -8996,16 +8425,14 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `compareMask`
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkCmdSetStencilCompareMask(
-        &self,
-        faceMask: VkStencilFaceFlags,
-        compareMask: u32,
-    ) {
+    pub fn vkCmdSetStencilCompareMask(&self, faceMask: VkStencilFaceFlags, compareMask: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetStencilCompareMask
-                .unwrap_unchecked()(self.raw, faceMask, compareMask)
+            (self.table).vkCmdSetStencilCompareMask.unwrap_unchecked()(
+                self.raw,
+                faceMask,
+                compareMask,
+            )
         }
     }
     /// [`vkCmdSetStencilReference`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilReference.html)
@@ -9024,16 +8451,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `reference`
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkCmdSetStencilReference(
-        &self,
-        faceMask: VkStencilFaceFlags,
-        reference: u32,
-    ) {
+    pub fn vkCmdSetStencilReference(&self, faceMask: VkStencilFaceFlags, reference: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetStencilReference
-                .unwrap_unchecked()(self.raw, faceMask, reference)
+            (self.table).vkCmdSetStencilReference.unwrap_unchecked()(self.raw, faceMask, reference)
         }
     }
     /// [`vkCmdSetStencilWriteMask`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilWriteMask.html)
@@ -9052,16 +8473,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `writeMask`
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkCmdSetStencilWriteMask(
-        &self,
-        faceMask: VkStencilFaceFlags,
-        writeMask: u32,
-    ) {
+    pub fn vkCmdSetStencilWriteMask(&self, faceMask: VkStencilFaceFlags, writeMask: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetStencilWriteMask
-                .unwrap_unchecked()(self.raw, faceMask, writeMask)
+            (self.table).vkCmdSetStencilWriteMask.unwrap_unchecked()(self.raw, faceMask, writeMask)
         }
     }
     /// [`vkCmdSetViewport`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewport.html)
@@ -9089,9 +8504,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetViewport
-                .unwrap_unchecked()(self.raw, firstViewport, viewportCount, pViewports)
+            (self.table).vkCmdSetViewport.unwrap_unchecked()(
+                self.raw,
+                firstViewport,
+                viewportCount,
+                pViewports,
+            )
         }
     }
     /// [`vkCmdBeginRenderPass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderPass2.html)
@@ -9117,9 +8535,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginRenderPass2
-                .unwrap_unchecked()(self.raw, pRenderPassBegin, pSubpassBeginInfo)
+            (self.table).vkCmdBeginRenderPass2.unwrap_unchecked()(
+                self.raw,
+                pRenderPassBegin,
+                pSubpassBeginInfo,
+            )
         }
     }
     /// [`vkCmdDrawIndexedIndirectCount`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirectCount.html)
@@ -9201,9 +8621,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawIndirectCount
-                .unwrap_unchecked()(
+            (self.table).vkCmdDrawIndirectCount.unwrap_unchecked()(
                 self.raw,
                 buffer,
                 offset,
@@ -9232,9 +8650,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdEndRenderPass2(&self, pSubpassEndInfo: *const VkSubpassEndInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndRenderPass2
-                .unwrap_unchecked()(self.raw, pSubpassEndInfo)
+            (self.table).vkCmdEndRenderPass2.unwrap_unchecked()(self.raw, pSubpassEndInfo)
         }
     }
     /// [`vkCmdNextSubpass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdNextSubpass2.html)
@@ -9260,9 +8676,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdNextSubpass2
-                .unwrap_unchecked()(self.raw, pSubpassBeginInfo, pSubpassEndInfo)
+            (self.table).vkCmdNextSubpass2.unwrap_unchecked()(
+                self.raw,
+                pSubpassBeginInfo,
+                pSubpassEndInfo,
+            )
         }
     }
     /// [`vkCmdBeginRendering`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRendering.html)
@@ -9317,9 +8735,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindVertexBuffers2
-                .unwrap_unchecked()(
+            (self.table).vkCmdBindVertexBuffers2.unwrap_unchecked()(
                 self.raw,
                 firstBinding,
                 bindingCount,
@@ -9389,9 +8805,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdResolveImage2(&self, pResolveImageInfo: *const VkResolveImageInfo2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdResolveImage2
-                .unwrap_unchecked()(self.raw, pResolveImageInfo)
+            (self.table).vkCmdResolveImage2.unwrap_unchecked()(self.raw, pResolveImageInfo)
         }
     }
     /// [`vkCmdSetCullMode`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCullMode.html)
@@ -9433,9 +8847,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetDepthBiasEnable(&self, depthBiasEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthBiasEnable
-                .unwrap_unchecked()(self.raw, depthBiasEnable)
+            (self.table).vkCmdSetDepthBiasEnable.unwrap_unchecked()(self.raw, depthBiasEnable)
         }
     }
     /// [`vkCmdSetDepthBoundsTestEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBoundsTestEnable.html)
@@ -9479,9 +8891,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetDepthCompareOp(&self, depthCompareOp: VkCompareOp) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthCompareOp
-                .unwrap_unchecked()(self.raw, depthCompareOp)
+            (self.table).vkCmdSetDepthCompareOp.unwrap_unchecked()(self.raw, depthCompareOp)
         }
     }
     /// [`vkCmdSetDepthTestEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthTestEnable.html)
@@ -9502,9 +8912,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetDepthTestEnable(&self, depthTestEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthTestEnable
-                .unwrap_unchecked()(self.raw, depthTestEnable)
+            (self.table).vkCmdSetDepthTestEnable.unwrap_unchecked()(self.raw, depthTestEnable)
         }
     }
     /// [`vkCmdSetDepthWriteEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthWriteEnable.html)
@@ -9525,9 +8933,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetDepthWriteEnable(&self, depthWriteEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetDepthWriteEnable
-                .unwrap_unchecked()(self.raw, depthWriteEnable)
+            (self.table).vkCmdSetDepthWriteEnable.unwrap_unchecked()(self.raw, depthWriteEnable)
         }
     }
     /// [`vkCmdSetFrontFace`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetFrontFace.html)
@@ -9592,9 +8998,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetPrimitiveTopology(&self, primitiveTopology: VkPrimitiveTopology) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetPrimitiveTopology
-                .unwrap_unchecked()(self.raw, primitiveTopology)
+            (self.table).vkCmdSetPrimitiveTopology.unwrap_unchecked()(self.raw, primitiveTopology)
         }
     }
     /// [`vkCmdSetRasterizerDiscardEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRasterizerDiscardEnable.html)
@@ -9636,16 +9040,14 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pScissors`: len: scissorCount
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
     #[inline(always)]
-    pub fn vkCmdSetScissorWithCount(
-        &self,
-        scissorCount: u32,
-        pScissors: *const VkRect2D,
-    ) {
+    pub fn vkCmdSetScissorWithCount(&self, scissorCount: u32, pScissors: *const VkRect2D) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetScissorWithCount
-                .unwrap_unchecked()(self.raw, scissorCount, pScissors)
+            (self.table).vkCmdSetScissorWithCount.unwrap_unchecked()(
+                self.raw,
+                scissorCount,
+                pScissors,
+            )
         }
     }
     /// [`vkCmdSetStencilOp`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetStencilOp.html)
@@ -9677,9 +9079,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetStencilOp
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetStencilOp.unwrap_unchecked()(
                 self.raw,
                 faceMask,
                 failOp,
@@ -9707,9 +9107,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetStencilTestEnable(&self, stencilTestEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetStencilTestEnable
-                .unwrap_unchecked()(self.raw, stencilTestEnable)
+            (self.table).vkCmdSetStencilTestEnable.unwrap_unchecked()(self.raw, stencilTestEnable)
         }
     }
     /// [`vkCmdSetViewportWithCount`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportWithCount.html)
@@ -9728,16 +9126,14 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pViewports`: len: viewportCount
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
     #[inline(always)]
-    pub fn vkCmdSetViewportWithCount(
-        &self,
-        viewportCount: u32,
-        pViewports: *const VkViewport,
-    ) {
+    pub fn vkCmdSetViewportWithCount(&self, viewportCount: u32, pViewports: *const VkViewport) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetViewportWithCount
-                .unwrap_unchecked()(self.raw, viewportCount, pViewports)
+            (self.table).vkCmdSetViewportWithCount.unwrap_unchecked()(
+                self.raw,
+                viewportCount,
+                pViewports,
+            )
         }
     }
     /// [`vkCmdBindIndexBuffer2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer2.html)
@@ -9768,9 +9164,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindIndexBuffer2
-                .unwrap_unchecked()(self.raw, buffer, offset, size, indexType)
+            (self.table).vkCmdBindIndexBuffer2.unwrap_unchecked()(
+                self.raw, buffer, offset, size, indexType,
+            )
         }
     }
     /// [`vkCmdSetLineStipple`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetLineStipple.html)
@@ -9792,9 +9188,11 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetLineStipple(&self, lineStippleFactor: u32, lineStipplePattern: u16) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetLineStipple
-                .unwrap_unchecked()(self.raw, lineStippleFactor, lineStipplePattern)
+            (self.table).vkCmdSetLineStipple.unwrap_unchecked()(
+                self.raw,
+                lineStippleFactor,
+                lineStipplePattern,
+            )
         }
     }
     /// [`vkCmdSetRenderingAttachmentLocations`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingAttachmentLocations.html)
@@ -9866,17 +9264,15 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `groupCountZ`
     #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
     #[inline(always)]
-    pub fn vkCmdDrawClusterHUAWEI(
-        &self,
-        groupCountX: u32,
-        groupCountY: u32,
-        groupCountZ: u32,
-    ) {
+    pub fn vkCmdDrawClusterHUAWEI(&self, groupCountX: u32, groupCountY: u32, groupCountZ: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawClusterHUAWEI
-                .unwrap_unchecked()(self.raw, groupCountX, groupCountY, groupCountZ)
+            (self.table).vkCmdDrawClusterHUAWEI.unwrap_unchecked()(
+                self.raw,
+                groupCountX,
+                groupCountY,
+                groupCountZ,
+            )
         }
     }
     /// [`vkCmdDrawClusterIndirectHUAWEI`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawClusterIndirectHUAWEI.html)
@@ -9895,11 +9291,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `offset`
     #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
     #[inline(always)]
-    pub fn vkCmdDrawClusterIndirectHUAWEI(
-        &self,
-        buffer: VkBuffer,
-        offset: VkDeviceSize,
-    ) {
+    pub fn vkCmdDrawClusterIndirectHUAWEI(&self, buffer: VkBuffer, offset: VkDeviceSize) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -9994,7 +9386,13 @@ impl<'dev> CommandBuffer<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCmdSetPerformanceOverrideINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPerformanceOverrideINTEL.html)
@@ -10038,7 +9436,13 @@ impl<'dev> CommandBuffer<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCmdSetPerformanceStreamMarkerINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPerformanceStreamMarkerINTEL.html)
@@ -10082,7 +9486,13 @@ impl<'dev> CommandBuffer<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCmdBuildAccelerationStructuresIndirectKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildAccelerationStructuresIndirectKHR.html)
@@ -10309,9 +9719,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdCopyBuffer2KHR(&self, pCopyBufferInfo: *const VkCopyBufferInfo2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyBuffer2KHR
-                .unwrap_unchecked()(self.raw, pCopyBufferInfo)
+            (self.table).vkCmdCopyBuffer2KHR.unwrap_unchecked()(self.raw, pCopyBufferInfo)
         }
     }
     /// [`vkCmdCopyBufferToImage2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBufferToImage2.html)
@@ -10336,9 +9744,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyBufferToImage2KHR
-                .unwrap_unchecked()(self.raw, pCopyBufferToImageInfo)
+            (self.table).vkCmdCopyBufferToImage2KHR.unwrap_unchecked()(
+                self.raw,
+                pCopyBufferToImageInfo,
+            )
         }
     }
     /// [`vkCmdCopyImage2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImage2.html)
@@ -10384,9 +9793,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyImageToBuffer2KHR
-                .unwrap_unchecked()(self.raw, pCopyImageToBufferInfo)
+            (self.table).vkCmdCopyImageToBuffer2KHR.unwrap_unchecked()(
+                self.raw,
+                pCopyImageToBufferInfo,
+            )
         }
     }
     /// [`vkCmdResolveImage2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResolveImage2.html)
@@ -10407,9 +9817,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdResolveImage2KHR(&self, pResolveImageInfo: *const VkResolveImageInfo2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdResolveImage2KHR
-                .unwrap_unchecked()(self.raw, pResolveImageInfo)
+            (self.table).vkCmdResolveImage2KHR.unwrap_unchecked()(self.raw, pResolveImageInfo)
         }
     }
     /// [`vkCmdCopyMemoryIndirectKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryIndirectKHR.html)
@@ -10432,9 +9840,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyMemoryIndirectKHR
-                .unwrap_unchecked()(self.raw, pCopyMemoryIndirectInfo)
+            (self.table).vkCmdCopyMemoryIndirectKHR.unwrap_unchecked()(
+                self.raw,
+                pCopyMemoryIndirectInfo,
+            )
         }
     }
     /// [`vkCmdCopyMemoryToImageIndirectKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToImageIndirectKHR.html)
@@ -10485,9 +9894,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginRenderPass2KHR
-                .unwrap_unchecked()(self.raw, pRenderPassBegin, pSubpassBeginInfo)
+            (self.table).vkCmdBeginRenderPass2KHR.unwrap_unchecked()(
+                self.raw,
+                pRenderPassBegin,
+                pSubpassBeginInfo,
+            )
         }
     }
     /// [`vkCmdEndRenderPass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderPass2.html)
@@ -10508,9 +9919,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdEndRenderPass2KHR(&self, pSubpassEndInfo: *const VkSubpassEndInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndRenderPass2KHR
-                .unwrap_unchecked()(self.raw, pSubpassEndInfo)
+            (self.table).vkCmdEndRenderPass2KHR.unwrap_unchecked()(self.raw, pSubpassEndInfo)
         }
     }
     /// [`vkCmdNextSubpass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdNextSubpass2.html)
@@ -10536,9 +9945,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdNextSubpass2KHR
-                .unwrap_unchecked()(self.raw, pSubpassBeginInfo, pSubpassEndInfo)
+            (self.table).vkCmdNextSubpass2KHR.unwrap_unchecked()(
+                self.raw,
+                pSubpassBeginInfo,
+                pSubpassEndInfo,
+            )
         }
     }
     /// [`vkCmdPushDescriptorSetWithTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate.html)
@@ -10558,12 +9969,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `layout`
     /// - `set`
     /// - `pData`
-    #[cfg(
-        any(
-            feature = "VK_KHR_descriptor_update_template",
-            feature = "VK_KHR_push_descriptor"
-        )
-    )]
+    #[cfg(any(
+        feature = "VK_KHR_descriptor_update_template",
+        feature = "VK_KHR_push_descriptor"
+    ))]
     #[inline(always)]
     pub fn vkCmdPushDescriptorSetWithTemplateKHR(
         &self,
@@ -10577,11 +9986,7 @@ impl<'dev> CommandBuffer<'dev> {
             (self.table)
                 .vkCmdPushDescriptorSetWithTemplateKHR
                 .unwrap_unchecked()(
-                self.raw,
-                descriptorUpdateTemplate,
-                layout,
-                set,
-                pData,
+                self.raw, descriptorUpdateTemplate, layout, set, pData
             )
         }
     }
@@ -10717,9 +10122,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindVertexBuffers3KHR
-                .unwrap_unchecked()(self.raw, firstBinding, bindingCount, pBindingInfos)
+            (self.table).vkCmdBindVertexBuffers3KHR.unwrap_unchecked()(
+                self.raw,
+                firstBinding,
+                bindingCount,
+                pBindingInfos,
+            )
         }
     }
     /// [`vkCmdCopyImageToMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToMemoryKHR.html)
@@ -10742,9 +10150,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyImageToMemoryKHR
-                .unwrap_unchecked()(self.raw, pCopyMemoryInfo)
+            (self.table).vkCmdCopyImageToMemoryKHR.unwrap_unchecked()(self.raw, pCopyMemoryInfo)
         }
     }
     /// [`vkCmdCopyMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryKHR.html)
@@ -10787,9 +10193,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyMemoryToImageKHR
-                .unwrap_unchecked()(self.raw, pCopyMemoryInfo)
+            (self.table).vkCmdCopyMemoryToImageKHR.unwrap_unchecked()(self.raw, pCopyMemoryInfo)
         }
     }
     /// [`vkCmdCopyQueryPoolResultsToMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyQueryPoolResultsToMemoryKHR.html)
@@ -10892,10 +10296,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pInfo`
     #[cfg(feature = "VK_KHR_device_address_commands")]
     #[inline(always)]
-    pub fn vkCmdDrawIndexedIndirectCount2KHR(
-        &self,
-        pInfo: *const VkDrawIndirectCount2InfoKHR,
-    ) {
+    pub fn vkCmdDrawIndexedIndirectCount2KHR(&self, pInfo: *const VkDrawIndirectCount2InfoKHR) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -11024,10 +10425,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pInfo`
     #[cfg(feature = "VK_KHR_device_address_commands")]
     #[inline(always)]
-    pub fn vkCmdDrawMeshTasksIndirectCount2EXT(
-        &self,
-        pInfo: *const VkDrawIndirectCount2InfoKHR,
-    ) {
+    pub fn vkCmdDrawMeshTasksIndirectCount2EXT(&self, pInfo: *const VkDrawIndirectCount2InfoKHR) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -11093,9 +10491,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdFillMemoryKHR
-                .unwrap_unchecked()(self.raw, pDstRange, dstFlags, data)
+            (self.table).vkCmdFillMemoryKHR.unwrap_unchecked()(self.raw, pDstRange, dstFlags, data)
         }
     }
     /// [`vkCmdUpdateMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdUpdateMemoryKHR.html)
@@ -11124,9 +10520,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdUpdateMemoryKHR
-                .unwrap_unchecked()(self.raw, pDstRange, dstFlags, dataSize, pData)
+            (self.table).vkCmdUpdateMemoryKHR.unwrap_unchecked()(
+                self.raw, pDstRange, dstFlags, dataSize, pData,
+            )
         }
     }
     /// [`vkCmdWriteMarkerToMemoryAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteMarkerToMemoryAMD.html)
@@ -11181,9 +10577,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDispatchBaseKHR
-                .unwrap_unchecked()(
+            (self.table).vkCmdDispatchBaseKHR.unwrap_unchecked()(
                 self.raw,
                 baseGroupX,
                 baseGroupY,
@@ -11294,9 +10688,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawIndirectCountKHR
-                .unwrap_unchecked()(
+            (self.table).vkCmdDrawIndirectCountKHR.unwrap_unchecked()(
                 self.raw,
                 buffer,
                 offset,
@@ -11325,9 +10717,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdBeginRenderingKHR(&self, pRenderingInfo: *const VkRenderingInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginRenderingKHR
-                .unwrap_unchecked()(self.raw, pRenderingInfo)
+            (self.table).vkCmdBeginRenderingKHR.unwrap_unchecked()(self.raw, pRenderingInfo)
         }
     }
     /// [`vkCmdEndRendering`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRendering.html)
@@ -11445,16 +10835,14 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `lineStipplePattern`
     #[cfg(feature = "VK_KHR_line_rasterization")]
     #[inline(always)]
-    pub fn vkCmdSetLineStippleKHR(
-        &self,
-        lineStippleFactor: u32,
-        lineStipplePattern: u16,
-    ) {
+    pub fn vkCmdSetLineStippleKHR(&self, lineStippleFactor: u32, lineStipplePattern: u16) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetLineStippleKHR
-                .unwrap_unchecked()(self.raw, lineStippleFactor, lineStipplePattern)
+            (self.table).vkCmdSetLineStippleKHR.unwrap_unchecked()(
+                self.raw,
+                lineStippleFactor,
+                lineStipplePattern,
+            )
         }
     }
     /// [`vkCmdEndRendering2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRendering2KHR.html)
@@ -11471,15 +10859,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pRenderingEndInfo`: optional: true
     #[cfg(feature = "VK_KHR_maintenance10")]
     #[inline(always)]
-    pub fn vkCmdEndRendering2KHR(
-        &self,
-        pRenderingEndInfo: *const VkRenderingEndInfoKHR,
-    ) {
+    pub fn vkCmdEndRendering2KHR(&self, pRenderingEndInfo: *const VkRenderingEndInfoKHR) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndRendering2KHR
-                .unwrap_unchecked()(self.raw, pRenderingEndInfo)
+            (self.table).vkCmdEndRendering2KHR.unwrap_unchecked()(self.raw, pRenderingEndInfo)
         }
     }
     /// [`vkCmdBindIndexBuffer2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer2.html)
@@ -11510,9 +10893,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindIndexBuffer2KHR
-                .unwrap_unchecked()(self.raw, buffer, offset, size, indexType)
+            (self.table).vkCmdBindIndexBuffer2KHR.unwrap_unchecked()(
+                self.raw, buffer, offset, size, indexType,
+            )
         }
     }
     /// [`vkCmdBindDescriptorBufferEmbeddedSamplers2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html)
@@ -11561,9 +10944,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindDescriptorSets2KHR
-                .unwrap_unchecked()(self.raw, pBindDescriptorSetsInfo)
+            (self.table).vkCmdBindDescriptorSets2KHR.unwrap_unchecked()(
+                self.raw,
+                pBindDescriptorSetsInfo,
+            )
         }
     }
     /// [`vkCmdPushConstants2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants2.html)
@@ -11581,15 +10965,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pPushConstantsInfo`
     #[cfg(feature = "VK_KHR_maintenance6")]
     #[inline(always)]
-    pub fn vkCmdPushConstants2KHR(
-        &self,
-        pPushConstantsInfo: *const VkPushConstantsInfo,
-    ) {
+    pub fn vkCmdPushConstants2KHR(&self, pPushConstantsInfo: *const VkPushConstantsInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPushConstants2KHR
-                .unwrap_unchecked()(self.raw, pPushConstantsInfo)
+            (self.table).vkCmdPushConstants2KHR.unwrap_unchecked()(self.raw, pPushConstantsInfo)
         }
     }
     /// [`vkCmdPushDescriptorSet2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet2.html)
@@ -11613,9 +10992,10 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPushDescriptorSet2KHR
-                .unwrap_unchecked()(self.raw, pPushDescriptorSetInfo)
+            (self.table).vkCmdPushDescriptorSet2KHR.unwrap_unchecked()(
+                self.raw,
+                pPushDescriptorSetInfo,
+            )
         }
     }
     /// [`vkCmdPushDescriptorSetWithTemplate2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate2.html)
@@ -11683,15 +11063,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pRefreshObjects`
     #[cfg(feature = "VK_KHR_object_refresh")]
     #[inline(always)]
-    pub fn vkCmdRefreshObjectsKHR(
-        &self,
-        pRefreshObjects: *const VkRefreshObjectListKHR,
-    ) {
+    pub fn vkCmdRefreshObjectsKHR(&self, pRefreshObjects: *const VkRefreshObjectListKHR) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdRefreshObjectsKHR
-                .unwrap_unchecked()(self.raw, pRefreshObjects)
+            (self.table).vkCmdRefreshObjectsKHR.unwrap_unchecked()(self.raw, pRefreshObjects)
         }
     }
     /// [`vkCmdPushDescriptorSet`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet.html)
@@ -11723,9 +11098,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPushDescriptorSetKHR
-                .unwrap_unchecked()(
+            (self.table).vkCmdPushDescriptorSetKHR.unwrap_unchecked()(
                 self.raw,
                 pipelineBindPoint,
                 layout,
@@ -11752,9 +11125,10 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdTraceRaysIndirect2KHR(&self, indirectDeviceAddress: VkDeviceAddress) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdTraceRaysIndirect2KHR
-                .unwrap_unchecked()(self.raw, indirectDeviceAddress)
+            (self.table).vkCmdTraceRaysIndirect2KHR.unwrap_unchecked()(
+                self.raw,
+                indirectDeviceAddress,
+            )
         }
     }
     /// [`vkCmdSetRayTracingPipelineStackSizeKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRayTracingPipelineStackSizeKHR.html)
@@ -11807,9 +11181,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdTraceRaysIndirectKHR
-                .unwrap_unchecked()(
+            (self.table).vkCmdTraceRaysIndirectKHR.unwrap_unchecked()(
                 self.raw,
                 pRaygenShaderBindingTable,
                 pMissShaderBindingTable,
@@ -11851,9 +11223,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdTraceRaysKHR
-                .unwrap_unchecked()(
+            (self.table).vkCmdTraceRaysKHR.unwrap_unchecked()(
                 self.raw,
                 pRaygenShaderBindingTable,
                 pMissShaderBindingTable,
@@ -11883,9 +11253,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdPipelineBarrier2KHR(&self, pDependencyInfo: *const VkDependencyInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdPipelineBarrier2KHR
-                .unwrap_unchecked()(self.raw, pDependencyInfo)
+            (self.table).vkCmdPipelineBarrier2KHR.unwrap_unchecked()(self.raw, pDependencyInfo)
         }
     }
     /// [`vkCmdResetEvent2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResetEvent2.html)
@@ -11907,9 +11275,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdResetEvent2KHR(&self, event: VkEvent, stageMask: VkPipelineStageFlags2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdResetEvent2KHR
-                .unwrap_unchecked()(self.raw, event, stageMask)
+            (self.table).vkCmdResetEvent2KHR.unwrap_unchecked()(self.raw, event, stageMask)
         }
     }
     /// [`vkCmdSetEvent2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetEvent2.html)
@@ -11928,16 +11294,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pDependencyInfo`
     #[cfg(feature = "VK_KHR_synchronization2")]
     #[inline(always)]
-    pub fn vkCmdSetEvent2KHR(
-        &self,
-        event: VkEvent,
-        pDependencyInfo: *const VkDependencyInfo,
-    ) {
+    pub fn vkCmdSetEvent2KHR(&self, event: VkEvent, pDependencyInfo: *const VkDependencyInfo) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetEvent2KHR
-                .unwrap_unchecked()(self.raw, event, pDependencyInfo)
+            (self.table).vkCmdSetEvent2KHR.unwrap_unchecked()(self.raw, event, pDependencyInfo)
         }
     }
     /// [`vkCmdWaitEvents2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2.html)
@@ -11965,9 +11325,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWaitEvents2KHR
-                .unwrap_unchecked()(self.raw, eventCount, pEvents, pDependencyInfos)
+            (self.table).vkCmdWaitEvents2KHR.unwrap_unchecked()(
+                self.raw,
+                eventCount,
+                pEvents,
+                pDependencyInfos,
+            )
         }
     }
     /// [`vkCmdWriteTimestamp2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteTimestamp2.html)
@@ -11995,9 +11358,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdWriteTimestamp2KHR
-                .unwrap_unchecked()(self.raw, stage, queryPool, query)
+            (self.table).vkCmdWriteTimestamp2KHR.unwrap_unchecked()(
+                self.raw, stage, queryPool, query,
+            )
         }
     }
     /// [`vkCmdDecodeVideoKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecodeVideoKHR.html)
@@ -12054,15 +11417,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pBeginInfo`
     #[cfg(feature = "VK_KHR_video_queue")]
     #[inline(always)]
-    pub fn vkCmdBeginVideoCodingKHR(
-        &self,
-        pBeginInfo: *const VkVideoBeginCodingInfoKHR,
-    ) {
+    pub fn vkCmdBeginVideoCodingKHR(&self, pBeginInfo: *const VkVideoBeginCodingInfoKHR) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBeginVideoCodingKHR
-                .unwrap_unchecked()(self.raw, pBeginInfo)
+            (self.table).vkCmdBeginVideoCodingKHR.unwrap_unchecked()(self.raw, pBeginInfo)
         }
     }
     /// [`vkCmdControlVideoCodingKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdControlVideoCodingKHR.html)
@@ -12085,9 +11443,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdControlVideoCodingKHR
-                .unwrap_unchecked()(self.raw, pCodingControlInfo)
+            (self.table).vkCmdControlVideoCodingKHR.unwrap_unchecked()(self.raw, pCodingControlInfo)
         }
     }
     /// [`vkCmdEndVideoCodingKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndVideoCodingKHR.html)
@@ -12104,15 +11460,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pEndCodingInfo`
     #[cfg(feature = "VK_KHR_video_queue")]
     #[inline(always)]
-    pub fn vkCmdEndVideoCodingKHR(
-        &self,
-        pEndCodingInfo: *const VkVideoEndCodingInfoKHR,
-    ) {
+    pub fn vkCmdEndVideoCodingKHR(&self, pEndCodingInfo: *const VkVideoEndCodingInfoKHR) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndVideoCodingKHR
-                .unwrap_unchecked()(self.raw, pEndCodingInfo)
+            (self.table).vkCmdEndVideoCodingKHR.unwrap_unchecked()(self.raw, pEndCodingInfo)
         }
     }
     /// [`vkCmdCuLaunchKernelNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCuLaunchKernelNVX.html)
@@ -12159,9 +11510,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetViewportWScalingNV
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetViewportWScalingNV.unwrap_unchecked()(
                 self.raw,
                 firstViewport,
                 viewportCount,
@@ -12270,9 +11619,12 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCopyMemoryIndirectNV
-                .unwrap_unchecked()(self.raw, copyBufferAddress, copyCount, stride)
+            (self.table).vkCmdCopyMemoryIndirectNV.unwrap_unchecked()(
+                self.raw,
+                copyBufferAddress,
+                copyCount,
+                stride,
+            )
         }
     }
     /// [`vkCmdCopyMemoryToImageIndirectNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToImageIndirectNV.html)
@@ -12335,9 +11687,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdCudaLaunchKernelNV(&self, pLaunchInfo: *const VkCudaLaunchInfoNV) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdCudaLaunchKernelNV
-                .unwrap_unchecked()(self.raw, pLaunchInfo)
+            (self.table).vkCmdCudaLaunchKernelNV.unwrap_unchecked()(self.raw, pLaunchInfo)
         }
     }
     /// [`vkCmdSetCheckpointNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCheckpointNV.html)
@@ -12357,9 +11707,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdSetCheckpointNV(&self, pCheckpointMarker: *const core::ffi::c_void) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetCheckpointNV
-                .unwrap_unchecked()(self.raw, pCheckpointMarker)
+            (self.table).vkCmdSetCheckpointNV.unwrap_unchecked()(self.raw, pCheckpointMarker)
         }
     }
     /// [`vkCmdBindPipelineShaderGroupNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindPipelineShaderGroupNV.html)
@@ -12554,9 +11902,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDecompressMemoryNV
-                .unwrap_unchecked()(
+            (self.table).vkCmdDecompressMemoryNV.unwrap_unchecked()(
                 self.raw,
                 decompressRegionCount,
                 pDecompressMemoryRegions,
@@ -12634,9 +11980,9 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawMeshTasksIndirectNV
-                .unwrap_unchecked()(self.raw, buffer, offset, drawCount, stride)
+            (self.table).vkCmdDrawMeshTasksIndirectNV.unwrap_unchecked()(
+                self.raw, buffer, offset, drawCount, stride,
+            )
         }
     }
     /// [`vkCmdDrawMeshTasksNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksNV.html)
@@ -12658,9 +12004,7 @@ impl<'dev> CommandBuffer<'dev> {
     pub fn vkCmdDrawMeshTasksNV(&self, taskCount: u32, firstTask: u32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDrawMeshTasksNV
-                .unwrap_unchecked()(self.raw, taskCount, firstTask)
+            (self.table).vkCmdDrawMeshTasksNV.unwrap_unchecked()(self.raw, taskCount, firstTask)
         }
     }
     /// [`vkCmdOpticalFlowExecuteNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdOpticalFlowExecuteNV.html)
@@ -12685,9 +12029,11 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdOpticalFlowExecuteNV
-                .unwrap_unchecked()(self.raw, session, pExecuteInfo)
+            (self.table).vkCmdOpticalFlowExecuteNV.unwrap_unchecked()(
+                self.raw,
+                session,
+                pExecuteInfo,
+            )
         }
     }
     /// [`vkCmdBuildPartitionedAccelerationStructuresNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildPartitionedAccelerationStructuresNV.html)
@@ -12839,9 +12185,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdTraceRaysNV
-                .unwrap_unchecked()(
+            (self.table).vkCmdTraceRaysNV.unwrap_unchecked()(
                 self.raw,
                 raygenShaderBindingTableBuffer,
                 raygenShaderBindingOffset,
@@ -12958,9 +12302,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetExclusiveScissorNV
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetExclusiveScissorNV.unwrap_unchecked()(
                 self.raw,
                 firstExclusiveScissor,
                 exclusiveScissorCount,
@@ -12983,16 +12325,14 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `imageLayout`
     #[cfg(feature = "VK_NV_shading_rate_image")]
     #[inline(always)]
-    pub fn vkCmdBindShadingRateImageNV(
-        &self,
-        imageView: VkImageView,
-        imageLayout: VkImageLayout,
-    ) {
+    pub fn vkCmdBindShadingRateImageNV(&self, imageView: VkImageView, imageLayout: VkImageLayout) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindShadingRateImageNV
-                .unwrap_unchecked()(self.raw, imageView, imageLayout)
+            (self.table).vkCmdBindShadingRateImageNV.unwrap_unchecked()(
+                self.raw,
+                imageView,
+                imageLayout,
+            )
         }
     }
     /// [`vkCmdSetCoarseSampleOrderNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetCoarseSampleOrderNV.html)
@@ -13019,9 +12359,7 @@ impl<'dev> CommandBuffer<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdSetCoarseSampleOrderNV
-                .unwrap_unchecked()(
+            (self.table).vkCmdSetCoarseSampleOrderNV.unwrap_unchecked()(
                 self.raw,
                 sampleOrderType,
                 customSampleOrderCount,
@@ -13056,10 +12394,7 @@ impl<'dev> CommandBuffer<'dev> {
             (self.table)
                 .vkCmdSetViewportShadingRatePaletteNV
                 .unwrap_unchecked()(
-                self.raw,
-                firstViewport,
-                viewportCount,
-                pShadingRatePalettes,
+                self.raw, firstViewport, viewportCount, pShadingRatePalettes
             )
         }
     }
@@ -13077,15 +12412,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pTileMemoryBindInfo`: optional: true
     #[cfg(feature = "VK_QCOM_tile_memory_heap")]
     #[inline(always)]
-    pub fn vkCmdBindTileMemoryQCOM(
-        &self,
-        pTileMemoryBindInfo: *const VkTileMemoryBindInfoQCOM,
-    ) {
+    pub fn vkCmdBindTileMemoryQCOM(&self, pTileMemoryBindInfo: *const VkTileMemoryBindInfoQCOM) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdBindTileMemoryQCOM
-                .unwrap_unchecked()(self.raw, pTileMemoryBindInfo)
+            (self.table).vkCmdBindTileMemoryQCOM.unwrap_unchecked()(self.raw, pTileMemoryBindInfo)
         }
     }
     /// [`vkCmdBeginPerTileExecutionQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginPerTileExecutionQCOM.html)
@@ -13102,10 +12432,7 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pPerTileBeginInfo`
     #[cfg(feature = "VK_QCOM_tile_shading")]
     #[inline(always)]
-    pub fn vkCmdBeginPerTileExecutionQCOM(
-        &self,
-        pPerTileBeginInfo: *const VkPerTileBeginInfoQCOM,
-    ) {
+    pub fn vkCmdBeginPerTileExecutionQCOM(&self, pPerTileBeginInfo: *const VkPerTileBeginInfoQCOM) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -13128,15 +12455,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pDispatchTileInfo`
     #[cfg(feature = "VK_QCOM_tile_shading")]
     #[inline(always)]
-    pub fn vkCmdDispatchTileQCOM(
-        &self,
-        pDispatchTileInfo: *const VkDispatchTileInfoQCOM,
-    ) {
+    pub fn vkCmdDispatchTileQCOM(&self, pDispatchTileInfo: *const VkDispatchTileInfoQCOM) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdDispatchTileQCOM
-                .unwrap_unchecked()(self.raw, pDispatchTileInfo)
+            (self.table).vkCmdDispatchTileQCOM.unwrap_unchecked()(self.raw, pDispatchTileInfo)
         }
     }
     /// [`vkCmdEndPerTileExecutionQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndPerTileExecutionQCOM.html)
@@ -13153,15 +12475,10 @@ impl<'dev> CommandBuffer<'dev> {
     /// - `pPerTileEndInfo`
     #[cfg(feature = "VK_QCOM_tile_shading")]
     #[inline(always)]
-    pub fn vkCmdEndPerTileExecutionQCOM(
-        &self,
-        pPerTileEndInfo: *const VkPerTileEndInfoQCOM,
-    ) {
+    pub fn vkCmdEndPerTileExecutionQCOM(&self, pPerTileEndInfo: *const VkPerTileEndInfoQCOM) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkCmdEndPerTileExecutionQCOM
-                .unwrap_unchecked()(self.raw, pPerTileEndInfo)
+            (self.table).vkCmdEndPerTileExecutionQCOM.unwrap_unchecked()(self.raw, pPerTileEndInfo)
         }
     }
 }

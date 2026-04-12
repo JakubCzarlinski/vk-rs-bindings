@@ -3,13 +3,13 @@
     non_snake_case,
     unused_imports,
     clippy::too_many_arguments,
-    clippy::missing_safety_doc,
+    clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
 use crate::instance::Instance;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 /// Raw device-tier function pointer table.
 ///
 /// Fields are `Option<PFN_*>`; `None` means absent at load time.
@@ -22,37 +22,27 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_AMD_anti_lag")]
     pub vkAntiLagUpdateAMD: Option<PFN_vkAntiLagUpdateAMD>,
     #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
-    pub vkGetAndroidHardwareBufferPropertiesANDROID: Option<
-        PFN_vkGetAndroidHardwareBufferPropertiesANDROID,
-    >,
+    pub vkGetAndroidHardwareBufferPropertiesANDROID:
+        Option<PFN_vkGetAndroidHardwareBufferPropertiesANDROID>,
     #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
-    pub vkGetMemoryAndroidHardwareBufferANDROID: Option<
-        PFN_vkGetMemoryAndroidHardwareBufferANDROID,
-    >,
+    pub vkGetMemoryAndroidHardwareBufferANDROID:
+        Option<PFN_vkGetMemoryAndroidHardwareBufferANDROID>,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkBindDataGraphPipelineSessionMemoryARM: Option<
-        PFN_vkBindDataGraphPipelineSessionMemoryARM,
-    >,
+    pub vkBindDataGraphPipelineSessionMemoryARM:
+        Option<PFN_vkBindDataGraphPipelineSessionMemoryARM>,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkCreateDataGraphPipelineSessionARM: Option<
-        PFN_vkCreateDataGraphPipelineSessionARM,
-    >,
+    pub vkCreateDataGraphPipelineSessionARM: Option<PFN_vkCreateDataGraphPipelineSessionARM>,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkGetDataGraphPipelineAvailablePropertiesARM: Option<
-        PFN_vkGetDataGraphPipelineAvailablePropertiesARM,
-    >,
+    pub vkGetDataGraphPipelineAvailablePropertiesARM:
+        Option<PFN_vkGetDataGraphPipelineAvailablePropertiesARM>,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkGetDataGraphPipelinePropertiesARM: Option<
-        PFN_vkGetDataGraphPipelinePropertiesARM,
-    >,
+    pub vkGetDataGraphPipelinePropertiesARM: Option<PFN_vkGetDataGraphPipelinePropertiesARM>,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkGetDataGraphPipelineSessionBindPointRequirementsARM: Option<
-        PFN_vkGetDataGraphPipelineSessionBindPointRequirementsARM,
-    >,
+    pub vkGetDataGraphPipelineSessionBindPointRequirementsARM:
+        Option<PFN_vkGetDataGraphPipelineSessionBindPointRequirementsARM>,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkGetDataGraphPipelineSessionMemoryRequirementsARM: Option<
-        PFN_vkGetDataGraphPipelineSessionMemoryRequirementsARM,
-    >,
+    pub vkGetDataGraphPipelineSessionMemoryRequirementsARM:
+        Option<PFN_vkGetDataGraphPipelineSessionMemoryRequirementsARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     pub vkCreateShaderInstrumentationARM: Option<PFN_vkCreateShaderInstrumentationARM>,
     #[cfg(feature = "VK_ARM_tensors")]
@@ -62,19 +52,15 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_ARM_tensors")]
     pub vkCreateTensorViewARM: Option<PFN_vkCreateTensorViewARM>,
     #[cfg(feature = "VK_ARM_tensors")]
-    pub vkGetDeviceTensorMemoryRequirementsARM: Option<
-        PFN_vkGetDeviceTensorMemoryRequirementsARM,
-    >,
+    pub vkGetDeviceTensorMemoryRequirementsARM: Option<PFN_vkGetDeviceTensorMemoryRequirementsARM>,
     #[cfg(feature = "VK_ARM_tensors")]
     pub vkGetTensorMemoryRequirementsARM: Option<PFN_vkGetTensorMemoryRequirementsARM>,
     #[cfg(feature = "VK_ARM_tensors")]
-    pub vkGetTensorOpaqueCaptureDescriptorDataARM: Option<
-        PFN_vkGetTensorOpaqueCaptureDescriptorDataARM,
-    >,
+    pub vkGetTensorOpaqueCaptureDescriptorDataARM:
+        Option<PFN_vkGetTensorOpaqueCaptureDescriptorDataARM>,
     #[cfg(feature = "VK_ARM_tensors")]
-    pub vkGetTensorViewOpaqueCaptureDescriptorDataARM: Option<
-        PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM,
-    >,
+    pub vkGetTensorViewOpaqueCaptureDescriptorDataARM:
+        Option<PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub vkAllocateMemory: Option<PFN_vkAllocateMemory>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -112,25 +98,19 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     pub vkGetBufferMemoryRequirements2: Option<PFN_vkGetBufferMemoryRequirements2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetDeviceGroupPeerMemoryFeatures: Option<
-        PFN_vkGetDeviceGroupPeerMemoryFeatures,
-    >,
+    pub vkGetDeviceGroupPeerMemoryFeatures: Option<PFN_vkGetDeviceGroupPeerMemoryFeatures>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     pub vkGetDeviceQueue2: Option<PFN_vkGetDeviceQueue2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     pub vkGetImageMemoryRequirements2: Option<PFN_vkGetImageMemoryRequirements2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetImageSparseMemoryRequirements2: Option<
-        PFN_vkGetImageSparseMemoryRequirements2,
-    >,
+    pub vkGetImageSparseMemoryRequirements2: Option<PFN_vkGetImageSparseMemoryRequirements2>,
     #[cfg(feature = "VK_BASE_VERSION_1_2")]
     pub vkGetBufferDeviceAddress: Option<PFN_vkGetBufferDeviceAddress>,
     #[cfg(feature = "VK_BASE_VERSION_1_2")]
     pub vkGetBufferOpaqueCaptureAddress: Option<PFN_vkGetBufferOpaqueCaptureAddress>,
     #[cfg(feature = "VK_BASE_VERSION_1_2")]
-    pub vkGetDeviceMemoryOpaqueCaptureAddress: Option<
-        PFN_vkGetDeviceMemoryOpaqueCaptureAddress,
-    >,
+    pub vkGetDeviceMemoryOpaqueCaptureAddress: Option<PFN_vkGetDeviceMemoryOpaqueCaptureAddress>,
     #[cfg(feature = "VK_BASE_VERSION_1_2")]
     pub vkSignalSemaphore: Option<PFN_vkSignalSemaphore>,
     #[cfg(feature = "VK_BASE_VERSION_1_2")]
@@ -138,17 +118,12 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
     pub vkCreatePrivateDataSlot: Option<PFN_vkCreatePrivateDataSlot>,
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
-    pub vkGetDeviceBufferMemoryRequirements: Option<
-        PFN_vkGetDeviceBufferMemoryRequirements,
-    >,
+    pub vkGetDeviceBufferMemoryRequirements: Option<PFN_vkGetDeviceBufferMemoryRequirements>,
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
-    pub vkGetDeviceImageMemoryRequirements: Option<
-        PFN_vkGetDeviceImageMemoryRequirements,
-    >,
+    pub vkGetDeviceImageMemoryRequirements: Option<PFN_vkGetDeviceImageMemoryRequirements>,
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
-    pub vkGetDeviceImageSparseMemoryRequirements: Option<
-        PFN_vkGetDeviceImageSparseMemoryRequirements,
-    >,
+    pub vkGetDeviceImageSparseMemoryRequirements:
+        Option<PFN_vkGetDeviceImageSparseMemoryRequirements>,
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
     pub vkGetPrivateData: Option<PFN_vkGetPrivateData>,
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
@@ -206,27 +181,22 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_EXT_debug_utils")]
     pub vkSetDebugUtilsObjectTagEXT: Option<PFN_vkSetDebugUtilsObjectTagEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT: Option<
-        PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT,
-    >,
+    pub vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT:
+        Option<PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkGetBufferOpaqueCaptureDescriptorDataEXT: Option<
-        PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT,
-    >,
+    pub vkGetBufferOpaqueCaptureDescriptorDataEXT:
+        Option<PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     pub vkGetDescriptorEXT: Option<PFN_vkGetDescriptorEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkGetImageOpaqueCaptureDescriptorDataEXT: Option<
-        PFN_vkGetImageOpaqueCaptureDescriptorDataEXT,
-    >,
+    pub vkGetImageOpaqueCaptureDescriptorDataEXT:
+        Option<PFN_vkGetImageOpaqueCaptureDescriptorDataEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkGetImageViewOpaqueCaptureDescriptorDataEXT: Option<
-        PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT,
-    >,
+    pub vkGetImageViewOpaqueCaptureDescriptorDataEXT:
+        Option<PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT>,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
-    pub vkGetSamplerOpaqueCaptureDescriptorDataEXT: Option<
-        PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT,
-    >,
+    pub vkGetSamplerOpaqueCaptureDescriptorDataEXT:
+        Option<PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT>,
     #[cfg(feature = "VK_EXT_descriptor_heap")]
     pub vkGetImageOpaqueCaptureDataEXT: Option<PFN_vkGetImageOpaqueCaptureDataEXT>,
     #[cfg(feature = "VK_EXT_descriptor_heap")]
@@ -246,25 +216,19 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     pub vkCreateIndirectExecutionSetEXT: Option<PFN_vkCreateIndirectExecutionSetEXT>,
     #[cfg(feature = "VK_EXT_device_generated_commands")]
-    pub vkGetGeneratedCommandsMemoryRequirementsEXT: Option<
-        PFN_vkGetGeneratedCommandsMemoryRequirementsEXT,
-    >,
+    pub vkGetGeneratedCommandsMemoryRequirementsEXT:
+        Option<PFN_vkGetGeneratedCommandsMemoryRequirementsEXT>,
     #[cfg(feature = "VK_EXT_display_control")]
     pub vkRegisterDeviceEventEXT: Option<PFN_vkRegisterDeviceEventEXT>,
     #[cfg(feature = "VK_EXT_external_memory_host")]
-    pub vkGetMemoryHostPointerPropertiesEXT: Option<
-        PFN_vkGetMemoryHostPointerPropertiesEXT,
-    >,
+    pub vkGetMemoryHostPointerPropertiesEXT: Option<PFN_vkGetMemoryHostPointerPropertiesEXT>,
     #[cfg(feature = "VK_EXT_external_memory_metal")]
     pub vkGetMemoryMetalHandleEXT: Option<PFN_vkGetMemoryMetalHandleEXT>,
     #[cfg(feature = "VK_EXT_external_memory_metal")]
-    pub vkGetMemoryMetalHandlePropertiesEXT: Option<
-        PFN_vkGetMemoryMetalHandlePropertiesEXT,
-    >,
+    pub vkGetMemoryMetalHandlePropertiesEXT: Option<PFN_vkGetMemoryMetalHandlePropertiesEXT>,
     #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-    pub vkGetDeviceGroupSurfacePresentModes2EXT: Option<
-        PFN_vkGetDeviceGroupSurfacePresentModes2EXT,
-    >,
+    pub vkGetDeviceGroupSurfacePresentModes2EXT:
+        Option<PFN_vkGetDeviceGroupSurfacePresentModes2EXT>,
     #[cfg(feature = "VK_EXT_hdr_metadata")]
     pub vkSetHdrMetadataEXT: Option<PFN_vkSetHdrMetadataEXT>,
     #[cfg(feature = "VK_EXT_host_image_copy")]
@@ -280,9 +244,7 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_EXT_opacity_micromap")]
     pub vkCreateMicromapEXT: Option<PFN_vkCreateMicromapEXT>,
     #[cfg(feature = "VK_EXT_opacity_micromap")]
-    pub vkGetDeviceMicromapCompatibilityEXT: Option<
-        PFN_vkGetDeviceMicromapCompatibilityEXT,
-    >,
+    pub vkGetDeviceMicromapCompatibilityEXT: Option<PFN_vkGetDeviceMicromapCompatibilityEXT>,
     #[cfg(feature = "VK_EXT_opacity_micromap")]
     pub vkGetMicromapBuildSizesEXT: Option<PFN_vkGetMicromapBuildSizesEXT>,
     #[cfg(feature = "VK_EXT_opacity_micromap")]
@@ -298,9 +260,8 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_EXT_private_data")]
     pub vkSetPrivateDataEXT: Option<PFN_vkSetPrivateDataEXT>,
     #[cfg(feature = "VK_EXT_shader_module_identifier")]
-    pub vkGetShaderModuleCreateInfoIdentifierEXT: Option<
-        PFN_vkGetShaderModuleCreateInfoIdentifierEXT,
-    >,
+    pub vkGetShaderModuleCreateInfoIdentifierEXT:
+        Option<PFN_vkGetShaderModuleCreateInfoIdentifierEXT>,
     #[cfg(feature = "VK_EXT_shader_object")]
     pub vkCreateShadersEXT: Option<PFN_vkCreateShadersEXT>,
     #[cfg(feature = "VK_EXT_swapchain_maintenance1")]
@@ -312,15 +273,12 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_FUCHSIA_external_memory")]
     pub vkGetMemoryZirconHandleFUCHSIA: Option<PFN_vkGetMemoryZirconHandleFUCHSIA>,
     #[cfg(feature = "VK_FUCHSIA_external_memory")]
-    pub vkGetMemoryZirconHandlePropertiesFUCHSIA: Option<
-        PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA,
-    >,
+    pub vkGetMemoryZirconHandlePropertiesFUCHSIA:
+        Option<PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA>,
     #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
     pub vkGetSemaphoreZirconHandleFUCHSIA: Option<PFN_vkGetSemaphoreZirconHandleFUCHSIA>,
     #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
-    pub vkImportSemaphoreZirconHandleFUCHSIA: Option<
-        PFN_vkImportSemaphoreZirconHandleFUCHSIA,
-    >,
+    pub vkImportSemaphoreZirconHandleFUCHSIA: Option<PFN_vkImportSemaphoreZirconHandleFUCHSIA>,
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     pub vkCreateFramebuffer: Option<PFN_vkCreateFramebuffer>,
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -332,9 +290,7 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
     pub vkGetRenderingAreaGranularity: Option<PFN_vkGetRenderingAreaGranularity>,
     #[cfg(feature = "VK_INTEL_performance_query")]
-    pub vkAcquirePerformanceConfigurationINTEL: Option<
-        PFN_vkAcquirePerformanceConfigurationINTEL,
-    >,
+    pub vkAcquirePerformanceConfigurationINTEL: Option<PFN_vkAcquirePerformanceConfigurationINTEL>,
     #[cfg(feature = "VK_INTEL_performance_query")]
     pub vkGetPerformanceParameterINTEL: Option<PFN_vkGetPerformanceParameterINTEL>,
     #[cfg(feature = "VK_INTEL_performance_query")]
@@ -344,21 +300,17 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_KHR_acceleration_structure")]
     pub vkCreateAccelerationStructureKHR: Option<PFN_vkCreateAccelerationStructureKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkGetAccelerationStructureBuildSizesKHR: Option<
-        PFN_vkGetAccelerationStructureBuildSizesKHR,
-    >,
+    pub vkGetAccelerationStructureBuildSizesKHR:
+        Option<PFN_vkGetAccelerationStructureBuildSizesKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkGetAccelerationStructureDeviceAddressKHR: Option<
-        PFN_vkGetAccelerationStructureDeviceAddressKHR,
-    >,
+    pub vkGetAccelerationStructureDeviceAddressKHR:
+        Option<PFN_vkGetAccelerationStructureDeviceAddressKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkGetDeviceAccelerationStructureCompatibilityKHR: Option<
-        PFN_vkGetDeviceAccelerationStructureCompatibilityKHR,
-    >,
+    pub vkGetDeviceAccelerationStructureCompatibilityKHR:
+        Option<PFN_vkGetDeviceAccelerationStructureCompatibilityKHR>,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub vkWriteAccelerationStructuresPropertiesKHR: Option<
-        PFN_vkWriteAccelerationStructuresPropertiesKHR,
-    >,
+    pub vkWriteAccelerationStructuresPropertiesKHR:
+        Option<PFN_vkWriteAccelerationStructuresPropertiesKHR>,
     #[cfg(feature = "VK_KHR_bind_memory2")]
     pub vkBindBufferMemory2KHR: Option<PFN_vkBindBufferMemory2KHR>,
     #[cfg(feature = "VK_KHR_bind_memory2")]
@@ -366,13 +318,10 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_KHR_buffer_device_address")]
     pub vkGetBufferDeviceAddressKHR: Option<PFN_vkGetBufferDeviceAddressKHR>,
     #[cfg(feature = "VK_KHR_buffer_device_address")]
-    pub vkGetBufferOpaqueCaptureAddressKHR: Option<
-        PFN_vkGetBufferOpaqueCaptureAddressKHR,
-    >,
+    pub vkGetBufferOpaqueCaptureAddressKHR: Option<PFN_vkGetBufferOpaqueCaptureAddressKHR>,
     #[cfg(feature = "VK_KHR_buffer_device_address")]
-    pub vkGetDeviceMemoryOpaqueCaptureAddressKHR: Option<
-        PFN_vkGetDeviceMemoryOpaqueCaptureAddressKHR,
-    >,
+    pub vkGetDeviceMemoryOpaqueCaptureAddressKHR:
+        Option<PFN_vkGetDeviceMemoryOpaqueCaptureAddressKHR>,
     #[cfg(feature = "VK_KHR_calibrated_timestamps")]
     pub vkGetCalibratedTimestampsKHR: Option<PFN_vkGetCalibratedTimestampsKHR>,
     #[cfg(feature = "VK_KHR_create_renderpass2")]
@@ -380,21 +329,15 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_KHR_deferred_host_operations")]
     pub vkCreateDeferredOperationKHR: Option<PFN_vkCreateDeferredOperationKHR>,
     #[cfg(feature = "VK_KHR_descriptor_update_template")]
-    pub vkCreateDescriptorUpdateTemplateKHR: Option<
-        PFN_vkCreateDescriptorUpdateTemplateKHR,
-    >,
+    pub vkCreateDescriptorUpdateTemplateKHR: Option<PFN_vkCreateDescriptorUpdateTemplateKHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCreateAccelerationStructure2KHR: Option<PFN_vkCreateAccelerationStructure2KHR>,
     #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
     pub vkAcquireNextImage2KHR: Option<PFN_vkAcquireNextImage2KHR>,
     #[cfg(feature = "VK_KHR_device_group")]
-    pub vkGetDeviceGroupPeerMemoryFeaturesKHR: Option<
-        PFN_vkGetDeviceGroupPeerMemoryFeaturesKHR,
-    >,
+    pub vkGetDeviceGroupPeerMemoryFeaturesKHR: Option<PFN_vkGetDeviceGroupPeerMemoryFeaturesKHR>,
     #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
-    pub vkGetDeviceGroupPresentCapabilitiesKHR: Option<
-        PFN_vkGetDeviceGroupPresentCapabilitiesKHR,
-    >,
+    pub vkGetDeviceGroupPresentCapabilitiesKHR: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
     #[cfg(feature = "VK_KHR_display_swapchain")]
     pub vkCreateSharedSwapchainsKHR: Option<PFN_vkCreateSharedSwapchainsKHR>,
     #[cfg(feature = "VK_KHR_external_fence_fd")]
@@ -412,9 +355,7 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_KHR_external_memory_win32")]
     pub vkGetMemoryWin32HandleKHR: Option<PFN_vkGetMemoryWin32HandleKHR>,
     #[cfg(feature = "VK_KHR_external_memory_win32")]
-    pub vkGetMemoryWin32HandlePropertiesKHR: Option<
-        PFN_vkGetMemoryWin32HandlePropertiesKHR,
-    >,
+    pub vkGetMemoryWin32HandlePropertiesKHR: Option<PFN_vkGetMemoryWin32HandlePropertiesKHR>,
     #[cfg(feature = "VK_KHR_external_semaphore_fd")]
     pub vkGetSemaphoreFdKHR: Option<PFN_vkGetSemaphoreFdKHR>,
     #[cfg(feature = "VK_KHR_external_semaphore_fd")]
@@ -428,29 +369,18 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_KHR_get_memory_requirements2")]
     pub vkGetImageMemoryRequirements2KHR: Option<PFN_vkGetImageMemoryRequirements2KHR>,
     #[cfg(feature = "VK_KHR_get_memory_requirements2")]
-    pub vkGetImageSparseMemoryRequirements2KHR: Option<
-        PFN_vkGetImageSparseMemoryRequirements2KHR,
-    >,
+    pub vkGetImageSparseMemoryRequirements2KHR: Option<PFN_vkGetImageSparseMemoryRequirements2KHR>,
     #[cfg(feature = "VK_KHR_maintenance3")]
-    pub vkGetDescriptorSetLayoutSupportKHR: Option<
-        PFN_vkGetDescriptorSetLayoutSupportKHR,
-    >,
+    pub vkGetDescriptorSetLayoutSupportKHR: Option<PFN_vkGetDescriptorSetLayoutSupportKHR>,
     #[cfg(feature = "VK_KHR_maintenance4")]
-    pub vkGetDeviceBufferMemoryRequirementsKHR: Option<
-        PFN_vkGetDeviceBufferMemoryRequirementsKHR,
-    >,
+    pub vkGetDeviceBufferMemoryRequirementsKHR: Option<PFN_vkGetDeviceBufferMemoryRequirementsKHR>,
     #[cfg(feature = "VK_KHR_maintenance4")]
-    pub vkGetDeviceImageMemoryRequirementsKHR: Option<
-        PFN_vkGetDeviceImageMemoryRequirementsKHR,
-    >,
+    pub vkGetDeviceImageMemoryRequirementsKHR: Option<PFN_vkGetDeviceImageMemoryRequirementsKHR>,
     #[cfg(feature = "VK_KHR_maintenance4")]
-    pub vkGetDeviceImageSparseMemoryRequirementsKHR: Option<
-        PFN_vkGetDeviceImageSparseMemoryRequirementsKHR,
-    >,
+    pub vkGetDeviceImageSparseMemoryRequirementsKHR:
+        Option<PFN_vkGetDeviceImageSparseMemoryRequirementsKHR>,
     #[cfg(feature = "VK_KHR_maintenance5")]
-    pub vkGetDeviceImageSubresourceLayoutKHR: Option<
-        PFN_vkGetDeviceImageSubresourceLayoutKHR,
-    >,
+    pub vkGetDeviceImageSubresourceLayoutKHR: Option<PFN_vkGetDeviceImageSubresourceLayoutKHR>,
     #[cfg(feature = "VK_KHR_maintenance5")]
     pub vkGetRenderingAreaGranularityKHR: Option<PFN_vkGetRenderingAreaGranularityKHR>,
     #[cfg(feature = "VK_KHR_map_memory2")]
@@ -470,17 +400,12 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_KHR_pipeline_binary")]
     pub vkReleaseCapturedPipelineDataKHR: Option<PFN_vkReleaseCapturedPipelineDataKHR>,
     #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
-    pub vkGetPipelineExecutableInternalRepresentationsKHR: Option<
-        PFN_vkGetPipelineExecutableInternalRepresentationsKHR,
-    >,
+    pub vkGetPipelineExecutableInternalRepresentationsKHR:
+        Option<PFN_vkGetPipelineExecutableInternalRepresentationsKHR>,
     #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
-    pub vkGetPipelineExecutablePropertiesKHR: Option<
-        PFN_vkGetPipelineExecutablePropertiesKHR,
-    >,
+    pub vkGetPipelineExecutablePropertiesKHR: Option<PFN_vkGetPipelineExecutablePropertiesKHR>,
     #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
-    pub vkGetPipelineExecutableStatisticsKHR: Option<
-        PFN_vkGetPipelineExecutableStatisticsKHR,
-    >,
+    pub vkGetPipelineExecutableStatisticsKHR: Option<PFN_vkGetPipelineExecutableStatisticsKHR>,
     #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
     pub vkCreateSamplerYcbcrConversionKHR: Option<PFN_vkCreateSamplerYcbcrConversionKHR>,
     #[cfg(feature = "VK_KHR_swapchain")]
@@ -492,9 +417,7 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_KHR_timeline_semaphore")]
     pub vkWaitSemaphoresKHR: Option<PFN_vkWaitSemaphoresKHR>,
     #[cfg(feature = "VK_KHR_video_encode_queue")]
-    pub vkGetEncodedVideoSessionParametersKHR: Option<
-        PFN_vkGetEncodedVideoSessionParametersKHR,
-    >,
+    pub vkGetEncodedVideoSessionParametersKHR: Option<PFN_vkGetEncodedVideoSessionParametersKHR>,
     #[cfg(feature = "VK_KHR_video_queue")]
     pub vkCreateVideoSessionKHR: Option<PFN_vkCreateVideoSessionKHR>,
     #[cfg(feature = "VK_KHR_video_queue")]
@@ -504,21 +427,17 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_NVX_binary_import")]
     pub vkCreateCuModuleNVX: Option<PFN_vkCreateCuModuleNVX>,
     #[cfg(feature = "VK_NVX_image_view_handle")]
-    pub vkGetDeviceCombinedImageSamplerIndexNVX: Option<
-        PFN_vkGetDeviceCombinedImageSamplerIndexNVX,
-    >,
+    pub vkGetDeviceCombinedImageSamplerIndexNVX:
+        Option<PFN_vkGetDeviceCombinedImageSamplerIndexNVX>,
     #[cfg(feature = "VK_NVX_image_view_handle")]
     pub vkGetImageViewHandle64NVX: Option<PFN_vkGetImageViewHandle64NVX>,
     #[cfg(feature = "VK_NVX_image_view_handle")]
     pub vkGetImageViewHandleNVX: Option<PFN_vkGetImageViewHandleNVX>,
     #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-    pub vkGetClusterAccelerationStructureBuildSizesNV: Option<
-        PFN_vkGetClusterAccelerationStructureBuildSizesNV,
-    >,
+    pub vkGetClusterAccelerationStructureBuildSizesNV:
+        Option<PFN_vkGetClusterAccelerationStructureBuildSizesNV>,
     #[cfg(feature = "VK_NV_cooperative_vector")]
-    pub vkConvertCooperativeVectorMatrixNV: Option<
-        PFN_vkConvertCooperativeVectorMatrixNV,
-    >,
+    pub vkConvertCooperativeVectorMatrixNV: Option<PFN_vkConvertCooperativeVectorMatrixNV>,
     #[cfg(feature = "VK_NV_cuda_kernel_launch")]
     pub vkCreateCudaFunctionNV: Option<PFN_vkCreateCudaFunctionNV>,
     #[cfg(feature = "VK_NV_cuda_kernel_launch")]
@@ -526,40 +445,40 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_NV_device_generated_commands")]
     pub vkCreateIndirectCommandsLayoutNV: Option<PFN_vkCreateIndirectCommandsLayoutNV>,
     #[cfg(feature = "VK_NV_device_generated_commands")]
-    pub vkGetGeneratedCommandsMemoryRequirementsNV: Option<
-        PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
-    >,
+    pub vkGetGeneratedCommandsMemoryRequirementsNV:
+        Option<PFN_vkGetGeneratedCommandsMemoryRequirementsNV>,
     #[cfg(feature = "VK_NV_device_generated_commands_compute")]
-    pub vkGetPipelineIndirectDeviceAddressNV: Option<
-        PFN_vkGetPipelineIndirectDeviceAddressNV,
-    >,
+    pub vkGetPipelineIndirectDeviceAddressNV: Option<PFN_vkGetPipelineIndirectDeviceAddressNV>,
     #[cfg(feature = "VK_NV_device_generated_commands_compute")]
-    pub vkGetPipelineIndirectMemoryRequirementsNV: Option<
-        PFN_vkGetPipelineIndirectMemoryRequirementsNV,
-    >,
+    pub vkGetPipelineIndirectMemoryRequirementsNV:
+        Option<PFN_vkGetPipelineIndirectMemoryRequirementsNV>,
     #[cfg(feature = "VK_NV_external_compute_queue")]
     pub vkCreateExternalComputeQueueNV: Option<PFN_vkCreateExternalComputeQueueNV>,
     #[cfg(feature = "VK_NV_external_memory_rdma")]
     pub vkGetMemoryRemoteAddressNV: Option<PFN_vkGetMemoryRemoteAddressNV>,
     #[cfg(feature = "VK_NV_external_memory_sci_buf")]
     pub vkGetMemorySciBufNV: Option<PFN_vkGetMemorySciBufNV>,
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     pub vkGetFenceSciSyncFenceNV: Option<PFN_vkGetFenceSciSyncFenceNV>,
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     pub vkGetFenceSciSyncObjNV: Option<PFN_vkGetFenceSciSyncObjNV>,
     #[cfg(feature = "VK_NV_external_sci_sync")]
     pub vkGetSemaphoreSciSyncObjNV: Option<PFN_vkGetSemaphoreSciSyncObjNV>,
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     pub vkImportFenceSciSyncFenceNV: Option<PFN_vkImportFenceSciSyncFenceNV>,
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     pub vkImportFenceSciSyncObjNV: Option<PFN_vkImportFenceSciSyncObjNV>,
     #[cfg(feature = "VK_NV_external_sci_sync")]
     pub vkImportSemaphoreSciSyncObjNV: Option<PFN_vkImportSemaphoreSciSyncObjNV>,
@@ -568,33 +487,27 @@ pub struct DeviceDispatchTable {
     #[cfg(feature = "VK_NV_optical_flow")]
     pub vkCreateOpticalFlowSessionNV: Option<PFN_vkCreateOpticalFlowSessionNV>,
     #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
-    pub vkGetPartitionedAccelerationStructuresBuildSizesNV: Option<
-        PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV,
-    >,
+    pub vkGetPartitionedAccelerationStructuresBuildSizesNV:
+        Option<PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
-    pub vkBindAccelerationStructureMemoryNV: Option<
-        PFN_vkBindAccelerationStructureMemoryNV,
-    >,
+    pub vkBindAccelerationStructureMemoryNV: Option<PFN_vkBindAccelerationStructureMemoryNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
     pub vkCreateAccelerationStructureNV: Option<PFN_vkCreateAccelerationStructureNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
-    pub vkGetAccelerationStructureMemoryRequirementsNV: Option<
-        PFN_vkGetAccelerationStructureMemoryRequirementsNV,
-    >,
+    pub vkGetAccelerationStructureMemoryRequirementsNV:
+        Option<PFN_vkGetAccelerationStructureMemoryRequirementsNV>,
     #[cfg(feature = "VK_OHOS_external_memory")]
     pub vkGetMemoryNativeBufferOHOS: Option<PFN_vkGetMemoryNativeBufferOHOS>,
     #[cfg(feature = "VK_OHOS_external_memory")]
     pub vkGetNativeBufferPropertiesOHOS: Option<PFN_vkGetNativeBufferPropertiesOHOS>,
     #[cfg(feature = "VK_QCOM_tile_properties")]
-    pub vkGetDynamicRenderingTilePropertiesQCOM: Option<
-        PFN_vkGetDynamicRenderingTilePropertiesQCOM,
-    >,
+    pub vkGetDynamicRenderingTilePropertiesQCOM:
+        Option<PFN_vkGetDynamicRenderingTilePropertiesQCOM>,
     #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
     pub vkGetScreenBufferPropertiesQNX: Option<PFN_vkGetScreenBufferPropertiesQNX>,
     #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
-    pub vkGetDescriptorSetLayoutHostMappingInfoVALVE: Option<
-        PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE,
-    >,
+    pub vkGetDescriptorSetLayoutHostMappingInfoVALVE:
+        Option<PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl DeviceDispatchTable {
@@ -1011,35 +924,27 @@ impl DeviceDispatchTable {
         vkGetMemoryRemoteAddressNV: None,
         #[cfg(feature = "VK_NV_external_memory_sci_buf")]
         vkGetMemorySciBufNV: None,
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         vkGetFenceSciSyncFenceNV: None,
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         vkGetFenceSciSyncObjNV: None,
         #[cfg(feature = "VK_NV_external_sci_sync")]
         vkGetSemaphoreSciSyncObjNV: None,
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         vkImportFenceSciSyncFenceNV: None,
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         vkImportFenceSciSyncObjNV: None,
         #[cfg(feature = "VK_NV_external_sci_sync")]
         vkImportSemaphoreSciSyncObjNV: None,
@@ -1074,76 +979,67 @@ impl DeviceDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VKSC_VERSION_1_0")]
         {
-            table.vkGetFaultData = loader(c"vkGetFaultData".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetFaultData =
+                loader(c"vkGetFaultData".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMD_anti_lag")]
         {
-            table.vkAntiLagUpdateAMD = loader(c"vkAntiLagUpdateAMD".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkAntiLagUpdateAMD =
+                loader(c"vkAntiLagUpdateAMD".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
         {
-            table.vkGetAndroidHardwareBufferPropertiesANDROID = loader(
-                    c"vkGetAndroidHardwareBufferPropertiesANDROID".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetAndroidHardwareBufferPropertiesANDROID =
+                loader(c"vkGetAndroidHardwareBufferPropertiesANDROID".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
         {
-            table.vkGetMemoryAndroidHardwareBufferANDROID = loader(
-                    c"vkGetMemoryAndroidHardwareBufferANDROID".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetMemoryAndroidHardwareBufferANDROID =
+                loader(c"vkGetMemoryAndroidHardwareBufferANDROID".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkBindDataGraphPipelineSessionMemoryARM = loader(
-                    c"vkBindDataGraphPipelineSessionMemoryARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkBindDataGraphPipelineSessionMemoryARM =
+                loader(c"vkBindDataGraphPipelineSessionMemoryARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkCreateDataGraphPipelineSessionARM = loader(
-                    c"vkCreateDataGraphPipelineSessionARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateDataGraphPipelineSessionARM =
+                loader(c"vkCreateDataGraphPipelineSessionARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkGetDataGraphPipelineAvailablePropertiesARM = loader(
-                    c"vkGetDataGraphPipelineAvailablePropertiesARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDataGraphPipelineAvailablePropertiesARM =
+                loader(c"vkGetDataGraphPipelineAvailablePropertiesARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkGetDataGraphPipelinePropertiesARM = loader(
-                    c"vkGetDataGraphPipelinePropertiesARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDataGraphPipelinePropertiesARM =
+                loader(c"vkGetDataGraphPipelinePropertiesARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkGetDataGraphPipelineSessionBindPointRequirementsARM = loader(
-                    c"vkGetDataGraphPipelineSessionBindPointRequirementsARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDataGraphPipelineSessionBindPointRequirementsARM =
+                loader(c"vkGetDataGraphPipelineSessionBindPointRequirementsARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkGetDataGraphPipelineSessionMemoryRequirementsARM = loader(
-                    c"vkGetDataGraphPipelineSessionMemoryRequirementsARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDataGraphPipelineSessionMemoryRequirementsARM =
+                loader(c"vkGetDataGraphPipelineSessionMemoryRequirementsARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         {
-            table.vkCreateShaderInstrumentationARM = loader(
-                    c"vkCreateShaderInstrumentationARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateShaderInstrumentationARM =
+                loader(c"vkCreateShaderInstrumentationARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
@@ -1152,8 +1048,8 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkCreateTensorARM = loader(c"vkCreateTensorARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateTensorARM =
+                loader(c"vkCreateTensorARM".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
@@ -1162,153 +1058,141 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkGetDeviceTensorMemoryRequirementsARM = loader(
-                    c"vkGetDeviceTensorMemoryRequirementsARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceTensorMemoryRequirementsARM =
+                loader(c"vkGetDeviceTensorMemoryRequirementsARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkGetTensorMemoryRequirementsARM = loader(
-                    c"vkGetTensorMemoryRequirementsARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetTensorMemoryRequirementsARM =
+                loader(c"vkGetTensorMemoryRequirementsARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkGetTensorOpaqueCaptureDescriptorDataARM = loader(
-                    c"vkGetTensorOpaqueCaptureDescriptorDataARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetTensorOpaqueCaptureDescriptorDataARM =
+                loader(c"vkGetTensorOpaqueCaptureDescriptorDataARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkGetTensorViewOpaqueCaptureDescriptorDataARM = loader(
-                    c"vkGetTensorViewOpaqueCaptureDescriptorDataARM".as_ptr(),
-                )
+            table.vkGetTensorViewOpaqueCaptureDescriptorDataARM =
+                loader(c"vkGetTensorViewOpaqueCaptureDescriptorDataARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkAllocateMemory =
+                loader(c"vkAllocateMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkCreateBuffer =
+                loader(c"vkCreateBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkCreateCommandPool =
+                loader(c"vkCreateCommandPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkCreateFence =
+                loader(c"vkCreateFence".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkCreateImage =
+                loader(c"vkCreateImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkCreateImageView =
+                loader(c"vkCreateImageView".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkCreateQueryPool =
+                loader(c"vkCreateQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkCreateSemaphore =
+                loader(c"vkCreateSemaphore".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkDestroyDevice =
+                loader(c"vkDestroyDevice".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkDeviceWaitIdle =
+                loader(c"vkDeviceWaitIdle".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkFlushMappedMemoryRanges = loader(c"vkFlushMappedMemoryRanges".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkAllocateMemory = loader(c"vkAllocateMemory".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceQueue =
+                loader(c"vkGetDeviceQueue".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCreateBuffer = loader(c"vkCreateBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkInvalidateMappedMemoryRanges =
+                loader(c"vkInvalidateMappedMemoryRanges".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCreateCommandPool = loader(c"vkCreateCommandPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkResetFences =
+                loader(c"vkResetFences".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCreateFence = loader(c"vkCreateFence".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkWaitForFences =
+                loader(c"vkWaitForFences".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkCreateImage = loader(c"vkCreateImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkBindBufferMemory2 =
+                loader(c"vkBindBufferMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkCreateImageView = loader(c"vkCreateImageView".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkBindImageMemory2 =
+                loader(c"vkBindImageMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkCreateQueryPool = loader(c"vkCreateQueryPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetBufferMemoryRequirements2 =
+                loader(c"vkGetBufferMemoryRequirements2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkCreateSemaphore = loader(c"vkCreateSemaphore".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceGroupPeerMemoryFeatures =
+                loader(c"vkGetDeviceGroupPeerMemoryFeatures".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkDestroyDevice = loader(c"vkDestroyDevice".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceQueue2 =
+                loader(c"vkGetDeviceQueue2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkDeviceWaitIdle = loader(c"vkDeviceWaitIdle".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkFlushMappedMemoryRanges = loader(
-                    c"vkFlushMappedMemoryRanges".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetDeviceQueue = loader(c"vkGetDeviceQueue".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkInvalidateMappedMemoryRanges = loader(
-                    c"vkInvalidateMappedMemoryRanges".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkResetFences = loader(c"vkResetFences".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkWaitForFences = loader(c"vkWaitForFences".as_ptr())
+            table.vkGetImageMemoryRequirements2 = loader(c"vkGetImageMemoryRequirements2".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkBindBufferMemory2 = loader(c"vkBindBufferMemory2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkBindImageMemory2 = loader(c"vkBindImageMemory2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetBufferMemoryRequirements2 = loader(
-                    c"vkGetBufferMemoryRequirements2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetDeviceGroupPeerMemoryFeatures = loader(
-                    c"vkGetDeviceGroupPeerMemoryFeatures".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetDeviceQueue2 = loader(c"vkGetDeviceQueue2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetImageMemoryRequirements2 = loader(
-                    c"vkGetImageMemoryRequirements2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetImageSparseMemoryRequirements2 = loader(
-                    c"vkGetImageSparseMemoryRequirements2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageSparseMemoryRequirements2 =
+                loader(c"vkGetImageSparseMemoryRequirements2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_2")]
         {
@@ -1317,27 +1201,25 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_2")]
         {
-            table.vkGetBufferOpaqueCaptureAddress = loader(
-                    c"vkGetBufferOpaqueCaptureAddress".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetBufferOpaqueCaptureAddress =
+                loader(c"vkGetBufferOpaqueCaptureAddress".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_2")]
         {
-            table.vkGetDeviceMemoryOpaqueCaptureAddress = loader(
-                    c"vkGetDeviceMemoryOpaqueCaptureAddress".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceMemoryOpaqueCaptureAddress =
+                loader(c"vkGetDeviceMemoryOpaqueCaptureAddress".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_2")]
         {
-            table.vkSignalSemaphore = loader(c"vkSignalSemaphore".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSignalSemaphore =
+                loader(c"vkSignalSemaphore".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_2")]
         {
-            table.vkWaitSemaphores = loader(c"vkWaitSemaphores".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkWaitSemaphores =
+                loader(c"vkWaitSemaphores".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
@@ -1346,61 +1228,57 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkGetDeviceBufferMemoryRequirements = loader(
-                    c"vkGetDeviceBufferMemoryRequirements".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceBufferMemoryRequirements =
+                loader(c"vkGetDeviceBufferMemoryRequirements".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkGetDeviceImageMemoryRequirements = loader(
-                    c"vkGetDeviceImageMemoryRequirements".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceImageMemoryRequirements =
+                loader(c"vkGetDeviceImageMemoryRequirements".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkGetDeviceImageSparseMemoryRequirements = loader(
-                    c"vkGetDeviceImageSparseMemoryRequirements".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceImageSparseMemoryRequirements =
+                loader(c"vkGetDeviceImageSparseMemoryRequirements".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkGetPrivateData = loader(c"vkGetPrivateData".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPrivateData =
+                loader(c"vkGetPrivateData".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkSetPrivateData = loader(c"vkSetPrivateData".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSetPrivateData =
+                loader(c"vkSetPrivateData".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
-            table.vkCopyImageToImage = loader(c"vkCopyImageToImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCopyImageToImage =
+                loader(c"vkCopyImageToImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
-            table.vkCopyImageToMemory = loader(c"vkCopyImageToMemory".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCopyImageToMemory =
+                loader(c"vkCopyImageToMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
-            table.vkCopyMemoryToImage = loader(c"vkCopyMemoryToImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCopyMemoryToImage =
+                loader(c"vkCopyMemoryToImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
-            table.vkGetDeviceImageSubresourceLayout = loader(
-                    c"vkGetDeviceImageSubresourceLayout".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceImageSubresourceLayout =
+                loader(c"vkGetDeviceImageSubresourceLayout".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
-            table.vkMapMemory2 = loader(c"vkMapMemory2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkMapMemory2 =
+                loader(c"vkMapMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
@@ -1409,13 +1287,13 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
-            table.vkUnmapMemory2 = loader(c"vkUnmapMemory2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUnmapMemory2 =
+                loader(c"vkUnmapMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCreateBufferView = loader(c"vkCreateBufferView".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateBufferView =
+                loader(c"vkCreateBufferView".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
@@ -1429,15 +1307,13 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCreateDescriptorSetLayout = loader(
-                    c"vkCreateDescriptorSetLayout".as_ptr(),
-                )
+            table.vkCreateDescriptorSetLayout = loader(c"vkCreateDescriptorSetLayout".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCreateEvent = loader(c"vkCreateEvent".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateEvent =
+                loader(c"vkCreateEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
@@ -1451,8 +1327,8 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkCreateSampler = loader(c"vkCreateSampler".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateSampler =
+                loader(c"vkCreateSampler".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
@@ -1466,147 +1342,119 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         {
-            table.vkCreateDescriptorUpdateTemplate = loader(
-                    c"vkCreateDescriptorUpdateTemplate".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateDescriptorUpdateTemplate =
+                loader(c"vkCreateDescriptorUpdateTemplate".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         {
-            table.vkCreateSamplerYcbcrConversion = loader(
-                    c"vkCreateSamplerYcbcrConversion".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateSamplerYcbcrConversion =
+                loader(c"vkCreateSamplerYcbcrConversion".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         {
-            table.vkGetDescriptorSetLayoutSupport = loader(
-                    c"vkGetDescriptorSetLayoutSupport".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDescriptorSetLayoutSupport =
+                loader(c"vkGetDescriptorSetLayoutSupport".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_buffer_device_address")]
         {
-            table.vkGetBufferDeviceAddressEXT = loader(
-                    c"vkGetBufferDeviceAddressEXT".as_ptr(),
-                )
+            table.vkGetBufferDeviceAddressEXT = loader(c"vkGetBufferDeviceAddressEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_calibrated_timestamps")]
         {
-            table.vkGetCalibratedTimestampsEXT = loader(
-                    c"vkGetCalibratedTimestampsEXT".as_ptr(),
-                )
+            table.vkGetCalibratedTimestampsEXT = loader(c"vkGetCalibratedTimestampsEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_marker")]
         {
-            table.vkDebugMarkerSetObjectNameEXT = loader(
-                    c"vkDebugMarkerSetObjectNameEXT".as_ptr(),
-                )
+            table.vkDebugMarkerSetObjectNameEXT = loader(c"vkDebugMarkerSetObjectNameEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_marker")]
         {
-            table.vkDebugMarkerSetObjectTagEXT = loader(
-                    c"vkDebugMarkerSetObjectTagEXT".as_ptr(),
-                )
+            table.vkDebugMarkerSetObjectTagEXT = loader(c"vkDebugMarkerSetObjectTagEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkSetDebugUtilsObjectNameEXT = loader(
-                    c"vkSetDebugUtilsObjectNameEXT".as_ptr(),
-                )
+            table.vkSetDebugUtilsObjectNameEXT = loader(c"vkSetDebugUtilsObjectNameEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkSetDebugUtilsObjectTagEXT = loader(
-                    c"vkSetDebugUtilsObjectTagEXT".as_ptr(),
-                )
+            table.vkSetDebugUtilsObjectTagEXT = loader(c"vkSetDebugUtilsObjectTagEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT = loader(
-                    c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
+                loader(c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetBufferOpaqueCaptureDescriptorDataEXT = loader(
-                    c"vkGetBufferOpaqueCaptureDescriptorDataEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetBufferOpaqueCaptureDescriptorDataEXT =
+                loader(c"vkGetBufferOpaqueCaptureDescriptorDataEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetDescriptorEXT = loader(c"vkGetDescriptorEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDescriptorEXT =
+                loader(c"vkGetDescriptorEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetImageOpaqueCaptureDescriptorDataEXT = loader(
-                    c"vkGetImageOpaqueCaptureDescriptorDataEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageOpaqueCaptureDescriptorDataEXT =
+                loader(c"vkGetImageOpaqueCaptureDescriptorDataEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetImageViewOpaqueCaptureDescriptorDataEXT = loader(
-                    c"vkGetImageViewOpaqueCaptureDescriptorDataEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageViewOpaqueCaptureDescriptorDataEXT =
+                loader(c"vkGetImageViewOpaqueCaptureDescriptorDataEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         {
-            table.vkGetSamplerOpaqueCaptureDescriptorDataEXT = loader(
-                    c"vkGetSamplerOpaqueCaptureDescriptorDataEXT".as_ptr(),
-                )
+            table.vkGetSamplerOpaqueCaptureDescriptorDataEXT =
+                loader(c"vkGetSamplerOpaqueCaptureDescriptorDataEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_descriptor_heap")]
+        {
+            table.vkGetImageOpaqueCaptureDataEXT =
+                loader(c"vkGetImageOpaqueCaptureDataEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_descriptor_heap")]
+        {
+            table.vkGetTensorOpaqueCaptureDataARM =
+                loader(c"vkGetTensorOpaqueCaptureDataARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_descriptor_heap")]
+        {
+            table.vkRegisterCustomBorderColorEXT =
+                loader(c"vkRegisterCustomBorderColorEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_descriptor_heap")]
+        {
+            table.vkUnregisterCustomBorderColorEXT =
+                loader(c"vkUnregisterCustomBorderColorEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_descriptor_heap")]
+        {
+            table.vkWriteResourceDescriptorsEXT = loader(c"vkWriteResourceDescriptorsEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_heap")]
         {
-            table.vkGetImageOpaqueCaptureDataEXT = loader(
-                    c"vkGetImageOpaqueCaptureDataEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkGetTensorOpaqueCaptureDataARM = loader(
-                    c"vkGetTensorOpaqueCaptureDataARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkRegisterCustomBorderColorEXT = loader(
-                    c"vkRegisterCustomBorderColorEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkUnregisterCustomBorderColorEXT = loader(
-                    c"vkUnregisterCustomBorderColorEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkWriteResourceDescriptorsEXT = loader(
-                    c"vkWriteResourceDescriptorsEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkWriteSamplerDescriptorsEXT = loader(
-                    c"vkWriteSamplerDescriptorsEXT".as_ptr(),
-                )
+            table.vkWriteSamplerDescriptorsEXT = loader(c"vkWriteSamplerDescriptorsEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_device_fault")]
@@ -1616,24 +1464,21 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkCreateIndirectCommandsLayoutEXT = loader(
-                    c"vkCreateIndirectCommandsLayoutEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateIndirectCommandsLayoutEXT =
+                loader(c"vkCreateIndirectCommandsLayoutEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkCreateIndirectExecutionSetEXT = loader(
-                    c"vkCreateIndirectExecutionSetEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateIndirectExecutionSetEXT =
+                loader(c"vkCreateIndirectExecutionSetEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkGetGeneratedCommandsMemoryRequirementsEXT = loader(
-                    c"vkGetGeneratedCommandsMemoryRequirementsEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetGeneratedCommandsMemoryRequirementsEXT =
+                loader(c"vkGetGeneratedCommandsMemoryRequirementsEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_display_control")]
         {
@@ -1642,36 +1487,31 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_EXT_external_memory_host")]
         {
-            table.vkGetMemoryHostPointerPropertiesEXT = loader(
-                    c"vkGetMemoryHostPointerPropertiesEXT".as_ptr(),
-                )
+            table.vkGetMemoryHostPointerPropertiesEXT =
+                loader(c"vkGetMemoryHostPointerPropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_external_memory_metal")]
+        {
+            table.vkGetMemoryMetalHandleEXT = loader(c"vkGetMemoryMetalHandleEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_external_memory_metal")]
         {
-            table.vkGetMemoryMetalHandleEXT = loader(
-                    c"vkGetMemoryMetalHandleEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_external_memory_metal")]
-        {
-            table.vkGetMemoryMetalHandlePropertiesEXT = loader(
-                    c"vkGetMemoryMetalHandlePropertiesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetMemoryMetalHandlePropertiesEXT =
+                loader(c"vkGetMemoryMetalHandlePropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_full_screen_exclusive")]
         {
-            table.vkGetDeviceGroupSurfacePresentModes2EXT = loader(
-                    c"vkGetDeviceGroupSurfacePresentModes2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceGroupSurfacePresentModes2EXT =
+                loader(c"vkGetDeviceGroupSurfacePresentModes2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_hdr_metadata")]
         {
-            table.vkSetHdrMetadataEXT = loader(c"vkSetHdrMetadataEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSetHdrMetadataEXT =
+                loader(c"vkSetHdrMetadataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_host_image_copy")]
         {
@@ -1690,9 +1530,7 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_EXT_host_image_copy")]
         {
-            table.vkTransitionImageLayoutEXT = loader(
-                    c"vkTransitionImageLayoutEXT".as_ptr(),
-                )
+            table.vkTransitionImageLayoutEXT = loader(c"vkTransitionImageLayoutEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_metal_objects")]
@@ -1702,213 +1540,180 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkCreateMicromapEXT = loader(c"vkCreateMicromapEXT".as_ptr())
+            table.vkCreateMicromapEXT =
+                loader(c"vkCreateMicromapEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_opacity_micromap")]
+        {
+            table.vkGetDeviceMicromapCompatibilityEXT =
+                loader(c"vkGetDeviceMicromapCompatibilityEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_opacity_micromap")]
+        {
+            table.vkGetMicromapBuildSizesEXT = loader(c"vkGetMicromapBuildSizesEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         {
-            table.vkGetDeviceMicromapCompatibilityEXT = loader(
-                    c"vkGetDeviceMicromapCompatibilityEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkGetMicromapBuildSizesEXT = loader(
-                    c"vkGetMicromapBuildSizesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkWriteMicromapsPropertiesEXT = loader(
-                    c"vkWriteMicromapsPropertiesEXT".as_ptr(),
-                )
+            table.vkWriteMicromapsPropertiesEXT = loader(c"vkWriteMicromapsPropertiesEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_pipeline_properties")]
         {
-            table.vkGetPipelinePropertiesEXT = loader(
-                    c"vkGetPipelinePropertiesEXT".as_ptr(),
-                )
+            table.vkGetPipelinePropertiesEXT = loader(c"vkGetPipelinePropertiesEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_present_timing")]
         {
-            table.vkGetPastPresentationTimingEXT = loader(
-                    c"vkGetPastPresentationTimingEXT".as_ptr(),
-                )
+            table.vkGetPastPresentationTimingEXT =
+                loader(c"vkGetPastPresentationTimingEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_private_data")]
+        {
+            table.vkCreatePrivateDataSlotEXT = loader(c"vkCreatePrivateDataSlotEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_private_data")]
         {
-            table.vkCreatePrivateDataSlotEXT = loader(
-                    c"vkCreatePrivateDataSlotEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPrivateDataEXT =
+                loader(c"vkGetPrivateDataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_private_data")]
         {
-            table.vkGetPrivateDataEXT = loader(c"vkGetPrivateDataEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_private_data")]
-        {
-            table.vkSetPrivateDataEXT = loader(c"vkSetPrivateDataEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSetPrivateDataEXT =
+                loader(c"vkSetPrivateDataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_shader_module_identifier")]
         {
-            table.vkGetShaderModuleCreateInfoIdentifierEXT = loader(
-                    c"vkGetShaderModuleCreateInfoIdentifierEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetShaderModuleCreateInfoIdentifierEXT =
+                loader(c"vkGetShaderModuleCreateInfoIdentifierEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_shader_object")]
         {
-            table.vkCreateShadersEXT = loader(c"vkCreateShadersEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateShadersEXT =
+                loader(c"vkCreateShadersEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_swapchain_maintenance1")]
         {
-            table.vkReleaseSwapchainImagesEXT = loader(
-                    c"vkReleaseSwapchainImagesEXT".as_ptr(),
-                )
+            table.vkReleaseSwapchainImagesEXT = loader(c"vkReleaseSwapchainImagesEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_validation_cache")]
         {
-            table.vkCreateValidationCacheEXT = loader(
-                    c"vkCreateValidationCacheEXT".as_ptr(),
-                )
+            table.vkCreateValidationCacheEXT = loader(c"vkCreateValidationCacheEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
         {
-            table.vkCreateBufferCollectionFUCHSIA = loader(
-                    c"vkCreateBufferCollectionFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateBufferCollectionFUCHSIA =
+                loader(c"vkCreateBufferCollectionFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_external_memory")]
         {
-            table.vkGetMemoryZirconHandleFUCHSIA = loader(
-                    c"vkGetMemoryZirconHandleFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetMemoryZirconHandleFUCHSIA =
+                loader(c"vkGetMemoryZirconHandleFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_external_memory")]
         {
-            table.vkGetMemoryZirconHandlePropertiesFUCHSIA = loader(
-                    c"vkGetMemoryZirconHandlePropertiesFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetMemoryZirconHandlePropertiesFUCHSIA =
+                loader(c"vkGetMemoryZirconHandlePropertiesFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
         {
-            table.vkGetSemaphoreZirconHandleFUCHSIA = loader(
-                    c"vkGetSemaphoreZirconHandleFUCHSIA".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetSemaphoreZirconHandleFUCHSIA =
+                loader(c"vkGetSemaphoreZirconHandleFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
         {
-            table.vkImportSemaphoreZirconHandleFUCHSIA = loader(
-                    c"vkImportSemaphoreZirconHandleFUCHSIA".as_ptr(),
-                )
+            table.vkImportSemaphoreZirconHandleFUCHSIA =
+                loader(c"vkImportSemaphoreZirconHandleFUCHSIA".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+        {
+            table.vkCreateFramebuffer =
+                loader(c"vkCreateFramebuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+        {
+            table.vkCreateGraphicsPipelines = loader(c"vkCreateGraphicsPipelines".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         {
-            table.vkCreateFramebuffer = loader(c"vkCreateFramebuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCreateGraphicsPipelines = loader(
-                    c"vkCreateGraphicsPipelines".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCreateRenderPass = loader(c"vkCreateRenderPass".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateRenderPass =
+                loader(c"vkCreateRenderPass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
         {
-            table.vkCreateRenderPass2 = loader(c"vkCreateRenderPass2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateRenderPass2 =
+                loader(c"vkCreateRenderPass2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
         {
-            table.vkGetRenderingAreaGranularity = loader(
-                    c"vkGetRenderingAreaGranularity".as_ptr(),
-                )
+            table.vkGetRenderingAreaGranularity = loader(c"vkGetRenderingAreaGranularity".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkAcquirePerformanceConfigurationINTEL = loader(
-                    c"vkAcquirePerformanceConfigurationINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkAcquirePerformanceConfigurationINTEL =
+                loader(c"vkAcquirePerformanceConfigurationINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkGetPerformanceParameterINTEL = loader(
-                    c"vkGetPerformanceParameterINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPerformanceParameterINTEL =
+                loader(c"vkGetPerformanceParameterINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkInitializePerformanceApiINTEL = loader(
-                    c"vkInitializePerformanceApiINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkInitializePerformanceApiINTEL =
+                loader(c"vkInitializePerformanceApiINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkUninitializePerformanceApiINTEL = loader(
-                    c"vkUninitializePerformanceApiINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUninitializePerformanceApiINTEL =
+                loader(c"vkUninitializePerformanceApiINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkCreateAccelerationStructureKHR = loader(
-                    c"vkCreateAccelerationStructureKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateAccelerationStructureKHR =
+                loader(c"vkCreateAccelerationStructureKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkGetAccelerationStructureBuildSizesKHR = loader(
-                    c"vkGetAccelerationStructureBuildSizesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetAccelerationStructureBuildSizesKHR =
+                loader(c"vkGetAccelerationStructureBuildSizesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkGetAccelerationStructureDeviceAddressKHR = loader(
-                    c"vkGetAccelerationStructureDeviceAddressKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetAccelerationStructureDeviceAddressKHR =
+                loader(c"vkGetAccelerationStructureDeviceAddressKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkGetDeviceAccelerationStructureCompatibilityKHR = loader(
-                    c"vkGetDeviceAccelerationStructureCompatibilityKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceAccelerationStructureCompatibilityKHR =
+                loader(c"vkGetDeviceAccelerationStructureCompatibilityKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         {
-            table.vkWriteAccelerationStructuresPropertiesKHR = loader(
-                    c"vkWriteAccelerationStructuresPropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkWriteAccelerationStructuresPropertiesKHR =
+                loader(c"vkWriteAccelerationStructuresPropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_bind_memory2")]
         {
@@ -1922,30 +1727,24 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_buffer_device_address")]
         {
-            table.vkGetBufferDeviceAddressKHR = loader(
-                    c"vkGetBufferDeviceAddressKHR".as_ptr(),
-                )
+            table.vkGetBufferDeviceAddressKHR = loader(c"vkGetBufferDeviceAddressKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_buffer_device_address")]
         {
-            table.vkGetBufferOpaqueCaptureAddressKHR = loader(
-                    c"vkGetBufferOpaqueCaptureAddressKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetBufferOpaqueCaptureAddressKHR =
+                loader(c"vkGetBufferOpaqueCaptureAddressKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_buffer_device_address")]
         {
-            table.vkGetDeviceMemoryOpaqueCaptureAddressKHR = loader(
-                    c"vkGetDeviceMemoryOpaqueCaptureAddressKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceMemoryOpaqueCaptureAddressKHR =
+                loader(c"vkGetDeviceMemoryOpaqueCaptureAddressKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_calibrated_timestamps")]
         {
-            table.vkGetCalibratedTimestampsKHR = loader(
-                    c"vkGetCalibratedTimestampsKHR".as_ptr(),
-                )
+            table.vkGetCalibratedTimestampsKHR = loader(c"vkGetCalibratedTimestampsKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_create_renderpass2")]
@@ -1955,24 +1754,20 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_deferred_host_operations")]
         {
-            table.vkCreateDeferredOperationKHR = loader(
-                    c"vkCreateDeferredOperationKHR".as_ptr(),
-                )
+            table.vkCreateDeferredOperationKHR = loader(c"vkCreateDeferredOperationKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_descriptor_update_template")]
         {
-            table.vkCreateDescriptorUpdateTemplateKHR = loader(
-                    c"vkCreateDescriptorUpdateTemplateKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateDescriptorUpdateTemplateKHR =
+                loader(c"vkCreateDescriptorUpdateTemplateKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_device_address_commands")]
         {
-            table.vkCreateAccelerationStructure2KHR = loader(
-                    c"vkCreateAccelerationStructure2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateAccelerationStructure2KHR =
+                loader(c"vkCreateAccelerationStructure2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
         {
@@ -1981,34 +1776,30 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_device_group")]
         {
-            table.vkGetDeviceGroupPeerMemoryFeaturesKHR = loader(
-                    c"vkGetDeviceGroupPeerMemoryFeaturesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceGroupPeerMemoryFeaturesKHR =
+                loader(c"vkGetDeviceGroupPeerMemoryFeaturesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
         {
-            table.vkGetDeviceGroupPresentCapabilitiesKHR = loader(
-                    c"vkGetDeviceGroupPresentCapabilitiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceGroupPresentCapabilitiesKHR =
+                loader(c"vkGetDeviceGroupPresentCapabilitiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_display_swapchain")]
         {
-            table.vkCreateSharedSwapchainsKHR = loader(
-                    c"vkCreateSharedSwapchainsKHR".as_ptr(),
-                )
+            table.vkCreateSharedSwapchainsKHR = loader(c"vkCreateSharedSwapchainsKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_fence_fd")]
         {
-            table.vkGetFenceFdKHR = loader(c"vkGetFenceFdKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetFenceFdKHR =
+                loader(c"vkGetFenceFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_fence_fd")]
         {
-            table.vkImportFenceFdKHR = loader(c"vkImportFenceFdKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkImportFenceFdKHR =
+                loader(c"vkImportFenceFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_fence_win32")]
         {
@@ -2017,41 +1808,34 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_external_fence_win32")]
         {
-            table.vkImportFenceWin32HandleKHR = loader(
-                    c"vkImportFenceWin32HandleKHR".as_ptr(),
-                )
+            table.vkImportFenceWin32HandleKHR = loader(c"vkImportFenceWin32HandleKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_memory_fd")]
         {
-            table.vkGetMemoryFdKHR = loader(c"vkGetMemoryFdKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetMemoryFdKHR =
+                loader(c"vkGetMemoryFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_memory_fd")]
         {
-            table.vkGetMemoryFdPropertiesKHR = loader(
-                    c"vkGetMemoryFdPropertiesKHR".as_ptr(),
-                )
+            table.vkGetMemoryFdPropertiesKHR = loader(c"vkGetMemoryFdPropertiesKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_memory_win32")]
         {
-            table.vkGetMemoryWin32HandleKHR = loader(
-                    c"vkGetMemoryWin32HandleKHR".as_ptr(),
-                )
+            table.vkGetMemoryWin32HandleKHR = loader(c"vkGetMemoryWin32HandleKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_memory_win32")]
         {
-            table.vkGetMemoryWin32HandlePropertiesKHR = loader(
-                    c"vkGetMemoryWin32HandlePropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetMemoryWin32HandlePropertiesKHR =
+                loader(c"vkGetMemoryWin32HandlePropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_semaphore_fd")]
         {
-            table.vkGetSemaphoreFdKHR = loader(c"vkGetSemaphoreFdKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetSemaphoreFdKHR =
+                loader(c"vkGetSemaphoreFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_semaphore_fd")]
         {
@@ -2060,158 +1844,133 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_external_semaphore_win32")]
         {
-            table.vkGetSemaphoreWin32HandleKHR = loader(
-                    c"vkGetSemaphoreWin32HandleKHR".as_ptr(),
-                )
+            table.vkGetSemaphoreWin32HandleKHR = loader(c"vkGetSemaphoreWin32HandleKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_semaphore_win32")]
         {
-            table.vkImportSemaphoreWin32HandleKHR = loader(
-                    c"vkImportSemaphoreWin32HandleKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkImportSemaphoreWin32HandleKHR =
+                loader(c"vkImportSemaphoreWin32HandleKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_memory_requirements2")]
         {
-            table.vkGetBufferMemoryRequirements2KHR = loader(
-                    c"vkGetBufferMemoryRequirements2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetBufferMemoryRequirements2KHR =
+                loader(c"vkGetBufferMemoryRequirements2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_memory_requirements2")]
         {
-            table.vkGetImageMemoryRequirements2KHR = loader(
-                    c"vkGetImageMemoryRequirements2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageMemoryRequirements2KHR =
+                loader(c"vkGetImageMemoryRequirements2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_memory_requirements2")]
         {
-            table.vkGetImageSparseMemoryRequirements2KHR = loader(
-                    c"vkGetImageSparseMemoryRequirements2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageSparseMemoryRequirements2KHR =
+                loader(c"vkGetImageSparseMemoryRequirements2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance3")]
         {
-            table.vkGetDescriptorSetLayoutSupportKHR = loader(
-                    c"vkGetDescriptorSetLayoutSupportKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDescriptorSetLayoutSupportKHR =
+                loader(c"vkGetDescriptorSetLayoutSupportKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance4")]
         {
-            table.vkGetDeviceBufferMemoryRequirementsKHR = loader(
-                    c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceBufferMemoryRequirementsKHR =
+                loader(c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance4")]
         {
-            table.vkGetDeviceImageMemoryRequirementsKHR = loader(
-                    c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceImageMemoryRequirementsKHR =
+                loader(c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance4")]
         {
-            table.vkGetDeviceImageSparseMemoryRequirementsKHR = loader(
-                    c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceImageSparseMemoryRequirementsKHR =
+                loader(c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance5")]
         {
-            table.vkGetDeviceImageSubresourceLayoutKHR = loader(
-                    c"vkGetDeviceImageSubresourceLayoutKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceImageSubresourceLayoutKHR =
+                loader(c"vkGetDeviceImageSubresourceLayoutKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance5")]
         {
-            table.vkGetRenderingAreaGranularityKHR = loader(
-                    c"vkGetRenderingAreaGranularityKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetRenderingAreaGranularityKHR =
+                loader(c"vkGetRenderingAreaGranularityKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_map_memory2")]
         {
-            table.vkMapMemory2KHR = loader(c"vkMapMemory2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkMapMemory2KHR =
+                loader(c"vkMapMemory2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_map_memory2")]
         {
-            table.vkUnmapMemory2KHR = loader(c"vkUnmapMemory2KHR".as_ptr())
+            table.vkUnmapMemory2KHR =
+                loader(c"vkUnmapMemory2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_performance_query")]
+        {
+            table.vkAcquireProfilingLockKHR = loader(c"vkAcquireProfilingLockKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_performance_query")]
         {
-            table.vkAcquireProfilingLockKHR = loader(
-                    c"vkAcquireProfilingLockKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_performance_query")]
-        {
-            table.vkReleaseProfilingLockKHR = loader(
-                    c"vkReleaseProfilingLockKHR".as_ptr(),
-                )
+            table.vkReleaseProfilingLockKHR = loader(c"vkReleaseProfilingLockKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_pipeline_binary")]
         {
-            table.vkCreatePipelineBinariesKHR = loader(
-                    c"vkCreatePipelineBinariesKHR".as_ptr(),
-                )
+            table.vkCreatePipelineBinariesKHR = loader(c"vkCreatePipelineBinariesKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_pipeline_binary")]
         {
-            table.vkGetPipelineBinaryDataKHR = loader(
-                    c"vkGetPipelineBinaryDataKHR".as_ptr(),
-                )
+            table.vkGetPipelineBinaryDataKHR = loader(c"vkGetPipelineBinaryDataKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_pipeline_binary")]
         {
-            table.vkGetPipelineKeyKHR = loader(c"vkGetPipelineKeyKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPipelineKeyKHR =
+                loader(c"vkGetPipelineKeyKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_pipeline_binary")]
         {
-            table.vkReleaseCapturedPipelineDataKHR = loader(
-                    c"vkReleaseCapturedPipelineDataKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkReleaseCapturedPipelineDataKHR =
+                loader(c"vkReleaseCapturedPipelineDataKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
         {
-            table.vkGetPipelineExecutableInternalRepresentationsKHR = loader(
-                    c"vkGetPipelineExecutableInternalRepresentationsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPipelineExecutableInternalRepresentationsKHR =
+                loader(c"vkGetPipelineExecutableInternalRepresentationsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
         {
-            table.vkGetPipelineExecutablePropertiesKHR = loader(
-                    c"vkGetPipelineExecutablePropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPipelineExecutablePropertiesKHR =
+                loader(c"vkGetPipelineExecutablePropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
         {
-            table.vkGetPipelineExecutableStatisticsKHR = loader(
-                    c"vkGetPipelineExecutableStatisticsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPipelineExecutableStatisticsKHR =
+                loader(c"vkGetPipelineExecutableStatisticsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
         {
-            table.vkCreateSamplerYcbcrConversionKHR = loader(
-                    c"vkCreateSamplerYcbcrConversionKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateSamplerYcbcrConversionKHR =
+                loader(c"vkCreateSamplerYcbcrConversionKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_swapchain")]
         {
@@ -2220,9 +1979,7 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
         {
-            table.vkReleaseSwapchainImagesKHR = loader(
-                    c"vkReleaseSwapchainImagesKHR".as_ptr(),
-                )
+            table.vkReleaseSwapchainImagesKHR = loader(c"vkReleaseSwapchainImagesKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_timeline_semaphore")]
@@ -2232,15 +1989,14 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_timeline_semaphore")]
         {
-            table.vkWaitSemaphoresKHR = loader(c"vkWaitSemaphoresKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkWaitSemaphoresKHR =
+                loader(c"vkWaitSemaphoresKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_encode_queue")]
         {
-            table.vkGetEncodedVideoSessionParametersKHR = loader(
-                    c"vkGetEncodedVideoSessionParametersKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetEncodedVideoSessionParametersKHR =
+                loader(c"vkGetEncodedVideoSessionParametersKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
@@ -2249,10 +2005,9 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkCreateVideoSessionParametersKHR = loader(
-                    c"vkCreateVideoSessionParametersKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateVideoSessionParametersKHR =
+                loader(c"vkCreateVideoSessionParametersKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NVX_binary_import")]
         {
@@ -2261,21 +2016,18 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_NVX_binary_import")]
         {
-            table.vkCreateCuModuleNVX = loader(c"vkCreateCuModuleNVX".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateCuModuleNVX =
+                loader(c"vkCreateCuModuleNVX".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NVX_image_view_handle")]
         {
-            table.vkGetDeviceCombinedImageSamplerIndexNVX = loader(
-                    c"vkGetDeviceCombinedImageSamplerIndexNVX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDeviceCombinedImageSamplerIndexNVX =
+                loader(c"vkGetDeviceCombinedImageSamplerIndexNVX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NVX_image_view_handle")]
         {
-            table.vkGetImageViewHandle64NVX = loader(
-                    c"vkGetImageViewHandle64NVX".as_ptr(),
-                )
+            table.vkGetImageViewHandle64NVX = loader(c"vkGetImageViewHandle64NVX".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NVX_image_view_handle")]
@@ -2285,17 +2037,15 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
         {
-            table.vkGetClusterAccelerationStructureBuildSizesNV = loader(
-                    c"vkGetClusterAccelerationStructureBuildSizesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetClusterAccelerationStructureBuildSizesNV =
+                loader(c"vkGetClusterAccelerationStructureBuildSizesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cooperative_vector")]
         {
-            table.vkConvertCooperativeVectorMatrixNV = loader(
-                    c"vkConvertCooperativeVectorMatrixNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkConvertCooperativeVectorMatrixNV =
+                loader(c"vkConvertCooperativeVectorMatrixNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cuda_kernel_launch")]
         {
@@ -2309,185 +2059,149 @@ impl DeviceDispatchTable {
         }
         #[cfg(feature = "VK_NV_device_generated_commands")]
         {
-            table.vkCreateIndirectCommandsLayoutNV = loader(
-                    c"vkCreateIndirectCommandsLayoutNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateIndirectCommandsLayoutNV =
+                loader(c"vkCreateIndirectCommandsLayoutNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_device_generated_commands")]
         {
-            table.vkGetGeneratedCommandsMemoryRequirementsNV = loader(
-                    c"vkGetGeneratedCommandsMemoryRequirementsNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetGeneratedCommandsMemoryRequirementsNV =
+                loader(c"vkGetGeneratedCommandsMemoryRequirementsNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_device_generated_commands_compute")]
         {
-            table.vkGetPipelineIndirectDeviceAddressNV = loader(
-                    c"vkGetPipelineIndirectDeviceAddressNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPipelineIndirectDeviceAddressNV =
+                loader(c"vkGetPipelineIndirectDeviceAddressNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_device_generated_commands_compute")]
         {
-            table.vkGetPipelineIndirectMemoryRequirementsNV = loader(
-                    c"vkGetPipelineIndirectMemoryRequirementsNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPipelineIndirectMemoryRequirementsNV =
+                loader(c"vkGetPipelineIndirectMemoryRequirementsNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_compute_queue")]
         {
-            table.vkCreateExternalComputeQueueNV = loader(
-                    c"vkCreateExternalComputeQueueNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateExternalComputeQueueNV =
+                loader(c"vkCreateExternalComputeQueueNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_memory_rdma")]
         {
-            table.vkGetMemoryRemoteAddressNV = loader(
-                    c"vkGetMemoryRemoteAddressNV".as_ptr(),
-                )
+            table.vkGetMemoryRemoteAddressNV = loader(c"vkGetMemoryRemoteAddressNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_memory_sci_buf")]
         {
-            table.vkGetMemorySciBufNV = loader(c"vkGetMemorySciBufNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetMemorySciBufNV =
+                loader(c"vkGetMemorySciBufNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         {
             table.vkGetFenceSciSyncFenceNV = loader(c"vkGetFenceSciSyncFenceNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         {
             table.vkGetFenceSciSyncObjNV = loader(c"vkGetFenceSciSyncObjNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_sci_sync")]
         {
-            table.vkGetSemaphoreSciSyncObjNV = loader(
-                    c"vkGetSemaphoreSciSyncObjNV".as_ptr(),
-                )
+            table.vkGetSemaphoreSciSyncObjNV = loader(c"vkGetSemaphoreSciSyncObjNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         {
-            table.vkImportFenceSciSyncFenceNV = loader(
-                    c"vkImportFenceSciSyncFenceNV".as_ptr(),
-                )
+            table.vkImportFenceSciSyncFenceNV = loader(c"vkImportFenceSciSyncFenceNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         {
-            table.vkImportFenceSciSyncObjNV = loader(
-                    c"vkImportFenceSciSyncObjNV".as_ptr(),
-                )
+            table.vkImportFenceSciSyncObjNV = loader(c"vkImportFenceSciSyncObjNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_sci_sync")]
         {
-            table.vkImportSemaphoreSciSyncObjNV = loader(
-                    c"vkImportSemaphoreSciSyncObjNV".as_ptr(),
-                )
+            table.vkImportSemaphoreSciSyncObjNV = loader(c"vkImportSemaphoreSciSyncObjNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_sci_sync2")]
         {
-            table.vkCreateSemaphoreSciSyncPoolNV = loader(
-                    c"vkCreateSemaphoreSciSyncPoolNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateSemaphoreSciSyncPoolNV =
+                loader(c"vkCreateSemaphoreSciSyncPoolNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_optical_flow")]
         {
-            table.vkCreateOpticalFlowSessionNV = loader(
-                    c"vkCreateOpticalFlowSessionNV".as_ptr(),
-                )
+            table.vkCreateOpticalFlowSessionNV = loader(c"vkCreateOpticalFlowSessionNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
         {
-            table.vkGetPartitionedAccelerationStructuresBuildSizesNV = loader(
-                    c"vkGetPartitionedAccelerationStructuresBuildSizesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPartitionedAccelerationStructuresBuildSizesNV =
+                loader(c"vkGetPartitionedAccelerationStructuresBuildSizesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkBindAccelerationStructureMemoryNV = loader(
-                    c"vkBindAccelerationStructureMemoryNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkBindAccelerationStructureMemoryNV =
+                loader(c"vkBindAccelerationStructureMemoryNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkCreateAccelerationStructureNV = loader(
-                    c"vkCreateAccelerationStructureNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateAccelerationStructureNV =
+                loader(c"vkCreateAccelerationStructureNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkGetAccelerationStructureMemoryRequirementsNV = loader(
-                    c"vkGetAccelerationStructureMemoryRequirementsNV".as_ptr(),
-                )
+            table.vkGetAccelerationStructureMemoryRequirementsNV =
+                loader(c"vkGetAccelerationStructureMemoryRequirementsNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_OHOS_external_memory")]
+        {
+            table.vkGetMemoryNativeBufferOHOS = loader(c"vkGetMemoryNativeBufferOHOS".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_OHOS_external_memory")]
         {
-            table.vkGetMemoryNativeBufferOHOS = loader(
-                    c"vkGetMemoryNativeBufferOHOS".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_OHOS_external_memory")]
-        {
-            table.vkGetNativeBufferPropertiesOHOS = loader(
-                    c"vkGetNativeBufferPropertiesOHOS".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetNativeBufferPropertiesOHOS =
+                loader(c"vkGetNativeBufferPropertiesOHOS".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_QCOM_tile_properties")]
         {
-            table.vkGetDynamicRenderingTilePropertiesQCOM = loader(
-                    c"vkGetDynamicRenderingTilePropertiesQCOM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDynamicRenderingTilePropertiesQCOM =
+                loader(c"vkGetDynamicRenderingTilePropertiesQCOM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
         {
-            table.vkGetScreenBufferPropertiesQNX = loader(
-                    c"vkGetScreenBufferPropertiesQNX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetScreenBufferPropertiesQNX =
+                loader(c"vkGetScreenBufferPropertiesQNX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
         {
-            table.vkGetDescriptorSetLayoutHostMappingInfoVALVE = loader(
-                    c"vkGetDescriptorSetLayoutHostMappingInfoVALVE".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDescriptorSetLayoutHostMappingInfoVALVE =
+                loader(c"vkGetDescriptorSetLayoutHostMappingInfoVALVE".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -2513,15 +2227,19 @@ impl DeviceDispatchTable {
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub struct Device<'inst> {
     pub(crate) raw: VkDevice,
+    pub(crate) instance: &'inst Instance<'inst>,
     pub(crate) table: DeviceDispatchTable,
     #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub(crate) acceleration_structure_khr_table: crate::acceleration_structure_khr::AccelerationStructureKHRDispatchTable,
+    pub(crate) acceleration_structure_khr_table:
+        crate::acceleration_structure_khr::AccelerationStructureKHRDispatchTable,
     #[cfg(feature = "VK_NV_ray_tracing")]
-    pub(crate) acceleration_structure_nv_table: crate::acceleration_structure_nv::AccelerationStructureNVDispatchTable,
+    pub(crate) acceleration_structure_nv_table:
+        crate::acceleration_structure_nv::AccelerationStructureNVDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub(crate) buffer_table: crate::buffer::BufferDispatchTable,
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-    pub(crate) buffer_collection_fuchsia_table: crate::buffer_collection_fuchsia::BufferCollectionFUCHSIADispatchTable,
+    pub(crate) buffer_collection_fuchsia_table:
+        crate::buffer_collection_fuchsia::BufferCollectionFUCHSIADispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) buffer_view_table: crate::buffer_view::BufferViewDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -2537,23 +2255,34 @@ pub struct Device<'inst> {
     #[cfg(feature = "VK_NV_cuda_kernel_launch")]
     pub(crate) cuda_module_nv_table: crate::cuda_module_nv::CudaModuleNVDispatchTable,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub(crate) data_graph_pipeline_session_arm_table: crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARMDispatchTable,
+    pub(crate) data_graph_pipeline_session_arm_table:
+        crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARMDispatchTable,
+    #[cfg(feature = "VK_EXT_debug_report")]
+    pub(crate) debug_report_callback_ext_table:
+        crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable,
+    #[cfg(feature = "VK_EXT_debug_utils")]
+    pub(crate) debug_utils_messenger_ext_table:
+        crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable,
     #[cfg(feature = "VK_KHR_deferred_host_operations")]
-    pub(crate) deferred_operation_khr_table: crate::deferred_operation_khr::DeferredOperationKHRDispatchTable,
+    pub(crate) deferred_operation_khr_table:
+        crate::deferred_operation_khr::DeferredOperationKHRDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) descriptor_pool_table: crate::descriptor_pool::DescriptorPoolDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) descriptor_set_table: crate::descriptor_set::DescriptorSetDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    pub(crate) descriptor_set_layout_table: crate::descriptor_set_layout::DescriptorSetLayoutDispatchTable,
+    pub(crate) descriptor_set_layout_table:
+        crate::descriptor_set_layout::DescriptorSetLayoutDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-    pub(crate) descriptor_update_template_table: crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable,
+    pub(crate) descriptor_update_template_table:
+        crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub(crate) device_memory_table: crate::device_memory::DeviceMemoryDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) event_table: crate::event::EventDispatchTable,
     #[cfg(feature = "VK_NV_external_compute_queue")]
-    pub(crate) external_compute_queue_nv_table: crate::external_compute_queue_nv::ExternalComputeQueueNVDispatchTable,
+    pub(crate) external_compute_queue_nv_table:
+        crate::external_compute_queue_nv::ExternalComputeQueueNVDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub(crate) fence_table: crate::fence::FenceDispatchTable,
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -2563,21 +2292,27 @@ pub struct Device<'inst> {
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub(crate) image_view_table: crate::image_view::ImageViewDispatchTable,
     #[cfg(feature = "VK_EXT_device_generated_commands")]
-    pub(crate) indirect_commands_layout_ext_table: crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXTDispatchTable,
+    pub(crate) indirect_commands_layout_ext_table:
+        crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXTDispatchTable,
     #[cfg(feature = "VK_NV_device_generated_commands")]
-    pub(crate) indirect_commands_layout_nv_table: crate::indirect_commands_layout_nv::IndirectCommandsLayoutNVDispatchTable,
+    pub(crate) indirect_commands_layout_nv_table:
+        crate::indirect_commands_layout_nv::IndirectCommandsLayoutNVDispatchTable,
     #[cfg(feature = "VK_EXT_device_generated_commands")]
-    pub(crate) indirect_execution_set_ext_table: crate::indirect_execution_set_ext::IndirectExecutionSetEXTDispatchTable,
+    pub(crate) indirect_execution_set_ext_table:
+        crate::indirect_execution_set_ext::IndirectExecutionSetEXTDispatchTable,
     #[cfg(feature = "VK_EXT_opacity_micromap")]
     pub(crate) micromap_ext_table: crate::micromap_ext::MicromapEXTDispatchTable,
     #[cfg(feature = "VK_NV_optical_flow")]
-    pub(crate) optical_flow_session_nv_table: crate::optical_flow_session_nv::OpticalFlowSessionNVDispatchTable,
+    pub(crate) optical_flow_session_nv_table:
+        crate::optical_flow_session_nv::OpticalFlowSessionNVDispatchTable,
     #[cfg(feature = "VK_INTEL_performance_query")]
-    pub(crate) performance_configuration_intel_table: crate::performance_configuration_intel::PerformanceConfigurationINTELDispatchTable,
+    pub(crate) performance_configuration_intel_table:
+        crate::performance_configuration_intel::PerformanceConfigurationINTELDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) pipeline_table: crate::pipeline::PipelineDispatchTable,
     #[cfg(feature = "VK_KHR_pipeline_binary")]
-    pub(crate) pipeline_binary_khr_table: crate::pipeline_binary_khr::PipelineBinaryKHRDispatchTable,
+    pub(crate) pipeline_binary_khr_table:
+        crate::pipeline_binary_khr::PipelineBinaryKHRDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) pipeline_cache_table: crate::pipeline_cache::PipelineCacheDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -2593,17 +2328,22 @@ pub struct Device<'inst> {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) sampler_table: crate::sampler::SamplerDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-    pub(crate) sampler_ycbcr_conversion_table: crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable,
+    pub(crate) sampler_ycbcr_conversion_table:
+        crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub(crate) semaphore_table: crate::semaphore::SemaphoreDispatchTable,
     #[cfg(feature = "VK_NV_external_sci_sync2")]
-    pub(crate) semaphore_sci_sync_pool_nv_table: crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNVDispatchTable,
+    pub(crate) semaphore_sci_sync_pool_nv_table:
+        crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNVDispatchTable,
     #[cfg(feature = "VK_EXT_shader_object")]
     pub(crate) shader_ext_table: crate::shader_ext::ShaderEXTDispatchTable,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
-    pub(crate) shader_instrumentation_arm_table: crate::shader_instrumentation_arm::ShaderInstrumentationARMDispatchTable,
+    pub(crate) shader_instrumentation_arm_table:
+        crate::shader_instrumentation_arm::ShaderInstrumentationARMDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub(crate) shader_module_table: crate::shader_module::ShaderModuleDispatchTable,
+    #[cfg(feature = "VK_KHR_surface")]
+    pub(crate) surface_khr_table: crate::surface_khr::SurfaceKHRDispatchTable,
     #[cfg(feature = "VK_KHR_swapchain")]
     pub(crate) swapchain_khr_table: crate::swapchain_khr::SwapchainKHRDispatchTable,
     #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
@@ -2611,12 +2351,13 @@ pub struct Device<'inst> {
     #[cfg(feature = "VK_ARM_tensors")]
     pub(crate) tensor_view_arm_table: crate::tensor_view_arm::TensorViewARMDispatchTable,
     #[cfg(feature = "VK_EXT_validation_cache")]
-    pub(crate) validation_cache_ext_table: crate::validation_cache_ext::ValidationCacheEXTDispatchTable,
+    pub(crate) validation_cache_ext_table:
+        crate::validation_cache_ext::ValidationCacheEXTDispatchTable,
     #[cfg(feature = "VK_KHR_video_queue")]
     pub(crate) video_session_khr_table: crate::video_session_khr::VideoSessionKHRDispatchTable,
     #[cfg(feature = "VK_KHR_video_queue")]
-    pub(crate) video_session_parameters_khr_table: crate::video_session_parameters_khr::VideoSessionParametersKHRDispatchTable,
-    _inst: core::marker::PhantomData<&'inst Instance<'inst>>,
+    pub(crate) video_session_parameters_khr_table:
+        crate::video_session_parameters_khr::VideoSessionParametersKHRDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'inst> Device<'inst> {
@@ -2627,13 +2368,13 @@ impl<'inst> Device<'inst> {
     #[inline]
     pub unsafe fn from_raw(
         raw: VkDevice,
+        instance: &'inst Instance<'inst>,
         table: DeviceDispatchTable,
         #[cfg(feature = "VK_KHR_acceleration_structure")]
         acceleration_structure_khr_table: crate::acceleration_structure_khr::AccelerationStructureKHRDispatchTable,
         #[cfg(feature = "VK_NV_ray_tracing")]
         acceleration_structure_nv_table: crate::acceleration_structure_nv::AccelerationStructureNVDispatchTable,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        buffer_table: crate::buffer::BufferDispatchTable,
+        #[cfg(feature = "VK_BASE_VERSION_1_0")] buffer_table: crate::buffer::BufferDispatchTable,
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
         buffer_collection_fuchsia_table: crate::buffer_collection_fuchsia::BufferCollectionFUCHSIADispatchTable,
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -2652,6 +2393,10 @@ impl<'inst> Device<'inst> {
         cuda_module_nv_table: crate::cuda_module_nv::CudaModuleNVDispatchTable,
         #[cfg(feature = "VK_ARM_data_graph")]
         data_graph_pipeline_session_arm_table: crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARMDispatchTable,
+        #[cfg(feature = "VK_EXT_debug_report")]
+        debug_report_callback_ext_table: crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable,
+        #[cfg(feature = "VK_EXT_debug_utils")]
+        debug_utils_messenger_ext_table: crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable,
         #[cfg(feature = "VK_KHR_deferred_host_operations")]
         deferred_operation_khr_table: crate::deferred_operation_khr::DeferredOperationKHRDispatchTable,
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -2664,16 +2409,13 @@ impl<'inst> Device<'inst> {
         descriptor_update_template_table: crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable,
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         device_memory_table: crate::device_memory::DeviceMemoryDispatchTable,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        event_table: crate::event::EventDispatchTable,
+        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")] event_table: crate::event::EventDispatchTable,
         #[cfg(feature = "VK_NV_external_compute_queue")]
         external_compute_queue_nv_table: crate::external_compute_queue_nv::ExternalComputeQueueNVDispatchTable,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        fence_table: crate::fence::FenceDispatchTable,
+        #[cfg(feature = "VK_BASE_VERSION_1_0")] fence_table: crate::fence::FenceDispatchTable,
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         framebuffer_table: crate::framebuffer::FramebufferDispatchTable,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        image_table: crate::image::ImageDispatchTable,
+        #[cfg(feature = "VK_BASE_VERSION_1_0")] image_table: crate::image::ImageDispatchTable,
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         image_view_table: crate::image_view::ImageViewDispatchTable,
         #[cfg(feature = "VK_EXT_device_generated_commands")]
@@ -2700,8 +2442,7 @@ impl<'inst> Device<'inst> {
         private_data_slot_table: crate::private_data_slot::PrivateDataSlotDispatchTable,
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         query_pool_table: crate::query_pool::QueryPoolDispatchTable,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        queue_table: crate::queue::QueueDispatchTable,
+        #[cfg(feature = "VK_BASE_VERSION_1_0")] queue_table: crate::queue::QueueDispatchTable,
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
         render_pass_table: crate::render_pass::RenderPassDispatchTable,
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -2718,6 +2459,8 @@ impl<'inst> Device<'inst> {
         shader_instrumentation_arm_table: crate::shader_instrumentation_arm::ShaderInstrumentationARMDispatchTable,
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         shader_module_table: crate::shader_module::ShaderModuleDispatchTable,
+        #[cfg(feature = "VK_KHR_surface")]
+        surface_khr_table: crate::surface_khr::SurfaceKHRDispatchTable,
         #[cfg(feature = "VK_KHR_swapchain")]
         swapchain_khr_table: crate::swapchain_khr::SwapchainKHRDispatchTable,
         #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
@@ -2733,6 +2476,7 @@ impl<'inst> Device<'inst> {
     ) -> Self {
         Self {
             raw,
+            instance,
             table,
             #[cfg(feature = "VK_KHR_acceleration_structure")]
             acceleration_structure_khr_table,
@@ -2758,6 +2502,10 @@ impl<'inst> Device<'inst> {
             cuda_module_nv_table,
             #[cfg(feature = "VK_ARM_data_graph")]
             data_graph_pipeline_session_arm_table,
+            #[cfg(feature = "VK_EXT_debug_report")]
+            debug_report_callback_ext_table,
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            debug_utils_messenger_ext_table,
             #[cfg(feature = "VK_KHR_deferred_host_operations")]
             deferred_operation_khr_table,
             #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -2824,6 +2572,8 @@ impl<'inst> Device<'inst> {
             shader_instrumentation_arm_table,
             #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
             shader_module_table,
+            #[cfg(feature = "VK_KHR_surface")]
+            surface_khr_table,
             #[cfg(feature = "VK_KHR_swapchain")]
             swapchain_khr_table,
             #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
@@ -2836,7 +2586,6 @@ impl<'inst> Device<'inst> {
             video_session_khr_table,
             #[cfg(feature = "VK_KHR_video_queue")]
             video_session_parameters_khr_table,
-            _inst: core::marker::PhantomData,
         }
     }
     /// The raw `VkDevice` handle.
@@ -2848,6 +2597,11 @@ impl<'inst> Device<'inst> {
     #[inline(always)]
     pub fn table(&self) -> &DeviceDispatchTable {
         &self.table
+    }
+    /// The instance that created this device.
+    #[inline(always)]
+    pub fn instance(&self) -> &'inst Instance<'inst> {
+        self.instance
     }
     /// [`vkGetFaultData`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFaultData.html)
     ///
@@ -2884,9 +2638,7 @@ impl<'inst> Device<'inst> {
         pFaults: *mut VkFaultData,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetFaultData
-                .unwrap_unchecked()(
+            (&self.table).vkGetFaultData.unwrap_unchecked()(
                 self.raw,
                 faultQueryBehavior,
                 pUnrecordedFaults,
@@ -2901,7 +2653,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkAntiLagUpdateAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAntiLagUpdateAMD.html)
@@ -2961,7 +2719,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_external_memory")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryAndroidHardwareBufferANDROID`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryAndroidHardwareBufferANDROID.html)
@@ -3004,7 +2768,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkBindDataGraphPipelineSessionMemoryARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindDataGraphPipelineSessionMemoryARM.html)
@@ -3047,7 +2817,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateDataGraphPipelineSessionARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDataGraphPipelineSessionARM.html)
@@ -3078,10 +2854,8 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkDataGraphPipelineSessionCreateInfoARM,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARM<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARM<'ret>, VkResult>
+    {
         let mut handle = VkDataGraphPipelineSessionARM::NULL;
         let r = unsafe {
             (&self.table)
@@ -3095,13 +2869,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARM {
+        .map(
+            |_| crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARM {
                 raw: handle,
                 parent: self,
                 table: &self.data_graph_pipeline_session_arm_table,
-            })
+            },
+        )
     }
     /// [`vkGetDataGraphPipelineAvailablePropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineAvailablePropertiesARM.html)
     ///
@@ -3138,10 +2920,7 @@ impl<'inst> Device<'inst> {
             (&self.table)
                 .vkGetDataGraphPipelineAvailablePropertiesARM
                 .unwrap_unchecked()(
-                self.raw,
-                pPipelineInfo,
-                pPropertiesCount,
-                pProperties,
+                self.raw, pPipelineInfo, pPropertiesCount, pProperties
             )
         };
         match r {
@@ -3151,7 +2930,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDataGraphPipelinePropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelinePropertiesARM.html)
@@ -3189,10 +2974,7 @@ impl<'inst> Device<'inst> {
             (&self.table)
                 .vkGetDataGraphPipelinePropertiesARM
                 .unwrap_unchecked()(
-                self.raw,
-                pPipelineInfo,
-                propertiesCount,
-                pProperties,
+                self.raw, pPipelineInfo, propertiesCount, pProperties
             )
         };
         match r {
@@ -3202,7 +2984,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDataGraphPipelineSessionBindPointRequirementsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html)
@@ -3253,7 +3041,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDataGraphPipelineSessionMemoryRequirementsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineSessionMemoryRequirementsARM.html)
@@ -3308,10 +3102,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkShaderInstrumentationCreateInfoARM,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::shader_instrumentation_arm::ShaderInstrumentationARM<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::shader_instrumentation_arm::ShaderInstrumentationARM<'ret>, VkResult> {
         let mut handle = VkShaderInstrumentationARM::NULL;
         let r = unsafe {
             (&self.table)
@@ -3325,13 +3116,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::shader_instrumentation_arm::ShaderInstrumentationARM {
+        .map(
+            |_| crate::shader_instrumentation_arm::ShaderInstrumentationARM {
                 raw: handle,
                 parent: self,
                 table: &self.shader_instrumentation_arm_table,
-            })
+            },
+        )
     }
     /// [`vkBindTensorMemoryARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindTensorMemoryARM.html)
     ///
@@ -3362,9 +3161,11 @@ impl<'inst> Device<'inst> {
         pBindInfos: *const VkBindTensorMemoryInfoARM,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkBindTensorMemoryARM
-                .unwrap_unchecked()(self.raw, bindInfoCount, pBindInfos)
+            (&self.table).vkBindTensorMemoryARM.unwrap_unchecked()(
+                self.raw,
+                bindInfoCount,
+                pBindInfos,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3373,7 +3174,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateTensorARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateTensorARM.html)
@@ -3407,9 +3214,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::tensor_arm::TensorARM<'ret>, VkResult> {
         let mut handle = VkTensorARM::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateTensorARM
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateTensorARM.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3418,13 +3228,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::tensor_arm::TensorARM {
-                raw: handle,
-                parent: self,
-                table: &self.tensor_arm_table,
-            })
+        .map(|_| crate::tensor_arm::TensorARM {
+            raw: handle,
+            parent: self,
+            table: &self.tensor_arm_table,
+        })
     }
     /// [`vkCreateTensorViewARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateTensorViewARM.html)
     ///
@@ -3457,9 +3273,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::tensor_view_arm::TensorViewARM<'ret>, VkResult> {
         let mut handle = VkTensorViewARM::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateTensorViewARM
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateTensorViewARM.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3468,13 +3287,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::tensor_view_arm::TensorViewARM {
-                raw: handle,
-                parent: self,
-                table: &self.tensor_view_arm_table,
-            })
+        .map(|_| crate::tensor_view_arm::TensorViewARM {
+            raw: handle,
+            parent: self,
+            table: &self.tensor_view_arm_table,
+        })
     }
     /// [`vkGetDeviceTensorMemoryRequirementsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceTensorMemoryRequirementsARM.html)
     ///
@@ -3564,7 +3389,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetTensorViewOpaqueCaptureDescriptorDataARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorViewOpaqueCaptureDescriptorDataARM.html)
@@ -3607,7 +3438,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkAllocateMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateMemory.html)
@@ -3644,9 +3481,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::device_memory::DeviceMemory<'ret>, VkResult> {
         let mut handle = VkDeviceMemory::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkAllocateMemory
-                .unwrap_unchecked()(self.raw, pAllocateInfo, pAllocator, &mut handle)
+            (&self.table).vkAllocateMemory.unwrap_unchecked()(
+                self.raw,
+                pAllocateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3659,13 +3499,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::device_memory::DeviceMemory {
-                raw: handle,
-                parent: self,
-                table: &self.device_memory_table,
-            })
+        .map(|_| crate::device_memory::DeviceMemory {
+            raw: handle,
+            parent: self,
+            table: &self.device_memory_table,
+        })
     }
     /// [`vkCreateBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBuffer.html)
     ///
@@ -3700,9 +3546,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::buffer::Buffer<'ret>, VkResult> {
         let mut handle = VkBuffer::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateBuffer
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateBuffer.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3713,13 +3562,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::buffer::Buffer {
-                raw: handle,
-                parent: self,
-                table: &self.buffer_table,
-            })
+        .map(|_| crate::buffer::Buffer {
+            raw: handle,
+            parent: self,
+            table: &self.buffer_table,
+        })
     }
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline]
@@ -3739,7 +3594,13 @@ impl<'inst> Device<'inst> {
                 | VkResult::VK_ERROR_UNKNOWN => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_0")]
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -3782,9 +3643,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::fence::Fence<'ret>, VkResult> {
         let mut handle = VkFence::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateFence
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateFence.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3793,13 +3657,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::fence::Fence {
-                raw: handle,
-                parent: self,
-                table: &self.fence_table,
-            })
+        .map(|_| crate::fence::Fence {
+            raw: handle,
+            parent: self,
+            table: &self.fence_table,
+        })
     }
     /// [`vkCreateImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImage.html)
     ///
@@ -3835,9 +3705,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::image::Image<'ret>, VkResult> {
         let mut handle = VkImage::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateImage
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateImage.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3850,13 +3723,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_COMPRESSION_EXHAUSTED_EXT => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::image::Image {
-                raw: handle,
-                parent: self,
-                table: &self.image_table,
-            })
+        .map(|_| crate::image::Image {
+            raw: handle,
+            parent: self,
+            table: &self.image_table,
+        })
     }
     /// [`vkCreateImageView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImageView.html)
     ///
@@ -3891,9 +3770,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::image_view::ImageView<'ret>, VkResult> {
         let mut handle = VkImageView::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateImageView
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateImageView.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3904,13 +3786,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::image_view::ImageView {
-                raw: handle,
-                parent: self,
-                table: &self.image_view_table,
-            })
+        .map(|_| crate::image_view::ImageView {
+            raw: handle,
+            parent: self,
+            table: &self.image_view_table,
+        })
     }
     /// [`vkCreateQueryPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateQueryPool.html)
     ///
@@ -3944,9 +3832,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::query_pool::QueryPool<'ret>, VkResult> {
         let mut handle = VkQueryPool::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateQueryPool
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateQueryPool.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -3955,13 +3846,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::query_pool::QueryPool {
-                raw: handle,
-                parent: self,
-                table: &self.query_pool_table,
-            })
+        .map(|_| crate::query_pool::QueryPool {
+            raw: handle,
+            parent: self,
+            table: &self.query_pool_table,
+        })
     }
     /// [`vkCreateSemaphore`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSemaphore.html)
     ///
@@ -3995,9 +3892,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::semaphore::Semaphore<'ret>, VkResult> {
         let mut handle = VkSemaphore::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateSemaphore
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateSemaphore.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -4006,13 +3906,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::semaphore::Semaphore {
-                raw: handle,
-                parent: self,
-                table: &self.semaphore_table,
-            })
+        .map(|_| crate::semaphore::Semaphore {
+            raw: handle,
+            parent: self,
+            table: &self.semaphore_table,
+        })
     }
     /// [`vkDestroyDevice`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDevice.html)
     ///
@@ -4069,7 +3975,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkFlushMappedMemoryRanges`](https://docs.vulkan.org/refpages/latest/refpages/source/vkFlushMappedMemoryRanges.html)
@@ -4102,9 +4014,11 @@ impl<'inst> Device<'inst> {
         pMemoryRanges: *const VkMappedMemoryRange,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkFlushMappedMemoryRanges
-                .unwrap_unchecked()(self.raw, memoryRangeCount, pMemoryRanges)
+            (&self.table).vkFlushMappedMemoryRanges.unwrap_unchecked()(
+                self.raw,
+                memoryRangeCount,
+                pMemoryRanges,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -4113,7 +4027,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -4173,7 +4093,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkResetFences`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetFences.html)
@@ -4209,12 +4135,16 @@ impl<'inst> Device<'inst> {
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkWaitForFences`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForFences.html)
@@ -4253,9 +4183,9 @@ impl<'inst> Device<'inst> {
         timeout: u64,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkWaitForFences
-                .unwrap_unchecked()(self.raw, fenceCount, pFences, waitAll, timeout)
+            (&self.table).vkWaitForFences.unwrap_unchecked()(
+                self.raw, fenceCount, pFences, waitAll, timeout,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT => Ok(r),
@@ -4265,7 +4195,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkBindBufferMemory2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory2.html)
@@ -4299,9 +4235,11 @@ impl<'inst> Device<'inst> {
         pBindInfos: *const VkBindBufferMemoryInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkBindBufferMemory2
-                .unwrap_unchecked()(self.raw, bindInfoCount, pBindInfos)
+            (&self.table).vkBindBufferMemory2.unwrap_unchecked()(
+                self.raw,
+                bindInfoCount,
+                pBindInfos,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -4312,7 +4250,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkBindImageMemory2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory2.html)
@@ -4345,9 +4289,7 @@ impl<'inst> Device<'inst> {
         pBindInfos: *const VkBindImageMemoryInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkBindImageMemory2
-                .unwrap_unchecked()(self.raw, bindInfoCount, pBindInfos)
+            (&self.table).vkBindImageMemory2.unwrap_unchecked()(self.raw, bindInfoCount, pBindInfos)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -4356,7 +4298,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetBufferMemoryRequirements2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferMemoryRequirements2.html)
@@ -4432,16 +4380,10 @@ impl<'inst> Device<'inst> {
     /// - `pQueue`
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     #[inline(always)]
-    pub fn vkGetDeviceQueue2(
-        &self,
-        pQueueInfo: *const VkDeviceQueueInfo2,
-        pQueue: *mut VkQueue,
-    ) {
+    pub fn vkGetDeviceQueue2(&self, pQueueInfo: *const VkDeviceQueueInfo2, pQueue: *mut VkQueue) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkGetDeviceQueue2
-                .unwrap_unchecked()(self.raw, pQueueInfo, pQueue)
+            (&self.table).vkGetDeviceQueue2.unwrap_unchecked()(self.raw, pQueueInfo, pQueue)
         }
     }
     /// [`vkGetImageMemoryRequirements2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageMemoryRequirements2.html)
@@ -4534,10 +4476,7 @@ impl<'inst> Device<'inst> {
     /// - `pInfo`
     #[cfg(feature = "VK_BASE_VERSION_1_2")]
     #[inline(always)]
-    pub fn vkGetBufferOpaqueCaptureAddress(
-        &self,
-        pInfo: *const VkBufferDeviceAddressInfo,
-    ) -> u64 {
+    pub fn vkGetBufferOpaqueCaptureAddress(&self, pInfo: *const VkBufferDeviceAddressInfo) -> u64 {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (&self.table)
@@ -4595,9 +4534,8 @@ impl<'inst> Device<'inst> {
         &self,
         pSignalInfo: *const VkSemaphoreSignalInfo,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (&self.table).vkSignalSemaphore.unwrap_unchecked()(self.raw, pSignalInfo)
-        };
+        let r =
+            unsafe { (&self.table).vkSignalSemaphore.unwrap_unchecked()(self.raw, pSignalInfo) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
@@ -4605,7 +4543,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkWaitSemaphores`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitSemaphores.html)
@@ -4640,9 +4584,7 @@ impl<'inst> Device<'inst> {
         timeout: u64,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkWaitSemaphores
-                .unwrap_unchecked()(self.raw, pWaitInfo, timeout)
+            (&self.table).vkWaitSemaphores.unwrap_unchecked()(self.raw, pWaitInfo, timeout)
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT => Ok(r),
@@ -4652,7 +4594,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreatePrivateDataSlot`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePrivateDataSlot.html)
@@ -4686,22 +4634,31 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::private_data_slot::PrivateDataSlot<'ret>, VkResult> {
         let mut handle = VkPrivateDataSlot::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreatePrivateDataSlot
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreatePrivateDataSlot.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::private_data_slot::PrivateDataSlot {
-                raw: handle,
-                parent: self,
-                table: &self.private_data_slot_table,
-            })
+        .map(|_| crate::private_data_slot::PrivateDataSlot {
+            raw: handle,
+            parent: self,
+            table: &self.private_data_slot_table,
+        })
     }
     /// [`vkGetDeviceBufferMemoryRequirements`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceBufferMemoryRequirements.html)
     ///
@@ -4809,9 +4766,7 @@ impl<'inst> Device<'inst> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkGetPrivateData
-                .unwrap_unchecked()(
+            (&self.table).vkGetPrivateData.unwrap_unchecked()(
                 self.raw,
                 objectType,
                 objectHandle,
@@ -4853,9 +4808,7 @@ impl<'inst> Device<'inst> {
         data: u64,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkSetPrivateData
-                .unwrap_unchecked()(
+            (&self.table).vkSetPrivateData.unwrap_unchecked()(
                 self.raw,
                 objectType,
                 objectHandle,
@@ -4868,7 +4821,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyImageToImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToImage.html)
@@ -4901,9 +4860,7 @@ impl<'inst> Device<'inst> {
         pCopyImageToImageInfo: *const VkCopyImageToImageInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCopyImageToImage
-                .unwrap_unchecked()(self.raw, pCopyImageToImageInfo)
+            (&self.table).vkCopyImageToImage.unwrap_unchecked()(self.raw, pCopyImageToImageInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -4914,7 +4871,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyImageToMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToMemory.html)
@@ -4947,9 +4910,7 @@ impl<'inst> Device<'inst> {
         pCopyImageToMemoryInfo: *const VkCopyImageToMemoryInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCopyImageToMemory
-                .unwrap_unchecked()(self.raw, pCopyImageToMemoryInfo)
+            (&self.table).vkCopyImageToMemory.unwrap_unchecked()(self.raw, pCopyImageToMemoryInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -4960,7 +4921,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyMemoryToImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToImage.html)
@@ -4993,9 +4960,7 @@ impl<'inst> Device<'inst> {
         pCopyMemoryToImageInfo: *const VkCopyMemoryToImageInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCopyMemoryToImage
-                .unwrap_unchecked()(self.raw, pCopyMemoryToImageInfo)
+            (&self.table).vkCopyMemoryToImage.unwrap_unchecked()(self.raw, pCopyMemoryToImageInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5006,7 +4971,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDeviceImageSubresourceLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSubresourceLayout.html)
@@ -5065,9 +5036,7 @@ impl<'inst> Device<'inst> {
         ppData: *mut *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkMapMemory2
-                .unwrap_unchecked()(self.raw, pMemoryMapInfo, ppData)
+            (&self.table).vkMapMemory2.unwrap_unchecked()(self.raw, pMemoryMapInfo, ppData)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5077,7 +5046,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkTransitionImageLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayout.html)
@@ -5112,9 +5087,11 @@ impl<'inst> Device<'inst> {
         pTransitions: *const VkHostImageLayoutTransitionInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkTransitionImageLayout
-                .unwrap_unchecked()(self.raw, transitionCount, pTransitions)
+            (&self.table).vkTransitionImageLayout.unwrap_unchecked()(
+                self.raw,
+                transitionCount,
+                pTransitions,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5125,7 +5102,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkUnmapMemory2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUnmapMemory2.html)
@@ -5154,15 +5137,20 @@ impl<'inst> Device<'inst> {
         &self,
         pMemoryUnmapInfo: *const VkMemoryUnmapInfo,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (&self.table).vkUnmapMemory2.unwrap_unchecked()(self.raw, pMemoryUnmapInfo)
-        };
+        let r =
+            unsafe { (&self.table).vkUnmapMemory2.unwrap_unchecked()(self.raw, pMemoryUnmapInfo) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_MEMORY_MAP_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateBufferView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBufferView.html)
@@ -5197,9 +5185,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::buffer_view::BufferView<'ret>, VkResult> {
         let mut handle = VkBufferView::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateBufferView
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateBufferView.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5208,13 +5199,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::buffer_view::BufferView {
-                raw: handle,
-                parent: self,
-                table: &self.buffer_view_table,
-            })
+        .map(|_| crate::buffer_view::BufferView {
+            raw: handle,
+            parent: self,
+            table: &self.buffer_view_table,
+        })
     }
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     #[inline]
@@ -5252,7 +5249,13 @@ impl<'inst> Device<'inst> {
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_1")]
                 VkResult::VK_ERROR_OUT_OF_POOL_MEMORY => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -5260,16 +5263,14 @@ impl<'inst> Device<'inst> {
         unsafe {
             raw_pipelines.set_len(count as usize);
         }
-        Ok(
-            raw_pipelines
-                .into_iter()
-                .map(|raw| crate::pipeline::Pipeline {
-                    raw,
-                    parent: self,
-                    table: &self.pipeline_table,
-                })
-                .collect(),
-        )
+        Ok(raw_pipelines
+            .into_iter()
+            .map(|raw| crate::pipeline::Pipeline {
+                raw,
+                parent: self,
+                table: &self.pipeline_table,
+            })
+            .collect())
     }
     /// [`vkCreateDescriptorPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorPool.html)
     ///
@@ -5304,9 +5305,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::descriptor_pool::DescriptorPool<'ret>, VkResult> {
         let mut handle = VkDescriptorPool::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateDescriptorPool
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateDescriptorPool.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5317,13 +5321,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_EXT_descriptor_indexing")]
             VkResult::VK_ERROR_FRAGMENTATION_EXT => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::descriptor_pool::DescriptorPool {
-                raw: handle,
-                parent: self,
-                table: &self.descriptor_pool_table,
-            })
+        .map(|_| crate::descriptor_pool::DescriptorPool {
+            raw: handle,
+            parent: self,
+            table: &self.descriptor_pool_table,
+        })
     }
     /// [`vkCreateDescriptorSetLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorSetLayout.html)
     ///
@@ -5358,9 +5368,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::descriptor_set_layout::DescriptorSetLayout<'ret>, VkResult> {
         let mut handle = VkDescriptorSetLayout::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateDescriptorSetLayout
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateDescriptorSetLayout.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5369,13 +5382,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::descriptor_set_layout::DescriptorSetLayout {
-                raw: handle,
-                parent: self,
-                table: &self.descriptor_set_layout_table,
-            })
+        .map(|_| crate::descriptor_set_layout::DescriptorSetLayout {
+            raw: handle,
+            parent: self,
+            table: &self.descriptor_set_layout_table,
+        })
     }
     /// [`vkCreateEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateEvent.html)
     ///
@@ -5409,9 +5428,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::event::Event<'ret>, VkResult> {
         let mut handle = VkEvent::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateEvent
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateEvent.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5420,13 +5442,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::event::Event {
-                raw: handle,
-                parent: self,
-                table: &self.event_table,
-            })
+        .map(|_| crate::event::Event {
+            raw: handle,
+            parent: self,
+            table: &self.event_table,
+        })
     }
     /// [`vkCreatePipelineCache`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineCache.html)
     ///
@@ -5462,9 +5490,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::pipeline_cache::PipelineCache<'ret>, VkResult> {
         let mut handle = VkPipelineCache::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreatePipelineCache
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreatePipelineCache.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5475,13 +5506,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_PIPELINE_CACHE_DATA => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::pipeline_cache::PipelineCache {
-                raw: handle,
-                parent: self,
-                table: &self.pipeline_cache_table,
-            })
+        .map(|_| crate::pipeline_cache::PipelineCache {
+            raw: handle,
+            parent: self,
+            table: &self.pipeline_cache_table,
+        })
     }
     /// [`vkCreatePipelineLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineLayout.html)
     ///
@@ -5516,9 +5553,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::pipeline_layout::PipelineLayout<'ret>, VkResult> {
         let mut handle = VkPipelineLayout::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreatePipelineLayout
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreatePipelineLayout.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5527,13 +5567,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::pipeline_layout::PipelineLayout {
-                raw: handle,
-                parent: self,
-                table: &self.pipeline_layout_table,
-            })
+        .map(|_| crate::pipeline_layout::PipelineLayout {
+            raw: handle,
+            parent: self,
+            table: &self.pipeline_layout_table,
+        })
     }
     /// [`vkCreateSampler`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSampler.html)
     ///
@@ -5569,9 +5615,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::sampler::Sampler<'ret>, VkResult> {
         let mut handle = VkSampler::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateSampler
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateSampler.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5582,13 +5631,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::sampler::Sampler {
-                raw: handle,
-                parent: self,
-                table: &self.sampler_table,
-            })
+        .map(|_| crate::sampler::Sampler {
+            raw: handle,
+            parent: self,
+            table: &self.sampler_table,
+        })
     }
     /// [`vkCreateShaderModule`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShaderModule.html)
     ///
@@ -5624,9 +5679,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::shader_module::ShaderModule<'ret>, VkResult> {
         let mut handle = VkShaderModule::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateShaderModule
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateShaderModule.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -5637,13 +5695,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_NV_glsl_shader")]
             VkResult::VK_ERROR_INVALID_SHADER_NV => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::shader_module::ShaderModule {
-                raw: handle,
-                parent: self,
-                table: &self.shader_module_table,
-            })
+        .map(|_| crate::shader_module::ShaderModule {
+            raw: handle,
+            parent: self,
+            table: &self.shader_module_table,
+        })
     }
     /// [`vkUpdateDescriptorSets`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateDescriptorSets.html)
     ///
@@ -5669,9 +5733,7 @@ impl<'inst> Device<'inst> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkUpdateDescriptorSets
-                .unwrap_unchecked()(
+            (&self.table).vkUpdateDescriptorSets.unwrap_unchecked()(
                 self.raw,
                 descriptorWriteCount,
                 pDescriptorWrites,
@@ -5709,10 +5771,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkDescriptorUpdateTemplateCreateInfo,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::descriptor_update_template::DescriptorUpdateTemplate<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::descriptor_update_template::DescriptorUpdateTemplate<'ret>, VkResult> {
         let mut handle = VkDescriptorUpdateTemplate::NULL;
         let r = unsafe {
             (&self.table)
@@ -5726,13 +5785,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::descriptor_update_template::DescriptorUpdateTemplate {
+        .map(
+            |_| crate::descriptor_update_template::DescriptorUpdateTemplate {
                 raw: handle,
                 parent: self,
                 table: &self.descriptor_update_template_table,
-            })
+            },
+        )
     }
     /// [`vkCreateSamplerYcbcrConversion`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSamplerYcbcrConversion.html)
     ///
@@ -5764,10 +5831,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkSamplerYcbcrConversionCreateInfo,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::sampler_ycbcr_conversion::SamplerYcbcrConversion<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::sampler_ycbcr_conversion::SamplerYcbcrConversion<'ret>, VkResult> {
         let mut handle = VkSamplerYcbcrConversion::NULL;
         let r = unsafe {
             (&self.table)
@@ -5781,13 +5845,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::sampler_ycbcr_conversion::SamplerYcbcrConversion {
+        .map(
+            |_| crate::sampler_ycbcr_conversion::SamplerYcbcrConversion {
                 raw: handle,
                 parent: self,
                 table: &self.sampler_ycbcr_conversion_table,
-            })
+            },
+        )
     }
     /// [`vkGetDescriptorSetLayoutSupport`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutSupport.html)
     ///
@@ -5885,7 +5957,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDebugMarkerSetObjectNameEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugMarkerSetObjectNameEXT.html)
@@ -5926,7 +6004,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDebugMarkerSetObjectTagEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugMarkerSetObjectTagEXT.html)
@@ -5967,7 +6051,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetDebugUtilsObjectNameEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDebugUtilsObjectNameEXT.html)
@@ -6008,7 +6098,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetDebugUtilsObjectTagEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDebugUtilsObjectTagEXT.html)
@@ -6038,9 +6134,7 @@ impl<'inst> Device<'inst> {
         pTagInfo: *const VkDebugUtilsObjectTagInfoEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkSetDebugUtilsObjectTagEXT
-                .unwrap_unchecked()(self.raw, pTagInfo)
+            (&self.table).vkSetDebugUtilsObjectTagEXT.unwrap_unchecked()(self.raw, pTagInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -6049,7 +6143,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html)
@@ -6092,7 +6192,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetBufferOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferOpaqueCaptureDescriptorDataEXT.html)
@@ -6135,7 +6241,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDescriptorEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorEXT.html)
@@ -6159,9 +6271,12 @@ impl<'inst> Device<'inst> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkGetDescriptorEXT
-                .unwrap_unchecked()(self.raw, pDescriptorInfo, dataSize, pDescriptor)
+            (&self.table).vkGetDescriptorEXT.unwrap_unchecked()(
+                self.raw,
+                pDescriptorInfo,
+                dataSize,
+                pDescriptor,
+            )
         }
     }
     /// [`vkGetImageOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageOpaqueCaptureDescriptorDataEXT.html)
@@ -6204,7 +6319,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetImageViewOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html)
@@ -6247,7 +6368,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSamplerOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html)
@@ -6290,7 +6417,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetImageOpaqueCaptureDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageOpaqueCaptureDataEXT.html)
@@ -6335,7 +6468,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetTensorOpaqueCaptureDataARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorOpaqueCaptureDataARM.html)
@@ -6380,7 +6519,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkRegisterCustomBorderColorEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkRegisterCustomBorderColorEXT.html)
@@ -6430,7 +6575,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_2")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkUnregisterCustomBorderColorEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUnregisterCustomBorderColorEXT.html)
@@ -6494,7 +6645,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkWriteSamplerDescriptorsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteSamplerDescriptorsEXT.html)
@@ -6539,7 +6696,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDeviceFaultInfoEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultInfoEXT.html)
@@ -6571,16 +6734,24 @@ impl<'inst> Device<'inst> {
         pFaultInfo: *mut VkDeviceFaultInfoEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetDeviceFaultInfoEXT
-                .unwrap_unchecked()(self.raw, pFaultCounts, pFaultInfo)
+            (&self.table).vkGetDeviceFaultInfoEXT.unwrap_unchecked()(
+                self.raw,
+                pFaultCounts,
+                pFaultInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateIndirectCommandsLayoutEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectCommandsLayoutEXT.html)
@@ -6611,10 +6782,8 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkIndirectCommandsLayoutCreateInfoEXT,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXT<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXT<'ret>, VkResult>
+    {
         let mut handle = VkIndirectCommandsLayoutEXT::NULL;
         let r = unsafe {
             (&self.table)
@@ -6628,13 +6797,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXT {
+        .map(
+            |_| crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXT {
                 raw: handle,
                 parent: self,
                 table: &self.indirect_commands_layout_ext_table,
-            })
+            },
+        )
     }
     /// [`vkCreateIndirectExecutionSetEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectExecutionSetEXT.html)
     ///
@@ -6664,10 +6841,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkIndirectExecutionSetCreateInfoEXT,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::indirect_execution_set_ext::IndirectExecutionSetEXT<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::indirect_execution_set_ext::IndirectExecutionSetEXT<'ret>, VkResult> {
         let mut handle = VkIndirectExecutionSetEXT::NULL;
         let r = unsafe {
             (&self.table)
@@ -6681,13 +6855,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::indirect_execution_set_ext::IndirectExecutionSetEXT {
+        .map(
+            |_| crate::indirect_execution_set_ext::IndirectExecutionSetEXT {
                 raw: handle,
                 parent: self,
                 table: &self.indirect_execution_set_ext_table,
-            })
+            },
+        )
     }
     /// [`vkGetGeneratedCommandsMemoryRequirementsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGeneratedCommandsMemoryRequirementsEXT.html)
     ///
@@ -6743,22 +6925,31 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::fence::Fence<'ret>, VkResult> {
         let mut handle = VkFence::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkRegisterDeviceEventEXT
-                .unwrap_unchecked()(self.raw, pDeviceEventInfo, pAllocator, &mut handle)
+            (&self.table).vkRegisterDeviceEventEXT.unwrap_unchecked()(
+                self.raw,
+                pDeviceEventInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::fence::Fence {
-                raw: handle,
-                parent: self,
-                table: &self.fence_table,
-            })
+        .map(|_| crate::fence::Fence {
+            raw: handle,
+            parent: self,
+            table: &self.fence_table,
+        })
     }
     /// [`vkGetMemoryHostPointerPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryHostPointerPropertiesEXT.html)
     ///
@@ -6807,7 +6998,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryMetalHandleEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryMetalHandleEXT.html)
@@ -6839,9 +7036,11 @@ impl<'inst> Device<'inst> {
         pHandle: *mut *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetMemoryMetalHandleEXT
-                .unwrap_unchecked()(self.raw, pGetMetalHandleInfo, pHandle)
+            (&self.table).vkGetMemoryMetalHandleEXT.unwrap_unchecked()(
+                self.raw,
+                pGetMetalHandleInfo,
+                pHandle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -6850,7 +7049,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryMetalHandlePropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryMetalHandlePropertiesEXT.html)
@@ -6887,10 +7092,7 @@ impl<'inst> Device<'inst> {
             (&self.table)
                 .vkGetMemoryMetalHandlePropertiesEXT
                 .unwrap_unchecked()(
-                self.raw,
-                handleType,
-                pHandle,
-                pMemoryMetalHandleProperties,
+                self.raw, handleType, pHandle, pMemoryMetalHandleProperties
             )
         };
         match r {
@@ -6900,7 +7102,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDeviceGroupSurfacePresentModes2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupSurfacePresentModes2EXT.html)
@@ -6946,7 +7154,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetHdrMetadataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetHdrMetadataEXT.html)
@@ -6970,9 +7184,12 @@ impl<'inst> Device<'inst> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkSetHdrMetadataEXT
-                .unwrap_unchecked()(self.raw, swapchainCount, pSwapchains, pMetadata)
+            (&self.table).vkSetHdrMetadataEXT.unwrap_unchecked()(
+                self.raw,
+                swapchainCount,
+                pSwapchains,
+                pMetadata,
+            )
         }
     }
     /// [`vkCopyImageToImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToImage.html)
@@ -7005,9 +7222,7 @@ impl<'inst> Device<'inst> {
         pCopyImageToImageInfo: *const VkCopyImageToImageInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCopyImageToImageEXT
-                .unwrap_unchecked()(self.raw, pCopyImageToImageInfo)
+            (&self.table).vkCopyImageToImageEXT.unwrap_unchecked()(self.raw, pCopyImageToImageInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -7018,7 +7233,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyImageToMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToMemory.html)
@@ -7051,9 +7272,10 @@ impl<'inst> Device<'inst> {
         pCopyImageToMemoryInfo: *const VkCopyImageToMemoryInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCopyImageToMemoryEXT
-                .unwrap_unchecked()(self.raw, pCopyImageToMemoryInfo)
+            (&self.table).vkCopyImageToMemoryEXT.unwrap_unchecked()(
+                self.raw,
+                pCopyImageToMemoryInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -7064,7 +7286,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCopyMemoryToImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToImage.html)
@@ -7097,9 +7325,10 @@ impl<'inst> Device<'inst> {
         pCopyMemoryToImageInfo: *const VkCopyMemoryToImageInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCopyMemoryToImageEXT
-                .unwrap_unchecked()(self.raw, pCopyMemoryToImageInfo)
+            (&self.table).vkCopyMemoryToImageEXT.unwrap_unchecked()(
+                self.raw,
+                pCopyMemoryToImageInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -7110,7 +7339,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkTransitionImageLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayout.html)
@@ -7145,9 +7380,11 @@ impl<'inst> Device<'inst> {
         pTransitions: *const VkHostImageLayoutTransitionInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkTransitionImageLayoutEXT
-                .unwrap_unchecked()(self.raw, transitionCount, pTransitions)
+            (&self.table).vkTransitionImageLayoutEXT.unwrap_unchecked()(
+                self.raw,
+                transitionCount,
+                pTransitions,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -7158,7 +7395,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkExportMetalObjectsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkExportMetalObjectsEXT.html)
@@ -7172,15 +7415,10 @@ impl<'inst> Device<'inst> {
     /// - `pMetalObjectsInfo`
     #[cfg(feature = "VK_EXT_metal_objects")]
     #[inline(always)]
-    pub fn vkExportMetalObjectsEXT(
-        &self,
-        pMetalObjectsInfo: *mut VkExportMetalObjectsInfoEXT,
-    ) {
+    pub fn vkExportMetalObjectsEXT(&self, pMetalObjectsInfo: *mut VkExportMetalObjectsInfoEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkExportMetalObjectsEXT
-                .unwrap_unchecked()(self.raw, pMetalObjectsInfo)
+            (&self.table).vkExportMetalObjectsEXT.unwrap_unchecked()(self.raw, pMetalObjectsInfo)
         }
     }
     /// [`vkCreateMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMicromapEXT.html)
@@ -7214,9 +7452,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::micromap_ext::MicromapEXT<'ret>, VkResult> {
         let mut handle = VkMicromapEXT::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateMicromapEXT
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateMicromapEXT.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -7225,13 +7466,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::micromap_ext::MicromapEXT {
-                raw: handle,
-                parent: self,
-                table: &self.micromap_ext_table,
-            })
+        .map(|_| crate::micromap_ext::MicromapEXT {
+            raw: handle,
+            parent: self,
+            table: &self.micromap_ext_table,
+        })
     }
     /// [`vkGetDeviceMicromapCompatibilityEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMicromapCompatibilityEXT.html)
     ///
@@ -7278,9 +7525,9 @@ impl<'inst> Device<'inst> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkGetMicromapBuildSizesEXT
-                .unwrap_unchecked()(self.raw, buildType, pBuildInfo, pSizeInfo)
+            (&self.table).vkGetMicromapBuildSizesEXT.unwrap_unchecked()(
+                self.raw, buildType, pBuildInfo, pSizeInfo,
+            )
         }
     }
     /// [`vkWriteMicromapsPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteMicromapsPropertiesEXT.html)
@@ -7339,7 +7586,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPipelinePropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelinePropertiesEXT.html)
@@ -7370,16 +7623,24 @@ impl<'inst> Device<'inst> {
         pPipelineProperties: *mut VkBaseOutStructure,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetPipelinePropertiesEXT
-                .unwrap_unchecked()(self.raw, pPipelineInfo, pPipelineProperties)
+            (&self.table).vkGetPipelinePropertiesEXT.unwrap_unchecked()(
+                self.raw,
+                pPipelineInfo,
+                pPipelineProperties,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPastPresentationTimingEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingEXT.html)
@@ -7430,7 +7691,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreatePrivateDataSlot`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePrivateDataSlot.html)
@@ -7464,22 +7731,31 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::private_data_slot::PrivateDataSlot<'ret>, VkResult> {
         let mut handle = VkPrivateDataSlot::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreatePrivateDataSlotEXT
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreatePrivateDataSlotEXT.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::private_data_slot::PrivateDataSlot {
-                raw: handle,
-                parent: self,
-                table: &self.private_data_slot_table,
-            })
+        .map(|_| crate::private_data_slot::PrivateDataSlot {
+            raw: handle,
+            parent: self,
+            table: &self.private_data_slot_table,
+        })
     }
     /// [`vkGetPrivateData`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPrivateData.html)
     ///
@@ -7505,9 +7781,7 @@ impl<'inst> Device<'inst> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table)
-                .vkGetPrivateDataEXT
-                .unwrap_unchecked()(
+            (&self.table).vkGetPrivateDataEXT.unwrap_unchecked()(
                 self.raw,
                 objectType,
                 objectHandle,
@@ -7549,9 +7823,7 @@ impl<'inst> Device<'inst> {
         data: u64,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkSetPrivateDataEXT
-                .unwrap_unchecked()(
+            (&self.table).vkSetPrivateDataEXT.unwrap_unchecked()(
                 self.raw,
                 objectType,
                 objectHandle,
@@ -7564,7 +7836,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetShaderModuleCreateInfoIdentifierEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderModuleCreateInfoIdentifierEXT.html)
@@ -7627,9 +7905,7 @@ impl<'inst> Device<'inst> {
         pShaders: *mut VkShaderEXT,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCreateShadersEXT
-                .unwrap_unchecked()(
+            (&self.table).vkCreateShadersEXT.unwrap_unchecked()(
                 self.raw,
                 createInfoCount,
                 pCreateInfos,
@@ -7647,7 +7923,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkReleaseSwapchainImagesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseSwapchainImagesKHR.html)
@@ -7676,9 +7958,7 @@ impl<'inst> Device<'inst> {
         pReleaseInfo: *const VkReleaseSwapchainImagesInfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkReleaseSwapchainImagesEXT
-                .unwrap_unchecked()(self.raw, pReleaseInfo)
+            (&self.table).vkReleaseSwapchainImagesEXT.unwrap_unchecked()(self.raw, pReleaseInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -7687,7 +7967,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateValidationCacheEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateValidationCacheEXT.html)
@@ -7720,22 +8006,31 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::validation_cache_ext::ValidationCacheEXT<'ret>, VkResult> {
         let mut handle = VkValidationCacheEXT::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateValidationCacheEXT
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateValidationCacheEXT.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::validation_cache_ext::ValidationCacheEXT {
-                raw: handle,
-                parent: self,
-                table: &self.validation_cache_ext_table,
-            })
+        .map(|_| crate::validation_cache_ext::ValidationCacheEXT {
+            raw: handle,
+            parent: self,
+            table: &self.validation_cache_ext_table,
+        })
     }
     /// [`vkCreateBufferCollectionFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBufferCollectionFUCHSIA.html)
     ///
@@ -7766,10 +8061,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkBufferCollectionCreateInfoFUCHSIA,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::buffer_collection_fuchsia::BufferCollectionFUCHSIA<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::buffer_collection_fuchsia::BufferCollectionFUCHSIA<'ret>, VkResult> {
         let mut handle = VkBufferCollectionFUCHSIA::NULL;
         let r = unsafe {
             (&self.table)
@@ -7785,13 +8077,21 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::buffer_collection_fuchsia::BufferCollectionFUCHSIA {
+        .map(
+            |_| crate::buffer_collection_fuchsia::BufferCollectionFUCHSIA {
                 raw: handle,
                 parent: self,
                 table: &self.buffer_collection_fuchsia_table,
-            })
+            },
+        )
     }
     /// [`vkGetMemoryZirconHandleFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryZirconHandleFUCHSIA.html)
     ///
@@ -7833,7 +8133,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryZirconHandlePropertiesFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryZirconHandlePropertiesFUCHSIA.html)
@@ -7882,7 +8188,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSemaphoreZirconHandleFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreZirconHandleFUCHSIA.html)
@@ -7925,7 +8237,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportSemaphoreZirconHandleFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreZirconHandleFUCHSIA.html)
@@ -7966,7 +8284,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateFramebuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateFramebuffer.html)
@@ -8001,9 +8325,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::framebuffer::Framebuffer<'ret>, VkResult> {
         let mut handle = VkFramebuffer::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateFramebuffer
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateFramebuffer.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -8012,13 +8339,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::framebuffer::Framebuffer {
-                raw: handle,
-                parent: self,
-                table: &self.framebuffer_table,
-            })
+        .map(|_| crate::framebuffer::Framebuffer {
+            raw: handle,
+            parent: self,
+            table: &self.framebuffer_table,
+        })
     }
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     #[inline]
@@ -8056,7 +8389,13 @@ impl<'inst> Device<'inst> {
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_1")]
                 VkResult::VK_ERROR_OUT_OF_POOL_MEMORY => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -8064,16 +8403,14 @@ impl<'inst> Device<'inst> {
         unsafe {
             raw_pipelines.set_len(count as usize);
         }
-        Ok(
-            raw_pipelines
-                .into_iter()
-                .map(|raw| crate::pipeline::Pipeline {
-                    raw,
-                    parent: self,
-                    table: &self.pipeline_table,
-                })
-                .collect(),
-        )
+        Ok(raw_pipelines
+            .into_iter()
+            .map(|raw| crate::pipeline::Pipeline {
+                raw,
+                parent: self,
+                table: &self.pipeline_table,
+            })
+            .collect())
     }
     /// [`vkCreateRenderPass`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass.html)
     ///
@@ -8109,9 +8446,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::render_pass::RenderPass<'ret>, VkResult> {
         let mut handle = VkRenderPass::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateRenderPass
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateRenderPass.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -8120,13 +8460,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::render_pass::RenderPass {
-                raw: handle,
-                parent: self,
-                table: &self.render_pass_table,
-            })
+        .map(|_| crate::render_pass::RenderPass {
+            raw: handle,
+            parent: self,
+            table: &self.render_pass_table,
+        })
     }
     /// [`vkCreateRenderPass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass2.html)
     ///
@@ -8161,9 +8507,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::render_pass::RenderPass<'ret>, VkResult> {
         let mut handle = VkRenderPass::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateRenderPass2
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateRenderPass2.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -8172,13 +8521,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::render_pass::RenderPass {
-                raw: handle,
-                parent: self,
-                table: &self.render_pass_table,
-            })
+        .map(|_| crate::render_pass::RenderPass {
+            raw: handle,
+            parent: self,
+            table: &self.render_pass_table,
+        })
     }
     /// [`vkGetRenderingAreaGranularity`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRenderingAreaGranularity.html)
     ///
@@ -8231,10 +8586,8 @@ impl<'inst> Device<'inst> {
     pub fn vkAcquirePerformanceConfigurationINTEL<'ret>(
         &'ret self,
         pAcquireInfo: *const VkPerformanceConfigurationAcquireInfoINTEL,
-    ) -> Result<
-        crate::performance_configuration_intel::PerformanceConfigurationINTEL<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::performance_configuration_intel::PerformanceConfigurationINTEL<'ret>, VkResult>
+    {
         let mut handle = VkPerformanceConfigurationINTEL::NULL;
         let r = unsafe {
             (&self.table)
@@ -8248,13 +8601,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::performance_configuration_intel::PerformanceConfigurationINTEL {
+        .map(
+            |_| crate::performance_configuration_intel::PerformanceConfigurationINTEL {
                 raw: handle,
                 parent: self,
                 table: &self.performance_configuration_intel_table,
-            })
+            },
+        )
     }
     /// [`vkGetPerformanceParameterINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPerformanceParameterINTEL.html)
     ///
@@ -8296,7 +8657,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkInitializePerformanceApiINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkInitializePerformanceApiINTEL.html)
@@ -8337,7 +8704,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkUninitializePerformanceApiINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUninitializePerformanceApiINTEL.html)
@@ -8353,7 +8726,9 @@ impl<'inst> Device<'inst> {
     pub fn vkUninitializePerformanceApiINTEL(&self) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (&self.table).vkUninitializePerformanceApiINTEL.unwrap_unchecked()(self.raw)
+            (&self.table)
+                .vkUninitializePerformanceApiINTEL
+                .unwrap_unchecked()(self.raw)
         }
     }
     /// [`vkCreateAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructureKHR.html)
@@ -8385,10 +8760,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkAccelerationStructureCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::acceleration_structure_khr::AccelerationStructureKHR<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::acceleration_structure_khr::AccelerationStructureKHR<'ret>, VkResult> {
         let mut handle = VkAccelerationStructureKHR::NULL;
         let r = unsafe {
             (&self.table)
@@ -8402,13 +8774,21 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::acceleration_structure_khr::AccelerationStructureKHR {
+        .map(
+            |_| crate::acceleration_structure_khr::AccelerationStructureKHR {
                 raw: handle,
                 parent: self,
                 table: &self.acceleration_structure_khr_table,
-            })
+            },
+        )
     }
     /// [`vkGetAccelerationStructureBuildSizesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureBuildSizesKHR.html)
     ///
@@ -8546,7 +8926,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkBindBufferMemory2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory2.html)
@@ -8580,9 +8966,11 @@ impl<'inst> Device<'inst> {
         pBindInfos: *const VkBindBufferMemoryInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkBindBufferMemory2KHR
-                .unwrap_unchecked()(self.raw, bindInfoCount, pBindInfos)
+            (&self.table).vkBindBufferMemory2KHR.unwrap_unchecked()(
+                self.raw,
+                bindInfoCount,
+                pBindInfos,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -8593,7 +8981,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkBindImageMemory2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory2.html)
@@ -8626,9 +9020,11 @@ impl<'inst> Device<'inst> {
         pBindInfos: *const VkBindImageMemoryInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkBindImageMemory2KHR
-                .unwrap_unchecked()(self.raw, bindInfoCount, pBindInfos)
+            (&self.table).vkBindImageMemory2KHR.unwrap_unchecked()(
+                self.raw,
+                bindInfoCount,
+                pBindInfos,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -8637,7 +9033,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetBufferDeviceAddress`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferDeviceAddress.html)
@@ -8757,7 +9159,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateRenderPass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass2.html)
@@ -8793,9 +9201,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::render_pass::RenderPass<'ret>, VkResult> {
         let mut handle = VkRenderPass::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateRenderPass2KHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateRenderPass2KHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -8804,13 +9215,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::render_pass::RenderPass {
-                raw: handle,
-                parent: self,
-                table: &self.render_pass_table,
-            })
+        .map(|_| crate::render_pass::RenderPass {
+            raw: handle,
+            parent: self,
+            table: &self.render_pass_table,
+        })
     }
     /// [`vkCreateDeferredOperationKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDeferredOperationKHR.html)
     ///
@@ -8849,13 +9266,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::deferred_operation_khr::DeferredOperationKHR {
-                raw: handle,
-                parent: self,
-                table: &self.deferred_operation_khr_table,
-            })
+        .map(|_| crate::deferred_operation_khr::DeferredOperationKHR {
+            raw: handle,
+            parent: self,
+            table: &self.deferred_operation_khr_table,
+        })
     }
     /// [`vkCreateDescriptorUpdateTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorUpdateTemplate.html)
     ///
@@ -8886,10 +9309,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkDescriptorUpdateTemplateCreateInfo,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::descriptor_update_template::DescriptorUpdateTemplate<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::descriptor_update_template::DescriptorUpdateTemplate<'ret>, VkResult> {
         let mut handle = VkDescriptorUpdateTemplate::NULL;
         let r = unsafe {
             (&self.table)
@@ -8903,13 +9323,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::descriptor_update_template::DescriptorUpdateTemplate {
+        .map(
+            |_| crate::descriptor_update_template::DescriptorUpdateTemplate {
                 raw: handle,
                 parent: self,
                 table: &self.descriptor_update_template_table,
-            })
+            },
+        )
     }
     /// [`vkCreateAccelerationStructure2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructure2KHR.html)
     ///
@@ -8939,10 +9367,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkAccelerationStructureCreateInfo2KHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::acceleration_structure_khr::AccelerationStructureKHR<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::acceleration_structure_khr::AccelerationStructureKHR<'ret>, VkResult> {
         let mut handle = VkAccelerationStructureKHR::NULL;
         let r = unsafe {
             (&self.table)
@@ -8956,13 +9381,21 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::acceleration_structure_khr::AccelerationStructureKHR {
+        .map(
+            |_| crate::acceleration_structure_khr::AccelerationStructureKHR {
                 raw: handle,
                 parent: self,
                 table: &self.acceleration_structure_khr_table,
-            })
+            },
+        )
     }
     /// [`vkAcquireNextImage2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireNextImage2KHR.html)
     ///
@@ -9001,9 +9434,11 @@ impl<'inst> Device<'inst> {
         pImageIndex: *mut u32,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkAcquireNextImage2KHR
-                .unwrap_unchecked()(self.raw, pAcquireInfo, pImageIndex)
+            (&self.table).vkAcquireNextImage2KHR.unwrap_unchecked()(
+                self.raw,
+                pAcquireInfo,
+                pImageIndex,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT | VkResult::VK_NOT_READY => Ok(r),
@@ -9021,7 +9456,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDeviceGroupPeerMemoryFeatures`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupPeerMemoryFeatures.html)
@@ -9098,7 +9539,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateSharedSwapchainsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSharedSwapchainsKHR.html)
@@ -9137,9 +9584,7 @@ impl<'inst> Device<'inst> {
         pSwapchains: *mut VkSwapchainKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCreateSharedSwapchainsKHR
-                .unwrap_unchecked()(
+            (&self.table).vkCreateSharedSwapchainsKHR.unwrap_unchecked()(
                 self.raw,
                 swapchainCount,
                 pCreateInfos,
@@ -9159,7 +9604,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INCOMPATIBLE_DISPLAY_KHR => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetFenceFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceFdKHR.html)
@@ -9190,9 +9641,8 @@ impl<'inst> Device<'inst> {
         pGetFdInfo: *const VkFenceGetFdInfoKHR,
         pFd: *mut core::ffi::c_int,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (&self.table).vkGetFenceFdKHR.unwrap_unchecked()(self.raw, pGetFdInfo, pFd)
-        };
+        let r =
+            unsafe { (&self.table).vkGetFenceFdKHR.unwrap_unchecked()(self.raw, pGetFdInfo, pFd) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_TOO_MANY_OBJECTS
@@ -9200,7 +9650,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportFenceFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceFdKHR.html)
@@ -9230,9 +9686,7 @@ impl<'inst> Device<'inst> {
         pImportFenceFdInfo: *const VkImportFenceFdInfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkImportFenceFdKHR
-                .unwrap_unchecked()(self.raw, pImportFenceFdInfo)
+            (&self.table).vkImportFenceFdKHR.unwrap_unchecked()(self.raw, pImportFenceFdInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9241,7 +9695,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetFenceWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceWin32HandleKHR.html)
@@ -9273,9 +9733,11 @@ impl<'inst> Device<'inst> {
         pHandle: *mut HANDLE,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetFenceWin32HandleKHR
-                .unwrap_unchecked()(self.raw, pGetWin32HandleInfo, pHandle)
+            (&self.table).vkGetFenceWin32HandleKHR.unwrap_unchecked()(
+                self.raw,
+                pGetWin32HandleInfo,
+                pHandle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9284,7 +9746,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportFenceWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceWin32HandleKHR.html)
@@ -9314,9 +9782,10 @@ impl<'inst> Device<'inst> {
         pImportFenceWin32HandleInfo: *const VkImportFenceWin32HandleInfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkImportFenceWin32HandleKHR
-                .unwrap_unchecked()(self.raw, pImportFenceWin32HandleInfo)
+            (&self.table).vkImportFenceWin32HandleKHR.unwrap_unchecked()(
+                self.raw,
+                pImportFenceWin32HandleInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9325,7 +9794,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryFdKHR.html)
@@ -9356,9 +9831,8 @@ impl<'inst> Device<'inst> {
         pGetFdInfo: *const VkMemoryGetFdInfoKHR,
         pFd: *mut core::ffi::c_int,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (&self.table).vkGetMemoryFdKHR.unwrap_unchecked()(self.raw, pGetFdInfo, pFd)
-        };
+        let r =
+            unsafe { (&self.table).vkGetMemoryFdKHR.unwrap_unchecked()(self.raw, pGetFdInfo, pFd) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_TOO_MANY_OBJECTS
@@ -9366,7 +9840,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryFdPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryFdPropertiesKHR.html)
@@ -9400,9 +9880,12 @@ impl<'inst> Device<'inst> {
         pMemoryFdProperties: *mut VkMemoryFdPropertiesKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetMemoryFdPropertiesKHR
-                .unwrap_unchecked()(self.raw, handleType, fd, pMemoryFdProperties)
+            (&self.table).vkGetMemoryFdPropertiesKHR.unwrap_unchecked()(
+                self.raw,
+                handleType,
+                fd,
+                pMemoryFdProperties,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9411,7 +9894,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandleKHR.html)
@@ -9443,9 +9932,11 @@ impl<'inst> Device<'inst> {
         pHandle: *mut HANDLE,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetMemoryWin32HandleKHR
-                .unwrap_unchecked()(self.raw, pGetWin32HandleInfo, pHandle)
+            (&self.table).vkGetMemoryWin32HandleKHR.unwrap_unchecked()(
+                self.raw,
+                pGetWin32HandleInfo,
+                pHandle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9454,7 +9945,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemoryWin32HandlePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandlePropertiesKHR.html)
@@ -9491,10 +9988,7 @@ impl<'inst> Device<'inst> {
             (&self.table)
                 .vkGetMemoryWin32HandlePropertiesKHR
                 .unwrap_unchecked()(
-                self.raw,
-                handleType,
-                handle,
-                pMemoryWin32HandleProperties,
+                self.raw, handleType, handle, pMemoryWin32HandleProperties
             )
         };
         match r {
@@ -9504,7 +9998,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSemaphoreFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreFdKHR.html)
@@ -9536,9 +10036,7 @@ impl<'inst> Device<'inst> {
         pFd: *mut core::ffi::c_int,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetSemaphoreFdKHR
-                .unwrap_unchecked()(self.raw, pGetFdInfo, pFd)
+            (&self.table).vkGetSemaphoreFdKHR.unwrap_unchecked()(self.raw, pGetFdInfo, pFd)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9547,7 +10045,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportSemaphoreFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreFdKHR.html)
@@ -9577,9 +10081,10 @@ impl<'inst> Device<'inst> {
         pImportSemaphoreFdInfo: *const VkImportSemaphoreFdInfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkImportSemaphoreFdKHR
-                .unwrap_unchecked()(self.raw, pImportSemaphoreFdInfo)
+            (&self.table).vkImportSemaphoreFdKHR.unwrap_unchecked()(
+                self.raw,
+                pImportSemaphoreFdInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9588,7 +10093,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSemaphoreWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreWin32HandleKHR.html)
@@ -9631,7 +10142,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportSemaphoreWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreWin32HandleKHR.html)
@@ -9672,7 +10189,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetBufferMemoryRequirements2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferMemoryRequirements2.html)
@@ -9945,9 +10468,7 @@ impl<'inst> Device<'inst> {
         ppData: *mut *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkMapMemory2KHR
-                .unwrap_unchecked()(self.raw, pMemoryMapInfo, ppData)
+            (&self.table).vkMapMemory2KHR.unwrap_unchecked()(self.raw, pMemoryMapInfo, ppData)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -9957,7 +10478,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkUnmapMemory2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUnmapMemory2.html)
@@ -9987,16 +10514,20 @@ impl<'inst> Device<'inst> {
         pMemoryUnmapInfo: *const VkMemoryUnmapInfo,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkUnmapMemory2KHR
-                .unwrap_unchecked()(self.raw, pMemoryUnmapInfo)
+            (&self.table).vkUnmapMemory2KHR.unwrap_unchecked()(self.raw, pMemoryUnmapInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_MEMORY_MAP_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkAcquireProfilingLockKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireProfilingLockKHR.html)
@@ -10025,9 +10556,8 @@ impl<'inst> Device<'inst> {
         &self,
         pInfo: *const VkAcquireProfilingLockInfoKHR,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (&self.table).vkAcquireProfilingLockKHR.unwrap_unchecked()(self.raw, pInfo)
-        };
+        let r =
+            unsafe { (&self.table).vkAcquireProfilingLockKHR.unwrap_unchecked()(self.raw, pInfo) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
@@ -10035,7 +10565,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkReleaseProfilingLockKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseProfilingLockKHR.html)
@@ -10089,9 +10625,12 @@ impl<'inst> Device<'inst> {
         pBinaries: *mut VkPipelineBinaryHandlesInfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkCreatePipelineBinariesKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, pBinaries)
+            (&self.table).vkCreatePipelineBinariesKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                pBinaries,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
@@ -10103,7 +10642,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPipelineBinaryDataKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineBinaryDataKHR.html)
@@ -10140,9 +10685,7 @@ impl<'inst> Device<'inst> {
         pPipelineBinaryData: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetPipelineBinaryDataKHR
-                .unwrap_unchecked()(
+            (&self.table).vkGetPipelineBinaryDataKHR.unwrap_unchecked()(
                 self.raw,
                 pInfo,
                 pPipelineBinaryKey,
@@ -10159,7 +10702,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_pipeline_binary")]
             VkResult::VK_ERROR_NOT_ENOUGH_SPACE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPipelineKeyKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineKeyKHR.html)
@@ -10191,9 +10740,11 @@ impl<'inst> Device<'inst> {
         pPipelineKey: *mut VkPipelineBinaryKeyKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetPipelineKeyKHR
-                .unwrap_unchecked()(self.raw, pPipelineCreateInfo, pPipelineKey)
+            (&self.table).vkGetPipelineKeyKHR.unwrap_unchecked()(
+                self.raw,
+                pPipelineCreateInfo,
+                pPipelineKey,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -10202,7 +10753,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkReleaseCapturedPipelineDataKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseCapturedPipelineDataKHR.html)
@@ -10241,7 +10798,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPipelineExecutableInternalRepresentationsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutableInternalRepresentationsKHR.html)
@@ -10292,7 +10855,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPipelineExecutablePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutablePropertiesKHR.html)
@@ -10330,10 +10899,7 @@ impl<'inst> Device<'inst> {
             (&self.table)
                 .vkGetPipelineExecutablePropertiesKHR
                 .unwrap_unchecked()(
-                self.raw,
-                pPipelineInfo,
-                pExecutableCount,
-                pProperties,
+                self.raw, pPipelineInfo, pExecutableCount, pProperties
             )
         };
         match r {
@@ -10343,7 +10909,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPipelineExecutableStatisticsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutableStatisticsKHR.html)
@@ -10381,10 +10953,7 @@ impl<'inst> Device<'inst> {
             (&self.table)
                 .vkGetPipelineExecutableStatisticsKHR
                 .unwrap_unchecked()(
-                self.raw,
-                pExecutableInfo,
-                pStatisticCount,
-                pStatistics,
+                self.raw, pExecutableInfo, pStatisticCount, pStatistics
             )
         };
         match r {
@@ -10394,7 +10963,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateSamplerYcbcrConversion`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSamplerYcbcrConversion.html)
@@ -10427,10 +11002,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkSamplerYcbcrConversionCreateInfo,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::sampler_ycbcr_conversion::SamplerYcbcrConversion<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::sampler_ycbcr_conversion::SamplerYcbcrConversion<'ret>, VkResult> {
         let mut handle = VkSamplerYcbcrConversion::NULL;
         let r = unsafe {
             (&self.table)
@@ -10444,13 +11016,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::sampler_ycbcr_conversion::SamplerYcbcrConversion {
+        .map(
+            |_| crate::sampler_ycbcr_conversion::SamplerYcbcrConversion {
                 raw: handle,
                 parent: self,
                 table: &self.sampler_ycbcr_conversion_table,
-            })
+            },
+        )
     }
     /// [`vkCreateSwapchainKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSwapchainKHR.html)
     ///
@@ -10488,9 +11068,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::swapchain_khr::SwapchainKHR<'ret>, VkResult> {
         let mut handle = VkSwapchainKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateSwapchainKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateSwapchainKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -10504,15 +11087,22 @@ impl<'inst> Device<'inst> {
             #[cfg(feature = "VK_EXT_image_compression_control")]
             VkResult::VK_ERROR_COMPRESSION_EXHAUSTED_EXT => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR
-            | VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            VkResult::VK_ERROR_SURFACE_LOST_KHR | VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => {
+                Err(r)
+            }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::swapchain_khr::SwapchainKHR {
-                raw: handle,
-                parent: self,
-                table: &self.swapchain_khr_table,
-            })
+        .map(|_| crate::swapchain_khr::SwapchainKHR {
+            raw: handle,
+            parent: self,
+            table: &self.swapchain_khr_table,
+        })
     }
     /// [`vkReleaseSwapchainImagesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseSwapchainImagesKHR.html)
     ///
@@ -10540,9 +11130,7 @@ impl<'inst> Device<'inst> {
         pReleaseInfo: *const VkReleaseSwapchainImagesInfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkReleaseSwapchainImagesKHR
-                .unwrap_unchecked()(self.raw, pReleaseInfo)
+            (&self.table).vkReleaseSwapchainImagesKHR.unwrap_unchecked()(self.raw, pReleaseInfo)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -10551,7 +11139,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSignalSemaphore`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSignalSemaphore.html)
@@ -10581,9 +11175,8 @@ impl<'inst> Device<'inst> {
         &self,
         pSignalInfo: *const VkSemaphoreSignalInfo,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (&self.table).vkSignalSemaphoreKHR.unwrap_unchecked()(self.raw, pSignalInfo)
-        };
+        let r =
+            unsafe { (&self.table).vkSignalSemaphoreKHR.unwrap_unchecked()(self.raw, pSignalInfo) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
@@ -10591,7 +11184,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkWaitSemaphores`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitSemaphores.html)
@@ -10626,9 +11225,7 @@ impl<'inst> Device<'inst> {
         timeout: u64,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkWaitSemaphoresKHR
-                .unwrap_unchecked()(self.raw, pWaitInfo, timeout)
+            (&self.table).vkWaitSemaphoresKHR.unwrap_unchecked()(self.raw, pWaitInfo, timeout)
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT => Ok(r),
@@ -10638,7 +11235,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetEncodedVideoSessionParametersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetEncodedVideoSessionParametersKHR.html)
@@ -10692,7 +11295,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateVideoSessionKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateVideoSessionKHR.html)
@@ -10729,9 +11338,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::video_session_khr::VideoSessionKHR<'ret>, VkResult> {
         let mut handle = VkVideoSessionKHR::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateVideoSessionKHR
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateVideoSessionKHR.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -10745,13 +11357,19 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR => Err(r),
             #[cfg(feature = "VK_KHR_video_queue")]
             VkResult::VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::video_session_khr::VideoSessionKHR {
-                raw: handle,
-                parent: self,
-                table: &self.video_session_khr_table,
-            })
+        .map(|_| crate::video_session_khr::VideoSessionKHR {
+            raw: handle,
+            parent: self,
+            table: &self.video_session_khr_table,
+        })
     }
     /// [`vkCreateVideoSessionParametersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateVideoSessionParametersKHR.html)
     ///
@@ -10783,10 +11401,8 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkVideoSessionParametersCreateInfoKHR,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::video_session_parameters_khr::VideoSessionParametersKHR<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::video_session_parameters_khr::VideoSessionParametersKHR<'ret>, VkResult>
+    {
         let mut handle = VkVideoSessionParametersKHR::NULL;
         let r = unsafe {
             (&self.table)
@@ -10803,13 +11419,21 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_video_encode_queue")]
             VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::video_session_parameters_khr::VideoSessionParametersKHR {
+        .map(
+            |_| crate::video_session_parameters_khr::VideoSessionParametersKHR {
                 raw: handle,
                 parent: self,
                 table: &self.video_session_parameters_khr_table,
-            })
+            },
+        )
     }
     /// [`vkCreateCuFunctionNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCuFunctionNVX.html)
     ///
@@ -10842,9 +11466,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::cu_function_nvx::CuFunctionNVX<'ret>, VkResult> {
         let mut handle = VkCuFunctionNVX::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateCuFunctionNVX
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateCuFunctionNVX.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -10853,13 +11480,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::cu_function_nvx::CuFunctionNVX {
-                raw: handle,
-                parent: self,
-                table: &self.cu_function_nvx_table,
-            })
+        .map(|_| crate::cu_function_nvx::CuFunctionNVX {
+            raw: handle,
+            parent: self,
+            table: &self.cu_function_nvx_table,
+        })
     }
     /// [`vkCreateCuModuleNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCuModuleNVX.html)
     ///
@@ -10892,9 +11525,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::cu_module_nvx::CuModuleNVX<'ret>, VkResult> {
         let mut handle = VkCuModuleNVX::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateCuModuleNVX
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateCuModuleNVX.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -10903,13 +11539,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::cu_module_nvx::CuModuleNVX {
-                raw: handle,
-                parent: self,
-                table: &self.cu_module_nvx_table,
-            })
+        .map(|_| crate::cu_module_nvx::CuModuleNVX {
+            raw: handle,
+            parent: self,
+            table: &self.cu_module_nvx_table,
+        })
     }
     /// [`vkGetDeviceCombinedImageSamplerIndexNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceCombinedImageSamplerIndexNVX.html)
     ///
@@ -10946,10 +11588,7 @@ impl<'inst> Device<'inst> {
     /// - `pInfo`
     #[cfg(feature = "VK_NVX_image_view_handle")]
     #[inline(always)]
-    pub fn vkGetImageViewHandle64NVX(
-        &self,
-        pInfo: *const VkImageViewHandleInfoNVX,
-    ) -> u64 {
+    pub fn vkGetImageViewHandle64NVX(&self, pInfo: *const VkImageViewHandleInfoNVX) -> u64 {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (&self.table).vkGetImageViewHandle64NVX.unwrap_unchecked()(self.raw, pInfo)
@@ -10966,10 +11605,7 @@ impl<'inst> Device<'inst> {
     /// - `pInfo`
     #[cfg(feature = "VK_NVX_image_view_handle")]
     #[inline(always)]
-    pub fn vkGetImageViewHandleNVX(
-        &self,
-        pInfo: *const VkImageViewHandleInfoNVX,
-    ) -> u32 {
+    pub fn vkGetImageViewHandleNVX(&self, pInfo: *const VkImageViewHandleInfoNVX) -> u32 {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (&self.table).vkGetImageViewHandleNVX.unwrap_unchecked()(self.raw, pInfo)
@@ -11035,7 +11671,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateCudaFunctionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCudaFunctionNV.html)
@@ -11069,9 +11711,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::cuda_function_nv::CudaFunctionNV<'ret>, VkResult> {
         let mut handle = VkCudaFunctionNV::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateCudaFunctionNV
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateCudaFunctionNV.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11080,13 +11725,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::cuda_function_nv::CudaFunctionNV {
-                raw: handle,
-                parent: self,
-                table: &self.cuda_function_nv_table,
-            })
+        .map(|_| crate::cuda_function_nv::CudaFunctionNV {
+            raw: handle,
+            parent: self,
+            table: &self.cuda_function_nv_table,
+        })
     }
     /// [`vkCreateCudaModuleNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCudaModuleNV.html)
     ///
@@ -11119,9 +11770,12 @@ impl<'inst> Device<'inst> {
     ) -> Result<crate::cuda_module_nv::CudaModuleNV<'ret>, VkResult> {
         let mut handle = VkCudaModuleNV::NULL;
         let r = unsafe {
-            (&self.table)
-                .vkCreateCudaModuleNV
-                .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
+            (&self.table).vkCreateCudaModuleNV.unwrap_unchecked()(
+                self.raw,
+                pCreateInfo,
+                pAllocator,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11130,13 +11784,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::cuda_module_nv::CudaModuleNV {
-                raw: handle,
-                parent: self,
-                table: &self.cuda_module_nv_table,
-            })
+        .map(|_| crate::cuda_module_nv::CudaModuleNV {
+            raw: handle,
+            parent: self,
+            table: &self.cuda_module_nv_table,
+        })
     }
     /// [`vkCreateIndirectCommandsLayoutNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectCommandsLayoutNV.html)
     ///
@@ -11166,10 +11826,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkIndirectCommandsLayoutCreateInfoNV,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::indirect_commands_layout_nv::IndirectCommandsLayoutNV<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::indirect_commands_layout_nv::IndirectCommandsLayoutNV<'ret>, VkResult> {
         let mut handle = VkIndirectCommandsLayoutNV::NULL;
         let r = unsafe {
             (&self.table)
@@ -11183,13 +11840,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::indirect_commands_layout_nv::IndirectCommandsLayoutNV {
+        .map(
+            |_| crate::indirect_commands_layout_nv::IndirectCommandsLayoutNV {
                 raw: handle,
                 parent: self,
                 table: &self.indirect_commands_layout_nv_table,
-            })
+            },
+        )
     }
     /// [`vkGetGeneratedCommandsMemoryRequirementsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGeneratedCommandsMemoryRequirementsNV.html)
     ///
@@ -11289,10 +11954,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkExternalComputeQueueCreateInfoNV,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::external_compute_queue_nv::ExternalComputeQueueNV<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::external_compute_queue_nv::ExternalComputeQueueNV<'ret>, VkResult> {
         let mut handle = VkExternalComputeQueueNV::NULL;
         let r = unsafe {
             (&self.table)
@@ -11306,13 +11968,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::external_compute_queue_nv::ExternalComputeQueueNV {
+        .map(
+            |_| crate::external_compute_queue_nv::ExternalComputeQueueNV {
                 raw: handle,
                 parent: self,
                 table: &self.external_compute_queue_nv_table,
-            })
+            },
+        )
     }
     /// [`vkGetMemoryRemoteAddressNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryRemoteAddressNV.html)
     ///
@@ -11342,9 +12012,11 @@ impl<'inst> Device<'inst> {
         pAddress: *mut VkRemoteAddressNV,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetMemoryRemoteAddressNV
-                .unwrap_unchecked()(self.raw, pMemoryGetRemoteAddressInfo, pAddress)
+            (&self.table).vkGetMemoryRemoteAddressNV.unwrap_unchecked()(
+                self.raw,
+                pMemoryGetRemoteAddressInfo,
+                pAddress,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11353,7 +12025,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetMemorySciBufNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemorySciBufNV.html)
@@ -11384,18 +12062,20 @@ impl<'inst> Device<'inst> {
         pHandle: *mut NvSciBufObj,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetMemorySciBufNV
-                .unwrap_unchecked()(self.raw, pGetSciBufInfo, pHandle)
+            (&self.table).vkGetMemorySciBufNV.unwrap_unchecked()(self.raw, pGetSciBufInfo, pHandle)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetFenceSciSyncFenceNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceSciSyncFenceNV.html)
@@ -11420,9 +12100,10 @@ impl<'inst> Device<'inst> {
     ///   - VK_ERROR_NOT_PERMITTED
     ///   - VK_ERROR_UNKNOWN
     ///   - VK_ERROR_VALIDATION_FAILED
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     #[inline(always)]
     pub fn vkGetFenceSciSyncFenceNV(
         &self,
@@ -11430,9 +12111,11 @@ impl<'inst> Device<'inst> {
         pHandle: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetFenceSciSyncFenceNV
-                .unwrap_unchecked()(self.raw, pGetSciSyncHandleInfo, pHandle)
+            (&self.table).vkGetFenceSciSyncFenceNV.unwrap_unchecked()(
+                self.raw,
+                pGetSciSyncHandleInfo,
+                pHandle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11443,7 +12126,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_4")]
             VkResult::VK_ERROR_NOT_PERMITTED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetFenceSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceSciSyncObjNV.html)
@@ -11468,9 +12157,10 @@ impl<'inst> Device<'inst> {
     ///   - VK_ERROR_NOT_PERMITTED
     ///   - VK_ERROR_UNKNOWN
     ///   - VK_ERROR_VALIDATION_FAILED
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     #[inline(always)]
     pub fn vkGetFenceSciSyncObjNV(
         &self,
@@ -11478,9 +12168,11 @@ impl<'inst> Device<'inst> {
         pHandle: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetFenceSciSyncObjNV
-                .unwrap_unchecked()(self.raw, pGetSciSyncHandleInfo, pHandle)
+            (&self.table).vkGetFenceSciSyncObjNV.unwrap_unchecked()(
+                self.raw,
+                pGetSciSyncHandleInfo,
+                pHandle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11491,7 +12183,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_4")]
             VkResult::VK_ERROR_NOT_PERMITTED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSemaphoreSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreSciSyncObjNV.html)
@@ -11523,9 +12221,11 @@ impl<'inst> Device<'inst> {
         pHandle: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetSemaphoreSciSyncObjNV
-                .unwrap_unchecked()(self.raw, pGetSciSyncInfo, pHandle)
+            (&self.table).vkGetSemaphoreSciSyncObjNV.unwrap_unchecked()(
+                self.raw,
+                pGetSciSyncInfo,
+                pHandle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11536,7 +12236,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_4")]
             VkResult::VK_ERROR_NOT_PERMITTED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportFenceSciSyncFenceNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceSciSyncFenceNV.html)
@@ -11560,18 +12266,20 @@ impl<'inst> Device<'inst> {
     ///   - VK_ERROR_NOT_PERMITTED
     ///   - VK_ERROR_UNKNOWN
     ///   - VK_ERROR_VALIDATION_FAILED
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     #[inline(always)]
     pub fn vkImportFenceSciSyncFenceNV(
         &self,
         pImportFenceSciSyncInfo: *const VkImportFenceSciSyncInfoNV,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkImportFenceSciSyncFenceNV
-                .unwrap_unchecked()(self.raw, pImportFenceSciSyncInfo)
+            (&self.table).vkImportFenceSciSyncFenceNV.unwrap_unchecked()(
+                self.raw,
+                pImportFenceSciSyncInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11582,7 +12290,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_4")]
             VkResult::VK_ERROR_NOT_PERMITTED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportFenceSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceSciSyncObjNV.html)
@@ -11606,18 +12320,20 @@ impl<'inst> Device<'inst> {
     ///   - VK_ERROR_NOT_PERMITTED
     ///   - VK_ERROR_UNKNOWN
     ///   - VK_ERROR_VALIDATION_FAILED
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     #[inline(always)]
     pub fn vkImportFenceSciSyncObjNV(
         &self,
         pImportFenceSciSyncInfo: *const VkImportFenceSciSyncInfoNV,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkImportFenceSciSyncObjNV
-                .unwrap_unchecked()(self.raw, pImportFenceSciSyncInfo)
+            (&self.table).vkImportFenceSciSyncObjNV.unwrap_unchecked()(
+                self.raw,
+                pImportFenceSciSyncInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -11628,7 +12344,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_4")]
             VkResult::VK_ERROR_NOT_PERMITTED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkImportSemaphoreSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreSciSyncObjNV.html)
@@ -11672,7 +12394,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_4")]
             VkResult::VK_ERROR_NOT_PERMITTED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateSemaphoreSciSyncPoolNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSemaphoreSciSyncPoolNV.html)
@@ -11703,10 +12431,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkSemaphoreSciSyncPoolCreateInfoNV,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNV<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNV<'ret>, VkResult> {
         let mut handle = VkSemaphoreSciSyncPoolNV::NULL;
         let r = unsafe {
             (&self.table)
@@ -11720,13 +12445,21 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNV {
+        .map(
+            |_| crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNV {
                 raw: handle,
                 parent: self,
                 table: &self.semaphore_sci_sync_pool_nv_table,
-            })
+            },
+        )
     }
     /// [`vkCreateOpticalFlowSessionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateOpticalFlowSessionNV.html)
     ///
@@ -11770,13 +12503,19 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::optical_flow_session_nv::OpticalFlowSessionNV {
-                raw: handle,
-                parent: self,
-                table: &self.optical_flow_session_nv_table,
-            })
+        .map(|_| crate::optical_flow_session_nv::OpticalFlowSessionNV {
+            raw: handle,
+            parent: self,
+            table: &self.optical_flow_session_nv_table,
+        })
     }
     /// [`vkGetPartitionedAccelerationStructuresBuildSizesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPartitionedAccelerationStructuresBuildSizesNV.html)
     ///
@@ -11842,7 +12581,13 @@ impl<'inst> Device<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateAccelerationStructureNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructureNV.html)
@@ -11872,10 +12617,7 @@ impl<'inst> Device<'inst> {
         &'ret self,
         pCreateInfo: *const VkAccelerationStructureCreateInfoNV,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<
-        crate::acceleration_structure_nv::AccelerationStructureNV<'ret>,
-        VkResult,
-    > {
+    ) -> Result<crate::acceleration_structure_nv::AccelerationStructureNV<'ret>, VkResult> {
         let mut handle = VkAccelerationStructureNV::NULL;
         let r = unsafe {
             (&self.table)
@@ -11887,13 +12629,21 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| crate::acceleration_structure_nv::AccelerationStructureNV {
+        .map(
+            |_| crate::acceleration_structure_nv::AccelerationStructureNV {
                 raw: handle,
                 parent: self,
                 table: &self.acceleration_structure_nv_table,
-            })
+            },
+        )
     }
     /// [`vkGetAccelerationStructureMemoryRequirementsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureMemoryRequirementsNV.html)
     ///
@@ -11947,16 +12697,20 @@ impl<'inst> Device<'inst> {
         pBuffer: *mut *mut OH_NativeBuffer,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (&self.table)
-                .vkGetMemoryNativeBufferOHOS
-                .unwrap_unchecked()(self.raw, pInfo, pBuffer)
+            (&self.table).vkGetMemoryNativeBufferOHOS.unwrap_unchecked()(self.raw, pInfo, pBuffer)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetNativeBufferPropertiesOHOS`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetNativeBufferPropertiesOHOS.html)
@@ -11994,14 +12748,18 @@ impl<'inst> Device<'inst> {
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_external_memory")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDynamicRenderingTilePropertiesQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDynamicRenderingTilePropertiesQCOM.html)
@@ -12040,7 +12798,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetScreenBufferPropertiesQNX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetScreenBufferPropertiesQNX.html)
@@ -12083,7 +12847,13 @@ impl<'inst> Device<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_external_memory")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDescriptorSetLayoutHostMappingInfoVALVE`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html)

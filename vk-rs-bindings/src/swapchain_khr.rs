@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct SwapchainKHRDispatchTable {
@@ -16,23 +16,16 @@ pub struct SwapchainKHRDispatchTable {
     #[cfg(feature = "VK_EXT_display_control")]
     pub vkGetSwapchainCounterEXT: Option<PFN_vkGetSwapchainCounterEXT>,
     #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-    pub vkAcquireFullScreenExclusiveModeEXT: Option<
-        PFN_vkAcquireFullScreenExclusiveModeEXT,
-    >,
+    pub vkAcquireFullScreenExclusiveModeEXT: Option<PFN_vkAcquireFullScreenExclusiveModeEXT>,
     #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-    pub vkReleaseFullScreenExclusiveModeEXT: Option<
-        PFN_vkReleaseFullScreenExclusiveModeEXT,
-    >,
+    pub vkReleaseFullScreenExclusiveModeEXT: Option<PFN_vkReleaseFullScreenExclusiveModeEXT>,
     #[cfg(feature = "VK_EXT_present_timing")]
-    pub vkGetSwapchainTimeDomainPropertiesEXT: Option<
-        PFN_vkGetSwapchainTimeDomainPropertiesEXT,
-    >,
+    pub vkGetSwapchainTimeDomainPropertiesEXT: Option<PFN_vkGetSwapchainTimeDomainPropertiesEXT>,
     #[cfg(feature = "VK_EXT_present_timing")]
     pub vkGetSwapchainTimingPropertiesEXT: Option<PFN_vkGetSwapchainTimingPropertiesEXT>,
     #[cfg(feature = "VK_EXT_present_timing")]
-    pub vkSetSwapchainPresentTimingQueueSizeEXT: Option<
-        PFN_vkSetSwapchainPresentTimingQueueSizeEXT,
-    >,
+    pub vkSetSwapchainPresentTimingQueueSizeEXT:
+        Option<PFN_vkSetSwapchainPresentTimingQueueSizeEXT>,
     #[cfg(feature = "VK_GOOGLE_display_timing")]
     pub vkGetPastPresentationTimingGOOGLE: Option<PFN_vkGetPastPresentationTimingGOOGLE>,
     #[cfg(feature = "VK_GOOGLE_display_timing")]
@@ -118,57 +111,50 @@ impl SwapchainKHRDispatchTable {
         }
         #[cfg(feature = "VK_EXT_full_screen_exclusive")]
         {
-            table.vkAcquireFullScreenExclusiveModeEXT = loader(
-                    c"vkAcquireFullScreenExclusiveModeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkAcquireFullScreenExclusiveModeEXT =
+                loader(c"vkAcquireFullScreenExclusiveModeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_full_screen_exclusive")]
         {
-            table.vkReleaseFullScreenExclusiveModeEXT = loader(
-                    c"vkReleaseFullScreenExclusiveModeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkReleaseFullScreenExclusiveModeEXT =
+                loader(c"vkReleaseFullScreenExclusiveModeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_present_timing")]
         {
-            table.vkGetSwapchainTimeDomainPropertiesEXT = loader(
-                    c"vkGetSwapchainTimeDomainPropertiesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetSwapchainTimeDomainPropertiesEXT =
+                loader(c"vkGetSwapchainTimeDomainPropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_present_timing")]
         {
-            table.vkGetSwapchainTimingPropertiesEXT = loader(
-                    c"vkGetSwapchainTimingPropertiesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetSwapchainTimingPropertiesEXT =
+                loader(c"vkGetSwapchainTimingPropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_present_timing")]
         {
-            table.vkSetSwapchainPresentTimingQueueSizeEXT = loader(
-                    c"vkSetSwapchainPresentTimingQueueSizeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSetSwapchainPresentTimingQueueSizeEXT =
+                loader(c"vkSetSwapchainPresentTimingQueueSizeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GOOGLE_display_timing")]
         {
-            table.vkGetPastPresentationTimingGOOGLE = loader(
-                    c"vkGetPastPresentationTimingGOOGLE".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPastPresentationTimingGOOGLE =
+                loader(c"vkGetPastPresentationTimingGOOGLE".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_GOOGLE_display_timing")]
         {
-            table.vkGetRefreshCycleDurationGOOGLE = loader(
-                    c"vkGetRefreshCycleDurationGOOGLE".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetRefreshCycleDurationGOOGLE =
+                loader(c"vkGetRefreshCycleDurationGOOGLE".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_present_wait")]
         {
-            table.vkWaitForPresentKHR = loader(c"vkWaitForPresentKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkWaitForPresentKHR =
+                loader(c"vkWaitForPresentKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_present_wait2")]
         {
@@ -202,8 +188,8 @@ impl SwapchainKHRDispatchTable {
         }
         #[cfg(feature = "VK_NV_low_latency2")]
         {
-            table.vkLatencySleepNV = loader(c"vkLatencySleepNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkLatencySleepNV =
+                loader(c"vkLatencySleepNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_low_latency2")]
         {
@@ -231,7 +217,7 @@ impl<'dev> Drop for SwapchainKHR<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroySwapchainKHR {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -248,6 +234,10 @@ impl<'dev> SwapchainKHR<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &SwapchainKHRDispatchTable {
@@ -268,9 +258,11 @@ impl<'dev> SwapchainKHR<'dev> {
     pub fn vkSetLocalDimmingAMD(&self, localDimmingEnable: VkBool32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkSetLocalDimmingAMD
-                .unwrap_unchecked()(self.device().raw(), self.raw, localDimmingEnable)
+            (self.table).vkSetLocalDimmingAMD.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                localDimmingEnable,
+            )
         }
     }
     /// [`vkGetSwapchainCounterEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainCounterEXT.html)
@@ -304,9 +296,7 @@ impl<'dev> SwapchainKHR<'dev> {
         pCounterValue: *mut u64,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetSwapchainCounterEXT
-                .unwrap_unchecked()(
+            (self.table).vkGetSwapchainCounterEXT.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 counter,
@@ -322,7 +312,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkAcquireFullScreenExclusiveModeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireFullScreenExclusiveModeEXT.html)
@@ -365,7 +361,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkReleaseFullScreenExclusiveModeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseFullScreenExclusiveModeEXT.html)
@@ -406,7 +408,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSwapchainTimeDomainPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainTimeDomainPropertiesEXT.html)
@@ -459,7 +467,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSwapchainTimingPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainTimingPropertiesEXT.html)
@@ -512,7 +526,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetSwapchainPresentTimingQueueSizeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetSwapchainPresentTimingQueueSizeEXT.html)
@@ -539,10 +559,7 @@ impl<'dev> SwapchainKHR<'dev> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_EXT_present_timing")]
     #[inline(always)]
-    pub fn vkSetSwapchainPresentTimingQueueSizeEXT(
-        &self,
-        size: u32,
-    ) -> Result<VkResult, VkResult> {
+    pub fn vkSetSwapchainPresentTimingQueueSizeEXT(&self, size: u32) -> Result<VkResult, VkResult> {
         let r = unsafe {
             (self.table)
                 .vkSetSwapchainPresentTimingQueueSizeEXT
@@ -555,7 +572,13 @@ impl<'dev> SwapchainKHR<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPastPresentationTimingGOOGLE`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingGOOGLE.html)
@@ -611,7 +634,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetRefreshCycleDurationGOOGLE`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRefreshCycleDurationGOOGLE.html)
@@ -646,9 +675,7 @@ impl<'dev> SwapchainKHR<'dev> {
             (self.table)
                 .vkGetRefreshCycleDurationGOOGLE
                 .unwrap_unchecked()(
-                self.device().raw(),
-                self.raw,
-                pDisplayTimingProperties,
+                self.device().raw(), self.raw, pDisplayTimingProperties
             )
         };
         match r {
@@ -660,7 +687,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkWaitForPresentKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForPresentKHR.html)
@@ -693,15 +726,14 @@ impl<'dev> SwapchainKHR<'dev> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_KHR_present_wait")]
     #[inline(always)]
-    pub fn vkWaitForPresentKHR(
-        &self,
-        presentId: u64,
-        timeout: u64,
-    ) -> Result<VkResult, VkResult> {
+    pub fn vkWaitForPresentKHR(&self, presentId: u64, timeout: u64) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkWaitForPresentKHR
-                .unwrap_unchecked()(self.device().raw(), self.raw, presentId, timeout)
+            (self.table).vkWaitForPresentKHR.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                presentId,
+                timeout,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT => Ok(r),
@@ -719,7 +751,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkWaitForPresent2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForPresent2KHR.html)
@@ -756,9 +794,11 @@ impl<'dev> SwapchainKHR<'dev> {
         pPresentWait2Info: *const VkPresentWait2InfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkWaitForPresent2KHR
-                .unwrap_unchecked()(self.device().raw(), self.raw, pPresentWait2Info)
+            (self.table).vkWaitForPresent2KHR.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pPresentWait2Info,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT => Ok(r),
@@ -776,7 +816,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetSwapchainStatusKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainStatusKHR.html)
@@ -808,9 +854,7 @@ impl<'dev> SwapchainKHR<'dev> {
     #[inline(always)]
     pub fn vkGetSwapchainStatusKHR(&self) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetSwapchainStatusKHR
-                .unwrap_unchecked()(self.device().raw(), self.raw)
+            (self.table).vkGetSwapchainStatusKHR.unwrap_unchecked()(self.device().raw(), self.raw)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -828,7 +872,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkAcquireNextImageKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireNextImageKHR.html)
@@ -872,9 +922,7 @@ impl<'dev> SwapchainKHR<'dev> {
         pImageIndex: *mut u32,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkAcquireNextImageKHR
-                .unwrap_unchecked()(
+            (self.table).vkAcquireNextImageKHR.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 timeout,
@@ -899,7 +947,13 @@ impl<'dev> SwapchainKHR<'dev> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroySwapchainKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySwapchainKHR.html)
@@ -920,9 +974,11 @@ impl<'dev> SwapchainKHR<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroySwapchainKHR
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroySwapchainKHR.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkSwapchainKHR::NULL;
     }
@@ -957,9 +1013,7 @@ impl<'dev> SwapchainKHR<'dev> {
         pSwapchainImages: *mut VkImage,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetSwapchainImagesKHR
-                .unwrap_unchecked()(
+            (self.table).vkGetSwapchainImagesKHR.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 pSwapchainImageCount,
@@ -973,7 +1027,13 @@ impl<'dev> SwapchainKHR<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetLatencyTimingsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetLatencyTimingsNV.html)
@@ -988,15 +1048,14 @@ impl<'dev> SwapchainKHR<'dev> {
     /// - `pLatencyMarkerInfo`
     #[cfg(feature = "VK_NV_low_latency2")]
     #[inline(always)]
-    pub fn vkGetLatencyTimingsNV(
-        &self,
-        pLatencyMarkerInfo: *mut VkGetLatencyMarkerInfoNV,
-    ) {
+    pub fn vkGetLatencyTimingsNV(&self, pLatencyMarkerInfo: *mut VkGetLatencyMarkerInfoNV) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetLatencyTimingsNV
-                .unwrap_unchecked()(self.device().raw(), self.raw, pLatencyMarkerInfo)
+            (self.table).vkGetLatencyTimingsNV.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pLatencyMarkerInfo,
+            )
         }
     }
     /// [`vkLatencySleepNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkLatencySleepNV.html)
@@ -1025,16 +1084,24 @@ impl<'dev> SwapchainKHR<'dev> {
         pSleepInfo: *const VkLatencySleepInfoNV,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkLatencySleepNV
-                .unwrap_unchecked()(self.device().raw(), self.raw, pSleepInfo)
+            (self.table).vkLatencySleepNV.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pSleepInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetLatencyMarkerNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLatencyMarkerNV.html)
@@ -1049,15 +1116,14 @@ impl<'dev> SwapchainKHR<'dev> {
     /// - `pLatencyMarkerInfo`
     #[cfg(feature = "VK_NV_low_latency2")]
     #[inline(always)]
-    pub fn vkSetLatencyMarkerNV(
-        &self,
-        pLatencyMarkerInfo: *const VkSetLatencyMarkerInfoNV,
-    ) {
+    pub fn vkSetLatencyMarkerNV(&self, pLatencyMarkerInfo: *const VkSetLatencyMarkerInfoNV) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkSetLatencyMarkerNV
-                .unwrap_unchecked()(self.device().raw(), self.raw, pLatencyMarkerInfo)
+            (self.table).vkSetLatencyMarkerNV.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pLatencyMarkerInfo,
+            )
         }
     }
     /// [`vkSetLatencySleepModeNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLatencySleepModeNV.html)
@@ -1087,18 +1153,24 @@ impl<'dev> SwapchainKHR<'dev> {
         pSleepModeInfo: *const VkLatencySleepModeInfoNV,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkSetLatencySleepModeNV
-                .unwrap_unchecked()(self.device().raw(), self.raw, pSleepModeInfo)
+            (self.table).vkSetLatencySleepModeNV.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pSleepModeInfo,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

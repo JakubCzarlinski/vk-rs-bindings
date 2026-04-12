@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct ShaderModuleDispatchTable {
@@ -37,10 +37,9 @@ impl ShaderModuleDispatchTable {
         }
         #[cfg(feature = "VK_EXT_shader_module_identifier")]
         {
-            table.vkGetShaderModuleIdentifierEXT = loader(
-                    c"vkGetShaderModuleIdentifierEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetShaderModuleIdentifierEXT =
+                loader(c"vkGetShaderModuleIdentifierEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -58,7 +57,7 @@ impl<'dev> Drop for ShaderModule<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyShaderModule {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -75,6 +74,10 @@ impl<'dev> ShaderModule<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &ShaderModuleDispatchTable {
@@ -99,9 +102,11 @@ impl<'dev> ShaderModule<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyShaderModule
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyShaderModule.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkShaderModule::NULL;
     }
@@ -117,10 +122,7 @@ impl<'dev> ShaderModule<'dev> {
     /// - `pIdentifier`
     #[cfg(feature = "VK_EXT_shader_module_identifier")]
     #[inline(always)]
-    pub fn vkGetShaderModuleIdentifierEXT(
-        &self,
-        pIdentifier: *mut VkShaderModuleIdentifierEXT,
-    ) {
+    pub fn vkGetShaderModuleIdentifierEXT(&self, pIdentifier: *mut VkShaderModuleIdentifierEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)

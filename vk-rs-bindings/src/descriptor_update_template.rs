@@ -4,19 +4,17 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct DescriptorUpdateTemplateDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
     pub vkDestroyDescriptorUpdateTemplate: Option<PFN_vkDestroyDescriptorUpdateTemplate>,
     #[cfg(feature = "VK_KHR_descriptor_update_template")]
-    pub vkDestroyDescriptorUpdateTemplateKHR: Option<
-        PFN_vkDestroyDescriptorUpdateTemplateKHR,
-    >,
+    pub vkDestroyDescriptorUpdateTemplateKHR: Option<PFN_vkDestroyDescriptorUpdateTemplateKHR>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl DescriptorUpdateTemplateDispatchTable {
@@ -34,17 +32,15 @@ impl DescriptorUpdateTemplateDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         {
-            table.vkDestroyDescriptorUpdateTemplate = loader(
-                    c"vkDestroyDescriptorUpdateTemplate".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyDescriptorUpdateTemplate =
+                loader(c"vkDestroyDescriptorUpdateTemplate".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_descriptor_update_template")]
         {
-            table.vkDestroyDescriptorUpdateTemplateKHR = loader(
-                    c"vkDestroyDescriptorUpdateTemplateKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyDescriptorUpdateTemplateKHR =
+                loader(c"vkDestroyDescriptorUpdateTemplateKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -62,7 +58,7 @@ impl<'dev> Drop for DescriptorUpdateTemplate<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyDescriptorUpdateTemplate {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -81,6 +77,10 @@ impl<'dev> DescriptorUpdateTemplate<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &DescriptorUpdateTemplateDispatchTable {
         self.table
     }
@@ -97,10 +97,7 @@ impl<'dev> DescriptorUpdateTemplate<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
     #[inline(always)]
-    pub fn vkDestroyDescriptorUpdateTemplate(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyDescriptorUpdateTemplate(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
@@ -125,10 +122,7 @@ impl<'dev> DescriptorUpdateTemplate<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_KHR_descriptor_update_template")]
     #[inline(always)]
-    pub fn vkDestroyDescriptorUpdateTemplateKHR(
-        &self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyDescriptorUpdateTemplateKHR(&self, pAllocator: *const VkAllocationCallbacks) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)

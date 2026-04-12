@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct FenceDispatchTable {
@@ -32,13 +32,13 @@ impl FenceDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkDestroyFence = loader(c"vkDestroyFence".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyFence =
+                loader(c"vkDestroyFence".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkGetFenceStatus = loader(c"vkGetFenceStatus".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetFenceStatus =
+                loader(c"vkGetFenceStatus".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -56,7 +56,7 @@ impl<'dev> Drop for Fence<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyFence {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -73,6 +73,10 @@ impl<'dev> Fence<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &FenceDispatchTable {
@@ -97,9 +101,11 @@ impl<'dev> Fence<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyFence
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyFence.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkFence::NULL;
     }
@@ -130,9 +136,7 @@ impl<'dev> Fence<'dev> {
     #[inline(always)]
     pub fn vkGetFenceStatus(&self) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetFenceStatus
-                .unwrap_unchecked()(self.device().raw(), self.raw)
+            (self.table).vkGetFenceStatus.unwrap_unchecked()(self.device().raw(), self.raw)
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_NOT_READY => Ok(r),
@@ -142,7 +146,13 @@ impl<'dev> Fence<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

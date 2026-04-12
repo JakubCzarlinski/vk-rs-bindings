@@ -359,8 +359,7 @@ fn descriptor_pool_free_descriptor_sets_stays_non_mutating() {
 fn instance_and_device_destroy_methods_use_mut_self_and_null_raw() {
     let f = generate();
     assert!(
-        f.instance_rs.contains("pub fn vkDestroyInstance(")
-            && f.instance_rs.contains("&mut self"),
+        f.instance_rs.contains("pub fn vkDestroyInstance(") && f.instance_rs.contains("&mut self"),
         "vkDestroyInstance should take &mut self;\n{}",
         f.instance_rs
     );
@@ -378,6 +377,70 @@ fn instance_and_device_destroy_methods_use_mut_self_and_null_raw() {
     assert!(
         f.device_rs.contains("self.raw = VkDevice::NULL;"),
         "vkDestroyDevice should null raw handle;\n{}",
+        f.device_rs
+    );
+}
+
+#[test]
+fn instance_created_handles_return_raii_wrappers() {
+    let f = generate();
+    assert!(
+        f.instance_rs
+            .contains("pub fn vkCreateWaylandSurfaceKHR<'ret>(",)
+            && f.instance_rs
+                .contains(") -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult>"),
+        "vkCreateWaylandSurfaceKHR should return an instance-tied SurfaceKHR wrapper;\n{}",
+        f.instance_rs
+    );
+    assert!(
+        f.instance_rs.contains("table: &self.surface_khr_table,"),
+        "surface creation should attach the instance-owned dispatch table;\n{}",
+        f.instance_rs
+    );
+}
+
+#[test]
+fn instance_owned_handle_wrapper_uses_instance_drop_and_skips_device_methods() {
+    let f = generate();
+    let surface = f
+        .handles
+        .get("surface_khr")
+        .expect("surface_khr handle module");
+    assert!(
+        surface.contains("pub struct SurfaceKHR<'dev>"),
+        "SurfaceKHR wrapper should be generated;\n{surface}"
+    );
+    assert!(
+        surface.contains("pub(crate) parent: &'dev crate::instance::Instance<'dev>"),
+        "SurfaceKHR should borrow its creating Instance;\n{surface}"
+    );
+    assert!(
+        surface.contains("self.parent.table.vkDestroySurfaceKHR"),
+        "SurfaceKHR drop should destroy through the parent instance table;\n{surface}"
+    );
+    assert!(
+        !surface.contains("pub fn device(&self)"),
+        "instance-owned handles must not grow a synthetic device() accessor;\n{surface}"
+    );
+    assert!(
+        !surface.contains("vkGetDeviceGroupSurfacePresentModesKHR"),
+        "device-dispatched surface commands should stay on the device/physical-device tiers;\n{surface}"
+    );
+}
+
+#[test]
+fn device_wrapper_keeps_back_reference_to_instance() {
+    let f = generate();
+    assert!(
+        f.device_rs
+            .contains("pub(crate) instance: &'inst Instance<'inst>,"),
+        "Device should store the creating Instance reference;\n{}",
+        f.device_rs
+    );
+    assert!(
+        f.device_rs
+            .contains("pub fn instance(&self) -> &'inst Instance<'inst>"),
+        "Device should expose its creating Instance for descendant handle wrappers;\n{}",
         f.device_rs
     );
 }

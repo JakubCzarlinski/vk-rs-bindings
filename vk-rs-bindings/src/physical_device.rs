@@ -5,102 +5,78 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
 use crate::instance::Instance;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct PhysicalDeviceDispatchTable {
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM: Option<
-        PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM,
-    >,
+    pub vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM>,
     #[cfg(feature = "VK_ARM_data_graph")]
-    pub vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM: Option<
-        PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM,
-    >,
+    pub vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM>,
     #[cfg(feature = "VK_ARM_performance_counters_by_region")]
-    pub vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM: Option<
-        PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM,
-    >,
+    pub vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM:
+        Option<PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
-    pub vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM: Option<
-        PFN_vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM,
-    >,
+    pub vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM:
+        Option<PFN_vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM>,
     #[cfg(feature = "VK_ARM_tensors")]
-    pub vkGetPhysicalDeviceExternalTensorPropertiesARM: Option<
-        PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM,
-    >,
+    pub vkGetPhysicalDeviceExternalTensorPropertiesARM:
+        Option<PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM>,
     #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
     pub vkCreateDevice: Option<PFN_vkCreateDevice>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkEnumerateDeviceExtensionProperties: Option<
-        PFN_vkEnumerateDeviceExtensionProperties,
-    >,
+    pub vkEnumerateDeviceExtensionProperties: Option<PFN_vkEnumerateDeviceExtensionProperties>,
     #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
     pub vkEnumerateDeviceLayerProperties: Option<PFN_vkEnumerateDeviceLayerProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub vkGetPhysicalDeviceFeatures: Option<PFN_vkGetPhysicalDeviceFeatures>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkGetPhysicalDeviceFormatProperties: Option<
-        PFN_vkGetPhysicalDeviceFormatProperties,
-    >,
+    pub vkGetPhysicalDeviceFormatProperties: Option<PFN_vkGetPhysicalDeviceFormatProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkGetPhysicalDeviceImageFormatProperties: Option<
-        PFN_vkGetPhysicalDeviceImageFormatProperties,
-    >,
+    pub vkGetPhysicalDeviceImageFormatProperties:
+        Option<PFN_vkGetPhysicalDeviceImageFormatProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkGetPhysicalDeviceMemoryProperties: Option<
-        PFN_vkGetPhysicalDeviceMemoryProperties,
-    >,
+    pub vkGetPhysicalDeviceMemoryProperties: Option<PFN_vkGetPhysicalDeviceMemoryProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub vkGetPhysicalDeviceProperties: Option<PFN_vkGetPhysicalDeviceProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkGetPhysicalDeviceQueueFamilyProperties: Option<
-        PFN_vkGetPhysicalDeviceQueueFamilyProperties,
-    >,
+    pub vkGetPhysicalDeviceQueueFamilyProperties:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkGetPhysicalDeviceSparseImageFormatProperties: Option<
-        PFN_vkGetPhysicalDeviceSparseImageFormatProperties,
-    >,
+    pub vkGetPhysicalDeviceSparseImageFormatProperties:
+        Option<PFN_vkGetPhysicalDeviceSparseImageFormatProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceExternalBufferProperties: Option<
-        PFN_vkGetPhysicalDeviceExternalBufferProperties,
-    >,
+    pub vkGetPhysicalDeviceExternalBufferProperties:
+        Option<PFN_vkGetPhysicalDeviceExternalBufferProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceExternalFenceProperties: Option<
-        PFN_vkGetPhysicalDeviceExternalFenceProperties,
-    >,
+    pub vkGetPhysicalDeviceExternalFenceProperties:
+        Option<PFN_vkGetPhysicalDeviceExternalFenceProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceExternalSemaphoreProperties: Option<
-        PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
-    >,
+    pub vkGetPhysicalDeviceExternalSemaphoreProperties:
+        Option<PFN_vkGetPhysicalDeviceExternalSemaphoreProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     pub vkGetPhysicalDeviceFeatures2: Option<PFN_vkGetPhysicalDeviceFeatures2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceFormatProperties2: Option<
-        PFN_vkGetPhysicalDeviceFormatProperties2,
-    >,
+    pub vkGetPhysicalDeviceFormatProperties2: Option<PFN_vkGetPhysicalDeviceFormatProperties2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceImageFormatProperties2: Option<
-        PFN_vkGetPhysicalDeviceImageFormatProperties2,
-    >,
+    pub vkGetPhysicalDeviceImageFormatProperties2:
+        Option<PFN_vkGetPhysicalDeviceImageFormatProperties2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceMemoryProperties2: Option<
-        PFN_vkGetPhysicalDeviceMemoryProperties2,
-    >,
+    pub vkGetPhysicalDeviceMemoryProperties2: Option<PFN_vkGetPhysicalDeviceMemoryProperties2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     pub vkGetPhysicalDeviceProperties2: Option<PFN_vkGetPhysicalDeviceProperties2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceQueueFamilyProperties2: Option<
-        PFN_vkGetPhysicalDeviceQueueFamilyProperties2,
-    >,
+    pub vkGetPhysicalDeviceQueueFamilyProperties2:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyProperties2>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
-    pub vkGetPhysicalDeviceSparseImageFormatProperties2: Option<
-        PFN_vkGetPhysicalDeviceSparseImageFormatProperties2,
-    >,
+    pub vkGetPhysicalDeviceSparseImageFormatProperties2:
+        Option<PFN_vkGetPhysicalDeviceSparseImageFormatProperties2>,
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
     pub vkGetPhysicalDeviceToolProperties: Option<PFN_vkGetPhysicalDeviceToolProperties>,
     #[cfg(feature = "VK_EXT_acquire_drm_display")]
@@ -112,47 +88,35 @@ pub struct PhysicalDeviceDispatchTable {
     #[cfg(feature = "VK_EXT_acquire_xlib_display")]
     pub vkGetRandROutputDisplayEXT: Option<PFN_vkGetRandROutputDisplayEXT>,
     #[cfg(feature = "VK_EXT_calibrated_timestamps")]
-    pub vkGetPhysicalDeviceCalibrateableTimeDomainsEXT: Option<
-        PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT,
-    >,
+    pub vkGetPhysicalDeviceCalibrateableTimeDomainsEXT:
+        Option<PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT>,
     #[cfg(feature = "VK_EXT_descriptor_heap")]
-    pub vkGetPhysicalDeviceDescriptorSizeEXT: Option<
-        PFN_vkGetPhysicalDeviceDescriptorSizeEXT,
-    >,
+    pub vkGetPhysicalDeviceDescriptorSizeEXT: Option<PFN_vkGetPhysicalDeviceDescriptorSizeEXT>,
     #[cfg(feature = "VK_EXT_direct_mode_display")]
     pub vkReleaseDisplayEXT: Option<PFN_vkReleaseDisplayEXT>,
     #[cfg(feature = "VK_EXT_directfb_surface")]
-    pub vkGetPhysicalDeviceDirectFBPresentationSupportEXT: Option<
-        PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT,
-    >,
+    pub vkGetPhysicalDeviceDirectFBPresentationSupportEXT:
+        Option<PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT>,
     #[cfg(feature = "VK_EXT_display_surface_counter")]
-    pub vkGetPhysicalDeviceSurfaceCapabilities2EXT: Option<
-        PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
-    >,
+    pub vkGetPhysicalDeviceSurfaceCapabilities2EXT:
+        Option<PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT>,
     #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-    pub vkGetPhysicalDeviceSurfacePresentModes2EXT: Option<
-        PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT,
-    >,
+    pub vkGetPhysicalDeviceSurfacePresentModes2EXT:
+        Option<PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT>,
     #[cfg(feature = "VK_EXT_sample_locations")]
-    pub vkGetPhysicalDeviceMultisamplePropertiesEXT: Option<
-        PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT,
-    >,
+    pub vkGetPhysicalDeviceMultisamplePropertiesEXT:
+        Option<PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT>,
     #[cfg(feature = "VK_EXT_tooling_info")]
-    pub vkGetPhysicalDeviceToolPropertiesEXT: Option<
-        PFN_vkGetPhysicalDeviceToolPropertiesEXT,
-    >,
+    pub vkGetPhysicalDeviceToolPropertiesEXT: Option<PFN_vkGetPhysicalDeviceToolPropertiesEXT>,
     #[cfg(feature = "VK_KHR_calibrated_timestamps")]
-    pub vkGetPhysicalDeviceCalibrateableTimeDomainsKHR: Option<
-        PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
-    >,
+    pub vkGetPhysicalDeviceCalibrateableTimeDomainsKHR:
+        Option<PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR>,
     #[cfg(feature = "VK_KHR_cooperative_matrix")]
-    pub vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR>,
     #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
-    pub vkGetPhysicalDevicePresentRectanglesKHR: Option<
-        PFN_vkGetPhysicalDevicePresentRectanglesKHR,
-    >,
+    pub vkGetPhysicalDevicePresentRectanglesKHR:
+        Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
     #[cfg(feature = "VK_KHR_display")]
     pub vkCreateDisplayModeKHR: Option<PFN_vkCreateDisplayModeKHR>,
     #[cfg(feature = "VK_KHR_display")]
@@ -160,183 +124,137 @@ pub struct PhysicalDeviceDispatchTable {
     #[cfg(feature = "VK_KHR_display")]
     pub vkGetDisplayPlaneCapabilitiesKHR: Option<PFN_vkGetDisplayPlaneCapabilitiesKHR>,
     #[cfg(feature = "VK_KHR_display")]
-    pub vkGetDisplayPlaneSupportedDisplaysKHR: Option<
-        PFN_vkGetDisplayPlaneSupportedDisplaysKHR,
-    >,
+    pub vkGetDisplayPlaneSupportedDisplaysKHR: Option<PFN_vkGetDisplayPlaneSupportedDisplaysKHR>,
     #[cfg(feature = "VK_KHR_display")]
-    pub vkGetPhysicalDeviceDisplayPlanePropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceDisplayPlanePropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR>,
     #[cfg(feature = "VK_KHR_display")]
-    pub vkGetPhysicalDeviceDisplayPropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceDisplayPropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceDisplayPropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceDisplayPropertiesKHR>,
     #[cfg(feature = "VK_KHR_external_fence_capabilities")]
-    pub vkGetPhysicalDeviceExternalFencePropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceExternalFencePropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR>,
     #[cfg(feature = "VK_KHR_external_memory_capabilities")]
-    pub vkGetPhysicalDeviceExternalBufferPropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceExternalBufferPropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceExternalBufferPropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceExternalBufferPropertiesKHR>,
     #[cfg(feature = "VK_KHR_external_semaphore_capabilities")]
-    pub vkGetPhysicalDeviceExternalSemaphorePropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceExternalSemaphorePropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR>,
     #[cfg(feature = "VK_KHR_fragment_shading_rate")]
-    pub vkGetPhysicalDeviceFragmentShadingRatesKHR: Option<
-        PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR,
-    >,
+    pub vkGetPhysicalDeviceFragmentShadingRatesKHR:
+        Option<PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR>,
     #[cfg(feature = "VK_KHR_get_display_properties2")]
     pub vkGetDisplayModeProperties2KHR: Option<PFN_vkGetDisplayModeProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_display_properties2")]
     pub vkGetDisplayPlaneCapabilities2KHR: Option<PFN_vkGetDisplayPlaneCapabilities2KHR>,
     #[cfg(feature = "VK_KHR_get_display_properties2")]
-    pub vkGetPhysicalDeviceDisplayPlaneProperties2KHR: Option<
-        PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR,
-    >,
+    pub vkGetPhysicalDeviceDisplayPlaneProperties2KHR:
+        Option<PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_display_properties2")]
-    pub vkGetPhysicalDeviceDisplayProperties2KHR: Option<
-        PFN_vkGetPhysicalDeviceDisplayProperties2KHR,
-    >,
+    pub vkGetPhysicalDeviceDisplayProperties2KHR:
+        Option<PFN_vkGetPhysicalDeviceDisplayProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
     pub vkGetPhysicalDeviceFeatures2KHR: Option<PFN_vkGetPhysicalDeviceFeatures2KHR>,
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
-    pub vkGetPhysicalDeviceFormatProperties2KHR: Option<
-        PFN_vkGetPhysicalDeviceFormatProperties2KHR,
-    >,
+    pub vkGetPhysicalDeviceFormatProperties2KHR:
+        Option<PFN_vkGetPhysicalDeviceFormatProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
-    pub vkGetPhysicalDeviceImageFormatProperties2KHR: Option<
-        PFN_vkGetPhysicalDeviceImageFormatProperties2KHR,
-    >,
+    pub vkGetPhysicalDeviceImageFormatProperties2KHR:
+        Option<PFN_vkGetPhysicalDeviceImageFormatProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
-    pub vkGetPhysicalDeviceMemoryProperties2KHR: Option<
-        PFN_vkGetPhysicalDeviceMemoryProperties2KHR,
-    >,
+    pub vkGetPhysicalDeviceMemoryProperties2KHR:
+        Option<PFN_vkGetPhysicalDeviceMemoryProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
     pub vkGetPhysicalDeviceProperties2KHR: Option<PFN_vkGetPhysicalDeviceProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
-    pub vkGetPhysicalDeviceQueueFamilyProperties2KHR: Option<
-        PFN_vkGetPhysicalDeviceQueueFamilyProperties2KHR,
-    >,
+    pub vkGetPhysicalDeviceQueueFamilyProperties2KHR:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
-    pub vkGetPhysicalDeviceSparseImageFormatProperties2KHR: Option<
-        PFN_vkGetPhysicalDeviceSparseImageFormatProperties2KHR,
-    >,
+    pub vkGetPhysicalDeviceSparseImageFormatProperties2KHR:
+        Option<PFN_vkGetPhysicalDeviceSparseImageFormatProperties2KHR>,
     #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
-    pub vkGetPhysicalDeviceSurfaceCapabilities2KHR: Option<
-        PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
-    >,
+    pub vkGetPhysicalDeviceSurfaceCapabilities2KHR:
+        Option<PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR>,
     #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
-    pub vkGetPhysicalDeviceSurfaceFormats2KHR: Option<
-        PFN_vkGetPhysicalDeviceSurfaceFormats2KHR,
-    >,
+    pub vkGetPhysicalDeviceSurfaceFormats2KHR: Option<PFN_vkGetPhysicalDeviceSurfaceFormats2KHR>,
     #[cfg(feature = "VK_KHR_object_refresh")]
-    pub vkGetPhysicalDeviceRefreshableObjectTypesKHR: Option<
-        PFN_vkGetPhysicalDeviceRefreshableObjectTypesKHR,
-    >,
+    pub vkGetPhysicalDeviceRefreshableObjectTypesKHR:
+        Option<PFN_vkGetPhysicalDeviceRefreshableObjectTypesKHR>,
     #[cfg(feature = "VK_KHR_performance_query")]
-    pub vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR: Option<
-        PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR,
-    >,
+    pub vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR:
+        Option<PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR>,
     #[cfg(feature = "VK_KHR_performance_query")]
-    pub vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR: Option<
-        PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR,
-    >,
+    pub vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR>,
     #[cfg(feature = "VK_KHR_surface")]
-    pub vkGetPhysicalDeviceSurfaceCapabilitiesKHR: Option<
-        PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
-    >,
+    pub vkGetPhysicalDeviceSurfaceCapabilitiesKHR:
+        Option<PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR>,
     #[cfg(feature = "VK_KHR_surface")]
-    pub vkGetPhysicalDeviceSurfaceFormatsKHR: Option<
-        PFN_vkGetPhysicalDeviceSurfaceFormatsKHR,
-    >,
+    pub vkGetPhysicalDeviceSurfaceFormatsKHR: Option<PFN_vkGetPhysicalDeviceSurfaceFormatsKHR>,
     #[cfg(feature = "VK_KHR_surface")]
-    pub vkGetPhysicalDeviceSurfacePresentModesKHR: Option<
-        PFN_vkGetPhysicalDeviceSurfacePresentModesKHR,
-    >,
+    pub vkGetPhysicalDeviceSurfacePresentModesKHR:
+        Option<PFN_vkGetPhysicalDeviceSurfacePresentModesKHR>,
     #[cfg(feature = "VK_KHR_surface")]
-    pub vkGetPhysicalDeviceSurfaceSupportKHR: Option<
-        PFN_vkGetPhysicalDeviceSurfaceSupportKHR,
-    >,
+    pub vkGetPhysicalDeviceSurfaceSupportKHR: Option<PFN_vkGetPhysicalDeviceSurfaceSupportKHR>,
     #[cfg(feature = "VK_KHR_video_encode_queue")]
-    pub vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR>,
     #[cfg(feature = "VK_KHR_video_queue")]
-    pub vkGetPhysicalDeviceVideoCapabilitiesKHR: Option<
-        PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR,
-    >,
+    pub vkGetPhysicalDeviceVideoCapabilitiesKHR:
+        Option<PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR>,
     #[cfg(feature = "VK_KHR_video_queue")]
-    pub vkGetPhysicalDeviceVideoFormatPropertiesKHR: Option<
-        PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR,
-    >,
+    pub vkGetPhysicalDeviceVideoFormatPropertiesKHR:
+        Option<PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR>,
     #[cfg(feature = "VK_KHR_wayland_surface")]
-    pub vkGetPhysicalDeviceWaylandPresentationSupportKHR: Option<
-        PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
-    >,
+    pub vkGetPhysicalDeviceWaylandPresentationSupportKHR:
+        Option<PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR>,
     #[cfg(feature = "VK_KHR_win32_surface")]
-    pub vkGetPhysicalDeviceWin32PresentationSupportKHR: Option<
-        PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR,
-    >,
+    pub vkGetPhysicalDeviceWin32PresentationSupportKHR:
+        Option<PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR>,
     #[cfg(feature = "VK_KHR_xcb_surface")]
-    pub vkGetPhysicalDeviceXcbPresentationSupportKHR: Option<
-        PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR,
-    >,
+    pub vkGetPhysicalDeviceXcbPresentationSupportKHR:
+        Option<PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR>,
     #[cfg(feature = "VK_KHR_xlib_surface")]
-    pub vkGetPhysicalDeviceXlibPresentationSupportKHR: Option<
-        PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR,
-    >,
+    pub vkGetPhysicalDeviceXlibPresentationSupportKHR:
+        Option<PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR>,
     #[cfg(feature = "VK_NV_acquire_winrt_display")]
     pub vkAcquireWinrtDisplayNV: Option<PFN_vkAcquireWinrtDisplayNV>,
     #[cfg(feature = "VK_NV_acquire_winrt_display")]
     pub vkGetWinrtDisplayNV: Option<PFN_vkGetWinrtDisplayNV>,
     #[cfg(feature = "VK_NV_cooperative_matrix")]
-    pub vkGetPhysicalDeviceCooperativeMatrixPropertiesNV: Option<
-        PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
-    >,
+    pub vkGetPhysicalDeviceCooperativeMatrixPropertiesNV:
+        Option<PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV>,
     #[cfg(feature = "VK_NV_cooperative_matrix2")]
-    pub vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV: Option<
-        PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV,
-    >,
+    pub vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV:
+        Option<PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV>,
     #[cfg(feature = "VK_NV_cooperative_vector")]
-    pub vkGetPhysicalDeviceCooperativeVectorPropertiesNV: Option<
-        PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV,
-    >,
+    pub vkGetPhysicalDeviceCooperativeVectorPropertiesNV:
+        Option<PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV>,
     #[cfg(feature = "VK_NV_coverage_reduction_mode")]
-    pub vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV: Option<
-        PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,
-    >,
+    pub vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV:
+        Option<PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV>,
     #[cfg(feature = "VK_NV_external_memory_capabilities")]
-    pub vkGetPhysicalDeviceExternalImageFormatPropertiesNV: Option<
-        PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
-    >,
+    pub vkGetPhysicalDeviceExternalImageFormatPropertiesNV:
+        Option<PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV>,
     #[cfg(feature = "VK_NV_external_memory_sci_buf")]
-    pub vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV: Option<
-        PFN_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV,
-    >,
+    pub vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV:
+        Option<PFN_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV>,
     #[cfg(feature = "VK_NV_external_memory_sci_buf")]
-    pub vkGetPhysicalDeviceSciBufAttributesNV: Option<
-        PFN_vkGetPhysicalDeviceSciBufAttributesNV,
-    >,
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
-    pub vkGetPhysicalDeviceSciSyncAttributesNV: Option<
-        PFN_vkGetPhysicalDeviceSciSyncAttributesNV,
-    >,
+    pub vkGetPhysicalDeviceSciBufAttributesNV: Option<PFN_vkGetPhysicalDeviceSciBufAttributesNV>,
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
+    pub vkGetPhysicalDeviceSciSyncAttributesNV: Option<PFN_vkGetPhysicalDeviceSciSyncAttributesNV>,
     #[cfg(feature = "VK_NV_optical_flow")]
-    pub vkGetPhysicalDeviceOpticalFlowImageFormatsNV: Option<
-        PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV,
-    >,
+    pub vkGetPhysicalDeviceOpticalFlowImageFormatsNV:
+        Option<PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV>,
     #[cfg(feature = "VK_QNX_screen_surface")]
-    pub vkGetPhysicalDeviceScreenPresentationSupportQNX: Option<
-        PFN_vkGetPhysicalDeviceScreenPresentationSupportQNX,
-    >,
+    pub vkGetPhysicalDeviceScreenPresentationSupportQNX:
+        Option<PFN_vkGetPhysicalDeviceScreenPresentationSupportQNX>,
     #[cfg(feature = "VK_SEC_ubm_surface")]
-    pub vkGetPhysicalDeviceUbmPresentationSupportSEC: Option<
-        PFN_vkGetPhysicalDeviceUbmPresentationSupportSEC,
-    >,
+    pub vkGetPhysicalDeviceUbmPresentationSupportSEC:
+        Option<PFN_vkGetPhysicalDeviceUbmPresentationSupportSEC>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl PhysicalDeviceDispatchTable {
@@ -515,12 +433,10 @@ impl PhysicalDeviceDispatchTable {
         vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV: None,
         #[cfg(feature = "VK_NV_external_memory_sci_buf")]
         vkGetPhysicalDeviceSciBufAttributesNV: None,
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         vkGetPhysicalDeviceSciSyncAttributesNV: None,
         #[cfg(feature = "VK_NV_optical_flow")]
         vkGetPhysicalDeviceOpticalFlowImageFormatsNV: None,
@@ -537,184 +453,156 @@ impl PhysicalDeviceDispatchTable {
         #[cfg(feature = "VK_ARM_data_graph")]
         {
             table.vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM = loader(
-                    c"vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM"
-                        .as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+                c"vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_data_graph")]
         {
-            table.vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM = loader(
-                    c"vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM =
+                loader(c"vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_performance_counters_by_region")]
         {
             table.vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM = loader(
-                    c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM"
-                        .as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+                c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         {
-            table.vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM = loader(
-                    c"vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM =
+                loader(c"vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_tensors")]
         {
-            table.vkGetPhysicalDeviceExternalTensorPropertiesARM = loader(
-                    c"vkGetPhysicalDeviceExternalTensorPropertiesARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalTensorPropertiesARM =
+                loader(c"vkGetPhysicalDeviceExternalTensorPropertiesARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
         {
-            table.vkCreateDevice = loader(c"vkCreateDevice".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateDevice =
+                loader(c"vkCreateDevice".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkEnumerateDeviceExtensionProperties = loader(
-                    c"vkEnumerateDeviceExtensionProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEnumerateDeviceExtensionProperties =
+                loader(c"vkEnumerateDeviceExtensionProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
         {
-            table.vkEnumerateDeviceLayerProperties = loader(
-                    c"vkEnumerateDeviceLayerProperties".as_ptr(),
-                )
+            table.vkEnumerateDeviceLayerProperties =
+                loader(c"vkEnumerateDeviceLayerProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkGetPhysicalDeviceFeatures = loader(c"vkGetPhysicalDeviceFeatures".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkGetPhysicalDeviceFeatures = loader(
-                    c"vkGetPhysicalDeviceFeatures".as_ptr(),
-                )
+            table.vkGetPhysicalDeviceFormatProperties =
+                loader(c"vkGetPhysicalDeviceFormatProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkGetPhysicalDeviceImageFormatProperties =
+                loader(c"vkGetPhysicalDeviceImageFormatProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkGetPhysicalDeviceMemoryProperties =
+                loader(c"vkGetPhysicalDeviceMemoryProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkGetPhysicalDeviceProperties = loader(c"vkGetPhysicalDeviceProperties".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkGetPhysicalDeviceFormatProperties = loader(
-                    c"vkGetPhysicalDeviceFormatProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceQueueFamilyProperties =
+                loader(c"vkGetPhysicalDeviceQueueFamilyProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkGetPhysicalDeviceImageFormatProperties = loader(
-                    c"vkGetPhysicalDeviceImageFormatProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSparseImageFormatProperties =
+                loader(c"vkGetPhysicalDeviceSparseImageFormatProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceMemoryProperties = loader(
-                    c"vkGetPhysicalDeviceMemoryProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalBufferProperties =
+                loader(c"vkGetPhysicalDeviceExternalBufferProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceProperties = loader(
-                    c"vkGetPhysicalDeviceProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalFenceProperties =
+                loader(c"vkGetPhysicalDeviceExternalFenceProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceQueueFamilyProperties = loader(
-                    c"vkGetPhysicalDeviceQueueFamilyProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalSemaphoreProperties =
+                loader(c"vkGetPhysicalDeviceExternalSemaphoreProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceSparseImageFormatProperties = loader(
-                    c"vkGetPhysicalDeviceSparseImageFormatProperties".as_ptr(),
-                )
+            table.vkGetPhysicalDeviceFeatures2 = loader(c"vkGetPhysicalDeviceFeatures2".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceExternalBufferProperties = loader(
-                    c"vkGetPhysicalDeviceExternalBufferProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceFormatProperties2 =
+                loader(c"vkGetPhysicalDeviceFormatProperties2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceExternalFenceProperties = loader(
-                    c"vkGetPhysicalDeviceExternalFenceProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceImageFormatProperties2 =
+                loader(c"vkGetPhysicalDeviceImageFormatProperties2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceExternalSemaphoreProperties = loader(
-                    c"vkGetPhysicalDeviceExternalSemaphoreProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceMemoryProperties2 =
+                loader(c"vkGetPhysicalDeviceMemoryProperties2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceFeatures2 = loader(
-                    c"vkGetPhysicalDeviceFeatures2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceProperties2 =
+                loader(c"vkGetPhysicalDeviceProperties2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceFormatProperties2 = loader(
-                    c"vkGetPhysicalDeviceFormatProperties2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceQueueFamilyProperties2 =
+                loader(c"vkGetPhysicalDeviceQueueFamilyProperties2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkGetPhysicalDeviceImageFormatProperties2 = loader(
-                    c"vkGetPhysicalDeviceImageFormatProperties2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetPhysicalDeviceMemoryProperties2 = loader(
-                    c"vkGetPhysicalDeviceMemoryProperties2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetPhysicalDeviceProperties2 = loader(
-                    c"vkGetPhysicalDeviceProperties2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetPhysicalDeviceQueueFamilyProperties2 = loader(
-                    c"vkGetPhysicalDeviceQueueFamilyProperties2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetPhysicalDeviceSparseImageFormatProperties2 = loader(
-                    c"vkGetPhysicalDeviceSparseImageFormatProperties2".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSparseImageFormatProperties2 =
+                loader(c"vkGetPhysicalDeviceSparseImageFormatProperties2".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkGetPhysicalDeviceToolProperties = loader(
-                    c"vkGetPhysicalDeviceToolProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceToolProperties =
+                loader(c"vkGetPhysicalDeviceToolProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_acquire_drm_display")]
         {
@@ -723,8 +611,8 @@ impl PhysicalDeviceDispatchTable {
         }
         #[cfg(feature = "VK_EXT_acquire_drm_display")]
         {
-            table.vkGetDrmDisplayEXT = loader(c"vkGetDrmDisplayEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDrmDisplayEXT =
+                loader(c"vkGetDrmDisplayEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_acquire_xlib_display")]
         {
@@ -733,85 +621,73 @@ impl PhysicalDeviceDispatchTable {
         }
         #[cfg(feature = "VK_EXT_acquire_xlib_display")]
         {
-            table.vkGetRandROutputDisplayEXT = loader(
-                    c"vkGetRandROutputDisplayEXT".as_ptr(),
-                )
+            table.vkGetRandROutputDisplayEXT = loader(c"vkGetRandROutputDisplayEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_calibrated_timestamps")]
         {
-            table.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT = loader(
-                    c"vkGetPhysicalDeviceCalibrateableTimeDomainsEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceCalibrateableTimeDomainsEXT =
+                loader(c"vkGetPhysicalDeviceCalibrateableTimeDomainsEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_descriptor_heap")]
         {
-            table.vkGetPhysicalDeviceDescriptorSizeEXT = loader(
-                    c"vkGetPhysicalDeviceDescriptorSizeEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceDescriptorSizeEXT =
+                loader(c"vkGetPhysicalDeviceDescriptorSizeEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_direct_mode_display")]
         {
-            table.vkReleaseDisplayEXT = loader(c"vkReleaseDisplayEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkReleaseDisplayEXT =
+                loader(c"vkReleaseDisplayEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_directfb_surface")]
         {
-            table.vkGetPhysicalDeviceDirectFBPresentationSupportEXT = loader(
-                    c"vkGetPhysicalDeviceDirectFBPresentationSupportEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceDirectFBPresentationSupportEXT =
+                loader(c"vkGetPhysicalDeviceDirectFBPresentationSupportEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_display_surface_counter")]
         {
-            table.vkGetPhysicalDeviceSurfaceCapabilities2EXT = loader(
-                    c"vkGetPhysicalDeviceSurfaceCapabilities2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfaceCapabilities2EXT =
+                loader(c"vkGetPhysicalDeviceSurfaceCapabilities2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_full_screen_exclusive")]
         {
-            table.vkGetPhysicalDeviceSurfacePresentModes2EXT = loader(
-                    c"vkGetPhysicalDeviceSurfacePresentModes2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfacePresentModes2EXT =
+                loader(c"vkGetPhysicalDeviceSurfacePresentModes2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_sample_locations")]
         {
-            table.vkGetPhysicalDeviceMultisamplePropertiesEXT = loader(
-                    c"vkGetPhysicalDeviceMultisamplePropertiesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceMultisamplePropertiesEXT =
+                loader(c"vkGetPhysicalDeviceMultisamplePropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_tooling_info")]
         {
-            table.vkGetPhysicalDeviceToolPropertiesEXT = loader(
-                    c"vkGetPhysicalDeviceToolPropertiesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceToolPropertiesEXT =
+                loader(c"vkGetPhysicalDeviceToolPropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_calibrated_timestamps")]
         {
-            table.vkGetPhysicalDeviceCalibrateableTimeDomainsKHR = loader(
-                    c"vkGetPhysicalDeviceCalibrateableTimeDomainsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceCalibrateableTimeDomainsKHR =
+                loader(c"vkGetPhysicalDeviceCalibrateableTimeDomainsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_cooperative_matrix")]
         {
-            table.vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
+                loader(c"vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
         {
-            table.vkGetPhysicalDevicePresentRectanglesKHR = loader(
-                    c"vkGetPhysicalDevicePresentRectanglesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDevicePresentRectanglesKHR =
+                loader(c"vkGetPhysicalDevicePresentRectanglesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_display")]
         {
@@ -820,256 +696,218 @@ impl PhysicalDeviceDispatchTable {
         }
         #[cfg(feature = "VK_KHR_display")]
         {
-            table.vkGetDisplayModePropertiesKHR = loader(
-                    c"vkGetDisplayModePropertiesKHR".as_ptr(),
-                )
+            table.vkGetDisplayModePropertiesKHR = loader(c"vkGetDisplayModePropertiesKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_display")]
         {
-            table.vkGetDisplayPlaneCapabilitiesKHR = loader(
-                    c"vkGetDisplayPlaneCapabilitiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDisplayPlaneCapabilitiesKHR =
+                loader(c"vkGetDisplayPlaneCapabilitiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_display")]
         {
-            table.vkGetDisplayPlaneSupportedDisplaysKHR = loader(
-                    c"vkGetDisplayPlaneSupportedDisplaysKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDisplayPlaneSupportedDisplaysKHR =
+                loader(c"vkGetDisplayPlaneSupportedDisplaysKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_display")]
         {
-            table.vkGetPhysicalDeviceDisplayPlanePropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceDisplayPlanePropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceDisplayPlanePropertiesKHR =
+                loader(c"vkGetPhysicalDeviceDisplayPlanePropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_display")]
         {
-            table.vkGetPhysicalDeviceDisplayPropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceDisplayPropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceDisplayPropertiesKHR =
+                loader(c"vkGetPhysicalDeviceDisplayPropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_fence_capabilities")]
         {
-            table.vkGetPhysicalDeviceExternalFencePropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceExternalFencePropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalFencePropertiesKHR =
+                loader(c"vkGetPhysicalDeviceExternalFencePropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_memory_capabilities")]
         {
-            table.vkGetPhysicalDeviceExternalBufferPropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceExternalBufferPropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalBufferPropertiesKHR =
+                loader(c"vkGetPhysicalDeviceExternalBufferPropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_external_semaphore_capabilities")]
         {
-            table.vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceExternalSemaphorePropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalSemaphorePropertiesKHR =
+                loader(c"vkGetPhysicalDeviceExternalSemaphorePropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_fragment_shading_rate")]
         {
-            table.vkGetPhysicalDeviceFragmentShadingRatesKHR = loader(
-                    c"vkGetPhysicalDeviceFragmentShadingRatesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceFragmentShadingRatesKHR =
+                loader(c"vkGetPhysicalDeviceFragmentShadingRatesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_display_properties2")]
         {
-            table.vkGetDisplayModeProperties2KHR = loader(
-                    c"vkGetDisplayModeProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDisplayModeProperties2KHR =
+                loader(c"vkGetDisplayModeProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_display_properties2")]
         {
-            table.vkGetDisplayPlaneCapabilities2KHR = loader(
-                    c"vkGetDisplayPlaneCapabilities2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetDisplayPlaneCapabilities2KHR =
+                loader(c"vkGetDisplayPlaneCapabilities2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_display_properties2")]
         {
-            table.vkGetPhysicalDeviceDisplayPlaneProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceDisplayPlaneProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceDisplayPlaneProperties2KHR =
+                loader(c"vkGetPhysicalDeviceDisplayPlaneProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_display_properties2")]
         {
-            table.vkGetPhysicalDeviceDisplayProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceDisplayProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceDisplayProperties2KHR =
+                loader(c"vkGetPhysicalDeviceDisplayProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
         {
-            table.vkGetPhysicalDeviceFeatures2KHR = loader(
-                    c"vkGetPhysicalDeviceFeatures2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceFeatures2KHR =
+                loader(c"vkGetPhysicalDeviceFeatures2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
         {
-            table.vkGetPhysicalDeviceFormatProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceFormatProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceFormatProperties2KHR =
+                loader(c"vkGetPhysicalDeviceFormatProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
         {
-            table.vkGetPhysicalDeviceImageFormatProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceImageFormatProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceImageFormatProperties2KHR =
+                loader(c"vkGetPhysicalDeviceImageFormatProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
         {
-            table.vkGetPhysicalDeviceMemoryProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceMemoryProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceMemoryProperties2KHR =
+                loader(c"vkGetPhysicalDeviceMemoryProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
         {
-            table.vkGetPhysicalDeviceProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceProperties2KHR =
+                loader(c"vkGetPhysicalDeviceProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
         {
-            table.vkGetPhysicalDeviceQueueFamilyProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceQueueFamilyProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceQueueFamilyProperties2KHR =
+                loader(c"vkGetPhysicalDeviceQueueFamilyProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
         {
-            table.vkGetPhysicalDeviceSparseImageFormatProperties2KHR = loader(
-                    c"vkGetPhysicalDeviceSparseImageFormatProperties2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSparseImageFormatProperties2KHR =
+                loader(c"vkGetPhysicalDeviceSparseImageFormatProperties2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
         {
-            table.vkGetPhysicalDeviceSurfaceCapabilities2KHR = loader(
-                    c"vkGetPhysicalDeviceSurfaceCapabilities2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfaceCapabilities2KHR =
+                loader(c"vkGetPhysicalDeviceSurfaceCapabilities2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
         {
-            table.vkGetPhysicalDeviceSurfaceFormats2KHR = loader(
-                    c"vkGetPhysicalDeviceSurfaceFormats2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfaceFormats2KHR =
+                loader(c"vkGetPhysicalDeviceSurfaceFormats2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_object_refresh")]
         {
-            table.vkGetPhysicalDeviceRefreshableObjectTypesKHR = loader(
-                    c"vkGetPhysicalDeviceRefreshableObjectTypesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceRefreshableObjectTypesKHR =
+                loader(c"vkGetPhysicalDeviceRefreshableObjectTypesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_performance_query")]
         {
-            table.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR = loader(
-                    c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR"
-                        .as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
+                loader(c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_performance_query")]
         {
-            table.vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR = loader(
-                    c"vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR =
+                loader(c"vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_surface")]
         {
-            table.vkGetPhysicalDeviceSurfaceCapabilitiesKHR = loader(
-                    c"vkGetPhysicalDeviceSurfaceCapabilitiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfaceCapabilitiesKHR =
+                loader(c"vkGetPhysicalDeviceSurfaceCapabilitiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_surface")]
         {
-            table.vkGetPhysicalDeviceSurfaceFormatsKHR = loader(
-                    c"vkGetPhysicalDeviceSurfaceFormatsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfaceFormatsKHR =
+                loader(c"vkGetPhysicalDeviceSurfaceFormatsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_surface")]
         {
-            table.vkGetPhysicalDeviceSurfacePresentModesKHR = loader(
-                    c"vkGetPhysicalDeviceSurfacePresentModesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfacePresentModesKHR =
+                loader(c"vkGetPhysicalDeviceSurfacePresentModesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_surface")]
         {
-            table.vkGetPhysicalDeviceSurfaceSupportKHR = loader(
-                    c"vkGetPhysicalDeviceSurfaceSupportKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSurfaceSupportKHR =
+                loader(c"vkGetPhysicalDeviceSurfaceSupportKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_encode_queue")]
         {
-            table.vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =
+                loader(c"vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkGetPhysicalDeviceVideoCapabilitiesKHR = loader(
-                    c"vkGetPhysicalDeviceVideoCapabilitiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceVideoCapabilitiesKHR =
+                loader(c"vkGetPhysicalDeviceVideoCapabilitiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkGetPhysicalDeviceVideoFormatPropertiesKHR = loader(
-                    c"vkGetPhysicalDeviceVideoFormatPropertiesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceVideoFormatPropertiesKHR =
+                loader(c"vkGetPhysicalDeviceVideoFormatPropertiesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_wayland_surface")]
         {
-            table.vkGetPhysicalDeviceWaylandPresentationSupportKHR = loader(
-                    c"vkGetPhysicalDeviceWaylandPresentationSupportKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceWaylandPresentationSupportKHR =
+                loader(c"vkGetPhysicalDeviceWaylandPresentationSupportKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_win32_surface")]
         {
-            table.vkGetPhysicalDeviceWin32PresentationSupportKHR = loader(
-                    c"vkGetPhysicalDeviceWin32PresentationSupportKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceWin32PresentationSupportKHR =
+                loader(c"vkGetPhysicalDeviceWin32PresentationSupportKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_xcb_surface")]
         {
-            table.vkGetPhysicalDeviceXcbPresentationSupportKHR = loader(
-                    c"vkGetPhysicalDeviceXcbPresentationSupportKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceXcbPresentationSupportKHR =
+                loader(c"vkGetPhysicalDeviceXcbPresentationSupportKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_xlib_surface")]
         {
-            table.vkGetPhysicalDeviceXlibPresentationSupportKHR = loader(
-                    c"vkGetPhysicalDeviceXlibPresentationSupportKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceXlibPresentationSupportKHR =
+                loader(c"vkGetPhysicalDeviceXlibPresentationSupportKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_acquire_winrt_display")]
         {
@@ -1078,92 +916,79 @@ impl PhysicalDeviceDispatchTable {
         }
         #[cfg(feature = "VK_NV_acquire_winrt_display")]
         {
-            table.vkGetWinrtDisplayNV = loader(c"vkGetWinrtDisplayNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetWinrtDisplayNV =
+                loader(c"vkGetWinrtDisplayNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cooperative_matrix")]
         {
-            table.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV = loader(
-                    c"vkGetPhysicalDeviceCooperativeMatrixPropertiesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceCooperativeMatrixPropertiesNV =
+                loader(c"vkGetPhysicalDeviceCooperativeMatrixPropertiesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cooperative_matrix2")]
         {
             table.vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV = loader(
-                    c"vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV"
-                        .as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+                c"vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_cooperative_vector")]
         {
-            table.vkGetPhysicalDeviceCooperativeVectorPropertiesNV = loader(
-                    c"vkGetPhysicalDeviceCooperativeVectorPropertiesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceCooperativeVectorPropertiesNV =
+                loader(c"vkGetPhysicalDeviceCooperativeVectorPropertiesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_coverage_reduction_mode")]
         {
             table.vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV = loader(
-                    c"vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV"
-                        .as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+                c"vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_memory_capabilities")]
         {
-            table.vkGetPhysicalDeviceExternalImageFormatPropertiesNV = loader(
-                    c"vkGetPhysicalDeviceExternalImageFormatPropertiesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalImageFormatPropertiesNV =
+                loader(c"vkGetPhysicalDeviceExternalImageFormatPropertiesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_memory_sci_buf")]
         {
-            table.vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV = loader(
-                    c"vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV =
+                loader(c"vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_memory_sci_buf")]
         {
-            table.vkGetPhysicalDeviceSciBufAttributesNV = loader(
-                    c"vkGetPhysicalDeviceSciBufAttributesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSciBufAttributesNV =
+                loader(c"vkGetPhysicalDeviceSciBufAttributesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_NV_external_sci_sync",
-                feature = "VK_NV_external_sci_sync2"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_NV_external_sci_sync",
+            feature = "VK_NV_external_sci_sync2"
+        ))]
         {
-            table.vkGetPhysicalDeviceSciSyncAttributesNV = loader(
-                    c"vkGetPhysicalDeviceSciSyncAttributesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceSciSyncAttributesNV =
+                loader(c"vkGetPhysicalDeviceSciSyncAttributesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_optical_flow")]
         {
-            table.vkGetPhysicalDeviceOpticalFlowImageFormatsNV = loader(
-                    c"vkGetPhysicalDeviceOpticalFlowImageFormatsNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceOpticalFlowImageFormatsNV =
+                loader(c"vkGetPhysicalDeviceOpticalFlowImageFormatsNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_QNX_screen_surface")]
         {
-            table.vkGetPhysicalDeviceScreenPresentationSupportQNX = loader(
-                    c"vkGetPhysicalDeviceScreenPresentationSupportQNX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceScreenPresentationSupportQNX =
+                loader(c"vkGetPhysicalDeviceScreenPresentationSupportQNX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_SEC_ubm_surface")]
         {
-            table.vkGetPhysicalDeviceUbmPresentationSupportSEC = loader(
-                    c"vkGetPhysicalDeviceUbmPresentationSupportSEC".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetPhysicalDeviceUbmPresentationSupportSEC =
+                loader(c"vkGetPhysicalDeviceUbmPresentationSupportSEC".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -1260,7 +1085,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html)
@@ -1316,7 +1147,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM.html)
@@ -1362,7 +1199,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceExternalTensorPropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalTensorPropertiesARM.html)
@@ -1387,9 +1230,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceExternalTensorPropertiesARM
                 .unwrap_unchecked()(
-                self.raw,
-                pExternalTensorInfo,
-                pExternalTensorProperties,
+                self.raw, pExternalTensorInfo, pExternalTensorProperties
             )
         }
     }
@@ -1417,7 +1258,13 @@ impl<'inst> PhysicalDevice<'inst> {
                 | VkResult::VK_ERROR_UNKNOWN => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_0")]
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -1425,212 +1272,236 @@ impl<'inst> PhysicalDevice<'inst> {
         let gdpa = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
         let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_KHR_acceleration_structure")]
-        let acceleration_structure_khr_table = crate::acceleration_structure_khr::AccelerationStructureKHRDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let acceleration_structure_khr_table =
+            crate::acceleration_structure_khr::AccelerationStructureKHRDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_NV_ray_tracing")]
-        let acceleration_structure_nv_table = crate::acceleration_structure_nv::AccelerationStructureNVDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let acceleration_structure_nv_table =
+            crate::acceleration_structure_nv::AccelerationStructureNVDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let buffer_table = crate::buffer::BufferDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let buffer_table =
+            crate::buffer::BufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-        let buffer_collection_fuchsia_table = crate::buffer_collection_fuchsia::BufferCollectionFUCHSIADispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let buffer_collection_fuchsia_table =
+            crate::buffer_collection_fuchsia::BufferCollectionFUCHSIADispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let buffer_view_table = crate::buffer_view::BufferViewDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let buffer_view_table =
+            crate::buffer_view::BufferViewDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let command_buffer_table = crate::command_buffer::CommandBufferDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let command_buffer_table =
+            crate::command_buffer::CommandBufferDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let command_pool_table = crate::command_pool::CommandPoolDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let command_pool_table =
+            crate::command_pool::CommandPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_NVX_binary_import")]
-        let cu_function_nvx_table = crate::cu_function_nvx::CuFunctionNVXDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let cu_function_nvx_table =
+            crate::cu_function_nvx::CuFunctionNVXDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_NVX_binary_import")]
-        let cu_module_nvx_table = crate::cu_module_nvx::CuModuleNVXDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let cu_module_nvx_table =
+            crate::cu_module_nvx::CuModuleNVXDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        let cuda_function_nv_table = crate::cuda_function_nv::CudaFunctionNVDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let cuda_function_nv_table =
+            crate::cuda_function_nv::CudaFunctionNVDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        let cuda_module_nv_table = crate::cuda_module_nv::CudaModuleNVDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let cuda_module_nv_table =
+            crate::cuda_module_nv::CudaModuleNVDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_ARM_data_graph")]
-        let data_graph_pipeline_session_arm_table = crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARMDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let data_graph_pipeline_session_arm_table =
+            crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARMDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
+        #[cfg(feature = "VK_EXT_debug_report")]
+        let debug_report_callback_ext_table =
+            crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
+        #[cfg(feature = "VK_EXT_debug_utils")]
+        let debug_utils_messenger_ext_table =
+            crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        let deferred_operation_khr_table = crate::deferred_operation_khr::DeferredOperationKHRDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let deferred_operation_khr_table =
+            crate::deferred_operation_khr::DeferredOperationKHRDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let descriptor_pool_table = crate::descriptor_pool::DescriptorPoolDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let descriptor_pool_table =
+            crate::descriptor_pool::DescriptorPoolDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let descriptor_set_table = crate::descriptor_set::DescriptorSetDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let descriptor_set_table =
+            crate::descriptor_set::DescriptorSetDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let descriptor_set_layout_table = crate::descriptor_set_layout::DescriptorSetLayoutDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let descriptor_set_layout_table =
+            crate::descriptor_set_layout::DescriptorSetLayoutDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        let descriptor_update_template_table = crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let descriptor_update_template_table =
+            crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let device_memory_table = crate::device_memory::DeviceMemoryDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let device_memory_table =
+            crate::device_memory::DeviceMemoryDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let event_table = crate::event::EventDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let event_table = crate::event::EventDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_NV_external_compute_queue")]
-        let external_compute_queue_nv_table = crate::external_compute_queue_nv::ExternalComputeQueueNVDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let external_compute_queue_nv_table =
+            crate::external_compute_queue_nv::ExternalComputeQueueNVDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let fence_table = crate::fence::FenceDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let fence_table = crate::fence::FenceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        let framebuffer_table = crate::framebuffer::FramebufferDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let framebuffer_table =
+            crate::framebuffer::FramebufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let image_table = crate::image::ImageDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let image_table = crate::image::ImageDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let image_view_table = crate::image_view::ImageViewDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let image_view_table =
+            crate::image_view::ImageViewDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_EXT_device_generated_commands")]
-        let indirect_commands_layout_ext_table = crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXTDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let indirect_commands_layout_ext_table =
+            crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXTDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_NV_device_generated_commands")]
-        let indirect_commands_layout_nv_table = crate::indirect_commands_layout_nv::IndirectCommandsLayoutNVDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let indirect_commands_layout_nv_table =
+            crate::indirect_commands_layout_nv::IndirectCommandsLayoutNVDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_EXT_device_generated_commands")]
-        let indirect_execution_set_ext_table = crate::indirect_execution_set_ext::IndirectExecutionSetEXTDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let indirect_execution_set_ext_table =
+            crate::indirect_execution_set_ext::IndirectExecutionSetEXTDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_EXT_opacity_micromap")]
-        let micromap_ext_table = crate::micromap_ext::MicromapEXTDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let micromap_ext_table =
+            crate::micromap_ext::MicromapEXTDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_NV_optical_flow")]
-        let optical_flow_session_nv_table = crate::optical_flow_session_nv::OpticalFlowSessionNVDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let optical_flow_session_nv_table =
+            crate::optical_flow_session_nv::OpticalFlowSessionNVDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_INTEL_performance_query")]
         let performance_configuration_intel_table = crate::performance_configuration_intel::PerformanceConfigurationINTELDispatchTable::load(|
             name|
         unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let pipeline_table = crate::pipeline::PipelineDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let pipeline_table =
+            crate::pipeline::PipelineDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_KHR_pipeline_binary")]
-        let pipeline_binary_khr_table = crate::pipeline_binary_khr::PipelineBinaryKHRDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let pipeline_binary_khr_table =
+            crate::pipeline_binary_khr::PipelineBinaryKHRDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let pipeline_cache_table = crate::pipeline_cache::PipelineCacheDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let pipeline_cache_table =
+            crate::pipeline_cache::PipelineCacheDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let pipeline_layout_table = crate::pipeline_layout::PipelineLayoutDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let pipeline_layout_table =
+            crate::pipeline_layout::PipelineLayoutDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        let private_data_slot_table = crate::private_data_slot::PrivateDataSlotDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let private_data_slot_table =
+            crate::private_data_slot::PrivateDataSlotDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let query_pool_table = crate::query_pool::QueryPoolDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let query_pool_table =
+            crate::query_pool::QueryPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let queue_table = crate::queue::QueueDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let queue_table = crate::queue::QueueDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        let render_pass_table = crate::render_pass::RenderPassDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let render_pass_table =
+            crate::render_pass::RenderPassDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let sampler_table = crate::sampler::SamplerDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let sampler_table =
+            crate::sampler::SamplerDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        let sampler_ycbcr_conversion_table = crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let sampler_ycbcr_conversion_table =
+            crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        let semaphore_table = crate::semaphore::SemaphoreDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let semaphore_table =
+            crate::semaphore::SemaphoreDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_NV_external_sci_sync2")]
-        let semaphore_sci_sync_pool_nv_table = crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNVDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let semaphore_sci_sync_pool_nv_table =
+            crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNVDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_EXT_shader_object")]
-        let shader_ext_table = crate::shader_ext::ShaderEXTDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let shader_ext_table =
+            crate::shader_ext::ShaderEXTDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        let shader_instrumentation_arm_table = crate::shader_instrumentation_arm::ShaderInstrumentationARMDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let shader_instrumentation_arm_table =
+            crate::shader_instrumentation_arm::ShaderInstrumentationARMDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        let shader_module_table = crate::shader_module::ShaderModuleDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let shader_module_table =
+            crate::shader_module::ShaderModuleDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
+        #[cfg(feature = "VK_KHR_surface")]
+        let surface_khr_table =
+            crate::surface_khr::SurfaceKHRDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_KHR_swapchain")]
-        let swapchain_khr_table = crate::swapchain_khr::SwapchainKHRDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let swapchain_khr_table =
+            crate::swapchain_khr::SwapchainKHRDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
-        let tensor_arm_table = crate::tensor_arm::TensorARMDispatchTable::load(|name| unsafe {
-            gdpa(raw, name)
-        });
+        let tensor_arm_table =
+            crate::tensor_arm::TensorARMDispatchTable::load(|name| unsafe { gdpa(raw, name) });
         #[cfg(feature = "VK_ARM_tensors")]
-        let tensor_view_arm_table = crate::tensor_view_arm::TensorViewARMDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let tensor_view_arm_table =
+            crate::tensor_view_arm::TensorViewARMDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_EXT_validation_cache")]
-        let validation_cache_ext_table = crate::validation_cache_ext::ValidationCacheEXTDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let validation_cache_ext_table =
+            crate::validation_cache_ext::ValidationCacheEXTDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_KHR_video_queue")]
-        let video_session_khr_table = crate::video_session_khr::VideoSessionKHRDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let video_session_khr_table =
+            crate::video_session_khr::VideoSessionKHRDispatchTable::load(|name| unsafe {
+                gdpa(raw, name)
+            });
         #[cfg(feature = "VK_KHR_video_queue")]
-        let video_session_parameters_khr_table = crate::video_session_parameters_khr::VideoSessionParametersKHRDispatchTable::load(|
-            name|
-        unsafe { gdpa(raw, name) });
+        let video_session_parameters_khr_table =
+            crate::video_session_parameters_khr::VideoSessionParametersKHRDispatchTable::load(
+                |name| unsafe { gdpa(raw, name) },
+            );
         Ok(unsafe {
             Device::from_raw(
                 raw,
+                self.instance,
                 table,
                 #[cfg(feature = "VK_KHR_acceleration_structure")]
                 acceleration_structure_khr_table,
@@ -1656,6 +1527,10 @@ impl<'inst> PhysicalDevice<'inst> {
                 cuda_module_nv_table,
                 #[cfg(feature = "VK_ARM_data_graph")]
                 data_graph_pipeline_session_arm_table,
+                #[cfg(feature = "VK_EXT_debug_report")]
+                debug_report_callback_ext_table,
+                #[cfg(feature = "VK_EXT_debug_utils")]
+                debug_utils_messenger_ext_table,
                 #[cfg(feature = "VK_KHR_deferred_host_operations")]
                 deferred_operation_khr_table,
                 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -1722,11 +1597,11 @@ impl<'inst> PhysicalDevice<'inst> {
                 shader_instrumentation_arm_table,
                 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
                 shader_module_table,
+                #[cfg(feature = "VK_KHR_surface")]
+                surface_khr_table,
                 #[cfg(feature = "VK_KHR_swapchain")]
                 swapchain_khr_table,
-                #[cfg(
-                    any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors")
-                )]
+                #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
                 tensor_arm_table,
                 #[cfg(feature = "VK_ARM_tensors")]
                 tensor_view_arm_table,
@@ -1785,7 +1660,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkEnumerateDeviceLayerProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateDeviceLayerProperties.html)
@@ -1826,7 +1707,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceFeatures`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFeatures.html)
@@ -1845,9 +1732,7 @@ impl<'inst> PhysicalDevice<'inst> {
     pub fn vkGetPhysicalDeviceFeatures(&self, pFeatures: *mut VkPhysicalDeviceFeatures) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetPhysicalDeviceFeatures
-                .unwrap_unchecked()(self.raw, pFeatures)
+            (self.table).vkGetPhysicalDeviceFeatures.unwrap_unchecked()(self.raw, pFeatures)
         }
     }
     /// [`vkGetPhysicalDeviceFormatProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFormatProperties.html)
@@ -1936,7 +1821,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceMemoryProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties.html)
@@ -1976,10 +1867,7 @@ impl<'inst> PhysicalDevice<'inst> {
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[deprecated(note = "superseded by `vkGetPhysicalDeviceProperties2`")]
     #[inline(always)]
-    pub fn vkGetPhysicalDeviceProperties(
-        &self,
-        pProperties: *mut VkPhysicalDeviceProperties,
-    ) {
+    pub fn vkGetPhysicalDeviceProperties(&self, pProperties: *mut VkPhysicalDeviceProperties) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -2011,9 +1899,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceQueueFamilyProperties
                 .unwrap_unchecked()(
-                self.raw,
-                pQueueFamilyPropertyCount,
-                pQueueFamilyProperties,
+                self.raw, pQueueFamilyPropertyCount, pQueueFamilyProperties
             )
         }
     }
@@ -2034,9 +1920,7 @@ impl<'inst> PhysicalDevice<'inst> {
     /// - `pPropertyCount`: optional: pointer required, values optional if pointer not null
     /// - `pProperties`: optional: true, len: pPropertyCount
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    #[deprecated(
-        note = "superseded by `vkGetPhysicalDeviceSparseImageFormatProperties2`"
-    )]
+    #[deprecated(note = "superseded by `vkGetPhysicalDeviceSparseImageFormatProperties2`")]
     #[inline(always)]
     pub fn vkGetPhysicalDeviceSparseImageFormatProperties(
         &self,
@@ -2087,9 +1971,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceExternalBufferProperties
                 .unwrap_unchecked()(
-                self.raw,
-                pExternalBufferInfo,
-                pExternalBufferProperties,
+                self.raw, pExternalBufferInfo, pExternalBufferProperties
             )
         }
     }
@@ -2116,9 +1998,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceExternalFenceProperties
                 .unwrap_unchecked()(
-                self.raw,
-                pExternalFenceInfo,
-                pExternalFenceProperties,
+                self.raw, pExternalFenceInfo, pExternalFenceProperties
             )
         }
     }
@@ -2163,15 +2043,10 @@ impl<'inst> PhysicalDevice<'inst> {
     /// - `pFeatures`
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     #[inline(always)]
-    pub fn vkGetPhysicalDeviceFeatures2(
-        &self,
-        pFeatures: *mut VkPhysicalDeviceFeatures2,
-    ) {
+    pub fn vkGetPhysicalDeviceFeatures2(&self, pFeatures: *mut VkPhysicalDeviceFeatures2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetPhysicalDeviceFeatures2
-                .unwrap_unchecked()(self.raw, pFeatures)
+            (self.table).vkGetPhysicalDeviceFeatures2.unwrap_unchecked()(self.raw, pFeatures)
         }
     }
     /// [`vkGetPhysicalDeviceFormatProperties2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFormatProperties2.html)
@@ -2253,7 +2128,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceMemoryProperties2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties2.html)
@@ -2291,10 +2172,7 @@ impl<'inst> PhysicalDevice<'inst> {
     /// - `pProperties`
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     #[inline(always)]
-    pub fn vkGetPhysicalDeviceProperties2(
-        &self,
-        pProperties: *mut VkPhysicalDeviceProperties2,
-    ) {
+    pub fn vkGetPhysicalDeviceProperties2(&self, pProperties: *mut VkPhysicalDeviceProperties2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -2325,9 +2203,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceQueueFamilyProperties2
                 .unwrap_unchecked()(
-                self.raw,
-                pQueueFamilyPropertyCount,
-                pQueueFamilyProperties,
+                self.raw, pQueueFamilyPropertyCount, pQueueFamilyProperties
             )
         }
     }
@@ -2397,7 +2273,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkAcquireDrmDisplayEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireDrmDisplayEXT.html)
@@ -2428,18 +2310,20 @@ impl<'inst> PhysicalDevice<'inst> {
         display: VkDisplayKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkAcquireDrmDisplayEXT
-                .unwrap_unchecked()(self.raw, drmFd, display)
+            (self.table).vkAcquireDrmDisplayEXT.unwrap_unchecked()(self.raw, drmFd, display)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDrmDisplayEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDrmDisplayEXT.html)
@@ -2473,9 +2357,12 @@ impl<'inst> PhysicalDevice<'inst> {
     ) -> Result<VkDisplayKHR, VkResult> {
         let mut handle = VkDisplayKHR::NULL;
         let r = unsafe {
-            (self.table)
-                .vkGetDrmDisplayEXT
-                .unwrap_unchecked()(self.raw, drmFd, connectorId, &mut handle)
+            (self.table).vkGetDrmDisplayEXT.unwrap_unchecked()(
+                self.raw,
+                drmFd,
+                connectorId,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -2484,9 +2371,15 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| handle)
     }
     /// [`vkAcquireXlibDisplayEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireXlibDisplayEXT.html)
     ///
@@ -2517,9 +2410,7 @@ impl<'inst> PhysicalDevice<'inst> {
         display: VkDisplayKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkAcquireXlibDisplayEXT
-                .unwrap_unchecked()(self.raw, dpy, display)
+            (self.table).vkAcquireXlibDisplayEXT.unwrap_unchecked()(self.raw, dpy, display)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -2528,7 +2419,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetRandROutputDisplayEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRandROutputDisplayEXT.html)
@@ -2561,18 +2458,27 @@ impl<'inst> PhysicalDevice<'inst> {
     ) -> Result<VkDisplayKHR, VkResult> {
         let mut handle = VkDisplayKHR::NULL;
         let r = unsafe {
-            (self.table)
-                .vkGetRandROutputDisplayEXT
-                .unwrap_unchecked()(self.raw, dpy, rrOutput, &mut handle)
+            (self.table).vkGetRandROutputDisplayEXT.unwrap_unchecked()(
+                self.raw,
+                dpy,
+                rrOutput,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| handle)
     }
     /// [`vkGetPhysicalDeviceCalibrateableTimeDomainsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html)
     ///
@@ -2615,7 +2521,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceDescriptorSizeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDescriptorSizeEXT.html)
@@ -2660,19 +2572,20 @@ impl<'inst> PhysicalDevice<'inst> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_EXT_direct_mode_display")]
     #[inline(always)]
-    pub fn vkReleaseDisplayEXT(
-        &self,
-        display: VkDisplayKHR,
-    ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (self.table).vkReleaseDisplayEXT.unwrap_unchecked()(self.raw, display)
-        };
+    pub fn vkReleaseDisplayEXT(&self, display: VkDisplayKHR) -> Result<VkResult, VkResult> {
+        let r = unsafe { (self.table).vkReleaseDisplayEXT.unwrap_unchecked()(self.raw, display) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceDirectFBPresentationSupportEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html)
@@ -2742,7 +2655,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSurfacePresentModes2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfacePresentModes2EXT.html)
@@ -2781,10 +2700,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceSurfacePresentModes2EXT
                 .unwrap_unchecked()(
-                self.raw,
-                pSurfaceInfo,
-                pPresentModeCount,
-                pPresentModes,
+                self.raw, pSurfaceInfo, pPresentModeCount, pPresentModes
             )
         };
         match r {
@@ -2796,7 +2712,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceMultisamplePropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMultisamplePropertiesEXT.html)
@@ -2862,7 +2784,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceCalibrateableTimeDomainsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html)
@@ -2906,7 +2834,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html)
@@ -2950,7 +2884,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDevicePresentRectanglesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDevicePresentRectanglesKHR.html)
@@ -2997,7 +2937,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateDisplayModeKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDisplayModeKHR.html)
@@ -3034,9 +2980,7 @@ impl<'inst> PhysicalDevice<'inst> {
     ) -> Result<VkDisplayModeKHR, VkResult> {
         let mut handle = VkDisplayModeKHR::NULL;
         let r = unsafe {
-            (self.table)
-                .vkCreateDisplayModeKHR
-                .unwrap_unchecked()(
+            (self.table).vkCreateDisplayModeKHR.unwrap_unchecked()(
                 self.raw,
                 display,
                 pCreateInfo,
@@ -3052,9 +2996,15 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| handle)
     }
     /// [`vkGetDisplayModePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayModePropertiesKHR.html)
     ///
@@ -3099,7 +3049,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDisplayPlaneCapabilitiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayPlaneCapabilitiesKHR.html)
@@ -3144,7 +3100,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDisplayPlaneSupportedDisplaysKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayPlaneSupportedDisplaysKHR.html)
@@ -3190,7 +3152,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceDisplayPlanePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html)
@@ -3234,7 +3202,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceDisplayPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPropertiesKHR.html)
@@ -3278,7 +3252,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceExternalFenceProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalFenceProperties.html)
@@ -3304,9 +3284,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceExternalFencePropertiesKHR
                 .unwrap_unchecked()(
-                self.raw,
-                pExternalFenceInfo,
-                pExternalFenceProperties,
+                self.raw, pExternalFenceInfo, pExternalFenceProperties
             )
         }
     }
@@ -3333,9 +3311,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceExternalBufferPropertiesKHR
                 .unwrap_unchecked()(
-                self.raw,
-                pExternalBufferInfo,
-                pExternalBufferProperties,
+                self.raw, pExternalBufferInfo, pExternalBufferProperties
             )
         }
     }
@@ -3400,9 +3376,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceFragmentShadingRatesKHR
                 .unwrap_unchecked()(
-                self.raw,
-                pFragmentShadingRateCount,
-                pFragmentShadingRates,
+                self.raw, pFragmentShadingRateCount, pFragmentShadingRates
             )
         };
         match r {
@@ -3410,7 +3384,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDisplayModeProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayModeProperties2KHR.html)
@@ -3456,7 +3436,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetDisplayPlaneCapabilities2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayPlaneCapabilities2KHR.html)
@@ -3499,7 +3485,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceDisplayPlaneProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html)
@@ -3543,7 +3535,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceDisplayProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayProperties2KHR.html)
@@ -3587,7 +3585,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceFeatures2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFeatures2.html)
@@ -3602,10 +3606,7 @@ impl<'inst> PhysicalDevice<'inst> {
     /// - `pFeatures`
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
     #[inline(always)]
-    pub fn vkGetPhysicalDeviceFeatures2KHR(
-        &self,
-        pFeatures: *mut VkPhysicalDeviceFeatures2,
-    ) {
+    pub fn vkGetPhysicalDeviceFeatures2KHR(&self, pFeatures: *mut VkPhysicalDeviceFeatures2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -3692,7 +3693,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceMemoryProperties2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties2.html)
@@ -3730,10 +3737,7 @@ impl<'inst> PhysicalDevice<'inst> {
     /// - `pProperties`
     #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
     #[inline(always)]
-    pub fn vkGetPhysicalDeviceProperties2KHR(
-        &self,
-        pProperties: *mut VkPhysicalDeviceProperties2,
-    ) {
+    pub fn vkGetPhysicalDeviceProperties2KHR(&self, pProperties: *mut VkPhysicalDeviceProperties2) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -3764,9 +3768,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceQueueFamilyProperties2KHR
                 .unwrap_unchecked()(
-                self.raw,
-                pQueueFamilyPropertyCount,
-                pQueueFamilyProperties,
+                self.raw, pQueueFamilyPropertyCount, pQueueFamilyProperties
             )
         }
     }
@@ -3840,7 +3842,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSurfaceFormats2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceFormats2KHR.html)
@@ -3879,10 +3887,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceSurfaceFormats2KHR
                 .unwrap_unchecked()(
-                self.raw,
-                pSurfaceInfo,
-                pSurfaceFormatCount,
-                pSurfaceFormats,
+                self.raw, pSurfaceInfo, pSurfaceFormatCount, pSurfaceFormats
             )
         };
         match r {
@@ -3894,7 +3899,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceRefreshableObjectTypesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceRefreshableObjectTypesKHR.html)
@@ -3938,7 +3949,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html)
@@ -3994,7 +4011,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html)
@@ -4064,7 +4087,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSurfaceFormatsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceFormatsKHR.html)
@@ -4103,10 +4132,7 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceSurfaceFormatsKHR
                 .unwrap_unchecked()(
-                self.raw,
-                surface,
-                pSurfaceFormatCount,
-                pSurfaceFormats,
+                self.raw, surface, pSurfaceFormatCount, pSurfaceFormats
             )
         };
         match r {
@@ -4118,7 +4144,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSurfacePresentModesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfacePresentModesKHR.html)
@@ -4167,7 +4199,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSurfaceSupportKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceSupportKHR.html)
@@ -4215,7 +4253,13 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_surface")]
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html)
@@ -4267,7 +4311,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceVideoCapabilitiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceVideoCapabilitiesKHR.html)
@@ -4319,7 +4369,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceVideoFormatPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html)
@@ -4381,7 +4437,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
             | VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceWaylandPresentationSupportKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html)
@@ -4505,13 +4567,9 @@ impl<'inst> PhysicalDevice<'inst> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_NV_acquire_winrt_display")]
     #[inline(always)]
-    pub fn vkAcquireWinrtDisplayNV(
-        &self,
-        display: VkDisplayKHR,
-    ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (self.table).vkAcquireWinrtDisplayNV.unwrap_unchecked()(self.raw, display)
-        };
+    pub fn vkAcquireWinrtDisplayNV(&self, display: VkDisplayKHR) -> Result<VkResult, VkResult> {
+        let r =
+            unsafe { (self.table).vkAcquireWinrtDisplayNV.unwrap_unchecked()(self.raw, display) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
@@ -4520,7 +4578,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetWinrtDisplayNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetWinrtDisplayNV.html)
@@ -4547,15 +4611,14 @@ impl<'inst> PhysicalDevice<'inst> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_NV_acquire_winrt_display")]
     #[inline]
-    pub fn vkGetWinrtDisplayNV(
-        &self,
-        deviceRelativeId: u32,
-    ) -> Result<VkDisplayKHR, VkResult> {
+    pub fn vkGetWinrtDisplayNV(&self, deviceRelativeId: u32) -> Result<VkDisplayKHR, VkResult> {
         let mut handle = VkDisplayKHR::NULL;
         let r = unsafe {
-            (self.table)
-                .vkGetWinrtDisplayNV
-                .unwrap_unchecked()(self.raw, deviceRelativeId, &mut handle)
+            (self.table).vkGetWinrtDisplayNV.unwrap_unchecked()(
+                self.raw,
+                deviceRelativeId,
+                &mut handle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -4565,9 +4628,15 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
-            .map(|_| handle)
+        .map(|_| handle)
     }
     /// [`vkGetPhysicalDeviceCooperativeMatrixPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html)
     ///
@@ -4610,7 +4679,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV.html)
@@ -4654,7 +4729,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceCooperativeVectorPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html)
@@ -4698,7 +4779,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html)
@@ -4742,7 +4829,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceExternalImageFormatPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html)
@@ -4806,7 +4899,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV.html)
@@ -4843,22 +4942,23 @@ impl<'inst> PhysicalDevice<'inst> {
             (self.table)
                 .vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV
                 .unwrap_unchecked()(
-                self.raw,
-                handleType,
-                handle,
-                pMemorySciBufProperties,
+                self.raw, handleType, handle, pMemorySciBufProperties
             )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSciBufAttributesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSciBufAttributesNV.html)
@@ -4899,7 +4999,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceSciSyncAttributesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSciSyncAttributesNV.html)
@@ -4923,9 +5029,10 @@ impl<'inst> PhysicalDevice<'inst> {
     ///   - VK_ERROR_INITIALIZATION_FAILED
     ///   - VK_ERROR_UNKNOWN
     ///   - VK_ERROR_VALIDATION_FAILED
-    #[cfg(
-        any(feature = "VK_NV_external_sci_sync", feature = "VK_NV_external_sci_sync2")
-    )]
+    #[cfg(any(
+        feature = "VK_NV_external_sci_sync",
+        feature = "VK_NV_external_sci_sync2"
+    ))]
     #[inline(always)]
     pub fn vkGetPhysicalDeviceSciSyncAttributesNV(
         &self,
@@ -4939,12 +5046,16 @@ impl<'inst> PhysicalDevice<'inst> {
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceOpticalFlowImageFormatsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html)
@@ -4997,7 +5108,13 @@ impl<'inst> PhysicalDevice<'inst> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetPhysicalDeviceScreenPresentationSupportQNX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceScreenPresentationSupportQNX.html)

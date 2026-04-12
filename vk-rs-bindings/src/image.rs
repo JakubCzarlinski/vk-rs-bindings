@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct ImageDispatchTable {
@@ -18,24 +18,19 @@ pub struct ImageDispatchTable {
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub vkGetImageMemoryRequirements: Option<PFN_vkGetImageMemoryRequirements>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkGetImageSparseMemoryRequirements: Option<
-        PFN_vkGetImageSparseMemoryRequirements,
-    >,
+    pub vkGetImageSparseMemoryRequirements: Option<PFN_vkGetImageSparseMemoryRequirements>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub vkGetImageSubresourceLayout: Option<PFN_vkGetImageSubresourceLayout>,
     #[cfg(feature = "VK_BASE_VERSION_1_4")]
     pub vkGetImageSubresourceLayout2: Option<PFN_vkGetImageSubresourceLayout2>,
-    #[cfg(
-        any(
-            feature = "VK_EXT_host_image_copy",
-            feature = "VK_EXT_image_compression_control"
-        )
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_host_image_copy",
+        feature = "VK_EXT_image_compression_control"
+    ))]
     pub vkGetImageSubresourceLayout2EXT: Option<PFN_vkGetImageSubresourceLayout2EXT>,
     #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
-    pub vkGetImageDrmFormatModifierPropertiesEXT: Option<
-        PFN_vkGetImageDrmFormatModifierPropertiesEXT,
-    >,
+    pub vkGetImageDrmFormatModifierPropertiesEXT:
+        Option<PFN_vkGetImageDrmFormatModifierPropertiesEXT>,
     #[cfg(feature = "VK_KHR_maintenance5")]
     pub vkGetImageSubresourceLayout2KHR: Option<PFN_vkGetImageSubresourceLayout2KHR>,
 }
@@ -54,12 +49,10 @@ impl ImageDispatchTable {
         vkGetImageSubresourceLayout: None,
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         vkGetImageSubresourceLayout2: None,
-        #[cfg(
-            any(
-                feature = "VK_EXT_host_image_copy",
-                feature = "VK_EXT_image_compression_control"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_host_image_copy",
+            feature = "VK_EXT_image_compression_control"
+        ))]
         vkGetImageSubresourceLayout2EXT: None,
         #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
         vkGetImageDrmFormatModifierPropertiesEXT: None,
@@ -74,67 +67,55 @@ impl ImageDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkBindImageMemory = loader(c"vkBindImageMemory".as_ptr())
+            table.vkBindImageMemory =
+                loader(c"vkBindImageMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkDestroyImage =
+                loader(c"vkDestroyImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkGetImageMemoryRequirements = loader(c"vkGetImageMemoryRequirements".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkDestroyImage = loader(c"vkDestroyImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageSparseMemoryRequirements =
+                loader(c"vkGetImageSparseMemoryRequirements".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkGetImageMemoryRequirements = loader(
-                    c"vkGetImageMemoryRequirements".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetImageSparseMemoryRequirements = loader(
-                    c"vkGetImageSparseMemoryRequirements".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetImageSubresourceLayout = loader(
-                    c"vkGetImageSubresourceLayout".as_ptr(),
-                )
+            table.vkGetImageSubresourceLayout = loader(c"vkGetImageSubresourceLayout".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_4")]
         {
-            table.vkGetImageSubresourceLayout2 = loader(
-                    c"vkGetImageSubresourceLayout2".as_ptr(),
-                )
+            table.vkGetImageSubresourceLayout2 = loader(c"vkGetImageSubresourceLayout2".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
-        #[cfg(
-            any(
-                feature = "VK_EXT_host_image_copy",
-                feature = "VK_EXT_image_compression_control"
-            )
-        )]
+        #[cfg(any(
+            feature = "VK_EXT_host_image_copy",
+            feature = "VK_EXT_image_compression_control"
+        ))]
         {
-            table.vkGetImageSubresourceLayout2EXT = loader(
-                    c"vkGetImageSubresourceLayout2EXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageSubresourceLayout2EXT =
+                loader(c"vkGetImageSubresourceLayout2EXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
         {
-            table.vkGetImageDrmFormatModifierPropertiesEXT = loader(
-                    c"vkGetImageDrmFormatModifierPropertiesEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageDrmFormatModifierPropertiesEXT =
+                loader(c"vkGetImageDrmFormatModifierPropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_maintenance5")]
         {
-            table.vkGetImageSubresourceLayout2KHR = loader(
-                    c"vkGetImageSubresourceLayout2KHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetImageSubresourceLayout2KHR =
+                loader(c"vkGetImageSubresourceLayout2KHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -152,7 +133,7 @@ impl<'dev> Drop for Image<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyImage {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -169,6 +150,10 @@ impl<'dev> Image<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &ImageDispatchTable {
@@ -205,9 +190,12 @@ impl<'dev> Image<'dev> {
         memoryOffset: VkDeviceSize,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkBindImageMemory
-                .unwrap_unchecked()(self.device().raw(), self.raw, memory, memoryOffset)
+            (self.table).vkBindImageMemory.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                memory,
+                memoryOffset,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -216,7 +204,13 @@ impl<'dev> Image<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroyImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyImage.html)
@@ -238,9 +232,11 @@ impl<'dev> Image<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyImage
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyImage.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkImage::NULL;
     }
@@ -257,15 +253,14 @@ impl<'dev> Image<'dev> {
     /// - `pMemoryRequirements`
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkGetImageMemoryRequirements(
-        &self,
-        pMemoryRequirements: *mut VkMemoryRequirements,
-    ) {
+    pub fn vkGetImageMemoryRequirements(&self, pMemoryRequirements: *mut VkMemoryRequirements) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetImageMemoryRequirements
-                .unwrap_unchecked()(self.device().raw(), self.raw, pMemoryRequirements)
+            (self.table).vkGetImageMemoryRequirements.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pMemoryRequirements,
+            )
         }
     }
     /// [`vkGetImageSparseMemoryRequirements`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSparseMemoryRequirements.html)
@@ -320,9 +315,12 @@ impl<'dev> Image<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetImageSubresourceLayout
-                .unwrap_unchecked()(self.device().raw(), self.raw, pSubresource, pLayout)
+            (self.table).vkGetImageSubresourceLayout.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pSubresource,
+                pLayout,
+            )
         }
     }
     /// [`vkGetImageSubresourceLayout2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2.html)
@@ -346,9 +344,12 @@ impl<'dev> Image<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetImageSubresourceLayout2
-                .unwrap_unchecked()(self.device().raw(), self.raw, pSubresource, pLayout)
+            (self.table).vkGetImageSubresourceLayout2.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pSubresource,
+                pLayout,
+            )
         }
     }
     /// [`vkGetImageSubresourceLayout2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2.html)
@@ -364,12 +365,10 @@ impl<'dev> Image<'dev> {
     /// - `image`
     /// - `pSubresource`
     /// - `pLayout`
-    #[cfg(
-        any(
-            feature = "VK_EXT_host_image_copy",
-            feature = "VK_EXT_image_compression_control"
-        )
-    )]
+    #[cfg(any(
+        feature = "VK_EXT_host_image_copy",
+        feature = "VK_EXT_image_compression_control"
+    ))]
     #[inline(always)]
     pub fn vkGetImageSubresourceLayout2EXT(
         &self,
@@ -419,7 +418,13 @@ impl<'dev> Image<'dev> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetImageSubresourceLayout2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2.html)

@@ -4,23 +4,20 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct IndirectExecutionSetEXTDispatchTable {
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     pub vkDestroyIndirectExecutionSetEXT: Option<PFN_vkDestroyIndirectExecutionSetEXT>,
     #[cfg(feature = "VK_EXT_device_generated_commands")]
-    pub vkUpdateIndirectExecutionSetPipelineEXT: Option<
-        PFN_vkUpdateIndirectExecutionSetPipelineEXT,
-    >,
+    pub vkUpdateIndirectExecutionSetPipelineEXT:
+        Option<PFN_vkUpdateIndirectExecutionSetPipelineEXT>,
     #[cfg(feature = "VK_EXT_device_generated_commands")]
-    pub vkUpdateIndirectExecutionSetShaderEXT: Option<
-        PFN_vkUpdateIndirectExecutionSetShaderEXT,
-    >,
+    pub vkUpdateIndirectExecutionSetShaderEXT: Option<PFN_vkUpdateIndirectExecutionSetShaderEXT>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl IndirectExecutionSetEXTDispatchTable {
@@ -40,24 +37,21 @@ impl IndirectExecutionSetEXTDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkDestroyIndirectExecutionSetEXT = loader(
-                    c"vkDestroyIndirectExecutionSetEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyIndirectExecutionSetEXT =
+                loader(c"vkDestroyIndirectExecutionSetEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkUpdateIndirectExecutionSetPipelineEXT = loader(
-                    c"vkUpdateIndirectExecutionSetPipelineEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUpdateIndirectExecutionSetPipelineEXT =
+                loader(c"vkUpdateIndirectExecutionSetPipelineEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         {
-            table.vkUpdateIndirectExecutionSetShaderEXT = loader(
-                    c"vkUpdateIndirectExecutionSetShaderEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUpdateIndirectExecutionSetShaderEXT =
+                loader(c"vkUpdateIndirectExecutionSetShaderEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -75,7 +69,7 @@ impl<'dev> Drop for IndirectExecutionSetEXT<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyIndirectExecutionSetEXT {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -94,6 +88,10 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &IndirectExecutionSetEXTDispatchTable {
         self.table
     }
@@ -109,10 +107,7 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     #[inline(always)]
-    pub fn vkDestroyIndirectExecutionSetEXT(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyIndirectExecutionSetEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }

@@ -4,17 +4,15 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct PipelineCacheDispatchTable {
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
-    pub vkCreateExecutionGraphPipelinesAMDX: Option<
-        PFN_vkCreateExecutionGraphPipelinesAMDX,
-    >,
+    pub vkCreateExecutionGraphPipelinesAMDX: Option<PFN_vkCreateExecutionGraphPipelinesAMDX>,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub vkDestroyPipelineCache: Option<PFN_vkDestroyPipelineCache>,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -46,10 +44,9 @@ impl PipelineCacheDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_AMDX_shader_enqueue")]
         {
-            table.vkCreateExecutionGraphPipelinesAMDX = loader(
-                    c"vkCreateExecutionGraphPipelinesAMDX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateExecutionGraphPipelinesAMDX =
+                loader(c"vkCreateExecutionGraphPipelinesAMDX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
@@ -68,9 +65,7 @@ impl PipelineCacheDispatchTable {
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkCreateRayTracingPipelinesNV = loader(
-                    c"vkCreateRayTracingPipelinesNV".as_ptr(),
-                )
+            table.vkCreateRayTracingPipelinesNV = loader(c"vkCreateRayTracingPipelinesNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -89,7 +84,7 @@ impl<'dev> Drop for PipelineCache<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyPipelineCache {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -106,6 +101,10 @@ impl<'dev> PipelineCache<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &PipelineCacheDispatchTable {
@@ -167,7 +166,13 @@ impl<'dev> PipelineCache<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroyPipelineCache`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineCache.html)
@@ -189,9 +194,11 @@ impl<'dev> PipelineCache<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyPipelineCache
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyPipelineCache.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkPipelineCache::NULL;
     }
@@ -227,9 +234,12 @@ impl<'dev> PipelineCache<'dev> {
         pData: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetPipelineCacheData
-                .unwrap_unchecked()(self.device().raw(), self.raw, pDataSize, pData)
+            (self.table).vkGetPipelineCacheData.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pDataSize,
+                pData,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
@@ -238,7 +248,13 @@ impl<'dev> PipelineCache<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkMergePipelineCaches`](https://docs.vulkan.org/refpages/latest/refpages/source/vkMergePipelineCaches.html)
@@ -272,9 +288,7 @@ impl<'dev> PipelineCache<'dev> {
         pSrcCaches: *const VkPipelineCache,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkMergePipelineCaches
-                .unwrap_unchecked()(
+            (self.table).vkMergePipelineCaches.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 srcCacheCount,
@@ -288,7 +302,13 @@ impl<'dev> PipelineCache<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkCreateRayTracingPipelinesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesNV.html)
@@ -353,7 +373,13 @@ impl<'dev> PipelineCache<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_1")]
             VkResult::VK_ERROR_OUT_OF_POOL_MEMORY => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

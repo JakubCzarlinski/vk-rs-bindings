@@ -136,6 +136,7 @@ fn gen_device(
                     handle_types,
                     Some(handle_meta),
                     quote! { self },
+                    quote! { self.instance() },
                     quote! { &mut self },
                     quote! {
                         if self.raw.0.is_null() {
@@ -162,6 +163,7 @@ fn gen_device(
                     handle_types,
                     Some(handle_meta),
                     quote! { self },
+                    quote! { self.instance() },
                 ));
             }
         }
@@ -204,9 +206,9 @@ fn gen_device(
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         pub struct Device<'inst> {
             pub(crate) raw:   VkDevice,
+            pub(crate) instance: &'inst Instance<'inst>,
             pub(crate) table: DeviceDispatchTable,
             #handle_fields
-            _inst: core::marker::PhantomData<&'inst Instance<'inst>>,
         }
 
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -218,10 +220,11 @@ fn gen_device(
             #[inline]
             pub unsafe fn from_raw(
                 raw: VkDevice,
+                instance: &'inst Instance<'inst>,
                 table: DeviceDispatchTable,
                 #handle_args
             ) -> Self {
-                Self { raw, table, #handle_init _inst: core::marker::PhantomData }
+                Self { raw, instance, table, #handle_init }
             }
 
             /// The raw `VkDevice` handle.
@@ -231,6 +234,10 @@ fn gen_device(
             /// The underlying dispatch table.
             #[inline(always)]
             pub fn table(&self) -> &DeviceDispatchTable { &self.table }
+
+            /// The instance that created this device.
+            #[inline(always)]
+            pub fn instance(&self) -> &'inst Instance<'inst> { self.instance }
 
             #methods_ts
         }

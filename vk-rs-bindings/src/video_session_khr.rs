@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct VideoSessionKHRDispatchTable {
@@ -16,9 +16,7 @@ pub struct VideoSessionKHRDispatchTable {
     #[cfg(feature = "VK_KHR_video_queue")]
     pub vkDestroyVideoSessionKHR: Option<PFN_vkDestroyVideoSessionKHR>,
     #[cfg(feature = "VK_KHR_video_queue")]
-    pub vkGetVideoSessionMemoryRequirementsKHR: Option<
-        PFN_vkGetVideoSessionMemoryRequirementsKHR,
-    >,
+    pub vkGetVideoSessionMemoryRequirementsKHR: Option<PFN_vkGetVideoSessionMemoryRequirementsKHR>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VideoSessionKHRDispatchTable {
@@ -38,9 +36,7 @@ impl VideoSessionKHRDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkBindVideoSessionMemoryKHR = loader(
-                    c"vkBindVideoSessionMemoryKHR".as_ptr(),
-                )
+            table.vkBindVideoSessionMemoryKHR = loader(c"vkBindVideoSessionMemoryKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_queue")]
@@ -50,10 +46,9 @@ impl VideoSessionKHRDispatchTable {
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkGetVideoSessionMemoryRequirementsKHR = loader(
-                    c"vkGetVideoSessionMemoryRequirementsKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetVideoSessionMemoryRequirementsKHR =
+                loader(c"vkGetVideoSessionMemoryRequirementsKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -71,7 +66,7 @@ impl<'dev> Drop for VideoSessionKHR<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyVideoSessionKHR {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -88,6 +83,10 @@ impl<'dev> VideoSessionKHR<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &VideoSessionKHRDispatchTable {
@@ -123,9 +122,7 @@ impl<'dev> VideoSessionKHR<'dev> {
         pBindSessionMemoryInfos: *const VkBindVideoSessionMemoryInfoKHR,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkBindVideoSessionMemoryKHR
-                .unwrap_unchecked()(
+            (self.table).vkBindVideoSessionMemoryKHR.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 bindSessionMemoryInfoCount,
@@ -139,7 +136,13 @@ impl<'dev> VideoSessionKHR<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroyVideoSessionKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyVideoSessionKHR.html)
@@ -154,18 +157,17 @@ impl<'dev> VideoSessionKHR<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_KHR_video_queue")]
     #[inline(always)]
-    pub fn vkDestroyVideoSessionKHR(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyVideoSessionKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyVideoSessionKHR
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyVideoSessionKHR.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkVideoSessionKHR::NULL;
     }
@@ -212,7 +214,13 @@ impl<'dev> VideoSessionKHR<'dev> {
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

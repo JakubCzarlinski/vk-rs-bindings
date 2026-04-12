@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct PipelineBinaryKHRDispatchTable {
@@ -28,9 +28,7 @@ impl PipelineBinaryKHRDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_KHR_pipeline_binary")]
         {
-            table.vkDestroyPipelineBinaryKHR = loader(
-                    c"vkDestroyPipelineBinaryKHR".as_ptr(),
-                )
+            table.vkDestroyPipelineBinaryKHR = loader(c"vkDestroyPipelineBinaryKHR".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -49,7 +47,7 @@ impl<'dev> Drop for PipelineBinaryKHR<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyPipelineBinaryKHR {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -68,6 +66,10 @@ impl<'dev> PipelineBinaryKHR<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &PipelineBinaryKHRDispatchTable {
         self.table
     }
@@ -83,18 +85,17 @@ impl<'dev> PipelineBinaryKHR<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_KHR_pipeline_binary")]
     #[inline(always)]
-    pub fn vkDestroyPipelineBinaryKHR(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyPipelineBinaryKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyPipelineBinaryKHR
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyPipelineBinaryKHR.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkPipelineBinaryKHR::NULL;
     }

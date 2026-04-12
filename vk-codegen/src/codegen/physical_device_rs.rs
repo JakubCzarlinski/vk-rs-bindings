@@ -102,6 +102,7 @@ fn gen_physical_device(
                     handle_types,
                     None,
                     quote! {},
+                    quote! { self.instance() },
                 ));
             }
         }
@@ -177,7 +178,7 @@ fn gen_create_device(
             let gdpa  = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
             let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
             #tb_load
-            Ok(unsafe { Device::from_raw(raw, table, #tb_args) })
+            Ok(unsafe { Device::from_raw(raw, self.instance, table, #tb_args) })
         }
     }
 }

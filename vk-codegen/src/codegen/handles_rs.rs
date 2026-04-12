@@ -18,6 +18,7 @@ pub struct HandleMeta {
     pub table_name: String,
     pub table_field: String,
     pub parent_vk_name: String,
+    pub root_vk_name: String,
     pub providers: Vec<String>,
 }
 
@@ -47,8 +48,15 @@ pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
         }
     }
 
+    let mut instance_children = HashSet::new();
+    for (child, parent) in &parents {
+        if parent == "VkInstance" && child != "VkPhysicalDevice" {
+            instance_children.insert(child.clone());
+        }
+    }
+
     let mut map = BTreeMap::new();
-    for name in desc {
+    for name in desc.into_iter().chain(instance_children) {
         let struct_name = name.replace("Vk", "");
         let mod_name = snake_case(&struct_name);
         let table_name = format!("{struct_name}DispatchTable");
@@ -57,6 +65,7 @@ pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
             .get(&name)
             .cloned()
             .unwrap_or_else(|| "VkDevice".into());
+        let root = root_owner(&name, &parents);
         let providers = typedef_providers.get(&name).cloned().unwrap_or_default();
 
         map.insert(
@@ -68,11 +77,23 @@ pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
                 table_name,
                 table_field,
                 parent_vk_name: parent,
+                root_vk_name: root,
                 providers,
             },
         );
     }
     map
+}
+
+fn root_owner(name: &str, parents: &HashMap<String, String>) -> String {
+    let mut current = name;
+    while let Some(parent) = parents.get(current) {
+        match parent.as_str() {
+            "VkInstance" | "VkPhysicalDevice" | "VkDevice" => return parent.clone(),
+            other => current = other,
+        }
+    }
+    String::new()
 }
 
 pub fn gen_handles(
@@ -140,6 +161,26 @@ fn is_self_destructor_command(cmd_name: &str, cmd: &Command, meta: &HandleMeta) 
     is_match(cmd_name) || cmd.alias.as_deref().is_some_and(is_match)
 }
 
+fn is_supported_handle_method(cmd: &Command, meta: &HandleMeta) -> bool {
+    let Some(first) = cmd.params.first() else {
+        return true;
+    };
+    if first.ty.base == meta.vk_name {
+        return true;
+    }
+
+    let Some(second) = cmd.params.get(1) else {
+        return true;
+    };
+    if second.ty.base != meta.vk_name {
+        return true;
+    }
+
+    let dispatch_root = first.ty.base.as_str();
+    dispatch_root == meta.parent_vk_name
+        || (meta.root_vk_name == "VkDevice" && dispatch_root == "VkDevice")
+}
+
 fn gen_handle_module(
     reg: &Registry,
     meta: &HandleMeta,
@@ -175,9 +216,17 @@ fn gen_handle_module(
 
     if reg.commands.contains_key(&destroy_name) {
         let fp = format_ident!("{}", destroy_name);
-        destroy_stmt = quote! {
-            if let Some(destroy_fn) = self.table.#fp {
-                unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+        destroy_stmt = if meta.parent_vk_name == "VkInstance" {
+            quote! {
+                if let Some(destroy_fn) = self.parent.table.#fp {
+                    unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
+                }
+            }
+        } else {
+            quote! {
+                if let Some(destroy_fn) = self.table.#fp {
+                    unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
+                }
             }
         };
     } else if reg.commands.contains_key(&free_group_name) {
@@ -205,6 +254,9 @@ fn gen_handle_module(
 
     for cmds in groups.values() {
         for (cmd_name, providers, cmd) in cmds {
+            if !is_supported_handle_method(cmd, meta) {
+                continue;
+            }
             let cfg = cfg_any(providers);
             let fname = format_ident!("{}", cmd_name);
             let pfn = format_ident!("PFN_{}", cmd_name);
@@ -237,6 +289,7 @@ fn gen_handle_module(
                     handle_types,
                     Some(meta_map),
                     quote! { self.device() },
+                    quote! { self.instance() },
                     quote! { &mut self },
                     quote! {
                         if self.raw.0.is_null() {
@@ -260,6 +313,7 @@ fn gen_handle_module(
                     handle_types,
                     Some(meta_map),
                     device_acc,
+                    quote! { self.instance() },
                 ));
             }
         }
@@ -268,16 +322,41 @@ fn gen_handle_module(
     let parent_type = format_ident!("{}", meta.parent_vk_name.replace("Vk", ""));
     let parent_mod = format_ident!("{}", snake_case(&meta.parent_vk_name.replace("Vk", "")));
     let vk_ident = format_ident!("{}", meta.vk_name);
-    let (parent_ty_decl, device_accessor) = if meta.parent_vk_name == "VkDevice" {
+    let (parent_ty_decl, device_accessor, instance_method) = if meta.parent_vk_name == "VkDevice" {
         (
             quote! { crate::device::Device<'dev> },
             quote! { self.parent },
+            quote! {
+                #[inline]
+                pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
+            },
+        )
+    } else if meta.parent_vk_name == "VkInstance" {
+        (
+            quote! { crate::instance::Instance<'dev> },
+            quote! {},
+            quote! {
+                #[inline]
+                pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent }
+            },
         )
     } else {
         (
             quote! { crate::#parent_mod::#parent_type<'dev> },
             quote! { self.parent.device() },
+            quote! {
+                #[inline]
+                pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
+            },
         )
+    };
+    let device_method = if meta.root_vk_name == "VkDevice" {
+        quote! {
+            #[inline]
+            pub fn device(&self) -> &'dev crate::device::Device<'dev> { #device_accessor }
+        }
+    } else {
+        quote! {}
     };
     let wrapper_cfg = cfg_any(&meta.providers);
 
@@ -324,7 +403,8 @@ fn gen_handle_module(
         impl<'dev> #struct_name<'dev> {
             #[inline] pub fn raw(&self) -> #vk_ident { self.raw }
             #[inline] pub fn parent(&self) -> &'dev #parent_ty_decl { self.parent }
-            #[inline] pub fn device(&self) -> &'dev crate::device::Device<'dev> { #device_accessor }
+            #device_method
+            #instance_method
             #[inline] pub fn table(&self) -> &#table_name { self.table }
             #methods_ts
         }

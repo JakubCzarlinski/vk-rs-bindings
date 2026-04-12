@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct CudaModuleNVDispatchTable {
@@ -56,7 +56,7 @@ impl<'dev> Drop for CudaModuleNV<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyCudaModuleNV {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -73,6 +73,10 @@ impl<'dev> CudaModuleNV<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &CudaModuleNVDispatchTable {
@@ -96,9 +100,11 @@ impl<'dev> CudaModuleNV<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyCudaModuleNV
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyCudaModuleNV.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkCudaModuleNV::NULL;
     }
@@ -132,9 +138,7 @@ impl<'dev> CudaModuleNV<'dev> {
         pCacheData: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetCudaModuleCacheNV
-                .unwrap_unchecked()(
+            (self.table).vkGetCudaModuleCacheNV.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 pCacheSize,
@@ -143,12 +147,16 @@ impl<'dev> CudaModuleNV<'dev> {
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

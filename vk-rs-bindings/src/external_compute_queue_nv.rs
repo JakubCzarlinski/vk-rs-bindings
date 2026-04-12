@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct ExternalComputeQueueNVDispatchTable {
@@ -32,17 +32,15 @@ impl ExternalComputeQueueNVDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_NV_external_compute_queue")]
         {
-            table.vkDestroyExternalComputeQueueNV = loader(
-                    c"vkDestroyExternalComputeQueueNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyExternalComputeQueueNV =
+                loader(c"vkDestroyExternalComputeQueueNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_compute_queue")]
         {
-            table.vkGetExternalComputeQueueDataNV = loader(
-                    c"vkGetExternalComputeQueueDataNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetExternalComputeQueueDataNV =
+                loader(c"vkGetExternalComputeQueueDataNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -60,7 +58,7 @@ impl<'dev> Drop for ExternalComputeQueueNV<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyExternalComputeQueueNV {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -79,6 +77,10 @@ impl<'dev> ExternalComputeQueueNV<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &ExternalComputeQueueNVDispatchTable {
         self.table
     }
@@ -94,10 +96,7 @@ impl<'dev> ExternalComputeQueueNV<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_NV_external_compute_queue")]
     #[inline(always)]
-    pub fn vkDestroyExternalComputeQueueNV(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyExternalComputeQueueNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }

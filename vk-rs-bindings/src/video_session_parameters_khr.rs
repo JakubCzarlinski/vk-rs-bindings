@@ -4,17 +4,15 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct VideoSessionParametersKHRDispatchTable {
     #[cfg(feature = "VK_KHR_video_queue")]
-    pub vkDestroyVideoSessionParametersKHR: Option<
-        PFN_vkDestroyVideoSessionParametersKHR,
-    >,
+    pub vkDestroyVideoSessionParametersKHR: Option<PFN_vkDestroyVideoSessionParametersKHR>,
     #[cfg(feature = "VK_KHR_video_queue")]
     pub vkUpdateVideoSessionParametersKHR: Option<PFN_vkUpdateVideoSessionParametersKHR>,
 }
@@ -34,17 +32,15 @@ impl VideoSessionParametersKHRDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkDestroyVideoSessionParametersKHR = loader(
-                    c"vkDestroyVideoSessionParametersKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyVideoSessionParametersKHR =
+                loader(c"vkDestroyVideoSessionParametersKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_video_queue")]
         {
-            table.vkUpdateVideoSessionParametersKHR = loader(
-                    c"vkUpdateVideoSessionParametersKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUpdateVideoSessionParametersKHR =
+                loader(c"vkUpdateVideoSessionParametersKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -62,7 +58,7 @@ impl<'dev> Drop for VideoSessionParametersKHR<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyVideoSessionParametersKHR {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -81,6 +77,10 @@ impl<'dev> VideoSessionParametersKHR<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &VideoSessionParametersKHRDispatchTable {
         self.table
     }
@@ -96,10 +96,7 @@ impl<'dev> VideoSessionParametersKHR<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_KHR_video_queue")]
     #[inline(always)]
-    pub fn vkDestroyVideoSessionParametersKHR(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyVideoSessionParametersKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
@@ -153,7 +150,13 @@ impl<'dev> VideoSessionParametersKHR<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_video_encode_queue")]
             VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct ShaderEXTDispatchTable {
@@ -32,8 +32,8 @@ impl ShaderEXTDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_EXT_shader_object")]
         {
-            table.vkDestroyShaderEXT = loader(c"vkDestroyShaderEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyShaderEXT =
+                loader(c"vkDestroyShaderEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_shader_object")]
         {
@@ -56,7 +56,7 @@ impl<'dev> Drop for ShaderEXT<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyShaderEXT {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -73,6 +73,10 @@ impl<'dev> ShaderEXT<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &ShaderEXTDispatchTable {
@@ -96,9 +100,11 @@ impl<'dev> ShaderEXT<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyShaderEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyShaderEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkShaderEXT::NULL;
     }
@@ -133,9 +139,12 @@ impl<'dev> ShaderEXT<'dev> {
         pData: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetShaderBinaryDataEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, pDataSize, pData)
+            (self.table).vkGetShaderBinaryDataEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pDataSize,
+                pData,
+            )
         };
         match r {
             VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
@@ -144,7 +153,13 @@ impl<'dev> ShaderEXT<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

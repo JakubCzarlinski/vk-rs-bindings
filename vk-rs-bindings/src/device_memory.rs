@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct DeviceMemoryDispatchTable {
@@ -48,31 +48,27 @@ impl DeviceMemoryDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkFreeMemory = loader(c"vkFreeMemory".as_ptr())
+            table.vkFreeMemory =
+                loader(c"vkFreeMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        {
+            table.vkGetDeviceMemoryCommitment = loader(c"vkGetDeviceMemoryCommitment".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkGetDeviceMemoryCommitment = loader(
-                    c"vkGetDeviceMemoryCommitment".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkMapMemory =
+                loader(c"vkMapMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkMapMemory = loader(c"vkMapMemory".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkUnmapMemory = loader(c"vkUnmapMemory".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkUnmapMemory =
+                loader(c"vkUnmapMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_pageable_device_local_memory")]
         {
-            table.vkSetDeviceMemoryPriorityEXT = loader(
-                    c"vkSetDeviceMemoryPriorityEXT".as_ptr(),
-                )
+            table.vkSetDeviceMemoryPriorityEXT = loader(c"vkSetDeviceMemoryPriorityEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_external_memory_win32")]
@@ -115,6 +111,10 @@ impl<'dev> DeviceMemory<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &DeviceMemoryDispatchTable {
         self.table
     }
@@ -137,9 +137,7 @@ impl<'dev> DeviceMemory<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkFreeMemory
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkFreeMemory.unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
         }
         self.raw = VkDeviceMemory::NULL;
     }
@@ -156,15 +154,10 @@ impl<'dev> DeviceMemory<'dev> {
     /// - `pCommittedMemoryInBytes`
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkGetDeviceMemoryCommitment(
-        &self,
-        pCommittedMemoryInBytes: *mut VkDeviceSize,
-    ) {
+    pub fn vkGetDeviceMemoryCommitment(&self, pCommittedMemoryInBytes: *mut VkDeviceSize) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetDeviceMemoryCommitment
-                .unwrap_unchecked()(
+            (self.table).vkGetDeviceMemoryCommitment.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 pCommittedMemoryInBytes,
@@ -207,9 +200,7 @@ impl<'dev> DeviceMemory<'dev> {
         ppData: *mut *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkMapMemory
-                .unwrap_unchecked()(
+            (self.table).vkMapMemory.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 offset,
@@ -226,7 +217,13 @@ impl<'dev> DeviceMemory<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkUnmapMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUnmapMemory.html)
@@ -262,9 +259,11 @@ impl<'dev> DeviceMemory<'dev> {
     pub fn vkSetDeviceMemoryPriorityEXT(&self, priority: f32) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkSetDeviceMemoryPriorityEXT
-                .unwrap_unchecked()(self.device().raw(), self.raw, priority)
+            (self.table).vkSetDeviceMemoryPriorityEXT.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                priority,
+            )
         }
     }
     /// [`vkGetMemoryWin32HandleNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandleNV.html)
@@ -297,9 +296,12 @@ impl<'dev> DeviceMemory<'dev> {
         pHandle: *mut HANDLE,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetMemoryWin32HandleNV
-                .unwrap_unchecked()(self.device().raw(), self.raw, handleType, pHandle)
+            (self.table).vkGetMemoryWin32HandleNV.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                handleType,
+                pHandle,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -308,7 +310,13 @@ impl<'dev> DeviceMemory<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

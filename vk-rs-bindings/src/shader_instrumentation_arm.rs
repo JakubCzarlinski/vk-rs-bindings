@@ -4,23 +4,19 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct ShaderInstrumentationARMDispatchTable {
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
-    pub vkClearShaderInstrumentationMetricsARM: Option<
-        PFN_vkClearShaderInstrumentationMetricsARM,
-    >,
+    pub vkClearShaderInstrumentationMetricsARM: Option<PFN_vkClearShaderInstrumentationMetricsARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     pub vkDestroyShaderInstrumentationARM: Option<PFN_vkDestroyShaderInstrumentationARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
-    pub vkGetShaderInstrumentationValuesARM: Option<
-        PFN_vkGetShaderInstrumentationValuesARM,
-    >,
+    pub vkGetShaderInstrumentationValuesARM: Option<PFN_vkGetShaderInstrumentationValuesARM>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl ShaderInstrumentationARMDispatchTable {
@@ -40,24 +36,21 @@ impl ShaderInstrumentationARMDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         {
-            table.vkClearShaderInstrumentationMetricsARM = loader(
-                    c"vkClearShaderInstrumentationMetricsARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkClearShaderInstrumentationMetricsARM =
+                loader(c"vkClearShaderInstrumentationMetricsARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         {
-            table.vkDestroyShaderInstrumentationARM = loader(
-                    c"vkDestroyShaderInstrumentationARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyShaderInstrumentationARM =
+                loader(c"vkDestroyShaderInstrumentationARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         {
-            table.vkGetShaderInstrumentationValuesARM = loader(
-                    c"vkGetShaderInstrumentationValuesARM".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetShaderInstrumentationValuesARM =
+                loader(c"vkGetShaderInstrumentationValuesARM".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -75,7 +68,7 @@ impl<'dev> Drop for ShaderInstrumentationARM<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyShaderInstrumentationARM {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -92,6 +85,10 @@ impl<'dev> ShaderInstrumentationARM<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &ShaderInstrumentationARMDispatchTable {
@@ -128,10 +125,7 @@ impl<'dev> ShaderInstrumentationARM<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     #[inline(always)]
-    pub fn vkDestroyShaderInstrumentationARM(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyShaderInstrumentationARM(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
@@ -193,7 +187,13 @@ impl<'dev> ShaderInstrumentationARM<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

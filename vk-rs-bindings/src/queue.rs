@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct QueueDispatchTable {
@@ -26,9 +26,8 @@ pub struct QueueDispatchTable {
     #[cfg(feature = "VK_EXT_debug_utils")]
     pub vkQueueInsertDebugUtilsLabelEXT: Option<PFN_vkQueueInsertDebugUtilsLabelEXT>,
     #[cfg(feature = "VK_INTEL_performance_query")]
-    pub vkQueueSetPerformanceConfigurationINTEL: Option<
-        PFN_vkQueueSetPerformanceConfigurationINTEL,
-    >,
+    pub vkQueueSetPerformanceConfigurationINTEL:
+        Option<PFN_vkQueueSetPerformanceConfigurationINTEL>,
     #[cfg(feature = "VK_KHR_swapchain")]
     pub vkQueuePresentKHR: Option<PFN_vkQueuePresentKHR>,
     #[cfg(feature = "VK_KHR_synchronization2")]
@@ -78,74 +77,65 @@ impl QueueDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkQueueBindSparse = loader(c"vkQueueBindSparse".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkQueueBindSparse =
+                loader(c"vkQueueBindSparse".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkQueueSubmit = loader(c"vkQueueSubmit".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkQueueSubmit =
+                loader(c"vkQueueSubmit".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkQueueWaitIdle = loader(c"vkQueueWaitIdle".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkQueueWaitIdle =
+                loader(c"vkQueueWaitIdle".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_3")]
         {
-            table.vkQueueSubmit2 = loader(c"vkQueueSubmit2".as_ptr())
+            table.vkQueueSubmit2 =
+                loader(c"vkQueueSubmit2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_debug_utils")]
+        {
+            table.vkQueueBeginDebugUtilsLabelEXT =
+                loader(c"vkQueueBeginDebugUtilsLabelEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_debug_utils")]
+        {
+            table.vkQueueEndDebugUtilsLabelEXT = loader(c"vkQueueEndDebugUtilsLabelEXT".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_debug_utils")]
         {
-            table.vkQueueBeginDebugUtilsLabelEXT = loader(
-                    c"vkQueueBeginDebugUtilsLabelEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkQueueEndDebugUtilsLabelEXT = loader(
-                    c"vkQueueEndDebugUtilsLabelEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkQueueInsertDebugUtilsLabelEXT = loader(
-                    c"vkQueueInsertDebugUtilsLabelEXT".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkQueueInsertDebugUtilsLabelEXT =
+                loader(c"vkQueueInsertDebugUtilsLabelEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_INTEL_performance_query")]
         {
-            table.vkQueueSetPerformanceConfigurationINTEL = loader(
-                    c"vkQueueSetPerformanceConfigurationINTEL".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkQueueSetPerformanceConfigurationINTEL =
+                loader(c"vkQueueSetPerformanceConfigurationINTEL".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_swapchain")]
         {
-            table.vkQueuePresentKHR = loader(c"vkQueuePresentKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkQueuePresentKHR =
+                loader(c"vkQueuePresentKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_synchronization2")]
         {
-            table.vkQueueSubmit2KHR = loader(c"vkQueueSubmit2KHR".as_ptr())
+            table.vkQueueSubmit2KHR =
+                loader(c"vkQueueSubmit2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+        {
+            table.vkGetQueueCheckpointData2NV = loader(c"vkGetQueueCheckpointData2NV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
         {
-            table.vkGetQueueCheckpointData2NV = loader(
-                    c"vkGetQueueCheckpointData2NV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
-        {
-            table.vkGetQueueCheckpointDataNV = loader(
-                    c"vkGetQueueCheckpointDataNV".as_ptr(),
-                )
+            table.vkGetQueueCheckpointDataNV = loader(c"vkGetQueueCheckpointDataNV".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_low_latency2")]
@@ -185,6 +175,10 @@ impl<'dev> Queue<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &QueueDispatchTable {
         self.table
     }
@@ -222,9 +216,12 @@ impl<'dev> Queue<'dev> {
         fence: VkFence,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkQueueBindSparse
-                .unwrap_unchecked()(self.raw, bindInfoCount, pBindInfo, fence)
+            (self.table).vkQueueBindSparse.unwrap_unchecked()(
+                self.raw,
+                bindInfoCount,
+                pBindInfo,
+                fence,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -234,7 +231,13 @@ impl<'dev> Queue<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkQueueSubmit`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit.html)
@@ -271,9 +274,7 @@ impl<'dev> Queue<'dev> {
         fence: VkFence,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkQueueSubmit
-                .unwrap_unchecked()(self.raw, submitCount, pSubmits, fence)
+            (self.table).vkQueueSubmit.unwrap_unchecked()(self.raw, submitCount, pSubmits, fence)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -283,7 +284,13 @@ impl<'dev> Queue<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkQueueWaitIdle`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueWaitIdle.html)
@@ -319,7 +326,13 @@ impl<'dev> Queue<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkQueueSubmit2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2.html)
@@ -355,9 +368,7 @@ impl<'dev> Queue<'dev> {
         fence: VkFence,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkQueueSubmit2
-                .unwrap_unchecked()(self.raw, submitCount, pSubmits, fence)
+            (self.table).vkQueueSubmit2.unwrap_unchecked()(self.raw, submitCount, pSubmits, fence)
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -367,7 +378,13 @@ impl<'dev> Queue<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkQueueBeginDebugUtilsLabelEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueBeginDebugUtilsLabelEXT.html)
@@ -381,10 +398,7 @@ impl<'dev> Queue<'dev> {
     /// - `pLabelInfo`
     #[cfg(feature = "VK_EXT_debug_utils")]
     #[inline(always)]
-    pub fn vkQueueBeginDebugUtilsLabelEXT(
-        &self,
-        pLabelInfo: *const VkDebugUtilsLabelEXT,
-    ) {
+    pub fn vkQueueBeginDebugUtilsLabelEXT(&self, pLabelInfo: *const VkDebugUtilsLabelEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -419,10 +433,7 @@ impl<'dev> Queue<'dev> {
     /// - `pLabelInfo`
     #[cfg(feature = "VK_EXT_debug_utils")]
     #[inline(always)]
-    pub fn vkQueueInsertDebugUtilsLabelEXT(
-        &self,
-        pLabelInfo: *const VkDebugUtilsLabelEXT,
-    ) {
+    pub fn vkQueueInsertDebugUtilsLabelEXT(&self, pLabelInfo: *const VkDebugUtilsLabelEXT) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)
@@ -468,7 +479,13 @@ impl<'dev> Queue<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkQueuePresentKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueuePresentKHR.html)
@@ -503,9 +520,8 @@ impl<'dev> Queue<'dev> {
         &self,
         pPresentInfo: *const VkPresentInfoKHR,
     ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (self.table).vkQueuePresentKHR.unwrap_unchecked()(self.raw, pPresentInfo)
-        };
+        let r =
+            unsafe { (self.table).vkQueuePresentKHR.unwrap_unchecked()(self.raw, pPresentInfo) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             #[cfg(feature = "VK_KHR_swapchain")]
@@ -524,7 +540,13 @@ impl<'dev> Queue<'dev> {
             VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
             #[cfg(feature = "VK_KHR_swapchain")]
             VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkQueueSubmit2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2.html)
@@ -560,9 +582,12 @@ impl<'dev> Queue<'dev> {
         fence: VkFence,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkQueueSubmit2KHR
-                .unwrap_unchecked()(self.raw, submitCount, pSubmits, fence)
+            (self.table).vkQueueSubmit2KHR.unwrap_unchecked()(
+                self.raw,
+                submitCount,
+                pSubmits,
+                fence,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -572,7 +597,13 @@ impl<'dev> Queue<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetQueueCheckpointData2NV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetQueueCheckpointData2NV.html)
@@ -594,9 +625,11 @@ impl<'dev> Queue<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetQueueCheckpointData2NV
-                .unwrap_unchecked()(self.raw, pCheckpointDataCount, pCheckpointData)
+            (self.table).vkGetQueueCheckpointData2NV.unwrap_unchecked()(
+                self.raw,
+                pCheckpointDataCount,
+                pCheckpointData,
+            )
         }
     }
     /// [`vkGetQueueCheckpointDataNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetQueueCheckpointDataNV.html)
@@ -618,9 +651,11 @@ impl<'dev> Queue<'dev> {
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkGetQueueCheckpointDataNV
-                .unwrap_unchecked()(self.raw, pCheckpointDataCount, pCheckpointData)
+            (self.table).vkGetQueueCheckpointDataNV.unwrap_unchecked()(
+                self.raw,
+                pCheckpointDataCount,
+                pCheckpointData,
+            )
         }
     }
     /// [`vkQueueNotifyOutOfBandNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueNotifyOutOfBandNV.html)
@@ -634,15 +669,10 @@ impl<'dev> Queue<'dev> {
     /// - `pQueueTypeInfo`
     #[cfg(feature = "VK_NV_low_latency2")]
     #[inline(always)]
-    pub fn vkQueueNotifyOutOfBandNV(
-        &self,
-        pQueueTypeInfo: *const VkOutOfBandQueueTypeInfoNV,
-    ) {
+    pub fn vkQueueNotifyOutOfBandNV(&self, pQueueTypeInfo: *const VkOutOfBandQueueTypeInfoNV) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkQueueNotifyOutOfBandNV
-                .unwrap_unchecked()(self.raw, pQueueTypeInfo)
+            (self.table).vkQueueNotifyOutOfBandNV.unwrap_unchecked()(self.raw, pQueueTypeInfo)
         }
     }
 }

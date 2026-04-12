@@ -32,4 +32,4 @@ registry/
 *.log
 *.dot
 .ropeproject
-vk-rs-bindings/
+# vk-rs-bindings/

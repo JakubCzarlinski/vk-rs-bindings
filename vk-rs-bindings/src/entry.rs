@@ -23,32 +23,26 @@
     non_snake_case,
     unused_imports,
     clippy::too_many_arguments,
-    clippy::missing_safety_doc,
+    clippy::missing_safety_doc
 )]
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
 use core::ffi::{c_char, c_void};
 #[cfg(target_os = "windows")]
 const VULKAN_LIB_NAMES: &[&str] = &["vulkan-1.dll"];
 #[cfg(target_os = "macos")]
-const VULKAN_LIB_NAMES: &[&str] = &[
-    "libMoltenVK.dylib",
-    "libvulkan.dylib",
-    "libvulkan.1.dylib",
-];
+const VULKAN_LIB_NAMES: &[&str] = &["libMoltenVK.dylib", "libvulkan.dylib", "libvulkan.1.dylib"];
 #[cfg(target_os = "ios")]
 const VULKAN_LIB_NAMES: &[&str] = &["libMoltenVK.dylib"];
 #[cfg(target_os = "android")]
 const VULKAN_LIB_NAMES: &[&str] = &["libvulkan.so"];
-#[cfg(
-    all(
-        unix,
-        not(target_os = "macos"),
-        not(target_os = "ios"),
-        not(target_os = "android"),
-    )
-)]
+#[cfg(all(
+    unix,
+    not(target_os = "macos"),
+    not(target_os = "ios"),
+    not(target_os = "android"),
+))]
 const VULKAN_LIB_NAMES: &[&str] = &["libvulkan.so.1", "libvulkan.so"];
 /// Error from [`VulkanLib::load`].
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -88,9 +82,7 @@ impl VulkanLib {
             let Ok(lib) = (unsafe { libloading::Library::new(name) }) else {
                 continue;
             };
-            let sym = unsafe {
-                lib.get::<PFN_vkGetInstanceProcAddr>(c"vkGetInstanceProcAddr")
-            };
+            let sym = unsafe { lib.get::<PFN_vkGetInstanceProcAddr>(c"vkGetInstanceProcAddr") };
             let sym = match sym {
                 Ok(s) => *s,
                 Err(_) => return Err(LoadError::MissingGetInstanceProcAddr),
@@ -112,13 +104,9 @@ pub struct EntryDispatchTable {
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub vkCreateInstance: Option<PFN_vkCreateInstance>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkEnumerateInstanceExtensionProperties: Option<
-        PFN_vkEnumerateInstanceExtensionProperties,
-    >,
+    pub vkEnumerateInstanceExtensionProperties: Option<PFN_vkEnumerateInstanceExtensionProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkEnumerateInstanceLayerProperties: Option<
-        PFN_vkEnumerateInstanceLayerProperties,
-    >,
+    pub vkEnumerateInstanceLayerProperties: Option<PFN_vkEnumerateInstanceLayerProperties>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     pub vkEnumerateInstanceVersion: Option<PFN_vkEnumerateInstanceVersion>,
 }
@@ -141,28 +129,24 @@ impl EntryDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkCreateInstance = loader(c"vkCreateInstance".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCreateInstance =
+                loader(c"vkCreateInstance".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkEnumerateInstanceExtensionProperties = loader(
-                    c"vkEnumerateInstanceExtensionProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEnumerateInstanceExtensionProperties =
+                loader(c"vkEnumerateInstanceExtensionProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkEnumerateInstanceLayerProperties = loader(
-                    c"vkEnumerateInstanceLayerProperties".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkEnumerateInstanceLayerProperties =
+                loader(c"vkEnumerateInstanceLayerProperties".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
-            table.vkEnumerateInstanceVersion = loader(
-                    c"vkEnumerateInstanceVersion".as_ptr(),
-                )
+            table.vkEnumerateInstanceVersion = loader(c"vkEnumerateInstanceVersion".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -223,7 +207,13 @@ impl<'lib> Entry<'lib> {
                 | VkResult::VK_ERROR_UNKNOWN => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_0")]
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -234,7 +224,33 @@ impl<'lib> Entry<'lib> {
         let pd_table = crate::physical_device::PhysicalDeviceDispatchTable::load(|name| unsafe {
             (self.lib.get_instance_proc_addr)(raw, name)
         });
-        Ok(unsafe { Instance::from_raw(raw, table, pd_table) })
+        #[cfg(feature = "VK_EXT_debug_report")]
+        let debug_report_callback_ext_table =
+            crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable::load(
+                |name| unsafe { (self.lib.get_instance_proc_addr)(raw, name) },
+            );
+        #[cfg(feature = "VK_EXT_debug_utils")]
+        let debug_utils_messenger_ext_table =
+            crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable::load(
+                |name| unsafe { (self.lib.get_instance_proc_addr)(raw, name) },
+            );
+        #[cfg(feature = "VK_KHR_surface")]
+        let surface_khr_table = crate::surface_khr::SurfaceKHRDispatchTable::load(|name| unsafe {
+            (self.lib.get_instance_proc_addr)(raw, name)
+        });
+        Ok(unsafe {
+            Instance::from_raw(
+                raw,
+                table,
+                pd_table,
+                #[cfg(feature = "VK_EXT_debug_report")]
+                debug_report_callback_ext_table,
+                #[cfg(feature = "VK_EXT_debug_utils")]
+                debug_utils_messenger_ext_table,
+                #[cfg(feature = "VK_KHR_surface")]
+                surface_khr_table,
+            )
+        })
     }
     /// [`vkEnumerateInstanceExtensionProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceExtensionProperties.html)
     ///
@@ -281,7 +297,13 @@ impl<'lib> Entry<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkEnumerateInstanceLayerProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceLayerProperties.html)
@@ -325,7 +347,13 @@ impl<'lib> Entry<'lib> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkEnumerateInstanceVersion`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceVersion.html)
@@ -349,19 +377,20 @@ impl<'lib> Entry<'lib> {
     ///   - VK_ERROR_VALIDATION_FAILED
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     #[inline(always)]
-    pub fn vkEnumerateInstanceVersion(
-        &self,
-        pApiVersion: *mut u32,
-    ) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (&self.table).vkEnumerateInstanceVersion.unwrap_unchecked()(pApiVersion)
-        };
+    pub fn vkEnumerateInstanceVersion(&self, pApiVersion: *mut u32) -> Result<VkResult, VkResult> {
+        let r = unsafe { (&self.table).vkEnumerateInstanceVersion.unwrap_unchecked()(pApiVersion) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

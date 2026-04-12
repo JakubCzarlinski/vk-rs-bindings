@@ -4,43 +4,34 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct PipelineDispatchTable {
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
-    pub vkGetExecutionGraphPipelineNodeIndexAMDX: Option<
-        PFN_vkGetExecutionGraphPipelineNodeIndexAMDX,
-    >,
+    pub vkGetExecutionGraphPipelineNodeIndexAMDX:
+        Option<PFN_vkGetExecutionGraphPipelineNodeIndexAMDX>,
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
-    pub vkGetExecutionGraphPipelineScratchSizeAMDX: Option<
-        PFN_vkGetExecutionGraphPipelineScratchSizeAMDX,
-    >,
+    pub vkGetExecutionGraphPipelineScratchSizeAMDX:
+        Option<PFN_vkGetExecutionGraphPipelineScratchSizeAMDX>,
     #[cfg(feature = "VK_AMD_shader_info")]
     pub vkGetShaderInfoAMD: Option<PFN_vkGetShaderInfoAMD>,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub vkDestroyPipeline: Option<PFN_vkDestroyPipeline>,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-    pub vkGetRayTracingCaptureReplayShaderGroupHandlesKHR: Option<
-        PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR,
-    >,
+    pub vkGetRayTracingCaptureReplayShaderGroupHandlesKHR:
+        Option<PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR>,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-    pub vkGetRayTracingShaderGroupHandlesKHR: Option<
-        PFN_vkGetRayTracingShaderGroupHandlesKHR,
-    >,
+    pub vkGetRayTracingShaderGroupHandlesKHR: Option<PFN_vkGetRayTracingShaderGroupHandlesKHR>,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-    pub vkGetRayTracingShaderGroupStackSizeKHR: Option<
-        PFN_vkGetRayTracingShaderGroupStackSizeKHR,
-    >,
+    pub vkGetRayTracingShaderGroupStackSizeKHR: Option<PFN_vkGetRayTracingShaderGroupStackSizeKHR>,
     #[cfg(feature = "VK_NV_ray_tracing")]
     pub vkCompileDeferredNV: Option<PFN_vkCompileDeferredNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
-    pub vkGetRayTracingShaderGroupHandlesNV: Option<
-        PFN_vkGetRayTracingShaderGroupHandlesNV,
-    >,
+    pub vkGetRayTracingShaderGroupHandlesNV: Option<PFN_vkGetRayTracingShaderGroupHandlesNV>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl PipelineDispatchTable {
@@ -72,60 +63,54 @@ impl PipelineDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_AMDX_shader_enqueue")]
         {
-            table.vkGetExecutionGraphPipelineNodeIndexAMDX = loader(
-                    c"vkGetExecutionGraphPipelineNodeIndexAMDX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetExecutionGraphPipelineNodeIndexAMDX =
+                loader(c"vkGetExecutionGraphPipelineNodeIndexAMDX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMDX_shader_enqueue")]
         {
-            table.vkGetExecutionGraphPipelineScratchSizeAMDX = loader(
-                    c"vkGetExecutionGraphPipelineScratchSizeAMDX".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetExecutionGraphPipelineScratchSizeAMDX =
+                loader(c"vkGetExecutionGraphPipelineScratchSizeAMDX".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_AMD_shader_info")]
         {
-            table.vkGetShaderInfoAMD = loader(c"vkGetShaderInfoAMD".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetShaderInfoAMD =
+                loader(c"vkGetShaderInfoAMD".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkDestroyPipeline = loader(c"vkDestroyPipeline".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyPipeline =
+                loader(c"vkDestroyPipeline".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
         {
-            table.vkGetRayTracingCaptureReplayShaderGroupHandlesKHR = loader(
-                    c"vkGetRayTracingCaptureReplayShaderGroupHandlesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetRayTracingCaptureReplayShaderGroupHandlesKHR =
+                loader(c"vkGetRayTracingCaptureReplayShaderGroupHandlesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
         {
-            table.vkGetRayTracingShaderGroupHandlesKHR = loader(
-                    c"vkGetRayTracingShaderGroupHandlesKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetRayTracingShaderGroupHandlesKHR =
+                loader(c"vkGetRayTracingShaderGroupHandlesKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
         {
-            table.vkGetRayTracingShaderGroupStackSizeKHR = loader(
-                    c"vkGetRayTracingShaderGroupStackSizeKHR".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetRayTracingShaderGroupStackSizeKHR =
+                loader(c"vkGetRayTracingShaderGroupStackSizeKHR".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkCompileDeferredNV = loader(c"vkCompileDeferredNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkCompileDeferredNV =
+                loader(c"vkCompileDeferredNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkGetRayTracingShaderGroupHandlesNV = loader(
-                    c"vkGetRayTracingShaderGroupHandlesNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetRayTracingShaderGroupHandlesNV =
+                loader(c"vkGetRayTracingShaderGroupHandlesNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -143,7 +128,7 @@ impl<'dev> Drop for Pipeline<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyPipeline {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -160,6 +145,10 @@ impl<'dev> Pipeline<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &PipelineDispatchTable {
@@ -203,7 +192,13 @@ impl<'dev> Pipeline<'dev> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetExecutionGraphPipelineScratchSizeAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetExecutionGraphPipelineScratchSizeAMDX.html)
@@ -242,7 +237,13 @@ impl<'dev> Pipeline<'dev> {
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetShaderInfoAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderInfoAMD.html)
@@ -280,9 +281,7 @@ impl<'dev> Pipeline<'dev> {
         pInfo: *mut core::ffi::c_void,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetShaderInfoAMD
-                .unwrap_unchecked()(
+            (self.table).vkGetShaderInfoAMD.unwrap_unchecked()(
                 self.device().raw(),
                 self.raw,
                 shaderStage,
@@ -298,7 +297,13 @@ impl<'dev> Pipeline<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroyPipeline`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipeline.html)
@@ -320,9 +325,11 @@ impl<'dev> Pipeline<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyPipeline
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyPipeline.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkPipeline::NULL;
     }
@@ -378,7 +385,13 @@ impl<'dev> Pipeline<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetRayTracingShaderGroupHandlesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupHandlesKHR.html)
@@ -433,7 +446,13 @@ impl<'dev> Pipeline<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetRayTracingShaderGroupStackSizeKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupStackSizeKHR.html)
@@ -486,9 +505,11 @@ impl<'dev> Pipeline<'dev> {
     #[inline(always)]
     pub fn vkCompileDeferredNV(&self, shader: u32) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkCompileDeferredNV
-                .unwrap_unchecked()(self.device().raw(), self.raw, shader)
+            (self.table).vkCompileDeferredNV.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                shader,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -497,7 +518,13 @@ impl<'dev> Pipeline<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkGetRayTracingShaderGroupHandlesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupHandlesKHR.html)
@@ -552,7 +579,13 @@ impl<'dev> Pipeline<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

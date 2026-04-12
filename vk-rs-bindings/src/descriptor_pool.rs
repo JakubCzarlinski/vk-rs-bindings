@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct DescriptorPoolDispatchTable {
@@ -74,7 +74,7 @@ impl<'dev> Drop for DescriptorPool<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyDescriptorPool {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -91,6 +91,10 @@ impl<'dev> DescriptorPool<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &DescriptorPoolDispatchTable {
@@ -117,7 +121,13 @@ impl<'dev> DescriptorPool<'dev> {
                 VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
                 #[cfg(feature = "VK_BASE_VERSION_1_1")]
                 VkResult::VK_ERROR_OUT_OF_POOL_MEMORY => Err(r),
-                _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+                _ => {
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(r)
+                    } else {
+                        Err(r)
+                    }
+                }
             }
         } {
             return Err(e);
@@ -125,16 +135,14 @@ impl<'dev> DescriptorPool<'dev> {
         unsafe {
             raw_sets.set_len(count as usize);
         }
-        Ok(
-            raw_sets
-                .into_iter()
-                .map(|raw| crate::descriptor_set::DescriptorSet {
-                    raw,
-                    parent: self,
-                    table: &self.device().descriptor_set_table,
-                })
-                .collect(),
-        )
+        Ok(raw_sets
+            .into_iter()
+            .map(|raw| crate::descriptor_set::DescriptorSet {
+                raw,
+                parent: self,
+                table: &self.device().descriptor_set_table,
+            })
+            .collect())
     }
     /// [`vkDestroyDescriptorPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorPool.html)
     ///
@@ -155,9 +163,11 @@ impl<'dev> DescriptorPool<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyDescriptorPool
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyDescriptorPool.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkDescriptorPool::NULL;
     }
@@ -170,9 +180,18 @@ impl<'dev> DescriptorPool<'dev> {
     ) -> Result<VkResult, VkResult> {
         let fp = unsafe { self.table.vkFreeDescriptorSets.unwrap_unchecked() };
         let r = unsafe {
-            fp(self.device().raw, self.raw, descriptorSetCount, pDescriptorSets)
+            fp(
+                self.device().raw,
+                self.raw,
+                descriptorSetCount,
+                pDescriptorSets,
+            )
         };
-        if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
+        }
     }
     /// [`vkResetDescriptorPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetDescriptorPool.html)
     ///
@@ -201,16 +220,24 @@ impl<'dev> DescriptorPool<'dev> {
         flags: VkDescriptorPoolResetFlags,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkResetDescriptorPool
-                .unwrap_unchecked()(self.device().raw(), self.raw, flags)
+            (self.table).vkResetDescriptorPool.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                flags,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

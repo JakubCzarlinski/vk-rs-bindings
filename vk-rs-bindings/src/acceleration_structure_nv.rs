@@ -4,19 +4,17 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct AccelerationStructureNVDispatchTable {
     #[cfg(feature = "VK_NV_ray_tracing")]
     pub vkDestroyAccelerationStructureNV: Option<PFN_vkDestroyAccelerationStructureNV>,
     #[cfg(feature = "VK_NV_ray_tracing")]
-    pub vkGetAccelerationStructureHandleNV: Option<
-        PFN_vkGetAccelerationStructureHandleNV,
-    >,
+    pub vkGetAccelerationStructureHandleNV: Option<PFN_vkGetAccelerationStructureHandleNV>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl AccelerationStructureNVDispatchTable {
@@ -34,17 +32,15 @@ impl AccelerationStructureNVDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkDestroyAccelerationStructureNV = loader(
-                    c"vkDestroyAccelerationStructureNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyAccelerationStructureNV =
+                loader(c"vkDestroyAccelerationStructureNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_NV_ray_tracing")]
         {
-            table.vkGetAccelerationStructureHandleNV = loader(
-                    c"vkGetAccelerationStructureHandleNV".as_ptr(),
-                )
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetAccelerationStructureHandleNV =
+                loader(c"vkGetAccelerationStructureHandleNV".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -62,7 +58,7 @@ impl<'dev> Drop for AccelerationStructureNV<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyAccelerationStructureNV {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -81,6 +77,10 @@ impl<'dev> AccelerationStructureNV<'dev> {
         self.parent
     }
     #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
+    }
+    #[inline]
     pub fn table(&self) -> &AccelerationStructureNVDispatchTable {
         self.table
     }
@@ -96,10 +96,7 @@ impl<'dev> AccelerationStructureNV<'dev> {
     /// - `pAllocator`: optional: true
     #[cfg(feature = "VK_NV_ray_tracing")]
     #[inline(always)]
-    pub fn vkDestroyAccelerationStructureNV(
-        &mut self,
-        pAllocator: *const VkAllocationCallbacks,
-    ) {
+    pub fn vkDestroyAccelerationStructureNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
         if self.raw.0.is_null() {
             return;
         }
@@ -152,7 +149,13 @@ impl<'dev> AccelerationStructureNV<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct EventDispatchTable {
@@ -40,23 +40,23 @@ impl EventDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkDestroyEvent = loader(c"vkDestroyEvent".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyEvent =
+                loader(c"vkDestroyEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkGetEventStatus = loader(c"vkGetEventStatus".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkGetEventStatus =
+                loader(c"vkGetEventStatus".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkResetEvent = loader(c"vkResetEvent".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkResetEvent =
+                loader(c"vkResetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         {
-            table.vkSetEvent = loader(c"vkSetEvent".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkSetEvent =
+                loader(c"vkSetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         table
     }
@@ -74,7 +74,7 @@ impl<'dev> Drop for Event<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyEvent {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -91,6 +91,10 @@ impl<'dev> Event<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &EventDispatchTable {
@@ -115,9 +119,11 @@ impl<'dev> Event<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyEvent
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyEvent.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkEvent::NULL;
     }
@@ -148,9 +154,7 @@ impl<'dev> Event<'dev> {
     #[inline(always)]
     pub fn vkGetEventStatus(&self) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkGetEventStatus
-                .unwrap_unchecked()(self.device().raw(), self.raw)
+            (self.table).vkGetEventStatus.unwrap_unchecked()(self.device().raw(), self.raw)
         };
         match r {
             VkResult::VK_EVENT_SET | VkResult::VK_EVENT_RESET => Ok(r),
@@ -160,7 +164,13 @@ impl<'dev> Event<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkResetEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetEvent.html)
@@ -186,17 +196,20 @@ impl<'dev> Event<'dev> {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     #[inline(always)]
     pub fn vkResetEvent(&self) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (self.table).vkResetEvent.unwrap_unchecked()(self.device().raw(), self.raw)
-        };
+        let r =
+            unsafe { (self.table).vkResetEvent.unwrap_unchecked()(self.device().raw(), self.raw) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => {
-                Err(r)
-            }
+            VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkSetEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetEvent.html)
@@ -223,9 +236,8 @@ impl<'dev> Event<'dev> {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     #[inline(always)]
     pub fn vkSetEvent(&self) -> Result<VkResult, VkResult> {
-        let r = unsafe {
-            (self.table).vkSetEvent.unwrap_unchecked()(self.device().raw(), self.raw)
-        };
+        let r =
+            unsafe { (self.table).vkSetEvent.unwrap_unchecked()(self.device().raw(), self.raw) };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
@@ -233,7 +245,13 @@ impl<'dev> Event<'dev> {
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

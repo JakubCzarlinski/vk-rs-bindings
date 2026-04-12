@@ -4,10 +4,10 @@
     clippy::too_many_arguments,
     clippy::missing_safety_doc
 )]
-use core::ffi::{c_char, c_void};
 use crate::commands::*;
-use crate::types::*;
 use crate::enums::*;
+use crate::types::*;
+use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct BufferDispatchTable {
@@ -36,19 +36,17 @@ impl BufferDispatchTable {
         let mut table = Self::EMPTY;
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkBindBufferMemory = loader(c"vkBindBufferMemory".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkBindBufferMemory =
+                loader(c"vkBindBufferMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkDestroyBuffer = loader(c"vkDestroyBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+            table.vkDestroyBuffer =
+                loader(c"vkDestroyBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         {
-            table.vkGetBufferMemoryRequirements = loader(
-                    c"vkGetBufferMemoryRequirements".as_ptr(),
-                )
+            table.vkGetBufferMemoryRequirements = loader(c"vkGetBufferMemoryRequirements".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -67,7 +65,7 @@ impl<'dev> Drop for Buffer<'dev> {
             return;
         }
         if let Some(destroy_fn) = self.table.vkDestroyBuffer {
-            unsafe { destroy_fn(self.parent.raw, self.raw, core::ptr::null()) };
+            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
         }
     }
 }
@@ -84,6 +82,10 @@ impl<'dev> Buffer<'dev> {
     #[inline]
     pub fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
+    }
+    #[inline]
+    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+        self.parent.instance()
     }
     #[inline]
     pub fn table(&self) -> &BufferDispatchTable {
@@ -121,9 +123,12 @@ impl<'dev> Buffer<'dev> {
         memoryOffset: VkDeviceSize,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
-            (self.table)
-                .vkBindBufferMemory
-                .unwrap_unchecked()(self.device().raw(), self.raw, memory, memoryOffset)
+            (self.table).vkBindBufferMemory.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                memory,
+                memoryOffset,
+            )
         };
         match r {
             VkResult::VK_SUCCESS => Ok(r),
@@ -134,7 +139,13 @@ impl<'dev> Buffer<'dev> {
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
             #[cfg(feature = "VK_KHR_buffer_device_address")]
             VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR => Err(r),
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
     /// [`vkDestroyBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBuffer.html)
@@ -156,9 +167,11 @@ impl<'dev> Buffer<'dev> {
         }
         unsafe {
             // SAFETY: table is fully loaded at creation.
-            (self.table)
-                .vkDestroyBuffer
-                .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
+            (self.table).vkDestroyBuffer.unwrap_unchecked()(
+                self.device().raw(),
+                self.raw,
+                pAllocator,
+            )
         }
         self.raw = VkBuffer::NULL;
     }
@@ -175,10 +188,7 @@ impl<'dev> Buffer<'dev> {
     /// - `pMemoryRequirements`
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
-    pub fn vkGetBufferMemoryRequirements(
-        &self,
-        pMemoryRequirements: *mut VkMemoryRequirements,
-    ) {
+    pub fn vkGetBufferMemoryRequirements(&self, pMemoryRequirements: *mut VkMemoryRequirements) {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table)

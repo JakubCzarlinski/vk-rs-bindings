@@ -18,6 +18,7 @@ path = "src/spinning_triangle.rs"
 [dependencies]
 winit = "0.29"
 raw-window-handle = "0.6.2"
+vk-alloc = { path = "../vk-alloc" }
 
 [dependencies.vk]
 path = "../vk-rs-bindings"

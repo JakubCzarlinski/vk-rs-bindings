@@ -57,14 +57,14 @@ fn main() {
         .expect("failed to enumerate physical devices");
     let physical_device = physical_devices.first().expect("no physical device found");
 
-    let queue_family_index = find_graphics_present_queue_family(physical_device, surface)
+    let queue_family_index = find_graphics_present_queue_family(physical_device, &surface)
         .expect("no graphics+present queue family");
 
     let device = create_device(physical_device, queue_family_index);
     let queue = device.vkGetDeviceQueue(queue_family_index, 0);
 
     let mut swapchain_state =
-        create_swapchain_state(physical_device, &device, surface, window.inner_size(), None);
+        create_swapchain_state(physical_device, &device, &surface, window.inner_size(), None);
     let render_pass = create_render_pass(&device, swapchain_state.surface_format.format);
     let (pipeline_layout, pipeline) = create_graphics_pipeline(&device, render_pass.raw());
     let mut framebuffers = create_framebuffers(
@@ -156,7 +156,7 @@ fn main() {
                     recreate_swapchain_state(
                         physical_device,
                         &device,
-                        surface,
+                        &surface,
                         size,
                         &mut swapchain_state,
                         &render_pass,
@@ -194,7 +194,7 @@ fn main() {
                             recreate_swapchain_state(
                                 physical_device,
                                 &device,
-                                surface,
+                                &surface,
                                 new_size,
                                 &mut swapchain_state,
                                 &render_pass,
@@ -305,11 +305,11 @@ fn create_metal_layer(window: &Window) -> Layer {
     }
 }
 
-fn create_surface(
-    instance: &Instance<'_>,
+fn create_surface<'a>(
+    instance: &'a Instance<'a>,
     window: &Window,
     #[cfg(target_os = "macos")] metal_layer: &mut Option<Layer>,
-) -> VkSurfaceKHR {
+) -> SurfaceKHR<'a> {
     let window_handle = window
         .window_handle()
         .expect("window handle unavailable")
@@ -367,7 +367,7 @@ fn create_surface(
 
 fn find_graphics_present_queue_family(
     physical_device: &PhysicalDevice<'_>,
-    surface: VkSurfaceKHR,
+    surface: &SurfaceKHR<'_>,
 ) -> Option<u32> {
     let mut count = 0;
     physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, null_mut());
@@ -385,7 +385,11 @@ fn find_graphics_present_queue_family(
 
         let mut present_supported = 0u32;
         physical_device
-            .vkGetPhysicalDeviceSurfaceSupportKHR(index as u32, surface, &mut present_supported)
+            .vkGetPhysicalDeviceSurfaceSupportKHR(
+                index as u32,
+                surface.raw(),
+                &mut present_supported,
+            )
             .ok()?;
         if present_supported != 0 {
             return Some(index as u32);
@@ -428,7 +432,7 @@ struct SwapchainState<'a> {
 fn create_swapchain_state<'a>(
     physical_device: &'a PhysicalDevice<'a>,
     device: &'a Device<'a>,
-    surface: VkSurfaceKHR,
+    surface: &SurfaceKHR<'a>,
     window_size: PhysicalSize<u32>,
     old_swapchain: Option<&SwapchainKHR<'a>>,
 ) -> SwapchainState<'a> {
@@ -437,7 +441,7 @@ fn create_swapchain_state<'a>(
 
     let mut caps = VkSurfaceCapabilitiesKHR::DEFAULT;
     physical_device
-        .vkGetPhysicalDeviceSurfaceCapabilitiesKHR(surface, &mut caps)
+        .vkGetPhysicalDeviceSurfaceCapabilitiesKHR(surface.raw(), &mut caps)
         .expect("vkGetPhysicalDeviceSurfaceCapabilitiesKHR failed");
 
     let mut image_count = caps.minImageCount + 1;
@@ -449,7 +453,7 @@ fn create_swapchain_state<'a>(
     let composite_alpha = choose_composite_alpha(caps.supportedCompositeAlpha);
 
     let mut create_info = VkSwapchainCreateInfoKHR::DEFAULT
-        .with_surface(surface)
+        .with_surface(surface.raw())
         .with_minImageCount(image_count)
         .with_imageFormat(surface_format.format)
         .with_imageColorSpace(surface_format.colorSpace)
@@ -519,15 +523,15 @@ fn get_swapchain_images(swapchain: &SwapchainKHR<'_>) -> Vec<VkImage> {
 
 fn pick_surface_format(
     physical_device: &PhysicalDevice<'_>,
-    surface: VkSurfaceKHR,
+    surface: &SurfaceKHR<'_>,
 ) -> VkSurfaceFormatKHR {
     let mut count = 0;
     physical_device
-        .vkGetPhysicalDeviceSurfaceFormatsKHR(surface, &mut count, null_mut())
+        .vkGetPhysicalDeviceSurfaceFormatsKHR(surface.raw(), &mut count, null_mut())
         .expect("vkGetPhysicalDeviceSurfaceFormatsKHR(count) failed");
     let mut formats = vec![VkSurfaceFormatKHR::DEFAULT; count as usize];
     physical_device
-        .vkGetPhysicalDeviceSurfaceFormatsKHR(surface, &mut count, formats.as_mut_ptr())
+        .vkGetPhysicalDeviceSurfaceFormatsKHR(surface.raw(), &mut count, formats.as_mut_ptr())
         .expect("vkGetPhysicalDeviceSurfaceFormatsKHR(list) failed");
 
     formats
@@ -542,15 +546,15 @@ fn pick_surface_format(
 
 fn pick_present_mode(
     physical_device: &PhysicalDevice<'_>,
-    surface: VkSurfaceKHR,
+    surface: &SurfaceKHR<'_>,
 ) -> VkPresentModeKHR {
     let mut count = 0;
     physical_device
-        .vkGetPhysicalDeviceSurfacePresentModesKHR(surface, &mut count, null_mut())
+        .vkGetPhysicalDeviceSurfacePresentModesKHR(surface.raw(), &mut count, null_mut())
         .expect("vkGetPhysicalDeviceSurfacePresentModesKHR(count) failed");
     let mut modes = vec![VkPresentModeKHR::VK_PRESENT_MODE_FIFO_KHR; count as usize];
     physical_device
-        .vkGetPhysicalDeviceSurfacePresentModesKHR(surface, &mut count, modes.as_mut_ptr())
+        .vkGetPhysicalDeviceSurfacePresentModesKHR(surface.raw(), &mut count, modes.as_mut_ptr())
         .expect("vkGetPhysicalDeviceSurfacePresentModesKHR(list) failed");
     modes
         .into_iter()
@@ -1017,7 +1021,7 @@ fn record_command_buffer(
 fn recreate_swapchain_state<'a>(
     physical_device: &'a PhysicalDevice<'a>,
     device: &'a Device<'a>,
-    surface: VkSurfaceKHR,
+    surface: &SurfaceKHR<'a>,
     size: PhysicalSize<u32>,
     swapchain_state: &mut SwapchainState<'a>,
     render_pass: &RenderPass<'a>,

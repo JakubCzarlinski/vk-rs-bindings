@@ -1,6 +1,7 @@
 use core::ffi::CStr;
 use std::ffi::c_void;
 use vk::*;
+use vk_alloc::{AllocationCreateInfo, Allocator};
 
 // Minimal SPIR-V compute shader: result = a + b
 const COMPUTE_SHADER_SPV: &[u8] = include_bytes!("shader.spv");
@@ -45,7 +46,8 @@ fn main() {
     let library = VulkanLib::load().expect("Failed to load Vulkan library");
     let instance: Instance = create_instance(&library);
 
-    let (mut device, memory_properties, queue_family_index) = create_device(&instance);
+    let (mut device, physical_device, queue_family_index) = create_device(&instance);
+    let allocator = Allocator::new(&physical_device, &device).expect("Allocator");
 
     {
         let queue = device.vkGetDeviceQueue(queue_family_index, 0);
@@ -54,13 +56,13 @@ fn main() {
             create_compute_pipeline(&device).expect("Failed to create pipeline");
 
         let buffer_size = 2 * std::mem::size_of::<u32>() as u64;
-        let (input_buffer, input_memory) =
-            create_storage_buffer(&device, &memory_properties, buffer_size)
-                .expect("Failed to create input buffer");
-        let (output_buffer, output_memory) = create_storage_buffer(&device, &memory_properties, 4)
-            .expect("Failed to create output buffer");
+        let mut input_buffer =
+            create_storage_buffer(&allocator, buffer_size).expect("Failed to create input buffer");
+        let output_buffer =
+            create_storage_buffer(&allocator, 4).expect("Failed to create output buffer");
 
-        write_to_buffer(&input_memory, &[3u32, 2u32]).expect("Failed to upload data");
+        write_to_buffer(input_buffer.allocation_mut(), &[3u32, 2u32])
+            .expect("Failed to upload data");
 
         let descriptor_pool =
             create_descriptor_pool(&device).expect("Failed to create descriptor pool");
@@ -69,8 +71,8 @@ fn main() {
             &device,
             &descriptor_pool,
             &descriptor_set_layout,
-            &input_buffer,
-            &output_buffer,
+            input_buffer.buffer(),
+            output_buffer.buffer(),
             buffer_size,
         )
         .expect("Failed to setup descriptor set");
@@ -90,7 +92,8 @@ fn main() {
         )
         .expect("Failed to run compute");
 
-        let result = read_from_buffer::<u32>(&output_memory).expect("Failed to read result");
+        let result =
+            read_from_buffer::<u32>(output_buffer.allocation()).expect("Failed to read result");
 
         if result == 5 {
             println!("Success! 3 + 2 = {result}");
@@ -98,6 +101,7 @@ fn main() {
             println!("Error: expected 5, got {result}");
         }
     }
+    drop(allocator);
     device.vkDestroyDevice(null());
 
     println!("Compute shader execution complete!");
@@ -125,20 +129,14 @@ fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
     })
 }
 
-fn create_device<'inst>(
-    instance: &'inst Instance,
-) -> (Device<'inst>, VkPhysicalDeviceMemoryProperties, u32) {
-    let physical_devices = instance
+fn create_device<'inst>(instance: &'inst Instance) -> (Device<'inst>, PhysicalDevice<'inst>, u32) {
+    let mut physical_devices = instance
         .vkEnumeratePhysicalDevices()
         .expect("Failed to enumerate physical devices");
-    let physical_device = &physical_devices.first().expect("No physical devices found");
-
-    let mut props = VkPhysicalDeviceMemoryProperties2::DEFAULT;
-    physical_device.vkGetPhysicalDeviceMemoryProperties2(&raw mut props);
-    let memory_properties = props.memoryProperties;
+    let physical_device = physical_devices.remove(0);
 
     let queue_family_index =
-        find_queue_family(physical_device).expect("No suitable queue family found");
+        find_queue_family(&physical_device).expect("No suitable queue family found");
 
     const PRIORITIES: [f32; 1] = [1.0f32];
     let queue_info = VkDeviceQueueCreateInfo::DEFAULT
@@ -155,7 +153,7 @@ fn create_device<'inst>(
         )
         .expect("Failed to create logical device");
 
-    (device, memory_properties, queue_family_index)
+    (device, physical_device, queue_family_index)
 }
 
 fn create_compute_pipeline<'a>(
@@ -199,66 +197,46 @@ fn create_compute_pipeline<'a>(
 }
 
 fn create_storage_buffer<'a>(
-    device: &'a Device<'a>,
-    memory_properties: &VkPhysicalDeviceMemoryProperties,
+    allocator: &'a Allocator<'a>,
     size: u64,
-) -> Result<(Buffer<'a>, DeviceMemory<'a>), String> {
+) -> Result<vk_alloc::AllocatedBuffer<'a>, String> {
     let buffer_usage_info = VkBufferUsageFlags2CreateInfo::DEFAULT
         .with_usage(VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0);
     let buffer_info = VkBufferCreateInfo::DEFAULT
         .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
         .with_pNext((&raw const buffer_usage_info).cast::<c_void>())
         .with_size(size);
-    let buffer = device
-        .vkCreateBuffer(&raw const buffer_info, null())
-        .map_err(|e| format!("Buffer: {e:?}"))?;
-
-    let mut reqs = VkMemoryRequirements::DEFAULT;
-    buffer.vkGetBufferMemoryRequirements(&raw mut reqs);
-
-    const FLAGS: u32 = VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
-        | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0;
-    let mem_type = (0..memory_properties.memoryTypeCount)
-        .find(|&i| {
-            (reqs.memoryTypeBits & (1 << i)) != 0
-                && (memory_properties.memoryTypes[i as usize].propertyFlags & FLAGS) == FLAGS
-        })
-        .ok_or("Memory type not found")?;
-
-    let a_info = VkMemoryAllocateInfo::DEFAULT
-        .with_allocationSize(reqs.size)
-        .with_memoryTypeIndex(mem_type);
-    let memory = device
-        .vkAllocateMemory(&raw const a_info, null())
-        .map_err(|e| format!("Allocate: {e:?}"))?;
-    buffer
-        .vkBindBufferMemory(memory.raw(), 0)
-        .map_err(|e| format!("Bind: {e:?}"))?;
-
-    Ok((buffer, memory))
+    allocator
+        .create_buffer(
+            &buffer_info,
+            AllocationCreateInfo {
+                memory_type_policy: vk_alloc::MemoryTypePolicy::UPLOAD.with_required_flags(
+                    VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
+                        | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
+                ),
+                ..AllocationCreateInfo::new()
+            },
+        )
+        .map_err(|e| format!("Buffer allocation: {e:?}"))
 }
 
-fn write_to_buffer<T>(memory: &DeviceMemory, data: &[T]) -> Result<(), String> {
-    let size = std::mem::size_of_val(data) as u64;
-    let mut ptr: *mut c_void = null_mut();
-    memory
-        .vkMapMemory(0, size, 0, &raw mut ptr)
-        .map_err(|e| format!("Map: {e:?}"))?;
-    unsafe {
-        std::ptr::copy_nonoverlapping(data.as_ptr(), ptr.cast::<T>(), data.len());
-    }
-    memory.vkUnmapMemory();
+fn write_to_buffer<T: Copy>(
+    allocation: &mut vk_alloc::Allocation,
+    data: &[T],
+) -> Result<(), String> {
+    let slice = allocation
+        .mapped_slice_mut::<T>(data.len())
+        .ok_or("Allocation is not host mapped")?;
+    slice.copy_from_slice(data);
     Ok(())
 }
 
-fn read_from_buffer<T: Copy>(memory: &DeviceMemory) -> Result<T, String> {
-    let mut ptr: *mut c_void = null_mut();
-    memory
-        .vkMapMemory(0, std::mem::size_of::<T>() as u64, 0, &raw mut ptr)
-        .map_err(|e| format!("MapRead: {e:?}"))?;
-    let val = unsafe { *(ptr as *const T) };
-    memory.vkUnmapMemory();
-    Ok(val)
+fn read_from_buffer<T: Copy>(allocation: &vk_alloc::Allocation) -> Result<T, String> {
+    let ptr = allocation.mapped_ptr().cast::<T>();
+    if ptr.is_null() {
+        return Err("Allocation is not host mapped".into());
+    }
+    Ok(unsafe { *ptr })
 }
 
 fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'a>, String> {

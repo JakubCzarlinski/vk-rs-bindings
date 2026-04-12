@@ -1,6 +1,7 @@
 [workspace]
 members = [
   "vk-codegen",
+  "vk-alloc",
   "vk-rs-bindings",
   "vk-demo",
 ]

@@ -1,0 +1,39 @@
+[package]
+name = "vk-alloc"
+version = "0.1.0"
+edition = "2024"
+description = "Handwritten Vulkan allocator for vk-rs-bindings"
+
+[features]
+bench-internals = []
+
+[dependencies]
+parking_lot = "0.12"
+
+[dependencies.vk]
+path = "../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = [
+  "VK_VERSION_1_4",
+  "VK_KHR_external_memory",
+  "VK_EXT_external_memory_host",
+]
+
+[dev-dependencies]
+criterion = { version = "0.5", default-features = true }
+
+[[bench]]
+name = "hot_paths"
+harness = false
+required-features = ["bench-internals"]
+
+[lints.clippy]
+pedantic = "deny"
+must_use_candidate = "allow"
+return_self_not_must_use = "allow"
+missing_errors_doc = "allow"
+needless_pass_by_value = "allow"
+cast_possible_truncation = "allow"
+cast_possible_wrap = "allow"
+cast_sign_loss = "allow"
+cast_lossless = "allow"

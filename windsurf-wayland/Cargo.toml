@@ -1,0 +1,45 @@
+[package]
+name = "windsurf-wayland"
+version = "0.1.0"
+edition = "2024"
+description = "Wayland backend for the windsurf windowing APIs"
+readme = "README.md"
+build = "build.rs"
+
+[dependencies]
+memmap2 = "0.9.5"
+raw-window-handle = "0.6.2"
+wayland-backend = { version = "0.3.15", features = ["client_system", "rwh_06"] }
+wayland-client = "0.31.14"
+wayland-protocols = { version = "0.31.2", features = ["client", "unstable"] }
+windsurf-core = { path = "../windsurf-core" }
+xkbcommon-dl = "0.4.2"
+
+[dev-dependencies]
+raw-window-handle = "0.6.2"
+
+[dev-dependencies.vk]
+path = "../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = [
+  "VK_VERSION_1_4",
+  "VK_KHR_surface",
+  "VK_KHR_display",
+  "VK_KHR_swapchain",
+]
+
+[target.'cfg(target_os = "linux")'.dev-dependencies.vk]
+path = "../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = ["VK_KHR_wayland_surface"]
+
+[lints.clippy]
+pedantic = "deny"
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+too_many_lines = "allow"
+cast_possible_truncation = "allow"
+cast_sign_loss = "allow"
+cast_possible_wrap = "allow"

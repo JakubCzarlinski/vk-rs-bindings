@@ -4,6 +4,10 @@ members = [
   "vk-alloc",
   "vk-rs-bindings",
   "vk-demo",
+  "windsurf-core",
+  "windsurf-extra",
+  "windsurf-wayland",
+  "windsurf",
 ]
 
 resolver = "3"

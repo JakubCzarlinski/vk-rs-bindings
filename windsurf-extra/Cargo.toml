@@ -1,0 +1,16 @@
+[package]
+name = "windsurf-extra"
+version = "0.1.0"
+edition = "2024"
+description = "Optional higher-level windowing abstractions for windsurf"
+readme = "README.md"
+
+[dependencies]
+windsurf-core = { path = "../windsurf-core" }
+
+[lints.clippy]
+pedantic = "deny"
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"

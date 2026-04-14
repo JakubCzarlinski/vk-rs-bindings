@@ -1,0 +1,50 @@
+[package]
+name = "windsurf-examples"
+version = "0.1.0"
+edition = "2024"
+description = "Runnable examples for the windsurf windowing workspace"
+readme = "README.md"
+build = "build.rs"
+publish = false
+
+[dev-dependencies]
+raw-window-handle = "0.6.2"
+[target.'cfg(target_os = "linux")'.dev-dependencies]
+windsurf = { path = "../windsurf", features = ["wayland"] }
+
+[target.'cfg(target_os = "linux")'.dev-dependencies.vk]
+path = "../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = [
+  "VK_VERSION_1_4",
+  "VK_KHR_surface",
+  "VK_KHR_display",
+  "VK_KHR_swapchain",
+  "VK_KHR_wayland_surface",
+]
+
+[target.'cfg(target_os = "macos")'.dev-dependencies]
+raw-window-metal = "1.1.0"
+windsurf = { path = "../windsurf", features = ["macos"] }
+
+[target.'cfg(target_os = "macos")'.dev-dependencies.vk]
+path = "../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = [
+  "VK_VERSION_1_4",
+  "VK_KHR_display",
+  "VK_KHR_surface",
+  "VK_KHR_swapchain",
+  "VK_EXT_metal_surface",
+]
+
+[lints.clippy]
+pedantic = "deny"
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+too_many_lines = "allow"
+cast_possible_truncation = "allow"
+cast_sign_loss = "allow"
+cast_possible_wrap = "allow"

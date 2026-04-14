@@ -6,6 +6,8 @@ Facade crate for the `windsurf` windowing API family.
 
 - `windsurf-core` unconditionally
 - `windsurf-extra` when the default `extras` feature is enabled
+- target-selected `Display` / `Window` types when a backend feature is enabled
+- backend modules such as `windsurf::macos` and `windsurf::wayland`
 
 This keeps the minimal surface available while still giving applications a
 single crate import when they want the larger abstraction set.
@@ -16,15 +18,20 @@ The workspace currently defines the shared API and documentation surface:
 
 - core events and queueing
 - optional IME / drag-and-drop / cursor / gamepad abstractions
+- a macOS backend in `windsurf-macos`
 - a Wayland backend in `windsurf-wayland`
 - facade re-exports
 
-The facade re-exports the Wayland backend when the `wayland` feature is enabled.
+The facade re-exports backend crates when their feature is enabled.
 
 ```toml
 [dependencies]
 windsurf = { path = "../windsurf", features = ["wayland"] }
 ```
+
+Use the `macos` feature on macOS or the `wayland` feature on Linux to get
+root-level `windsurf::Display` and `windsurf::Window` aliases for the active
+backend.
 
 ## Quick start
 

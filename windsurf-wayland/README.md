@@ -50,6 +50,11 @@ The backend is written to stay cheap in the common loop:
 - compositor keymaps are memory-mapped during load instead of copied into a
   temporary `Vec`
 
+The runnable Vulkan triangle example now lives in the workspace-level
+`windsurf-examples` crate so this backend crate stays focused on the backend
+implementation itself. Run it with `cargo run -p windsurf-examples --example
+basic_window`.
+
 ## Example
 
 ```no_run

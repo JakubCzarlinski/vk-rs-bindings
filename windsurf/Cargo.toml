@@ -8,11 +8,13 @@ readme = "README.md"
 [features]
 default = ["extras"]
 extras = ["dep:windsurf-extra"]
+macos = ["dep:windsurf-macos"]
 wayland = ["dep:windsurf-wayland"]
 
 [dependencies]
 windsurf-core = { path = "../windsurf-core" }
 windsurf-extra = { path = "../windsurf-extra", optional = true }
+windsurf-macos = { path = "../windsurf-macos", optional = true }
 windsurf-wayland = { path = "../windsurf-wayland", optional = true }
 
 [lints.clippy]

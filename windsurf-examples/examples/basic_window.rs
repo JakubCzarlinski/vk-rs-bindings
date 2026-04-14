@@ -1,5 +1,5 @@
-#[cfg(target_os = "linux")]
-mod linux_wayland_triangle {
+#[cfg(any(target_os = "linux", target_os = "macos"))]
+mod platform_triangle {
     #![allow(
         clippy::borrow_as_ptr,
         clippy::cast_precision_loss,
@@ -10,13 +10,14 @@ mod linux_wayland_triangle {
     )]
 
     use raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle};
+    #[cfg(target_os = "macos")]
+    use raw_window_metal::Layer as MetalLayer;
     use std::ffi::{c_char, c_void};
     use std::ptr::{null, null_mut};
     use std::thread;
     use std::time::Duration;
     use vk::*;
-    use windsurf_core::{Event, EventQueue, WindowAttributes};
-    use windsurf_wayland::{Display, Window};
+    use windsurf::{Display, Event, EventQueue, Window, WindowAttributes};
 
     const VERT_SHADER_SPV: &[u8] =
         include_bytes!(concat!(env!("OUT_DIR"), "/windsurf_triangle.vert.spv"));
@@ -25,30 +26,44 @@ mod linux_wayland_triangle {
 
     const FRAMES_IN_FLIGHT: usize = 2;
 
+    fn example_error(message: impl Into<String>) -> Box<dyn std::error::Error> {
+        Box::new(std::io::Error::other(message.into()))
+    }
+
     pub fn main() -> Result<(), Box<dyn std::error::Error>> {
         let display = Display::connect()?;
         let window = Window::new(
             &display,
             WindowAttributes {
-                title: String::from("windsurf-wayland Vulkan triangle"),
+                title: String::from("windsurf Vulkan triangle"),
                 transparent: true,
                 ..WindowAttributes::default()
             },
         )?;
         let mut events = EventQueue::new();
 
-        let vulkan_lib = VulkanLib::load().expect("failed to load Vulkan loader");
+        let vulkan_lib = VulkanLib::load()
+            .map_err(|err| example_error(format!("failed to load Vulkan loader: {err:?}")))?;
         let entry = Entry::new(&vulkan_lib);
-        let instance = create_instance(&entry, &window);
-        let surface = create_surface(&instance, &window);
+        let instance = create_instance(&entry, &window)?;
+        #[cfg(target_os = "macos")]
+        let mut metal_layer = None;
+        let surface = create_surface(
+            &instance,
+            &window,
+            #[cfg(target_os = "macos")]
+            &mut metal_layer,
+        )?;
 
-        let physical_devices = instance
-            .vkEnumeratePhysicalDevices()
-            .expect("failed to enumerate physical devices");
-        let physical_device = physical_devices.first().expect("no physical device found");
+        let physical_devices = instance.vkEnumeratePhysicalDevices().map_err(|err| {
+            example_error(format!("failed to enumerate physical devices: {err:?}"))
+        })?;
+        let physical_device = physical_devices
+            .first()
+            .ok_or_else(|| example_error("no physical device found"))?;
         let queue_family_index = find_graphics_present_queue_family(physical_device, &surface)
-            .expect("no graphics+present queue family");
-        let device = create_device(physical_device, queue_family_index);
+            .ok_or_else(|| example_error("no graphics+present queue family"))?;
+        let device = create_device(physical_device, queue_family_index)?;
         let queue = device.vkGetDeviceQueue(queue_family_index, 0);
 
         let mut swapchain_state = create_swapchain_state(
@@ -150,14 +165,17 @@ mod linux_wayland_triangle {
         }
     }
 
-    fn create_instance<'a>(entry: &'a Entry<'a>, window: &Window) -> Instance<'a> {
+    fn create_instance<'a>(
+        entry: &'a Entry<'a>,
+        window: &Window,
+    ) -> Result<Instance<'a>, Box<dyn std::error::Error>> {
         // const VALIDATION_LAYER: &std::ffi::CStr = c"VK_LAYER_KHRONOS_validation";
         // const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
         let app_info = VkApplicationInfo::DEFAULT
             .with_apiVersion(VK_API_VERSION_1_4)
             .with_applicationVersion(VK_MAKE_VERSION(0, 1, 0))
             .with_engineVersion(VK_MAKE_VERSION(0, 1, 0))
-            .with_pEngineName(c"windsurf-wayland".as_ptr())
+            .with_pEngineName(c"windsurf-examples".as_ptr())
             .with_pApplicationName(c"windsurf Vulkan Triangle".as_ptr());
 
         let instance_extensions = required_instance_extensions(window);
@@ -170,7 +188,7 @@ mod linux_wayland_triangle {
 
         entry
             .vkCreateInstance(&create_info, null())
-            .expect("vkCreateInstance failed")
+            .map_err(|err| example_error(format!("vkCreateInstance failed: {err:?}")))
     }
 
     fn required_instance_extensions(window: &Window) -> Vec<*const c_char> {
@@ -181,8 +199,13 @@ mod linux_wayland_triangle {
             .as_raw();
 
         match window_handle {
+            #[cfg(target_os = "linux")]
             RawWindowHandle::Wayland(_) => {
                 extensions.push(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME.as_ptr());
+            }
+            #[cfg(target_os = "macos")]
+            RawWindowHandle::AppKit(_) => {
+                extensions.push(VK_EXT_METAL_SURFACE_EXTENSION_NAME.as_ptr());
             }
             other => panic!("unsupported window backend for Vulkan example: {other:?}"),
         }
@@ -190,7 +213,11 @@ mod linux_wayland_triangle {
         extensions
     }
 
-    fn create_surface<'a>(instance: &'a Instance<'a>, window: &Window) -> SurfaceKHR<'a> {
+    fn create_surface<'a>(
+        instance: &'a Instance<'a>,
+        window: &Window,
+        #[cfg(target_os = "macos")] metal_layer: &mut Option<MetalLayer>,
+    ) -> Result<SurfaceKHR<'a>, Box<dyn std::error::Error>> {
         let window_handle = window
             .window_handle()
             .expect("window handle unavailable")
@@ -201,6 +228,7 @@ mod linux_wayland_triangle {
             .as_raw();
 
         match (window_handle, display_handle) {
+            #[cfg(target_os = "linux")]
             (
                 RawWindowHandle::Wayland(wayland_window),
                 RawDisplayHandle::Wayland(wayland_display),
@@ -210,13 +238,26 @@ mod linux_wayland_triangle {
                     .with_surface(wayland_window.surface.as_ptr().cast::<wl_surface>());
                 instance
                     .vkCreateWaylandSurfaceKHR(&create_info, null())
-                    .expect("vkCreateWaylandSurfaceKHR failed")
+                    .map_err(|err| {
+                        example_error(format!("vkCreateWaylandSurfaceKHR failed: {err:?}"))
+                    })
             }
-            (other_window, other_display) => {
-                panic!(
-                    "unsupported window/display backend combination: {other_window:?} / {other_display:?}"
-                );
+            #[cfg(target_os = "macos")]
+            (RawWindowHandle::AppKit(appkit_window), RawDisplayHandle::AppKit(_)) => {
+                let layer = unsafe { MetalLayer::from_ns_view(appkit_window.ns_view) };
+                let create_info = VkMetalSurfaceCreateInfoEXT::DEFAULT
+                    .with_pLayer(layer.as_ptr().as_ptr().cast::<CAMetalLayer>());
+                let surface = instance
+                    .vkCreateMetalSurfaceEXT(&create_info, null())
+                    .map_err(|err| {
+                        example_error(format!("vkCreateMetalSurfaceEXT failed: {err:?}"))
+                    })?;
+                *metal_layer = Some(layer);
+                Ok(surface)
             }
+            (other_window, other_display) => Err(example_error(format!(
+                "unsupported window/display backend combination: {other_window:?} / {other_display:?}"
+            ))),
         }
     }
 
@@ -253,13 +294,13 @@ mod linux_wayland_triangle {
     fn create_device<'a>(
         physical_device: &'a PhysicalDevice<'a>,
         queue_family_index: u32,
-    ) -> Device<'a> {
+    ) -> Result<Device<'a>, Box<dyn std::error::Error>> {
         const PRIORITIES: [f32; 1] = [1.0];
         let queue_info = VkDeviceQueueCreateInfo::DEFAULT
             .with_queueFamilyIndex(queue_family_index)
             .with_queueCount(1)
             .with_pQueuePriorities(PRIORITIES.as_ptr());
-        let enabled_extensions = [VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
+        let enabled_extensions = vec![VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
         let mut vulkan_13_features =
             VkPhysicalDeviceVulkan13Features::DEFAULT.with_synchronization2(1);
         let device_info = VkDeviceCreateInfo::DEFAULT
@@ -271,7 +312,7 @@ mod linux_wayland_triangle {
 
         physical_device
             .vkCreateDevice(&device_info, null())
-            .expect("vkCreateDevice failed")
+            .map_err(|err| example_error(format!("vkCreateDevice failed: {err:?}")))
     }
 
     struct SwapchainState<'a> {
@@ -894,12 +935,12 @@ mod linux_wayland_triangle {
     }
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "macos"))]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    linux_wayland_triangle::main()
+    platform_triangle::main()
 }
 
-#[cfg(not(target_os = "linux"))]
+#[cfg(not(any(target_os = "linux", target_os = "macos")))]
 fn main() {
-    panic!("This example currently targets Linux Wayland only");
+    panic!("The basic_window example currently targets Linux Wayland and macOS AppKit");
 }

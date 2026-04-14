@@ -1,0 +1,43 @@
+[package]
+name = "windsurf-macos"
+version = "0.1.0"
+edition = "2024"
+description = "macOS backend for the windsurf windowing APIs"
+readme = "README.md"
+
+[dependencies]
+windsurf-core = { path = "../windsurf-core" }
+raw-window-handle = "0.6.2"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6.4"
+objc2-app-kit = { version = "0.3.2", default-features = false, features = [
+  "NSApplication",
+  "NSColor",
+  "NSEvent",
+  "NSGraphics",
+  "NSResponder",
+  "NSRunningApplication",
+  "NSView",
+  "NSWindow",
+  "objc2-core-foundation",
+  "objc2-quartz-core",
+] }
+objc2-foundation = { version = "0.3.2", default-features = false, features = [
+  "NSDate",
+  "NSRunLoop",
+  "NSString",
+  "objc2-core-foundation",
+] }
+objc2-quartz-core = { version = "0.3.2", default-features = false, features = [
+  "CALayer",
+  "CAMetalLayer",
+  "objc2-core-foundation",
+] }
+
+[lints.clippy]
+pedantic = "warn"
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"

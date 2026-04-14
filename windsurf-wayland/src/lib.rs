@@ -1,5 +1,7 @@
 #![doc = include_str!("../README.md")]
-#![doc = r"
+#![cfg_attr(
+    target_os = "linux",
+    doc = r"
 ## Wayland, XKB, and `raw-window-handle`
 
 This backend sits on top of three separate layers that solve different
@@ -35,18 +37,157 @@ The backend keeps the hot path simple:
 
 The remaining unavoidable allocations come from the public API itself, most
 notably `Key::Character(String)`.
-"]
+"
+)]
 
+#[cfg(target_os = "linux")]
 mod display;
+#[cfg(target_os = "linux")]
 mod error;
+#[cfg(target_os = "linux")]
 mod input;
+#[cfg(target_os = "linux")]
 mod raw;
+#[cfg(target_os = "linux")]
 mod shell;
+#[cfg(target_os = "linux")]
 mod state;
+#[cfg(target_os = "linux")]
 mod util;
+#[cfg(target_os = "linux")]
 mod window;
+#[cfg(target_os = "linux")]
 mod xkb;
 
+#[cfg(target_os = "linux")]
 pub use crate::display::{Display, RawDisplay};
+#[cfg(target_os = "linux")]
 pub use crate::error::{ConnectError, PumpError, WindowError};
+#[cfg(target_os = "linux")]
 pub use crate::window::{RawWindow, Window};
+
+#[cfg(not(target_os = "linux"))]
+use raw_window_handle::{
+    DisplayHandle, HandleError, HasDisplayHandle, HasWindowHandle, WindowHandle,
+};
+#[cfg(not(target_os = "linux"))]
+use windsurf_core::{EventQueue, WindowAttributes, WindowId};
+
+#[cfg(not(target_os = "linux"))]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ConnectError;
+
+#[cfg(not(target_os = "linux"))]
+impl std::fmt::Display for ConnectError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("windsurf-wayland only supports Linux targets")
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+impl std::error::Error for ConnectError {}
+
+#[cfg(not(target_os = "linux"))]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PumpError;
+
+#[cfg(not(target_os = "linux"))]
+impl std::fmt::Display for PumpError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("windsurf-wayland only supports Linux targets")
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+impl std::error::Error for PumpError {}
+
+#[cfg(not(target_os = "linux"))]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct WindowError;
+
+#[cfg(not(target_os = "linux"))]
+impl std::fmt::Display for WindowError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str("windsurf-wayland only supports Linux targets")
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+impl std::error::Error for WindowError {}
+
+#[cfg(not(target_os = "linux"))]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+pub struct Display;
+
+#[cfg(not(target_os = "linux"))]
+pub struct RawDisplay;
+
+#[cfg(not(target_os = "linux"))]
+impl Display {
+    pub fn connect() -> Result<Self, ConnectError> {
+        Err(ConnectError)
+    }
+
+    pub fn pump(&self, _queue: &mut EventQueue) -> Result<(), PumpError> {
+        Err(PumpError)
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+pub struct Window;
+
+#[cfg(not(target_os = "linux"))]
+pub struct RawWindow;
+
+#[cfg(not(target_os = "linux"))]
+impl Window {
+    pub fn new(_display: &Display, _attrs: WindowAttributes) -> Result<Self, WindowError> {
+        Err(WindowError)
+    }
+
+    pub fn id(&self) -> WindowId {
+        WindowId::new(0)
+    }
+
+    pub fn set_title(&self, _title: &str) {}
+
+    pub fn inner_size(&self) -> (u32, u32) {
+        (0, 0)
+    }
+
+    pub fn scale_factor(&self) -> f64 {
+        1.0
+    }
+
+    pub fn request_redraw(&self) {}
+
+    pub fn raw_window_handle(&self) -> Result<raw_window_handle::RawWindowHandle, HandleError> {
+        self.window_handle().map(Into::into)
+    }
+
+    pub fn raw_display_handle(&self) -> Result<raw_window_handle::RawDisplayHandle, HandleError> {
+        self.display_handle().map(Into::into)
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+impl raw_window_handle::HasDisplayHandle for Display {
+    fn display_handle(&self) -> Result<DisplayHandle<'_>, HandleError> {
+        Err(HandleError::Unavailable)
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+impl raw_window_handle::HasDisplayHandle for Window {
+    fn display_handle(&self) -> Result<DisplayHandle<'_>, HandleError> {
+        Err(HandleError::Unavailable)
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+impl raw_window_handle::HasWindowHandle for Window {
+    fn window_handle(&self) -> Result<WindowHandle<'_>, HandleError> {
+        Err(HandleError::Unavailable)
+    }
+}

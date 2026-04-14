@@ -6,8 +6,10 @@ This guide describes how the current `windsurf` workspace is intended to be used
 
 - `windsurf-core`: minimal shared types for window lifecycle, input, geometry, and a poll-friendly queue.
 - `windsurf-extra`: optional higher-level abstractions for IME, drag-and-drop, cursors, and gamepads.
+- `windsurf-macos`: macOS backend implementing the shared `Display` / `Window` surface.
 - `windsurf-wayland`: Wayland + XDG-shell backend implementing `Display` and `Window`.
-- `windsurf`: facade crate that re-exports the previous two crates.
+- `windsurf-examples`: runnable examples that depend on backend crates without living inside them.
+- `windsurf`: facade crate that re-exports the shared and backend crates.
 
 ## When to use each crate
 
@@ -20,12 +22,15 @@ every backend or every application.
 Use `windsurf` when you want a single import path and are happy with the facade
 re-export strategy.
 
-If you want backend types through the facade, enable the `wayland` feature:
+If you want backend types through the facade, enable the relevant backend feature:
 
 ```toml
 [dependencies]
 windsurf = { path = "../windsurf", features = ["wayland"] }
 ```
+
+Use the `macos` feature instead on macOS when you want the AppKit backend
+re-exported from the facade.
 
 ## Core workflow
 
@@ -89,7 +94,8 @@ assert_eq!(extras.drain().count(), 1);
 
 ## Backend author guidance
 
-The workspace now includes a Wayland backend in `windsurf-wayland`. If you are
+The workspace now includes a Wayland backend in `windsurf-wayland` plus a macOS
+backend in `windsurf-macos`. If you are
 implementing the next backend:
 
 1. Keep the producer side platform-specific.
@@ -111,22 +117,23 @@ Good pattern:
 
 ## Example
 
-The runnable Wayland example lives at:
+The runnable cross-platform Vulkan example lives at:
 
-- `windsurf-wayland/examples/basic_window.rs`
+- `windsurf-examples/examples/basic_window.rs`
 
 You can build or run it with:
 
 ```bash
-cargo run -p windsurf-wayland --example basic_window
+cargo run -p windsurf-examples --example basic_window
 ```
 
 ## Status
 
-As of April 12, 2026, this workspace contains:
+As of April 13, 2026, this workspace contains:
 
 - shared API crates
+- a macOS backend
 - a working Wayland backend
 - example binaries and rustdoc examples
 
-macOS, iOS, and Android backends are still future work.
+iOS and Android backends are still future work.

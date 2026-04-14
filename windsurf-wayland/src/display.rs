@@ -5,12 +5,17 @@ use std::sync::atomic::AtomicU64;
 use wayland_client::Connection;
 use wayland_client::globals::{BindError, GlobalList, registry_queue_init};
 use wayland_client::protocol::{wl_compositor, wl_seat};
+use wayland_protocols::wp::cursor_shape::v1::client::wp_cursor_shape_manager_v1;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_decoration_manager_v1;
 use wayland_protocols::xdg::shell::client::xdg_wm_base;
 use windsurf_core::EventQueue;
+use windsurf_extra::{
+    CursorEvent, CursorMode, CursorSource, DragSource, ExtraEvent, ExtraEventQueue, ExtraFeatures,
+    FeatureKind, FeatureSet, ImeEvent, ImeState, UnsupportedFeature,
+};
 
 use crate::error::{ConnectError, PumpError};
-use crate::state::{PumpState, SharedDisplay, SharedDisplayRef, State};
+use crate::state::{PumpState, SharedDisplay, SharedDisplayRef, State, icon_from_source};
 
 #[derive(Clone)]
 pub struct Display {
@@ -52,8 +57,17 @@ impl Display {
                 return Err(ConnectError::Bind(other));
             }
         };
+        let cursor_shape_manager = match globals
+            .bind::<wp_cursor_shape_manager_v1::WpCursorShapeManagerV1, _, _>(&qh, 1..=1, ())
+        {
+            Ok(manager) => Some(manager),
+            Err(BindError::NotPresent) => None,
+            Err(other @ BindError::UnsupportedVersion) => {
+                return Err(ConnectError::Bind(other));
+            }
+        };
 
-        let mut state = State::new(compositor.clone());
+        let mut state = State::new(compositor.clone(), cursor_shape_manager);
         for global in globals.contents().clone_list() {
             if global.interface == "wl_seat" && state.seat.is_none() {
                 let version = global.version.min(7);
@@ -116,6 +130,14 @@ impl Display {
         Ok(())
     }
 
+    pub fn pump_extras(&self, queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
+        let mut pump = self.shared.pump.lock().unwrap();
+        while let Some(event) = pump.state.pending_extra_events.pop_front() {
+            queue.push(event);
+        }
+        Ok(())
+    }
+
     pub fn raw(&self) -> RawDisplay<'_> {
         RawDisplay {
             connection: &self.shared.connection,
@@ -123,5 +145,92 @@ impl Display {
             compositor: &self.shared.compositor,
             wm_base: &self.shared.wm_base,
         }
+    }
+}
+
+impl ExtraFeatures for Display {
+    fn supported_features(&self) -> FeatureSet {
+        FeatureSet::IME.with(FeatureSet::CURSOR)
+    }
+
+    fn set_ime_state(
+        &self,
+        window: windsurf_core::WindowId,
+        state: &ImeState,
+    ) -> Result<(), UnsupportedFeature> {
+        let mut pump = self.shared.pump.lock().unwrap();
+        if let Some(window_state) = pump.state.windows.get_mut(&window)
+            && window_state.ime_enabled != state.enabled
+        {
+            window_state.ime_enabled = state.enabled;
+            let event = if state.enabled {
+                ExtraEvent::Ime(ImeEvent::Enabled { id: window })
+            } else {
+                ExtraEvent::Ime(ImeEvent::Disabled { id: window })
+            };
+            pump.state.push_extra(event);
+        }
+        Ok(())
+    }
+
+    fn set_cursor(
+        &self,
+        window: windsurf_core::WindowId,
+        source: &CursorSource,
+    ) -> Result<(), UnsupportedFeature> {
+        let mut pump = self.shared.pump.lock().unwrap();
+        let mut emitted = None;
+        if let Some(window_state) = pump.state.windows.get_mut(&window) {
+            window_state.cursor_icon = icon_from_source(source);
+            emitted = Some(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
+                id: window,
+                visible: window_state.cursor_visible,
+            }));
+        }
+        if let Some(event) = emitted {
+            pump.state.push_extra(event);
+        }
+        pump.state.apply_cursor(window);
+        Ok(())
+    }
+
+    fn set_cursor_mode(
+        &self,
+        window: windsurf_core::WindowId,
+        mode: CursorMode,
+    ) -> Result<(), UnsupportedFeature> {
+        let mut pump = self.shared.pump.lock().unwrap();
+        let mut emitted = Vec::new();
+        if let Some(window_state) = pump.state.windows.get_mut(&window)
+            && window_state.cursor_mode != mode
+        {
+            window_state.cursor_mode = mode;
+            emitted.push(ExtraEvent::Cursor(CursorEvent::ModeChanged {
+                id: window,
+                mode,
+            }));
+
+            let visible = !matches!(mode, CursorMode::Hidden);
+            if window_state.cursor_visible != visible {
+                window_state.cursor_visible = visible;
+                emitted.push(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
+                    id: window,
+                    visible,
+                }));
+            }
+        }
+        for event in emitted {
+            pump.state.push_extra(event);
+        }
+        pump.state.apply_cursor(window);
+        Ok(())
+    }
+
+    fn start_drag(
+        &self,
+        _window: windsurf_core::WindowId,
+        _source: DragSource,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::DragDropSource))
     }
 }

@@ -35,8 +35,8 @@ The backend keeps the hot path simple:
 - compositor keymaps are memory-mapped during load instead of copied into a
   temporary `Vec`
 
-The remaining unavoidable allocations come from the public API itself, most
-notably `Key::Character(String)`.
+The remaining unavoidable allocations come from textual input payloads in
+`Event::TextInput { text: String, .. }`.
 "
 )]
 
@@ -72,6 +72,11 @@ use raw_window_handle::{
 };
 #[cfg(not(target_os = "linux"))]
 use windsurf_core::{EventQueue, WindowAttributes, WindowId};
+#[cfg(not(target_os = "linux"))]
+use windsurf_extra::{
+    CursorMode, CursorSource, DragSource, ExtraEventQueue, ExtraFeatures, FeatureKind, FeatureSet,
+    ImeState, UnsupportedFeature,
+};
 
 #[cfg(not(target_os = "linux"))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -129,6 +134,10 @@ impl Display {
     }
 
     pub fn pump(&self, _queue: &mut EventQueue) -> Result<(), PumpError> {
+        Err(PumpError)
+    }
+
+    pub fn pump_extras(&self, _queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
         Err(PumpError)
     }
 }
@@ -189,5 +198,40 @@ impl raw_window_handle::HasDisplayHandle for Window {
 impl raw_window_handle::HasWindowHandle for Window {
     fn window_handle(&self) -> Result<WindowHandle<'_>, HandleError> {
         Err(HandleError::Unavailable)
+    }
+}
+
+#[cfg(not(target_os = "linux"))]
+impl ExtraFeatures for Display {
+    fn supported_features(&self) -> FeatureSet {
+        FeatureSet::empty()
+    }
+
+    fn set_ime_state(
+        &self,
+        _window: WindowId,
+        _state: &ImeState,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::Ime))
+    }
+
+    fn set_cursor(
+        &self,
+        _window: WindowId,
+        _source: &CursorSource,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::Cursor))
+    }
+
+    fn set_cursor_mode(
+        &self,
+        _window: WindowId,
+        _mode: CursorMode,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::Cursor))
+    }
+
+    fn start_drag(&self, _window: WindowId, _source: DragSource) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::DragDropSource))
     }
 }

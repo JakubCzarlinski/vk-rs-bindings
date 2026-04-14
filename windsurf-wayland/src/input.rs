@@ -1,6 +1,7 @@
 use wayland_client::protocol::{wl_keyboard, wl_pointer, wl_seat};
 use wayland_client::{Connection, Dispatch, QueueHandle};
-use windsurf_core::{ButtonState, Event, Key, KeyState, PointerButton};
+use windsurf_core::{ButtonState, Event, KeyCode, KeyState, PointerButton};
+use windsurf_extra::{CursorEvent, ExtraEvent};
 
 use crate::state::State;
 use crate::util::unpack_enum;
@@ -21,10 +22,19 @@ impl Dispatch<wl_seat::WlSeat, ()> for State {
 
             if capabilities.contains(wl_seat::Capability::Pointer) && state.pointer.is_none() {
                 state.pointer = Some(seat.get_pointer(qh, ()));
+                if let (Some(manager), Some(pointer)) =
+                    (state.cursor_shape_manager.as_ref(), state.pointer.as_ref())
+                {
+                    state.cursor_shape_device = Some(manager.get_pointer(pointer, qh, ()));
+                }
             }
             if !capabilities.contains(wl_seat::Capability::Pointer) {
+                if let Some(device) = state.cursor_shape_device.take() {
+                    device.destroy();
+                }
                 state.pointer = None;
                 state.pointer_focus = None;
+                state.pointer_enter_serial = None;
             }
             if capabilities.contains(wl_seat::Capability::Keyboard) && state.keyboard.is_none() {
                 state.keyboard = Some(seat.get_keyboard(qh, ()));
@@ -48,12 +58,14 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
     ) {
         match event {
             wl_pointer::Event::Enter {
+                serial,
                 surface,
                 surface_x,
                 surface_y,
                 ..
             } => {
                 if let Some(window) = state.window_for_surface(&surface) {
+                    state.pointer_enter_serial = Some(serial);
                     state.pointer_focus = Some(window);
                     state.push(Event::PointerEntered { id: window });
                     state.push(Event::PointerMoved {
@@ -61,11 +73,18 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
                         x: surface_x,
                         y: surface_y,
                     });
+                    state.push_extra(ExtraEvent::Cursor(CursorEvent::Moved {
+                        id: window,
+                        x: surface_x,
+                        y: surface_y,
+                    }));
+                    state.apply_cursor(window);
                 }
             }
             wl_pointer::Event::Leave { surface, .. } => {
                 if let Some(window) = state.window_for_surface(&surface) {
                     state.pointer_focus = None;
+                    state.pointer_enter_serial = None;
                     state.push(Event::PointerLeft { id: window });
                 }
             }
@@ -80,6 +99,11 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
                         x: surface_x,
                         y: surface_y,
                     });
+                    state.push_extra(ExtraEvent::Cursor(CursorEvent::Moved {
+                        id: window,
+                        x: surface_x,
+                        y: surface_y,
+                    }));
                 }
             }
             wl_pointer::Event::Button {
@@ -169,17 +193,22 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for State {
                     return;
                 };
                 let state_value = map_key_state(key_state);
-                let logical = state
+                let translated = state
                     .xkb
                     .as_mut()
-                    .and_then(|xkb| xkb.translate(key, state_value))
-                    .unwrap_or(Key::Unknown);
+                    .and_then(|xkb| xkb.translate(key, state_value));
+                let logical = translated
+                    .as_ref()
+                    .map_or(KeyCode::Unknown, |translation| translation.key);
                 state.push(Event::Key {
                     id: window,
                     key: logical,
                     scancode: key,
                     state: state_value,
                 });
+                if let Some(text) = translated.and_then(|translation| translation.text) {
+                    state.push(Event::TextInput { id: window, text });
+                }
             }
             _ => {}
         }

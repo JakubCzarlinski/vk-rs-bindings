@@ -1,12 +1,14 @@
-use core::error;
-
 use alloc::fmt;
+use core::error;
 
 extern crate alloc;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Error returned by [`crate::Display::connect`].
 pub enum ConnectError {
+    /// The API was called from a non-main thread.
     NotMainThread,
+    /// The crate was compiled on an unsupported target.
     UnsupportedTarget,
 }
 
@@ -22,8 +24,11 @@ impl fmt::Display for ConnectError {
 impl error::Error for ConnectError {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Error returned by [`crate::Display::pump`] and [`crate::Display::pump_extras`].
 pub enum PumpError {
+    /// The API was called from a non-main thread.
     NotMainThread,
+    /// The crate was compiled on an unsupported target.
     UnsupportedTarget,
 }
 
@@ -39,8 +44,11 @@ impl fmt::Display for PumpError {
 impl error::Error for PumpError {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+/// Error returned by [`crate::Window::new`].
 pub enum WindowError {
+    /// The API was called from a non-main thread.
     NotMainThread,
+    /// The crate was compiled on an unsupported target.
     UnsupportedTarget,
 }
 

@@ -34,6 +34,6 @@ mod window;
 
 pub use crate::event::Event;
 pub use crate::geometry::{LogicalPosition, LogicalRect, LogicalSize};
-pub use crate::input::{ButtonState, Key, KeyState, PointerButton};
+pub use crate::input::{ButtonState, KeyCode, KeyState, PointerButton, TextInput};
 pub use crate::queue::EventQueue;
 pub use crate::window::{WindowAttributes, WindowId};

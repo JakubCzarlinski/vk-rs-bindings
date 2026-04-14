@@ -1,5 +1,4 @@
-use std::cell::RefCell;
-
+use core::cell::RefCell;
 use windsurf::{
     CursorMode, CursorSource, DragSource, ExtraFeatures, FeatureSet, ImeState, UnsupportedFeature,
     WindowId,
@@ -39,7 +38,9 @@ impl ExtraFeatures for MockExtrasBackend {
     }
 
     fn start_drag(&self, _window: WindowId, _source: DragSource) -> Result<(), UnsupportedFeature> {
-        Err(UnsupportedFeature::new(windsurf::FeatureKind::DragDrop))
+        Err(UnsupportedFeature::new(
+            windsurf::FeatureKind::DragDropSource,
+        ))
     }
 }
 

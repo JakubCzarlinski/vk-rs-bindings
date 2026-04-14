@@ -1,52 +1,75 @@
+use crate::app::connect_application;
+use crate::cursor::{apply_cursor_for_window, icon_from_source};
 use crate::error::{ConnectError, PumpError};
+use crate::input::{process_input_event, sync_keyboard_focus};
 use crate::state::{SharedDisplayRef, SharedState};
 use alloc::collections::{BTreeMap, VecDeque};
 use alloc::rc::Rc;
 use alloc::vec::Vec;
 use core::cell::{Cell, RefCell};
-use core::ptr;
 use objc2::MainThreadMarker;
 use objc2::rc::Retained;
-use objc2_app_kit::{NSApplication, NSApplicationActivationPolicy, NSEvent, NSEventMask};
+use objc2_app_kit::{NSApplication, NSEvent, NSEventMask};
 use objc2_foundation::{NSDate, NSDefaultRunLoopMode};
 use windsurf_core::{Event, EventQueue};
+use windsurf_extra::{
+    CursorEvent, CursorMode, CursorSource, DragSource, ExtraEvent, ExtraEventQueue, ExtraFeatures,
+    FeatureKind, FeatureSet, ImeEvent, ImeState, UnsupportedFeature,
+};
 
 extern crate alloc;
 
+/// Connection to the process-wide `AppKit` application and windsurf shared state.
 #[derive(Clone)]
 pub struct Display {
+    pub(crate) app: Retained<NSApplication>,
     pub(crate) shared: SharedDisplayRef,
 }
 
+/// Borrowed raw `AppKit` display objects.
 pub struct RawDisplay<'a> {
+    /// Process-wide shared `NSApplication` instance.
     pub app: &'a NSApplication,
 }
 
 impl Display {
+    /// Connect to `AppKit` and initialize backend state.
+    ///
+    /// This must be called from the macOS main thread.
     pub fn connect() -> Result<Self, ConnectError> {
-        let mtm = MainThreadMarker::new().ok_or(ConnectError::NotMainThread)?;
-        let app = NSApplication::sharedApplication(mtm);
-        app.setActivationPolicy(NSApplicationActivationPolicy::Regular);
-        app.finishLaunching();
+        let app = connect_application()?;
+        let shared = Rc::new(RefCell::new(SharedState {
+            next_window_id: Cell::new(1),
+            pending_events: VecDeque::new(),
+            pending_extra_events: VecDeque::new(),
+            keyboard_focus: None,
+            pointer_focus: None,
+            cursor_hidden: false,
+            windows: BTreeMap::new(),
+        }));
 
-        Ok(Self {
-            shared: Rc::new(RefCell::new(SharedState {
-                app,
-                next_window_id: Cell::new(1),
-                pending_events: VecDeque::new(),
-                windows: BTreeMap::new(),
-            })),
-        })
+        Ok(Self { app, shared })
     }
 
+    /// Pump pending `AppKit` events into `queue` without blocking.
+    ///
+    /// This must be called from the macOS main thread.
     pub fn pump(&self, queue: &mut EventQueue) -> Result<(), PumpError> {
         let _mtm = MainThreadMarker::new().ok_or(PumpError::NotMainThread)?;
-        let mut shared = self.shared.borrow_mut();
+        let app = self.app.clone();
         let stop_at = NSDate::distantPast();
-        while let Some(event) = next_event(&shared.app, &stop_at) {
-            shared.app.sendEvent(&event);
+
+        while let Some(event) = next_event(&app, &stop_at) {
+            {
+                let mut shared = self.shared.borrow_mut();
+                process_input_event(&mut shared, &event);
+            }
+            app.sendEvent(&event);
         }
-        shared.app.updateWindows();
+        app.updateWindows();
+
+        let mut shared = self.shared.borrow_mut();
+        sync_keyboard_focus(&mut shared, &app);
 
         let mut dead_windows = Vec::new();
         let mut emitted = Vec::new();
@@ -58,7 +81,8 @@ impl Display {
 
             crate::window::sync_metal_layer(&inner);
 
-            if !inner.window.isVisible() && !state.close_requested {
+            if !inner.window.isVisible() && !inner.window.isMiniaturized() && !state.close_requested
+            {
                 state.close_requested = true;
                 emitted.push(Event::CloseRequested { id });
             }
@@ -92,6 +116,14 @@ impl Display {
 
         for id in dead_windows {
             shared.windows.remove(&id);
+            if shared.pointer_focus == Some(id) {
+                shared.pointer_focus = None;
+                emitted.push(Event::PointerLeft { id });
+            }
+            if shared.keyboard_focus == Some(id) {
+                shared.keyboard_focus = None;
+                emitted.push(Event::KeyboardFocusOut { id });
+            }
         }
         for event in emitted {
             shared.push(event);
@@ -104,10 +136,110 @@ impl Display {
         Ok(())
     }
 
+    /// Borrow raw `AppKit` handles used by this display.
     pub fn raw(&self) -> RawDisplay<'_> {
-        let shared = self.shared.borrow();
-        let app = unsafe { &*ptr::from_ref(&*shared.app) };
-        RawDisplay { app }
+        RawDisplay { app: &self.app }
+    }
+
+    /// Drain optional extra events without blocking.
+    ///
+    /// This must be called from the macOS main thread.
+    pub fn pump_extras(&self, queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
+        let _mtm = MainThreadMarker::new().ok_or(PumpError::NotMainThread)?;
+        let mut shared = self.shared.borrow_mut();
+        while let Some(event) = shared.pending_extra_events.pop_front() {
+            queue.push(event);
+        }
+        Ok(())
+    }
+}
+
+impl ExtraFeatures for Display {
+    fn supported_features(&self) -> FeatureSet {
+        FeatureSet::IME
+            .with(FeatureSet::CURSOR)
+            .with(FeatureSet::DRAG_DROP_DESTINATION)
+    }
+
+    fn set_ime_state(
+        &self,
+        window: windsurf_core::WindowId,
+        state: &ImeState,
+    ) -> Result<(), UnsupportedFeature> {
+        let mut shared = self.shared.borrow_mut();
+        if let Some(window_state) = shared.windows.get_mut(&window)
+            && window_state.ime_enabled != state.enabled
+        {
+            window_state.ime_enabled = state.enabled;
+            let event = if state.enabled {
+                ExtraEvent::Ime(ImeEvent::Enabled { id: window })
+            } else {
+                ExtraEvent::Ime(ImeEvent::Disabled { id: window })
+            };
+            shared.push_extra(event);
+        }
+        Ok(())
+    }
+
+    fn set_cursor(
+        &self,
+        window: windsurf_core::WindowId,
+        source: &CursorSource,
+    ) -> Result<(), UnsupportedFeature> {
+        let mut shared = self.shared.borrow_mut();
+        let mut emitted = None;
+        if let Some(window_state) = shared.windows.get_mut(&window) {
+            window_state.cursor_icon = icon_from_source(source);
+            emitted = Some(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
+                id: window,
+                visible: window_state.cursor_visible,
+            }));
+        }
+        if let Some(event) = emitted {
+            shared.push_extra(event);
+        }
+        apply_cursor_for_window(&mut shared, window);
+        Ok(())
+    }
+
+    fn set_cursor_mode(
+        &self,
+        window: windsurf_core::WindowId,
+        mode: CursorMode,
+    ) -> Result<(), UnsupportedFeature> {
+        let mut shared = self.shared.borrow_mut();
+        let mut emitted = Vec::new();
+        if let Some(window_state) = shared.windows.get_mut(&window)
+            && window_state.cursor_mode != mode
+        {
+            window_state.cursor_mode = mode;
+            emitted.push(ExtraEvent::Cursor(CursorEvent::ModeChanged {
+                id: window,
+                mode,
+            }));
+
+            let visible = !matches!(mode, CursorMode::Hidden);
+            if window_state.cursor_visible != visible {
+                window_state.cursor_visible = visible;
+                emitted.push(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
+                    id: window,
+                    visible,
+                }));
+            }
+        }
+        for event in emitted {
+            shared.push_extra(event);
+        }
+        apply_cursor_for_window(&mut shared, window);
+        Ok(())
+    }
+
+    fn start_drag(
+        &self,
+        _window: windsurf_core::WindowId,
+        _source: DragSource,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::DragDropSource))
     }
 }
 

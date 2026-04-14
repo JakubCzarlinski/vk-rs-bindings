@@ -27,13 +27,13 @@ pub enum KeyState {
     Repeated,
 }
 
-/// Minimal cross-platform key representation.
+/// Layout-agnostic logical key code.
 ///
-/// This is intentionally small. A backend can still provide richer information
-/// via raw platform handles or side-channel APIs later.
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub enum Key {
-    Character(String),
+/// Text is intentionally not represented in this enum. Backends should emit
+/// text composition through [`crate::Event::TextInput`] so key state and text
+/// input remain independently consumable.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum KeyCode {
     Escape,
     Enter,
     Tab,
@@ -85,3 +85,9 @@ pub enum Key {
     F24,
     Unknown,
 }
+
+/// UTF-8 text produced by a keyboard/IME action.
+///
+/// This alias keeps APIs explicit about whether they carry logical key codes or
+/// text payloads.
+pub type TextInput = String;

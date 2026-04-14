@@ -3,9 +3,24 @@
 mod error;
 
 pub use crate::error::{ConnectError, PumpError, WindowError};
+#[cfg(not(target_os = "macos"))]
+use windsurf_extra::{
+    CursorMode, CursorSource, DragSource, ExtraEventQueue, ExtraFeatures, FeatureKind, FeatureSet,
+    ImeState, UnsupportedFeature,
+};
 
 #[cfg(target_os = "macos")]
+mod app;
+#[cfg(target_os = "macos")]
+mod cursor;
+#[cfg(target_os = "macos")]
 mod display;
+#[cfg(target_os = "macos")]
+mod drag;
+#[cfg(target_os = "macos")]
+mod input;
+#[cfg(target_os = "macos")]
+mod keymap;
 #[cfg(target_os = "macos")]
 mod raw;
 #[cfg(target_os = "macos")]
@@ -26,6 +41,14 @@ pub struct Display;
 impl Display {
     pub fn connect() -> Result<Self, ConnectError> {
         Err(ConnectError::UnsupportedTarget)
+    }
+
+    pub fn pump(&self, _queue: &mut windsurf_core::EventQueue) -> Result<(), PumpError> {
+        Err(PumpError::UnsupportedTarget)
+    }
+
+    pub fn pump_extras(&self, _queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
+        Err(PumpError::UnsupportedTarget)
     }
 }
 
@@ -48,3 +71,42 @@ pub struct RawDisplay;
 
 #[cfg(not(target_os = "macos"))]
 pub struct RawWindow;
+
+#[cfg(not(target_os = "macos"))]
+impl ExtraFeatures for Display {
+    fn supported_features(&self) -> FeatureSet {
+        FeatureSet::empty()
+    }
+
+    fn set_ime_state(
+        &self,
+        _window: windsurf_core::WindowId,
+        _state: &ImeState,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::Ime))
+    }
+
+    fn set_cursor(
+        &self,
+        _window: windsurf_core::WindowId,
+        _source: &CursorSource,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::Cursor))
+    }
+
+    fn set_cursor_mode(
+        &self,
+        _window: windsurf_core::WindowId,
+        _mode: CursorMode,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::Cursor))
+    }
+
+    fn start_drag(
+        &self,
+        _window: windsurf_core::WindowId,
+        _source: DragSource,
+    ) -> Result<(), UnsupportedFeature> {
+        Err(UnsupportedFeature::new(FeatureKind::DragDropSource))
+    }
+}

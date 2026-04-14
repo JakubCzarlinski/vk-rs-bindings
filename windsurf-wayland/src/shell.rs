@@ -1,6 +1,9 @@
 use wayland_client::globals::GlobalListContents;
 use wayland_client::protocol::{wl_compositor, wl_region, wl_registry, wl_seat, wl_surface};
 use wayland_client::{Connection, Dispatch, QueueHandle, delegate_noop};
+use wayland_protocols::wp::cursor_shape::v1::client::{
+    wp_cursor_shape_device_v1, wp_cursor_shape_manager_v1,
+};
 use wayland_protocols::xdg::decoration::zv1::client::{
     zxdg_decoration_manager_v1, zxdg_toplevel_decoration_v1,
 };
@@ -134,6 +137,8 @@ impl Dispatch<zxdg_toplevel_decoration_v1::ZxdgToplevelDecorationV1, WindowId> f
 delegate_noop!(State: ignore wl_compositor::WlCompositor);
 delegate_noop!(State: ignore wl_region::WlRegion);
 delegate_noop!(State: ignore wl_surface::WlSurface);
+delegate_noop!(State: ignore wp_cursor_shape_manager_v1::WpCursorShapeManagerV1);
+delegate_noop!(State: ignore wp_cursor_shape_device_v1::WpCursorShapeDeviceV1);
 
 pub(crate) fn update_opaque_region(
     compositor: &wl_compositor::WlCompositor,

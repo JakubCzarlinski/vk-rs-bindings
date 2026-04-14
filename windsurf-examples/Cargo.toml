@@ -6,6 +6,11 @@ description = "Runnable examples for the windsurf windowing workspace"
 readme = "README.md"
 build = "build.rs"
 publish = false
+autoexamples = false
+
+[[example]]
+name = "basic_window"
+path = "examples/basic_window.rs"
 
 [dev-dependencies]
 raw-window-handle = "0.6.2"

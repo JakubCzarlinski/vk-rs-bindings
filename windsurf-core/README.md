@@ -10,6 +10,11 @@ This crate intentionally only defines the shared API surface:
 - flat `Event`
 - drainable `EventQueue`
 
+Keyboard input is split into:
+
+- `Event::Key` for logical key transitions (`KeyCode`)
+- `Event::TextInput` for UTF-8 text payloads
+
 It does not create windows or connect to any platform backend by itself. That is
 left to backend crates such as Wayland/AppKit/UIKit/Android integrations.
 

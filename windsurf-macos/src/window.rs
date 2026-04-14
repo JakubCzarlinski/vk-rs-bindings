@@ -1,7 +1,10 @@
 use crate::display::Display;
+use crate::drag::{WindowDragDelegate, attach_file_drop_delegate};
 use crate::error::WindowError;
-use crate::state::{WindowInner, WindowState};
+use crate::state::{SharedState, WindowInner, WindowState};
 use alloc::rc::Rc;
+use core::cell::RefCell;
+use objc2::rc::Retained;
 use objc2::{ClassType, MainThreadMarker, MainThreadOnly};
 use objc2_app_kit::{
     NSAutoresizingMaskOptions, NSBackingStoreType, NSColor, NSView, NSWindow, NSWindowStyleMask,
@@ -12,22 +15,32 @@ use raw_window_handle::{
     HandleError, HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle,
 };
 use windsurf_core::{Event, LogicalSize, WindowAttributes, WindowId};
+use windsurf_extra::{CursorIcon, CursorMode};
 
 extern crate alloc;
 
+/// macOS AppKit-backed window.
 pub struct Window {
-    pub(crate) shared: crate::state::SharedDisplayRef,
+    pub(crate) shared: Rc<RefCell<SharedState>>,
     pub(crate) inner: Rc<WindowInner>,
+    _drag_delegate: Retained<WindowDragDelegate>,
     pub(crate) id: WindowId,
 }
 
+/// Borrowed raw `AppKit` window objects.
 pub struct RawWindow<'a> {
+    /// Backing `NSWindow`.
     pub window: &'a NSWindow,
+    /// Content `NSView`.
     pub view: &'a NSView,
+    /// Backing `CAMetalLayer` attached to `view`.
     pub layer: &'a CAMetalLayer,
 }
 
 impl Window {
+    /// Create and show a new `AppKit` window.
+    ///
+    /// This must be called from the macOS main thread.
     pub fn new(display: &Display, attrs: &WindowAttributes) -> Result<Self, WindowError> {
         let mtm = MainThreadMarker::new().ok_or(WindowError::NotMainThread)?;
         let mut shared = display.shared.borrow_mut();
@@ -78,9 +91,13 @@ impl Window {
         layer.setOpaque(!attrs.transparent);
         view.setLayer(Some(layer.as_super()));
         window.setContentView(Some(&view));
+        window.setAcceptsMouseMovedEvents(true);
+
+        let drag_delegate = attach_file_drop_delegate(mtm, &display.shared, &window, id);
+
         window.makeKeyAndOrderFront(None);
         #[allow(deprecated)]
-        shared.app.activateIgnoringOtherApps(true);
+        display.app.activateIgnoringOtherApps(true);
 
         let inner = Rc::new(WindowInner {
             window,
@@ -99,6 +116,10 @@ impl Window {
                 scale_factor,
                 needs_redraw: true,
                 close_requested: false,
+                ime_enabled: false,
+                cursor_mode: CursorMode::Normal,
+                cursor_visible: true,
+                cursor_icon: CursorIcon::Default,
             },
         );
         shared.push(Event::WindowCreated { id });
@@ -106,27 +127,33 @@ impl Window {
         Ok(Self {
             shared: Rc::clone(&display.shared),
             inner,
+            _drag_delegate: drag_delegate,
             id,
         })
     }
 
+    /// Return this window's stable backend identifier.
     pub fn id(&self) -> WindowId {
         self.id
     }
 
+    /// Update the title shown by the system window manager.
     pub fn set_title(&self, title: &str) {
         self.inner.window.setTitle(&NSString::from_str(title));
     }
 
+    /// Return the current logical inner size.
     pub fn inner_size(&self) -> (u32, u32) {
         let size = logical_size(&self.inner.window);
         (size.width, size.height)
     }
 
+    /// Return the current backing scale factor.
     pub fn scale_factor(&self) -> f64 {
         self.inner.window.backingScaleFactor()
     }
 
+    /// Schedule a redraw event for this window on the next pump.
     pub fn request_redraw(&self) {
         if let Some(state) = self.shared.borrow_mut().windows.get_mut(&self.id)
             && !state.needs_redraw
@@ -135,14 +162,17 @@ impl Window {
         }
     }
 
+    /// Borrow this window as `raw_window_handle::RawWindowHandle`.
     pub fn raw_window_handle(&self) -> Result<RawWindowHandle, HandleError> {
         self.window_handle().map(Into::into)
     }
 
+    /// Borrow this window's display as `raw_window_handle::RawDisplayHandle`.
     pub fn raw_display_handle(&self) -> Result<RawDisplayHandle, HandleError> {
         self.display_handle().map(Into::into)
     }
 
+    /// Borrow raw `AppKit` objects used by this window.
     pub fn raw(&self) -> RawWindow<'_> {
         RawWindow {
             window: &self.inner.window,
@@ -160,8 +190,17 @@ impl Drop for Window {
 
         let mut shared = self.shared.borrow_mut();
         if shared.windows.remove(&self.id).is_some() {
+            if shared.pointer_focus == Some(self.id) {
+                shared.pointer_focus = None;
+                shared.push(Event::PointerLeft { id: self.id });
+            }
+            if shared.keyboard_focus == Some(self.id) {
+                shared.keyboard_focus = None;
+                shared.push(Event::KeyboardFocusOut { id: self.id });
+            }
             shared.push(Event::WindowDestroyed { id: self.id });
         }
+        self.inner.window.setDelegate(None);
         if self.inner.window.isVisible() {
             self.inner.window.close();
         }

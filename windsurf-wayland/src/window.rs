@@ -9,6 +9,8 @@ use wayland_client::protocol::wl_surface;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_toplevel_decoration_v1;
 use wayland_protocols::xdg::shell::client::{xdg_surface, xdg_toplevel};
 use windsurf_core::{Event, WindowAttributes, WindowId};
+use windsurf_extra::CursorIcon;
+use windsurf_extra::CursorMode;
 
 use crate::display::Display;
 use crate::error::WindowError;
@@ -85,6 +87,10 @@ impl Window {
                 scale_factor: 1.0,
                 needs_redraw: true,
                 transparent: attrs.transparent,
+                ime_enabled: false,
+                cursor_mode: CursorMode::Normal,
+                cursor_visible: true,
+                cursor_icon: CursorIcon::Default,
             },
         );
         pump.state.push(Event::WindowCreated { id });

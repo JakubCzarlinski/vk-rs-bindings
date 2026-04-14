@@ -47,3 +47,11 @@ assert_eq!(queue.drain().count(), 1);
 ```
 
 See [USAGE.md](USAGE.md) for the detailed guide.
+
+## Extras in backends
+
+Current `windsurf-macos` and `windsurf-wayland` backends expose:
+
+- core events via `Display::pump(&mut EventQueue)`
+- optional richer events via `Display::pump_extras(&mut ExtraEventQueue)`
+- `ExtraFeatures` support for IME and cursor APIs

@@ -3,8 +3,13 @@ use std::os::fd::OwnedFd;
 use std::ptr::NonNull;
 
 use memmap2::MmapOptions;
-use windsurf_core::{Key, KeyState};
+use windsurf_core::{KeyCode, KeyState};
 use xkbcommon_dl as xkb;
+
+pub(crate) struct KeyTranslation {
+    pub(crate) key: KeyCode,
+    pub(crate) text: Option<String>,
+}
 
 pub(crate) struct XkbState {
     context: NonNull<xkb::xkb_context>,
@@ -93,7 +98,7 @@ impl XkbState {
         }
     }
 
-    pub(crate) fn translate(&mut self, key: u32, state: KeyState) -> Option<Key> {
+    pub(crate) fn translate(&mut self, key: u32, state: KeyState) -> Option<KeyTranslation> {
         let handle = xkb::xkbcommon_option()?;
         let xkb_state = self.state?;
         let keycode = key.saturating_add(8);
@@ -107,14 +112,17 @@ impl XkbState {
         }
 
         let sym = unsafe { (handle.xkb_state_key_get_one_sym)(xkb_state.as_ptr(), keycode) };
-        if let Some(text) = key_utf8(handle, xkb_state, keycode)
-            && !text.is_empty()
-            && !text.chars().all(char::is_control)
-        {
-            return Some(Key::Character(text));
-        }
+        let text = if matches!(state, KeyState::Pressed | KeyState::Repeated) {
+            key_utf8(handle, xkb_state, keycode)
+                .filter(|text| !text.is_empty() && !text.chars().all(char::is_control))
+        } else {
+            None
+        };
 
-        Some(map_keysym(sym))
+        Some(KeyTranslation {
+            key: map_keysym(sym),
+            text,
+        })
     }
 }
 
@@ -190,59 +198,59 @@ fn mapped_keymap_len(bytes: &[u8]) -> Option<usize> {
         .map(|index| index + 1)
 }
 
-fn map_keysym(sym: u32) -> Key {
+fn map_keysym(sym: u32) -> KeyCode {
     use xkb::keysyms;
 
     match sym {
-        keysyms::Escape => Key::Escape,
-        keysyms::Return => Key::Enter,
-        keysyms::Tab => Key::Tab,
-        keysyms::BackSpace => Key::Backspace,
-        keysyms::space => Key::Space,
-        keysyms::Insert => Key::Insert,
-        keysyms::Delete => Key::Delete,
-        keysyms::Home => Key::Home,
-        keysyms::End => Key::End,
-        keysyms::Page_Up => Key::PageUp,
-        keysyms::Page_Down => Key::PageDown,
-        keysyms::Up => Key::ArrowUp,
-        keysyms::Down => Key::ArrowDown,
-        keysyms::Left => Key::ArrowLeft,
-        keysyms::Right => Key::ArrowRight,
-        keysyms::Shift_L | keysyms::Shift_R => Key::Shift,
-        keysyms::Control_L | keysyms::Control_R => Key::Control,
-        keysyms::Alt_L | keysyms::Alt_R => Key::Alt,
-        keysyms::Meta_L | keysyms::Meta_R | keysyms::Super_L | keysyms::Super_R => Key::Meta,
-        keysyms::Caps_Lock => Key::CapsLock,
-        keysyms::Num_Lock => Key::NumLock,
-        keysyms::Scroll_Lock => Key::ScrollLock,
-        keysyms::Pause => Key::Pause,
-        keysyms::Print => Key::PrintScreen,
-        keysyms::Menu => Key::ContextMenu,
-        keysyms::F1 => Key::F1,
-        keysyms::F2 => Key::F2,
-        keysyms::F3 => Key::F3,
-        keysyms::F4 => Key::F4,
-        keysyms::F5 => Key::F5,
-        keysyms::F6 => Key::F6,
-        keysyms::F7 => Key::F7,
-        keysyms::F8 => Key::F8,
-        keysyms::F9 => Key::F9,
-        keysyms::F10 => Key::F10,
-        keysyms::F11 => Key::F11,
-        keysyms::F12 => Key::F12,
-        keysyms::F13 => Key::F13,
-        keysyms::F14 => Key::F14,
-        keysyms::F15 => Key::F15,
-        keysyms::F16 => Key::F16,
-        keysyms::F17 => Key::F17,
-        keysyms::F18 => Key::F18,
-        keysyms::F19 => Key::F19,
-        keysyms::F20 => Key::F20,
-        keysyms::F21 => Key::F21,
-        keysyms::F22 => Key::F22,
-        keysyms::F23 => Key::F23,
-        keysyms::F24 => Key::F24,
-        _ => Key::Unknown,
+        keysyms::Escape => KeyCode::Escape,
+        keysyms::Return => KeyCode::Enter,
+        keysyms::Tab => KeyCode::Tab,
+        keysyms::BackSpace => KeyCode::Backspace,
+        keysyms::space => KeyCode::Space,
+        keysyms::Insert => KeyCode::Insert,
+        keysyms::Delete => KeyCode::Delete,
+        keysyms::Home => KeyCode::Home,
+        keysyms::End => KeyCode::End,
+        keysyms::Page_Up => KeyCode::PageUp,
+        keysyms::Page_Down => KeyCode::PageDown,
+        keysyms::Up => KeyCode::ArrowUp,
+        keysyms::Down => KeyCode::ArrowDown,
+        keysyms::Left => KeyCode::ArrowLeft,
+        keysyms::Right => KeyCode::ArrowRight,
+        keysyms::Shift_L | keysyms::Shift_R => KeyCode::Shift,
+        keysyms::Control_L | keysyms::Control_R => KeyCode::Control,
+        keysyms::Alt_L | keysyms::Alt_R => KeyCode::Alt,
+        keysyms::Meta_L | keysyms::Meta_R | keysyms::Super_L | keysyms::Super_R => KeyCode::Meta,
+        keysyms::Caps_Lock => KeyCode::CapsLock,
+        keysyms::Num_Lock => KeyCode::NumLock,
+        keysyms::Scroll_Lock => KeyCode::ScrollLock,
+        keysyms::Pause => KeyCode::Pause,
+        keysyms::Print => KeyCode::PrintScreen,
+        keysyms::Menu => KeyCode::ContextMenu,
+        keysyms::F1 => KeyCode::F1,
+        keysyms::F2 => KeyCode::F2,
+        keysyms::F3 => KeyCode::F3,
+        keysyms::F4 => KeyCode::F4,
+        keysyms::F5 => KeyCode::F5,
+        keysyms::F6 => KeyCode::F6,
+        keysyms::F7 => KeyCode::F7,
+        keysyms::F8 => KeyCode::F8,
+        keysyms::F9 => KeyCode::F9,
+        keysyms::F10 => KeyCode::F10,
+        keysyms::F11 => KeyCode::F11,
+        keysyms::F12 => KeyCode::F12,
+        keysyms::F13 => KeyCode::F13,
+        keysyms::F14 => KeyCode::F14,
+        keysyms::F15 => KeyCode::F15,
+        keysyms::F16 => KeyCode::F16,
+        keysyms::F17 => KeyCode::F17,
+        keysyms::F18 => KeyCode::F18,
+        keysyms::F19 => KeyCode::F19,
+        keysyms::F20 => KeyCode::F20,
+        keysyms::F21 => KeyCode::F21,
+        keysyms::F22 => KeyCode::F22,
+        keysyms::F23 => KeyCode::F23,
+        keysyms::F24 => KeyCode::F24,
+        _ => KeyCode::Unknown,
     }
 }

@@ -7,9 +7,13 @@ This crate implements:
 - `Display::connect()`
 - pollable `raw_fd()`
 - non-blocking `pump()`
+- non-blocking `pump_extras()`
 - XDG-shell `Window::new()`
 - raw-window-handle integration for Wayland
 - translation of core lifecycle, pointer, and keyboard events into `windsurf-core::Event`
+- `windsurf_extra::ExtraFeatures` on `Display`
+  - supported: `FeatureSet::IME`, `FeatureSet::CURSOR`
+  - unsupported: drag-and-drop and gamepad
 
 `WindowAttributes::decorations` is mapped to the optional XDG decoration
 protocol when the compositor exposes it. `WindowAttributes::transparent`
@@ -18,8 +22,8 @@ controls whether the backend advertises an opaque region for the surface.
 ## Scope
 
 The backend currently targets Wayland + XDG shell and focuses on the minimal
-windowing contract. It does not try to own rendering. Use the raw handles for
-Vulkan, EGL, or your own Wayland code.
+windowing contract plus optional `windsurf-extra` hooks. It does not try to own
+rendering. Use the raw handles for Vulkan, EGL, or your own Wayland code.
 
 ## Architecture
 
@@ -38,7 +42,8 @@ client objects this crate owns.
 
 For keyboard input, Wayland alone is not enough. The compositor sends a keymap
 fd via `wl_keyboard::keymap`; `xkbcommon` parses that keymap and later uses it
-with modifier updates plus key events to produce `windsurf_core::Key` values.
+with modifier updates plus key events to produce `Event::Key { key:
+windsurf_core::KeyCode, .. }` and `Event::TextInput` payloads.
 
 ## Performance
 
@@ -61,21 +66,25 @@ basic_window`.
 use std::time::Duration;
 
 use windsurf_core::{Event, EventQueue, WindowAttributes};
+use windsurf_extra::ExtraEventQueue;
 use windsurf_wayland::{Display, Window};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let display = Display::connect()?;
     let _window = Window::new(&display, WindowAttributes::default())?;
     let mut events = EventQueue::new();
+    let mut extra_events = ExtraEventQueue::new();
 
     loop {
         display.pump(&mut events)?;
+        display.pump_extras(&mut extra_events)?;
 
         for event in events.drain() {
             if let Event::CloseRequested { .. } = event {
                 return Ok(());
             }
         }
+        for _event in extra_events.drain() {}
 
         std::thread::sleep(Duration::from_millis(16));
     }

@@ -73,6 +73,7 @@ Typical backend shape:
 1. Advertise optional support via `FeatureSet`.
 2. Implement `ExtraFeatures`.
 3. Emit `ExtraEvent` values into `ExtraEventQueue`.
+4. Provide a polling hook like `Display::pump_extras(&mut ExtraEventQueue)`.
 
 Example:
 

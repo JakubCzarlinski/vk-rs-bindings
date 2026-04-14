@@ -9,7 +9,10 @@ extern crate alloc;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum FeatureKind {
     Ime,
-    DragDrop,
+    /// Initiating drags from the local application.
+    DragDropSource,
+    /// Receiving drag payloads from external applications.
+    DragDropDestination,
     Cursor,
     Gamepad,
 }
@@ -20,16 +23,24 @@ pub struct FeatureSet(u32);
 
 impl FeatureSet {
     pub const IME: Self = Self(1 << 0);
-    pub const DRAG_DROP: Self = Self(1 << 1);
-    pub const CURSOR: Self = Self(1 << 2);
-    pub const GAMEPAD: Self = Self(1 << 3);
+    pub const DRAG_DROP_SOURCE: Self = Self(1 << 1);
+    pub const DRAG_DROP_DESTINATION: Self = Self(1 << 2);
+    pub const CURSOR: Self = Self(1 << 3);
+    pub const GAMEPAD: Self = Self(1 << 4);
+    pub const DRAG_DROP: Self = Self(Self::DRAG_DROP_SOURCE.0 | Self::DRAG_DROP_DESTINATION.0);
 
     pub const fn empty() -> Self {
         Self(0)
     }
 
     pub const fn all() -> Self {
-        Self(Self::IME.0 | Self::DRAG_DROP.0 | Self::CURSOR.0 | Self::GAMEPAD.0)
+        Self(
+            Self::IME.0
+                | Self::DRAG_DROP_SOURCE.0
+                | Self::DRAG_DROP_DESTINATION.0
+                | Self::CURSOR.0
+                | Self::GAMEPAD.0,
+        )
     }
 
     pub const fn contains(self, other: Self) -> bool {
@@ -82,6 +93,8 @@ pub trait ExtraFeatures {
     -> Result<(), UnsupportedFeature>;
 
     /// Start a drag originating from the given window.
+    ///
+    /// This requires [`FeatureSet::DRAG_DROP_SOURCE`].
     fn start_drag(&self, window: WindowId, source: DragSource) -> Result<(), UnsupportedFeature>;
 }
 
@@ -95,5 +108,7 @@ mod tests {
         assert!(features.contains(FeatureSet::IME));
         assert!(features.contains(FeatureSet::CURSOR));
         assert!(!features.contains(FeatureSet::GAMEPAD));
+        assert!(!features.contains(FeatureSet::DRAG_DROP_SOURCE));
+        assert!(!features.contains(FeatureSet::DRAG_DROP_DESTINATION));
     }
 }

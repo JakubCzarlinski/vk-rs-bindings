@@ -69,7 +69,7 @@ impl Display {
                 });
             }
 
-            let scale_factor = f64::from(inner.window.backingScaleFactor());
+            let scale_factor = inner.window.backingScaleFactor();
             if (scale_factor - state.scale_factor).abs() > f64::EPSILON {
                 state.scale_factor = scale_factor;
                 state.needs_redraw = true;

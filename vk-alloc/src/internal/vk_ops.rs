@@ -327,7 +327,7 @@ pub fn validate_host_pointer_alignment(
     if required_alignment <= 1 {
         return Ok(());
     }
-    if (host_ptr as usize as u64) % required_alignment == 0 {
+    if (host_ptr as usize as u64).is_multiple_of(required_alignment) {
         Ok(())
     } else {
         Err(AllocatorError::InvalidHostPointerAlignment)

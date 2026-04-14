@@ -63,8 +63,13 @@ fn main() {
     let device = create_device(physical_device, queue_family_index);
     let queue = device.vkGetDeviceQueue(queue_family_index, 0);
 
-    let mut swapchain_state =
-        create_swapchain_state(physical_device, &device, &surface, window.inner_size(), None);
+    let mut swapchain_state = create_swapchain_state(
+        physical_device,
+        &device,
+        &surface,
+        window.inner_size(),
+        None,
+    );
     let render_pass = create_render_pass(&device, swapchain_state.surface_format.format);
     let (pipeline_layout, pipeline) = create_graphics_pipeline(&device, render_pass.raw());
     let mut framebuffers = create_framebuffers(

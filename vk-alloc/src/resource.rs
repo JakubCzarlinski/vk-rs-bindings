@@ -10,6 +10,12 @@ pub struct MemoryTypePolicy {
     pub avoid_flags: u32,
 }
 
+impl Default for MemoryTypePolicy {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl MemoryTypePolicy {
     pub const DEFAULT: Self = Self {
         required_flags: 0,

@@ -204,6 +204,12 @@ pub struct LargeBufferCreateInfo {
     pub preferred_chunk_size: Option<u64>,
 }
 
+impl Default for LargeBufferCreateInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl LargeBufferCreateInfo {
     pub const DEFAULT: Self = Self {
         preferred_chunk_size: None,

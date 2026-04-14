@@ -88,7 +88,7 @@ impl Window {
         });
         sync_metal_layer(&inner);
         let size = logical_size(&inner.window);
-        let scale_factor = f64::from(inner.window.backingScaleFactor());
+        let scale_factor = inner.window.backingScaleFactor();
 
         shared.windows.insert(
             id,
@@ -123,7 +123,7 @@ impl Window {
     }
 
     pub fn scale_factor(&self) -> f64 {
-        f64::from(self.inner.window.backingScaleFactor())
+        self.inner.window.backingScaleFactor()
     }
 
     pub fn request_redraw(&self) {

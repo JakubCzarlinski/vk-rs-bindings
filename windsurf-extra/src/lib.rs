@@ -32,7 +32,7 @@
 //! assert_eq!(drained.len(), 1);
 //! assert!(matches!(cursor, CursorSource::Icon(CursorIcon::Pointer)));
 //! ```
-
+// #![no_std]
 mod cursor;
 mod drag_drop;
 mod event;

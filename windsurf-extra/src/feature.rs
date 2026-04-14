@@ -1,8 +1,9 @@
-use std::fmt;
-
+use crate::{CursorMode, CursorSource, DragSource, ImeState};
+use alloc::fmt;
+use core::error::Error;
 use windsurf_core::WindowId;
 
-use crate::{CursorMode, CursorSource, DragSource, ImeState};
+extern crate alloc;
 
 /// Named optional capability that a backend may expose.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -59,7 +60,7 @@ impl fmt::Display for UnsupportedFeature {
     }
 }
 
-impl std::error::Error for UnsupportedFeature {}
+impl Error for UnsupportedFeature {}
 
 /// Backend-facing trait for optional richer interactions.
 ///

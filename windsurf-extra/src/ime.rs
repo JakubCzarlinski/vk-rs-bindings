@@ -1,4 +1,7 @@
+use alloc::string::String;
 use windsurf_core::{LogicalRect, WindowId};
+
+extern crate alloc;
 
 /// Intended text-input use case for an active IME session.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

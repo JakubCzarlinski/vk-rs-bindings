@@ -1,4 +1,7 @@
+use alloc::vec::Vec;
 use windsurf_core::WindowId;
+
+extern crate alloc;
 
 /// Stock cursor icon mapped to the platform's native cursor set.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

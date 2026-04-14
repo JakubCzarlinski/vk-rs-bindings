@@ -1,6 +1,9 @@
+use alloc::string::String;
+use alloc::vec::Vec;
 use std::path::PathBuf;
-
 use windsurf_core::{LogicalPosition, WindowId};
+
+extern crate alloc;
 
 /// Requested drag-and-drop action.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

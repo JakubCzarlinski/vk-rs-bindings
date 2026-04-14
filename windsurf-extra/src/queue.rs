@@ -1,6 +1,7 @@
-use std::collections::{VecDeque, vec_deque};
-
 use crate::ExtraEvent;
+use alloc::collections::{VecDeque, vec_deque};
+
+extern crate alloc;
 
 /// Drainable queue for [`ExtraEvent`] values.
 #[derive(Debug, Clone, Default)]
@@ -52,6 +53,9 @@ mod tests {
     use super::ExtraEventQueue;
     use crate::{ExtraEvent, GamepadEvent, GamepadId};
 
+    use alloc::vec::Vec;
+
+    extern crate alloc;
     #[test]
     fn extra_queue_drains() {
         let mut queue = ExtraEventQueue::new();

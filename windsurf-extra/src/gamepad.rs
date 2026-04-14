@@ -1,4 +1,7 @@
+use alloc::string::String;
 use windsurf_core::ButtonState;
+
+extern crate alloc;
 
 /// Stable identifier for a gamepad instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

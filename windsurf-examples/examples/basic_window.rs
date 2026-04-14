@@ -9,13 +9,14 @@ mod platform_triangle {
         clippy::wildcard_imports
     )]
 
+    use core::error::Error;
+    use core::ffi::{c_char, c_void};
+    use core::ptr::{null, null_mut};
+    use core::time::Duration;
     use raw_window_handle::{HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle};
     #[cfg(target_os = "macos")]
     use raw_window_metal::Layer as MetalLayer;
-    use std::ffi::{c_char, c_void};
-    use std::ptr::{null, null_mut};
     use std::thread;
-    use std::time::Duration;
     use vk::*;
     use windsurf::{Display, Event, EventQueue, Window, WindowAttributes};
 
@@ -26,11 +27,11 @@ mod platform_triangle {
 
     const FRAMES_IN_FLIGHT: usize = 2;
 
-    fn example_error(message: impl Into<String>) -> Box<dyn std::error::Error> {
+    fn example_error(message: impl Into<String>) -> Box<dyn Error> {
         Box::new(std::io::Error::other(message.into()))
     }
 
-    pub fn main() -> Result<(), Box<dyn std::error::Error>> {
+    pub fn main() -> Result<(), Box<dyn Error>> {
         let display = Display::connect()?;
         let window = Window::new(
             &display,
@@ -168,10 +169,10 @@ mod platform_triangle {
     fn create_instance<'a>(
         entry: &'a Entry<'a>,
         window: &Window,
-    ) -> Result<Instance<'a>, Box<dyn std::error::Error>> {
+    ) -> Result<Instance<'a>, Box<dyn Error>> {
         // const VALIDATION_LAYER: &std::ffi::CStr = c"VK_LAYER_KHRONOS_validation";
         // const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
-        let app_info = VkApplicationInfo::DEFAULT
+        const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
             .with_apiVersion(VK_API_VERSION_1_4)
             .with_applicationVersion(VK_MAKE_VERSION(0, 1, 0))
             .with_engineVersion(VK_MAKE_VERSION(0, 1, 0))
@@ -180,7 +181,7 @@ mod platform_triangle {
 
         let instance_extensions = required_instance_extensions(window);
         let create_info = VkInstanceCreateInfo::DEFAULT
-            .with_pApplicationInfo(&app_info)
+            .with_pApplicationInfo(&APP_INFO)
             // .with_enabledLayerCount(LAYER_NAMES.len() as u32)
             // .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
             .with_enabledExtensionCount(instance_extensions.len() as u32)
@@ -217,7 +218,7 @@ mod platform_triangle {
         instance: &'a Instance<'a>,
         window: &Window,
         #[cfg(target_os = "macos")] metal_layer: &mut Option<MetalLayer>,
-    ) -> Result<SurfaceKHR<'a>, Box<dyn std::error::Error>> {
+    ) -> Result<SurfaceKHR<'a>, Box<dyn Error>> {
         let window_handle = window
             .window_handle()
             .expect("window handle unavailable")
@@ -294,21 +295,21 @@ mod platform_triangle {
     fn create_device<'a>(
         physical_device: &'a PhysicalDevice<'a>,
         queue_family_index: u32,
-    ) -> Result<Device<'a>, Box<dyn std::error::Error>> {
+    ) -> Result<Device<'a>, Box<dyn Error>> {
         const PRIORITIES: [f32; 1] = [1.0];
-        let queue_info = VkDeviceQueueCreateInfo::DEFAULT
-            .with_queueFamilyIndex(queue_family_index)
-            .with_queueCount(1)
-            .with_pQueuePriorities(PRIORITIES.as_ptr());
-        let enabled_extensions = vec![VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
-        let mut vulkan_13_features =
+        const ENABLED_EXTENSIONS: [*const i8; 1] = [VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
+        const VULKAN_13_FEATURES: VkPhysicalDeviceVulkan13Features =
             VkPhysicalDeviceVulkan13Features::DEFAULT.with_synchronization2(1);
+        let queue_info = VkDeviceQueueCreateInfo::DEFAULT
+            .with_queueCount(1)
+            .with_pQueuePriorities(PRIORITIES.as_ptr())
+            .with_queueFamilyIndex(queue_family_index);
         let device_info = VkDeviceCreateInfo::DEFAULT
-            .with_pNext(std::ptr::from_mut(&mut vulkan_13_features).cast::<c_void>())
             .with_queueCreateInfoCount(1)
-            .with_pQueueCreateInfos(&queue_info)
-            .with_enabledExtensionCount(enabled_extensions.len() as u32)
-            .with_ppEnabledExtensionNames(enabled_extensions.as_ptr());
+            .with_enabledExtensionCount(ENABLED_EXTENSIONS.len() as u32)
+            .with_ppEnabledExtensionNames(ENABLED_EXTENSIONS.as_ptr())
+            .with_pNext(core::ptr::from_ref(&VULKAN_13_FEATURES).cast::<c_void>())
+            .with_pQueueCreateInfos(&queue_info);
 
         physical_device
             .vkCreateDevice(&device_info, null())
@@ -471,13 +472,13 @@ mod platform_triangle {
     }
 
     fn choose_composite_alpha(supported: VkCompositeAlphaFlagsKHR) -> VkCompositeAlphaFlagBitsKHR {
-        let options = [
+        const OPTIONS: [VkCompositeAlphaFlagBitsKHR; 4] = [
             VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
             VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
             VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR,
             VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
         ];
-        options
+        OPTIONS
             .into_iter()
             .find(|flag| (supported & flag.0) != 0)
             .unwrap_or(VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR)
@@ -936,7 +937,7 @@ mod platform_triangle {
 }
 
 #[cfg(any(target_os = "linux", target_os = "macos"))]
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn core::error::Error>> {
     platform_triangle::main()
 }
 

@@ -1,3 +1,6 @@
+use alloc::string::String;
+extern crate alloc;
+
 /// Pressed or released state for pointer and gamepad buttons.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum ButtonState {

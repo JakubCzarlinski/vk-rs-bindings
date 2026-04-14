@@ -25,7 +25,7 @@
 //! let events: Vec<_> = queue.drain().collect();
 //! assert_eq!(events.len(), 2);
 //! ```
-
+#![no_std]
 mod event;
 mod geometry;
 mod input;

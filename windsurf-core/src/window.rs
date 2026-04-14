@@ -1,4 +1,7 @@
 use crate::LogicalSize;
+use alloc::string::String;
+
+extern crate alloc;
 
 /// Stable identifier for a window managed by a backend.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]

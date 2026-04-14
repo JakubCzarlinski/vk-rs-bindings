@@ -1,6 +1,7 @@
-use std::collections::{VecDeque, vec_deque};
-
 use crate::Event;
+use alloc::collections::{VecDeque, vec_deque};
+
+extern crate alloc;
 
 /// Non-blocking drainable event storage.
 ///
@@ -52,9 +53,10 @@ impl EventQueue {
 
 #[cfg(test)]
 mod tests {
-    use crate::{Event, WindowId};
-
     use super::EventQueue;
+    use crate::{Event, WindowId};
+    use alloc::vec::Vec;
+    extern crate alloc;
 
     #[test]
     fn drain_returns_all_events_in_order() {
@@ -66,7 +68,7 @@ mod tests {
             id: WindowId::new(2),
         });
 
-        let events: Vec<_> = queue.drain().collect();
+        let events: Vec<Event> = queue.drain().collect();
 
         assert_eq!(events.len(), 2);
         assert!(queue.is_empty());

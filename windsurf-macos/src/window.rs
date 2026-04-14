@@ -27,7 +27,7 @@ pub struct RawWindow<'a> {
 }
 
 impl Window {
-    pub fn new(display: &Display, attrs: WindowAttributes) -> Result<Self, WindowError> {
+    pub fn new(display: &Display, attrs: &WindowAttributes) -> Result<Self, WindowError> {
         let mtm = MainThreadMarker::new().ok_or(WindowError::NotMainThread)?;
         let mut shared = display.shared.borrow_mut();
 

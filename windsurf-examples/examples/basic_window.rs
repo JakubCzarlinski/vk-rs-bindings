@@ -34,7 +34,7 @@ mod platform_triangle {
         let display = Display::connect()?;
         let window = Window::new(
             &display,
-            WindowAttributes {
+            &WindowAttributes {
                 title: String::from("windsurf Vulkan triangle"),
                 transparent: true,
                 ..WindowAttributes::default()

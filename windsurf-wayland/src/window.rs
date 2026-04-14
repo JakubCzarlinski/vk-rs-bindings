@@ -32,7 +32,7 @@ pub struct RawWindow<'a> {
 }
 
 impl Window {
-    pub fn new(display: &Display, attrs: WindowAttributes) -> Result<Self, WindowError> {
+    pub fn new(display: &Display, attrs: &WindowAttributes) -> Result<Self, WindowError> {
         let WindowAttributes {
             title,
             size,

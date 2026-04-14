@@ -33,14 +33,6 @@ pub struct RawWindow<'a> {
 
 impl Window {
     pub fn new(display: &Display, attrs: &WindowAttributes) -> Result<Self, WindowError> {
-        let WindowAttributes {
-            title,
-            size,
-            min_size,
-            max_size,
-            decorations,
-            transparent,
-        } = attrs;
         let id = WindowId::new(
             display
                 .shared
@@ -59,22 +51,28 @@ impl Window {
             .as_ref()
             .map(|manager| manager.get_toplevel_decoration(&toplevel, &qh, id));
 
-        toplevel.set_title(title);
-        if let Some(min_size) = min_size {
+        toplevel.set_title(attrs.title.clone());
+        if let Some(min_size) = attrs.min_size {
             toplevel.set_min_size(min_size.width as i32, min_size.height as i32);
         }
-        if let Some(max_size) = max_size {
+        if let Some(max_size) = attrs.max_size {
             toplevel.set_max_size(max_size.width as i32, max_size.height as i32);
         }
         if let Some(decoration) = decoration.as_ref() {
-            let mode = if decorations {
+            let mode = if attrs.decorations {
                 zxdg_toplevel_decoration_v1::Mode::ServerSide
             } else {
                 zxdg_toplevel_decoration_v1::Mode::ClientSide
             };
             decoration.set_mode(mode);
         }
-        update_opaque_region(&display.shared.compositor, &surface, transparent, size, &qh);
+        update_opaque_region(
+            &display.shared.compositor,
+            &surface,
+            attrs.transparent,
+            attrs.size,
+            &qh,
+        );
 
         surface.commit();
 
@@ -83,10 +81,10 @@ impl Window {
             id,
             WindowState {
                 surface: surface.clone(),
-                size,
+                size: attrs.size,
                 scale_factor: 1.0,
                 needs_redraw: true,
-                transparent,
+                transparent: attrs.transparent,
             },
         );
         pump.state.push(Event::WindowCreated { id });

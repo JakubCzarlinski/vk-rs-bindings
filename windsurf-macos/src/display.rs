@@ -1,12 +1,17 @@
-use core::ptr;
-
 use crate::error::{ConnectError, PumpError};
 use crate::state::{SharedDisplayRef, SharedState};
+use alloc::collections::{BTreeMap, VecDeque};
+use alloc::rc::Rc;
+use alloc::vec::Vec;
+use core::cell::{Cell, RefCell};
+use core::ptr;
 use objc2::MainThreadMarker;
 use objc2::rc::Retained;
 use objc2_app_kit::{NSApplication, NSApplicationActivationPolicy, NSEvent, NSEventMask};
 use objc2_foundation::{NSDate, NSDefaultRunLoopMode};
 use windsurf_core::{Event, EventQueue};
+
+extern crate alloc;
 
 #[derive(Clone)]
 pub struct Display {
@@ -25,11 +30,11 @@ impl Display {
         app.finishLaunching();
 
         Ok(Self {
-            shared: std::rc::Rc::new(std::cell::RefCell::new(SharedState {
+            shared: Rc::new(RefCell::new(SharedState {
                 app,
-                next_window_id: std::cell::Cell::new(1),
-                pending_events: std::collections::VecDeque::new(),
-                windows: std::collections::BTreeMap::new(),
+                next_window_id: Cell::new(1),
+                pending_events: VecDeque::new(),
+                windows: BTreeMap::new(),
             })),
         })
     }

@@ -1,8 +1,7 @@
-use std::rc::Rc;
-
 use crate::display::Display;
 use crate::error::WindowError;
 use crate::state::{WindowInner, WindowState};
+use alloc::rc::Rc;
 use objc2::{ClassType, MainThreadMarker, MainThreadOnly};
 use objc2_app_kit::{
     NSAutoresizingMaskOptions, NSBackingStoreType, NSColor, NSView, NSWindow, NSWindowStyleMask,
@@ -13,6 +12,8 @@ use raw_window_handle::{
     HandleError, HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle,
 };
 use windsurf_core::{Event, LogicalSize, WindowAttributes, WindowId};
+
+extern crate alloc;
 
 pub struct Window {
     pub(crate) shared: crate::state::SharedDisplayRef,

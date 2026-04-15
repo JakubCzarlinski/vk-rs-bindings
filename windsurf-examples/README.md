@@ -9,8 +9,13 @@ out of the backend crates themselves.
 
 - `basic_window`: cross-platform Vulkan triangle using the `windsurf` facade
   and selecting Wayland or `AppKit` from the target platform. It now also
-  showcases `windsurf-extra` usage (`supported_features`, `set_cursor`,
-  `set_ime_state`, and `pump_extras`).
+  showcases feature usage (`supported_features`, `set_cursor`,
+  `set_ime_state`, and single-queue pumping).
+- `multi_window_shared_state`: two-window event loop showing how one
+  `Display`-scoped shared state drives focus, cursor/IME settings, and
+  drag-drop destination events across multiple windows. It also demonstrates
+  dispatching to per-window worker threads via
+  `EventQueue::dispatch_by_window`.
 
 The launcher entrypoint is `examples/basic_window.rs`.
 Event/extras demo logic is in `examples/basic_window_app.rs`.
@@ -20,4 +25,10 @@ Run it with:
 
 ```bash
 cargo run -p windsurf-examples --example basic_window
+```
+
+Or run the shared-state demo:
+
+```bash
+cargo run -p windsurf-examples --example multi_window_shared_state
 ```

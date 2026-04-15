@@ -5,6 +5,13 @@ edition = "2024"
 description = "Minimal poll-driven windowing primitives for windsurf"
 readme = "README.md"
 
+[features]
+default = []
+ime = []
+cursor = []
+drag_drop = []
+gamepad = []
+
 [lints.clippy]
 pedantic = "deny"
 module_name_repetitions = "allow"

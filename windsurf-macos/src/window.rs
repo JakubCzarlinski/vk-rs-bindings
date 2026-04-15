@@ -14,8 +14,7 @@ use objc2_quartz_core::CAMetalLayer;
 use raw_window_handle::{
     HandleError, HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle,
 };
-use windsurf_core::{Event, LogicalSize, WindowAttributes, WindowId};
-use windsurf_extra::{CursorIcon, CursorMode};
+use windsurf_core::{CursorIcon, CursorMode, Event, LogicalSize, WindowAttributes, WindowId};
 
 extern crate alloc;
 
@@ -45,8 +44,7 @@ impl Window {
         let mtm = MainThreadMarker::new().ok_or(WindowError::NotMainThread)?;
         let mut shared = display.shared.borrow_mut();
 
-        let id = WindowId::new(shared.next_window_id.get());
-        shared.next_window_id.set(id.raw() + 1);
+        let id = next_available_window_id(&shared).ok_or(WindowError::NoAvailableWindowId)?;
 
         let rect = NSRect::new(
             NSPoint::new(0.0, 0.0),
@@ -180,6 +178,12 @@ impl Window {
             layer: &self.inner.layer,
         }
     }
+}
+
+fn next_available_window_id(shared: &SharedState) -> Option<WindowId> {
+    (1_u8..=u8::MAX)
+        .map(WindowId::new)
+        .find(|id| !shared.windows.contains_key(id))
 }
 
 impl Drop for Window {

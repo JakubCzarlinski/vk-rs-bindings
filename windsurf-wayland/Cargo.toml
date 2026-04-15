@@ -7,8 +7,7 @@ readme = "README.md"
 
 [dependencies]
 raw-window-handle = "0.6.2"
-windsurf-core = { path = "../windsurf-core" }
-windsurf-extra = { path = "../windsurf-extra" }
+windsurf-core = { path = "../windsurf-core", features = ["ime", "cursor", "drag_drop", "gamepad"] }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 memmap2 = "0.9.5"

@@ -8,9 +8,8 @@ use core::error::Error;
 use core::time::Duration;
 use std::thread;
 use windsurf::{
-    CursorIcon, CursorSource, Display, DragData, DragDropEvent, Event, EventQueue, ExtraEvent,
-    ExtraEventQueue, ExtraFeatures, FeatureSet, ImePurpose, ImeState, KeyCode, KeyState,
-    PointerButton, Window, WindowAttributes,
+    CursorIcon, CursorSource, Display, DragData, DragDropEvent, Event, EventQueue, FeatureSet,
+    Features, ImePurpose, ImeState, KeyCode, KeyState, PointerButton, Window, WindowAttributes,
 };
 
 const CURSOR_CYCLE: [CursorIcon; 5] = [
@@ -33,7 +32,6 @@ pub fn main() -> Result<(), Box<dyn Error>> {
     )?;
 
     let mut events = EventQueue::new();
-    let mut extra_events = ExtraEventQueue::new();
     let features = display.supported_features();
     let mut keyboard_focused = false;
     let mut cursor_idx = 0usize;
@@ -106,30 +104,6 @@ pub fn main() -> Result<(), Box<dyn Error>> {
 
     loop {
         display.pump(&mut events)?;
-        display.pump_extras(&mut extra_events)?;
-
-        for event in extra_events.drain() {
-            match event {
-                ExtraEvent::DragDrop(DragDropEvent::Dropped { data, .. }) => {
-                    for item in data {
-                        match item {
-                            DragData::Files(paths) => {
-                                for path in paths {
-                                    eprintln!("drag-drop file: {}", path.display());
-                                }
-                            }
-                            DragData::Text(text) => {
-                                eprintln!("drag-drop text: {text}");
-                            }
-                            DragData::Bytes { mime_type, data } => {
-                                eprintln!("drag-drop bytes: mime={mime_type}, len={}", data.len());
-                            }
-                        }
-                    }
-                }
-                other => eprintln!("extra event: {other:?}"),
-            }
-        }
 
         for event in events.drain() {
             match event {
@@ -241,6 +215,26 @@ pub fn main() -> Result<(), Box<dyn Error>> {
                         }
                     }
                 }
+                Event::DragDrop(DragDropEvent::Dropped { data, .. }) => {
+                    for item in data {
+                        match item {
+                            DragData::Files(paths) => {
+                                for path in paths {
+                                    eprintln!("drag-drop file: {path}");
+                                }
+                            }
+                            DragData::Text(text) => {
+                                eprintln!("drag-drop text: {text}");
+                            }
+                            DragData::Bytes { mime_type, data } => {
+                                eprintln!("drag-drop bytes: mime={mime_type}, len={}", data.len());
+                            }
+                        }
+                    }
+                }
+                Event::Ime(other) => eprintln!("ime event: {other:?}"),
+                Event::Cursor(other) => eprintln!("cursor event: {other:?}"),
+                Event::DragDrop(other) => eprintln!("drag event: {other:?}"),
                 _ => {}
             }
         }

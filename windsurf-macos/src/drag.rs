@@ -11,12 +11,9 @@ use objc2_app_kit::{
     NSWindow, NSWindowDelegate,
 };
 use objc2_foundation::{NSArray, NSObject, NSObjectProtocol, NSPoint, NSURL};
-use std::path::PathBuf;
-use windsurf_core::{LogicalPosition, WindowId};
-use windsurf_extra::{DragAction, DragData, DragDropEvent, ExtraEvent};
+use windsurf_core::{DragAction, DragData, DragDropEvent, DragPosition, Event, WindowId};
 
 extern crate alloc;
-extern crate std;
 
 pub(crate) struct DragDelegateIvars {
     shared: Weak<RefCell<SharedState>>,
@@ -112,15 +109,18 @@ impl WindowDragDelegate {
         unsafe { msg_send![super(this), init] }
     }
 
-    fn drag_position(&self, point: NSPoint) -> LogicalPosition {
+    fn drag_position(&self, point: NSPoint) -> DragPosition {
         let window_id = self.ivars().window_id;
         if let Some(shared) = self.ivars().shared.upgrade() {
             let shared = shared.borrow();
             if let Some(state) = shared.windows.get(&window_id) {
-                return LogicalPosition::new(point.x, f64::from(state.size.height) - point.y);
+                return DragPosition::new(
+                    point.x as f32,
+                    (f64::from(state.size.height) - point.y) as f32,
+                );
             }
         }
-        LogicalPosition::new(point.x, point.y)
+        DragPosition::new(point.x as f32, point.y as f32)
     }
 
     fn push_drag_event(&self, event: DragDropEvent) -> bool {
@@ -132,7 +132,7 @@ impl WindowDragDelegate {
         if !shared.windows.contains_key(&window_id) {
             return false;
         }
-        shared.push_extra(ExtraEvent::DragDrop(event));
+        shared.push(Event::DragDrop(event));
         true
     }
 }
@@ -163,7 +163,7 @@ fn offered_drag_types(pasteboard: &NSPasteboard) -> Vec<String> {
     offered
 }
 
-fn read_dragged_files(pasteboard: &NSPasteboard) -> Vec<PathBuf> {
+fn read_dragged_files(pasteboard: &NSPasteboard) -> Vec<String> {
     let classes = NSArray::from_slice(&[NSURL::class() as &'static AnyClass]);
     // SAFETY: `NSURL` is a valid `NSPasteboardReading` class for file URL drops.
     let Some(objects) = (unsafe { pasteboard.readObjectsForClasses_options(&classes, None) })
@@ -184,7 +184,7 @@ fn read_dragged_files(pasteboard: &NSPasteboard) -> Vec<PathBuf> {
         let Some(path) = url.path() else {
             continue;
         };
-        files.push(PathBuf::from(path.to_string()));
+        files.push(path.to_string());
     }
 
     files

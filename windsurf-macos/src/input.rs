@@ -2,8 +2,7 @@ use crate::cursor::apply_cursor_for_window;
 use crate::keymap::{key_code_for_event, modifier_key_for_scancode, text_for_event};
 use crate::state::SharedState;
 use objc2_app_kit::{NSApplication, NSEvent, NSEventType};
-use windsurf_core::{ButtonState, Event, KeyState, PointerButton, WindowId};
-use windsurf_extra::{CursorEvent, ExtraEvent};
+use windsurf_core::{ButtonState, CursorEvent, Event, KeyState, PointerButton, WindowId};
 
 pub(crate) fn process_input_event(shared: &mut SharedState, event: &NSEvent) {
     let event_type = event.r#type();
@@ -24,7 +23,7 @@ pub(crate) fn process_input_event(shared: &mut SharedState, event: &NSEvent) {
                 x: position.x,
                 y: position.y,
             });
-            shared.push_extra(ExtraEvent::Cursor(CursorEvent::Moved {
+            shared.push(Event::Cursor(CursorEvent::Moved {
                 id,
                 x: position.x,
                 y: position.y,

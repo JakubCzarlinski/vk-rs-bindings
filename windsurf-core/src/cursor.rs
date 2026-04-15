@@ -1,5 +1,5 @@
+use crate::WindowId;
 use alloc::vec::Vec;
-use windsurf_core::WindowId;
 
 extern crate alloc;
 
@@ -55,4 +55,14 @@ pub enum CursorEvent {
     Moved { id: WindowId, x: f64, y: f64 },
     ModeChanged { id: WindowId, mode: CursorMode },
     VisibilityChanged { id: WindowId, visible: bool },
+}
+
+impl CursorEvent {
+    pub const fn window_id(&self) -> WindowId {
+        match self {
+            Self::Moved { id, .. }
+            | Self::ModeChanged { id, .. }
+            | Self::VisibilityChanged { id, .. } => *id,
+        }
+    }
 }

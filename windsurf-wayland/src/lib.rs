@@ -71,11 +71,9 @@ use raw_window_handle::{
     DisplayHandle, HandleError, HasDisplayHandle, HasWindowHandle, WindowHandle,
 };
 #[cfg(not(target_os = "linux"))]
-use windsurf_core::{EventQueue, WindowAttributes, WindowId};
-#[cfg(not(target_os = "linux"))]
-use windsurf_extra::{
-    CursorMode, CursorSource, DragSource, ExtraEventQueue, ExtraFeatures, FeatureKind, FeatureSet,
-    ImeState, UnsupportedFeature,
+use windsurf_core::{
+    CursorMode, CursorSource, DragSource, EventQueue, FeatureKind, FeatureSet, Features, ImeState,
+    UnsupportedFeature, WindowAttributes, WindowId,
 };
 
 #[cfg(not(target_os = "linux"))]
@@ -134,10 +132,6 @@ impl Display {
     }
 
     pub fn pump(&self, _queue: &mut EventQueue) -> Result<(), PumpError> {
-        Err(PumpError)
-    }
-
-    pub fn pump_extras(&self, _queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
         Err(PumpError)
     }
 }
@@ -202,7 +196,7 @@ impl raw_window_handle::HasWindowHandle for Window {
 }
 
 #[cfg(not(target_os = "linux"))]
-impl ExtraFeatures for Display {
+impl Features for Display {
     fn supported_features(&self) -> FeatureSet {
         FeatureSet::empty()
     }

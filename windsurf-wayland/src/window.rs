@@ -39,7 +39,7 @@ impl Window {
             display
                 .shared
                 .next_window_id
-                .fetch_add(1, Ordering::Relaxed),
+                .fetch_add(1, Ordering::Relaxed) as u8,
         );
         let mut pump = display.shared.pump.lock().unwrap();
         let qh = pump.event_queue.handle();

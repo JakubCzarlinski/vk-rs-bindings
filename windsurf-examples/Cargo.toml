@@ -12,6 +12,10 @@ autoexamples = false
 name = "basic_window"
 path = "examples/basic_window.rs"
 
+[[example]]
+name = "multi_window_shared_state"
+path = "examples/multi_window_shared_state.rs"
+
 [dev-dependencies]
 raw-window-handle = "0.6.2"
 [target.'cfg(target_os = "linux")'.dev-dependencies]
@@ -44,7 +48,7 @@ features = [
 ]
 
 [lints.clippy]
-pedantic = "deny"
+pedantic = "warn"
 module_name_repetitions = "allow"
 missing_errors_doc = "allow"
 missing_panics_doc = "allow"

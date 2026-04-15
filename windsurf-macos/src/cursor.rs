@@ -1,8 +1,7 @@
 use crate::state::SharedState;
 use objc2::rc::Retained;
 use objc2_app_kit::NSCursor;
-use windsurf_core::WindowId;
-use windsurf_extra::{CursorIcon, CursorMode, CursorSource};
+use windsurf_core::{CursorIcon, CursorMode, CursorSource, WindowId};
 
 extern crate alloc;
 
@@ -71,7 +70,7 @@ fn cursor_from_icon(icon: CursorIcon) -> Retained<NSCursor> {
 
 #[cfg(test)]
 mod tests {
-    use windsurf_extra::{CursorIcon, CursorSource};
+    use windsurf_core::{CursorIcon, CursorSource};
 
     use super::icon_from_source;
 

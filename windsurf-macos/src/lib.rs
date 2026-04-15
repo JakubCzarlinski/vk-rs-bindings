@@ -4,9 +4,9 @@ mod error;
 
 pub use crate::error::{ConnectError, PumpError, WindowError};
 #[cfg(not(target_os = "macos"))]
-use windsurf_extra::{
-    CursorMode, CursorSource, DragSource, ExtraEventQueue, ExtraFeatures, FeatureKind, FeatureSet,
-    ImeState, UnsupportedFeature,
+use windsurf_core::{
+    CursorMode, CursorSource, DragSource, EventQueue, FeatureKind, FeatureSet, Features, ImeState,
+    UnsupportedFeature,
 };
 
 #[cfg(target_os = "macos")]
@@ -43,11 +43,7 @@ impl Display {
         Err(ConnectError::UnsupportedTarget)
     }
 
-    pub fn pump(&self, _queue: &mut windsurf_core::EventQueue) -> Result<(), PumpError> {
-        Err(PumpError::UnsupportedTarget)
-    }
-
-    pub fn pump_extras(&self, _queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
+    pub fn pump(&self, _queue: &mut EventQueue) -> Result<(), PumpError> {
         Err(PumpError::UnsupportedTarget)
     }
 }
@@ -73,7 +69,7 @@ pub struct RawDisplay;
 pub struct RawWindow;
 
 #[cfg(not(target_os = "macos"))]
-impl ExtraFeatures for Display {
+impl Features for Display {
     fn supported_features(&self) -> FeatureSet {
         FeatureSet::empty()
     }

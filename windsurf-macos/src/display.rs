@@ -6,15 +6,14 @@ use crate::state::{SharedDisplayRef, SharedState};
 use alloc::collections::{BTreeMap, VecDeque};
 use alloc::rc::Rc;
 use alloc::vec::Vec;
-use core::cell::{Cell, RefCell};
+use core::cell::RefCell;
 use objc2::MainThreadMarker;
 use objc2::rc::Retained;
 use objc2_app_kit::{NSApplication, NSEvent, NSEventMask};
 use objc2_foundation::{NSDate, NSDefaultRunLoopMode};
-use windsurf_core::{Event, EventQueue};
-use windsurf_extra::{
-    CursorEvent, CursorMode, CursorSource, DragSource, ExtraEvent, ExtraEventQueue, ExtraFeatures,
-    FeatureKind, FeatureSet, ImeEvent, ImeState, UnsupportedFeature,
+use windsurf_core::{
+    CursorEvent, CursorMode, CursorSource, DragSource, Event, EventQueue, FeatureKind, FeatureSet,
+    Features, ImeEvent, ImeState, UnsupportedFeature,
 };
 
 extern crate alloc;
@@ -39,9 +38,7 @@ impl Display {
     pub fn connect() -> Result<Self, ConnectError> {
         let app = connect_application()?;
         let shared = Rc::new(RefCell::new(SharedState {
-            next_window_id: Cell::new(1),
             pending_events: VecDeque::new(),
-            pending_extra_events: VecDeque::new(),
             keyboard_focus: None,
             pointer_focus: None,
             cursor_hidden: false,
@@ -55,6 +52,21 @@ impl Display {
     ///
     /// This must be called from the macOS main thread.
     pub fn pump(&self, queue: &mut EventQueue) -> Result<(), PumpError> {
+        self.pump_appkit()?;
+
+        let mut shared = self.shared.borrow_mut();
+        while let Some(event) = shared.pending_events.pop_front() {
+            queue.push(event);
+        }
+        Ok(())
+    }
+
+    /// Borrow raw `AppKit` handles used by this display.
+    pub fn raw(&self) -> RawDisplay<'_> {
+        RawDisplay { app: &self.app }
+    }
+
+    fn pump_appkit(&self) -> Result<(), PumpError> {
         let _mtm = MainThreadMarker::new().ok_or(PumpError::NotMainThread)?;
         let app = self.app.clone();
         let stop_at = NSDate::distantPast();
@@ -129,32 +141,11 @@ impl Display {
             shared.push(event);
         }
 
-        while let Some(event) = shared.pending_events.pop_front() {
-            queue.push(event);
-        }
-
-        Ok(())
-    }
-
-    /// Borrow raw `AppKit` handles used by this display.
-    pub fn raw(&self) -> RawDisplay<'_> {
-        RawDisplay { app: &self.app }
-    }
-
-    /// Drain optional extra events without blocking.
-    ///
-    /// This must be called from the macOS main thread.
-    pub fn pump_extras(&self, queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
-        let _mtm = MainThreadMarker::new().ok_or(PumpError::NotMainThread)?;
-        let mut shared = self.shared.borrow_mut();
-        while let Some(event) = shared.pending_extra_events.pop_front() {
-            queue.push(event);
-        }
         Ok(())
     }
 }
 
-impl ExtraFeatures for Display {
+impl Features for Display {
     fn supported_features(&self) -> FeatureSet {
         FeatureSet::IME
             .with(FeatureSet::CURSOR)
@@ -172,11 +163,11 @@ impl ExtraFeatures for Display {
         {
             window_state.ime_enabled = state.enabled;
             let event = if state.enabled {
-                ExtraEvent::Ime(ImeEvent::Enabled { id: window })
+                Event::Ime(ImeEvent::Enabled { id: window })
             } else {
-                ExtraEvent::Ime(ImeEvent::Disabled { id: window })
+                Event::Ime(ImeEvent::Disabled { id: window })
             };
-            shared.push_extra(event);
+            shared.push(event);
         }
         Ok(())
     }
@@ -190,13 +181,13 @@ impl ExtraFeatures for Display {
         let mut emitted = None;
         if let Some(window_state) = shared.windows.get_mut(&window) {
             window_state.cursor_icon = icon_from_source(source);
-            emitted = Some(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
+            emitted = Some(Event::Cursor(CursorEvent::VisibilityChanged {
                 id: window,
                 visible: window_state.cursor_visible,
             }));
         }
         if let Some(event) = emitted {
-            shared.push_extra(event);
+            shared.push(event);
         }
         apply_cursor_for_window(&mut shared, window);
         Ok(())
@@ -213,22 +204,19 @@ impl ExtraFeatures for Display {
             && window_state.cursor_mode != mode
         {
             window_state.cursor_mode = mode;
-            emitted.push(ExtraEvent::Cursor(CursorEvent::ModeChanged {
-                id: window,
-                mode,
-            }));
+            emitted.push(Event::Cursor(CursorEvent::ModeChanged { id: window, mode }));
 
             let visible = !matches!(mode, CursorMode::Hidden);
             if window_state.cursor_visible != visible {
                 window_state.cursor_visible = visible;
-                emitted.push(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
+                emitted.push(Event::Cursor(CursorEvent::VisibilityChanged {
                     id: window,
                     visible,
                 }));
             }
         }
         for event in emitted {
-            shared.push_extra(event);
+            shared.push(event);
         }
         apply_cursor_for_window(&mut shared, window);
         Ok(())

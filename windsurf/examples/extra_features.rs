@@ -1,6 +1,6 @@
 use core::cell::RefCell;
 use windsurf::{
-    CursorMode, CursorSource, DragSource, ExtraFeatures, FeatureSet, ImeState, UnsupportedFeature,
+    CursorMode, CursorSource, DragSource, FeatureSet, Features, ImeState, UnsupportedFeature,
     WindowId,
 };
 
@@ -10,7 +10,7 @@ struct MockExtrasBackend {
     cursor_locked: RefCell<bool>,
 }
 
-impl ExtraFeatures for MockExtrasBackend {
+impl Features for MockExtrasBackend {
     fn supported_features(&self) -> FeatureSet {
         FeatureSet::IME.with(FeatureSet::CURSOR)
     }

@@ -1,7 +1,6 @@
-use crate::{CursorMode, CursorSource, DragSource, ImeState};
+use crate::{CursorMode, CursorSource, DragSource, ImeState, WindowId};
 use alloc::fmt;
 use core::error::Error;
-use windsurf_core::WindowId;
 
 extern crate alloc;
 
@@ -9,15 +8,13 @@ extern crate alloc;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum FeatureKind {
     Ime,
-    /// Initiating drags from the local application.
     DragDropSource,
-    /// Receiving drag payloads from external applications.
     DragDropDestination,
     Cursor,
     Gamepad,
 }
 
-/// Compact feature bitset for optional `windsurf-extra` support.
+/// Compact feature bitset for optional backend capability support.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct FeatureSet(u32);
 
@@ -53,7 +50,7 @@ impl FeatureSet {
     }
 }
 
-/// Returned when an application asks a backend for an unsupported extra.
+/// Returned when an application asks a backend for an unsupported capability.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct UnsupportedFeature {
     pub feature: FeatureKind,
@@ -74,27 +71,13 @@ impl fmt::Display for UnsupportedFeature {
 impl Error for UnsupportedFeature {}
 
 /// Backend-facing trait for optional richer interactions.
-///
-/// Applications should treat this as an escape hatch layered on top of the
-/// minimal core API. A backend may support any subset of these features.
-pub trait ExtraFeatures {
-    /// Report the optional features implemented by this backend.
+pub trait Features {
     fn supported_features(&self) -> FeatureSet;
-
-    /// Enable, disable, or retarget the IME for a specific window.
     fn set_ime_state(&self, window: WindowId, state: &ImeState) -> Result<(), UnsupportedFeature>;
-
-    /// Change the cursor image shown for a window.
     fn set_cursor(&self, window: WindowId, source: &CursorSource)
     -> Result<(), UnsupportedFeature>;
-
-    /// Change the cursor mode for a window.
     fn set_cursor_mode(&self, window: WindowId, mode: CursorMode)
     -> Result<(), UnsupportedFeature>;
-
-    /// Start a drag originating from the given window.
-    ///
-    /// This requires [`FeatureSet::DRAG_DROP_SOURCE`].
     fn start_drag(&self, window: WindowId, source: DragSource) -> Result<(), UnsupportedFeature>;
 }
 

@@ -5,7 +5,6 @@ Facade crate for the `windsurf` windowing API family.
 `windsurf` re-exports:
 
 - `windsurf-core` unconditionally
-- `windsurf-extra` when the default `extras` feature is enabled
 - target-selected `Display` / `Window` types when a backend feature is enabled
 - backend modules such as `windsurf::macos` and `windsurf::wayland`
 
@@ -50,8 +49,5 @@ See [USAGE.md](USAGE.md) for the detailed guide.
 
 ## Extras in backends
 
-Current `windsurf-macos` and `windsurf-wayland` backends expose:
-
-- core events via `Display::pump(&mut EventQueue)`
-- optional richer events via `Display::pump_extras(&mut ExtraEventQueue)`
-- `ExtraFeatures` support for IME and cursor APIs
+Current backends expose `Features` support for IME and cursor APIs, and all
+backend events flow through `EventQueue`.

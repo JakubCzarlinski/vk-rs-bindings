@@ -5,7 +5,6 @@ members = [
   "vk-rs-bindings",
   "vk-demo",
   "windsurf-core",
-  "windsurf-extra",
   "windsurf-examples",
   "windsurf-macos",
   "windsurf-wayland",

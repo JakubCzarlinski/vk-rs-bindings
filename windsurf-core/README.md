@@ -9,11 +9,23 @@ This crate intentionally only defines the shared API surface:
 - `WindowAttributes`
 - flat `Event`
 - drainable `EventQueue`
+- optional feature types (`FeatureSet`, `Features`, cursor/IME/drag/gamepad)
 
 Keyboard input is split into:
 
 - `Event::Key` for logical key transitions (`KeyCode`)
 - `Event::TextInput` for UTF-8 text payloads
+
+`EventQueue` also supports per-window partitioning with
+`drain_window_into(window_id, ..)` and `drain_global_into(..)`, which is useful
+for dispatching events to per-window workers after a single backend pump.
+
+Optional event families are feature-gated in `Event`:
+
+- `ime`
+- `cursor`
+- `drag_drop`
+- `gamepad`
 
 It does not create windows or connect to any platform backend by itself. That is
 left to backend crates such as Wayland/AppKit/UIKit/Android integrations.

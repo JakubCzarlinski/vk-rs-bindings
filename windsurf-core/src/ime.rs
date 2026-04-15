@@ -1,5 +1,5 @@
+use crate::{LogicalRect, WindowId};
 use alloc::string::String;
-use windsurf_core::{LogicalRect, WindowId};
 
 extern crate alloc;
 
@@ -18,11 +18,8 @@ pub enum ImePurpose {
 /// Requested IME state for a window.
 #[derive(Debug, Clone, PartialEq)]
 pub struct ImeState {
-    /// Whether text composition should be active.
     pub enabled: bool,
-    /// Input field purpose hint for platform keyboards and candidate UIs.
     pub purpose: ImePurpose,
-    /// Optional logical rectangle describing the current caret or selection.
     pub cursor_area: Option<LogicalRect>,
 }
 
@@ -48,10 +45,21 @@ pub enum ImeEvent {
     Preedit {
         id: WindowId,
         text: String,
-        selection: Option<(usize, usize)>,
+        selection: Option<(u32, u32)>,
     },
     Commit {
         id: WindowId,
         text: String,
     },
+}
+
+impl ImeEvent {
+    pub const fn window_id(&self) -> WindowId {
+        match self {
+            Self::Enabled { id }
+            | Self::Disabled { id }
+            | Self::Preedit { id, .. }
+            | Self::Commit { id, .. } => *id,
+        }
+    }
 }

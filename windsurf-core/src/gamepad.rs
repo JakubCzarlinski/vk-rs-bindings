@@ -1,5 +1,5 @@
+use crate::ButtonState;
 use alloc::string::String;
-use windsurf_core::ButtonState;
 
 extern crate alloc;
 

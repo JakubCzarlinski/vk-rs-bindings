@@ -5,14 +5,14 @@ extern crate alloc;
 
 /// Stable identifier for a window managed by a backend.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-pub struct WindowId(u64);
+pub struct WindowId(u8);
 
 impl WindowId {
-    pub const fn new(raw: u64) -> Self {
+    pub const fn new(raw: u8) -> Self {
         Self(raw)
     }
 
-    pub const fn raw(self) -> u64 {
+    pub const fn raw(self) -> u8 {
         self.0
     }
 }

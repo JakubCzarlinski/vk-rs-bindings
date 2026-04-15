@@ -5,7 +5,6 @@ This guide describes how the current `windsurf` workspace is intended to be used
 ## Crate layout
 
 - `windsurf-core`: minimal shared types for window lifecycle, input, geometry, and a poll-friendly queue.
-- `windsurf-extra`: optional higher-level abstractions for IME, drag-and-drop, cursors, and gamepads.
 - `windsurf-macos`: macOS backend implementing the shared `Display` / `Window` surface.
 - `windsurf-wayland`: Wayland + XDG-shell backend implementing `Display` and `Window`.
 - `windsurf-examples`: runnable examples that depend on backend crates without living inside them.
@@ -15,9 +14,6 @@ This guide describes how the current `windsurf` workspace is intended to be used
 
 Use `windsurf-core` when you want the smallest possible API surface and you are
 building or consuming a backend that only needs windows plus basic input.
-
-Use `windsurf-extra` when you want richer interactions without forcing them into
-every backend or every application.
 
 Use `windsurf` when you want a single import path and are happy with the facade
 re-export strategy.
@@ -65,32 +61,32 @@ for event in events.drain() {
 
 ## Extra feature workflow
 
-Optional richer events live beside the core queue instead of inside it. That
-lets a backend expose these capabilities without bloating the minimal event type.
+Optional richer events are part of `Event` and are still consumed through
+`EventQueue`.
 
 Typical backend shape:
 
 1. Advertise optional support via `FeatureSet`.
-2. Implement `ExtraFeatures`.
-3. Emit `ExtraEvent` values into `ExtraEventQueue`.
-4. Provide a polling hook like `Display::pump_extras(&mut ExtraEventQueue)`.
+2. Implement `Features`.
+3. Emit events into `EventQueue`.
+4. Let the application drain one queue and branch on event variants.
 
 Example:
 
 ```rust
 use windsurf::{
-    CursorIcon, CursorSource, ExtraEvent, ExtraEventQueue, FeatureSet, ImeEvent, WindowId,
+    CursorIcon, CursorSource, Event, EventQueue, FeatureSet, ImeEvent, WindowId,
 };
 
 let supported = FeatureSet::IME.with(FeatureSet::CURSOR);
 assert!(supported.contains(FeatureSet::CURSOR));
 
-let mut extras = ExtraEventQueue::new();
-extras.push(ExtraEvent::Ime(ImeEvent::Enabled { id: WindowId::new(3) }));
+let mut events = EventQueue::new();
+events.push(Event::Ime(ImeEvent::Enabled { id: WindowId::new(3) }));
 
 let source = CursorSource::Icon(CursorIcon::Pointer);
 assert!(matches!(source, CursorSource::Icon(CursorIcon::Pointer)));
-assert_eq!(extras.drain().count(), 1);
+assert_eq!(events.drain().count(), 1);
 ```
 
 ## Backend author guidance
@@ -100,19 +96,18 @@ backend in `windsurf-macos`. If you are
 implementing the next backend:
 
 1. Keep the producer side platform-specific.
-2. Translate into `windsurf-core` and `windsurf-extra` types at the boundary.
+2. Translate into `windsurf-core` types at the boundary.
 3. Use `UnsupportedFeature` for partial extra support instead of inventing a new error type for this layer.
 4. Keep raw platform handles available elsewhere; these crates are the portable API surface, not the entire backend.
 
 ## Application author guidance
 
-Treat `windsurf-core` as the required contract and `windsurf-extra` as optional.
-That gives you a clean fallback path when a platform or backend cannot support a
-specific richer feature.
+Treat `windsurf-core` as the required contract, and gate optional behavior with
+`FeatureSet`.
 
 Good pattern:
 
-- run your app from the core queue
+- run your app from one unified queue
 - branch on `FeatureSet` for optional behavior
 - keep rendering and platform escape hatches out of the event types
 

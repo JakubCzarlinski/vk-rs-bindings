@@ -24,7 +24,7 @@ impl fmt::Display for ConnectError {
 impl error::Error for ConnectError {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-/// Error returned by [`crate::Display::pump`] and [`crate::Display::pump_extras`].
+/// Error returned by [`crate::Display::pump`].
 pub enum PumpError {
     /// The API was called from a non-main thread.
     NotMainThread,
@@ -48,6 +48,8 @@ impl error::Error for PumpError {}
 pub enum WindowError {
     /// The API was called from a non-main thread.
     NotMainThread,
+    /// All window IDs are currently in use.
+    NoAvailableWindowId,
     /// The crate was compiled on an unsupported target.
     UnsupportedTarget,
 }
@@ -58,6 +60,7 @@ impl fmt::Display for WindowError {
             Self::NotMainThread => {
                 f.write_str("windsurf-macos windows must be created on the main thread")
             }
+            Self::NoAvailableWindowId => f.write_str("windsurf-macos has no available window id"),
             Self::UnsupportedTarget => f.write_str("windsurf-macos only supports macOS targets"),
         }
     }

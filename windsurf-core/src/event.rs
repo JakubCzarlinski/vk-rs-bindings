@@ -1,3 +1,11 @@
+#[cfg(feature = "cursor")]
+use crate::CursorEvent;
+#[cfg(feature = "drag_drop")]
+use crate::DragDropEvent;
+#[cfg(feature = "gamepad")]
+use crate::GamepadEvent;
+#[cfg(feature = "ime")]
+use crate::ImeEvent;
 use crate::{ButtonState, KeyCode, KeyState, PointerButton, TextInput, WindowId};
 
 /// Flat event enum shared by all `windsurf` backends.
@@ -63,6 +71,18 @@ pub enum Event {
     /// A backend may emit this independently from [`Self::Key`], especially for
     /// compose/IME flows where text does not map 1:1 to key transitions.
     TextInput { id: WindowId, text: TextInput },
+    /// Emitted for IME-specific platform notifications.
+    #[cfg(feature = "ime")]
+    Ime(ImeEvent),
+    /// Emitted for cursor-specific platform notifications.
+    #[cfg(feature = "cursor")]
+    Cursor(CursorEvent),
+    /// Emitted for drag-and-drop notifications.
+    #[cfg(feature = "drag_drop")]
+    DragDrop(DragDropEvent),
+    /// Emitted for gamepad lifecycle and input notifications.
+    #[cfg(feature = "gamepad")]
+    Gamepad(GamepadEvent),
     /// Emitted when a touch contact starts.
     TouchStart {
         id: WindowId,
@@ -90,4 +110,59 @@ pub enum Event {
     Suspended,
     /// Emitted when the application resumes from suspension.
     Resumed,
+}
+
+impl Event {
+    /// Return the window targeted by this event when applicable.
+    ///
+    /// Global lifecycle events (for example [`Self::Suspended`]) return
+    /// `None`.
+    pub const fn window_id(&self) -> Option<WindowId> {
+        match self {
+            Self::WindowCreated { id }
+            | Self::WindowResized { id, .. }
+            | Self::ScaleFactorChanged { id, .. }
+            | Self::CloseRequested { id }
+            | Self::WindowDestroyed { id }
+            | Self::RedrawRequested { id }
+            | Self::PointerEntered { id }
+            | Self::PointerLeft { id }
+            | Self::PointerMoved { id, .. }
+            | Self::PointerButton { id, .. }
+            | Self::PointerScroll { id, .. }
+            | Self::KeyboardFocusIn { id }
+            | Self::KeyboardFocusOut { id }
+            | Self::Key { id, .. }
+            | Self::TextInput { id, .. }
+            | Self::TouchStart { id, .. }
+            | Self::TouchMove { id, .. }
+            | Self::TouchEnd { id, .. }
+            | Self::TouchCancel { id, .. } => Some(*id),
+            #[cfg(feature = "ime")]
+            Self::Ime(event) => Some(event.window_id()),
+            #[cfg(feature = "cursor")]
+            Self::Cursor(event) => Some(event.window_id()),
+            #[cfg(feature = "drag_drop")]
+            Self::DragDrop(event) => Some(event.window_id()),
+            #[cfg(feature = "gamepad")]
+            Self::Gamepad(_) => None,
+            Self::Suspended | Self::Resumed => None,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn event_layout_is_compact() {
+        use core::mem::size_of;
+
+        assert!(size_of::<super::Event>() <= 56);
+
+        #[cfg(feature = "ime")]
+        assert!(size_of::<super::ImeEvent>() <= 48);
+
+        #[cfg(feature = "drag_drop")]
+        assert!(size_of::<super::DragDropEvent>() <= 48);
+    }
 }

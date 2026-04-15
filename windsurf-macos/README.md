@@ -5,12 +5,11 @@ macOS backend for the `windsurf` windowing API family.
 This crate currently implements:
 
 - `Display::connect()`
-- non-blocking `pump()`
-- non-blocking `pump_extras()`
+- non-blocking `pump()` into `windsurf_core::EventQueue`
 - `Window::new()` on top of `AppKit`
 - `raw-window-handle` `AppKit` integration
 - a `CAMetalLayer`-backed content view suitable for Vulkan `VK_EXT_metal_surface`
-- `windsurf_extra::ExtraFeatures` on `Display`
+- `windsurf_core::Features` on `Display`
   - supported: `FeatureSet::IME`, `FeatureSet::CURSOR`, `FeatureSet::DRAG_DROP_DESTINATION`
   - unsupported: `FeatureSet::DRAG_DROP_SOURCE` and gamepad
 

@@ -6,8 +6,7 @@ description = "macOS backend for the windsurf windowing APIs"
 readme = "README.md"
 
 [dependencies]
-windsurf-core = { path = "../windsurf-core" }
-windsurf-extra = { path = "../windsurf-extra" }
+windsurf-core = { path = "../windsurf-core", features = ["ime", "cursor", "drag_drop"] }
 raw-window-handle = "0.6.2"
 
 [target.'cfg(target_os = "macos")'.dependencies]

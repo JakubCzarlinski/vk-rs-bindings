@@ -6,14 +6,12 @@ description = "Facade crate for windsurf windowing APIs"
 readme = "README.md"
 
 [features]
-default = ["extras"]
-extras = ["dep:windsurf-extra"]
+default = []
 macos = ["dep:windsurf-macos"]
 wayland = ["dep:windsurf-wayland"]
 
 [dependencies]
-windsurf-core = { path = "../windsurf-core" }
-windsurf-extra = { path = "../windsurf-extra", optional = true }
+windsurf-core = { path = "../windsurf-core", features = ["ime", "cursor", "drag_drop", "gamepad"] }
 windsurf-macos = { path = "../windsurf-macos", optional = true }
 windsurf-wayland = { path = "../windsurf-wayland", optional = true }
 

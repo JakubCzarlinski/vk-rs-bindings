@@ -48,7 +48,7 @@ impl Window {
 
         let rect = NSRect::new(
             NSPoint::new(0.0, 0.0),
-            NSSize::new(f64::from(attrs.size.width), f64::from(attrs.size.height)),
+            NSSize::new(attrs.size.width.into(), attrs.size.height.into()),
         );
         let window = unsafe {
             NSWindow::initWithContentRect_styleMask_backing_defer(
@@ -66,16 +66,10 @@ impl Window {
             window.setBackgroundColor(Some(&NSColor::clearColor()));
         }
         if let Some(min_size) = attrs.min_size {
-            window.setContentMinSize(NSSize::new(
-                f64::from(min_size.width),
-                f64::from(min_size.height),
-            ));
+            window.setContentMinSize(NSSize::new(min_size.width.into(), min_size.height.into()));
         }
         if let Some(max_size) = attrs.max_size {
-            window.setContentMaxSize(NSSize::new(
-                f64::from(max_size.width),
-                f64::from(max_size.height),
-            ));
+            window.setContentMaxSize(NSSize::new(max_size.width.into(), max_size.height.into()));
         }
 
         let view = NSView::initWithFrame(NSView::alloc(mtm), rect);
@@ -148,7 +142,9 @@ impl Window {
 
     /// Return the current backing scale factor.
     pub fn scale_factor(&self) -> f64 {
-        self.inner.window.backingScaleFactor()
+        // Not useless on 32-bit platform.
+        #[allow(clippy::useless_conversion)]
+        self.inner.window.backingScaleFactor().into()
     }
 
     /// Schedule a redraw event for this window on the next pump.

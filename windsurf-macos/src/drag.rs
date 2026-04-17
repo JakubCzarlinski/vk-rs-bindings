@@ -1,6 +1,7 @@
 use crate::state::{SharedDisplayRef, SharedState};
 use alloc::rc::{Rc, Weak};
 use alloc::string::{String, ToString};
+use alloc::sync::Arc;
 use alloc::vec::Vec;
 use core::cell::RefCell;
 use objc2::rc::Retained;
@@ -11,11 +12,11 @@ use objc2_app_kit::{
     NSWindow, NSWindowDelegate,
 };
 use objc2_foundation::{NSArray, NSObject, NSObjectProtocol, NSPoint, NSURL};
-use windsurf_core::{DragAction, DragData, DragDropEvent, DragPosition, Event, WindowId};
+use windsurf_core::{DragAction, DragData, DragPosition, Event, WindowId};
 
 extern crate alloc;
 
-pub(crate) struct DragDelegateIvars {
+pub struct DragDelegateIvars {
     shared: Weak<RefCell<SharedState>>,
     window_id: WindowId,
 }
@@ -40,7 +41,7 @@ define_class!(
             let offered = offered_drag_types(&pasteboard);
             let position = self.drag_position(sender.draggingLocation());
 
-            if self.push_drag_event(DragDropEvent::Entered {
+            if self.push_drag_event(Event::DragDropEntered {
                 id: window_id,
                 position,
                 offered,
@@ -55,7 +56,7 @@ define_class!(
         fn dragging_updated(&self, sender: &ProtocolObject<dyn NSDraggingInfo>) -> NSDragOperation {
             let window_id = self.ivars().window_id;
             let position = self.drag_position(sender.draggingLocation());
-            if self.push_drag_event(DragDropEvent::Moved {
+            if self.push_drag_event(Event::DragDropMoved {
                 id: window_id,
                 position,
             }) {
@@ -68,7 +69,7 @@ define_class!(
         #[unsafe(method(draggingExited:))]
         fn dragging_exited(&self, _sender: Option<&ProtocolObject<dyn NSDraggingInfo>>) {
             let window_id = self.ivars().window_id;
-            let _ = self.push_drag_event(DragDropEvent::Left { id: window_id });
+            let _ = self.push_drag_event(Event::DragDropLeft { id: window_id });
         }
 
         #[unsafe(method(prepareForDragOperation:))]
@@ -85,10 +86,10 @@ define_class!(
                 return false.into();
             }
 
-            self.push_drag_event(DragDropEvent::Dropped {
+            self.push_drag_event(Event::DragDropDropped {
                 id: window_id,
                 position,
-                data: Vec::from([DragData::Files(files)]),
+                data: Arc::from([DragData::Files(Arc::from(files))]),
                 action: DragAction::Copy,
             })
         }
@@ -110,9 +111,12 @@ impl WindowDragDelegate {
     }
 
     fn drag_position(&self, point: NSPoint) -> DragPosition {
-        let window_id = self.ivars().window_id;
-        if let Some(shared) = self.ivars().shared.upgrade() {
+        let ivars = self.ivars();
+        let window_id = ivars.window_id;
+
+        if let Some(shared) = ivars.shared.upgrade() {
             let shared = shared.borrow();
+
             if let Some(state) = shared.windows.get(&window_id) {
                 return DragPosition::new(
                     point.x as f32,
@@ -123,7 +127,7 @@ impl WindowDragDelegate {
         DragPosition::new(point.x as f32, point.y as f32)
     }
 
-    fn push_drag_event(&self, event: DragDropEvent) -> bool {
+    fn push_drag_event(&self, event: Event) -> bool {
         let window_id = self.ivars().window_id;
         let Some(shared) = self.ivars().shared.upgrade() else {
             return false;
@@ -132,7 +136,7 @@ impl WindowDragDelegate {
         if !shared.windows.contains_key(&window_id) {
             return false;
         }
-        shared.push(Event::DragDrop(event));
+        shared.push(event);
         true
     }
 }
@@ -150,17 +154,15 @@ pub(crate) fn attach_file_drop_delegate(
     drag_delegate
 }
 
-fn offered_drag_types(pasteboard: &NSPasteboard) -> Vec<String> {
+fn offered_drag_types(pasteboard: &NSPasteboard) -> Arc<[String]> {
     let Some(types) = pasteboard.types() else {
-        return Vec::new();
+        return Arc::new([]);
     };
 
     let count = types.count();
-    let mut offered = Vec::with_capacity(count);
-    for index in 0..count {
-        offered.push(types.objectAtIndex(index).to_string());
-    }
-    offered
+    (0..count)
+        .map(|index| types.objectAtIndex(index).to_string())
+        .collect::<Arc<_>>()
 }
 
 fn read_dragged_files(pasteboard: &NSPasteboard) -> Vec<String> {

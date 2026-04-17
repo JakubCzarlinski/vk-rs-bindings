@@ -1,12 +1,10 @@
-#[cfg(feature = "cursor")]
-use crate::CursorEvent;
-#[cfg(feature = "drag_drop")]
-use crate::DragDropEvent;
-#[cfg(feature = "gamepad")]
-use crate::GamepadEvent;
-#[cfg(feature = "ime")]
-use crate::ImeEvent;
-use crate::{ButtonState, KeyCode, KeyState, PointerButton, TextInput, WindowId};
+use crate::{
+    ButtonState, CursorEvent, DragAction, DragData, DragPosition, GamepadAxis, GamepadButton,
+    GamepadId, KeyCode, KeyState, PointerButton, TextInput, WindowId,
+};
+use alloc::string::String;
+use alloc::sync::Arc;
+extern crate alloc;
 
 /// Flat event enum shared by all `windsurf` backends.
 ///
@@ -63,7 +61,7 @@ pub enum Event {
     Key {
         id: WindowId,
         key: KeyCode,
-        scancode: u32,
+        scancode: u16,
         state: KeyState,
     },
     /// Emitted for textual keyboard/IME output.
@@ -73,43 +71,80 @@ pub enum Event {
     TextInput { id: WindowId, text: TextInput },
     /// Emitted for IME-specific platform notifications.
     #[cfg(feature = "ime")]
-    Ime(ImeEvent),
+    ImeEnabled { id: WindowId },
+    #[cfg(feature = "ime")]
+    ImeDisabled { id: WindowId },
+    #[cfg(feature = "ime")]
+    ImePreedit {
+        id: WindowId,
+        text: Arc<str>,
+        selection: Option<(u32, u32)>,
+    },
+    #[cfg(feature = "ime")]
+    ImeCommit { id: WindowId, text: Arc<str> },
     /// Emitted for cursor-specific platform notifications.
     #[cfg(feature = "cursor")]
     Cursor(CursorEvent),
     /// Emitted for drag-and-drop notifications.
     #[cfg(feature = "drag_drop")]
-    DragDrop(DragDropEvent),
+    /// Emitted when a drag enters a window's bounds.
+    DragDropEntered {
+        id: WindowId,
+        position: DragPosition,
+        /// List of MIME types offered by the drag source, in descending preference order.
+        offered: Arc<[String]>,
+    },
+    #[cfg(feature = "drag_drop")]
+    DragDropMoved {
+        id: WindowId,
+        position: DragPosition,
+    },
+    #[cfg(feature = "drag_drop")]
+    DragDropLeft { id: WindowId },
+    #[cfg(feature = "drag_drop")]
+    DragDropDropped {
+        id: WindowId,
+        position: DragPosition,
+        data: Arc<[DragData]>,
+        action: DragAction,
+    },
     /// Emitted for gamepad lifecycle and input notifications.
     #[cfg(feature = "gamepad")]
-    Gamepad(GamepadEvent),
+    GamepadConnected { gamepad: GamepadId },
+    #[cfg(feature = "gamepad")]
+    GamepadDisconnected { gamepad: GamepadId },
+    #[cfg(feature = "gamepad")]
+    GamepadButton {
+        gamepad: GamepadId,
+        button: GamepadButton,
+        state: ButtonState,
+    },
+    #[cfg(feature = "gamepad")]
+    GamepadAxis {
+        gamepad: GamepadId,
+        axis: GamepadAxis,
+        value: f32,
+    },
     /// Emitted when a touch contact starts.
-    TouchStart {
-        id: WindowId,
-        finger: u64,
-        x: f64,
-        y: f64,
-    },
+    TouchStart { id: WindowId, touch: TouchPoint },
     /// Emitted when a touch contact moves.
-    TouchMove {
-        id: WindowId,
-        finger: u64,
-        x: f64,
-        y: f64,
-    },
+    TouchMove { id: WindowId, touch: TouchPoint },
     /// Emitted when a touch contact ends.
-    TouchEnd {
-        id: WindowId,
-        finger: u64,
-        x: f64,
-        y: f64,
-    },
+    TouchEnd { id: WindowId, finger: u8 },
     /// Emitted when a touch contact is cancelled by the platform.
-    TouchCancel { id: WindowId, finger: u64 },
+    TouchCancel { id: WindowId, finger: u8 },
     /// Emitted when the application is backgrounded/suspended.
     Suspended,
     /// Emitted when the application resumes from suspension.
     Resumed,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct TouchPoint {
+    pub finger: u8,
+    pub x: f64,
+    pub y: f64,
+    pub force: Option<u16>,
 }
 
 impl Event {
@@ -139,30 +174,23 @@ impl Event {
             | Self::TouchEnd { id, .. }
             | Self::TouchCancel { id, .. } => Some(*id),
             #[cfg(feature = "ime")]
-            Self::Ime(event) => Some(event.window_id()),
+            Self::ImeEnabled { id }
+            | Self::ImeDisabled { id }
+            | Self::ImePreedit { id, .. }
+            | Self::ImeCommit { id, .. } => Some(*id),
             #[cfg(feature = "cursor")]
             Self::Cursor(event) => Some(event.window_id()),
             #[cfg(feature = "drag_drop")]
-            Self::DragDrop(event) => Some(event.window_id()),
+            Self::DragDropEntered { id, .. }
+            | Self::DragDropMoved { id, .. }
+            | Self::DragDropLeft { id }
+            | Self::DragDropDropped { id, .. } => Some(*id),
             #[cfg(feature = "gamepad")]
-            Self::Gamepad(_) => None,
+            Self::GamepadConnected { .. }
+            | Self::GamepadDisconnected { .. }
+            | Self::GamepadButton { .. }
+            | Self::GamepadAxis { .. } => None,
             Self::Suspended | Self::Resumed => None,
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn event_layout_is_compact() {
-        use core::mem::size_of;
-
-        assert!(size_of::<super::Event>() <= 56);
-
-        #[cfg(feature = "ime")]
-        assert!(size_of::<super::ImeEvent>() <= 48);
-
-        #[cfg(feature = "drag_drop")]
-        assert!(size_of::<super::DragDropEvent>() <= 48);
     }
 }

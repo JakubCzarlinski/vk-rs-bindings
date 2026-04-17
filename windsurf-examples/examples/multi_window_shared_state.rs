@@ -12,7 +12,7 @@ use std::time::Duration;
 #[cfg(any(target_os = "linux", target_os = "macos"))]
 use windsurf::{
     CursorIcon, CursorMode, CursorSource, Display, Event, EventQueue, FeatureSet, Features,
-    ImePurpose, ImeState, KeyCode, KeyState, Window, WindowAttributes, WindowId,
+    KeyCode, KeyState, LogicalSize, Window, WindowAttributes, WindowId,
 };
 
 #[cfg(any(target_os = "linux", target_os = "macos"))]
@@ -29,10 +29,6 @@ fn spawn_window_worker(id: WindowId) -> Sender<WorkerMsg> {
             match msg {
                 WorkerMsg::Core(event) => {
                     println!("[worker {id:?}] core: {event:?}");
-                    if matches!(event, Event::TextInput { .. }) {
-                        // Simulate a slow per-window handler.
-                        thread::sleep(Duration::from_millis(250));
-                    }
                 }
                 WorkerMsg::Stop => break,
             }
@@ -51,6 +47,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         &display,
         &WindowAttributes {
             title: String::from("shared-state: left"),
+            size: LogicalSize::new(400, 300),
             ..WindowAttributes::default()
         },
     )?;
@@ -58,6 +55,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         &display,
         &WindowAttributes {
             title: String::from("shared-state: right"),
+            size: LogicalSize::new(300, 400),
             ..WindowAttributes::default()
         },
     )?;
@@ -83,18 +81,18 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
-    if features.contains(FeatureSet::IME) {
-        for id in windows.keys().copied() {
-            let _ = display.set_ime_state(
-                id,
-                &ImeState {
-                    enabled: true,
-                    purpose: ImePurpose::Normal,
-                    cursor_area: None,
-                },
-            );
-        }
-    }
+    // if features.contains(FeatureSet::IME) {
+    //     for id in windows.keys().copied() {
+    //         let _ = display.set_ime_state(
+    //             id,
+    //             &ImeState {
+    //                 enabled: true,
+    //                 purpose: ImePurpose::Normal,
+    //                 cursor_area: None,
+    //             },
+    //         );
+    //     }
+    // }
 
     for window in windows.values() {
         window.request_redraw();
@@ -110,42 +108,39 @@ fn main() -> Result<(), Box<dyn Error>> {
     loop {
         display.pump(&mut events)?;
 
-        let mut close_requests = BTreeSet::new();
-
         events.dispatch_by_window(
             |id, event| {
                 match &event {
-                    Event::KeyboardFocusIn { id: event_id } => {
-                        if let Some(window) = windows.get(event_id) {
+                    Event::KeyboardFocusIn { id } => {
+                        if let Some(window) = windows.get(id) {
                             window.set_title("shared-state: focused");
                         }
                     }
-                    Event::KeyboardFocusOut { id: event_id } => {
-                        if let Some(window) = windows.get(event_id) {
+                    Event::KeyboardFocusOut { id } => {
+                        if let Some(window) = windows.get(id) {
                             window.set_title("shared-state: unfocused");
                         }
                     }
-                    Event::Key {
-                        id: event_id,
-                        key,
-                        state,
-                        ..
-                    } if *state == KeyState::Pressed
-                        && *key == KeyCode::Space
-                        && features.contains(FeatureSet::CURSOR) =>
+                    Event::Key { id, key, state, .. }
+                        if *state == KeyState::Pressed
+                            && *key == KeyCode::Space
+                            && features.contains(FeatureSet::CURSOR) =>
                     {
-                        let is_hidden = hidden_mode_windows.contains(event_id);
+                        let is_hidden = hidden_mode_windows.contains(id);
                         let next_mode = if is_hidden {
-                            hidden_mode_windows.remove(event_id);
+                            hidden_mode_windows.remove(id);
                             CursorMode::Normal
                         } else {
-                            hidden_mode_windows.insert(*event_id);
+                            hidden_mode_windows.insert(*id);
                             CursorMode::Hidden
                         };
-                        let _ = display.set_cursor_mode(*event_id, next_mode);
+                        let _ = display.set_cursor_mode(*id, next_mode);
                     }
-                    Event::CloseRequested { id: event_id } => {
-                        close_requests.insert(*event_id);
+                    Event::CloseRequested { id } => {
+                        if let Some(sender) = workers.remove(id) {
+                            let _ = sender.send(WorkerMsg::Stop);
+                        }
+                        windows.remove(id);
                     }
                     _ => {}
                 }
@@ -156,14 +151,6 @@ fn main() -> Result<(), Box<dyn Error>> {
             },
             |event| println!("[global] {event:?}"),
         );
-
-        for id in close_requests {
-            if let Some(sender) = workers.remove(&id) {
-                let _ = sender.send(WorkerMsg::Stop);
-            }
-            hidden_mode_windows.remove(&id);
-            windows.remove(&id);
-        }
 
         if windows.is_empty() {
             println!("all windows closed, exiting");

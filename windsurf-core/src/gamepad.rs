@@ -1,33 +1,43 @@
-use crate::ButtonState;
-use alloc::string::String;
-
 extern crate alloc;
 
 /// Stable identifier for a gamepad instance.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct GamepadId(pub u64);
+pub struct GamepadId(pub u32);
 
 /// Normalized controller button mapping.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum GamepadButton {
+    // Face
     South,
     East,
     West,
     North,
+    // Shoulders
     LeftShoulder,
     RightShoulder,
+    // Triggers (digital buttons, distinct from analog axes)
     LeftTrigger,
     RightTrigger,
+    // Center
     Select,
     Start,
     Mode,
+    // Sticks
     LeftStick,
     RightStick,
+    // D-Pad
     DPadUp,
     DPadDown,
     DPadLeft,
     DPadRight,
-    Other(u16),
+    // Modern extensions (PS5, Switch Pro, Xbox Elite)
+    Touchpad, // PS4/PS5 touchpad click
+    Mute,     // DualSense mute button
+    Capture,  // Switch capture button
+    Paddle1,  // Xbox Elite paddles (optional)
+    Paddle2,
+    Paddle3,
+    Paddle4,
 }
 
 /// Normalized controller axis mapping.
@@ -39,27 +49,6 @@ pub enum GamepadAxis {
     RightStickY,
     LeftTrigger,
     RightTrigger,
-    Other(u16),
-}
-
-/// Gamepad lifecycle and input events.
-#[derive(Debug, Clone, PartialEq)]
-pub enum GamepadEvent {
-    Connected {
-        gamepad: GamepadId,
-        name: String,
-    },
-    Disconnected {
-        gamepad: GamepadId,
-    },
-    Button {
-        gamepad: GamepadId,
-        button: GamepadButton,
-        state: ButtonState,
-    },
-    Axis {
-        gamepad: GamepadId,
-        axis: GamepadAxis,
-        value: f32,
-    },
+    TouchpadX,
+    TouchpadY,
 }

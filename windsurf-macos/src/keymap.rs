@@ -63,7 +63,7 @@ pub(crate) fn key_code_from_scancode(scancode: u32) -> KeyCode {
     }
 }
 
-pub(crate) fn modifier_key_for_scancode(scancode: u32) -> Option<(KeyCode, NSEventModifierFlags)> {
+pub(crate) fn modifier_key_for_scancode(scancode: u16) -> Option<(KeyCode, NSEventModifierFlags)> {
     match scancode {
         56 | 60 => Some((KeyCode::Shift, NSEventModifierFlags::Shift)),
         59 | 62 => Some((KeyCode::Control, NSEventModifierFlags::Control)),

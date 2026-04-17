@@ -60,8 +60,8 @@ pub(crate) fn process_input_event(shared: &mut SharedState, event: &NSEvent) {
             };
             shared.push(Event::PointerScroll {
                 id,
-                dx: event.scrollingDeltaX(),
-                dy: event.scrollingDeltaY(),
+                dx: event.scrollingDeltaX().into(),
+                dy: event.scrollingDeltaY().into(),
             });
         }
         NSEventType::MouseEntered => {
@@ -85,7 +85,7 @@ pub(crate) fn process_input_event(shared: &mut SharedState, event: &NSEvent) {
             shared.push(Event::Key {
                 id,
                 key: key_code_for_event(event),
-                scancode: u32::from(event.keyCode()),
+                scancode: event.keyCode(),
                 state,
             });
             if let Some(text) = text_for_event(event) {
@@ -99,7 +99,7 @@ pub(crate) fn process_input_event(shared: &mut SharedState, event: &NSEvent) {
             shared.push(Event::Key {
                 id,
                 key: key_code_for_event(event),
-                scancode: u32::from(event.keyCode()),
+                scancode: event.keyCode(),
                 state: KeyState::Released,
             });
         }
@@ -107,7 +107,7 @@ pub(crate) fn process_input_event(shared: &mut SharedState, event: &NSEvent) {
             let Some(id) = window_id.or(shared.keyboard_focus) else {
                 return;
             };
-            let scancode = u32::from(event.keyCode());
+            let scancode = event.keyCode();
             if let Some((key, flag)) = modifier_key_for_scancode(scancode) {
                 let state = if event.modifierFlags().contains(flag) {
                     KeyState::Pressed

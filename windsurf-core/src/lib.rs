@@ -38,12 +38,12 @@ mod queue;
 mod window;
 
 pub use crate::cursor::{CursorEvent, CursorIcon, CursorMode, CursorSource};
-pub use crate::drag_drop::{DragAction, DragData, DragDropEvent, DragPosition, DragSource};
+pub use crate::drag_drop::{DragAction, DragData, DragPosition, DragSource};
 pub use crate::event::Event;
 pub use crate::feature::{FeatureKind, FeatureSet, Features, UnsupportedFeature};
-pub use crate::gamepad::{GamepadAxis, GamepadButton, GamepadEvent, GamepadId};
+pub use crate::gamepad::{GamepadAxis, GamepadButton, GamepadId};
 pub use crate::geometry::{LogicalPosition, LogicalRect, LogicalSize};
-pub use crate::ime::{ImeEvent, ImePurpose, ImeState};
+pub use crate::ime::{ImePurpose, ImeState};
 pub use crate::input::{ButtonState, KeyCode, KeyState, PointerButton, TextInput};
 pub use crate::queue::EventQueue;
 pub use crate::window::{WindowAttributes, WindowId};

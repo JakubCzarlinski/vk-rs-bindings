@@ -9,9 +9,13 @@ readme = "README.md"
 default = []
 macos = ["dep:windsurf-macos"]
 wayland = ["dep:windsurf-wayland"]
+ime = ["windsurf-core/ime"]
+cursor = ["windsurf-core/cursor"]
+drag_drop = ["windsurf-core/drag_drop"]
+gamepad = ["windsurf-core/gamepad"]
 
 [dependencies]
-windsurf-core = { path = "../windsurf-core", features = ["ime", "cursor", "drag_drop", "gamepad"] }
+windsurf-core = { path = "../windsurf-core" }
 windsurf-macos = { path = "../windsurf-macos", optional = true }
 windsurf-wayland = { path = "../windsurf-wayland", optional = true }
 

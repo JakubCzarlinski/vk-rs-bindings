@@ -13,7 +13,7 @@ use objc2_app_kit::{NSApplication, NSEvent, NSEventMask};
 use objc2_foundation::{NSDate, NSDefaultRunLoopMode};
 use windsurf_core::{
     CursorEvent, CursorMode, CursorSource, DragSource, Event, EventQueue, FeatureKind, FeatureSet,
-    Features, ImeEvent, ImeState, UnsupportedFeature,
+    Features, ImeState, UnsupportedFeature,
 };
 
 extern crate alloc;
@@ -163,9 +163,9 @@ impl Features for Display {
         {
             window_state.ime_enabled = state.enabled;
             let event = if state.enabled {
-                Event::Ime(ImeEvent::Enabled { id: window })
+                Event::ImeEnabled { id: window }
             } else {
-                Event::Ime(ImeEvent::Disabled { id: window })
+                Event::ImeDisabled { id: window }
             };
             shared.push(event);
         }

@@ -8,8 +8,8 @@ use core::error::Error;
 use core::time::Duration;
 use std::thread;
 use windsurf::{
-    CursorIcon, CursorSource, Display, DragData, DragDropEvent, Event, EventQueue, FeatureSet,
-    Features, ImePurpose, ImeState, KeyCode, KeyState, PointerButton, Window, WindowAttributes,
+    CursorIcon, CursorSource, Display, DragData, Event, EventQueue, FeatureSet, Features,
+    ImePurpose, ImeState, KeyCode, KeyState, PointerButton, Window, WindowAttributes,
 };
 
 const CURSOR_CYCLE: [CursorIcon; 5] = [
@@ -215,26 +215,24 @@ pub fn main() -> Result<(), Box<dyn Error>> {
                         }
                     }
                 }
-                Event::DragDrop(DragDropEvent::Dropped { data, .. }) => {
-                    for item in data {
-                        match item {
-                            DragData::Files(paths) => {
-                                for path in paths {
-                                    eprintln!("drag-drop file: {path}");
-                                }
-                            }
-                            DragData::Text(text) => {
-                                eprintln!("drag-drop text: {text}");
-                            }
-                            DragData::Bytes { mime_type, data } => {
-                                eprintln!("drag-drop bytes: mime={mime_type}, len={}", data.len());
-                            }
+                Event::DragDropDropped { data, .. } => {
+                    data.iter().for_each(|item| match item {
+                        DragData::Files(paths) => {
+                            paths.iter().for_each(|path| {
+                                eprintln!("drag-drop file: {path}");
+                            });
                         }
-                    }
+                        DragData::Text(text) => {
+                            eprintln!("drag-drop text: {text}");
+                        }
+                        DragData::Bytes { mime_type, data } => {
+                            eprintln!("drag-drop bytes: mime={mime_type}, len={}", data.len());
+                        }
+                    });
                 }
-                Event::Ime(other) => eprintln!("ime event: {other:?}"),
+                Event::ImeEnabled { id } => eprintln!("ime enabled: {id:?}"),
+                Event::ImeDisabled { id } => eprintln!("ime disabled: {id:?}"),
                 Event::Cursor(other) => eprintln!("cursor event: {other:?}"),
-                Event::DragDrop(other) => eprintln!("drag event: {other:?}"),
                 _ => {}
             }
         }

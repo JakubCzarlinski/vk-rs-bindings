@@ -1,6 +1,6 @@
-use crate::WindowId;
+//! Drag-and-drop related types and traits.
 use alloc::string::String;
-use alloc::vec::Vec;
+use alloc::sync::Arc;
 
 extern crate alloc;
 
@@ -13,8 +13,6 @@ pub enum DragAction {
 }
 
 /// Logical drag position in window coordinates.
-///
-/// Uses `f32` to keep drag payload events compact.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct DragPosition {
     pub x: f32,
@@ -30,52 +28,20 @@ impl DragPosition {
 /// Transfer payload accepted by the drag-and-drop abstraction.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum DragData {
-    Text(String),
-    /// UTF-8 file paths as provided by the backend.
-    Files(Vec<String>),
+    /// A UTF-8 string, typically from a text selection or input field.
+    Text(Arc<str>),
+    /// A list of file paths.
+    Files(Arc<[String]>),
+    /// Arbitrary binary data with an associated MIME type.
     Bytes {
-        mime_type: String,
-        data: Vec<u8>,
+        mime_type: Arc<str>,
+        data: Arc<[u8]>,
     },
 }
 
 /// Drag payload initiated by the local application.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone)]
 pub struct DragSource {
-    pub items: Vec<DragData>,
+    pub items: Arc<[DragData]>,
     pub action: DragAction,
-}
-
-/// Drag-and-drop events emitted by a backend.
-#[derive(Debug, Clone, PartialEq)]
-pub enum DragDropEvent {
-    Entered {
-        id: WindowId,
-        position: DragPosition,
-        offered: Vec<String>,
-    },
-    Moved {
-        id: WindowId,
-        position: DragPosition,
-    },
-    Left {
-        id: WindowId,
-    },
-    Dropped {
-        id: WindowId,
-        position: DragPosition,
-        data: Vec<DragData>,
-        action: DragAction,
-    },
-}
-
-impl DragDropEvent {
-    pub const fn window_id(&self) -> WindowId {
-        match self {
-            Self::Entered { id, .. }
-            | Self::Moved { id, .. }
-            | Self::Left { id }
-            | Self::Dropped { id, .. } => *id,
-        }
-    }
 }

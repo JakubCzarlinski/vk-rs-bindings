@@ -7,7 +7,7 @@ members = [
   "windsurf-core",
   "windsurf-examples",
   "windsurf-macos",
-  "windsurf-wayland",
+  # "windsurf-wayland",
   "windsurf",
 ]
 

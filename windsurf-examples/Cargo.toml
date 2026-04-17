@@ -34,7 +34,7 @@ features = [
 
 [target.'cfg(target_os = "macos")'.dev-dependencies]
 raw-window-metal = "1.1.0"
-windsurf = { path = "../windsurf", features = ["macos"] }
+windsurf = { path = "../windsurf", features = ["macos", "ime", "cursor", "drag_drop"] }
 
 [target.'cfg(target_os = "macos")'.dev-dependencies.vk]
 path = "../vk-rs-bindings"

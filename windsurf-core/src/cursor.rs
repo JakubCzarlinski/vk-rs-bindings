@@ -1,3 +1,5 @@
+//! Cursor-related types and events.
+
 use crate::WindowId;
 use alloc::vec::Vec;
 

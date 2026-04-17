@@ -5,8 +5,14 @@ edition = "2024"
 description = "macOS backend for the windsurf windowing APIs"
 readme = "README.md"
 
+[features]
+ime = ["windsurf-core/ime"]
+cursor = ["windsurf-core/cursor"]
+drag_drop = ["windsurf-core/drag_drop"]
+gamepad = ["windsurf-core/gamepad"]
+
 [dependencies]
-windsurf-core = { path = "../windsurf-core", features = ["ime", "cursor", "drag_drop"] }
+windsurf-core = { path = "../windsurf-core" }
 raw-window-handle = "0.6.2"
 
 [target.'cfg(target_os = "macos")'.dependencies]

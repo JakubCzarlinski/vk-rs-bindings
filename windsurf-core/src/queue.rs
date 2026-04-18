@@ -1,69 +1,47 @@
 use crate::{Event, WindowHandle};
-use core::mem::MaybeUninit;
+use alloc::collections::VecDeque;
+
+extern crate alloc;
 
 /// Tuple-transported event item.
 pub type ScopedEvent = (Option<WindowHandle>, Event);
 
-/// Push failure when the fixed-capacity queue is full.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct QueueOverflow;
-
-/// Fixed-capacity FIFO event queue with overflow accounting.
+/// Lossless FIFO event queue.
 #[derive(Debug)]
-pub struct EventQueue<const CAP: usize = 1024> {
-    entries: [MaybeUninit<ScopedEvent>; CAP],
-    head: usize,
-    len: usize,
-    dropped: usize,
+pub struct EventQueue {
+    entries: VecDeque<ScopedEvent>,
 }
 
-impl<const CAP: usize> EventQueue<CAP> {
-    pub fn new_with_capacity() -> Self {
+impl EventQueue {
+    pub const DEFAULT_CAPACITY: usize = 16;
+
+    pub fn new() -> Self {
+        Self::with_capacity(Self::DEFAULT_CAPACITY)
+    }
+
+    pub fn with_capacity(capacity: usize) -> Self {
         Self {
-            entries: [const { MaybeUninit::uninit() }; CAP],
-            head: 0,
-            len: 0,
-            dropped: 0,
+            entries: VecDeque::with_capacity(capacity),
         }
     }
 
     /// Push a single scoped event into the queue.
-    pub fn push(
-        &mut self,
-        window: Option<WindowHandle>,
-        event: Event,
-    ) -> Result<(), QueueOverflow> {
-        self.push_scoped((window, event))
+    pub fn push(&mut self, window: Option<WindowHandle>, event: Event) {
+        self.push_scoped((window, event));
     }
 
     /// Push a full `(window, event)` tuple.
-    pub fn push_scoped(&mut self, scoped: ScopedEvent) -> Result<(), QueueOverflow> {
-        if self.len == CAP {
-            self.dropped = self.dropped.saturating_add(1);
-            return Err(QueueOverflow);
-        }
-
-        let tail = (self.head + self.len) % CAP;
-        self.entries[tail].write(scoped);
-        self.len += 1;
-        Ok(())
+    pub fn push_scoped(&mut self, scoped: ScopedEvent) {
+        self.entries.push_back(scoped);
     }
 
     /// Pop the next event in FIFO order.
     pub fn pop(&mut self) -> Option<ScopedEvent> {
-        if self.len == 0 {
-            return None;
-        }
-
-        let index = self.head;
-        self.head = (self.head + 1) % CAP;
-        self.len -= 1;
-
-        Some(unsafe { self.entries[index].assume_init_read() })
+        self.entries.pop_front()
     }
 
     /// Drain all pending events in FIFO order.
-    pub fn drain(&mut self) -> Drain<'_, CAP> {
+    pub fn drain(&mut self) -> Drain<'_> {
         Drain { queue: self }
     }
 
@@ -83,93 +61,59 @@ impl<const CAP: usize> EventQueue<CAP> {
     }
 
     /// Drain all events for `window` into `target`, preserving order.
-    pub fn drain_window_into<const TARGET_CAP: usize>(
-        &mut self,
-        window: WindowHandle,
-        target: &mut EventQueue<TARGET_CAP>,
-    ) {
+    pub fn drain_window_into(&mut self, window: WindowHandle, target: &mut EventQueue) {
         self.drain_matching_into(target, |event_window, _| *event_window == Some(window));
     }
 
     /// Drain events that are not tied to any window into `target`.
-    pub fn drain_global_into<const TARGET_CAP: usize>(
-        &mut self,
-        target: &mut EventQueue<TARGET_CAP>,
-    ) {
+    pub fn drain_global_into(&mut self, target: &mut EventQueue) {
         self.drain_matching_into(target, |event_window, _| event_window.is_none());
     }
 
-    fn drain_matching_into<const TARGET_CAP: usize, F>(
-        &mut self,
-        target: &mut EventQueue<TARGET_CAP>,
-        mut predicate: F,
-    ) where
+    fn drain_matching_into<F>(&mut self, target: &mut EventQueue, mut predicate: F)
+    where
         F: FnMut(&Option<WindowHandle>, &Event) -> bool,
     {
-        let initial = self.len;
-        for _ in 0..initial {
-            let Some((window, event)) = self.pop() else {
-                break;
-            };
+        let mut retained = VecDeque::new();
+
+        while let Some((window, event)) = self.pop() {
             if predicate(&window, &event) {
-                let _ = target.push(window, event);
+                target.push(window, event);
             } else {
-                let _ = self.push(window, event);
+                retained.push_back((window, event));
             }
         }
+
+        self.entries = retained;
     }
 
     /// Return the number of queued events.
-    pub const fn len(&self) -> usize {
-        self.len
+    pub fn len(&self) -> usize {
+        self.entries.len()
     }
 
     /// Return `true` when there are no pending events.
-    pub const fn is_empty(&self) -> bool {
-        self.len == 0
+    pub fn is_empty(&self) -> bool {
+        self.entries.is_empty()
     }
 
     /// Remove all pending events without yielding them.
     pub fn clear(&mut self) {
-        while self.pop().is_some() {}
-    }
-
-    /// Number of events dropped due to overflow since queue creation.
-    pub const fn dropped_count(&self) -> usize {
-        self.dropped
-    }
-
-    /// Read and reset overflow counter.
-    pub fn take_dropped_count(&mut self) -> usize {
-        let dropped = self.dropped;
-        self.dropped = 0;
-        dropped
+        self.entries.clear();
     }
 }
 
-impl EventQueue<1024> {
-    pub fn new() -> Self {
-        Self::new_with_capacity()
-    }
-}
-
-impl<const CAP: usize> Default for EventQueue<CAP> {
+impl Default for EventQueue {
     fn default() -> Self {
-        Self::new_with_capacity()
+        Self::new()
     }
 }
 
-impl<const CAP: usize> Drop for EventQueue<CAP> {
-    fn drop(&mut self) {
-        self.clear();
-    }
+pub struct Drain<'a> {
+    queue: &'a mut EventQueue,
 }
 
-pub struct Drain<'a, const CAP: usize> {
-    queue: &'a mut EventQueue<CAP>,
-}
-
-impl<const CAP: usize> Iterator for Drain<'_, CAP> {
+impl Iterator for Drain<'_> {
     type Item = ScopedEvent;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -192,9 +136,9 @@ mod tests {
         let h1 = handles.allocate().unwrap();
         let h2 = handles.allocate().unwrap();
 
-        let mut queue = EventQueue::<8>::new_with_capacity();
-        queue.push(Some(h1), Event::WindowCreated).unwrap();
-        queue.push(Some(h2), Event::CloseRequested).unwrap();
+        let mut queue = EventQueue::with_capacity(8);
+        queue.push(Some(h1), Event::WindowCreated);
+        queue.push(Some(h2), Event::CloseRequested);
 
         let events: Vec<_> = queue.drain().collect();
 
@@ -210,17 +154,17 @@ mod tests {
         let h1 = handles.allocate().unwrap();
         let h2 = handles.allocate().unwrap();
 
-        let mut queue = EventQueue::<8>::new_with_capacity();
-        queue.push(Some(h1), Event::WindowCreated).unwrap();
-        queue.push(None, Event::Suspended).unwrap();
-        queue.push(Some(h2), Event::CloseRequested).unwrap();
+        let mut queue = EventQueue::with_capacity(2);
+        queue.push(Some(h1), Event::WindowCreated);
+        queue.push(None, Event::Suspended);
+        queue.push(Some(h2), Event::CloseRequested);
 
-        let mut window_events = EventQueue::<8>::new_with_capacity();
+        let mut window_events = EventQueue::with_capacity(8);
         queue.drain_window_into(h1, &mut window_events);
         let drained_window: Vec<_> = window_events.drain().collect();
         assert_eq!(drained_window, vec![(Some(h1), Event::WindowCreated)]);
 
-        let mut global_events = EventQueue::<8>::new_with_capacity();
+        let mut global_events = EventQueue::with_capacity(8);
         queue.drain_global_into(&mut global_events);
         let drained_global: Vec<_> = global_events.drain().collect();
         assert_eq!(drained_global, vec![(None, Event::Suspended)]);
@@ -230,22 +174,32 @@ mod tests {
     }
 
     #[test]
-    fn overflow_is_counted_and_observable() {
-        let mut queue = EventQueue::<1>::new_with_capacity();
-        queue.push(None, Event::Suspended).unwrap();
-        assert!(queue.push(None, Event::Resumed).is_err());
-        assert_eq!(queue.dropped_count(), 1);
-        assert_eq!(queue.take_dropped_count(), 1);
-        assert_eq!(queue.take_dropped_count(), 0);
+    fn spill_path_is_lossless_and_fifo() {
+        let mut queue = EventQueue::with_capacity(2);
+        queue.push(None, Event::WindowCreated);
+        queue.push(None, Event::RedrawRequested);
+        queue.push(None, Event::CloseRequested);
+        queue.push(None, Event::Suspended);
+
+        let drained: Vec<_> = queue.drain().collect();
+        assert_eq!(
+            drained,
+            vec![
+                (None, Event::WindowCreated),
+                (None, Event::RedrawRequested),
+                (None, Event::CloseRequested),
+                (None, Event::Suspended),
+            ]
+        );
     }
 
     #[test]
-    fn steady_state_push_pop_does_not_allocate() {
-        let mut queue = EventQueue::<16>::new_with_capacity();
+    fn steady_state_push_pop_stays_correct() {
+        let mut queue = EventQueue::with_capacity(16);
         for _ in 0..512 {
-            queue.push(None, Event::Resumed).unwrap();
+            queue.push(None, Event::Resumed);
             let _ = queue.pop();
         }
-        assert_eq!(queue.dropped_count(), 0);
+        assert!(queue.is_empty());
     }
 }

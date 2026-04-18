@@ -3,6 +3,7 @@ use crate::util::{logical_size_to_i32, nonzero_or};
 use wayland_client::globals::GlobalListContents;
 use wayland_client::protocol::{wl_compositor, wl_region, wl_registry, wl_seat, wl_surface};
 use wayland_client::{Connection, Dispatch, QueueHandle, delegate_noop};
+#[cfg(feature = "cursor")]
 use wayland_protocols::wp::cursor_shape::v1::client::{
     wp_cursor_shape_device_v1, wp_cursor_shape_manager_v1,
 };
@@ -61,7 +62,7 @@ impl Dispatch<xdg_surface::XdgSurface, WindowHandle> for State {
     ) {
         if let xdg_surface::Event::Configure { serial } = event {
             xdg_surface.ack_configure(serial);
-            if let Some(window) = state.windows.get_mut(window_id) {
+            if let Some(window) = state.get_window_mut(*window_id) {
                 window.needs_redraw = false;
             }
             state.push_window(*window_id, Event::RedrawRequested);
@@ -80,19 +81,16 @@ impl Dispatch<xdg_toplevel::XdgToplevel, WindowHandle> for State {
     ) {
         match event {
             xdg_toplevel::Event::Configure { width, height, .. } => {
-                if let Some(window) = state.windows.get_mut(window_id) {
+                if let Some(window) = state.get_window_mut(*window_id) {
                     let width = nonzero_or(window.size.width, width as u32);
                     let height = nonzero_or(window.size.height, height as u32);
 
                     if window.size.width != width || window.size.height != height {
                         window.size = LogicalSize::new(width, height);
-                        update_opaque_region(
-                            &state.compositor,
-                            &window.surface,
-                            window.transparent,
-                            window.size,
-                            qh,
-                        );
+                        let surface = window.surface.clone();
+                        let transparent = window.transparent;
+                        let size = window.size;
+                        update_opaque_region(&state.compositor, &surface, transparent, size, qh);
                         state.push_window(*window_id, Event::WindowResized { width, height });
                     }
                 }
@@ -132,7 +130,9 @@ impl Dispatch<zxdg_toplevel_decoration_v1::ZxdgToplevelDecorationV1, WindowHandl
 delegate_noop!(State: ignore wl_compositor::WlCompositor);
 delegate_noop!(State: ignore wl_region::WlRegion);
 delegate_noop!(State: ignore wl_surface::WlSurface);
+#[cfg(feature = "cursor")]
 delegate_noop!(State: ignore wp_cursor_shape_manager_v1::WpCursorShapeManagerV1);
+#[cfg(feature = "cursor")]
 delegate_noop!(State: ignore wp_cursor_shape_device_v1::WpCursorShapeDeviceV1);
 
 pub(crate) fn update_opaque_region(

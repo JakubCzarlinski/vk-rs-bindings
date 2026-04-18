@@ -1,5 +1,7 @@
 use crate::error::{ConnectError, PollError, WindowError};
-use crate::state::{PumpState, SharedDisplay, SharedDisplayRef, State, icon_from_source};
+#[cfg(feature = "cursor")]
+use crate::state::icon_from_source;
+use crate::state::{PumpState, SharedDisplay, SharedDisplayRef, State};
 use crate::window::Window;
 use alloc::rc::Rc;
 use core::time::Duration;
@@ -9,12 +11,15 @@ use std::os::fd::{AsFd, AsRawFd, BorrowedFd, FromRawFd, OwnedFd, RawFd};
 use wayland_client::Connection;
 use wayland_client::globals::{BindError, GlobalList, registry_queue_init};
 use wayland_client::protocol::{wl_compositor, wl_seat};
+#[cfg(feature = "cursor")]
 use wayland_protocols::wp::cursor_shape::v1::client::wp_cursor_shape_manager_v1;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_decoration_manager_v1;
 use wayland_protocols::xdg::shell::client::xdg_wm_base;
+#[cfg(any(feature = "ime", feature = "cursor"))]
+use windsurf_core::Event;
 use windsurf_core::{
-    CursorMode, CursorSource, DragSource, Event, FeatureKind, FeatureSet, ImeState, LoopBackend,
-    ScopedEvent, UnsupportedFeature, WindowAttributes, WindowHandle,
+    Backend, CursorMode, CursorSource, DragSource, FeatureKind, FeatureSet, ImeState, ScopedEvent,
+    UnsupportedFeature, WindowAttributes, WindowHandle,
 };
 
 extern crate alloc;
@@ -73,13 +78,9 @@ impl WaylandBackend {
         Ok(())
     }
 
-    fn pop_event(&mut self) -> Result<Option<ScopedEvent>, PollError> {
+    fn pop_event(&mut self) -> Option<ScopedEvent> {
         let mut pump = self.shared.pump.lock();
-        let dropped = pump.state.take_overflow_count();
-        if dropped != 0 {
-            return Err(PollError::QueueOverflow { dropped });
-        }
-        Ok(pump.state.pop_event())
+        pump.state.pop_event()
     }
 
     fn wait_for_socket(&self, timeout: Option<Duration>) -> Result<bool, PollError> {
@@ -109,7 +110,7 @@ impl WaylandBackend {
     }
 }
 
-impl LoopBackend for WaylandBackend {
+impl Backend for WaylandBackend {
     type ConnectError = ConnectError;
     type PollError = PollError;
     type WindowError = WindowError;
@@ -142,6 +143,7 @@ impl LoopBackend for WaylandBackend {
                 return Err(ConnectError::Bind(other));
             }
         };
+        #[cfg(feature = "cursor")]
         let cursor_shape_manager = match globals
             .bind::<wp_cursor_shape_manager_v1::WpCursorShapeManagerV1, _, _>(&qh, 1..=1, ())
         {
@@ -152,7 +154,11 @@ impl LoopBackend for WaylandBackend {
             }
         };
 
-        let mut state = State::new(compositor.clone(), cursor_shape_manager);
+        let mut state = State::new(
+            compositor.clone(),
+            #[cfg(feature = "cursor")]
+            cursor_shape_manager,
+        );
         for global in globals.contents().clone_list() {
             if global.interface == "wl_seat" && state.seat.is_none() {
                 let version = global.version.min(7);
@@ -182,19 +188,19 @@ impl LoopBackend for WaylandBackend {
     }
 
     fn poll_event(&mut self) -> Result<Option<ScopedEvent>, Self::PollError> {
-        if let Some(event) = self.pop_event()? {
+        if let Some(event) = self.pop_event() {
             return Ok(Some(event));
         }
 
         self.pump_once()?;
-        self.pop_event()
+        Ok(self.pop_event())
     }
 
     fn wait_event(
         &mut self,
         timeout: Option<Duration>,
     ) -> Result<Option<ScopedEvent>, Self::PollError> {
-        if let Some(event) = self.pop_event()? {
+        if let Some(event) = self.pop_event() {
             return Ok(Some(event));
         }
 
@@ -203,7 +209,7 @@ impl LoopBackend for WaylandBackend {
         }
 
         self.pump_once()?;
-        self.pop_event()
+        Ok(self.pop_event())
     }
 
     fn create_window(
@@ -233,7 +239,17 @@ impl LoopBackend for WaylandBackend {
     }
 
     fn supported_features(&self) -> FeatureSet {
-        FeatureSet::IME.with(FeatureSet::CURSOR)
+        FeatureSet::empty()
+            .with(if cfg!(feature = "ime") {
+                FeatureSet::IME
+            } else {
+                FeatureSet::empty()
+            })
+            .with(if cfg!(feature = "cursor") {
+                FeatureSet::CURSOR
+            } else {
+                FeatureSet::empty()
+            })
     }
 
     fn set_ime_state(
@@ -241,18 +257,26 @@ impl LoopBackend for WaylandBackend {
         window: WindowHandle,
         state: &ImeState,
     ) -> Result<(), UnsupportedFeature> {
-        let mut pump = self.shared.pump.lock();
-        if let Some(window_state) = pump.state.windows.get_mut(&window)
-            && window_state.ime_enabled != state.enabled
+        #[cfg(feature = "ime")]
         {
-            window_state.ime_enabled = state.enabled;
-            if state.enabled {
-                pump.state.push_window(window, Event::ImeEnabled);
-            } else {
-                pump.state.push_window(window, Event::ImeDisabled);
+            let mut pump = self.shared.pump.lock();
+            if let Some(window_state) = pump.state.get_window_mut(window)
+                && window_state.ime_enabled != state.enabled
+            {
+                window_state.ime_enabled = state.enabled;
+                if state.enabled {
+                    pump.state.push_window(window, Event::ImeEnabled);
+                } else {
+                    pump.state.push_window(window, Event::ImeDisabled);
+                }
             }
+            Ok(())
         }
-        Ok(())
+        #[cfg(not(feature = "ime"))]
+        {
+            let _ = (window, state);
+            Err(UnsupportedFeature::new(FeatureKind::Ime))
+        }
     }
 
     fn set_cursor(
@@ -260,18 +284,26 @@ impl LoopBackend for WaylandBackend {
         window: WindowHandle,
         source: &CursorSource,
     ) -> Result<(), UnsupportedFeature> {
-        let mut pump = self.shared.pump.lock();
-        let mut emit_visibility = None;
-        if let Some(window_state) = pump.state.windows.get_mut(&window) {
-            window_state.cursor_icon = icon_from_source(source);
-            emit_visibility = Some(window_state.cursor_visible);
+        #[cfg(feature = "cursor")]
+        {
+            let mut pump = self.shared.pump.lock();
+            let mut emit_visibility = None;
+            if let Some(window_state) = pump.state.get_window_mut(window) {
+                window_state.cursor_icon = icon_from_source(source);
+                emit_visibility = Some(window_state.cursor_visible);
+            }
+            if let Some(visible) = emit_visibility {
+                pump.state
+                    .push_window(window, Event::CursorVisibilityChanged { visible });
+            }
+            pump.state.apply_cursor(window);
+            Ok(())
         }
-        if let Some(visible) = emit_visibility {
-            pump.state
-                .push_window(window, Event::CursorVisibilityChanged { visible });
+        #[cfg(not(feature = "cursor"))]
+        {
+            let _ = (window, source);
+            Err(UnsupportedFeature::new(FeatureKind::Cursor))
         }
-        pump.state.apply_cursor(window);
-        Ok(())
     }
 
     fn set_cursor_mode(
@@ -279,32 +311,40 @@ impl LoopBackend for WaylandBackend {
         window: WindowHandle,
         mode: CursorMode,
     ) -> Result<(), UnsupportedFeature> {
-        let mut pump = self.shared.pump.lock();
-        let mut mode_changed = false;
-        let mut visibility_changed = None;
-        if let Some(window_state) = pump.state.windows.get_mut(&window)
-            && window_state.cursor_mode != mode
+        #[cfg(feature = "cursor")]
         {
-            window_state.cursor_mode = mode;
-            mode_changed = true;
+            let mut pump = self.shared.pump.lock();
+            let mut mode_changed = false;
+            let mut visibility_changed = None;
+            if let Some(window_state) = pump.state.get_window_mut(window)
+                && window_state.cursor_mode != mode
+            {
+                window_state.cursor_mode = mode;
+                mode_changed = true;
 
-            let visible = !matches!(mode, CursorMode::Hidden);
-            if window_state.cursor_visible != visible {
-                window_state.cursor_visible = visible;
-                visibility_changed = Some(visible);
+                let visible = !matches!(mode, CursorMode::Hidden);
+                if window_state.cursor_visible != visible {
+                    window_state.cursor_visible = visible;
+                    visibility_changed = Some(visible);
+                }
             }
-        }
 
-        if mode_changed {
-            pump.state
-                .push_window(window, Event::CursorModeChanged { mode });
+            if mode_changed {
+                pump.state
+                    .push_window(window, Event::CursorModeChanged { mode });
+            }
+            if let Some(visible) = visibility_changed {
+                pump.state
+                    .push_window(window, Event::CursorVisibilityChanged { visible });
+            }
+            pump.state.apply_cursor(window);
+            Ok(())
         }
-        if let Some(visible) = visibility_changed {
-            pump.state
-                .push_window(window, Event::CursorVisibilityChanged { visible });
+        #[cfg(not(feature = "cursor"))]
+        {
+            let _ = (window, mode);
+            Err(UnsupportedFeature::new(FeatureKind::Cursor))
         }
-        pump.state.apply_cursor(window);
-        Ok(())
     }
 
     fn start_drag(
@@ -326,7 +366,7 @@ fn create_epoll(raw_fd: RawFd) -> Result<OwnedFd, ConnectError> {
         events: libc::EPOLLIN as u32,
         u64: 0,
     };
-    let result = unsafe { libc::epoll_ctl(epoll_raw, libc::EPOLL_CTL_ADD, raw_fd, &mut event) };
+    let result = unsafe { libc::epoll_ctl(epoll_raw, libc::EPOLL_CTL_ADD, raw_fd, &raw mut event) };
     if result < 0 {
         let error = io::Error::last_os_error();
         unsafe {

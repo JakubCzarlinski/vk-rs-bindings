@@ -14,9 +14,12 @@ pub enum PointerButton {
     Left,
     Right,
     Middle,
+    Side,
+    Extra,
     Back,
     Forward,
-    Other(u16),
+    Task,
+    Unknown,
 }
 
 /// State transition for keyboard keys.

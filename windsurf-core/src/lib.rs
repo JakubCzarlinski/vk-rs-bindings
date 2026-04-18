@@ -21,8 +21,8 @@
 //! let mut queue = EventQueue::new();
 //! let mut handles = WindowHandleAllocator::new();
 //! let handle = handles.allocate().unwrap();
-//! queue.push(Some(handle), Event::WindowCreated).unwrap();
-//! queue.push(Some(handle), Event::CloseRequested).unwrap();
+//! queue.push(Some(handle), Event::WindowCreated);
+//! queue.push(Some(handle), Event::CloseRequested);
 //!
 //! let events: Vec<_> = queue.drain().collect();
 //! assert_eq!(events.len(), 2);
@@ -40,7 +40,7 @@ mod input;
 mod queue;
 mod window;
 
-pub use crate::backend::LoopBackend;
+pub use crate::backend::Backend;
 pub use crate::cursor::{CursorIcon, CursorMode, CursorSource};
 pub use crate::drag_drop::{DragAction, DragData, DragPosition, DragSource};
 pub use crate::event::{Event, ScopeKind};
@@ -49,5 +49,5 @@ pub use crate::gamepad::{GamepadAxis, GamepadButton, GamepadId};
 pub use crate::geometry::{LogicalPosition, LogicalRect, LogicalSize};
 pub use crate::ime::{ImePurpose, ImeState};
 pub use crate::input::{ButtonState, KeyCode, KeyState, PointerButton, TextInput};
-pub use crate::queue::{EventQueue, QueueOverflow, ScopedEvent};
+pub use crate::queue::{EventQueue, ScopedEvent};
 pub use crate::window::{WindowAttributes, WindowHandle, WindowHandleAllocator};

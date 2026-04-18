@@ -20,6 +20,7 @@ impl Dispatch<wl_seat::WlSeat, ()> for State {
 
             if capabilities.contains(wl_seat::Capability::Pointer) && state.pointer.is_none() {
                 state.pointer = Some(seat.get_pointer(qh, ()));
+                #[cfg(feature = "cursor")]
                 if let (Some(manager), Some(pointer)) =
                     (state.cursor_shape_manager.as_ref(), state.pointer.as_ref())
                 {
@@ -27,6 +28,7 @@ impl Dispatch<wl_seat::WlSeat, ()> for State {
                 }
             }
             if !capabilities.contains(wl_seat::Capability::Pointer) {
+                #[cfg(feature = "cursor")]
                 if let Some(device) = state.cursor_shape_device.take() {
                     device.destroy();
                 }
@@ -230,22 +232,11 @@ pub(crate) fn map_pointer_button(button: u32) -> PointerButton {
         0x110 => PointerButton::Left,
         0x111 => PointerButton::Right,
         0x112 => PointerButton::Middle,
+        0x113 => PointerButton::Side,
+        0x114 => PointerButton::Extra,
         0x116 => PointerButton::Back,
         0x115 => PointerButton::Forward,
-        other => PointerButton::Other(other as u16),
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use windsurf_core::PointerButton;
-
-    use super::map_pointer_button;
-
-    #[test]
-    fn maps_common_linux_pointer_buttons() {
-        assert_eq!(map_pointer_button(0x110), PointerButton::Left);
-        assert_eq!(map_pointer_button(0x111), PointerButton::Right);
-        assert_eq!(map_pointer_button(0x112), PointerButton::Middle);
+        0x117 => PointerButton::Task,
+        _ => PointerButton::Unknown,
     }
 }

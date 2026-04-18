@@ -10,7 +10,9 @@ use wayland_client::Proxy;
 use wayland_client::protocol::wl_surface;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_toplevel_decoration_v1;
 use wayland_protocols::xdg::shell::client::{xdg_surface, xdg_toplevel};
-use windsurf_core::{CursorIcon, CursorMode, Event, WindowAttributes, WindowHandle};
+#[cfg(feature = "cursor")]
+use windsurf_core::{CursorIcon, CursorMode};
+use windsurf_core::{Event, WindowAttributes, WindowHandle};
 
 extern crate alloc;
 
@@ -77,8 +79,8 @@ impl Window {
 
         surface.commit();
 
-        pump.state.surface_to_window.insert(surface.id(), handle);
-        pump.state.windows.insert(
+        pump.state.map_surface(surface.id(), handle);
+        pump.state.insert_window(
             handle,
             WindowState {
                 surface: surface.clone(),
@@ -86,9 +88,13 @@ impl Window {
                 scale_factor: 1.0,
                 needs_redraw: true,
                 transparent: attrs.transparent,
+                #[cfg(feature = "ime")]
                 ime_enabled: false,
+                #[cfg(feature = "cursor")]
                 cursor_mode: CursorMode::Normal,
+                #[cfg(feature = "cursor")]
                 cursor_visible: true,
+                #[cfg(feature = "cursor")]
                 cursor_icon: CursorIcon::Default,
             },
         );
@@ -117,8 +123,7 @@ impl Window {
         let pump = self.shared.pump.lock();
         let size = pump
             .state
-            .windows
-            .get(&self.handle)
+            .get_window(self.handle)
             .map(|window| window.size)
             .unwrap_or_default();
         (size.width, size.height)
@@ -127,14 +132,13 @@ impl Window {
     pub fn scale_factor(&self) -> f64 {
         let pump = self.shared.pump.lock();
         pump.state
-            .windows
-            .get(&self.handle)
+            .get_window(self.handle)
             .map_or(1.0, |window| window.scale_factor)
     }
 
     pub fn request_redraw(&self) {
         let mut pump = self.shared.pump.lock();
-        if let Some(window) = pump.state.windows.get_mut(&self.handle)
+        if let Some(window) = pump.state.get_window_mut(self.handle)
             && !window.needs_redraw
         {
             window.needs_redraw = true;
@@ -163,8 +167,9 @@ impl Drop for Window {
     fn drop(&mut self) {
         let mut pump = self.shared.pump.lock();
 
-        if pump.state.windows.remove(&self.handle).is_some() {
-            pump.state.surface_to_window.remove(&self.surface.id());
+        if pump.state.remove_window(self.handle).is_some() {
+            let surface_id = self.surface.id();
+            let _ = pump.state.unmap_surface(&surface_id);
             if pump.state.pointer_focus == Some(self.handle) {
                 pump.state.pointer_focus = None;
             }

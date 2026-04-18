@@ -1,4 +1,5 @@
 use alloc::fmt;
+use core::error;
 use wayland_client::globals::BindError;
 
 extern crate alloc;
@@ -24,14 +25,13 @@ impl fmt::Display for ConnectError {
     }
 }
 
-impl core::error::Error for ConnectError {}
+impl error::Error for ConnectError {}
 
 #[derive(Debug)]
 pub enum PollError {
     Wayland(wayland_client::DispatchError),
     Io(std::io::Error),
     Wait(std::io::Error),
-    QueueOverflow { dropped: usize },
 }
 
 impl fmt::Display for PollError {
@@ -40,14 +40,11 @@ impl fmt::Display for PollError {
             Self::Wayland(err) => write!(f, "wayland dispatch failed: {err}"),
             Self::Io(err) => write!(f, "wayland socket read failed: {err}"),
             Self::Wait(err) => write!(f, "wayland wait failed: {err}"),
-            Self::QueueOverflow { dropped } => {
-                write!(f, "event queue overflowed; dropped {dropped} events")
-            }
         }
     }
 }
 
-impl core::error::Error for PollError {}
+impl error::Error for PollError {}
 
 #[derive(Debug)]
 pub enum WindowError {
@@ -66,4 +63,4 @@ impl fmt::Display for WindowError {
     }
 }
 
-impl core::error::Error for WindowError {}
+impl error::Error for WindowError {}

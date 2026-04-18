@@ -1,19 +1,22 @@
-use core::num::NonZeroU32;
 use wayland_client::WEnum;
 
-pub(crate) fn unpack_enum<T: Copy>(value: WEnum<T>) -> Option<T> {
+pub(crate) const fn unpack_enum<T: Copy>(value: WEnum<T>) -> Option<T> {
     match value {
         WEnum::Value(value) => Some(value),
         WEnum::Unknown(_) => None,
     }
 }
 
-pub(crate) fn logical_size_to_i32(value: u32) -> i32 {
-    i32::try_from(value).unwrap_or(i32::MAX)
+pub(crate) const fn logical_size_to_i32(value: u32) -> i32 {
+    if value > i32::MAX as u32 {
+        i32::MAX
+    } else {
+        value as i32
+    }
 }
 
-pub(crate) fn nonzero_or(current: u32, next: u32) -> u32 {
-    NonZeroU32::new(next).map_or(current, NonZeroU32::get)
+pub(crate) const fn nonzero_or(current: u32, next: u32) -> u32 {
+    if next == 0 { current } else { next }
 }
 
 #[cfg(test)]

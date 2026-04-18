@@ -34,7 +34,7 @@ use raw_window_handle::{
 };
 #[cfg(not(target_os = "linux"))]
 use windsurf_core::{
-    CursorMode, CursorSource, DragSource, Event, FeatureKind, FeatureSet, ImeState, LoopBackend,
+    Backend, CursorMode, CursorSource, DragSource, Event, FeatureKind, FeatureSet, ImeState,
     ScopedEvent, UnsupportedFeature, WindowAttributes, WindowHandle as CoreWindowHandle,
 };
 

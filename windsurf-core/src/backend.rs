@@ -8,7 +8,7 @@ use core::time::Duration;
 ///
 /// Implementations are expected to use static dispatch (no trait objects) and
 /// push window identity via the transport tuple `(Option<WindowHandle>, Event)`.
-pub trait LoopBackend: Sized {
+pub trait Backend: Sized {
     type ConnectError;
     type PollError;
     type WindowError;

@@ -9,18 +9,18 @@ pub use windsurf_core::*;
 extern crate alloc;
 
 /// Generic single-loop frontend over a statically-dispatched backend.
-pub struct GenericEventLoop<B: LoopBackend> {
+pub struct GenericEventLoop<B: Backend> {
     backend: Rc<RefCell<B>>,
 }
 
 /// Generic window object backed by a concrete backend window type.
-pub struct GenericWindow<B: LoopBackend> {
+pub struct GenericWindow<B: Backend> {
     handle: WindowHandle,
     backend: Rc<RefCell<B>>,
     backend_window: Option<B::BackendWindow>,
 }
 
-impl<B: LoopBackend> GenericEventLoop<B> {
+impl<B: Backend> GenericEventLoop<B> {
     pub fn new() -> Result<Self, B::ConnectError> {
         Self::connect()
     }
@@ -44,7 +44,7 @@ impl<B: LoopBackend> GenericEventLoop<B> {
     }
 }
 
-impl<B: LoopBackend> Features for GenericEventLoop<B> {
+impl<B: Backend> Features for GenericEventLoop<B> {
     fn supported_features(&self) -> FeatureSet {
         self.backend.borrow().supported_features()
     }
@@ -82,7 +82,7 @@ impl<B: LoopBackend> Features for GenericEventLoop<B> {
     }
 }
 
-impl<B: LoopBackend> GenericWindow<B> {
+impl<B: Backend> GenericWindow<B> {
     pub fn new(
         event_loop: &GenericEventLoop<B>,
         attrs: WindowAttributes,
@@ -134,7 +134,7 @@ impl<B: LoopBackend> GenericWindow<B> {
 
 impl<B> HasDisplayHandle for GenericWindow<B>
 where
-    B: LoopBackend,
+    B: Backend,
     B::BackendWindow: HasDisplayHandle,
 {
     fn display_handle(&self) -> Result<DisplayHandle<'_>, HandleError> {
@@ -147,7 +147,7 @@ where
 
 impl<B> HasWindowHandle for GenericWindow<B>
 where
-    B: LoopBackend,
+    B: Backend,
     B::BackendWindow: HasWindowHandle,
 {
     fn window_handle(&self) -> Result<raw_window_handle::WindowHandle<'_>, HandleError> {
@@ -158,7 +158,7 @@ where
     }
 }
 
-impl<B: LoopBackend> Drop for GenericWindow<B> {
+impl<B: Backend> Drop for GenericWindow<B> {
     fn drop(&mut self) {
         let Some(mut backend_window) = self.backend_window.take() else {
             return;
@@ -179,9 +179,9 @@ pub type DefaultBackend = UnsupportedBackend;
 pub type EventLoop = GenericEventLoop<DefaultBackend>;
 pub type Window = GenericWindow<DefaultBackend>;
 
-pub type ConnectError = <DefaultBackend as LoopBackend>::ConnectError;
-pub type PollError = <DefaultBackend as LoopBackend>::PollError;
-pub type WindowError = <DefaultBackend as LoopBackend>::WindowError;
+pub type ConnectError = <DefaultBackend as Backend>::ConnectError;
+pub type PollError = <DefaultBackend as Backend>::PollError;
+pub type WindowError = <DefaultBackend as Backend>::WindowError;
 
 #[cfg(not(all(feature = "wayland", target_os = "linux")))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -204,7 +204,7 @@ impl core::error::Error for UnsupportedError {}
 pub struct UnsupportedBackend;
 
 #[cfg(not(all(feature = "wayland", target_os = "linux")))]
-impl LoopBackend for UnsupportedBackend {
+impl Backend for UnsupportedBackend {
     type ConnectError = UnsupportedError;
     type PollError = UnsupportedError;
     type WindowError = UnsupportedError;

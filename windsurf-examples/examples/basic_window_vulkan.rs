@@ -433,7 +433,13 @@ pub fn create_graphics_pipeline<'a>(
     let dynamic = VkPipelineDynamicStateCreateInfo::DEFAULT
         .with_dynamicStateCount(dynamic_states.len() as u32)
         .with_pDynamicStates(dynamic_states.as_ptr());
-    let layout_info = VkPipelineLayoutCreateInfo::DEFAULT;
+    let push_constant_range = VkPushConstantRange::DEFAULT
+        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT.0)
+        .with_offset(0)
+        .with_size(core::mem::size_of::<f32>() as u32);
+    let layout_info = VkPipelineLayoutCreateInfo::DEFAULT
+        .with_pushConstantRangeCount(1)
+        .with_pPushConstantRanges(&push_constant_range);
     let pipeline_layout = device
         .vkCreatePipelineLayout(&layout_info, null())
         .expect("vkCreatePipelineLayout failed");
@@ -583,6 +589,7 @@ pub fn draw_frame(
     command_buffers: &mut [CommandBuffer<'_>],
     images_in_flight: &mut [VkFence],
     current_frame: &mut usize,
+    angle: f32,
 ) -> Result<(), bool> {
     let sync = &frame_sync[*current_frame];
     let command_buffer = &mut command_buffers[*current_frame];
@@ -635,6 +642,7 @@ pub fn draw_frame(
         swapchain_state.extent,
         pipeline.raw(),
         pipeline_layout.raw(),
+        angle,
     );
 
     let wait_semaphore = VkSemaphoreSubmitInfo::DEFAULT
@@ -698,7 +706,8 @@ fn record_command_buffer(
     framebuffer: VkFramebuffer,
     extent: VkExtent2D,
     pipeline: VkPipeline,
-    _pipeline_layout: VkPipelineLayout,
+    pipeline_layout: VkPipelineLayout,
+    angle: f32,
 ) {
     command_buffer
         .vkBeginCommandBuffer(&VkCommandBufferBeginInfo::DEFAULT)
@@ -744,6 +753,13 @@ fn record_command_buffer(
         .with_extent(extent);
     command_buffer.vkCmdSetScissor(0, 1, &scissor);
 
+    command_buffer.vkCmdPushConstants(
+        pipeline_layout,
+        VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT.0,
+        0,
+        core::mem::size_of::<f32>() as u32,
+        (&angle as *const f32).cast::<c_void>(),
+    );
     command_buffer.vkCmdDraw(3, 1, 0, 0);
     command_buffer.vkCmdEndRenderPass2(&subpass_end);
     command_buffer

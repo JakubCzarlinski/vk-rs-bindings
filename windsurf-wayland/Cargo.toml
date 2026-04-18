@@ -5,17 +5,25 @@ edition = "2024"
 description = "Wayland backend for the windsurf windowing APIs"
 readme = "README.md"
 
+[features]
+default = []
+ime = ["windsurf-core/ime"]
+cursor = ["windsurf-core/cursor", "wayland-protocols/staging"]
+drag_drop = ["windsurf-core/drag_drop"]
+gamepad = ["windsurf-core/gamepad"]
+
 [dependencies]
 raw-window-handle = "0.6.2"
-windsurf-core = { path = "../windsurf-core", features = ["ime", "cursor", "drag_drop", "gamepad"] }
+windsurf-core = { path = "../windsurf-core" }
 libc = "0.2"
 parking_lot = "0.12.5"
+smallvec = "1.15.1"
 
 [target.'cfg(target_os = "linux")'.dependencies]
 memmap2 = "0.9.5"
 wayland-backend = { version = "0.3.15", features = ["client_system", "rwh_06"] }
 wayland-client = "0.31.14"
-wayland-protocols = { version = "0.31.2", features = ["client", "staging", "unstable"] }
+wayland-protocols = { version = "0.31.2", default-features = false, features = ["client", "unstable"] }
 xkbcommon-dl = "0.4.2"
 
 [lints.clippy]

@@ -9,7 +9,7 @@ This crate intentionally only defines the shared API surface:
 - logical geometry types
 - `WindowAttributes`
 - flat ID-free `Event`
-- fixed-capacity `EventQueue` transporting `(Option<WindowHandle>, Event)`
+- lossless `EventQueue` transporting `(Option<WindowHandle>, Event)`
 - optional feature types (`FeatureSet`, `Features`, cursor/IME/drag/gamepad)
 - backend trait contract (`LoopBackend`) for static-dispatch frontends
 
@@ -36,8 +36,8 @@ let mut handles = WindowHandleAllocator::new();
 let window = handles.allocate().unwrap();
 
 let mut queue = EventQueue::new();
-queue.push(Some(window), Event::WindowCreated).unwrap();
-queue.push(Some(window), Event::RedrawRequested).unwrap();
+queue.push(Some(window), Event::WindowCreated);
+queue.push(Some(window), Event::RedrawRequested);
 
 for (scope, event) in queue.drain() {
     match (scope, event) {

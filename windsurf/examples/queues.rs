@@ -5,8 +5,8 @@ fn main() {
     let window = handles.allocate().expect("window handle available");
 
     let mut queue = EventQueue::new();
-    queue.push(Some(window), Event::WindowCreated).unwrap();
-    queue.push(Some(window), Event::RedrawRequested).unwrap();
+    queue.push(Some(window), Event::WindowCreated);
+    queue.push(Some(window), Event::RedrawRequested);
 
     for (scope, event) in queue.drain() {
         println!("scope={scope:?} event={event:?}");

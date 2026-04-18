@@ -1,4 +1,5 @@
 use crate::error::{ConnectError, PollError, WindowError};
+use crate::ext_background_effect::ext_background_effect_manager_v1;
 #[cfg(feature = "cursor")]
 use crate::state::icon_from_source;
 use crate::state::{PumpState, SharedDisplay, SharedDisplayRef, State};
@@ -17,6 +18,7 @@ use wayland_client::protocol::{wl_compositor, wl_seat};
 use wayland_protocols::wp::cursor_shape::v1::client::wp_cursor_shape_manager_v1;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_decoration_manager_v1;
 use wayland_protocols::xdg::shell::client::xdg_wm_base;
+use wayland_protocols_plasma::blur::client::org_kde_kwin_blur_manager;
 #[cfg(any(feature = "ime", feature = "cursor"))]
 use windsurf_core::Event;
 use windsurf_core::{
@@ -120,7 +122,7 @@ impl Backend for WaylandBackend {
 
     fn connect() -> Result<Self, Self::ConnectError> {
         let connection = Connection::connect_to_env().map_err(ConnectError::WaylandConnect)?;
-        let (globals, event_queue) =
+        let (globals, mut event_queue) =
             registry_queue_init::<State>(&connection).map_err(ConnectError::Registry)?;
         let qh = event_queue.handle();
 
@@ -138,6 +140,27 @@ impl Backend for WaylandBackend {
             })?;
         let decoration_manager = match globals
             .bind::<zxdg_decoration_manager_v1::ZxdgDecorationManagerV1, _, _>(&qh, 1..=1, ())
+        {
+            Ok(manager) => Some(manager),
+            Err(BindError::NotPresent) => None,
+            Err(other @ BindError::UnsupportedVersion) => {
+                return Err(ConnectError::Bind(other));
+            }
+        };
+        let ext_blur_manager = match globals
+            .bind::<ext_background_effect_manager_v1::ExtBackgroundEffectManagerV1, _, _>(
+            &qh,
+            1..=1,
+            (),
+        ) {
+            Ok(manager) => Some(manager),
+            Err(BindError::NotPresent) => None,
+            Err(other @ BindError::UnsupportedVersion) => {
+                return Err(ConnectError::Bind(other));
+            }
+        };
+        let kde_blur_manager = match globals
+            .bind::<org_kde_kwin_blur_manager::OrgKdeKwinBlurManager, _, _>(&qh, 1..=1, ())
         {
             Ok(manager) => Some(manager),
             Err(BindError::NotPresent) => None,
@@ -183,6 +206,9 @@ impl Backend for WaylandBackend {
                 state.seat = Some(seat);
             }
         }
+        event_queue
+            .roundtrip(&mut state)
+            .map_err(ConnectError::Dispatch)?;
 
         let shared = SharedDisplay {
             connection,
@@ -190,6 +216,8 @@ impl Backend for WaylandBackend {
             compositor,
             wm_base,
             decoration_manager,
+            ext_blur_manager,
+            kde_blur_manager,
             pump: Mutex::new(PumpState { event_queue, state }),
         };
 

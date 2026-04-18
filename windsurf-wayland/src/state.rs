@@ -1,3 +1,4 @@
+use crate::ext_background_effect::ext_background_effect_manager_v1;
 use crate::xkb::XkbState;
 use alloc::rc::Rc;
 #[cfg(feature = "drag_drop")]
@@ -16,6 +17,7 @@ use wayland_protocols::wp::cursor_shape::v1::client::{
 };
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_decoration_manager_v1;
 use wayland_protocols::xdg::shell::client::xdg_wm_base;
+use wayland_protocols_plasma::blur::client::org_kde_kwin_blur_manager;
 #[cfg(feature = "cursor")]
 use windsurf_core::CursorSource;
 #[cfg(feature = "cursor")]
@@ -35,6 +37,9 @@ pub(crate) struct SharedDisplay {
     pub(crate) compositor: wl_compositor::WlCompositor,
     pub(crate) wm_base: xdg_wm_base::XdgWmBase,
     pub(crate) decoration_manager: Option<zxdg_decoration_manager_v1::ZxdgDecorationManagerV1>,
+    pub(crate) ext_blur_manager:
+        Option<ext_background_effect_manager_v1::ExtBackgroundEffectManagerV1>,
+    pub(crate) kde_blur_manager: Option<org_kde_kwin_blur_manager::OrgKdeKwinBlurManager>,
     pub(crate) pump: Mutex<PumpState>,
 }
 
@@ -53,6 +58,7 @@ pub(crate) struct State {
     pub(crate) keyboard_focus: Option<WindowHandle>,
     pub(crate) seat: Option<wl_seat::WlSeat>,
     pub(crate) pointer: Option<wl_pointer::WlPointer>,
+    pub(crate) ext_blur_capable: bool,
     #[cfg(feature = "cursor")]
     pub(crate) cursor_shape_manager: Option<wp_cursor_shape_manager_v1::WpCursorShapeManagerV1>,
     #[cfg(feature = "cursor")]
@@ -120,6 +126,7 @@ impl State {
             keyboard_focus: None,
             seat: None,
             pointer: None,
+            ext_blur_capable: false,
             #[cfg(feature = "cursor")]
             cursor_shape_manager,
             #[cfg(feature = "cursor")]

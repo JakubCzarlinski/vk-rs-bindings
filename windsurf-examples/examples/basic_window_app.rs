@@ -37,6 +37,7 @@ fn main() -> Result<(), Box<dyn core::error::Error>> {
             title: String::from("windsurf Vulkan triangle"),
             size: LogicalSize::new(800, 600),
             transparent: true,
+            decorations: false,
             ..WindowAttributes::default()
         },
     )?;

@@ -1,5 +1,6 @@
 use crate::display::WaylandBackend;
 use crate::error::WindowError;
+use crate::ext_background_effect::ext_background_effect_surface_v1;
 use crate::shell::update_opaque_region;
 use crate::state::{SharedDisplayRef, WindowState};
 use alloc::rc::Rc;
@@ -10,6 +11,7 @@ use wayland_client::Proxy;
 use wayland_client::protocol::wl_surface;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_toplevel_decoration_v1;
 use wayland_protocols::xdg::shell::client::{xdg_surface, xdg_toplevel};
+use wayland_protocols_plasma::blur::client::org_kde_kwin_blur;
 #[cfg(feature = "cursor")]
 use windsurf_core::{CursorIcon, CursorMode};
 use windsurf_core::{Event, WindowAttributes, WindowHandle};
@@ -24,6 +26,13 @@ pub struct Window {
     pub(crate) xdg_surface: xdg_surface::XdgSurface,
     pub(crate) toplevel: xdg_toplevel::XdgToplevel,
     pub(crate) decoration: Option<zxdg_toplevel_decoration_v1::ZxdgToplevelDecorationV1>,
+    pub(crate) blur: Option<BlurObject>,
+}
+
+#[derive(Clone)]
+pub(crate) enum BlurObject {
+    Ext(ext_background_effect_surface_v1::ExtBackgroundEffectSurfaceV1),
+    Kde(org_kde_kwin_blur::OrgKdeKwinBlur),
 }
 
 pub struct RawWindow<'a> {
@@ -76,6 +85,31 @@ impl Window {
             attrs.size,
             &qh,
         );
+        let blur = if attrs.transparent {
+            if let Some(manager) = backend.shared.ext_blur_manager.as_ref() {
+                if pump.state.ext_blur_capable {
+                    let effect = manager.get_background_effect(&surface, &qh, ());
+                    effect.set_blur_region(None);
+                    Some(BlurObject::Ext(effect))
+                } else if let Some(manager) = backend.shared.kde_blur_manager.as_ref() {
+                    let blur = manager.create(&surface, &qh, ());
+                    blur.set_region(None);
+                    blur.commit();
+                    Some(BlurObject::Kde(blur))
+                } else {
+                    None
+                }
+            } else if let Some(manager) = backend.shared.kde_blur_manager.as_ref() {
+                let blur = manager.create(&surface, &qh, ());
+                blur.set_region(None);
+                blur.commit();
+                Some(BlurObject::Kde(blur))
+            } else {
+                None
+            }
+        } else {
+            None
+        };
 
         surface.commit();
 
@@ -108,6 +142,7 @@ impl Window {
             xdg_surface,
             toplevel,
             decoration,
+            blur,
         })
     }
 
@@ -182,6 +217,12 @@ impl Drop for Window {
 
         if let Some(decoration) = self.decoration.take() {
             decoration.destroy();
+        }
+        if let Some(blur) = self.blur.take() {
+            match blur {
+                BlurObject::Ext(effect) => effect.destroy(),
+                BlurObject::Kde(effect) => effect.release(),
+            }
         }
         self.toplevel.destroy();
         self.xdg_surface.destroy();

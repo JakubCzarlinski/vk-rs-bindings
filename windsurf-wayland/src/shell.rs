@@ -1,5 +1,8 @@
+use crate::ext_background_effect::{
+    ext_background_effect_manager_v1, ext_background_effect_surface_v1,
+};
 use crate::state::State;
-use crate::util::{logical_size_to_i32, nonzero_or};
+use crate::util::{logical_size_to_i32, nonzero_or, unpack_enum};
 use wayland_client::globals::GlobalListContents;
 use wayland_client::protocol::{wl_compositor, wl_region, wl_registry, wl_seat, wl_surface};
 use wayland_client::{Connection, Dispatch, QueueHandle, delegate_noop};
@@ -11,6 +14,7 @@ use wayland_protocols::xdg::decoration::zv1::client::{
     zxdg_decoration_manager_v1, zxdg_toplevel_decoration_v1,
 };
 use wayland_protocols::xdg::shell::client::{xdg_surface, xdg_toplevel, xdg_wm_base};
+use wayland_protocols_plasma::blur::client::{org_kde_kwin_blur, org_kde_kwin_blur_manager};
 use windsurf_core::{Event, LogicalSize, WindowHandle};
 
 impl Dispatch<wl_registry::WlRegistry, GlobalListContents> for State {
@@ -127,9 +131,28 @@ impl Dispatch<zxdg_toplevel_decoration_v1::ZxdgToplevelDecorationV1, WindowHandl
     }
 }
 
+impl Dispatch<ext_background_effect_manager_v1::ExtBackgroundEffectManagerV1, ()> for State {
+    fn event(
+        state: &mut Self,
+        _manager: &ext_background_effect_manager_v1::ExtBackgroundEffectManagerV1,
+        event: ext_background_effect_manager_v1::Event,
+        _data: &(),
+        _conn: &Connection,
+        _qh: &QueueHandle<Self>,
+    ) {
+        let ext_background_effect_manager_v1::Event::Capabilities { flags } = event;
+        state.ext_blur_capable = unpack_enum(flags).is_some_and(|capabilities| {
+            capabilities.contains(ext_background_effect_manager_v1::Capability::Blur)
+        });
+    }
+}
+
 delegate_noop!(State: ignore wl_compositor::WlCompositor);
 delegate_noop!(State: ignore wl_region::WlRegion);
 delegate_noop!(State: ignore wl_surface::WlSurface);
+delegate_noop!(State: ignore ext_background_effect_surface_v1::ExtBackgroundEffectSurfaceV1);
+delegate_noop!(State: ignore org_kde_kwin_blur_manager::OrgKdeKwinBlurManager);
+delegate_noop!(State: ignore org_kde_kwin_blur::OrgKdeKwinBlur);
 #[cfg(feature = "cursor")]
 delegate_noop!(State: ignore wp_cursor_shape_manager_v1::WpCursorShapeManagerV1);
 #[cfg(feature = "cursor")]

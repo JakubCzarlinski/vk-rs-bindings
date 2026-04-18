@@ -8,6 +8,7 @@ extern crate alloc;
 pub enum ConnectError {
     WaylandConnect(wayland_client::ConnectError),
     Registry(wayland_client::globals::GlobalError),
+    Dispatch(wayland_client::DispatchError),
     MissingGlobal(&'static str),
     Bind(BindError),
     Epoll(std::io::Error),
@@ -18,6 +19,7 @@ impl fmt::Display for ConnectError {
         match self {
             Self::WaylandConnect(err) => write!(f, "failed to connect to wayland: {err}"),
             Self::Registry(err) => write!(f, "failed to initialize the wayland registry: {err}"),
+            Self::Dispatch(err) => write!(f, "failed to dispatch initial wayland events: {err}"),
             Self::MissingGlobal(name) => write!(f, "required wayland global `{name}` is missing"),
             Self::Bind(err) => write!(f, "failed to bind a wayland global: {err}"),
             Self::Epoll(err) => write!(f, "failed to initialize epoll wait path: {err}"),

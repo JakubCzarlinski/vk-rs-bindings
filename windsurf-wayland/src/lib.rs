@@ -5,6 +5,8 @@ mod display;
 #[cfg(target_os = "linux")]
 mod error;
 #[cfg(target_os = "linux")]
+mod ext_background_effect;
+#[cfg(target_os = "linux")]
 mod input;
 #[cfg(target_os = "linux")]
 mod raw;

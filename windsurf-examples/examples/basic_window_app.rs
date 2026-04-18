@@ -124,6 +124,18 @@ fn main() -> Result<(), Box<dyn core::error::Error>> {
                 Event::WindowResized { width, height } => {
                     pending_resize = Some((width, height));
                 }
+                Event::DragDropDropped {
+                    position,
+                    action,
+                    data,
+                } => {
+                    println!(
+                        "drop action={action:?} at ({:.1}, {:.1}) payload_items={}",
+                        position.x,
+                        position.y,
+                        data.len()
+                    );
+                }
                 _ => {}
             }
         }

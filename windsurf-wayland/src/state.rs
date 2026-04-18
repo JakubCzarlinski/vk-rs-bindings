@@ -1,10 +1,14 @@
 use crate::xkb::XkbState;
 use alloc::rc::Rc;
+#[cfg(feature = "drag_drop")]
+use alloc::string::String;
 use parking_lot::Mutex;
 use smallvec::SmallVec;
 use wayland_backend::client::ObjectId;
 use wayland_client::globals::GlobalList;
 use wayland_client::protocol::{wl_compositor, wl_keyboard, wl_pointer, wl_seat, wl_surface};
+#[cfg(feature = "drag_drop")]
+use wayland_client::protocol::{wl_data_device, wl_data_device_manager, wl_data_offer};
 use wayland_client::{Connection, Proxy};
 #[cfg(feature = "cursor")]
 use wayland_protocols::wp::cursor_shape::v1::client::{
@@ -16,6 +20,8 @@ use wayland_protocols::xdg::shell::client::xdg_wm_base;
 use windsurf_core::CursorSource;
 #[cfg(feature = "cursor")]
 use windsurf_core::{CursorIcon, CursorMode};
+#[cfg(feature = "drag_drop")]
+use windsurf_core::{DragAction, DragPosition};
 use windsurf_core::{Event, EventQueue, WindowHandle, WindowHandleAllocator};
 
 extern crate alloc;
@@ -54,6 +60,28 @@ pub(crate) struct State {
     pub(crate) pointer_enter_serial: Option<u32>,
     pub(crate) keyboard: Option<wl_keyboard::WlKeyboard>,
     pub(crate) xkb: Option<XkbState>,
+    #[cfg(feature = "drag_drop")]
+    pub(crate) data_device_manager: Option<wl_data_device_manager::WlDataDeviceManager>,
+    #[cfg(feature = "drag_drop")]
+    pub(crate) data_device: Option<wl_data_device::WlDataDevice>,
+    #[cfg(feature = "drag_drop")]
+    drag_offers: SmallVec<[(ObjectId, DragOfferState); 2]>,
+    #[cfg(feature = "drag_drop")]
+    pub(crate) current_drag: Option<CurrentDrag>,
+}
+
+#[cfg(feature = "drag_drop")]
+pub(crate) struct DragOfferState {
+    pub(crate) offer: wl_data_offer::WlDataOffer,
+    pub(crate) offered: SmallVec<[String; 4]>,
+    pub(crate) action: DragAction,
+}
+
+#[cfg(feature = "drag_drop")]
+pub(crate) struct CurrentDrag {
+    pub(crate) window: WindowHandle,
+    pub(crate) offer_id: ObjectId,
+    pub(crate) position: DragPosition,
 }
 
 pub(crate) struct WindowState {
@@ -75,6 +103,9 @@ pub(crate) struct WindowState {
 impl State {
     pub(crate) fn new(
         compositor: wl_compositor::WlCompositor,
+        #[cfg(feature = "drag_drop")] data_device_manager: Option<
+            wl_data_device_manager::WlDataDeviceManager,
+        >,
         #[cfg(feature = "cursor")] cursor_shape_manager: Option<
             wp_cursor_shape_manager_v1::WpCursorShapeManagerV1,
         >,
@@ -96,6 +127,14 @@ impl State {
             pointer_enter_serial: None,
             keyboard: None,
             xkb: XkbState::new(),
+            #[cfg(feature = "drag_drop")]
+            data_device_manager,
+            #[cfg(feature = "drag_drop")]
+            data_device: None,
+            #[cfg(feature = "drag_drop")]
+            drag_offers: SmallVec::new(),
+            #[cfg(feature = "drag_drop")]
+            current_drag: None,
         }
     }
 
@@ -158,6 +197,56 @@ impl State {
 
     pub(crate) fn pop_event(&mut self) -> Option<(Option<WindowHandle>, Event)> {
         self.pending_events.pop()
+    }
+
+    #[cfg(feature = "drag_drop")]
+    pub(crate) fn upsert_drag_offer(&mut self, offer: wl_data_offer::WlDataOffer) {
+        let offer_id = offer.id();
+        if let Some((_, state)) = self
+            .drag_offers
+            .iter_mut()
+            .find(|(existing_id, _)| *existing_id == offer_id)
+        {
+            state.offer = offer;
+            return;
+        }
+
+        self.drag_offers.push((
+            offer_id,
+            DragOfferState {
+                offer,
+                offered: SmallVec::new(),
+                action: DragAction::Copy,
+            },
+        ));
+    }
+
+    #[cfg(feature = "drag_drop")]
+    pub(crate) fn drag_offer_mut(&mut self, offer_id: &ObjectId) -> Option<&mut DragOfferState> {
+        self.drag_offers
+            .iter_mut()
+            .find(|(existing_id, _)| existing_id == offer_id)
+            .map(|(_, state)| state)
+    }
+
+    #[cfg(feature = "drag_drop")]
+    pub(crate) fn drag_offer(&self, offer_id: &ObjectId) -> Option<&DragOfferState> {
+        self.drag_offers
+            .iter()
+            .find(|(existing_id, _)| existing_id == offer_id)
+            .map(|(_, state)| state)
+    }
+
+    #[cfg(feature = "drag_drop")]
+    pub(crate) fn drop_drag_offer(&mut self, offer_id: &ObjectId) {
+        if let Some(index) = self
+            .drag_offers
+            .iter()
+            .position(|(existing_id, _)| existing_id == offer_id)
+        {
+            let (_, state) = self.drag_offers.swap_remove(index);
+            state.offer.destroy();
+        }
     }
 
     pub(crate) fn apply_cursor(&mut self, window: WindowHandle) {

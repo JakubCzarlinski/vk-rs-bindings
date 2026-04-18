@@ -19,7 +19,7 @@ path = "examples/multi_window_shared_state.rs"
 [dev-dependencies]
 raw-window-handle = "0.6.2"
 [target.'cfg(target_os = "linux")'.dev-dependencies]
-windsurf = { path = "../windsurf", features = ["wayland"] }
+windsurf = { path = "../windsurf", features = ["wayland", "drag_drop"] }
 
 [target.'cfg(target_os = "linux")'.dev-dependencies.vk]
 path = "../vk-rs-bindings"

@@ -1,8 +1,25 @@
 use crate::state::State;
 use crate::util::unpack_enum;
+#[cfg(feature = "drag_drop")]
+use alloc::sync::Arc;
+#[cfg(feature = "drag_drop")]
+use alloc::vec;
+#[cfg(feature = "drag_drop")]
+use alloc::vec::Vec;
+#[cfg(feature = "drag_drop")]
+use wayland_backend::client::ObjectId;
+#[cfg(feature = "drag_drop")]
+use wayland_client::Proxy;
+#[cfg(feature = "drag_drop")]
+use wayland_client::protocol::{wl_data_device, wl_data_device_manager, wl_data_offer};
 use wayland_client::protocol::{wl_keyboard, wl_pointer, wl_seat};
 use wayland_client::{Connection, Dispatch, QueueHandle};
 use windsurf_core::{ButtonState, Event, KeyCode, KeyState, PointerButton};
+#[cfg(feature = "drag_drop")]
+use windsurf_core::{DragAction, DragData, DragPosition};
+
+#[cfg(feature = "drag_drop")]
+extern crate alloc;
 
 impl Dispatch<wl_seat::WlSeat, ()> for State {
     fn event(
@@ -42,6 +59,12 @@ impl Dispatch<wl_seat::WlSeat, ()> for State {
             if !capabilities.contains(wl_seat::Capability::Keyboard) {
                 state.keyboard = None;
                 state.keyboard_focus = None;
+            }
+            #[cfg(feature = "drag_drop")]
+            if state.data_device.is_none()
+                && let Some(manager) = state.data_device_manager.as_ref()
+            {
+                state.data_device = Some(manager.get_data_device(seat, qh, ()));
             }
         }
     }
@@ -213,7 +236,151 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for State {
     }
 }
 
-fn map_button_state(state: wl_pointer::ButtonState) -> ButtonState {
+#[cfg(feature = "drag_drop")]
+impl Dispatch<wl_data_device_manager::WlDataDeviceManager, ()> for State {
+    fn event(
+        _state: &mut Self,
+        _manager: &wl_data_device_manager::WlDataDeviceManager,
+        _event: wl_data_device_manager::Event,
+        _data: &(),
+        _conn: &Connection,
+        _qh: &QueueHandle<Self>,
+    ) {
+    }
+}
+
+#[cfg(feature = "drag_drop")]
+impl Dispatch<wl_data_device::WlDataDevice, ()> for State {
+    fn event(
+        state: &mut Self,
+        _data_device: &wl_data_device::WlDataDevice,
+        event: wl_data_device::Event,
+        _data: &(),
+        _conn: &Connection,
+        _qh: &QueueHandle<Self>,
+    ) {
+        match event {
+            wl_data_device::Event::DataOffer { id } => {
+                state.upsert_drag_offer(id);
+            }
+            wl_data_device::Event::Enter {
+                serial,
+                surface,
+                x,
+                y,
+                id,
+            } => {
+                let Some(window) = state.window_for_surface(&surface) else {
+                    return;
+                };
+                let Some(offer) = id else {
+                    return;
+                };
+                let offer_id = offer.id();
+                let position = DragPosition::new(x as f32, y as f32);
+
+                let offered = state
+                    .drag_offer(&offer_id)
+                    .map_or_else(Vec::new, |offer_state| offer_state.offered.to_vec());
+                if let Some(mime) = offered.first() {
+                    offer.accept(serial, Some(mime.clone()));
+                } else {
+                    offer.accept(serial, None);
+                }
+
+                state.current_drag = Some(crate::state::CurrentDrag {
+                    window,
+                    offer_id,
+                    position,
+                });
+                state.push_window(
+                    window,
+                    Event::DragDropEntered {
+                        position,
+                        offered: Arc::from(offered.into_boxed_slice()),
+                    },
+                );
+            }
+            wl_data_device::Event::Motion { x, y, .. } => {
+                let moved = if let Some(current_drag) = state.current_drag.as_mut() {
+                    current_drag.position = DragPosition::new(x as f32, y as f32);
+                    Some((current_drag.window, current_drag.position))
+                } else {
+                    None
+                };
+                if let Some((window, position)) = moved {
+                    state.push_window(window, Event::DragDropMoved { position });
+                }
+            }
+            wl_data_device::Event::Leave => {
+                let Some(current_drag) = state.current_drag.take() else {
+                    return;
+                };
+                state.push_window(current_drag.window, Event::DragDropLeft);
+                state.drop_drag_offer(&current_drag.offer_id);
+            }
+            wl_data_device::Event::Drop => {
+                let Some(current_drag) = state.current_drag.take() else {
+                    return;
+                };
+                let action = state
+                    .drag_offer(&current_drag.offer_id)
+                    .map_or(DragAction::Copy, |offer_state| offer_state.action);
+                let data = build_drop_payload(state, &current_drag.offer_id);
+                state.push_window(
+                    current_drag.window,
+                    Event::DragDropDropped {
+                        position: current_drag.position,
+                        data,
+                        action,
+                    },
+                );
+                state.drop_drag_offer(&current_drag.offer_id);
+            }
+            wl_data_device::Event::Selection { .. } => {}
+            _ => {}
+        }
+    }
+
+    wayland_client::event_created_child!(State, wl_data_device::WlDataDevice, [
+        wl_data_device::EVT_DATA_OFFER_OPCODE => (wl_data_offer::WlDataOffer, ())
+    ]);
+}
+
+#[cfg(feature = "drag_drop")]
+impl Dispatch<wl_data_offer::WlDataOffer, ()> for State {
+    fn event(
+        state: &mut Self,
+        offer: &wl_data_offer::WlDataOffer,
+        event: wl_data_offer::Event,
+        _data: &(),
+        _conn: &Connection,
+        _qh: &QueueHandle<Self>,
+    ) {
+        let offer_id = offer.id();
+        let Some(offer_state) = state.drag_offer_mut(&offer_id) else {
+            return;
+        };
+
+        match event {
+            wl_data_offer::Event::Offer { mime_type } => {
+                if !offer_state
+                    .offered
+                    .iter()
+                    .any(|existing| existing == &mime_type)
+                {
+                    offer_state.offered.push(mime_type);
+                }
+            }
+            wl_data_offer::Event::Action { dnd_action } => {
+                offer_state.action = map_drag_action(dnd_action);
+            }
+            _ => {}
+        }
+    }
+}
+
+const fn map_button_state(state: wl_pointer::ButtonState) -> ButtonState {
     match state {
         wl_pointer::ButtonState::Pressed => ButtonState::Pressed,
         _ => ButtonState::Released,
@@ -239,4 +406,55 @@ pub(crate) fn map_pointer_button(button: u32) -> PointerButton {
         0x117 => PointerButton::Task,
         _ => PointerButton::Unknown,
     }
+}
+
+#[cfg(feature = "drag_drop")]
+fn map_drag_action(action: wayland_client::WEnum<wl_data_device_manager::DndAction>) -> DragAction {
+    match unpack_enum(action) {
+        Some(wl_data_device_manager::DndAction::Move) => DragAction::Move,
+        Some(wl_data_device_manager::DndAction::Copy) => DragAction::Copy,
+        Some(wl_data_device_manager::DndAction::Ask) => DragAction::Copy,
+        _ => DragAction::Copy,
+    }
+}
+
+#[cfg(feature = "drag_drop")]
+fn build_drop_payload(state: &State, offer_id: &ObjectId) -> Arc<[DragData]> {
+    let Some(offer_state) = state.drag_offer(offer_id) else {
+        return Arc::from([]);
+    };
+
+    if offer_state
+        .offered
+        .iter()
+        .any(|mime| mime.as_str() == "text/uri-list")
+    {
+        return Arc::from(vec![DragData::Files(Arc::from([]))].into_boxed_slice());
+    }
+
+    if let Some(text_mime) = offer_state
+        .offered
+        .iter()
+        .find(|mime| mime.starts_with("text/plain"))
+    {
+        return Arc::from(
+            vec![DragData::Bytes {
+                mime_type: Arc::from(text_mime.as_str()),
+                data: Arc::from([]),
+            }]
+            .into_boxed_slice(),
+        );
+    }
+
+    if let Some(first_mime) = offer_state.offered.first() {
+        return Arc::from(
+            vec![DragData::Bytes {
+                mime_type: Arc::from(first_mime.as_str()),
+                data: Arc::from([]),
+            }]
+            .into_boxed_slice(),
+        );
+    }
+
+    Arc::from([])
 }

@@ -421,7 +421,13 @@ pub fn create_graphics_pipeline<'a>(
                 | VkColorComponentFlagBits::VK_COLOR_COMPONENT_B_BIT.0
                 | VkColorComponentFlagBits::VK_COLOR_COMPONENT_A_BIT.0,
         )
-        .with_blendEnable(0);
+        .with_blendEnable(1)
+        .with_srcColorBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_SRC_ALPHA)
+        .with_dstColorBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+        .with_colorBlendOp(VkBlendOp::VK_BLEND_OP_ADD)
+        .with_srcAlphaBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_ONE)
+        .with_dstAlphaBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+        .with_alphaBlendOp(VkBlendOp::VK_BLEND_OP_ADD);
     let color_blend = VkPipelineColorBlendStateCreateInfo::DEFAULT
         .with_logicOpEnable(0)
         .with_attachmentCount(1)
@@ -714,7 +720,7 @@ fn record_command_buffer(
         .expect("vkBeginCommandBuffer failed");
 
     let clear_color = VkClearColorValue {
-        float32: [0.05, 0.06, 0.09, 0.5],
+        float32: [0.0, 0.0, 0.0, 0.0],
     };
     let clear_value = VkClearValue { color: clear_color };
     let clear_values = [clear_value];

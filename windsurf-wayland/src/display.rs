@@ -10,6 +10,8 @@ use std::io;
 use std::os::fd::{AsFd, AsRawFd, BorrowedFd, FromRawFd, OwnedFd, RawFd};
 use wayland_client::Connection;
 use wayland_client::globals::{BindError, GlobalList, registry_queue_init};
+#[cfg(feature = "drag_drop")]
+use wayland_client::protocol::wl_data_device_manager;
 use wayland_client::protocol::{wl_compositor, wl_seat};
 #[cfg(feature = "cursor")]
 use wayland_protocols::wp::cursor_shape::v1::client::wp_cursor_shape_manager_v1;
@@ -143,6 +145,16 @@ impl Backend for WaylandBackend {
                 return Err(ConnectError::Bind(other));
             }
         };
+        #[cfg(feature = "drag_drop")]
+        let data_device_manager = match globals
+            .bind::<wl_data_device_manager::WlDataDeviceManager, _, _>(&qh, 1..=3, ())
+        {
+            Ok(manager) => Some(manager),
+            Err(BindError::NotPresent) => None,
+            Err(other @ BindError::UnsupportedVersion) => {
+                return Err(ConnectError::Bind(other));
+            }
+        };
         #[cfg(feature = "cursor")]
         let cursor_shape_manager = match globals
             .bind::<wp_cursor_shape_manager_v1::WpCursorShapeManagerV1, _, _>(&qh, 1..=1, ())
@@ -156,6 +168,8 @@ impl Backend for WaylandBackend {
 
         let mut state = State::new(
             compositor.clone(),
+            #[cfg(feature = "drag_drop")]
+            data_device_manager,
             #[cfg(feature = "cursor")]
             cursor_shape_manager,
         );
@@ -239,17 +253,40 @@ impl Backend for WaylandBackend {
     }
 
     fn supported_features(&self) -> FeatureSet {
-        FeatureSet::empty()
-            .with(if cfg!(feature = "ime") {
-                FeatureSet::IME
-            } else {
-                FeatureSet::empty()
-            })
-            .with(if cfg!(feature = "cursor") {
-                FeatureSet::CURSOR
-            } else {
-                FeatureSet::empty()
-            })
+        #[cfg(feature = "drag_drop")]
+        {
+            let mut features = FeatureSet::empty()
+                .with(if cfg!(feature = "ime") {
+                    FeatureSet::IME
+                } else {
+                    FeatureSet::empty()
+                })
+                .with(if cfg!(feature = "cursor") {
+                    FeatureSet::CURSOR
+                } else {
+                    FeatureSet::empty()
+                });
+
+            if self.shared.pump.lock().state.data_device_manager.is_some() {
+                features = features.with(FeatureSet::DRAG_DROP_DESTINATION);
+            }
+            features
+        }
+
+        #[cfg(not(feature = "drag_drop"))]
+        {
+            FeatureSet::empty()
+                .with(if cfg!(feature = "ime") {
+                    FeatureSet::IME
+                } else {
+                    FeatureSet::empty()
+                })
+                .with(if cfg!(feature = "cursor") {
+                    FeatureSet::CURSOR
+                } else {
+                    FeatureSet::empty()
+                })
+        }
     }
 
     fn set_ime_state(

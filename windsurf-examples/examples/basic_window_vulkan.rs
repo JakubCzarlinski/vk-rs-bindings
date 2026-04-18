@@ -1,7 +1,4 @@
 #![allow(
-    clippy::borrow_as_ptr,
-    clippy::cast_precision_loss,
-    clippy::cast_ptr_alignment,
     clippy::too_many_arguments,
     clippy::too_many_lines,
     clippy::wildcard_imports
@@ -30,8 +27,8 @@ pub fn create_instance<'a>(
     entry: &'a Entry<'a>,
     window: &Window,
 ) -> Result<Instance<'a>, Box<dyn Error>> {
-    // const VALIDATION_LAYER: &std::ffi::CStr = c"VK_LAYER_KHRONOS_validation";
-    // const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
+    const VALIDATION_LAYER: &std::ffi::CStr = c"VK_LAYER_KHRONOS_validation";
+    const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
     const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
         .with_apiVersion(VK_API_VERSION_1_4)
         .with_applicationVersion(VK_MAKE_VERSION(0, 1, 0))
@@ -42,8 +39,8 @@ pub fn create_instance<'a>(
     let instance_extensions = required_instance_extensions(window);
     let create_info = VkInstanceCreateInfo::DEFAULT
         .with_pApplicationInfo(&APP_INFO)
-        // .with_enabledLayerCount(LAYER_NAMES.len() as u32)
-        // .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
+        .with_enabledLayerCount(LAYER_NAMES.len() as u32)
+        .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
         .with_enabledExtensionCount(instance_extensions.len() as u32)
         .with_ppEnabledExtensionNames(instance_extensions.as_ptr());
 
@@ -53,7 +50,10 @@ pub fn create_instance<'a>(
 }
 
 fn required_instance_extensions(window: &Window) -> Vec<*const c_char> {
-    let mut extensions = vec![VK_KHR_SURFACE_EXTENSION_NAME.as_ptr()];
+    let mut extensions = vec![
+        VK_KHR_SURFACE_EXTENSION_NAME.as_ptr(),
+        VK_EXT_SWAPCHAIN_COLOR_SPACE_EXTENSION_NAME.as_ptr(),
+    ];
     let window_handle = window
         .window_handle()
         .expect("window handle unavailable")
@@ -278,14 +278,42 @@ fn pick_surface_format(
         .vkGetPhysicalDeviceSurfaceFormatsKHR(surface.raw(), &mut count, formats.as_mut_ptr())
         .expect("vkGetPhysicalDeviceSurfaceFormatsKHR(list) failed");
 
-    formats
+    let preferred = [
+        // HDR: scRGB linear (Windows preferred)
+        (
+            VkFormat::VK_FORMAT_R16G16B16A16_SFLOAT,
+            VkColorSpaceKHR::VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT,
+        ),
+        // HDR: HDR10 PQ
+        (
+            VkFormat::VK_FORMAT_A2B10G10R10_UNORM_PACK32,
+            VkColorSpaceKHR::VK_COLOR_SPACE_HDR10_ST2084_EXT,
+        ),
+        // SDR fallbacks
+        (
+            VkFormat::VK_FORMAT_R8G8B8A8_SRGB,
+            VkColorSpaceKHR::VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
+        ),
+        (
+            VkFormat::VK_FORMAT_B8G8R8A8_SRGB,
+            VkColorSpaceKHR::VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
+        ),
+    ];
+
+    let selected = preferred
         .iter()
-        .copied()
-        .find(|f| {
-            f.format == VkFormat::VK_FORMAT_R8G8B8A8_SRGB
-                && f.colorSpace == VkColorSpaceKHR::VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
+        .find_map(|&(format, color_space)| {
+            formats
+                .iter()
+                .copied()
+                .find(|f| f.format == format && f.colorSpace == color_space)
         })
-        .unwrap_or(formats[0])
+        .unwrap_or(formats[0]);
+    println!(
+        "Selected surface format: {:?} / {:?}",
+        selected.format, selected.colorSpace
+    );
+    selected
 }
 
 fn pick_present_mode(
@@ -421,13 +449,7 @@ pub fn create_graphics_pipeline<'a>(
                 | VkColorComponentFlagBits::VK_COLOR_COMPONENT_B_BIT.0
                 | VkColorComponentFlagBits::VK_COLOR_COMPONENT_A_BIT.0,
         )
-        .with_blendEnable(1)
-        .with_srcColorBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_SRC_ALPHA)
-        .with_dstColorBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
-        .with_colorBlendOp(VkBlendOp::VK_BLEND_OP_ADD)
-        .with_srcAlphaBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_ONE)
-        .with_dstAlphaBlendFactor(VkBlendFactor::VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
-        .with_alphaBlendOp(VkBlendOp::VK_BLEND_OP_ADD);
+        .with_blendEnable(0);
     let color_blend = VkPipelineColorBlendStateCreateInfo::DEFAULT
         .with_logicOpEnable(0)
         .with_attachmentCount(1)
@@ -720,7 +742,7 @@ fn record_command_buffer(
         .expect("vkBeginCommandBuffer failed");
 
     let clear_color = VkClearColorValue {
-        float32: [0.0, 0.0, 0.0, 0.0],
+        float32: [1.0, 0.0, 0.0, 0.1],
     };
     let clear_value = VkClearValue { color: clear_color };
     let clear_values = [clear_value];

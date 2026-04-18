@@ -30,6 +30,7 @@ features = [
   "VK_KHR_display",
   "VK_KHR_swapchain",
   "VK_KHR_wayland_surface",
+  "VK_EXT_swapchain_colorspace",
 ]
 
 [target.'cfg(target_os = "macos")'.dev-dependencies]
@@ -45,6 +46,7 @@ features = [
   "VK_KHR_surface",
   "VK_KHR_swapchain",
   "VK_EXT_metal_surface",
+  "VK_EXT_swapchain_colorspace",
 ]
 
 [lints.clippy]

@@ -1,25 +1,27 @@
-use std::os::fd::{AsFd, AsRawFd, BorrowedFd, RawFd};
-use std::rc::Rc;
-use std::sync::atomic::AtomicU64;
-
+use crate::error::{ConnectError, PollError, WindowError};
+use crate::state::{PumpState, SharedDisplay, SharedDisplayRef, State, icon_from_source};
+use crate::window::Window;
+use alloc::rc::Rc;
+use core::time::Duration;
+use parking_lot::Mutex;
+use std::io;
+use std::os::fd::{AsFd, AsRawFd, BorrowedFd, FromRawFd, OwnedFd, RawFd};
 use wayland_client::Connection;
 use wayland_client::globals::{BindError, GlobalList, registry_queue_init};
 use wayland_client::protocol::{wl_compositor, wl_seat};
 use wayland_protocols::wp::cursor_shape::v1::client::wp_cursor_shape_manager_v1;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_decoration_manager_v1;
 use wayland_protocols::xdg::shell::client::xdg_wm_base;
-use windsurf_core::EventQueue;
-use windsurf_extra::{
-    CursorEvent, CursorMode, CursorSource, DragSource, ExtraEvent, ExtraEventQueue, ExtraFeatures,
-    FeatureKind, FeatureSet, ImeEvent, ImeState, UnsupportedFeature,
+use windsurf_core::{
+    CursorMode, CursorSource, DragSource, Event, FeatureKind, FeatureSet, ImeState, LoopBackend,
+    ScopedEvent, UnsupportedFeature, WindowAttributes, WindowHandle,
 };
 
-use crate::error::{ConnectError, PumpError};
-use crate::state::{PumpState, SharedDisplay, SharedDisplayRef, State, icon_from_source};
+extern crate alloc;
 
-#[derive(Clone)]
-pub struct Display {
+pub struct WaylandBackend {
     pub(crate) shared: SharedDisplayRef,
+    epoll_fd: OwnedFd,
 }
 
 pub struct RawDisplay<'a> {
@@ -29,8 +31,91 @@ pub struct RawDisplay<'a> {
     pub wm_base: &'a xdg_wm_base::XdgWmBase,
 }
 
-impl Display {
-    pub fn connect() -> Result<Self, ConnectError> {
+impl WaylandBackend {
+    pub fn raw_fd(&self) -> RawFd {
+        self.shared.connection.as_fd().as_raw_fd()
+    }
+
+    pub fn raw_borrowed_fd(&self) -> BorrowedFd<'_> {
+        self.shared.connection.as_fd()
+    }
+
+    pub fn raw(&self) -> RawDisplay<'_> {
+        RawDisplay {
+            connection: &self.shared.connection,
+            globals: &self.shared.globals,
+            compositor: &self.shared.compositor,
+            wm_base: &self.shared.wm_base,
+        }
+    }
+
+    fn pump_once(&mut self) -> Result<(), PollError> {
+        let mut pump = self.shared.pump.lock();
+        let PumpState { event_queue, state } = &mut *pump;
+
+        let _ = event_queue.flush();
+        if let Some(guard) = event_queue.prepare_read() {
+            match guard.read() {
+                Ok(_) => {}
+                Err(wayland_backend::client::WaylandError::Io(err))
+                    if err.kind() == io::ErrorKind::WouldBlock => {}
+                Err(wayland_backend::client::WaylandError::Io(err)) => {
+                    return Err(PollError::Io(err));
+                }
+                Err(err) => return Err(PollError::Wayland(err.into())),
+            }
+        }
+
+        event_queue
+            .dispatch_pending(state)
+            .map_err(PollError::Wayland)?;
+
+        Ok(())
+    }
+
+    fn pop_event(&mut self) -> Result<Option<ScopedEvent>, PollError> {
+        let mut pump = self.shared.pump.lock();
+        let dropped = pump.state.take_overflow_count();
+        if dropped != 0 {
+            return Err(PollError::QueueOverflow { dropped });
+        }
+        Ok(pump.state.pop_event())
+    }
+
+    fn wait_for_socket(&self, timeout: Option<Duration>) -> Result<bool, PollError> {
+        let timeout_ms = timeout.map_or(-1, |timeout| {
+            timeout.as_millis().clamp(0, i32::MAX as u128) as i32
+        });
+        let mut event = libc::epoll_event { events: 0, u64: 0 };
+
+        loop {
+            let ready = unsafe {
+                libc::epoll_wait(self.epoll_fd.as_raw_fd(), &raw mut event, 1, timeout_ms)
+            };
+
+            if ready > 0 {
+                return Ok(true);
+            }
+            if ready == 0 {
+                return Ok(false);
+            }
+
+            let err = io::Error::last_os_error();
+            if err.kind() == io::ErrorKind::Interrupted {
+                continue;
+            }
+            return Err(PollError::Wait(err));
+        }
+    }
+}
+
+impl LoopBackend for WaylandBackend {
+    type ConnectError = ConnectError;
+    type PollError = PollError;
+    type WindowError = WindowError;
+    type BackendWindow = Window;
+
+    fn connect() -> Result<Self, Self::ConnectError> {
         let connection = Connection::connect_to_env().map_err(ConnectError::WaylandConnect)?;
         let (globals, event_queue) =
             registry_queue_init::<State>(&connection).map_err(ConnectError::Registry)?;
@@ -85,152 +170,170 @@ impl Display {
             compositor,
             wm_base,
             decoration_manager,
-            next_window_id: AtomicU64::new(1),
-            pump: std::sync::Mutex::new(PumpState { event_queue, state }),
+            pump: Mutex::new(PumpState { event_queue, state }),
         };
+
+        let epoll_fd = create_epoll(shared.connection.as_fd().as_raw_fd())?;
 
         Ok(Self {
             shared: Rc::new(shared),
+            epoll_fd,
         })
     }
 
-    pub fn raw_fd(&self) -> RawFd {
-        self.shared.connection.as_fd().as_raw_fd()
-    }
-
-    pub fn raw_borrowed_fd(&self) -> BorrowedFd<'_> {
-        self.shared.connection.as_fd()
-    }
-
-    pub fn pump(&self, queue: &mut EventQueue) -> Result<(), PumpError> {
-        let mut pump = self.shared.pump.lock().unwrap();
-        let PumpState { event_queue, state } = &mut *pump;
-
-        let _ = event_queue.flush();
-        if let Some(guard) = event_queue.prepare_read() {
-            match guard.read() {
-                Ok(_) => {}
-                Err(wayland_backend::client::WaylandError::Io(err))
-                    if err.kind() == std::io::ErrorKind::WouldBlock => {}
-                Err(wayland_backend::client::WaylandError::Io(err)) => {
-                    return Err(PumpError::Io(err));
-                }
-                Err(err) => return Err(PumpError::Wayland(err.into())),
-            }
+    fn poll_event(&mut self) -> Result<Option<ScopedEvent>, Self::PollError> {
+        if let Some(event) = self.pop_event()? {
+            return Ok(Some(event));
         }
 
-        event_queue
-            .dispatch_pending(state)
-            .map_err(PumpError::Wayland)?;
-
-        while let Some(event) = state.pending_events.pop_front() {
-            queue.push(event);
-        }
-
-        Ok(())
+        self.pump_once()?;
+        self.pop_event()
     }
 
-    pub fn pump_extras(&self, queue: &mut ExtraEventQueue) -> Result<(), PumpError> {
-        let mut pump = self.shared.pump.lock().unwrap();
-        while let Some(event) = pump.state.pending_extra_events.pop_front() {
-            queue.push(event);
+    fn wait_event(
+        &mut self,
+        timeout: Option<Duration>,
+    ) -> Result<Option<ScopedEvent>, Self::PollError> {
+        if let Some(event) = self.pop_event()? {
+            return Ok(Some(event));
         }
-        Ok(())
+
+        if !self.wait_for_socket(timeout)? {
+            return Ok(None);
+        }
+
+        self.pump_once()?;
+        self.pop_event()
     }
 
-    pub fn raw(&self) -> RawDisplay<'_> {
-        RawDisplay {
-            connection: &self.shared.connection,
-            globals: &self.shared.globals,
-            compositor: &self.shared.compositor,
-            wm_base: &self.shared.wm_base,
-        }
+    fn create_window(
+        &mut self,
+        attrs: WindowAttributes,
+    ) -> Result<(WindowHandle, Self::BackendWindow), Self::WindowError> {
+        let window = Window::new(self, &attrs)?;
+        Ok((window.handle(), window))
     }
-}
 
-impl ExtraFeatures for Display {
+    fn destroy_window(&mut self, _handle: WindowHandle, _window: &mut Self::BackendWindow) {}
+
+    fn set_title(&mut self, _handle: WindowHandle, window: &Self::BackendWindow, title: &str) {
+        window.set_title(title);
+    }
+
+    fn request_redraw(&mut self, _handle: WindowHandle, window: &Self::BackendWindow) {
+        window.request_redraw();
+    }
+
+    fn inner_size(&self, _handle: WindowHandle, window: &Self::BackendWindow) -> (u32, u32) {
+        window.inner_size()
+    }
+
+    fn scale_factor(&self, _handle: WindowHandle, window: &Self::BackendWindow) -> f64 {
+        window.scale_factor()
+    }
+
     fn supported_features(&self) -> FeatureSet {
         FeatureSet::IME.with(FeatureSet::CURSOR)
     }
 
     fn set_ime_state(
-        &self,
-        window: windsurf_core::WindowId,
+        &mut self,
+        window: WindowHandle,
         state: &ImeState,
     ) -> Result<(), UnsupportedFeature> {
-        let mut pump = self.shared.pump.lock().unwrap();
+        let mut pump = self.shared.pump.lock();
         if let Some(window_state) = pump.state.windows.get_mut(&window)
             && window_state.ime_enabled != state.enabled
         {
             window_state.ime_enabled = state.enabled;
-            let event = if state.enabled {
-                ExtraEvent::Ime(ImeEvent::Enabled { id: window })
+            if state.enabled {
+                pump.state.push_window(window, Event::ImeEnabled);
             } else {
-                ExtraEvent::Ime(ImeEvent::Disabled { id: window })
-            };
-            pump.state.push_extra(event);
+                pump.state.push_window(window, Event::ImeDisabled);
+            }
         }
         Ok(())
     }
 
     fn set_cursor(
-        &self,
-        window: windsurf_core::WindowId,
+        &mut self,
+        window: WindowHandle,
         source: &CursorSource,
     ) -> Result<(), UnsupportedFeature> {
-        let mut pump = self.shared.pump.lock().unwrap();
-        let mut emitted = None;
+        let mut pump = self.shared.pump.lock();
+        let mut emit_visibility = None;
         if let Some(window_state) = pump.state.windows.get_mut(&window) {
             window_state.cursor_icon = icon_from_source(source);
-            emitted = Some(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
-                id: window,
-                visible: window_state.cursor_visible,
-            }));
+            emit_visibility = Some(window_state.cursor_visible);
         }
-        if let Some(event) = emitted {
-            pump.state.push_extra(event);
+        if let Some(visible) = emit_visibility {
+            pump.state
+                .push_window(window, Event::CursorVisibilityChanged { visible });
         }
         pump.state.apply_cursor(window);
         Ok(())
     }
 
     fn set_cursor_mode(
-        &self,
-        window: windsurf_core::WindowId,
+        &mut self,
+        window: WindowHandle,
         mode: CursorMode,
     ) -> Result<(), UnsupportedFeature> {
-        let mut pump = self.shared.pump.lock().unwrap();
-        let mut emitted = Vec::new();
+        let mut pump = self.shared.pump.lock();
+        let mut mode_changed = false;
+        let mut visibility_changed = None;
         if let Some(window_state) = pump.state.windows.get_mut(&window)
             && window_state.cursor_mode != mode
         {
             window_state.cursor_mode = mode;
-            emitted.push(ExtraEvent::Cursor(CursorEvent::ModeChanged {
-                id: window,
-                mode,
-            }));
+            mode_changed = true;
 
             let visible = !matches!(mode, CursorMode::Hidden);
             if window_state.cursor_visible != visible {
                 window_state.cursor_visible = visible;
-                emitted.push(ExtraEvent::Cursor(CursorEvent::VisibilityChanged {
-                    id: window,
-                    visible,
-                }));
+                visibility_changed = Some(visible);
             }
         }
-        for event in emitted {
-            pump.state.push_extra(event);
+
+        if mode_changed {
+            pump.state
+                .push_window(window, Event::CursorModeChanged { mode });
+        }
+        if let Some(visible) = visibility_changed {
+            pump.state
+                .push_window(window, Event::CursorVisibilityChanged { visible });
         }
         pump.state.apply_cursor(window);
         Ok(())
     }
 
     fn start_drag(
-        &self,
-        _window: windsurf_core::WindowId,
+        &mut self,
+        _window: WindowHandle,
         _source: DragSource,
     ) -> Result<(), UnsupportedFeature> {
         Err(UnsupportedFeature::new(FeatureKind::DragDropSource))
     }
+}
+
+fn create_epoll(raw_fd: RawFd) -> Result<OwnedFd, ConnectError> {
+    let epoll_raw = unsafe { libc::epoll_create1(libc::EPOLL_CLOEXEC) };
+    if epoll_raw < 0 {
+        return Err(ConnectError::Epoll(io::Error::last_os_error()));
+    }
+
+    let mut event = libc::epoll_event {
+        events: libc::EPOLLIN as u32,
+        u64: 0,
+    };
+    let result = unsafe { libc::epoll_ctl(epoll_raw, libc::EPOLL_CTL_ADD, raw_fd, &mut event) };
+    if result < 0 {
+        let error = io::Error::last_os_error();
+        unsafe {
+            libc::close(epoll_raw);
+        }
+        return Err(ConnectError::Epoll(error));
+    }
+
+    Ok(unsafe { OwnedFd::from_raw_fd(epoll_raw) })
 }

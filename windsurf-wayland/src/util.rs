@@ -1,5 +1,4 @@
-use std::num::NonZeroU32;
-
+use core::num::NonZeroU32;
 use wayland_client::WEnum;
 
 pub(crate) fn unpack_enum<T: Copy>(value: WEnum<T>) -> Option<T> {

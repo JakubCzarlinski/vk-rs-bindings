@@ -1,10 +1,8 @@
+use crate::state::State;
+use crate::util::unpack_enum;
 use wayland_client::protocol::{wl_keyboard, wl_pointer, wl_seat};
 use wayland_client::{Connection, Dispatch, QueueHandle};
 use windsurf_core::{ButtonState, Event, KeyCode, KeyState, PointerButton};
-use windsurf_extra::{CursorEvent, ExtraEvent};
-
-use crate::state::State;
-use crate::util::unpack_enum;
 
 impl Dispatch<wl_seat::WlSeat, ()> for State {
     fn event(
@@ -67,17 +65,14 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
                 if let Some(window) = state.window_for_surface(&surface) {
                     state.pointer_enter_serial = Some(serial);
                     state.pointer_focus = Some(window);
-                    state.push(Event::PointerEntered { id: window });
-                    state.push(Event::PointerMoved {
-                        id: window,
-                        x: surface_x,
-                        y: surface_y,
-                    });
-                    state.push_extra(ExtraEvent::Cursor(CursorEvent::Moved {
-                        id: window,
-                        x: surface_x,
-                        y: surface_y,
-                    }));
+                    state.push_window(window, Event::PointerEntered);
+                    state.push_window(
+                        window,
+                        Event::PointerMoved {
+                            x: surface_x,
+                            y: surface_y,
+                        },
+                    );
                     state.apply_cursor(window);
                 }
             }
@@ -85,7 +80,7 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
                 if let Some(window) = state.window_for_surface(&surface) {
                     state.pointer_focus = None;
                     state.pointer_enter_serial = None;
-                    state.push(Event::PointerLeft { id: window });
+                    state.push_window(window, Event::PointerLeft);
                 }
             }
             wl_pointer::Event::Motion {
@@ -94,16 +89,13 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
                 ..
             } => {
                 if let Some(window) = state.pointer_focus {
-                    state.push(Event::PointerMoved {
-                        id: window,
-                        x: surface_x,
-                        y: surface_y,
-                    });
-                    state.push_extra(ExtraEvent::Cursor(CursorEvent::Moved {
-                        id: window,
-                        x: surface_x,
-                        y: surface_y,
-                    }));
+                    state.push_window(
+                        window,
+                        Event::PointerMoved {
+                            x: surface_x,
+                            y: surface_y,
+                        },
+                    );
                 }
             }
             wl_pointer::Event::Button {
@@ -114,11 +106,13 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
                 if let Some(window) = state.pointer_focus
                     && let Some(button_state) = unpack_enum(button_state).map(map_button_state)
                 {
-                    state.push(Event::PointerButton {
-                        id: window,
-                        button: map_pointer_button(button),
-                        state: button_state,
-                    });
+                    state.push_window(
+                        window,
+                        Event::PointerButton {
+                            button: map_pointer_button(button),
+                            state: button_state,
+                        },
+                    );
                 }
             }
             wl_pointer::Event::Axis { axis, value, .. } => {
@@ -131,7 +125,7 @@ impl Dispatch<wl_pointer::WlPointer, ()> for State {
                         wl_pointer::Axis::HorizontalScroll => (value, 0.0),
                         _ => (0.0, 0.0),
                     };
-                    state.push(Event::PointerScroll { id: window, dx, dy });
+                    state.push_window(window, Event::PointerScroll { dx, dy });
                 }
             }
             _ => {}
@@ -152,13 +146,13 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for State {
             wl_keyboard::Event::Enter { surface, .. } => {
                 if let Some(window) = state.window_for_surface(&surface) {
                     state.keyboard_focus = Some(window);
-                    state.push(Event::KeyboardFocusIn { id: window });
+                    state.push_window(window, Event::KeyboardFocusIn);
                 }
             }
             wl_keyboard::Event::Leave { surface, .. } => {
                 if let Some(window) = state.window_for_surface(&surface) {
                     state.keyboard_focus = None;
-                    state.push(Event::KeyboardFocusOut { id: window });
+                    state.push_window(window, Event::KeyboardFocusOut);
                 }
             }
             wl_keyboard::Event::Keymap { format, fd, size } => {
@@ -200,14 +194,16 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for State {
                 let logical = translated
                     .as_ref()
                     .map_or(KeyCode::Unknown, |translation| translation.key);
-                state.push(Event::Key {
-                    id: window,
-                    key: logical,
-                    scancode: key,
-                    state: state_value,
-                });
+                state.push_window(
+                    window,
+                    Event::Key {
+                        key: logical,
+                        scancode: key as u16,
+                        state: state_value,
+                    },
+                );
                 if let Some(text) = translated.and_then(|translation| translation.text) {
-                    state.push(Event::TextInput { id: window, text });
+                    state.push_window(window, Event::TextInput { text });
                 }
             }
             _ => {}

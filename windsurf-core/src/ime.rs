@@ -1,7 +1,5 @@
 use crate::LogicalRect;
 
-extern crate alloc;
-
 /// Intended text-input use case for an active IME session.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ImePurpose {

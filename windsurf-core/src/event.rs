@@ -1,109 +1,90 @@
-use crate::{
-    ButtonState, CursorEvent, DragAction, DragData, DragPosition, GamepadAxis, GamepadButton,
-    GamepadId, KeyCode, KeyState, PointerButton, TextInput, WindowId,
-};
+#[cfg(feature = "cursor")]
+use crate::CursorMode;
+use crate::{ButtonState, KeyCode, KeyState, PointerButton, TextInput};
+#[cfg(feature = "drag_drop")]
+use crate::{DragAction, DragData, DragPosition};
+#[cfg(feature = "gamepad")]
+use crate::{GamepadAxis, GamepadButton, GamepadId};
+#[cfg(feature = "drag_drop")]
 use alloc::string::String;
+#[cfg(any(feature = "ime", feature = "drag_drop"))]
 use alloc::sync::Arc;
+
 extern crate alloc;
 
 /// Flat event enum shared by all `windsurf` backends.
 ///
-/// The design avoids nested, callback-oriented event trees. Backends translate
-/// OS messages into this enum and push them into an [`crate::EventQueue`].
-///
-/// # Ordering
-///
-/// Backends should preserve platform delivery order as closely as possible
-/// while still normalizing events.
-///
-/// # Keyboard Semantics
-///
-/// [`Self::Key`] carries logical key transitions, while [`Self::TextInput`]
-/// carries textual output (including IME composition commits). Consumers should
-/// not assume a strict 1:1 relationship between the two.
+/// Window identity is intentionally carried out-of-band by the surrounding
+/// transport tuple `(Option<WindowHandle>, Event)`.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Event {
     /// Emitted immediately after a backend creates a new window.
-    WindowCreated { id: WindowId },
+    WindowCreated,
     /// Emitted when a window's logical size changes.
-    WindowResized {
-        id: WindowId,
-        width: u32,
-        height: u32,
-    },
+    WindowResized { width: u32, height: u32 },
     /// Emitted when a window's backing scale factor changes.
-    ScaleFactorChanged { id: WindowId, factor: f64 },
+    ScaleFactorChanged { factor: f64 },
     /// Emitted once per close request gesture from the platform.
-    CloseRequested { id: WindowId },
+    CloseRequested,
     /// Emitted when a backend tears down a window.
-    WindowDestroyed { id: WindowId },
+    WindowDestroyed,
     /// Emitted when the application should redraw a window.
-    RedrawRequested { id: WindowId },
+    RedrawRequested,
     /// Emitted when the pointer enters a window's content area.
-    PointerEntered { id: WindowId },
+    PointerEntered,
     /// Emitted when the pointer leaves a window's content area.
-    PointerLeft { id: WindowId },
+    PointerLeft,
     /// Emitted for pointer motion in logical coordinates.
-    PointerMoved { id: WindowId, x: f64, y: f64 },
+    PointerMoved { x: f64, y: f64 },
     /// Emitted for normalized pointer button transitions.
     PointerButton {
-        id: WindowId,
         button: PointerButton,
         state: ButtonState,
     },
     /// Emitted for pointer wheel/axis deltas.
-    PointerScroll { id: WindowId, dx: f64, dy: f64 },
+    PointerScroll { dx: f64, dy: f64 },
     /// Emitted when a window receives keyboard focus.
-    KeyboardFocusIn { id: WindowId },
+    KeyboardFocusIn,
     /// Emitted when a window loses keyboard focus.
-    KeyboardFocusOut { id: WindowId },
+    KeyboardFocusOut,
     /// Emitted for key transitions.
     Key {
-        id: WindowId,
         key: KeyCode,
         scancode: u16,
         state: KeyState,
     },
     /// Emitted for textual keyboard/IME output.
-    ///
-    /// A backend may emit this independently from [`Self::Key`], especially for
-    /// compose/IME flows where text does not map 1:1 to key transitions.
-    TextInput { id: WindowId, text: TextInput },
+    TextInput { text: TextInput },
     /// Emitted for IME-specific platform notifications.
     #[cfg(feature = "ime")]
-    ImeEnabled { id: WindowId },
+    ImeEnabled,
     #[cfg(feature = "ime")]
-    ImeDisabled { id: WindowId },
+    ImeDisabled,
     #[cfg(feature = "ime")]
     ImePreedit {
-        id: WindowId,
         text: Arc<str>,
         selection: Option<(u32, u32)>,
     },
     #[cfg(feature = "ime")]
-    ImeCommit { id: WindowId, text: Arc<str> },
-    /// Emitted for cursor-specific platform notifications.
+    ImeCommit { text: Arc<str> },
+    /// Emitted for cursor-specific policy/state notifications.
     #[cfg(feature = "cursor")]
-    Cursor(CursorEvent),
+    CursorModeChanged { mode: CursorMode },
+    #[cfg(feature = "cursor")]
+    CursorVisibilityChanged { visible: bool },
     /// Emitted for drag-and-drop notifications.
     #[cfg(feature = "drag_drop")]
-    /// Emitted when a drag enters a window's bounds.
     DragDropEntered {
-        id: WindowId,
         position: DragPosition,
         /// List of MIME types offered by the drag source, in descending preference order.
         offered: Arc<[String]>,
     },
     #[cfg(feature = "drag_drop")]
-    DragDropMoved {
-        id: WindowId,
-        position: DragPosition,
-    },
+    DragDropMoved { position: DragPosition },
     #[cfg(feature = "drag_drop")]
-    DragDropLeft { id: WindowId },
+    DragDropLeft,
     #[cfg(feature = "drag_drop")]
     DragDropDropped {
-        id: WindowId,
         position: DragPosition,
         data: Arc<[DragData]>,
         action: DragAction,
@@ -126,13 +107,13 @@ pub enum Event {
         value: f32,
     },
     /// Emitted when a touch contact starts.
-    TouchStart { id: WindowId, touch: TouchPoint },
+    TouchStart { touch: TouchPoint },
     /// Emitted when a touch contact moves.
-    TouchMove { id: WindowId, touch: TouchPoint },
+    TouchMove { touch: TouchPoint },
     /// Emitted when a touch contact ends.
-    TouchEnd { id: WindowId, finger: u8 },
+    TouchEnd { finger: u8 },
     /// Emitted when a touch contact is cancelled by the platform.
-    TouchCancel { id: WindowId, finger: u8 },
+    TouchCancel { finger: u8 },
     /// Emitted when the application is backgrounded/suspended.
     Suspended,
     /// Emitted when the application resumes from suspension.
@@ -147,50 +128,43 @@ pub struct TouchPoint {
     pub force: Option<u16>,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ScopeKind {
+    Window,
+    Global,
+}
+
 impl Event {
-    /// Return the window targeted by this event when applicable.
-    ///
-    /// Global lifecycle events (for example [`Self::Suspended`]) return
-    /// `None`.
-    pub const fn window_id(&self) -> Option<WindowId> {
+    /// Expected transport scope for this event variant.
+    pub const fn scope_kind(&self) -> ScopeKind {
         match self {
-            Self::WindowCreated { id }
-            | Self::WindowResized { id, .. }
-            | Self::ScaleFactorChanged { id, .. }
-            | Self::CloseRequested { id }
-            | Self::WindowDestroyed { id }
-            | Self::RedrawRequested { id }
-            | Self::PointerEntered { id }
-            | Self::PointerLeft { id }
-            | Self::PointerMoved { id, .. }
-            | Self::PointerButton { id, .. }
-            | Self::PointerScroll { id, .. }
-            | Self::KeyboardFocusIn { id }
-            | Self::KeyboardFocusOut { id }
-            | Self::Key { id, .. }
-            | Self::TextInput { id, .. }
-            | Self::TouchStart { id, .. }
-            | Self::TouchMove { id, .. }
-            | Self::TouchEnd { id, .. }
-            | Self::TouchCancel { id, .. } => Some(*id),
-            #[cfg(feature = "ime")]
-            Self::ImeEnabled { id }
-            | Self::ImeDisabled { id }
-            | Self::ImePreedit { id, .. }
-            | Self::ImeCommit { id, .. } => Some(*id),
-            #[cfg(feature = "cursor")]
-            Self::Cursor(event) => Some(event.window_id()),
-            #[cfg(feature = "drag_drop")]
-            Self::DragDropEntered { id, .. }
-            | Self::DragDropMoved { id, .. }
-            | Self::DragDropLeft { id }
-            | Self::DragDropDropped { id, .. } => Some(*id),
             #[cfg(feature = "gamepad")]
             Self::GamepadConnected { .. }
             | Self::GamepadDisconnected { .. }
             | Self::GamepadButton { .. }
-            | Self::GamepadAxis { .. } => None,
-            Self::Suspended | Self::Resumed => None,
+            | Self::GamepadAxis { .. } => ScopeKind::Global,
+            Self::Suspended | Self::Resumed => ScopeKind::Global,
+            _ => ScopeKind::Window,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{Event, ScopeKind};
+
+    #[test]
+    fn scope_kind_marks_global_events() {
+        assert_eq!(Event::Suspended.scope_kind(), ScopeKind::Global);
+        assert_eq!(Event::Resumed.scope_kind(), ScopeKind::Global);
+    }
+
+    #[test]
+    fn scope_kind_marks_window_events() {
+        assert_eq!(Event::WindowCreated.scope_kind(), ScopeKind::Window);
+        assert_eq!(
+            Event::PointerMoved { x: 1.0, y: 2.0 }.scope_kind(),
+            ScopeKind::Window
+        );
     }
 }

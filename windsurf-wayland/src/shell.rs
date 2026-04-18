@@ -1,3 +1,5 @@
+use crate::state::State;
+use crate::util::{logical_size_to_i32, nonzero_or};
 use wayland_client::globals::GlobalListContents;
 use wayland_client::protocol::{wl_compositor, wl_region, wl_registry, wl_seat, wl_surface};
 use wayland_client::{Connection, Dispatch, QueueHandle, delegate_noop};
@@ -8,10 +10,7 @@ use wayland_protocols::xdg::decoration::zv1::client::{
     zxdg_decoration_manager_v1, zxdg_toplevel_decoration_v1,
 };
 use wayland_protocols::xdg::shell::client::{xdg_surface, xdg_toplevel, xdg_wm_base};
-use windsurf_core::{Event, LogicalSize, WindowId};
-
-use crate::state::State;
-use crate::util::{logical_size_to_i32, nonzero_or};
+use windsurf_core::{Event, LogicalSize, WindowHandle};
 
 impl Dispatch<wl_registry::WlRegistry, GlobalListContents> for State {
     fn event(
@@ -51,12 +50,12 @@ impl Dispatch<xdg_wm_base::XdgWmBase, ()> for State {
     }
 }
 
-impl Dispatch<xdg_surface::XdgSurface, WindowId> for State {
+impl Dispatch<xdg_surface::XdgSurface, WindowHandle> for State {
     fn event(
         state: &mut Self,
         xdg_surface: &xdg_surface::XdgSurface,
         event: xdg_surface::Event,
-        window_id: &WindowId,
+        window_id: &WindowHandle,
         _conn: &Connection,
         _qh: &QueueHandle<Self>,
     ) {
@@ -65,17 +64,17 @@ impl Dispatch<xdg_surface::XdgSurface, WindowId> for State {
             if let Some(window) = state.windows.get_mut(window_id) {
                 window.needs_redraw = false;
             }
-            state.push(Event::RedrawRequested { id: *window_id });
+            state.push_window(*window_id, Event::RedrawRequested);
         }
     }
 }
 
-impl Dispatch<xdg_toplevel::XdgToplevel, WindowId> for State {
+impl Dispatch<xdg_toplevel::XdgToplevel, WindowHandle> for State {
     fn event(
         state: &mut Self,
         _toplevel: &xdg_toplevel::XdgToplevel,
         event: xdg_toplevel::Event,
-        window_id: &WindowId,
+        window_id: &WindowHandle,
         _conn: &Connection,
         qh: &QueueHandle<Self>,
     ) {
@@ -94,16 +93,12 @@ impl Dispatch<xdg_toplevel::XdgToplevel, WindowId> for State {
                             window.size,
                             qh,
                         );
-                        state.push(Event::WindowResized {
-                            id: *window_id,
-                            width,
-                            height,
-                        });
+                        state.push_window(*window_id, Event::WindowResized { width, height });
                     }
                 }
             }
             xdg_toplevel::Event::Close => {
-                state.push(Event::CloseRequested { id: *window_id });
+                state.push_window(*window_id, Event::CloseRequested);
             }
             _ => {}
         }
@@ -122,12 +117,12 @@ impl Dispatch<zxdg_decoration_manager_v1::ZxdgDecorationManagerV1, ()> for State
     }
 }
 
-impl Dispatch<zxdg_toplevel_decoration_v1::ZxdgToplevelDecorationV1, WindowId> for State {
+impl Dispatch<zxdg_toplevel_decoration_v1::ZxdgToplevelDecorationV1, WindowHandle> for State {
     fn event(
         _state: &mut Self,
         _decoration: &zxdg_toplevel_decoration_v1::ZxdgToplevelDecorationV1,
         _event: zxdg_toplevel_decoration_v1::Event,
-        _window_id: &WindowId,
+        _window_id: &WindowHandle,
         _conn: &Connection,
         _qh: &QueueHandle<Self>,
     ) {

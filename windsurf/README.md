@@ -2,52 +2,44 @@
 
 Facade crate for the `windsurf` windowing API family.
 
-`windsurf` re-exports:
+`windsurf` now exposes a single-loop, poll-driven API:
 
-- `windsurf-core` unconditionally
-- target-selected `Display` / `Window` types when a backend feature is enabled
-- backend modules such as `windsurf::macos` and `windsurf::wayland`
+- `EventLoop::new()` / `EventLoop::connect()`
+- `EventLoop::poll_event()`
+- `EventLoop::wait_event(timeout)`
+- `Window::new(&EventLoop, WindowAttributes)`
 
-This keeps the minimal surface available while still giving applications a
-single crate import when they want the larger abstraction set.
+Event transport is tuple-scoped:
 
-## Current scope
+- `Some(WindowHandle)` for window-scoped events
+- `None` for global events
 
-The workspace currently defines the shared API and documentation surface:
+`Event` payloads are ID-free; window identity is always external.
 
-- core events and queueing
-- optional IME / drag-and-drop / cursor / gamepad abstractions
-- a macOS backend in `windsurf-macos`
-- a Wayland backend in `windsurf-wayland`
-- facade re-exports
+## Linux Wayland
 
-The facade re-exports backend crates when their feature is enabled.
+Enable the backend via feature flag:
 
 ```toml
 [dependencies]
 windsurf = { path = "../windsurf", features = ["wayland"] }
 ```
 
-Use the `macos` feature on macOS or the `wayland` feature on Linux to get
-root-level `windsurf::Display` and `windsurf::Window` aliases for the active
-backend.
-
 ## Quick start
 
-```rust
-use windsurf::{Event, EventQueue, WindowAttributes, WindowId};
+```no_run
+use std::time::Duration;
+use windsurf::{Event, EventLoop, Window, WindowAttributes};
 
-let attrs = WindowAttributes::default();
-assert_eq!(attrs.title, "windsurf");
+let mut event_loop = EventLoop::connect()?;
+let _window = Window::new(&event_loop, WindowAttributes::default())?;
 
-let mut queue = EventQueue::new();
-queue.push(Event::WindowCreated { id: WindowId::new(42) });
-assert_eq!(queue.drain().count(), 1);
+loop {
+    if let Some((window, event)) = event_loop.wait_event(Some(Duration::from_millis(16)))? {
+        if matches!((window, event), (Some(_), Event::CloseRequested)) {
+            break;
+        }
+    }
+}
+# Ok::<(), Box<dyn core::error::Error>>(())
 ```
-
-See [USAGE.md](USAGE.md) for the detailed guide.
-
-## Extras in backends
-
-Current backends expose `Features` support for IME and cursor APIs, and all
-backend events flow through `EventQueue`.

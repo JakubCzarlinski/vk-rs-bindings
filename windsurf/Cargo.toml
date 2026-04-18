@@ -15,6 +15,7 @@ drag_drop = ["windsurf-core/drag_drop"]
 gamepad = ["windsurf-core/gamepad"]
 
 [dependencies]
+raw-window-handle = "0.6.2"
 windsurf-core = { path = "../windsurf-core" }
 windsurf-macos = { path = "../windsurf-macos", optional = true }
 windsurf-wayland = { path = "../windsurf-wayland", optional = true }

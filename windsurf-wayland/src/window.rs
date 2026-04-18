@@ -1,6 +1,8 @@
-use std::rc::Rc;
-use std::sync::atomic::Ordering;
-
+use crate::display::WaylandBackend;
+use crate::error::WindowError;
+use crate::shell::update_opaque_region;
+use crate::state::{SharedDisplayRef, WindowState};
+use alloc::rc::Rc;
 use raw_window_handle::{
     HandleError, HasDisplayHandle, HasWindowHandle, RawDisplayHandle, RawWindowHandle,
 };
@@ -8,19 +10,14 @@ use wayland_client::Proxy;
 use wayland_client::protocol::wl_surface;
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_toplevel_decoration_v1;
 use wayland_protocols::xdg::shell::client::{xdg_surface, xdg_toplevel};
-use windsurf_core::{Event, WindowAttributes, WindowId};
-use windsurf_extra::CursorIcon;
-use windsurf_extra::CursorMode;
+use windsurf_core::{CursorIcon, CursorMode, Event, WindowAttributes, WindowHandle};
 
-use crate::display::Display;
-use crate::error::WindowError;
-use crate::shell::update_opaque_region;
-use crate::state::{SharedDisplayRef, WindowState};
+extern crate alloc;
 
 #[derive(Clone)]
 pub struct Window {
     pub(crate) shared: SharedDisplayRef,
-    pub(crate) id: WindowId,
+    pub(crate) handle: WindowHandle,
     pub(crate) surface: wl_surface::WlSurface,
     pub(crate) xdg_surface: xdg_surface::XdgSurface,
     pub(crate) toplevel: xdg_toplevel::XdgToplevel,
@@ -34,24 +31,26 @@ pub struct RawWindow<'a> {
 }
 
 impl Window {
-    pub fn new(display: &Display, attrs: &WindowAttributes) -> Result<Self, WindowError> {
-        let id = WindowId::new(
-            display
-                .shared
-                .next_window_id
-                .fetch_add(1, Ordering::Relaxed) as u8,
-        );
-        let mut pump = display.shared.pump.lock().unwrap();
+    pub fn new(backend: &WaylandBackend, attrs: &WindowAttributes) -> Result<Self, WindowError> {
+        let mut pump = backend.shared.pump.lock();
+        let handle = pump
+            .state
+            .handles
+            .allocate()
+            .ok_or(WindowError::NoAvailableWindowHandle)?;
         let qh = pump.event_queue.handle();
 
-        let surface = display.shared.compositor.create_surface(&qh, ());
-        let xdg_surface = display.shared.wm_base.get_xdg_surface(&surface, &qh, id);
-        let toplevel = xdg_surface.get_toplevel(&qh, id);
-        let decoration = display
+        let surface = backend.shared.compositor.create_surface(&qh, ());
+        let xdg_surface = backend
+            .shared
+            .wm_base
+            .get_xdg_surface(&surface, &qh, handle);
+        let toplevel = xdg_surface.get_toplevel(&qh, handle);
+        let decoration = backend
             .shared
             .decoration_manager
             .as_ref()
-            .map(|manager| manager.get_toplevel_decoration(&toplevel, &qh, id));
+            .map(|manager| manager.get_toplevel_decoration(&toplevel, &qh, handle));
 
         toplevel.set_title(attrs.title.clone());
         if let Some(min_size) = attrs.min_size {
@@ -69,7 +68,7 @@ impl Window {
             decoration.set_mode(mode);
         }
         update_opaque_region(
-            &display.shared.compositor,
+            &backend.shared.compositor,
             &surface,
             attrs.transparent,
             attrs.size,
@@ -78,9 +77,9 @@ impl Window {
 
         surface.commit();
 
-        pump.state.surface_to_window.insert(surface.id(), id);
+        pump.state.surface_to_window.insert(surface.id(), handle);
         pump.state.windows.insert(
-            id,
+            handle,
             WindowState {
                 surface: surface.clone(),
                 size: attrs.size,
@@ -93,12 +92,12 @@ impl Window {
                 cursor_icon: CursorIcon::Default,
             },
         );
-        pump.state.push(Event::WindowCreated { id });
-        pump.state.push(Event::RedrawRequested { id });
+        pump.state.push_window(handle, Event::WindowCreated);
+        pump.state.push_window(handle, Event::RedrawRequested);
 
         Ok(Self {
-            shared: Rc::clone(&display.shared),
-            id,
+            shared: Rc::clone(&backend.shared),
+            handle,
             surface,
             xdg_surface,
             toplevel,
@@ -106,8 +105,8 @@ impl Window {
         })
     }
 
-    pub fn id(&self) -> WindowId {
-        self.id
+    pub fn handle(&self) -> WindowHandle {
+        self.handle
     }
 
     pub fn set_title(&self, title: &str) {
@@ -115,31 +114,31 @@ impl Window {
     }
 
     pub fn inner_size(&self) -> (u32, u32) {
-        let pump = self.shared.pump.lock().unwrap();
+        let pump = self.shared.pump.lock();
         let size = pump
             .state
             .windows
-            .get(&self.id)
+            .get(&self.handle)
             .map(|window| window.size)
             .unwrap_or_default();
         (size.width, size.height)
     }
 
     pub fn scale_factor(&self) -> f64 {
-        let pump = self.shared.pump.lock().unwrap();
+        let pump = self.shared.pump.lock();
         pump.state
             .windows
-            .get(&self.id)
+            .get(&self.handle)
             .map_or(1.0, |window| window.scale_factor)
     }
 
     pub fn request_redraw(&self) {
-        let mut pump = self.shared.pump.lock().unwrap();
-        if let Some(window) = pump.state.windows.get_mut(&self.id)
+        let mut pump = self.shared.pump.lock();
+        if let Some(window) = pump.state.windows.get_mut(&self.handle)
             && !window.needs_redraw
         {
             window.needs_redraw = true;
-            pump.state.push(Event::RedrawRequested { id: self.id });
+            pump.state.push_window(self.handle, Event::RedrawRequested);
         }
     }
 
@@ -162,19 +161,18 @@ impl Window {
 
 impl Drop for Window {
     fn drop(&mut self) {
-        let Ok(mut pump) = self.shared.pump.lock() else {
-            return;
-        };
+        let mut pump = self.shared.pump.lock();
 
-        if pump.state.windows.remove(&self.id).is_some() {
+        if pump.state.windows.remove(&self.handle).is_some() {
             pump.state.surface_to_window.remove(&self.surface.id());
-            if pump.state.pointer_focus == Some(self.id) {
+            if pump.state.pointer_focus == Some(self.handle) {
                 pump.state.pointer_focus = None;
             }
-            if pump.state.keyboard_focus == Some(self.id) {
+            if pump.state.keyboard_focus == Some(self.handle) {
                 pump.state.keyboard_focus = None;
             }
-            pump.state.push(Event::WindowDestroyed { id: self.id });
+            pump.state.handles.release(self.handle);
+            pump.state.push_window(self.handle, Event::WindowDestroyed);
         }
 
         if let Some(decoration) = self.decoration.take() {

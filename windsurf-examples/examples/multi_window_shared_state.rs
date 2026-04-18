@@ -1,35 +1,27 @@
-#[cfg(any(target_os = "linux", target_os = "macos"))]
-use std::collections::{BTreeMap, BTreeSet};
-#[cfg(any(target_os = "linux", target_os = "macos"))]
-use std::error::Error;
-#[cfg(any(target_os = "linux", target_os = "macos"))]
+#[cfg(target_os = "linux")]
+use std::collections::BTreeMap;
+#[cfg(target_os = "linux")]
 use std::sync::mpsc::{self, Sender};
-#[cfg(any(target_os = "linux", target_os = "macos"))]
+#[cfg(target_os = "linux")]
 use std::thread;
-#[cfg(any(target_os = "linux", target_os = "macos"))]
+#[cfg(target_os = "linux")]
 use std::time::Duration;
+#[cfg(target_os = "linux")]
+use windsurf::{Event, EventLoop, LogicalSize, Window, WindowAttributes, WindowHandle};
 
-#[cfg(any(target_os = "linux", target_os = "macos"))]
-use windsurf::{
-    CursorIcon, CursorMode, CursorSource, Display, Event, EventQueue, FeatureSet, Features,
-    KeyCode, KeyState, LogicalSize, Window, WindowAttributes, WindowId,
-};
-
-#[cfg(any(target_os = "linux", target_os = "macos"))]
+#[cfg(target_os = "linux")]
 enum WorkerMsg {
-    Core(Event),
+    Event(Event),
     Stop,
 }
 
-#[cfg(any(target_os = "linux", target_os = "macos"))]
-fn spawn_window_worker(id: WindowId) -> Sender<WorkerMsg> {
+#[cfg(target_os = "linux")]
+fn spawn_window_worker(id: WindowHandle) -> Sender<WorkerMsg> {
     let (tx, rx) = mpsc::channel::<WorkerMsg>();
     thread::spawn(move || {
         while let Ok(msg) = rx.recv() {
             match msg {
-                WorkerMsg::Core(event) => {
-                    println!("[worker {id:?}] core: {event:?}");
-                }
+                WorkerMsg::Event(event) => println!("[worker {id:?}] {event:?}"),
                 WorkerMsg::Stop => break,
             }
         }
@@ -37,127 +29,61 @@ fn spawn_window_worker(id: WindowId) -> Sender<WorkerMsg> {
     tx
 }
 
-#[cfg(any(target_os = "linux", target_os = "macos"))]
-fn main() -> Result<(), Box<dyn Error>> {
-    let display = Display::connect()?;
-    let mut events = EventQueue::new();
-    let features = display.supported_features();
-
+#[cfg(target_os = "linux")]
+fn main() -> Result<(), Box<dyn core::error::Error>> {
+    let mut event_loop = EventLoop::connect()?;
     let left = Window::new(
-        &display,
-        &WindowAttributes {
+        &event_loop,
+        WindowAttributes {
             title: String::from("shared-state: left"),
             size: LogicalSize::new(400, 300),
             ..WindowAttributes::default()
         },
     )?;
     let right = Window::new(
-        &display,
-        &WindowAttributes {
+        &event_loop,
+        WindowAttributes {
             title: String::from("shared-state: right"),
             size: LogicalSize::new(300, 400),
             ..WindowAttributes::default()
         },
     )?;
 
-    let mut windows: BTreeMap<WindowId, Window> = BTreeMap::new();
-    windows.insert(left.id(), left);
-    windows.insert(right.id(), right);
+    let mut windows: BTreeMap<WindowHandle, Window> = BTreeMap::new();
+    windows.insert(left.handle(), left);
+    windows.insert(right.handle(), right);
 
-    let mut workers: BTreeMap<WindowId, Sender<WorkerMsg>> = BTreeMap::new();
-    for id in windows.keys().copied() {
-        workers.insert(id, spawn_window_worker(id));
+    let mut workers: BTreeMap<WindowHandle, Sender<WorkerMsg>> = BTreeMap::new();
+    for handle in windows.keys().copied() {
+        workers.insert(handle, spawn_window_worker(handle));
     }
-
-    let mut hidden_mode_windows = BTreeSet::new();
-
-    if features.contains(FeatureSet::CURSOR) {
-        let mut ids = windows.keys().copied();
-        if let Some(id) = ids.next() {
-            let _ = display.set_cursor(id, &CursorSource::Icon(CursorIcon::Pointer));
-        }
-        if let Some(id) = ids.next() {
-            let _ = display.set_cursor(id, &CursorSource::Icon(CursorIcon::Text));
-        }
-    }
-
-    // if features.contains(FeatureSet::IME) {
-    //     for id in windows.keys().copied() {
-    //         let _ = display.set_ime_state(
-    //             id,
-    //             &ImeState {
-    //                 enabled: true,
-    //                 purpose: ImePurpose::Normal,
-    //                 cursor_area: None,
-    //             },
-    //         );
-    //     }
-    // }
 
     for window in windows.values() {
         window.request_redraw();
     }
 
-    println!(
-        "multi-window threaded demo started: {} windows, features={features:?}",
-        windows.len()
-    );
-    println!("space: toggle cursor hidden/normal for focused window");
-    println!("text input handling in one window worker intentionally sleeps");
-
     loop {
-        display.pump(&mut events)?;
-
-        events.dispatch_by_window(
-            |id, event| {
-                match &event {
-                    Event::KeyboardFocusIn { id } => {
-                        if let Some(window) = windows.get(id) {
-                            window.set_title("shared-state: focused");
-                        }
+        if let Some((scope, event)) = event_loop.wait_event(Some(Duration::from_millis(8)))? {
+            match (scope, &event) {
+                (Some(window), Event::CloseRequested) => {
+                    if let Some(sender) = workers.remove(&window) {
+                        let _ = sender.send(WorkerMsg::Stop);
                     }
-                    Event::KeyboardFocusOut { id } => {
-                        if let Some(window) = windows.get(id) {
-                            window.set_title("shared-state: unfocused");
-                        }
+                    windows.remove(&window);
+                    if windows.is_empty() {
+                        break;
                     }
-                    Event::Key { id, key, state, .. }
-                        if *state == KeyState::Pressed
-                            && *key == KeyCode::Space
-                            && features.contains(FeatureSet::CURSOR) =>
-                    {
-                        let is_hidden = hidden_mode_windows.contains(id);
-                        let next_mode = if is_hidden {
-                            hidden_mode_windows.remove(id);
-                            CursorMode::Normal
-                        } else {
-                            hidden_mode_windows.insert(*id);
-                            CursorMode::Hidden
-                        };
-                        let _ = display.set_cursor_mode(*id, next_mode);
-                    }
-                    Event::CloseRequested { id } => {
-                        if let Some(sender) = workers.remove(id) {
-                            let _ = sender.send(WorkerMsg::Stop);
-                        }
-                        windows.remove(id);
-                    }
-                    _ => {}
                 }
-
-                if let Some(worker) = workers.get(&id) {
-                    let _ = worker.send(WorkerMsg::Core(event));
+                (Some(window), _) => {
+                    if let Some(sender) = workers.get(&window) {
+                        let _ = sender.send(WorkerMsg::Event(event));
+                    }
                 }
-            },
-            |event| println!("[global] {event:?}"),
-        );
-
-        if windows.is_empty() {
-            println!("all windows closed, exiting");
-            break;
+                (None, _) => {
+                    println!("[global] {event:?}");
+                }
+            }
         }
-
-        thread::sleep(Duration::from_millis(8));
     }
 
     for (_, sender) in workers {
@@ -167,7 +93,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-#[cfg(not(any(target_os = "linux", target_os = "macos")))]
+#[cfg(not(target_os = "linux"))]
 fn main() {
-    panic!("The multi_window_shared_state example targets Linux Wayland and macOS AppKit");
+    panic!("The multi_window_shared_state example targets Linux Wayland");
 }

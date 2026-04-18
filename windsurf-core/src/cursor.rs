@@ -1,6 +1,5 @@
 //! Cursor-related types and events.
 
-use crate::WindowId;
 use alloc::vec::Vec;
 
 extern crate alloc;
@@ -49,22 +48,4 @@ pub enum CursorSource {
         hotspot_y: u16,
         pixels: Vec<u8>,
     },
-}
-
-/// Cursor-specific backend events.
-#[derive(Debug, Clone, PartialEq)]
-pub enum CursorEvent {
-    Moved { id: WindowId, x: f64, y: f64 },
-    ModeChanged { id: WindowId, mode: CursorMode },
-    VisibilityChanged { id: WindowId, visible: bool },
-}
-
-impl CursorEvent {
-    pub const fn window_id(&self) -> WindowId {
-        match self {
-            Self::Moved { id, .. }
-            | Self::ModeChanged { id, .. }
-            | Self::VisibilityChanged { id, .. } => *id,
-        }
-    }
 }

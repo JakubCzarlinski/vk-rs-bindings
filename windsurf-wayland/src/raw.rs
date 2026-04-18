@@ -1,15 +1,13 @@
-use std::ptr::NonNull;
-
+use crate::display::WaylandBackend;
+use crate::window::Window;
+use core::ptr::NonNull;
 use raw_window_handle::{
     DisplayHandle, HandleError, HasDisplayHandle, HasWindowHandle, RawDisplayHandle,
     RawWindowHandle, WaylandDisplayHandle, WaylandWindowHandle, WindowHandle,
 };
 use wayland_client::Proxy;
 
-use crate::display::Display;
-use crate::window::Window;
-
-impl HasDisplayHandle for Display {
+impl HasDisplayHandle for WaylandBackend {
     fn display_handle(&self) -> Result<DisplayHandle<'_>, HandleError> {
         let backend = self.shared.connection.backend();
         let ptr = NonNull::new(backend.display_ptr().cast()).ok_or(HandleError::Unavailable)?;

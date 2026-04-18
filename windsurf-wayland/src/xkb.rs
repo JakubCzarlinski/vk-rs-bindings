@@ -1,8 +1,7 @@
+use core::ptr::NonNull;
+use memmap2::MmapOptions;
 use std::fs::File;
 use std::os::fd::OwnedFd;
-use std::ptr::NonNull;
-
-use memmap2::MmapOptions;
 use windsurf_core::{KeyCode, KeyState};
 use xkbcommon_dl as xkb;
 

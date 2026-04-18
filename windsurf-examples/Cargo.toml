@@ -10,7 +10,7 @@ autoexamples = false
 
 [[example]]
 name = "basic_window"
-path = "examples/basic_window.rs"
+path = "examples/basic_window_app.rs"
 
 [[example]]
 name = "multi_window_shared_state"

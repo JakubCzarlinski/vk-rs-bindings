@@ -1,8 +1,7 @@
-use std::collections::{HashMap, VecDeque};
-use std::rc::Rc;
-use std::sync::Mutex;
-use std::sync::atomic::AtomicU64;
-
+use crate::xkb::XkbState;
+use alloc::rc::Rc;
+use parking_lot::Mutex;
+use std::collections::HashMap;
 use wayland_backend::client::ObjectId;
 use wayland_client::globals::GlobalList;
 use wayland_client::protocol::{wl_compositor, wl_keyboard, wl_pointer, wl_seat, wl_surface};
@@ -12,10 +11,11 @@ use wayland_protocols::wp::cursor_shape::v1::client::{
 };
 use wayland_protocols::xdg::decoration::zv1::client::zxdg_decoration_manager_v1;
 use wayland_protocols::xdg::shell::client::xdg_wm_base;
-use windsurf_core::{Event, LogicalSize, WindowId};
-use windsurf_extra::{CursorIcon, CursorMode, CursorSource, ExtraEvent};
+use windsurf_core::{
+    CursorIcon, CursorMode, CursorSource, Event, EventQueue, WindowHandle, WindowHandleAllocator,
+};
 
-use crate::xkb::XkbState;
+extern crate alloc;
 
 pub(crate) struct SharedDisplay {
     pub(crate) connection: Connection,
@@ -23,7 +23,6 @@ pub(crate) struct SharedDisplay {
     pub(crate) compositor: wl_compositor::WlCompositor,
     pub(crate) wm_base: xdg_wm_base::XdgWmBase,
     pub(crate) decoration_manager: Option<zxdg_decoration_manager_v1::ZxdgDecorationManagerV1>,
-    pub(crate) next_window_id: AtomicU64,
     pub(crate) pump: Mutex<PumpState>,
 }
 
@@ -33,13 +32,13 @@ pub(crate) struct PumpState {
 }
 
 pub(crate) struct State {
-    pub(crate) pending_events: VecDeque<Event>,
-    pub(crate) pending_extra_events: VecDeque<ExtraEvent>,
+    pub(crate) pending_events: EventQueue<1024>,
     pub(crate) compositor: wl_compositor::WlCompositor,
-    pub(crate) windows: HashMap<WindowId, WindowState>,
-    pub(crate) surface_to_window: HashMap<ObjectId, WindowId>,
-    pub(crate) pointer_focus: Option<WindowId>,
-    pub(crate) keyboard_focus: Option<WindowId>,
+    pub(crate) handles: WindowHandleAllocator,
+    pub(crate) windows: HashMap<WindowHandle, WindowState>,
+    pub(crate) surface_to_window: HashMap<ObjectId, WindowHandle>,
+    pub(crate) pointer_focus: Option<WindowHandle>,
+    pub(crate) keyboard_focus: Option<WindowHandle>,
     pub(crate) seat: Option<wl_seat::WlSeat>,
     pub(crate) pointer: Option<wl_pointer::WlPointer>,
     pub(crate) cursor_shape_manager: Option<wp_cursor_shape_manager_v1::WpCursorShapeManagerV1>,
@@ -51,7 +50,7 @@ pub(crate) struct State {
 
 pub(crate) struct WindowState {
     pub(crate) surface: wl_surface::WlSurface,
-    pub(crate) size: LogicalSize,
+    pub(crate) size: windsurf_core::LogicalSize,
     pub(crate) scale_factor: f64,
     pub(crate) needs_redraw: bool,
     pub(crate) transparent: bool,
@@ -60,15 +59,16 @@ pub(crate) struct WindowState {
     pub(crate) cursor_visible: bool,
     pub(crate) cursor_icon: CursorIcon,
 }
+
 impl State {
     pub(crate) fn new(
         compositor: wl_compositor::WlCompositor,
         cursor_shape_manager: Option<wp_cursor_shape_manager_v1::WpCursorShapeManagerV1>,
     ) -> Self {
         Self {
-            pending_events: VecDeque::new(),
-            pending_extra_events: VecDeque::new(),
+            pending_events: EventQueue::new(),
             compositor,
+            handles: WindowHandleAllocator::new(),
             windows: HashMap::new(),
             surface_to_window: HashMap::new(),
             pointer_focus: None,
@@ -83,25 +83,26 @@ impl State {
         }
     }
 
-    pub(crate) fn window_for_surface(&self, surface: &wl_surface::WlSurface) -> Option<WindowId> {
+    pub(crate) fn window_for_surface(
+        &self,
+        surface: &wl_surface::WlSurface,
+    ) -> Option<WindowHandle> {
         self.surface_to_window.get(&surface.id()).copied()
     }
 
-    pub(crate) fn push(&mut self, event: Event) {
-        self.pending_events.push_back(event);
+    pub(crate) fn push_window(&mut self, window: WindowHandle, event: Event) {
+        let _ = self.pending_events.push(Some(window), event);
     }
 
-    pub(crate) fn push_extra(&mut self, event: ExtraEvent) {
-        self.pending_extra_events.push_back(event);
+    pub(crate) fn pop_event(&mut self) -> Option<(Option<WindowHandle>, Event)> {
+        self.pending_events.pop()
     }
 
-    pub(crate) fn apply_cursor_to_pointer_focus(&mut self) {
-        if let Some(window) = self.pointer_focus {
-            self.apply_cursor(window);
-        }
+    pub(crate) fn take_overflow_count(&mut self) -> usize {
+        self.pending_events.take_dropped_count()
     }
 
-    pub(crate) fn apply_cursor(&mut self, window: WindowId) {
+    pub(crate) fn apply_cursor(&mut self, window: WindowHandle) {
         let Some(window_state) = self.windows.get(&window) else {
             return;
         };

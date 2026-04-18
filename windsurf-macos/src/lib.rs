@@ -76,7 +76,7 @@ impl Features for Display {
 
     fn set_ime_state(
         &self,
-        _window: windsurf_core::WindowId,
+        _window: windsurf_core::WindowHandle,
         _state: &ImeState,
     ) -> Result<(), UnsupportedFeature> {
         Err(UnsupportedFeature::new(FeatureKind::Ime))
@@ -84,7 +84,7 @@ impl Features for Display {
 
     fn set_cursor(
         &self,
-        _window: windsurf_core::WindowId,
+        _window: windsurf_core::WindowHandle,
         _source: &CursorSource,
     ) -> Result<(), UnsupportedFeature> {
         Err(UnsupportedFeature::new(FeatureKind::Cursor))
@@ -92,7 +92,7 @@ impl Features for Display {
 
     fn set_cursor_mode(
         &self,
-        _window: windsurf_core::WindowId,
+        _window: windsurf_core::WindowHandle,
         _mode: CursorMode,
     ) -> Result<(), UnsupportedFeature> {
         Err(UnsupportedFeature::new(FeatureKind::Cursor))
@@ -100,7 +100,7 @@ impl Features for Display {
 
     fn start_drag(
         &self,
-        _window: windsurf_core::WindowId,
+        _window: windsurf_core::WindowHandle,
         _source: DragSource,
     ) -> Result<(), UnsupportedFeature> {
         Err(UnsupportedFeature::new(FeatureKind::DragDropSource))

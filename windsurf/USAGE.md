@@ -1,135 +1,45 @@
 # windsurf Usage Guide
 
-This guide describes how the current `windsurf` workspace is intended to be used.
-
 ## Crate layout
 
-- `windsurf-core`: minimal shared types for window lifecycle, input, geometry, and a poll-friendly queue.
-- `windsurf-macos`: macOS backend implementing the shared `Display` / `Window` surface.
-- `windsurf-wayland`: Wayland + XDG-shell backend implementing `Display` and `Window`.
-- `windsurf-examples`: runnable examples that depend on backend crates without living inside them.
-- `windsurf`: facade crate that re-exports the shared and backend crates.
+- `windsurf-core`: shared ID-free event types, `WindowHandle`, fixed-capacity event queue, backend traits.
+- `windsurf-wayland`: Wayland backend implementing `LoopBackend`.
+- `windsurf`: facade exposing the default `EventLoop` + `Window` API.
+- `windsurf-examples`: runnable sample apps.
 
-## When to use each crate
-
-Use `windsurf-core` when you want the smallest possible API surface and you are
-building or consuming a backend that only needs windows plus basic input.
-
-Use `windsurf` when you want a single import path and are happy with the facade
-re-export strategy.
-
-If you want backend types through the facade, enable the relevant backend feature:
+## Enable backend
 
 ```toml
 [dependencies]
 windsurf = { path = "../windsurf", features = ["wayland"] }
 ```
 
-Use the `macos` feature instead on macOS when you want the AppKit backend
-re-exported from the facade.
-
 ## Core workflow
 
-The intended control flow stays polling-oriented:
+Single central loop, no callbacks:
 
-1. A backend pumps OS messages.
-2. The backend translates them into `windsurf_core::Event`.
-3. The backend pushes those events into `EventQueue`.
-4. The application drains the queue whenever it chooses.
-
-Minimal example:
+1. Create `EventLoop`.
+2. Create one or more `Window`s from it.
+3. Poll or wait for events as `(Option<WindowHandle>, Event)`.
+4. Route by `WindowHandle` when scope is `Some`.
 
 ```rust
-use windsurf::{Event, EventQueue, WindowAttributes, WindowId};
+use core::time::Duration;
+use windsurf::{Event, EventLoop, Window, WindowAttributes};
 
-let attrs = WindowAttributes::default();
-assert!(attrs.decorations);
+let mut event_loop = EventLoop::connect()?;
+let _window = Window::new(&event_loop, WindowAttributes::default())?;
 
-let mut events = EventQueue::new();
-events.push(Event::WindowCreated { id: WindowId::new(1) });
-events.push(Event::RedrawRequested { id: WindowId::new(1) });
-
-for event in events.drain() {
-    match event {
-        Event::RedrawRequested { id } => {
-            assert_eq!(id.raw(), 1);
+loop {
+    if let Some((scope, event)) = event_loop.wait_event(Some(Duration::from_millis(16)))? {
+        if matches!((scope, event), (Some(_), Event::CloseRequested)) {
+            break;
         }
-        _ => {}
     }
 }
+# Ok::<(), Box<dyn core::error::Error>>(())
 ```
 
-## Extra feature workflow
+## Optional features
 
-Optional richer events are part of `Event` and are still consumed through
-`EventQueue`.
-
-Typical backend shape:
-
-1. Advertise optional support via `FeatureSet`.
-2. Implement `Features`.
-3. Emit events into `EventQueue`.
-4. Let the application drain one queue and branch on event variants.
-
-Example:
-
-```rust
-use windsurf::{
-    CursorIcon, CursorSource, Event, EventQueue, FeatureSet, ImeEvent, WindowId,
-};
-
-let supported = FeatureSet::IME.with(FeatureSet::CURSOR);
-assert!(supported.contains(FeatureSet::CURSOR));
-
-let mut events = EventQueue::new();
-events.push(Event::Ime(ImeEvent::Enabled { id: WindowId::new(3) }));
-
-let source = CursorSource::Icon(CursorIcon::Pointer);
-assert!(matches!(source, CursorSource::Icon(CursorIcon::Pointer)));
-assert_eq!(events.drain().count(), 1);
-```
-
-## Backend author guidance
-
-The workspace now includes a Wayland backend in `windsurf-wayland` plus a macOS
-backend in `windsurf-macos`. If you are
-implementing the next backend:
-
-1. Keep the producer side platform-specific.
-2. Translate into `windsurf-core` types at the boundary.
-3. Use `UnsupportedFeature` for partial extra support instead of inventing a new error type for this layer.
-4. Keep raw platform handles available elsewhere; these crates are the portable API surface, not the entire backend.
-
-## Application author guidance
-
-Treat `windsurf-core` as the required contract, and gate optional behavior with
-`FeatureSet`.
-
-Good pattern:
-
-- run your app from one unified queue
-- branch on `FeatureSet` for optional behavior
-- keep rendering and platform escape hatches out of the event types
-
-## Example
-
-The runnable cross-platform Vulkan example lives at:
-
-- `windsurf-examples/examples/basic_window.rs`
-
-You can build or run it with:
-
-```bash
-cargo run -p windsurf-examples --example basic_window
-```
-
-## Status
-
-As of April 13, 2026, this workspace contains:
-
-- shared API crates
-- a macOS backend
-- a working Wayland backend
-- example binaries and rustdoc examples
-
-iOS and Android backends are still future work.
+Use `Features` (`set_ime_state`, `set_cursor`, `set_cursor_mode`, `start_drag`) on `EventLoop` and branch behavior based on `supported_features()`.

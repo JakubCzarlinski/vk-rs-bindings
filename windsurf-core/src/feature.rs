@@ -1,4 +1,4 @@
-use crate::{CursorMode, CursorSource, DragSource, ImeState, WindowId};
+use crate::{CursorMode, CursorSource, DragSource, ImeState, WindowHandle};
 use alloc::fmt;
 use core::error::Error;
 
@@ -73,12 +73,26 @@ impl Error for UnsupportedFeature {}
 /// Backend-facing trait for optional richer interactions.
 pub trait Features {
     fn supported_features(&self) -> FeatureSet;
-    fn set_ime_state(&self, window: WindowId, state: &ImeState) -> Result<(), UnsupportedFeature>;
-    fn set_cursor(&self, window: WindowId, source: &CursorSource)
-    -> Result<(), UnsupportedFeature>;
-    fn set_cursor_mode(&self, window: WindowId, mode: CursorMode)
-    -> Result<(), UnsupportedFeature>;
-    fn start_drag(&self, window: WindowId, source: DragSource) -> Result<(), UnsupportedFeature>;
+    fn set_ime_state(
+        &self,
+        window: WindowHandle,
+        state: &ImeState,
+    ) -> Result<(), UnsupportedFeature>;
+    fn set_cursor(
+        &self,
+        window: WindowHandle,
+        source: &CursorSource,
+    ) -> Result<(), UnsupportedFeature>;
+    fn set_cursor_mode(
+        &self,
+        window: WindowHandle,
+        mode: CursorMode,
+    ) -> Result<(), UnsupportedFeature>;
+    fn start_drag(
+        &self,
+        window: WindowHandle,
+        source: DragSource,
+    ) -> Result<(), UnsupportedFeature>;
 }
 
 #[cfg(test)]

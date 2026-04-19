@@ -1,16 +1,76 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url};
-use crate::ir::{Registry, TypedefKind};
+use crate::ir::{Constant, Registry, TypedefKind};
 use crate::types::const_rust_type;
 use proc_macro2::{Literal, TokenStream};
 use quote::{format_ident, quote};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashMap};
 
 pub fn gen_consts_rs(reg: &Registry) -> String {
     // Collect items grouped by feature gate for sorted, compact output.
     // Key = sorted provided_by vec (empty = ungated).
     let mut groups: BTreeMap<Vec<String>, TokenStream> = BTreeMap::new();
     let mut emitted = std::collections::HashSet::new();
+    let mut extension_literal_by_prefix: HashMap<String, String> = HashMap::new();
+    let mut extension_name_const_by_literal: HashMap<String, String> = HashMap::new();
+
+    for c in reg.constants.values().flatten() {
+        if !c.name.ends_with("_EXTENSION_NAME") || c.ty != "&'static str" {
+            continue;
+        }
+        let Some(prefix) = c.name.strip_suffix("_EXTENSION_NAME") else {
+            continue;
+        };
+        let Some(extension_literal) = parse_cstr_literal(&c.value) else {
+            continue;
+        };
+        extension_literal_by_prefix.insert(prefix.to_owned(), extension_literal.clone());
+        extension_name_const_by_literal.insert(extension_literal, c.name.clone());
+    }
+
+    let extension_type_by_name: HashMap<String, String> = reg
+        .extensions
+        .iter()
+        .filter(|ext| !ext.is_disabled() && !ext.is_video_header())
+        .filter_map(|ext| {
+            ext.ext_type
+                .as_ref()
+                .map(|kind| (ext.name.clone(), kind.clone()))
+        })
+        .collect();
+
+    let mut extension_type_by_prefix: HashMap<String, String> = HashMap::new();
+    for (prefix, extension_literal) in &extension_literal_by_prefix {
+        if let Some(kind) = extension_type_by_name.get(extension_literal) {
+            extension_type_by_prefix.insert(prefix.clone(), kind.clone());
+        }
+    }
+
+    let mut enabled_instance_extensions: Vec<(String, String)> = Vec::new();
+    let mut enabled_device_extensions: Vec<(String, String)> = Vec::new();
+    for ext in reg
+        .extensions
+        .iter()
+        .filter(|ext| !ext.is_disabled() && !ext.is_video_header())
+    {
+        let Some(kind) = ext.ext_type.as_deref() else {
+            continue;
+        };
+        let Some(const_name) = extension_name_const_by_literal.get(&ext.name) else {
+            continue;
+        };
+        match kind {
+            "instance" => {
+                enabled_instance_extensions.push((ext.name.clone(), const_name.clone()));
+            }
+            "device" => {
+                enabled_device_extensions.push((ext.name.clone(), const_name.clone()));
+            }
+            _ => {}
+        }
+    }
+    enabled_instance_extensions.sort_by(|a, b| a.0.cmp(&b.0));
+    enabled_device_extensions.sort_by(|a, b| a.0.cmp(&b.0));
 
     // #define typedefs -> const fn or pub const
     for typedef in reg.typedefs.values().flatten() {
@@ -136,9 +196,14 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
         }
 
         let name = format_ident!("{}", &c.name);
-        let url = refpage_url(&c.name);
+        let url = constant_refpage_url(c, &extension_literal_by_prefix);
         let url_str = format!(" [{}]({})", c.name, url);
         let mut doc = quote! { #[doc = #url_str] };
+        if let Some(kind) = extension_type_for_constant(&c.name, &extension_type_by_prefix) {
+            doc.extend(quote! { #[doc = " "] });
+            let ext_line = format!(" Extension type: {kind} extension.");
+            doc.extend(quote! { #[doc = #ext_line] });
+        }
         if let Some(ref comment) = c.comment {
             let comment = comment.trim();
             if !comment.is_empty() {
@@ -166,7 +231,6 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 pub const #name: u32 = #a;
             }
         } else if c.ty == "&'static str" {
-            // TODO(czarlinski): url needs fixing to properly cased, rather than all uppercase.
             let mut val = c.value.clone();
             if val.starts_with('"') && val.ends_with('"') {
                 val.insert(0, 'c');
@@ -203,6 +267,42 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
         out.extend(items);
     }
     pretty(&out)
+}
+
+fn constant_refpage_url(
+    c: &Constant,
+    extension_literal_by_prefix: &HashMap<String, String>,
+) -> String {
+    if c.name.ends_with("_EXTENSION_NAME")
+        && c.ty == "&'static str"
+        && let Some(extension_literal) = parse_cstr_literal(&c.value)
+    {
+        return refpage_url(&extension_literal);
+    }
+    if let Some(prefix) = c.name.strip_suffix("_SPEC_VERSION")
+        && let Some(extension_literal) = extension_literal_by_prefix.get(prefix)
+    {
+        return refpage_url(extension_literal);
+    }
+    refpage_url(&c.name)
+}
+
+fn extension_type_for_constant<'a>(
+    name: &str,
+    extension_type_by_prefix: &'a HashMap<String, String>,
+) -> Option<&'a str> {
+    let prefix = name
+        .strip_suffix("_SPEC_VERSION")
+        .or_else(|| name.strip_suffix("_EXTENSION_NAME"))?;
+    extension_type_by_prefix.get(prefix).map(String::as_str)
+}
+
+fn parse_cstr_literal(value: &str) -> Option<String> {
+    let trimmed = value.trim();
+    let inner = trimmed
+        .strip_prefix('"')
+        .and_then(|s| s.strip_suffix('"'))?;
+    Some(inner.to_owned())
 }
 
 fn normalize_const_value(value: &str, ty: &str) -> String {

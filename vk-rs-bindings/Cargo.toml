@@ -2,6 +2,14 @@
 name = "vk-rs-bindings"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+repository = "https://github.com/JakubCzarlinski/vk-rs-bindings"
+homepage = "https://github.com/JakubCzarlinski/vk-rs-bindings"
+documentation = "https://docs.rs/vk-rs-bindings"
+authors = ["Jakub Czarlinski <jakubczarlinski@gmail.com>"]
+keywords = ["vulkan", "ffi", "bindings", "graphics"]
+categories = ["api-bindings", "external-ffi-bindings", "graphics"]
+rust-version = "1.85"
 description = "Auto-generated Vulkan FFI (vk-codegen)"
 
 [dependencies]

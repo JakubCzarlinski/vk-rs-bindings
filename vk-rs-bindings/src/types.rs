@@ -41340,16 +41340,16 @@ impl VkMemoryGetZirconHandleInfoFUCHSIA {
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
     feature = "VK_FUCHSIA_imagepipe_surface",
-    feature = "VK_FUCHSIA_external_semaphore",
-    feature = "VK_FUCHSIA_external_memory"
+    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_external_semaphore"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct zx_handle_t(pub *mut core::ffi::c_void);
 #[cfg(any(
     feature = "VK_FUCHSIA_imagepipe_surface",
-    feature = "VK_FUCHSIA_external_semaphore",
-    feature = "VK_FUCHSIA_external_memory"
+    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_external_semaphore"
 ))]
 impl zx_handle_t {
     pub const NULL: Self = Self(core::ptr::null_mut());
@@ -51381,16 +51381,16 @@ impl VkFenceGetWin32HandleInfoKHR {
 /// [LPCWSTR](https://docs.vulkan.org/refpages/latest/refpages/source/LPCWSTR.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_fence_win32",
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LPCWSTR(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_fence_win32",
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32"
 ))]
 impl LPCWSTR {
@@ -51399,19 +51399,19 @@ impl LPCWSTR {
 /// [HANDLE](https://docs.vulkan.org/refpages/latest/refpages/source/HANDLE.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_fence_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_NV_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HANDLE(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_fence_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_NV_external_memory_win32"
 ))]
 impl HANDLE {
     pub const NULL: Self = Self(core::ptr::null_mut());
@@ -51421,8 +51421,8 @@ impl HANDLE {
 #[cfg(any(
     feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_fence_win32",
-    feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_memory_win32"
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -51430,8 +51430,8 @@ pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
     feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_fence_win32",
-    feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_memory_win32"
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32"
 ))]
 impl SECURITY_ATTRIBUTES {
     pub const NULL: Self = Self(core::ptr::null_mut());
@@ -51439,19 +51439,19 @@ impl SECURITY_ATTRIBUTES {
 /// [DWORD](https://docs.vulkan.org/refpages/latest/refpages/source/DWORD.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32"
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DWORD(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32"
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32"
 ))]
 impl DWORD {
     pub const NULL: Self = Self(core::ptr::null_mut());

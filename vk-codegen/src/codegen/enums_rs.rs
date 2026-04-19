@@ -3,7 +3,7 @@ use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url};
 use crate::ir::{Enum, EnumValue, Registry};
 use proc_macro2::{Literal, TokenStream};
 use quote::{format_ident, quote};
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 
 pub fn gen_enums_rs(reg: &Registry) -> String {
     let disabled: HashSet<String> = reg
@@ -78,6 +78,11 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
             }
         }
     }
+    let value_by_name: HashMap<String, EnumValue> = e
+        .variants
+        .iter()
+        .map(|v| (v.name.clone(), v.value.clone()))
+        .collect();
 
     // If the enum was introduced by an extension (non-empty provided_by) but all its providers
     // and variants are disabled, skip it entirely.
@@ -150,7 +155,8 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
             }
         }
 
-        let val = enum_val_tokens(&variant.value, false);
+        let resolved = resolve_enum_value(&variant.value, &value_by_name);
+        let val = enum_val_tokens(&resolved, false);
         if variant_doc.is_empty() {
             variant_token_stream.extend(quote! {
                 #variant_cfg #variant_depr
@@ -193,6 +199,11 @@ fn gen_bitmask_type(
     };
     let mut bit_token_stream = TokenStream::new();
     let mut seen_features: HashSet<String> = HashSet::new();
+    let value_by_name: HashMap<String, EnumValue> = e
+        .variants
+        .iter()
+        .map(|v| (v.name.clone(), v.value.clone()))
+        .collect();
 
     for variant in &e.variants {
         if !seen_features.insert(variant.name.clone()) {
@@ -222,7 +233,8 @@ fn gen_bitmask_type(
             }
         }
 
-        let val = enum_val_tokens(&variant.value, true);
+        let resolved = resolve_enum_value(&variant.value, &value_by_name);
+        let val = enum_val_tokens(&resolved, true);
         if variant_doc.is_empty() {
             bit_token_stream.extend(quote! {
                 #variant_cfg #variant_depr
@@ -308,6 +320,32 @@ fn enum_val_tokens(val: &EnumValue, unsigned: bool) -> TokenStream {
             quote! {#l}
         }),
     }
+}
+
+fn resolve_enum_value(value: &EnumValue, value_by_name: &HashMap<String, EnumValue>) -> EnumValue {
+    fn resolve_with_seen(
+        value: &EnumValue,
+        value_by_name: &HashMap<String, EnumValue>,
+        seen: &mut HashSet<String>,
+    ) -> EnumValue {
+        match value {
+            EnumValue::Alias(name) => {
+                if !seen.insert(name.clone()) {
+                    return value.clone();
+                }
+                let resolved = value_by_name
+                    .get(name)
+                    .map(|v| resolve_with_seen(v, value_by_name, seen))
+                    .unwrap_or_else(|| value.clone());
+                seen.remove(name);
+                resolved
+            }
+            _ => value.clone(),
+        }
+    }
+
+    let mut seen = HashSet::new();
+    resolve_with_seen(value, value_by_name, &mut seen)
 }
 
 fn normalize_expr(s: &str, unsigned: bool) -> String {

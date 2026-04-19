@@ -42,7 +42,7 @@ let app = VkApplicationInfo::DEFAULT
 
 let inst_info = VkInstanceCreateInfo::DEFAULT.with_pApplicationInfo(&app);
 let instance = entry.vkCreateInstance(&inst_info, null()).expect("vkCreateInstance");
-// Insance dropped here, vkDestroyInstance called automatically.
+// Instance dropped here, vkDestroyInstance called automatically.
 // Manual call to vkDestroyInstance is permitted, but not required.
 // All descendants of instance are also dropped automatically.
 ```

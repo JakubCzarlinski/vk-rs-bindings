@@ -74,6 +74,27 @@ Use a custom pool when:
 - you want different block sizes
 - you want to isolate resource classes or allocator behavior for a subsystem
 
+`Pool` is an opaque handle returned by `create_pool`; it is consumed through
+`AllocationCreateInfo::with_pool`.
+
+```rust,no_run
+use vk_alloc::{AllocationCreateInfo, Allocator, PoolCreateInfo};
+
+fn pool_example<'vk>(
+    physical_device: &'vk vk::PhysicalDevice<'vk>,
+    device: &'vk vk::Device<'vk>,
+) -> Result<(), vk_alloc::AllocatorError> {
+    let allocator = Allocator::new(physical_device, device)?;
+    let streaming_pool = allocator.create_pool(
+        PoolCreateInfo::new().with_host_visible_block_size(4 * 1024 * 1024),
+    )?;
+
+    let alloc_info = AllocationCreateInfo::new().with_pool(streaming_pool);
+    let _ = alloc_info;
+    Ok(())
+}
+```
+
 ### `SparseBufferAllocation` and `SparseImageAllocation`
 
 Use these only for sparse Vulkan resources.
@@ -214,10 +235,7 @@ fn create_buffer<'vk>(
 
     allocator.create_buffer(
         &buffer_info,
-        AllocationCreateInfo {
-            memory_type_policy: MemoryTypePolicy::UPLOAD,
-            ..AllocationCreateInfo::new()
-        },
+        AllocationCreateInfo::new().with_memory_type_policy(MemoryTypePolicy::UPLOAD),
     )
 }
 ```
@@ -274,8 +292,7 @@ fn create_group_buffer<'vk>(
 
     allocator.create_buffer_with_mode(
         &buffer_info,
-        GroupBindMode::Instance0,
-        AllocationCreateInfo::new(),
+        AllocationCreateInfo::new().with_group_bind_mode(GroupBindMode::Instance0),
     )
 }
 ```
@@ -332,10 +349,7 @@ fn import_buffer<'vk>(
     allocator.import_host_buffer(
         &buffer_info,
         HostImportBufferCreateInfo::new(host_ptr, size),
-        AllocationCreateInfo {
-            memory_type_policy: MemoryTypePolicy::HOST_VISIBLE,
-            ..AllocationCreateInfo::new()
-        },
+        AllocationCreateInfo::new().with_memory_type_policy(MemoryTypePolicy::HOST_VISIBLE),
     )
 }
 ```
@@ -371,10 +385,7 @@ fn create_large_buffer<'vk>(
 
     allocator.create_large_buffer(
         &buffer_info,
-        AllocationCreateInfo {
-            memory_type_policy: MemoryTypePolicy::DEVICE_LOCAL,
-            ..AllocationCreateInfo::new()
-        },
+        AllocationCreateInfo::new().with_memory_type_policy(MemoryTypePolicy::DEVICE_LOCAL),
         LargeBufferCreateInfo::new(),
     )
 }
@@ -475,4 +486,4 @@ Current automated validation:
 Criterion:
 
 - `cargo bench -p vk-alloc --no-run`
-- `cargo bench -p vk-alloc --features bench-internals --no-run`
+- `cargo bench -p vk-alloc --no-run`

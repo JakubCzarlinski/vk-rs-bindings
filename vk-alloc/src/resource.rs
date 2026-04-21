@@ -1,7 +1,6 @@
-use alloc::vec::Vec;
-
 use crate::group_allocator::GroupBindMode;
-use crate::pool::Pool;
+use crate::pool::{Pool, PoolCreateInfo};
+use alloc::vec::Vec;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct MemoryTypePolicy {
@@ -87,17 +86,16 @@ pub enum AllocationStrategy {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub enum ResourceClass {
+pub(crate) enum ResourceClass {
     Linear,
     Optimal,
-    DedicatedOnly,
 }
 
 #[derive(Clone)]
 pub struct AllocatorCreateInfo<'vk> {
     pub physical_device: &'vk vk::PhysicalDevice<'vk>,
     pub device: &'vk vk::Device<'vk>,
-    pub default_pool: crate::pool::PoolCreateInfo,
+    pub default_pool: PoolCreateInfo,
     pub max_metadata_slots: u32,
 }
 
@@ -109,9 +107,21 @@ impl<'vk> AllocatorCreateInfo<'vk> {
         Self {
             physical_device,
             device,
-            default_pool: crate::pool::PoolCreateInfo::new(),
+            default_pool: PoolCreateInfo::new(),
             max_metadata_slots: 1 << 20,
         }
+    }
+
+    #[must_use]
+    pub const fn with_default_pool(mut self, default_pool: PoolCreateInfo) -> Self {
+        self.default_pool = default_pool;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_max_metadata_slots(mut self, max_metadata_slots: u32) -> Self {
+        self.max_metadata_slots = max_metadata_slots;
+        self
     }
 }
 
@@ -135,6 +145,48 @@ impl AllocationCreateInfo {
 
     pub const fn new() -> Self {
         Self::DEFAULT
+    }
+
+    #[must_use]
+    pub const fn with_memory_type_policy(mut self, memory_type_policy: MemoryTypePolicy) -> Self {
+        self.memory_type_policy = memory_type_policy;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_strategy(mut self, strategy: AllocationStrategy) -> Self {
+        self.strategy = strategy;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_pool(mut self, pool: Pool) -> Self {
+        self.pool = pool;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_dedicated_threshold(mut self, dedicated_threshold: u64) -> Self {
+        self.dedicated_threshold = Some(dedicated_threshold);
+        self
+    }
+
+    #[must_use]
+    pub const fn without_dedicated_threshold(mut self) -> Self {
+        self.dedicated_threshold = None;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_group_bind_mode(mut self, group_bind_mode: GroupBindMode) -> Self {
+        self.group_bind_mode = Some(group_bind_mode);
+        self
+    }
+
+    #[must_use]
+    pub const fn without_group_bind_mode(mut self) -> Self {
+        self.group_bind_mode = None;
+        self
     }
 }
 
@@ -166,6 +218,81 @@ impl SparseAllocationCreateInfo {
 
     pub const fn new() -> Self {
         Self::DEFAULT
+    }
+
+    #[must_use]
+    pub const fn with_memory_type_policy(mut self, memory_type_policy: MemoryTypePolicy) -> Self {
+        self.memory_type_policy = memory_type_policy;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_page_size(mut self, page_size: u64) -> Self {
+        self.page_size = Some(page_size);
+        self
+    }
+
+    #[must_use]
+    pub const fn without_page_size(mut self) -> Self {
+        self.page_size = None;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_queue_family_index(mut self, queue_family_index: u32) -> Self {
+        self.queue_family_index = Some(queue_family_index);
+        self
+    }
+
+    #[must_use]
+    pub const fn without_queue_family_index(mut self) -> Self {
+        self.queue_family_index = None;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_pool(mut self, pool: Pool) -> Self {
+        self.pool = pool;
+        self
+    }
+
+    #[must_use]
+    pub const fn with_group_bind_mode(mut self, group_bind_mode: GroupBindMode) -> Self {
+        self.group_bind_mode = Some(group_bind_mode);
+        self
+    }
+
+    #[must_use]
+    pub const fn without_group_bind_mode(mut self) -> Self {
+        self.group_bind_mode = None;
+        self
+    }
+
+    #[must_use]
+    pub fn with_split_instance_regions(
+        mut self,
+        split_instance_regions: Vec<vk::VkRect2D>,
+    ) -> Self {
+        self.split_instance_regions = split_instance_regions;
+        self
+    }
+
+    pub(crate) fn into_allocation_info(self) -> AllocationCreateInfo {
+        AllocationCreateInfo::new()
+            .with_memory_type_policy(self.memory_type_policy)
+            .with_pool(self.pool)
+            .with_strategy(AllocationStrategy::Auto)
+            .with_group_bind_mode_option(self.group_bind_mode)
+    }
+}
+
+impl AllocationCreateInfo {
+    pub(crate) const fn with_group_bind_mode_option(
+        mut self,
+        group_bind_mode: Option<GroupBindMode>,
+    ) -> Self {
+        self.group_bind_mode = group_bind_mode;
+        self
     }
 }
 

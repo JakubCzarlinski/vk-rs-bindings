@@ -1,19 +1,64 @@
-use alloc::sync::Arc;
-use alloc::vec;
-use alloc::vec::Vec;
-
-use parking_lot::Mutex;
-
 use crate::allocation::Allocation;
 use crate::allocator::Allocator;
 use crate::error::AllocatorError;
 use crate::group_allocator::{GroupAllocator, GroupBindMode};
-use crate::internal::page_table::PageTable;
 use crate::resource::{AllocationCreateInfo, SparseAllocationCreateInfo};
+use alloc::boxed::Box;
+use alloc::collections::BTreeMap;
+use alloc::sync::Arc;
+use alloc::vec;
+use alloc::vec::Vec;
+use parking_lot::RwLock;
+
+#[derive(Debug, Clone)]
+pub(crate) struct PageTable<K, V> {
+    pages: BTreeMap<K, V>,
+}
+
+impl<K, V> PageTable<K, V> {
+    pub(crate) const fn new() -> Self {
+        Self {
+            pages: BTreeMap::new(),
+        }
+    }
+}
+
+impl<K, V> Default for PageTable<K, V> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl<K, V> PageTable<K, V>
+where
+    K: Ord,
+{
+    pub(crate) fn insert(&mut self, key: K, value: V) -> Option<V> {
+        self.pages.insert(key, value)
+    }
+
+    pub(crate) fn remove(&mut self, key: &K) -> Option<V> {
+        self.pages.remove(key)
+    }
+
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub(crate) fn get(&self, key: &K) -> Option<&V> {
+        self.pages.get(key)
+    }
+
+    pub(crate) fn for_each<F>(&self, mut f: F)
+    where
+        F: FnMut(&K, &V),
+    {
+        for (key, value) in &self.pages {
+            f(key, value);
+        }
+    }
+}
 
 #[derive(Debug, Clone)]
 pub struct SparseBufferBindList {
-    binds: Vec<vk::VkSparseMemoryBind>,
+    binds: Box<[vk::VkSparseMemoryBind]>,
 }
 
 impl SparseBufferBindList {
@@ -24,7 +69,7 @@ impl SparseBufferBindList {
 
 #[derive(Debug, Clone)]
 pub struct SparseImageBindList {
-    binds: Vec<vk::VkSparseImageMemoryBind>,
+    binds: Box<[vk::VkSparseImageMemoryBind]>,
 }
 
 impl SparseImageBindList {
@@ -35,10 +80,10 @@ impl SparseImageBindList {
 
 #[derive(Debug, Clone)]
 pub struct PreparedBindSparseInfo {
-    buffer_binds: Vec<vk::VkSparseMemoryBind>,
-    buffer_infos: Vec<vk::VkSparseBufferMemoryBindInfo>,
-    image_binds: Vec<vk::VkSparseImageMemoryBind>,
-    image_infos: Vec<vk::VkSparseImageMemoryBindInfo>,
+    buffer_binds: Box<[vk::VkSparseMemoryBind]>,
+    buffer_infos: Box<[vk::VkSparseBufferMemoryBindInfo]>,
+    image_binds: Box<[vk::VkSparseImageMemoryBind]>,
+    image_infos: Box<[vk::VkSparseImageMemoryBindInfo]>,
     info: vk::VkBindSparseInfo,
 }
 
@@ -67,10 +112,88 @@ impl PreparedBindSparseInfo {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 struct SparsePageKey(u64);
 
+type SparsePageTable = Arc<RwLock<PageTable<SparsePageKey, Allocation>>>;
+
+struct SparseBase {
+    page_size: u64,
+    pages: SparsePageTable,
+    base_alloc_info: AllocationCreateInfo,
+}
+
+fn empty_box<T>() -> Box<[T]> {
+    Vec::new().into_boxed_slice()
+}
+
+fn sparse_buffer_base<'vk>(
+    device: &'vk vk::Device<'vk>,
+    buffer_info: &vk::VkBufferCreateInfo,
+    sparse_info: SparseAllocationCreateInfo,
+    group_allocator: bool,
+) -> Result<(vk::Buffer<'vk>, SparseBase), AllocatorError> {
+    if group_allocator && sparse_info.group_bind_mode == Some(GroupBindMode::SplitInstanceRegions) {
+        return Err(AllocatorError::GroupModeUnsupported);
+    }
+    if buffer_info.flags & vk::VkBufferCreateFlagBits::VK_BUFFER_CREATE_SPARSE_BINDING_BIT.0 == 0 {
+        return Err(AllocatorError::SparseBindingUnsupported);
+    }
+    let buffer = device
+        .vkCreateBuffer(buffer_info, vk::null())
+        .map_err(AllocatorError::Vulkan)?;
+    let mut requirements = vk::VkMemoryRequirements::DEFAULT;
+    buffer.vkGetBufferMemoryRequirements(&raw mut requirements);
+    Ok((
+        buffer,
+        SparseBase {
+            page_size: sparse_info
+                .page_size
+                .unwrap_or(requirements.alignment.max(1)),
+            pages: Arc::new(RwLock::new(PageTable::new())),
+            base_alloc_info: sparse_info.into_allocation_info(),
+        },
+    ))
+}
+
+fn sparse_image_base<'vk>(
+    device: &'vk vk::Device<'vk>,
+    image_info: &vk::VkImageCreateInfo,
+    sparse_info: SparseAllocationCreateInfo,
+    group_allocator: bool,
+) -> Result<(vk::Image<'vk>, SparseBase), AllocatorError> {
+    if group_allocator
+        && sparse_info.group_bind_mode == Some(GroupBindMode::SplitInstanceRegions)
+        && sparse_info.split_instance_regions.is_empty()
+    {
+        return Err(AllocatorError::InvalidSparseRegion);
+    }
+    if image_info.flags & vk::VkImageCreateFlagBits::VK_IMAGE_CREATE_SPARSE_BINDING_BIT.0 == 0 {
+        return Err(AllocatorError::SparseBindingUnsupported);
+    }
+    let image = device
+        .vkCreateImage(image_info, vk::null())
+        .map_err(AllocatorError::Vulkan)?;
+    let page_size = if let Some(page_size) = sparse_info.page_size {
+        page_size
+    } else if !group_allocator {
+        let mut count = 0;
+        image.vkGetImageSparseMemoryRequirements(&raw mut count, core::ptr::null_mut());
+        64 * 1024
+    } else {
+        64 * 1024
+    };
+    Ok((
+        image,
+        SparseBase {
+            page_size,
+            pages: Arc::new(RwLock::new(PageTable::default())),
+            base_alloc_info: sparse_info.into_allocation_info(),
+        },
+    ))
+}
+
 pub struct SparseBufferAllocation<'vk> {
     buffer: vk::Buffer<'vk>,
     page_size: u64,
-    pages: Arc<Mutex<PageTable<SparsePageKey, Allocation>>>,
+    pages: SparsePageTable,
     base_alloc_info: AllocationCreateInfo,
 }
 
@@ -81,29 +204,12 @@ impl<'vk> SparseBufferAllocation<'vk> {
         buffer_info: &vk::VkBufferCreateInfo,
         sparse_info: SparseAllocationCreateInfo,
     ) -> Result<Self, AllocatorError> {
-        if buffer_info.flags & vk::VkBufferCreateFlagBits::VK_BUFFER_CREATE_SPARSE_BINDING_BIT.0
-            == 0
-        {
-            return Err(AllocatorError::SparseBindingUnsupported);
-        }
-        let buffer = device
-            .vkCreateBuffer(buffer_info, vk::null())
-            .map_err(AllocatorError::Vulkan)?;
-        let mut requirements = vk::VkMemoryRequirements::DEFAULT;
-        buffer.vkGetBufferMemoryRequirements(&raw mut requirements);
+        let (buffer, base) = sparse_buffer_base(device, buffer_info, sparse_info, false)?;
         Ok(Self {
             buffer,
-            page_size: sparse_info
-                .page_size
-                .unwrap_or(requirements.alignment.max(1)),
-            pages: Arc::new(Mutex::new(PageTable::default())),
-            base_alloc_info: AllocationCreateInfo {
-                memory_type_policy: sparse_info.memory_type_policy,
-                strategy: crate::resource::AllocationStrategy::Auto,
-                pool: sparse_info.pool,
-                dedicated_threshold: None,
-                group_bind_mode: sparse_info.group_bind_mode,
-            },
+            page_size: base.page_size,
+            pages: base.pages,
+            base_alloc_info: base.base_alloc_info,
         })
     }
 
@@ -113,32 +219,12 @@ impl<'vk> SparseBufferAllocation<'vk> {
         buffer_info: &vk::VkBufferCreateInfo,
         sparse_info: SparseAllocationCreateInfo,
     ) -> Result<Self, AllocatorError> {
-        if sparse_info.group_bind_mode == Some(GroupBindMode::SplitInstanceRegions) {
-            return Err(AllocatorError::GroupModeUnsupported);
-        }
-        if buffer_info.flags & vk::VkBufferCreateFlagBits::VK_BUFFER_CREATE_SPARSE_BINDING_BIT.0
-            == 0
-        {
-            return Err(AllocatorError::SparseBindingUnsupported);
-        }
-        let buffer = device
-            .vkCreateBuffer(buffer_info, vk::null())
-            .map_err(AllocatorError::Vulkan)?;
-        let mut requirements = vk::VkMemoryRequirements::DEFAULT;
-        buffer.vkGetBufferMemoryRequirements(&raw mut requirements);
+        let (buffer, base) = sparse_buffer_base(device, buffer_info, sparse_info, true)?;
         Ok(Self {
             buffer,
-            page_size: sparse_info
-                .page_size
-                .unwrap_or(requirements.alignment.max(1)),
-            pages: Arc::new(Mutex::new(PageTable::default())),
-            base_alloc_info: AllocationCreateInfo {
-                memory_type_policy: sparse_info.memory_type_policy,
-                strategy: crate::resource::AllocationStrategy::Auto,
-                pool: sparse_info.pool,
-                dedicated_threshold: None,
-                group_bind_mode: sparse_info.group_bind_mode,
-            },
+            page_size: base.page_size,
+            pages: base.pages,
+            base_alloc_info: base.base_alloc_info,
         })
     }
 
@@ -152,18 +238,14 @@ impl<'vk> SparseBufferAllocation<'vk> {
         page_index: u64,
         resident: bool,
     ) -> Result<(), AllocatorError> {
-        let key = SparsePageKey(page_index);
-        if resident {
-            let requirements = vk::VkMemoryRequirements::DEFAULT
-                .with_size(self.page_size)
-                .with_alignment(self.page_size)
-                .with_memoryTypeBits(u32::MAX);
-            let allocation = allocator.allocate_page(requirements, self.base_alloc_info.clone())?;
-            self.pages.lock().insert(key, allocation);
-        } else {
-            self.pages.lock().remove(&key);
-        }
-        Ok(())
+        update_sparse_page(
+            &self.pages,
+            self.page_size,
+            self.base_alloc_info.clone(),
+            page_index,
+            resident,
+            |requirements, alloc_info| allocator.allocate_page(requirements, alloc_info),
+        )
     }
 
     pub fn update_page_group(
@@ -172,23 +254,19 @@ impl<'vk> SparseBufferAllocation<'vk> {
         page_index: u64,
         resident: bool,
     ) -> Result<(), AllocatorError> {
-        let key = SparsePageKey(page_index);
-        if resident {
-            let requirements = vk::VkMemoryRequirements::DEFAULT
-                .with_size(self.page_size)
-                .with_alignment(self.page_size)
-                .with_memoryTypeBits(u32::MAX);
-            let allocation = allocator.allocate_page(requirements, self.base_alloc_info.clone())?;
-            self.pages.lock().insert(key, allocation);
-        } else {
-            self.pages.lock().remove(&key);
-        }
-        Ok(())
+        update_sparse_page(
+            &self.pages,
+            self.page_size,
+            self.base_alloc_info.clone(),
+            page_index,
+            resident,
+            |requirements, alloc_info| allocator.allocate_page(requirements, alloc_info),
+        )
     }
 
     pub fn build_bind_list(&self) -> SparseBufferBindList {
         let mut binds = Vec::new();
-        self.pages.lock().for_each(|page, allocation| {
+        self.pages.read().for_each(|page, allocation| {
             binds.push(
                 vk::VkSparseMemoryBind::DEFAULT
                     .with_resourceOffset(page.0 * self.page_size)
@@ -197,7 +275,9 @@ impl<'vk> SparseBufferAllocation<'vk> {
                     .with_memoryOffset(allocation.offset()),
             );
         });
-        SparseBufferBindList { binds }
+        SparseBufferBindList {
+            binds: binds.into_boxed_slice(),
+        }
     }
 
     pub fn prepare_bind_info(&self) -> PreparedBindSparseInfo {
@@ -207,15 +287,16 @@ impl<'vk> SparseBufferAllocation<'vk> {
                 .with_buffer(self.buffer.raw())
                 .with_bindCount(buffer_binds.len() as u32)
                 .with_pBinds(buffer_binds.as_ptr()),
-        ];
+        ]
+        .into_boxed_slice();
         let info = vk::VkBindSparseInfo::DEFAULT
             .with_bufferBindCount(buffer_infos.len() as u32)
             .with_pBufferBinds(buffer_infos.as_ptr());
         PreparedBindSparseInfo {
             buffer_binds,
             buffer_infos,
-            image_binds: Vec::new(),
-            image_infos: Vec::new(),
+            image_binds: empty_box(),
+            image_infos: empty_box(),
             info,
         }
     }
@@ -224,37 +305,23 @@ impl<'vk> SparseBufferAllocation<'vk> {
 pub struct SparseImageAllocation<'vk> {
     image: vk::Image<'vk>,
     page_size: u64,
-    pages: Arc<Mutex<PageTable<SparsePageKey, Allocation>>>,
+    pages: SparsePageTable,
     base_alloc_info: AllocationCreateInfo,
 }
 
 impl<'vk> SparseImageAllocation<'vk> {
     pub(crate) fn new(
         device: &'vk vk::Device<'vk>,
-        _: &Allocator<'vk>,
+        _allocator: &Allocator<'vk>,
         image_info: &vk::VkImageCreateInfo,
         sparse_info: SparseAllocationCreateInfo,
     ) -> Result<Self, AllocatorError> {
-        if image_info.flags & vk::VkImageCreateFlagBits::VK_IMAGE_CREATE_SPARSE_BINDING_BIT.0 == 0 {
-            return Err(AllocatorError::SparseBindingUnsupported);
-        }
-        let image = device
-            .vkCreateImage(image_info, vk::null())
-            .map_err(AllocatorError::Vulkan)?;
-        let mut count = 0;
-        image.vkGetImageSparseMemoryRequirements(&raw mut count, core::ptr::null_mut());
-        let page_size = sparse_info.page_size.unwrap_or(64 * 1024);
+        let (image, base) = sparse_image_base(device, image_info, sparse_info, false)?;
         Ok(Self {
             image,
-            page_size,
-            pages: Arc::new(Mutex::new(PageTable::default())),
-            base_alloc_info: AllocationCreateInfo {
-                memory_type_policy: sparse_info.memory_type_policy,
-                strategy: crate::resource::AllocationStrategy::Auto,
-                pool: sparse_info.pool,
-                dedicated_threshold: None,
-                group_bind_mode: sparse_info.group_bind_mode,
-            },
+            page_size: base.page_size,
+            pages: base.pages,
+            base_alloc_info: base.base_alloc_info,
         })
     }
 
@@ -264,28 +331,12 @@ impl<'vk> SparseImageAllocation<'vk> {
         image_info: &vk::VkImageCreateInfo,
         sparse_info: SparseAllocationCreateInfo,
     ) -> Result<Self, AllocatorError> {
-        if sparse_info.group_bind_mode == Some(GroupBindMode::SplitInstanceRegions)
-            && sparse_info.split_instance_regions.is_empty()
-        {
-            return Err(AllocatorError::InvalidSparseRegion);
-        }
-        if image_info.flags & vk::VkImageCreateFlagBits::VK_IMAGE_CREATE_SPARSE_BINDING_BIT.0 == 0 {
-            return Err(AllocatorError::SparseBindingUnsupported);
-        }
-        let image = device
-            .vkCreateImage(image_info, vk::null())
-            .map_err(AllocatorError::Vulkan)?;
+        let (image, base) = sparse_image_base(device, image_info, sparse_info, true)?;
         Ok(Self {
             image,
-            page_size: sparse_info.page_size.unwrap_or(64 * 1024),
-            pages: Arc::new(Mutex::new(PageTable::default())),
-            base_alloc_info: AllocationCreateInfo {
-                memory_type_policy: sparse_info.memory_type_policy,
-                strategy: crate::resource::AllocationStrategy::Auto,
-                pool: sparse_info.pool,
-                dedicated_threshold: None,
-                group_bind_mode: sparse_info.group_bind_mode,
-            },
+            page_size: base.page_size,
+            pages: base.pages,
+            base_alloc_info: base.base_alloc_info,
         })
     }
 
@@ -299,18 +350,14 @@ impl<'vk> SparseImageAllocation<'vk> {
         page_index: u64,
         resident: bool,
     ) -> Result<(), AllocatorError> {
-        let key = SparsePageKey(page_index);
-        if resident {
-            let requirements = vk::VkMemoryRequirements::DEFAULT
-                .with_size(self.page_size)
-                .with_alignment(self.page_size)
-                .with_memoryTypeBits(u32::MAX);
-            let allocation = allocator.allocate_page(requirements, self.base_alloc_info.clone())?;
-            self.pages.lock().insert(key, allocation);
-        } else {
-            self.pages.lock().remove(&key);
-        }
-        Ok(())
+        update_sparse_page(
+            &self.pages,
+            self.page_size,
+            self.base_alloc_info.clone(),
+            page_index,
+            resident,
+            |requirements, alloc_info| allocator.allocate_page(requirements, alloc_info),
+        )
     }
 
     pub fn update_page_group(
@@ -319,23 +366,19 @@ impl<'vk> SparseImageAllocation<'vk> {
         page_index: u64,
         resident: bool,
     ) -> Result<(), AllocatorError> {
-        let key = SparsePageKey(page_index);
-        if resident {
-            let requirements = vk::VkMemoryRequirements::DEFAULT
-                .with_size(self.page_size)
-                .with_alignment(self.page_size)
-                .with_memoryTypeBits(u32::MAX);
-            let allocation = allocator.allocate_page(requirements, self.base_alloc_info.clone())?;
-            self.pages.lock().insert(key, allocation);
-        } else {
-            self.pages.lock().remove(&key);
-        }
-        Ok(())
+        update_sparse_page(
+            &self.pages,
+            self.page_size,
+            self.base_alloc_info.clone(),
+            page_index,
+            resident,
+            |requirements, alloc_info| allocator.allocate_page(requirements, alloc_info),
+        )
     }
 
     pub fn build_bind_list(&self) -> SparseImageBindList {
         let mut binds = Vec::new();
-        self.pages.lock().for_each(|page, allocation| {
+        self.pages.read().for_each(|page, allocation| {
             binds.push(
                 vk::VkSparseImageMemoryBind::DEFAULT
                     .with_offset(vk::VkOffset3D::DEFAULT.with_x((page.0 * self.page_size) as i32))
@@ -349,7 +392,9 @@ impl<'vk> SparseImageAllocation<'vk> {
                     .with_memoryOffset(allocation.offset()),
             );
         });
-        SparseImageBindList { binds }
+        SparseImageBindList {
+            binds: binds.into_boxed_slice(),
+        }
     }
 
     pub fn prepare_bind_info(&self) -> PreparedBindSparseInfo {
@@ -359,16 +404,42 @@ impl<'vk> SparseImageAllocation<'vk> {
                 .with_image(self.image.raw())
                 .with_bindCount(image_binds.len() as u32)
                 .with_pBinds(image_binds.as_ptr()),
-        ];
+        ]
+        .into_boxed_slice();
         let info = vk::VkBindSparseInfo::DEFAULT
             .with_imageBindCount(image_infos.len() as u32)
             .with_pImageBinds(image_infos.as_ptr());
         PreparedBindSparseInfo {
-            buffer_binds: Vec::new(),
-            buffer_infos: Vec::new(),
+            buffer_binds: empty_box(),
+            buffer_infos: empty_box(),
             image_binds,
             image_infos,
             info,
         }
     }
+}
+
+fn update_sparse_page(
+    pages: &SparsePageTable,
+    page_size: u64,
+    base_alloc_info: AllocationCreateInfo,
+    page_index: u64,
+    resident: bool,
+    allocate: impl Fn(
+        vk::VkMemoryRequirements,
+        AllocationCreateInfo,
+    ) -> Result<Allocation, AllocatorError>,
+) -> Result<(), AllocatorError> {
+    let key = SparsePageKey(page_index);
+    if resident {
+        let requirements = vk::VkMemoryRequirements::DEFAULT
+            .with_size(page_size)
+            .with_alignment(page_size)
+            .with_memoryTypeBits(u32::MAX);
+        let allocation = allocate(requirements, base_alloc_info)?;
+        pages.write().insert(key, allocation);
+    } else {
+        pages.write().remove(&key);
+    }
+    Ok(())
 }

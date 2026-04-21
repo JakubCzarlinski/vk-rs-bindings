@@ -2,10 +2,7 @@
 name = "vk-alloc"
 version = "0.1.0"
 edition = "2024"
-description = "Handwritten Vulkan allocator for vk-rs-bindings"
-
-[features]
-bench-internals = []
+description = "Vulkan allocator for vk-rs-bindings"
 
 [dependencies]
 parking_lot = "0.12"
@@ -25,7 +22,6 @@ criterion = { version = "0.5", default-features = true }
 [[bench]]
 name = "hot_paths"
 harness = false
-required-features = ["bench-internals"]
 
 [lints.clippy]
 pedantic = "deny"

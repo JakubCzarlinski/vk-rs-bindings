@@ -1,9 +1,8 @@
-use alloc::{sync::Arc, vec::Vec};
-use core::ptr::null_mut;
-
 use crate::error::AllocatorError;
-use crate::internal::block::SharedSource;
+use crate::memory::block::SharedSource;
 use crate::stats::StatsState;
+use alloc::{boxed::Box, sync::Arc, vec::Vec};
+use core::ptr::null_mut;
 use vk::{Buffer, DeviceMemory, Image};
 
 pub struct Allocation {
@@ -20,7 +19,7 @@ unsafe impl Send for Allocation {}
 unsafe impl Sync for Allocation {}
 
 impl Allocation {
-    pub(crate) fn new(
+    pub(crate) const fn new(
         block_handle: u32,
         arena_id: u32,
         offset: u64,
@@ -40,19 +39,19 @@ impl Allocation {
         }
     }
 
-    pub fn block_handle(&self) -> u32 {
+    pub const fn block_handle(&self) -> u32 {
         self.block_handle
     }
 
-    pub fn offset(&self) -> u64 {
+    pub const fn offset(&self) -> u64 {
         self.offset
     }
 
-    pub fn size(&self) -> u64 {
+    pub const fn size(&self) -> u64 {
         self.size
     }
 
-    pub fn arena_id(&self) -> u32 {
+    pub const fn arena_id(&self) -> u32 {
         self.arena_id
     }
 
@@ -60,11 +59,11 @@ impl Allocation {
         self.source.raw_memory()
     }
 
-    pub fn mapped_ptr(&self) -> *mut u8 {
+    pub const fn mapped_ptr(&self) -> *mut u8 {
         self.mapped_ptr
     }
 
-    pub fn mapped_slice_mut<T>(&mut self, len: usize) -> Option<&mut [T]> {
+    pub const fn mapped_slice_mut<T>(&mut self, len: usize) -> Option<&mut [T]> {
         if self.mapped_ptr.is_null() {
             None
         } else {
@@ -89,15 +88,15 @@ pub struct AllocatedBuffer<'vk> {
 }
 
 impl<'vk> AllocatedBuffer<'vk> {
-    pub(crate) fn new(buffer: Buffer<'vk>, allocation: Allocation) -> Self {
+    pub(crate) const fn new(buffer: Buffer<'vk>, allocation: Allocation) -> Self {
         Self { buffer, allocation }
     }
 
-    pub fn buffer(&self) -> &Buffer<'vk> {
+    pub const fn buffer(&self) -> &Buffer<'vk> {
         &self.buffer
     }
 
-    pub fn allocation(&self) -> &Allocation {
+    pub const fn allocation(&self) -> &Allocation {
         &self.allocation
     }
 
@@ -168,7 +167,7 @@ unsafe impl Send for ImportedHostBuffer<'_> {}
 unsafe impl Sync for ImportedHostBuffer<'_> {}
 
 impl<'vk> ImportedHostBuffer<'vk> {
-    pub(crate) fn new(
+    pub(crate) const fn new(
         buffer: Buffer<'vk>,
         memory: DeviceMemory<'vk>,
         host_ptr: *mut u8,
@@ -182,19 +181,19 @@ impl<'vk> ImportedHostBuffer<'vk> {
         }
     }
 
-    pub fn buffer(&self) -> &Buffer<'vk> {
+    pub const fn buffer(&self) -> &Buffer<'vk> {
         &self.buffer
     }
 
-    pub fn memory(&self) -> &DeviceMemory<'vk> {
+    pub const fn memory(&self) -> &DeviceMemory<'vk> {
         &self.memory
     }
 
-    pub fn host_ptr(&self) -> *mut u8 {
+    pub const fn host_ptr(&self) -> *mut u8 {
         self.host_ptr
     }
 
-    pub fn size(&self) -> u64 {
+    pub const fn size(&self) -> u64 {
         self.size
     }
 }
@@ -229,7 +228,7 @@ impl LargeBufferCreateInfo {
 pub struct LargeBuffer<'vk> {
     total_size: u64,
     chunk_size: u64,
-    segments: Vec<AllocatedBuffer<'vk>>,
+    segments: Box<[AllocatedBuffer<'vk>]>,
 }
 
 impl<'vk> LargeBuffer<'vk> {
@@ -241,7 +240,7 @@ impl<'vk> LargeBuffer<'vk> {
         Self {
             total_size,
             chunk_size,
-            segments,
+            segments: segments.into_boxed_slice(),
         }
     }
 

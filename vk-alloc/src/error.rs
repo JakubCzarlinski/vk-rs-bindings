@@ -17,6 +17,7 @@ pub enum AllocatorError {
     SparseBindingUnsupported,
     SparseQueueRequired,
     OutOfAllocatorMetadata,
+    InvalidPool,
     InvalidSparseRegion,
 }
 

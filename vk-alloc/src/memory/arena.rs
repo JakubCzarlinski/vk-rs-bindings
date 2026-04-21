@@ -1,37 +1,22 @@
+use crate::allocation::Allocation;
+use crate::error::AllocatorError;
+use crate::memory::arena_key::ArenaKey;
+use crate::memory::block::{BlockMemory, DedicatedMemory, SharedSource, mapped_with_offset};
+use crate::memory::owned::OwnedMemory;
+use crate::stats::StatsState;
 use alloc::collections::BTreeMap;
 use alloc::sync::Arc;
 use alloc::vec::Vec;
-
-use parking_lot::Mutex;
-
-use crate::allocation::Allocation;
-use crate::error::AllocatorError;
-use crate::internal::block::{
-    BlockMemory, DedicatedMemory, GroupBlockMetadata, SharedSource, SingleBlockMetadata,
-    mapped_with_offset,
-};
-use crate::internal::vk_ops::OwnedMemory;
-use crate::stats::StatsState;
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct ArenaKey {
-    pub memory_type_index: u32,
-    pub resource_class: crate::resource::ResourceClass,
-    pub pool_id: u32,
-    pub partition_mask: u32,
-}
+use parking_lot::RwLock;
 
 #[derive(Debug)]
-pub struct ArenaState<BlockMeta> {
-    pub next_block_id: u32,
-    pub blocks: Vec<Arc<BlockMemory<BlockMeta>>>,
+pub(crate) struct ArenaState {
+    pub(crate) next_block_id: u32,
+    blocks: Vec<Arc<BlockMemory>>,
 }
 
-impl<BlockMeta> ArenaState<BlockMeta>
-where
-    BlockMeta: Send + Sync + 'static,
-{
-    pub fn new() -> Self {
+impl ArenaState {
+    pub(crate) const fn new() -> Self {
         Self {
             next_block_id: 1,
             blocks: Vec::new(),
@@ -59,26 +44,21 @@ where
         })
     }
 
-    pub fn push_block(&mut self, block: Arc<BlockMemory<BlockMeta>>) {
+    pub(crate) fn push_block(&mut self, block: Arc<BlockMemory>) {
         self.blocks.push(block);
         self.next_block_id += 1;
     }
 }
 
-pub type SharedSingleArena = Arc<Mutex<ArenaState<SingleBlockMetadata>>>;
-pub type SharedGroupArena = Arc<Mutex<ArenaState<GroupBlockMetadata>>>;
-pub type SingleArenaRegistry = BTreeMap<ArenaKey, SharedSingleArena>;
-pub type GroupArenaRegistry = BTreeMap<ArenaKey, SharedGroupArena>;
+pub(crate) type SharedArena = Arc<RwLock<ArenaState>>;
+pub(crate) type ArenaRegistry = BTreeMap<ArenaKey, SharedArena>;
 
-pub(crate) fn make_block_allocation<M>(
-    block: Arc<BlockMemory<M>>,
+pub(crate) fn make_block_allocation(
+    block: Arc<BlockMemory>,
     request_size: u64,
     alignment: u64,
     stats: Arc<StatsState>,
-) -> Result<Allocation, AllocatorError>
-where
-    M: Send + Sync + 'static,
-{
+) -> Result<Allocation, AllocatorError> {
     let offset = block
         .allocate(request_size, alignment)
         .ok_or(AllocatorError::OutOfAllocatorMetadata)?;
@@ -102,11 +82,7 @@ pub(crate) fn make_dedicated_allocation(
     stats: Arc<StatsState>,
 ) -> Allocation {
     stats.on_dedicated();
-    let dedicated = Arc::new(DedicatedMemory {
-        block_id,
-        arena_id,
-        memory,
-    });
+    let dedicated = Arc::new(DedicatedMemory { memory });
     let source: SharedSource = dedicated;
     Allocation::new(
         block_id,
@@ -117,12 +93,4 @@ pub(crate) fn make_dedicated_allocation(
         source,
         Some(stats),
     )
-}
-
-pub fn single_block_meta() -> SingleBlockMetadata {
-    SingleBlockMetadata
-}
-
-pub fn group_block_meta(device_mask: u32) -> GroupBlockMetadata {
-    GroupBlockMetadata { device_mask }
 }

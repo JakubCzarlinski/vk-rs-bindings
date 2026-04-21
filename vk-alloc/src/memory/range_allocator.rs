@@ -1,18 +1,18 @@
 use alloc::collections::BTreeMap;
 
 #[derive(Debug, Clone)]
-pub struct RangeAllocator {
+pub(crate) struct RangeAllocator {
     free_ranges: BTreeMap<u64, u64>,
 }
 
 impl RangeAllocator {
-    pub fn new(size: u64) -> Self {
+    pub(crate) fn new(size: u64) -> Self {
         let mut free_ranges = BTreeMap::new();
         free_ranges.insert(0, size);
         Self { free_ranges }
     }
 
-    pub fn allocate(&mut self, size: u64, alignment: u64) -> Option<u64> {
+    pub(crate) fn allocate(&mut self, size: u64, alignment: u64) -> Option<u64> {
         let alignment = alignment.max(1);
         let candidate = self.free_ranges.iter().find_map(|(&offset, &len)| {
             let aligned = align_up(offset, alignment);
@@ -37,7 +37,7 @@ impl RangeAllocator {
         Some(candidate.2)
     }
 
-    pub fn free(&mut self, offset: u64, size: u64) {
+    pub(crate) fn free(&mut self, offset: u64, size: u64) {
         let mut start = offset;
         let mut len = size;
 
@@ -57,8 +57,8 @@ impl RangeAllocator {
         self.free_ranges.insert(start, len);
     }
 
-    #[cfg_attr(not(any(test, feature = "bench-internals")), allow(dead_code))]
-    pub fn is_non_overlapping(&self) -> bool {
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub(crate) fn is_non_overlapping(&self) -> bool {
         let mut prev_end = 0;
         let mut first = true;
         for (&start, &len) in &self.free_ranges {
@@ -72,7 +72,7 @@ impl RangeAllocator {
     }
 }
 
-pub const fn align_up(value: u64, alignment: u64) -> u64 {
+pub(crate) const fn align_up(value: u64, alignment: u64) -> u64 {
     if alignment <= 1 {
         value
     } else {

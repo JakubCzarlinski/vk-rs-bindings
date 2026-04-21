@@ -65,7 +65,7 @@ impl StatsState {
         self.dedicated_allocations.fetch_add(1, Ordering::Relaxed);
     }
 
-    pub fn snapshot(&self) -> AllocatorStats {
+    pub(crate) fn snapshot(&self) -> AllocatorStats {
         AllocatorStats {
             allocation_count: self.allocation_count.load(Ordering::Relaxed),
             free_count: self.free_count.load(Ordering::Relaxed),

@@ -132,9 +132,9 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                     impl Default for #name {
                         fn default() -> Self { Self::NULL }
                     }
-                    #cfg #depr
+                    #cfg
                     unsafe impl Send for #name {}
-                    #cfg #depr
+                    #cfg
                     unsafe impl Sync for #name {}
                 });
                 doc
@@ -153,9 +153,9 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                     impl Default for #name {
                         fn default() -> Self { Self::NULL }
                     }
-                    #cfg #depr
+                    #cfg
                     unsafe impl Send for #name {}
-                    #cfg #depr
+                    #cfg
                     unsafe impl Sync for #name {}
                 });
                 doc
@@ -248,6 +248,10 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                 impl #name {
                     pub const NULL: Self = Self(core::ptr::null_mut());
                 }
+                #cfg
+                unsafe impl Send for #name {}
+                #cfg
+                unsafe impl Sync for #name {}
             });
             doc
         }
@@ -490,6 +494,11 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             pub union #name { #field_toks }
 
             #cfg
+            unsafe impl Send for #name {}
+            #cfg
+            unsafe impl Sync for #name {}
+
+            #cfg
             impl #name {
                 pub const DEFAULT: Self = unsafe {
                     Self { #first_fname: core::mem::zeroed::<#first_ftype>() }
@@ -551,6 +560,11 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             #[repr(C)]
             #[derive(Debug, Clone, Copy)]
             pub struct #name { #field_toks }
+
+            #cfg
+            unsafe impl Send for #name {}
+            #cfg
+            unsafe impl Sync for #name {}
 
             #cfg
             impl #name { #impl_body }

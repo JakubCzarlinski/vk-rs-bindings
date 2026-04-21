@@ -132,6 +132,10 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                     impl Default for #name {
                         fn default() -> Self { Self::NULL }
                     }
+                    #cfg #depr
+                    unsafe impl Send for #name {}
+                    #cfg #depr
+                    unsafe impl Sync for #name {}
                 });
                 doc
             } else {
@@ -149,6 +153,10 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
                     impl Default for #name {
                         fn default() -> Self { Self::NULL }
                     }
+                    #cfg #depr
+                    unsafe impl Send for #name {}
+                    #cfg #depr
+                    unsafe impl Sync for #name {}
                 });
                 doc
             }

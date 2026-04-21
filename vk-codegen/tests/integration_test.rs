@@ -282,6 +282,60 @@ fn commands_rs_has_pfn() {
 }
 
 #[test]
+fn dispatchable_handle_types_are_send_sync() {
+    let f = generate();
+    assert!(
+        f.types_rs.contains("unsafe impl Send for VkInstance {}"),
+        "VkInstance should be marked Send;\n{}",
+        f.types_rs
+    );
+    assert!(
+        f.types_rs.contains("unsafe impl Sync for VkInstance {}"),
+        "VkInstance should be marked Sync;\n{}",
+        f.types_rs
+    );
+}
+
+#[test]
+fn wrappers_are_send_sync() {
+    let f = generate();
+    assert!(
+        f.instance_rs
+            .contains("unsafe impl<'lib> Send for Instance<'lib> {}"),
+        "Instance wrapper should be Send;\n{}",
+        f.instance_rs
+    );
+    assert!(
+        f.instance_rs
+            .contains("unsafe impl<'lib> Sync for Instance<'lib> {}"),
+        "Instance wrapper should be Sync;\n{}",
+        f.instance_rs
+    );
+    assert!(
+        f.device_rs
+            .contains("unsafe impl<'inst> Send for Device<'inst> {}"),
+        "Device wrapper should be Send;\n{}",
+        f.device_rs
+    );
+    assert!(
+        f.device_rs
+            .contains("unsafe impl<'inst> Sync for Device<'inst> {}"),
+        "Device wrapper should be Sync;\n{}",
+        f.device_rs
+    );
+
+    let fence = f.handles.get("fence").expect("fence handle module");
+    assert!(
+        fence.contains("unsafe impl<'dev> Send for Fence<'dev> {}"),
+        "Fence wrapper should be Send;\n{fence}"
+    );
+    assert!(
+        fence.contains("unsafe impl<'dev> Sync for Fence<'dev> {}"),
+        "Fence wrapper should be Sync;\n{fence}"
+    );
+}
+
+#[test]
 fn handle_destroy_method_uses_mut_self_and_nulls_raw() {
     let f = generate();
     let shader_module = f

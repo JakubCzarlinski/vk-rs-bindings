@@ -212,6 +212,12 @@ fn gen_device(
         }
 
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        unsafe impl<'inst> Send for Device<'inst> {}
+
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        unsafe impl<'inst> Sync for Device<'inst> {}
+
+        #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl<'inst> Device<'inst> {
             /// Wrap a raw `VkDevice` with a pre-loaded dispatch table.
             ///

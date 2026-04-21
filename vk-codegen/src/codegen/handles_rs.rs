@@ -390,6 +390,12 @@ fn gen_handle_module(
         }
 
         #wrapper_cfg
+        unsafe impl<'dev> Send for #struct_name<'dev> {}
+
+        #wrapper_cfg
+        unsafe impl<'dev> Sync for #struct_name<'dev> {}
+
+        #wrapper_cfg
         impl<'dev> Drop for #struct_name<'dev> {
             fn drop(&mut self) {
                 if self.raw.0.is_null() {

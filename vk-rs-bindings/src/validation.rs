@@ -1203,6 +1203,17 @@ compile_error!(
     "Feature `VK_KHR_dynamic_rendering_local_read` requires `VK_KHR_dynamic_rendering , VK_VERSION_1_3`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_dynamic_rendering_local_read.html"
 );
 #[cfg(all(
+    feature = "VK_KHR_shader_abort",
+    not(all(
+        feature = "VK_KHR_get_physical_device_properties2",
+        feature = "VK_KHR_device_fault",
+        feature = "VK_KHR_shader_constant_data"
+    ))
+))]
+compile_error!(
+    "Feature `VK_KHR_shader_abort` requires `VK_KHR_get_physical_device_properties2 + VK_KHR_device_fault + VK_KHR_shader_constant_data`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_abort.html"
+);
+#[cfg(all(
     feature = "VK_EXT_shader_image_atomic_int64",
     not(any(
         feature = "VK_KHR_get_physical_device_properties2",
@@ -1713,6 +1724,16 @@ compile_error!(
 ))]
 compile_error!(
     "Feature `VK_NV_device_diagnostics_config` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_NV_device_diagnostics_config.html"
+);
+#[cfg(all(
+    feature = "VK_QCOM_queue_perf_hint",
+    not(any(
+        feature = "VK_KHR_get_physical_device_properties2",
+        feature = "VK_VERSION_1_1"
+    ))
+))]
+compile_error!(
+    "Feature `VK_QCOM_queue_perf_hint` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_queue_perf_hint.html"
 );
 #[cfg(all(
     feature = "VK_NV_cuda_kernel_launch",
@@ -2897,6 +2918,13 @@ compile_error!(
     "Feature `VK_ARM_data_graph` requires `VK_VERSION_1_3 + VK_KHR_maintenance5 + VK_KHR_deferred_host_operations`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph.html"
 );
 #[cfg(all(
+    feature = "VK_ARM_data_graph_instruction_set_tosa",
+    not(feature = "VK_ARM_data_graph")
+))]
+compile_error!(
+    "Feature `VK_ARM_data_graph_instruction_set_tosa` requires `VK_ARM_data_graph`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_instruction_set_tosa.html"
+);
+#[cfg(all(
     feature = "VK_QCOM_multiview_per_view_render_areas",
     not(any(
         feature = "VK_KHR_get_physical_device_properties2",
@@ -3272,6 +3300,13 @@ compile_error!(
 compile_error!(
     "Feature `VK_EXT_device_generated_commands` requires `VK_KHR_buffer_device_address + VK_KHR_maintenance5 , VK_VERSION_1_2 + VK_KHR_maintenance5 , VK_VERSION_1_3`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_device_generated_commands.html"
 );
+#[cfg(all(
+    feature = "VK_KHR_device_fault",
+    not(feature = "VK_KHR_get_physical_device_properties2")
+))]
+compile_error!(
+    "Feature `VK_KHR_device_fault` requires `VK_KHR_get_physical_device_properties2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_device_fault.html"
+);
 #[cfg(all(feature = "VK_KHR_maintenance8", not(feature = "VK_VERSION_1_1")))]
 compile_error!(
     "Feature `VK_KHR_maintenance8` requires `VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_maintenance8.html"
@@ -3566,6 +3601,13 @@ compile_error!(
 compile_error!(
     "Feature `VK_KHR_maintenance10` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_maintenance10.html"
 );
+#[cfg(all(
+    feature = "VK_ARM_data_graph_optical_flow",
+    not(feature = "VK_ARM_data_graph")
+))]
+compile_error!(
+    "Feature `VK_ARM_data_graph_optical_flow` requires `VK_ARM_data_graph`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_optical_flow.html"
+);
 #[cfg(all(feature = "VK_EXT_shader_long_vector", not(feature = "VK_VERSION_1_2")))]
 compile_error!(
     "Feature `VK_EXT_shader_long_vector` requires `VK_VERSION_1_2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_shader_long_vector.html"
@@ -3631,4 +3673,14 @@ compile_error!(
 ))]
 compile_error!(
     "Feature `VK_VALVE_shader_mixed_float_dot_product` requires `VK_KHR_get_physical_device_properties2 + VK_KHR_shader_float16_int8 , VK_KHR_get_physical_device_properties2 + VK_VERSION_1_2 , VK_VERSION_1_1 + VK_KHR_shader_float16_int8 , VK_VERSION_1_1 + VK_VERSION_1_2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_VALVE_shader_mixed_float_dot_product.html"
+);
+#[cfg(all(
+    feature = "VK_EXT_primitive_restart_index",
+    not(any(
+        feature = "VK_KHR_get_physical_device_properties2",
+        feature = "VK_VERSION_1_1"
+    ))
+))]
+compile_error!(
+    "Feature `VK_EXT_primitive_restart_index` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_primitive_restart_index.html"
 );

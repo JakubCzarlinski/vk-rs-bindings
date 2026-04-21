@@ -964,7 +964,9 @@ impl VkPipelineCacheValidationVersion {
     feature = "VK_KHR_fragment_shading_rate",
     feature = "VK_AMD_shader_core_properties2",
     feature = "VK_AMD_device_coherent_memory",
+    feature = "VK_KHR_shader_constant_data",
     feature = "VK_KHR_dynamic_rendering_local_read",
+    feature = "VK_KHR_shader_abort",
     feature = "VK_EXT_shader_image_atomic_int64",
     feature = "VK_KHR_shader_quad_control",
     feature = "VK_EXT_memory_budget",
@@ -1016,6 +1018,7 @@ impl VkPipelineCacheValidationVersion {
     feature = "VK_EXT_pipeline_creation_cache_control",
     feature = "VK_KHR_video_encode_queue",
     feature = "VK_NV_device_diagnostics_config",
+    feature = "VK_QCOM_queue_perf_hint",
     feature = "VK_NV_cuda_kernel_launch",
     feature = "VK_KHR_object_refresh",
     feature = "VK_QCOM_tile_shading",
@@ -1140,6 +1143,7 @@ impl VkPipelineCacheValidationVersion {
     feature = "VK_NV_low_latency2",
     feature = "VK_KHR_cooperative_matrix",
     feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_instruction_set_tosa",
     feature = "VK_QCOM_multiview_per_view_render_areas",
     feature = "VK_KHR_compute_shader_derivatives",
     feature = "VK_KHR_video_decode_av1",
@@ -1181,6 +1185,7 @@ impl VkPipelineCacheValidationVersion {
     feature = "VK_NV_cluster_acceleration_structure",
     feature = "VK_NV_partitioned_acceleration_structure",
     feature = "VK_EXT_device_generated_commands",
+    feature = "VK_KHR_device_fault",
     feature = "VK_KHR_maintenance8",
     feature = "VK_MESA_image_alignment_control",
     feature = "VK_KHR_shader_fma",
@@ -1209,13 +1214,15 @@ impl VkPipelineCacheValidationVersion {
     feature = "VK_EXT_custom_resolve",
     feature = "VK_QCOM_data_graph_model",
     feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow",
     feature = "VK_EXT_shader_long_vector",
     feature = "VK_SEC_pipeline_cache_incremental_mode",
     feature = "VK_EXT_shader_uniform_buffer_unsized_array",
     feature = "VK_NV_compute_occupancy_priority",
     feature = "VK_EXT_shader_subgroup_partitioned",
     feature = "VK_SEC_ubm_surface",
-    feature = "VK_VALVE_shader_mixed_float_dot_product"
+    feature = "VK_VALVE_shader_mixed_float_dot_product",
+    feature = "VK_EXT_primitive_restart_index"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
@@ -1383,7 +1390,9 @@ pub struct VkStructureType(pub i32);
     feature = "VK_KHR_fragment_shading_rate",
     feature = "VK_AMD_shader_core_properties2",
     feature = "VK_AMD_device_coherent_memory",
+    feature = "VK_KHR_shader_constant_data",
     feature = "VK_KHR_dynamic_rendering_local_read",
+    feature = "VK_KHR_shader_abort",
     feature = "VK_EXT_shader_image_atomic_int64",
     feature = "VK_KHR_shader_quad_control",
     feature = "VK_EXT_memory_budget",
@@ -1435,6 +1444,7 @@ pub struct VkStructureType(pub i32);
     feature = "VK_EXT_pipeline_creation_cache_control",
     feature = "VK_KHR_video_encode_queue",
     feature = "VK_NV_device_diagnostics_config",
+    feature = "VK_QCOM_queue_perf_hint",
     feature = "VK_NV_cuda_kernel_launch",
     feature = "VK_KHR_object_refresh",
     feature = "VK_QCOM_tile_shading",
@@ -1559,6 +1569,7 @@ pub struct VkStructureType(pub i32);
     feature = "VK_NV_low_latency2",
     feature = "VK_KHR_cooperative_matrix",
     feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_instruction_set_tosa",
     feature = "VK_QCOM_multiview_per_view_render_areas",
     feature = "VK_KHR_compute_shader_derivatives",
     feature = "VK_KHR_video_decode_av1",
@@ -1600,6 +1611,7 @@ pub struct VkStructureType(pub i32);
     feature = "VK_NV_cluster_acceleration_structure",
     feature = "VK_NV_partitioned_acceleration_structure",
     feature = "VK_EXT_device_generated_commands",
+    feature = "VK_KHR_device_fault",
     feature = "VK_KHR_maintenance8",
     feature = "VK_MESA_image_alignment_control",
     feature = "VK_KHR_shader_fma",
@@ -1628,13 +1640,15 @@ pub struct VkStructureType(pub i32);
     feature = "VK_EXT_custom_resolve",
     feature = "VK_QCOM_data_graph_model",
     feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow",
     feature = "VK_EXT_shader_long_vector",
     feature = "VK_SEC_pipeline_cache_incremental_mode",
     feature = "VK_EXT_shader_uniform_buffer_unsized_array",
     feature = "VK_NV_compute_occupancy_priority",
     feature = "VK_EXT_shader_subgroup_partitioned",
     feature = "VK_SEC_ubm_surface",
-    feature = "VK_VALVE_shader_mixed_float_dot_product"
+    feature = "VK_VALVE_shader_mixed_float_dot_product",
+    feature = "VK_EXT_primitive_restart_index"
 ))]
 impl VkStructureType {
     pub const VK_STRUCTURE_TYPE_APPLICATION_INFO: Self = Self(0);
@@ -3262,6 +3276,9 @@ impl VkStructureType {
     #[cfg(feature = "VK_AMD_device_coherent_memory")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD: Self =
         Self(1000229000);
+    #[cfg(feature = "VK_KHR_shader_constant_data")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR: Self =
+        Self(1000231000);
     #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES_KHR: Self =
         Self(1000232000);
@@ -3269,6 +3286,13 @@ impl VkStructureType {
     pub const VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO_KHR: Self = Self(1000232001);
     #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
     pub const VK_STRUCTURE_TYPE_RENDERING_INPUT_ATTACHMENT_INDEX_INFO_KHR: Self = Self(1000232002);
+    #[cfg(feature = "VK_KHR_shader_abort")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR: Self = Self(1000233000);
+    #[cfg(feature = "VK_KHR_shader_abort")]
+    pub const VK_STRUCTURE_TYPE_DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR: Self = Self(1000233001);
+    #[cfg(feature = "VK_KHR_shader_abort")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR: Self =
+        Self(1000233002);
     #[cfg(feature = "VK_EXT_shader_image_atomic_int64")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT: Self =
         Self(1000234000);
@@ -3596,6 +3620,14 @@ impl VkStructureType {
         Self(1000300000);
     #[cfg(feature = "VK_NV_device_diagnostics_config")]
     pub const VK_STRUCTURE_TYPE_DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV: Self = Self(1000300001);
+    #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+    pub const VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM: Self = Self(1000302000);
+    #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM: Self =
+        Self(1000302001);
+    #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM: Self =
+        Self(1000302002);
     #[cfg(feature = "VK_NV_cuda_kernel_launch")]
     pub const VK_STRUCTURE_TYPE_CUDA_MODULE_CREATE_INFO_NV: Self = Self(1000307000);
     #[cfg(feature = "VK_NV_cuda_kernel_launch")]
@@ -4112,6 +4144,12 @@ impl VkStructureType {
     #[cfg(feature = "VK_ARM_scheduling_controls")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM: Self =
         Self(1000417002);
+    #[cfg(feature = "VK_ARM_scheduling_controls")]
+    pub const VK_STRUCTURE_TYPE_DISPATCH_PARAMETERS_ARM: Self = Self(1000417003);
+    #[cfg(feature = "VK_ARM_scheduling_controls")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM: Self = Self(
+        1000417004,
+    );
     #[cfg(feature = "VK_EXT_image_sliced_view_of_3d")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT: Self =
         Self(1000418000);
@@ -4588,6 +4626,9 @@ impl VkStructureType {
     pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM: Self = Self(
         1000507015,
     );
+    #[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+    pub const VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM: Self =
+        Self(1000508000);
     #[cfg(feature = "VK_QCOM_multiview_per_view_render_areas")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM:
         Self = Self(1000510000);
@@ -4948,6 +4989,14 @@ impl VkStructureType {
     pub const VK_STRUCTURE_TYPE_GENERATED_COMMANDS_PIPELINE_INFO_EXT: Self = Self(1000572013);
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     pub const VK_STRUCTURE_TYPE_GENERATED_COMMANDS_SHADER_INFO_EXT: Self = Self(1000572014);
+    #[cfg(feature = "VK_KHR_device_fault")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_FEATURES_KHR: Self = Self(1000573000);
+    #[cfg(feature = "VK_KHR_device_fault")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR: Self = Self(1000573001);
+    #[cfg(feature = "VK_KHR_device_fault")]
+    pub const VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR: Self = Self(1000573002);
+    #[cfg(feature = "VK_KHR_device_fault")]
+    pub const VK_STRUCTURE_TYPE_DEVICE_FAULT_DEBUG_INFO_KHR: Self = Self(1000573003);
     #[cfg(feature = "VK_KHR_maintenance8")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR: Self = Self(1000574000);
     #[cfg(feature = "VK_KHR_maintenance8")]
@@ -5122,6 +5171,33 @@ impl VkStructureType {
     pub const VK_STRUCTURE_TYPE_RENDERING_END_INFO_KHR: Self = Self(1000619003);
     #[cfg(feature = "VK_KHR_maintenance10")]
     pub const VK_STRUCTURE_TYPE_RESOLVE_IMAGE_MODE_INFO_KHR: Self = Self(1000630004);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM: Self =
+        Self(1000631000);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM: Self =
+        Self(1000631001);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM: Self =
+        Self(1000631003);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM: Self =
+        Self(1000631004);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM: Self =
+        Self(1000631005);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM: Self =
+        Self(1000631002);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM: Self =
+        Self(1000631006);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM: Self =
+        Self(1000631007);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM: Self =
+        Self(1000631008);
     #[cfg(feature = "VK_EXT_shader_long_vector")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT: Self =
         Self(1000635000);
@@ -5147,6 +5223,9 @@ impl VkStructureType {
     #[cfg(feature = "VK_VALVE_shader_mixed_float_dot_product")]
     pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE:
         Self = Self(1000673000);
+    #[cfg(feature = "VK_EXT_primitive_restart_index")]
+    pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT: Self =
+        Self(1000678000);
 }
 /// [VkResult](https://docs.vulkan.org/refpages/latest/refpages/source/VkResult.html)
 ///
@@ -8192,126 +8271,6 @@ impl core::ops::BitXorAssign<u32> for VkExternalMemoryHandleTypeFlagBits {
         self.0 ^= r;
     }
 }
-/// [VkDataGraphPipelineSessionCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionCreateFlagsARM.html)
-#[cfg(feature = "VK_ARM_data_graph")]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkDataGraphPipelineSessionCreateFlagBitsARM(pub u64);
-#[cfg(feature = "VK_ARM_data_graph")]
-impl VkDataGraphPipelineSessionCreateFlagBitsARM {
-    pub const EMPTY: Self = Self(0);
-    pub const VK_DATA_GRAPH_PIPELINE_SESSION_CREATE_PROTECTED_BIT_ARM: Self = Self(1 << 0u64);
-    #[inline]
-    pub const fn contains(self, o: Self) -> bool {
-        (self.0 & o.0) == o.0
-    }
-    #[inline]
-    pub const fn intersects(self, o: Self) -> bool {
-        (self.0 & o.0) != 0
-    }
-    #[inline]
-    pub const fn is_empty(self) -> bool {
-        self.0 == 0
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitOr for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    type Output = Self;
-    #[inline]
-    fn bitor(self, r: Self) -> Self {
-        Self(self.0 | r.0)
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitOrAssign for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    #[inline]
-    fn bitor_assign(&mut self, r: Self) {
-        self.0 |= r.0;
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitAnd for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    type Output = Self;
-    #[inline]
-    fn bitand(self, r: Self) -> Self {
-        Self(self.0 & r.0)
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitAndAssign for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    #[inline]
-    fn bitand_assign(&mut self, r: Self) {
-        self.0 &= r.0;
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitXor for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    type Output = Self;
-    #[inline]
-    fn bitxor(self, r: Self) -> Self {
-        Self(self.0 ^ r.0)
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitXorAssign for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    #[inline]
-    fn bitxor_assign(&mut self, r: Self) {
-        self.0 ^= r.0;
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::Not for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    type Output = Self;
-    #[inline]
-    fn not(self) -> Self {
-        Self(!self.0)
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitOr<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    type Output = Self;
-    #[inline]
-    fn bitor(self, r: u64) -> Self {
-        Self(self.0 | r)
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitOrAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    #[inline]
-    fn bitor_assign(&mut self, r: u64) {
-        self.0 |= r;
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitAnd<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    type Output = Self;
-    #[inline]
-    fn bitand(self, r: u64) -> Self {
-        Self(self.0 & r)
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitAndAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    #[inline]
-    fn bitand_assign(&mut self, r: u64) {
-        self.0 &= r;
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitXor<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    type Output = Self;
-    #[inline]
-    fn bitxor(self, r: u64) -> Self {
-        Self(self.0 ^ r)
-    }
-}
-#[cfg(feature = "VK_ARM_data_graph")]
-impl core::ops::BitXorAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
-    #[inline]
-    fn bitxor_assign(&mut self, r: u64) {
-        self.0 ^= r;
-    }
-}
 /// [VkDataGraphPipelinePropertyARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelinePropertyARM.html)
 #[cfg(feature = "VK_ARM_data_graph")]
 #[repr(transparent)]
@@ -8321,15 +8280,6 @@ pub struct VkDataGraphPipelinePropertyARM(pub i32);
 impl VkDataGraphPipelinePropertyARM {
     pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_CREATION_LOG_ARM: Self = Self(0);
     pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_IDENTIFIER_ARM: Self = Self(1);
-}
-/// [VkDataGraphPipelineSessionBindPointARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointARM.html)
-#[cfg(feature = "VK_ARM_data_graph")]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkDataGraphPipelineSessionBindPointARM(pub i32);
-#[cfg(feature = "VK_ARM_data_graph")]
-impl VkDataGraphPipelineSessionBindPointARM {
-    pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_TRANSIENT_ARM: Self = Self(0);
 }
 /// [VkDataGraphPipelineSessionBindPointTypeARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointTypeARM.html)
 #[cfg(feature = "VK_ARM_data_graph")]
@@ -8458,6 +8408,802 @@ impl core::ops::BitXorAssign<u64> for VkDataGraphPipelineDispatchFlagBitsARM {
     fn bitxor_assign(&mut self, r: u64) {
         self.0 ^= r;
     }
+}
+/// [VkDataGraphPipelineSessionCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionCreateFlagsARM.html)
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDataGraphPipelineSessionCreateFlagBitsARM(pub u64);
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl VkDataGraphPipelineSessionCreateFlagBitsARM {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_DATA_GRAPH_PIPELINE_SESSION_CREATE_PROTECTED_BIT_ARM: Self = Self(1 << 0u64);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_DATA_GRAPH_PIPELINE_SESSION_CREATE_OPTICAL_FLOW_CACHE_BIT_ARM: Self =
+        Self(1 << 1u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOr for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOrAssign for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAnd for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAndAssign for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXor for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXorAssign for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::Not for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOr<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u64) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOrAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: u64) {
+        self.0 |= r;
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAnd<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u64) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAndAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: u64) {
+        self.0 &= r;
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXor<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u64) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXorAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u64) {
+        self.0 ^= r;
+    }
+}
+/// [VkDataGraphPipelineSessionBindPointARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointARM.html)
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDataGraphPipelineSessionBindPointARM(pub i32);
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl VkDataGraphPipelineSessionBindPointARM {
+    pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_TRANSIENT_ARM: Self = Self(0);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_OPTICAL_FLOW_CACHE_ARM: Self =
+        Self(1000631001);
+}
+/// [VkFormatFeatureFlagBits2](https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlags2.html)
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkFormatFeatureFlagBits2(pub u64);
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl VkFormatFeatureFlagBits2 {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT: Self = Self(1 << 0u64);
+    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT: Self = Self(1 << 1u64);
+    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT: Self = Self(1 << 2u64);
+    pub const VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT: Self = Self(1 << 3u64);
+    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT: Self = Self(1 << 4u64);
+    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT: Self = Self(1 << 5u64);
+    pub const VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT: Self = Self(1 << 6u64);
+    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT: Self = Self(1 << 7u64);
+    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT: Self = Self(1 << 8u64);
+    pub const VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT: Self = Self(1 << 9u64);
+    pub const VK_FORMAT_FEATURE_2_BLIT_SRC_BIT: Self = Self(1 << 10u64);
+    pub const VK_FORMAT_FEATURE_2_BLIT_DST_BIT: Self = Self(1 << 11u64);
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT: Self = Self(1 << 12u64);
+    pub const VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT: Self = Self(1 << 14u64);
+    pub const VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT: Self = Self(1 << 15u64);
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT: Self = Self(1 << 16u64);
+    pub const VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT: Self = Self(1 << 17u64);
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT: Self =
+        Self(1 << 18u64);
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT: Self = Self(
+        1 << 19u64,
+    );
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT: Self = Self(
+        1 << 20u64,
+    );
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT: Self = Self(
+        1 << 21u64,
+    );
+    pub const VK_FORMAT_FEATURE_2_DISJOINT_BIT: Self = Self(1 << 22u64);
+    pub const VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT: Self = Self(1 << 23u64);
+    pub const VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT: Self = Self(1 << 31u64);
+    pub const VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT: Self = Self(1 << 32u64);
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT: Self = Self(1 << 33u64);
+    #[cfg(feature = "VK_BASE_VERSION_1_3")]
+    ///This is an interaction with EXT_filter_cubic, though not tagged that way
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT: Self = Self(1 << 13u64);
+    #[cfg(feature = "VK_BASE_VERSION_1_4")]
+    pub const VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT: Self = Self(1 << 46u64);
+    #[cfg(feature = "VK_KHR_video_decode_queue")]
+    pub const VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR: Self = Self(1 << 25u64);
+    #[cfg(feature = "VK_KHR_video_decode_queue")]
+    pub const VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR: Self = Self(1 << 26u64);
+    #[cfg(feature = "VK_KHR_acceleration_structure")]
+    pub const VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR: Self =
+        Self(1 << 29u64);
+    #[cfg(feature = "VK_EXT_fragment_density_map")]
+    pub const VK_FORMAT_FEATURE_2_FRAGMENT_DENSITY_MAP_BIT_EXT: Self = Self(1 << 24u64);
+    #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+    pub const VK_FORMAT_FEATURE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: Self = Self(1 << 30u64);
+    #[cfg(feature = "VK_EXT_host_image_copy")]
+    ///Host image copies are supported
+    pub const VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT: Self = Self(1 << 46u64);
+    #[cfg(feature = "VK_KHR_video_encode_queue")]
+    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_INPUT_BIT_KHR: Self = Self(1 << 27u64);
+    #[cfg(feature = "VK_KHR_video_encode_queue")]
+    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_DPB_BIT_KHR: Self = Self(1 << 28u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT_KHR: Self = Self(1 << 0u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT_KHR: Self = Self(1 << 1u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT_KHR: Self = Self(1 << 2u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR: Self = Self(1 << 3u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT_KHR: Self = Self(1 << 4u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT_KHR: Self = Self(1 << 5u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT_KHR: Self = Self(1 << 6u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT_KHR: Self = Self(1 << 7u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT_KHR: Self = Self(1 << 8u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT_KHR: Self = Self(1 << 9u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_BLIT_SRC_BIT_KHR: Self = Self(1 << 10u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_BLIT_DST_BIT_KHR: Self = Self(1 << 11u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT_KHR: Self = Self(1 << 12u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT_KHR: Self = Self(1 << 14u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT_KHR: Self = Self(1 << 15u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT_KHR: Self = Self(1 << 17u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT_KHR: Self =
+        Self(1 << 18u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT_KHR: Self = Self(
+        1 << 19u64,
+    );
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT_KHR: Self = Self(
+        1 << 20u64,
+    );
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT_KHR: Self = Self(
+        1 << 21u64,
+    );
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_DISJOINT_BIT_KHR: Self = Self(1 << 22u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT_KHR: Self = Self(1 << 23u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR: Self = Self(1 << 31u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR: Self = Self(1 << 32u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR: Self = Self(1 << 33u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT_KHR: Self = Self(1 << 16u64);
+    #[cfg(feature = "VK_KHR_format_feature_flags2")]
+    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT: Self = Self(1 << 13u64);
+    #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
+    pub const VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_RADIUS_BUFFER_BIT_NV: Self =
+        Self(1 << 51u64);
+    #[cfg(feature = "VK_NV_linear_color_attachment")]
+    ///Format support linear image as render target, it cannot be mixed with non linear attachment
+    pub const VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV: Self = Self(1 << 38u64);
+    #[cfg(feature = "VK_QCOM_image_processing")]
+    pub const VK_FORMAT_FEATURE_2_WEIGHT_IMAGE_BIT_QCOM: Self = Self(1 << 34u64);
+    #[cfg(feature = "VK_QCOM_image_processing")]
+    pub const VK_FORMAT_FEATURE_2_WEIGHT_SAMPLED_IMAGE_BIT_QCOM: Self = Self(1 << 35u64);
+    #[cfg(feature = "VK_QCOM_image_processing")]
+    pub const VK_FORMAT_FEATURE_2_BLOCK_MATCHING_BIT_QCOM: Self = Self(1 << 36u64);
+    #[cfg(feature = "VK_QCOM_image_processing")]
+    pub const VK_FORMAT_FEATURE_2_BOX_FILTER_SAMPLED_BIT_QCOM: Self = Self(1 << 37u64);
+    #[cfg(feature = "VK_ARM_tensors")]
+    pub const VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM: Self = Self(1 << 39u64);
+    #[cfg(feature = "VK_ARM_tensors")]
+    pub const VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM: Self = Self(1 << 43u64);
+    #[cfg(feature = "VK_NV_optical_flow")]
+    pub const VK_FORMAT_FEATURE_2_OPTICAL_FLOW_IMAGE_BIT_NV: Self = Self(1 << 40u64);
+    #[cfg(feature = "VK_NV_optical_flow")]
+    pub const VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BIT_NV: Self = Self(1 << 41u64);
+    #[cfg(feature = "VK_NV_optical_flow")]
+    pub const VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV: Self = Self(1 << 42u64);
+    #[cfg(feature = "VK_ARM_data_graph")]
+    pub const VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM: Self = Self(1 << 48u64);
+    #[cfg(feature = "VK_KHR_copy_memory_indirect")]
+    pub const VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR: Self = Self(1 << 59u64);
+    #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR: Self =
+        Self(1 << 49u64);
+    #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR: Self = Self(1 << 50u64);
+    #[cfg(feature = "VK_KHR_maintenance10")]
+    pub const VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR: Self = Self(1 << 52u64);
+    #[cfg(feature = "VK_KHR_maintenance10")]
+    pub const VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR: Self = Self(1 << 53u64);
+    #[cfg(feature = "VK_KHR_maintenance10")]
+    pub const VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR: Self = Self(1 << 54u64);
+    #[cfg(feature = "VK_KHR_maintenance10")]
+    pub const VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR: Self = Self(1 << 55u64);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_FORMAT_FEATURE_2_DATA_GRAPH_OPTICAL_FLOW_IMAGE_BIT_ARM: Self = Self(1 << 56u64);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_FORMAT_FEATURE_2_DATA_GRAPH_OPTICAL_FLOW_VECTOR_BIT_ARM: Self = Self(1 << 57u64);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_FORMAT_FEATURE_2_DATA_GRAPH_OPTICAL_FLOW_COST_BIT_ARM: Self = Self(1 << 58u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOr for VkFormatFeatureFlagBits2 {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOrAssign for VkFormatFeatureFlagBits2 {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAnd for VkFormatFeatureFlagBits2 {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAndAssign for VkFormatFeatureFlagBits2 {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXor for VkFormatFeatureFlagBits2 {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXorAssign for VkFormatFeatureFlagBits2 {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::Not for VkFormatFeatureFlagBits2 {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOr<u64> for VkFormatFeatureFlagBits2 {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u64) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitOrAssign<u64> for VkFormatFeatureFlagBits2 {
+    #[inline]
+    fn bitor_assign(&mut self, r: u64) {
+        self.0 |= r;
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAnd<u64> for VkFormatFeatureFlagBits2 {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u64) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitAndAssign<u64> for VkFormatFeatureFlagBits2 {
+    #[inline]
+    fn bitand_assign(&mut self, r: u64) {
+        self.0 &= r;
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXor<u64> for VkFormatFeatureFlagBits2 {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u64) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(any(
+    feature = "VK_BASE_VERSION_1_3",
+    feature = "VK_BASE_VERSION_1_4",
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_EXT_host_image_copy",
+    feature = "VK_KHR_video_encode_queue",
+    feature = "VK_KHR_format_feature_flags2",
+    feature = "VK_NV_ray_tracing_linear_swept_spheres",
+    feature = "VK_NV_linear_color_attachment",
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_ARM_tensors",
+    feature = "VK_NV_optical_flow",
+    feature = "VK_ARM_data_graph",
+    feature = "VK_KHR_copy_memory_indirect",
+    feature = "VK_KHR_video_encode_quantization_map",
+    feature = "VK_KHR_maintenance10",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl core::ops::BitXorAssign<u64> for VkFormatFeatureFlagBits2 {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u64) {
+        self.0 ^= r;
+    }
+}
+/// [VkPhysicalDeviceDataGraphOperationTypeARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphOperationTypeARM.html)
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_QCOM_data_graph_model",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkPhysicalDeviceDataGraphOperationTypeARM(pub i32);
+#[cfg(any(
+    feature = "VK_ARM_data_graph",
+    feature = "VK_QCOM_data_graph_model",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+impl VkPhysicalDeviceDataGraphOperationTypeARM {
+    pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_SPIRV_EXTENDED_INSTRUCTION_SET_ARM:
+        Self = Self(0);
+    #[cfg(feature = "VK_QCOM_data_graph_model")]
+    pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_NEURAL_MODEL_QCOM: Self =
+        Self(1000629000);
+    #[cfg(feature = "VK_QCOM_data_graph_model")]
+    pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_BUILTIN_MODEL_QCOM: Self =
+        Self(1000629001);
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_OPTICAL_FLOW_ARM: Self =
+        Self(1000631000);
 }
 /// [VkObjectType](https://docs.vulkan.org/refpages/latest/refpages/source/VkObjectType.html)
 ///
@@ -8761,568 +9507,6 @@ impl core::ops::BitXor<u64> for VkTensorUsageFlagBitsARM {
 }
 #[cfg(any(feature = "VK_ARM_tensors", feature = "VK_ARM_data_graph"))]
 impl core::ops::BitXorAssign<u64> for VkTensorUsageFlagBitsARM {
-    #[inline]
-    fn bitxor_assign(&mut self, r: u64) {
-        self.0 ^= r;
-    }
-}
-/// [VkFormatFeatureFlagBits2](https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlags2.html)
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkFormatFeatureFlagBits2(pub u64);
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl VkFormatFeatureFlagBits2 {
-    pub const EMPTY: Self = Self(0);
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT: Self = Self(1 << 0u64);
-    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT: Self = Self(1 << 1u64);
-    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT: Self = Self(1 << 2u64);
-    pub const VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT: Self = Self(1 << 3u64);
-    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT: Self = Self(1 << 4u64);
-    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT: Self = Self(1 << 5u64);
-    pub const VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT: Self = Self(1 << 6u64);
-    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT: Self = Self(1 << 7u64);
-    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT: Self = Self(1 << 8u64);
-    pub const VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT: Self = Self(1 << 9u64);
-    pub const VK_FORMAT_FEATURE_2_BLIT_SRC_BIT: Self = Self(1 << 10u64);
-    pub const VK_FORMAT_FEATURE_2_BLIT_DST_BIT: Self = Self(1 << 11u64);
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT: Self = Self(1 << 12u64);
-    pub const VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT: Self = Self(1 << 14u64);
-    pub const VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT: Self = Self(1 << 15u64);
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT: Self = Self(1 << 16u64);
-    pub const VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT: Self = Self(1 << 17u64);
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT: Self =
-        Self(1 << 18u64);
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT: Self = Self(
-        1 << 19u64,
-    );
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT: Self = Self(
-        1 << 20u64,
-    );
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT: Self = Self(
-        1 << 21u64,
-    );
-    pub const VK_FORMAT_FEATURE_2_DISJOINT_BIT: Self = Self(1 << 22u64);
-    pub const VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT: Self = Self(1 << 23u64);
-    pub const VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT: Self = Self(1 << 31u64);
-    pub const VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT: Self = Self(1 << 32u64);
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT: Self = Self(1 << 33u64);
-    #[cfg(feature = "VK_BASE_VERSION_1_3")]
-    ///This is an interaction with EXT_filter_cubic, though not tagged that way
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT: Self = Self(1 << 13u64);
-    #[cfg(feature = "VK_BASE_VERSION_1_4")]
-    pub const VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT: Self = Self(1 << 46u64);
-    #[cfg(feature = "VK_KHR_video_decode_queue")]
-    pub const VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR: Self = Self(1 << 25u64);
-    #[cfg(feature = "VK_KHR_video_decode_queue")]
-    pub const VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR: Self = Self(1 << 26u64);
-    #[cfg(feature = "VK_KHR_acceleration_structure")]
-    pub const VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR: Self =
-        Self(1 << 29u64);
-    #[cfg(feature = "VK_EXT_fragment_density_map")]
-    pub const VK_FORMAT_FEATURE_2_FRAGMENT_DENSITY_MAP_BIT_EXT: Self = Self(1 << 24u64);
-    #[cfg(feature = "VK_KHR_fragment_shading_rate")]
-    pub const VK_FORMAT_FEATURE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: Self = Self(1 << 30u64);
-    #[cfg(feature = "VK_EXT_host_image_copy")]
-    ///Host image copies are supported
-    pub const VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT: Self = Self(1 << 46u64);
-    #[cfg(feature = "VK_KHR_video_encode_queue")]
-    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_INPUT_BIT_KHR: Self = Self(1 << 27u64);
-    #[cfg(feature = "VK_KHR_video_encode_queue")]
-    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_DPB_BIT_KHR: Self = Self(1 << 28u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT_KHR: Self = Self(1 << 0u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT_KHR: Self = Self(1 << 1u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT_KHR: Self = Self(1 << 2u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR: Self = Self(1 << 3u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT_KHR: Self = Self(1 << 4u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT_KHR: Self = Self(1 << 5u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT_KHR: Self = Self(1 << 6u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT_KHR: Self = Self(1 << 7u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT_KHR: Self = Self(1 << 8u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT_KHR: Self = Self(1 << 9u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_BLIT_SRC_BIT_KHR: Self = Self(1 << 10u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_BLIT_DST_BIT_KHR: Self = Self(1 << 11u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT_KHR: Self = Self(1 << 12u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT_KHR: Self = Self(1 << 14u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT_KHR: Self = Self(1 << 15u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT_KHR: Self = Self(1 << 17u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT_KHR: Self =
-        Self(1 << 18u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT_KHR: Self = Self(
-        1 << 19u64,
-    );
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT_KHR: Self = Self(
-        1 << 20u64,
-    );
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT_KHR: Self = Self(
-        1 << 21u64,
-    );
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_DISJOINT_BIT_KHR: Self = Self(1 << 22u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT_KHR: Self = Self(1 << 23u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR: Self = Self(1 << 31u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR: Self = Self(1 << 32u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR: Self = Self(1 << 33u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT_KHR: Self = Self(1 << 16u64);
-    #[cfg(feature = "VK_KHR_format_feature_flags2")]
-    pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT: Self = Self(1 << 13u64);
-    #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
-    pub const VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_RADIUS_BUFFER_BIT_NV: Self =
-        Self(1 << 51u64);
-    #[cfg(feature = "VK_NV_linear_color_attachment")]
-    ///Format support linear image as render target, it cannot be mixed with non linear attachment
-    pub const VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV: Self = Self(1 << 38u64);
-    #[cfg(feature = "VK_QCOM_image_processing")]
-    pub const VK_FORMAT_FEATURE_2_WEIGHT_IMAGE_BIT_QCOM: Self = Self(1 << 34u64);
-    #[cfg(feature = "VK_QCOM_image_processing")]
-    pub const VK_FORMAT_FEATURE_2_WEIGHT_SAMPLED_IMAGE_BIT_QCOM: Self = Self(1 << 35u64);
-    #[cfg(feature = "VK_QCOM_image_processing")]
-    pub const VK_FORMAT_FEATURE_2_BLOCK_MATCHING_BIT_QCOM: Self = Self(1 << 36u64);
-    #[cfg(feature = "VK_QCOM_image_processing")]
-    pub const VK_FORMAT_FEATURE_2_BOX_FILTER_SAMPLED_BIT_QCOM: Self = Self(1 << 37u64);
-    #[cfg(feature = "VK_ARM_tensors")]
-    pub const VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM: Self = Self(1 << 39u64);
-    #[cfg(feature = "VK_ARM_tensors")]
-    pub const VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM: Self = Self(1 << 43u64);
-    #[cfg(feature = "VK_NV_optical_flow")]
-    pub const VK_FORMAT_FEATURE_2_OPTICAL_FLOW_IMAGE_BIT_NV: Self = Self(1 << 40u64);
-    #[cfg(feature = "VK_NV_optical_flow")]
-    pub const VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BIT_NV: Self = Self(1 << 41u64);
-    #[cfg(feature = "VK_NV_optical_flow")]
-    pub const VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV: Self = Self(1 << 42u64);
-    #[cfg(feature = "VK_ARM_data_graph")]
-    pub const VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM: Self = Self(1 << 48u64);
-    #[cfg(feature = "VK_KHR_copy_memory_indirect")]
-    pub const VK_FORMAT_FEATURE_2_COPY_IMAGE_INDIRECT_DST_BIT_KHR: Self = Self(1 << 59u64);
-    #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR: Self =
-        Self(1 << 49u64);
-    #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-    pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR: Self = Self(1 << 50u64);
-    #[cfg(feature = "VK_KHR_maintenance10")]
-    pub const VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR: Self = Self(1 << 52u64);
-    #[cfg(feature = "VK_KHR_maintenance10")]
-    pub const VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR: Self = Self(1 << 53u64);
-    #[cfg(feature = "VK_KHR_maintenance10")]
-    pub const VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR: Self = Self(1 << 54u64);
-    #[cfg(feature = "VK_KHR_maintenance10")]
-    pub const VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR: Self = Self(1 << 55u64);
-    #[inline]
-    pub const fn contains(self, o: Self) -> bool {
-        (self.0 & o.0) == o.0
-    }
-    #[inline]
-    pub const fn intersects(self, o: Self) -> bool {
-        (self.0 & o.0) != 0
-    }
-    #[inline]
-    pub const fn is_empty(self) -> bool {
-        self.0 == 0
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitOr for VkFormatFeatureFlagBits2 {
-    type Output = Self;
-    #[inline]
-    fn bitor(self, r: Self) -> Self {
-        Self(self.0 | r.0)
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitOrAssign for VkFormatFeatureFlagBits2 {
-    #[inline]
-    fn bitor_assign(&mut self, r: Self) {
-        self.0 |= r.0;
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitAnd for VkFormatFeatureFlagBits2 {
-    type Output = Self;
-    #[inline]
-    fn bitand(self, r: Self) -> Self {
-        Self(self.0 & r.0)
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitAndAssign for VkFormatFeatureFlagBits2 {
-    #[inline]
-    fn bitand_assign(&mut self, r: Self) {
-        self.0 &= r.0;
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitXor for VkFormatFeatureFlagBits2 {
-    type Output = Self;
-    #[inline]
-    fn bitxor(self, r: Self) -> Self {
-        Self(self.0 ^ r.0)
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitXorAssign for VkFormatFeatureFlagBits2 {
-    #[inline]
-    fn bitxor_assign(&mut self, r: Self) {
-        self.0 ^= r.0;
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::Not for VkFormatFeatureFlagBits2 {
-    type Output = Self;
-    #[inline]
-    fn not(self) -> Self {
-        Self(!self.0)
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitOr<u64> for VkFormatFeatureFlagBits2 {
-    type Output = Self;
-    #[inline]
-    fn bitor(self, r: u64) -> Self {
-        Self(self.0 | r)
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitOrAssign<u64> for VkFormatFeatureFlagBits2 {
-    #[inline]
-    fn bitor_assign(&mut self, r: u64) {
-        self.0 |= r;
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitAnd<u64> for VkFormatFeatureFlagBits2 {
-    type Output = Self;
-    #[inline]
-    fn bitand(self, r: u64) -> Self {
-        Self(self.0 & r)
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitAndAssign<u64> for VkFormatFeatureFlagBits2 {
-    #[inline]
-    fn bitand_assign(&mut self, r: u64) {
-        self.0 &= r;
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitXor<u64> for VkFormatFeatureFlagBits2 {
-    type Output = Self;
-    #[inline]
-    fn bitxor(self, r: u64) -> Self {
-        Self(self.0 ^ r)
-    }
-}
-#[cfg(any(
-    feature = "VK_BASE_VERSION_1_3",
-    feature = "VK_BASE_VERSION_1_4",
-    feature = "VK_KHR_video_decode_queue",
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_EXT_host_image_copy",
-    feature = "VK_KHR_video_encode_queue",
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_ray_tracing_linear_swept_spheres",
-    feature = "VK_NV_linear_color_attachment",
-    feature = "VK_QCOM_image_processing",
-    feature = "VK_ARM_tensors",
-    feature = "VK_NV_optical_flow",
-    feature = "VK_ARM_data_graph",
-    feature = "VK_KHR_copy_memory_indirect",
-    feature = "VK_KHR_video_encode_quantization_map",
-    feature = "VK_KHR_maintenance10"
-))]
-impl core::ops::BitXorAssign<u64> for VkFormatFeatureFlagBits2 {
     #[inline]
     fn bitxor_assign(&mut self, r: u64) {
         self.0 ^= r;
@@ -10529,21 +10713,675 @@ impl VkPhysicalDeviceDataGraphProcessingEngineTypeARM {
     pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_COMPUTE_QCOM: Self =
         Self(1000629001);
 }
-/// [VkPhysicalDeviceDataGraphOperationTypeARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphOperationTypeARM.html)
-#[cfg(any(feature = "VK_ARM_data_graph", feature = "VK_QCOM_data_graph_model"))]
+/// [VkDataGraphTOSAQualityFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSAQualityFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDataGraphTOSAQualityFlagBitsARM(pub u32);
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl VkDataGraphTOSAQualityFlagBitsARM {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_DATA_GRAPH_TOSA_QUALITY_ACCELERATED_ARM: Self = Self(1 << 0u64);
+    pub const VK_DATA_GRAPH_TOSA_QUALITY_CONFORMANT_ARM: Self = Self(1 << 1u64);
+    pub const VK_DATA_GRAPH_TOSA_QUALITY_EXPERIMENTAL_ARM: Self = Self(1 << 2u64);
+    pub const VK_DATA_GRAPH_TOSA_QUALITY_DEPRECATED_ARM: Self = Self(1 << 3u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitOr for VkDataGraphTOSAQualityFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitOrAssign for VkDataGraphTOSAQualityFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitAnd for VkDataGraphTOSAQualityFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitAndAssign for VkDataGraphTOSAQualityFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitXor for VkDataGraphTOSAQualityFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitXorAssign for VkDataGraphTOSAQualityFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::Not for VkDataGraphTOSAQualityFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitOr<u32> for VkDataGraphTOSAQualityFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u32) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitOrAssign<u32> for VkDataGraphTOSAQualityFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: u32) {
+        self.0 |= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitAnd<u32> for VkDataGraphTOSAQualityFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u32) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitAndAssign<u32> for VkDataGraphTOSAQualityFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: u32) {
+        self.0 &= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitXor<u32> for VkDataGraphTOSAQualityFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u32) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl core::ops::BitXorAssign<u32> for VkDataGraphTOSAQualityFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u32) {
+        self.0 ^= r;
+    }
+}
+/// [VkDataGraphTOSALevelARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSALevelARM.html)
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkPhysicalDeviceDataGraphOperationTypeARM(pub i32);
-#[cfg(any(feature = "VK_ARM_data_graph", feature = "VK_QCOM_data_graph_model"))]
-impl VkPhysicalDeviceDataGraphOperationTypeARM {
-    pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_SPIRV_EXTENDED_INSTRUCTION_SET_ARM:
-        Self = Self(0);
-    #[cfg(feature = "VK_QCOM_data_graph_model")]
-    pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_NEURAL_MODEL_QCOM: Self =
-        Self(1000629000);
-    #[cfg(feature = "VK_QCOM_data_graph_model")]
-    pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_BUILTIN_MODEL_QCOM: Self =
-        Self(1000629001);
+pub struct VkDataGraphTOSALevelARM(pub i32);
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl VkDataGraphTOSALevelARM {
+    pub const VK_DATA_GRAPH_TOSA_LEVEL_NONE_ARM: Self = Self(0);
+    pub const VK_DATA_GRAPH_TOSA_LEVEL_8K_ARM: Self = Self(1);
+}
+/// [VkDataGraphOpticalFlowGridSizeFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowGridSizeFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDataGraphOpticalFlowGridSizeFlagBitsARM(pub u32);
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_GRID_SIZE_UNKNOWN_ARM: Self = Self(0);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_GRID_SIZE_1X1_BIT_ARM: Self = Self(1 << 0u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_GRID_SIZE_2X2_BIT_ARM: Self = Self(1 << 1u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_GRID_SIZE_4X4_BIT_ARM: Self = Self(1 << 2u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_GRID_SIZE_8X8_BIT_ARM: Self = Self(1 << 3u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::Not for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr<u32> for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u32) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign<u32> for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: u32) {
+        self.0 |= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd<u32> for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u32) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign<u32> for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: u32) {
+        self.0 &= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor<u32> for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u32) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign<u32> for VkDataGraphOpticalFlowGridSizeFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u32) {
+        self.0 ^= r;
+    }
+}
+/// [VkDataGraphOpticalFlowImageUsageFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageUsageFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDataGraphOpticalFlowImageUsageFlagBitsARM(pub u32);
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_UNKNOWN_ARM: Self = Self(0);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_INPUT_BIT_ARM: Self = Self(1 << 0u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_OUTPUT_BIT_ARM: Self = Self(1 << 1u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_HINT_BIT_ARM: Self = Self(1 << 2u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_COST_BIT_ARM: Self = Self(1 << 3u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::Not for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr<u32> for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u32) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign<u32> for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: u32) {
+        self.0 |= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd<u32> for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u32) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign<u32> for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: u32) {
+        self.0 &= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor<u32> for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u32) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign<u32> for VkDataGraphOpticalFlowImageUsageFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u32) {
+        self.0 ^= r;
+    }
+}
+/// [VkDataGraphOpticalFlowPerformanceLevelARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowPerformanceLevelARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDataGraphOpticalFlowPerformanceLevelARM(pub i32);
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphOpticalFlowPerformanceLevelARM {
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_PERFORMANCE_LEVEL_UNKNOWN_ARM: Self = Self(0);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_PERFORMANCE_LEVEL_SLOW_ARM: Self = Self(1);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_PERFORMANCE_LEVEL_MEDIUM_ARM: Self = Self(2);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_PERFORMANCE_LEVEL_FAST_ARM: Self = Self(3);
+}
+/// [VkDataGraphPipelineNodeConnectionTypeARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineNodeConnectionTypeARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDataGraphPipelineNodeConnectionTypeARM(pub i32);
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphPipelineNodeConnectionTypeARM {
+    pub const VK_DATA_GRAPH_PIPELINE_NODE_CONNECTION_TYPE_OPTICAL_FLOW_INPUT_ARM: Self =
+        Self(1000631000);
+    pub const VK_DATA_GRAPH_PIPELINE_NODE_CONNECTION_TYPE_OPTICAL_FLOW_REFERENCE_ARM: Self =
+        Self(1000631001);
+    pub const VK_DATA_GRAPH_PIPELINE_NODE_CONNECTION_TYPE_OPTICAL_FLOW_HINT_ARM: Self =
+        Self(1000631002);
+    pub const VK_DATA_GRAPH_PIPELINE_NODE_CONNECTION_TYPE_OPTICAL_FLOW_FLOW_VECTOR_ARM: Self =
+        Self(1000631003);
+    pub const VK_DATA_GRAPH_PIPELINE_NODE_CONNECTION_TYPE_OPTICAL_FLOW_COST_ARM: Self =
+        Self(1000631004);
+}
+/// [VkDataGraphPipelineNodeTypeARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineNodeTypeARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDataGraphPipelineNodeTypeARM(pub i32);
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphPipelineNodeTypeARM {
+    pub const VK_DATA_GRAPH_PIPELINE_NODE_TYPE_OPTICAL_FLOW_ARM: Self = Self(1000631000);
+}
+/// [VkDataGraphOpticalFlowCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowCreateFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDataGraphOpticalFlowCreateFlagBitsARM(pub u32);
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphOpticalFlowCreateFlagBitsARM {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_CREATE_ENABLE_HINT_BIT_ARM: Self = Self(1 << 0u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_CREATE_ENABLE_COST_BIT_ARM: Self = Self(1 << 1u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_CREATE_RESERVED_30_BIT_ARM: Self = Self(1 << 30u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::Not for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr<u32> for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u32) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign<u32> for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: u32) {
+        self.0 |= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd<u32> for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u32) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign<u32> for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: u32) {
+        self.0 &= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor<u32> for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u32) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign<u32> for VkDataGraphOpticalFlowCreateFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u32) {
+        self.0 ^= r;
+    }
+}
+/// [VkDataGraphOpticalFlowExecuteFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowExecuteFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDataGraphOpticalFlowExecuteFlagBitsARM(pub u32);
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_EXECUTE_DISABLE_TEMPORAL_HINTS_BIT_ARM: Self =
+        Self(1 << 0u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_EXECUTE_INPUT_UNCHANGED_BIT_ARM: Self = Self(1 << 1u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_EXECUTE_REFERENCE_UNCHANGED_BIT_ARM: Self =
+        Self(1 << 2u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_EXECUTE_INPUT_IS_PREVIOUS_REFERENCE_BIT_ARM: Self =
+        Self(1 << 3u64);
+    pub const VK_DATA_GRAPH_OPTICAL_FLOW_EXECUTE_REFERENCE_IS_PREVIOUS_INPUT_BIT_ARM: Self =
+        Self(1 << 4u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::Not for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOr<u32> for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u32) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitOrAssign<u32> for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    #[inline]
+    fn bitor_assign(&mut self, r: u32) {
+        self.0 |= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAnd<u32> for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u32) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitAndAssign<u32> for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    #[inline]
+    fn bitand_assign(&mut self, r: u32) {
+        self.0 &= r;
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXor<u32> for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u32) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl core::ops::BitXorAssign<u32> for VkDataGraphOpticalFlowExecuteFlagBitsARM {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u32) {
+        self.0 ^= r;
+    }
 }
 /// [VkFormat](https://docs.vulkan.org/refpages/latest/refpages/source/VkFormat.html)
 ///
@@ -11788,6 +12626,8 @@ pub struct VkPhysicalDeviceSchedulingControlsFlagBitsARM(pub u64);
 impl VkPhysicalDeviceSchedulingControlsFlagBitsARM {
     pub const EMPTY: Self = Self(0);
     pub const VK_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_SHADER_CORE_COUNT_ARM: Self = Self(1 << 0u64);
+    pub const VK_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_ARM: Self =
+        Self(1 << 1u64);
     #[inline]
     pub const fn contains(self, o: Self) -> bool {
         (self.0 & o.0) == o.0
@@ -25146,29 +25986,38 @@ impl VkDeviceAddressBindingTypeEXT {
     pub const VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT: Self = Self(0);
     pub const VK_DEVICE_ADDRESS_BINDING_TYPE_UNBIND_EXT: Self = Self(1);
 }
-/// [VkDeviceFaultVendorBinaryHeaderVersionEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionEXT.html)
 #[cfg(feature = "VK_EXT_device_fault")]
+pub type VkDeviceFaultVendorBinaryHeaderVersionEXT = VkDeviceFaultVendorBinaryHeaderVersionKHR;
+#[cfg(feature = "VK_EXT_device_fault")]
+pub type VkDeviceFaultAddressTypeEXT = VkDeviceFaultAddressTypeKHR;
+/// [VkDeviceFaultAddressTypeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressTypeKHR.html)
+#[cfg(any(feature = "VK_KHR_device_fault", feature = "VK_EXT_device_fault"))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkDeviceFaultVendorBinaryHeaderVersionEXT(pub i32);
-#[cfg(feature = "VK_EXT_device_fault")]
-impl VkDeviceFaultVendorBinaryHeaderVersionEXT {
-    pub const VK_DEVICE_FAULT_VENDOR_BINARY_HEADER_VERSION_ONE_EXT: Self = Self(1);
-}
-/// [VkDeviceFaultAddressTypeEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressTypeEXT.html)
-#[cfg(feature = "VK_EXT_device_fault")]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkDeviceFaultAddressTypeEXT(pub i32);
-#[cfg(feature = "VK_EXT_device_fault")]
-impl VkDeviceFaultAddressTypeEXT {
+pub struct VkDeviceFaultAddressTypeKHR(pub i32);
+#[cfg(any(feature = "VK_KHR_device_fault", feature = "VK_EXT_device_fault"))]
+impl VkDeviceFaultAddressTypeKHR {
     ///Currently unused
+    pub const VK_DEVICE_FAULT_ADDRESS_TYPE_NONE_KHR: Self = Self(0);
+    pub const VK_DEVICE_FAULT_ADDRESS_TYPE_READ_INVALID_KHR: Self = Self(1);
+    pub const VK_DEVICE_FAULT_ADDRESS_TYPE_WRITE_INVALID_KHR: Self = Self(2);
+    pub const VK_DEVICE_FAULT_ADDRESS_TYPE_EXECUTE_INVALID_KHR: Self = Self(3);
+    pub const VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_UNKNOWN_KHR: Self = Self(4);
+    pub const VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_INVALID_KHR: Self = Self(5);
+    pub const VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_FAULT_KHR: Self = Self(6);
+    #[cfg(feature = "VK_EXT_device_fault")]
     pub const VK_DEVICE_FAULT_ADDRESS_TYPE_NONE_EXT: Self = Self(0);
+    #[cfg(feature = "VK_EXT_device_fault")]
     pub const VK_DEVICE_FAULT_ADDRESS_TYPE_READ_INVALID_EXT: Self = Self(1);
+    #[cfg(feature = "VK_EXT_device_fault")]
     pub const VK_DEVICE_FAULT_ADDRESS_TYPE_WRITE_INVALID_EXT: Self = Self(2);
+    #[cfg(feature = "VK_EXT_device_fault")]
     pub const VK_DEVICE_FAULT_ADDRESS_TYPE_EXECUTE_INVALID_EXT: Self = Self(3);
+    #[cfg(feature = "VK_EXT_device_fault")]
     pub const VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_UNKNOWN_EXT: Self = Self(4);
+    #[cfg(feature = "VK_EXT_device_fault")]
     pub const VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_INVALID_EXT: Self = Self(5);
+    #[cfg(feature = "VK_EXT_device_fault")]
     pub const VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_FAULT_EXT: Self = Self(6);
 }
 /// [VkIndirectCommandsLayoutUsageFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutUsageFlagsEXT.html)
@@ -29851,6 +30700,141 @@ impl core::ops::BitXor<u32> for VkAddressCommandFlagBitsKHR {
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitXorAssign<u32> for VkAddressCommandFlagBitsKHR {
+    #[inline]
+    fn bitxor_assign(&mut self, r: u32) {
+        self.0 ^= r;
+    }
+}
+/// [VkDeviceFaultVendorBinaryHeaderVersionKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionKHR.html)
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDeviceFaultVendorBinaryHeaderVersionKHR(pub i32);
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkDeviceFaultVendorBinaryHeaderVersionKHR {
+    pub const VK_DEVICE_FAULT_VENDOR_BINARY_HEADER_VERSION_ONE_KHR: Self = Self(1);
+    pub const VK_DEVICE_FAULT_VENDOR_BINARY_HEADER_VERSION_ONE_EXT: Self = Self(1);
+}
+/// [VkDeviceFaultFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultFlagsKHR.html)
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDeviceFaultFlagBitsKHR(pub u32);
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkDeviceFaultFlagBitsKHR {
+    pub const EMPTY: Self = Self(0);
+    pub const VK_DEVICE_FAULT_FLAG_DEVICE_LOST_KHR: Self = Self(1 << 0u64);
+    pub const VK_DEVICE_FAULT_FLAG_MEMORY_ADDRESS_KHR: Self = Self(1 << 1u64);
+    pub const VK_DEVICE_FAULT_FLAG_INSTRUCTION_ADDRESS_KHR: Self = Self(1 << 2u64);
+    pub const VK_DEVICE_FAULT_FLAG_VENDOR_KHR: Self = Self(1 << 3u64);
+    pub const VK_DEVICE_FAULT_FLAG_WATCHDOG_TIMEOUT_KHR: Self = Self(1 << 4u64);
+    pub const VK_DEVICE_FAULT_FLAG_OVERFLOW_KHR: Self = Self(1 << 5u64);
+    #[inline]
+    pub const fn contains(self, o: Self) -> bool {
+        (self.0 & o.0) == o.0
+    }
+    #[inline]
+    pub const fn intersects(self, o: Self) -> bool {
+        (self.0 & o.0) != 0
+    }
+    #[inline]
+    pub const fn is_empty(self) -> bool {
+        self.0 == 0
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitOr for VkDeviceFaultFlagBitsKHR {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: Self) -> Self {
+        Self(self.0 | r.0)
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitOrAssign for VkDeviceFaultFlagBitsKHR {
+    #[inline]
+    fn bitor_assign(&mut self, r: Self) {
+        self.0 |= r.0;
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitAnd for VkDeviceFaultFlagBitsKHR {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: Self) -> Self {
+        Self(self.0 & r.0)
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitAndAssign for VkDeviceFaultFlagBitsKHR {
+    #[inline]
+    fn bitand_assign(&mut self, r: Self) {
+        self.0 &= r.0;
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitXor for VkDeviceFaultFlagBitsKHR {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: Self) -> Self {
+        Self(self.0 ^ r.0)
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitXorAssign for VkDeviceFaultFlagBitsKHR {
+    #[inline]
+    fn bitxor_assign(&mut self, r: Self) {
+        self.0 ^= r.0;
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::Not for VkDeviceFaultFlagBitsKHR {
+    type Output = Self;
+    #[inline]
+    fn not(self) -> Self {
+        Self(!self.0)
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitOr<u32> for VkDeviceFaultFlagBitsKHR {
+    type Output = Self;
+    #[inline]
+    fn bitor(self, r: u32) -> Self {
+        Self(self.0 | r)
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitOrAssign<u32> for VkDeviceFaultFlagBitsKHR {
+    #[inline]
+    fn bitor_assign(&mut self, r: u32) {
+        self.0 |= r;
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitAnd<u32> for VkDeviceFaultFlagBitsKHR {
+    type Output = Self;
+    #[inline]
+    fn bitand(self, r: u32) -> Self {
+        Self(self.0 & r)
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitAndAssign<u32> for VkDeviceFaultFlagBitsKHR {
+    #[inline]
+    fn bitand_assign(&mut self, r: u32) {
+        self.0 &= r;
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitXor<u32> for VkDeviceFaultFlagBitsKHR {
+    type Output = Self;
+    #[inline]
+    fn bitxor(self, r: u32) -> Self {
+        Self(self.0 ^ r)
+    }
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl core::ops::BitXorAssign<u32> for VkDeviceFaultFlagBitsKHR {
     #[inline]
     fn bitxor_assign(&mut self, r: u32) {
         self.0 ^= r;
@@ -38492,6 +39476,18 @@ pub struct VkBlockMatchWindowCompareModeQCOM(pub i32);
 impl VkBlockMatchWindowCompareModeQCOM {
     pub const VK_BLOCK_MATCH_WINDOW_COMPARE_MODE_MIN_QCOM: Self = Self(0);
     pub const VK_BLOCK_MATCH_WINDOW_COMPARE_MODE_MAX_QCOM: Self = Self(1);
+}
+/// [VkPerfHintTypeQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPerfHintTypeQCOM.html)
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkPerfHintTypeQCOM(pub i32);
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+impl VkPerfHintTypeQCOM {
+    pub const VK_PERF_HINT_TYPE_DEFAULT_QCOM: Self = Self(0);
+    pub const VK_PERF_HINT_TYPE_FREQUENCY_MIN_QCOM: Self = Self(1);
+    pub const VK_PERF_HINT_TYPE_FREQUENCY_MAX_QCOM: Self = Self(2);
+    pub const VK_PERF_HINT_TYPE_FREQUENCY_SCALED_QCOM: Self = Self(3);
 }
 /// [VkTileShadingRenderPassFlagBitsQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTileShadingRenderPassFlagsQCOM.html)
 #[cfg(feature = "VK_QCOM_tile_shading")]

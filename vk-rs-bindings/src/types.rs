@@ -3412,7 +3412,7 @@ pub struct VkDataGraphPipelineCreateInfoARM {
     /// Optional: true
     pub pNext: *const core::ffi::c_void,
     /// Optional: true
-    pub flags: VkPipelineCreateFlags2KHR,
+    pub flags: VkPipelineCreateFlags2,
     pub layout: VkPipelineLayout,
     /// Optional: true
     pub resourceInfoCount: u32,
@@ -3445,7 +3445,7 @@ impl VkDataGraphPipelineCreateInfoARM {
         self
     }
     #[inline]
-    pub const fn with_flags(mut self, val: VkPipelineCreateFlags2KHR) -> Self {
+    pub const fn with_flags(mut self, val: VkPipelineCreateFlags2) -> Self {
         self.flags = val;
         self
     }
@@ -4303,6 +4303,682 @@ impl VkDataGraphProcessingEngineCreateInfoARM {
         self
     }
 }
+/// [VkDataGraphTOSAQualityFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSAQualityFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+pub type VkDataGraphTOSAQualityFlagsARM = VkFlags;
+/// [VkDataGraphTOSANameQualityARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSANameQualityARM.html)
+///
+/// *Note: This is a **returned only** struct.*
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphTOSANameQualityARM {
+    /// Length: null-terminated,  No Auto-Validity
+    pub name: [core::ffi::c_char; VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM as usize],
+    pub qualityFlags: VkDataGraphTOSAQualityFlagsARM,
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+unsafe impl Send for VkDataGraphTOSANameQualityARM {}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+unsafe impl Sync for VkDataGraphTOSANameQualityARM {}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl VkDataGraphTOSANameQualityARM {
+    pub const DEFAULT: Self = Self {
+        name: [0i8; VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM as usize],
+        qualityFlags: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    #[inline]
+    pub const fn with_name(
+        mut self,
+        val: [core::ffi::c_char; VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM as usize],
+    ) -> Self {
+        self.name = val;
+        self
+    }
+    #[inline]
+    pub const fn with_qualityFlags(mut self, val: VkDataGraphTOSAQualityFlagsARM) -> Self {
+        self.qualityFlags = val;
+        self
+    }
+}
+/// [VkQueueFamilyDataGraphTOSAPropertiesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyDataGraphTOSAPropertiesARM.html)
+///
+/// *Note: This is a **returned only** struct.*
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkQueueFamilyDataGraphTOSAPropertiesARM {
+    /// Values: VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub profileCount: u32,
+    /// Length: profileCount
+    pub pProfiles: *const VkDataGraphTOSANameQualityARM,
+    pub extensionCount: u32,
+    /// Length: extensionCount
+    pub pExtensions: *const VkDataGraphTOSANameQualityARM,
+    pub level: VkDataGraphTOSALevelARM,
+}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+unsafe impl Send for VkQueueFamilyDataGraphTOSAPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+unsafe impl Sync for VkQueueFamilyDataGraphTOSAPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+impl VkQueueFamilyDataGraphTOSAPropertiesARM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM,
+        pNext: core::ptr::null_mut(),
+        profileCount: 0,
+        pProfiles: core::ptr::null(),
+        extensionCount: 0,
+        pExtensions: core::ptr::null(),
+        level: VkDataGraphTOSALevelARM(0),
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_profileCount(mut self, val: u32) -> Self {
+        self.profileCount = val;
+        self
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pProfiles(mut self, val: *const VkDataGraphTOSANameQualityARM) -> Self {
+        self.pProfiles = val;
+        self
+    }
+    #[inline]
+    pub const fn with_extensionCount(mut self, val: u32) -> Self {
+        self.extensionCount = val;
+        self
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pExtensions(mut self, val: *const VkDataGraphTOSANameQualityARM) -> Self {
+        self.pExtensions = val;
+        self
+    }
+    #[inline]
+    pub const fn with_level(mut self, val: VkDataGraphTOSALevelARM) -> Self {
+        self.level = val;
+        self
+    }
+}
+/// [VkDataGraphOpticalFlowGridSizeFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowGridSizeFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+pub type VkDataGraphOpticalFlowGridSizeFlagsARM = VkFlags;
+/// [VkDataGraphOpticalFlowImageUsageFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageUsageFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+pub type VkDataGraphOpticalFlowImageUsageFlagsARM = VkFlags;
+/// [VkDataGraphOpticalFlowCreateFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowCreateFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+pub type VkDataGraphOpticalFlowCreateFlagsARM = VkFlags;
+/// [VkDataGraphOpticalFlowExecuteFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowExecuteFlagsARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+pub type VkDataGraphOpticalFlowExecuteFlagsARM = VkFlags;
+/// [VkDataGraphPipelineResourceInfoImageLayoutARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineResourceInfoImageLayoutARM.html)
+///
+/// **Extends:** VkDataGraphPipelineResourceInfoARM.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphPipelineResourceInfoImageLayoutARM {
+    /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *const core::ffi::c_void,
+    pub layout: VkImageLayout,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkDataGraphPipelineResourceInfoImageLayoutARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkDataGraphPipelineResourceInfoImageLayoutARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphPipelineResourceInfoImageLayoutARM {
+    pub const DEFAULT: Self = Self {
+        sType:
+            VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM,
+        pNext: core::ptr::null(),
+        layout: VkImageLayout(0),
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_layout(mut self, val: VkImageLayout) -> Self {
+        self.layout = val;
+        self
+    }
+}
+/// [VkDataGraphPipelineSingleNodeConnectionARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSingleNodeConnectionARM.html)
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphPipelineSingleNodeConnectionARM {
+    /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub set: u32,
+    pub binding: u32,
+    pub connection: VkDataGraphPipelineNodeConnectionTypeARM,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkDataGraphPipelineSingleNodeConnectionARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkDataGraphPipelineSingleNodeConnectionARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphPipelineSingleNodeConnectionARM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM,
+        pNext: core::ptr::null_mut(),
+        set: 0,
+        binding: 0,
+        connection: VkDataGraphPipelineNodeConnectionTypeARM(0),
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_set(mut self, val: u32) -> Self {
+        self.set = val;
+        self
+    }
+    #[inline]
+    pub const fn with_binding(mut self, val: u32) -> Self {
+        self.binding = val;
+        self
+    }
+    #[inline]
+    pub const fn with_connection(mut self, val: VkDataGraphPipelineNodeConnectionTypeARM) -> Self {
+        self.connection = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM
+    pub sType: VkStructureType,
+    /// Optional: true,  No Auto-Validity
+    pub pNext: *mut core::ffi::c_void,
+    pub dataGraphOpticalFlow: VkBool32,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM {
+    pub const DEFAULT: Self = Self {
+        sType:
+            VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM,
+        pNext: core::ptr::null_mut(),
+        dataGraphOpticalFlow: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_dataGraphOpticalFlow(mut self, val: VkBool32) -> Self {
+        self.dataGraphOpticalFlow = val;
+        self
+    }
+}
+/// [VkQueueFamilyDataGraphOpticalFlowPropertiesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyDataGraphOpticalFlowPropertiesARM.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkQueueFamilyDataGraphOpticalFlowPropertiesARM {
+    /// Values: VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Limit Type: [Bitmask]
+    pub supportedOutputGridSizes: VkDataGraphOpticalFlowGridSizeFlagsARM,
+    /// Limit Type: [Bitmask]
+    pub supportedHintGridSizes: VkDataGraphOpticalFlowGridSizeFlagsARM,
+    /// Limit Type: [Exact]
+    pub hintSupported: VkBool32,
+    /// Limit Type: [Exact]
+    pub costSupported: VkBool32,
+    /// Limit Type: [Noauto]
+    pub minWidth: u32,
+    /// Limit Type: [Noauto]
+    pub minHeight: u32,
+    /// Limit Type: [Noauto]
+    pub maxWidth: u32,
+    /// Limit Type: [Noauto]
+    pub maxHeight: u32,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkQueueFamilyDataGraphOpticalFlowPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkQueueFamilyDataGraphOpticalFlowPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkQueueFamilyDataGraphOpticalFlowPropertiesARM {
+    pub const DEFAULT: Self = Self {
+        sType:
+            VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM,
+        pNext: core::ptr::null_mut(),
+        supportedOutputGridSizes: 0,
+        supportedHintGridSizes: 0,
+        hintSupported: 0,
+        costSupported: 0,
+        minWidth: 0,
+        minHeight: 0,
+        maxWidth: 0,
+        maxHeight: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_supportedOutputGridSizes(
+        mut self,
+        val: VkDataGraphOpticalFlowGridSizeFlagsARM,
+    ) -> Self {
+        self.supportedOutputGridSizes = val;
+        self
+    }
+    #[inline]
+    pub const fn with_supportedHintGridSizes(
+        mut self,
+        val: VkDataGraphOpticalFlowGridSizeFlagsARM,
+    ) -> Self {
+        self.supportedHintGridSizes = val;
+        self
+    }
+    #[inline]
+    pub const fn with_hintSupported(mut self, val: VkBool32) -> Self {
+        self.hintSupported = val;
+        self
+    }
+    #[inline]
+    pub const fn with_costSupported(mut self, val: VkBool32) -> Self {
+        self.costSupported = val;
+        self
+    }
+    #[inline]
+    pub const fn with_minWidth(mut self, val: u32) -> Self {
+        self.minWidth = val;
+        self
+    }
+    #[inline]
+    pub const fn with_minHeight(mut self, val: u32) -> Self {
+        self.minHeight = val;
+        self
+    }
+    #[inline]
+    pub const fn with_maxWidth(mut self, val: u32) -> Self {
+        self.maxWidth = val;
+        self
+    }
+    #[inline]
+    pub const fn with_maxHeight(mut self, val: u32) -> Self {
+        self.maxHeight = val;
+        self
+    }
+}
+/// [VkDataGraphOpticalFlowImageFormatInfoARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageFormatInfoARM.html)
+///
+/// **Extends:** VkPhysicalDeviceImageFormatInfo2, VkImageCreateInfo.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphOpticalFlowImageFormatInfoARM {
+    /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *const core::ffi::c_void,
+    pub usage: VkDataGraphOpticalFlowImageUsageFlagsARM,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkDataGraphOpticalFlowImageFormatInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkDataGraphOpticalFlowImageFormatInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphOpticalFlowImageFormatInfoARM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM,
+        pNext: core::ptr::null(),
+        usage: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_usage(mut self, val: VkDataGraphOpticalFlowImageUsageFlagsARM) -> Self {
+        self.usage = val;
+        self
+    }
+}
+/// [VkDataGraphOpticalFlowImageFormatPropertiesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageFormatPropertiesARM.html)
+///
+/// *Note: This is a **returned only** struct.*
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphOpticalFlowImageFormatPropertiesARM {
+    /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub format: VkFormat,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkDataGraphOpticalFlowImageFormatPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkDataGraphOpticalFlowImageFormatPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphOpticalFlowImageFormatPropertiesARM {
+    pub const DEFAULT: Self = Self {
+        sType:
+            VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM,
+        pNext: core::ptr::null_mut(),
+        format: VkFormat(0),
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_format(mut self, val: VkFormat) -> Self {
+        self.format = val;
+        self
+    }
+}
+/// [VkDataGraphPipelineSingleNodeCreateInfoARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSingleNodeCreateInfoARM.html)
+///
+/// **Extends:** VkDataGraphPipelineCreateInfoARM.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphPipelineSingleNodeCreateInfoARM {
+    /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub nodeType: VkDataGraphPipelineNodeTypeARM,
+    pub connectionCount: u32,
+    /// Length: connectionCount
+    pub pConnections: *const VkDataGraphPipelineSingleNodeConnectionARM,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkDataGraphPipelineSingleNodeCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkDataGraphPipelineSingleNodeCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphPipelineSingleNodeCreateInfoARM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM,
+        pNext: core::ptr::null_mut(),
+        nodeType: VkDataGraphPipelineNodeTypeARM(0),
+        connectionCount: 0,
+        pConnections: core::ptr::null(),
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_nodeType(mut self, val: VkDataGraphPipelineNodeTypeARM) -> Self {
+        self.nodeType = val;
+        self
+    }
+    #[inline]
+    pub const fn with_connectionCount(mut self, val: u32) -> Self {
+        self.connectionCount = val;
+        self
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pConnections(
+        mut self,
+        val: *const VkDataGraphPipelineSingleNodeConnectionARM,
+    ) -> Self {
+        self.pConnections = val;
+        self
+    }
+}
+/// [VkDataGraphPipelineOpticalFlowCreateInfoARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineOpticalFlowCreateInfoARM.html)
+///
+/// **Extends:** VkDataGraphPipelineCreateInfoARM.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphPipelineOpticalFlowCreateInfoARM {
+    /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub width: u32,
+    pub height: u32,
+    pub imageFormat: VkFormat,
+    pub flowVectorFormat: VkFormat,
+    /// Optional: true
+    pub costFormat: VkFormat,
+    /// No Auto-Validity
+    pub outputGridSize: VkDataGraphOpticalFlowGridSizeFlagsARM,
+    /// No Auto-Validity
+    pub hintGridSize: VkDataGraphOpticalFlowGridSizeFlagsARM,
+    /// Optional: true
+    pub performanceLevel: VkDataGraphOpticalFlowPerformanceLevelARM,
+    /// Optional: true
+    pub flags: VkDataGraphOpticalFlowCreateFlagsARM,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkDataGraphPipelineOpticalFlowCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkDataGraphPipelineOpticalFlowCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphPipelineOpticalFlowCreateInfoARM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM,
+        pNext: core::ptr::null_mut(),
+        width: 0,
+        height: 0,
+        imageFormat: VkFormat(0),
+        flowVectorFormat: VkFormat(0),
+        costFormat: VkFormat(0),
+        outputGridSize: 0,
+        hintGridSize: 0,
+        performanceLevel: VkDataGraphOpticalFlowPerformanceLevelARM(0),
+        flags: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_width(mut self, val: u32) -> Self {
+        self.width = val;
+        self
+    }
+    #[inline]
+    pub const fn with_height(mut self, val: u32) -> Self {
+        self.height = val;
+        self
+    }
+    #[inline]
+    pub const fn with_imageFormat(mut self, val: VkFormat) -> Self {
+        self.imageFormat = val;
+        self
+    }
+    #[inline]
+    pub const fn with_flowVectorFormat(mut self, val: VkFormat) -> Self {
+        self.flowVectorFormat = val;
+        self
+    }
+    #[inline]
+    pub const fn with_costFormat(mut self, val: VkFormat) -> Self {
+        self.costFormat = val;
+        self
+    }
+    #[inline]
+    pub const fn with_outputGridSize(
+        mut self,
+        val: VkDataGraphOpticalFlowGridSizeFlagsARM,
+    ) -> Self {
+        self.outputGridSize = val;
+        self
+    }
+    #[inline]
+    pub const fn with_hintGridSize(mut self, val: VkDataGraphOpticalFlowGridSizeFlagsARM) -> Self {
+        self.hintGridSize = val;
+        self
+    }
+    #[inline]
+    pub const fn with_performanceLevel(
+        mut self,
+        val: VkDataGraphOpticalFlowPerformanceLevelARM,
+    ) -> Self {
+        self.performanceLevel = val;
+        self
+    }
+    #[inline]
+    pub const fn with_flags(mut self, val: VkDataGraphOpticalFlowCreateFlagsARM) -> Self {
+        self.flags = val;
+        self
+    }
+}
+/// [VkDataGraphPipelineOpticalFlowDispatchInfoARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineOpticalFlowDispatchInfoARM.html)
+///
+/// **Extends:** VkDataGraphPipelineDispatchInfoARM.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphPipelineOpticalFlowDispatchInfoARM {
+    /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Optional: true
+    pub flags: VkDataGraphOpticalFlowExecuteFlagsARM,
+    /// Optional: true
+    pub meanFlowL1NormHint: u32,
+}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Send for VkDataGraphPipelineOpticalFlowDispatchInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+unsafe impl Sync for VkDataGraphPipelineOpticalFlowDispatchInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+impl VkDataGraphPipelineOpticalFlowDispatchInfoARM {
+    pub const DEFAULT: Self = Self {
+        sType:
+            VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM,
+        pNext: core::ptr::null_mut(),
+        flags: 0,
+        meanFlowL1NormHint: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_flags(mut self, val: VkDataGraphOpticalFlowExecuteFlagsARM) -> Self {
+        self.flags = val;
+        self
+    }
+    #[inline]
+    pub const fn with_meanFlowL1NormHint(mut self, val: u32) -> Self {
+        self.meanFlowL1NormHint = val;
+        self
+    }
+}
 /// [VkPhysicalDeviceFormatPackFeaturesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFormatPackFeaturesARM.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -4735,7 +5411,7 @@ pub struct VkPhysicalDeviceRenderPassStripedPropertiesARM {
     pub sType: VkStructureType,
     /// Optional: true
     pub pNext: *mut core::ffi::c_void,
-    /// Limit Type: [Max, Mul]
+    /// Limit Type: [Min, Mul]
     pub renderPassStripeGranularity: VkExtent2D,
     /// Limit Type: [Max]
     pub maxRenderPassStripes: u32,
@@ -5048,6 +5724,124 @@ impl VkPhysicalDeviceSchedulingControlsPropertiesARM {
         val: VkPhysicalDeviceSchedulingControlsFlagsARM,
     ) -> Self {
         self.schedulingControlsFlags = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Limit Type: [Max]
+    pub schedulingControlsMaxWarpsCount: u32,
+    /// Limit Type: [Max]
+    pub schedulingControlsMaxQueuedBatchesCount: u32,
+    /// Limit Type: [Max]
+    pub schedulingControlsMaxWorkGroupBatchSize: u32,
+}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Send for VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Sync for VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+impl VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM,
+        pNext: core::ptr::null_mut(),
+        schedulingControlsMaxWarpsCount: 0,
+        schedulingControlsMaxQueuedBatchesCount: 0,
+        schedulingControlsMaxWorkGroupBatchSize: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_schedulingControlsMaxWarpsCount(mut self, val: u32) -> Self {
+        self.schedulingControlsMaxWarpsCount = val;
+        self
+    }
+    #[inline]
+    pub const fn with_schedulingControlsMaxQueuedBatchesCount(mut self, val: u32) -> Self {
+        self.schedulingControlsMaxQueuedBatchesCount = val;
+        self
+    }
+    #[inline]
+    pub const fn with_schedulingControlsMaxWorkGroupBatchSize(mut self, val: u32) -> Self {
+        self.schedulingControlsMaxWorkGroupBatchSize = val;
+        self
+    }
+}
+/// [VkDispatchParametersARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDispatchParametersARM.html)
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDispatchParametersARM {
+    /// Values: VK_STRUCTURE_TYPE_DISPATCH_PARAMETERS_ARM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Optional: true
+    pub workGroupBatchSize: u32,
+    /// Optional: true
+    pub maxQueuedWorkGroupBatches: u32,
+    /// Optional: true
+    pub maxWarpsPerShaderCore: u32,
+}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Send for VkDispatchParametersARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Sync for VkDispatchParametersARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+impl VkDispatchParametersARM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_PARAMETERS_ARM,
+        pNext: core::ptr::null_mut(),
+        workGroupBatchSize: 0,
+        maxQueuedWorkGroupBatches: 0,
+        maxWarpsPerShaderCore: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_workGroupBatchSize(mut self, val: u32) -> Self {
+        self.workGroupBatchSize = val;
+        self
+    }
+    #[inline]
+    pub const fn with_maxQueuedWorkGroupBatches(mut self, val: u32) -> Self {
+        self.maxQueuedWorkGroupBatches = val;
+        self
+    }
+    #[inline]
+    pub const fn with_maxWarpsPerShaderCore(mut self, val: u32) -> Self {
+        self.maxWarpsPerShaderCore = val;
         self
     }
 }
@@ -6096,6 +6890,7 @@ pub struct VkTensorDependencyInfoARM {
     /// Optional: true
     pub pNext: *const core::ffi::c_void,
     pub tensorMemoryBarrierCount: u32,
+    /// Length: tensorMemoryBarrierCount
     pub pTensorMemoryBarriers: *const VkTensorMemoryBarrierARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
@@ -8031,11 +8826,11 @@ pub struct VkDeviceCreateInfo {
     pub queueCreateInfoCount: u32,
     /// Length: queueCreateInfoCount
     pub pQueueCreateInfos: *const VkDeviceQueueCreateInfo,
-    /// Optional: true,  No Auto-Validity
-    #[deprecated(note = "ignored")]
+    /// No Auto-Validity
+    #[deprecated(note = "unused")]
     pub enabledLayerCount: u32,
-    /// Length: enabledLayerCount,null-terminated,  No Auto-Validity
-    #[deprecated(note = "ignored")]
+    /// No Auto-Validity
+    #[deprecated(note = "unused")]
     pub ppEnabledLayerNames: *const *const core::ffi::c_char,
     /// Optional: true
     pub enabledExtensionCount: u32,
@@ -8090,13 +8885,13 @@ impl VkDeviceCreateInfo {
         self.pQueueCreateInfos = val;
         self
     }
-    #[deprecated(note = "ignored")]
+    #[deprecated(note = "unused")]
     #[inline]
     pub const fn with_enabledLayerCount(mut self, val: u32) -> Self {
         self.enabledLayerCount = val;
         self
     }
-    #[deprecated(note = "ignored")]
+    #[deprecated(note = "unused")]
     /** # Safety
     The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
     #[inline]
@@ -16350,7 +17145,7 @@ pub struct VkDeviceImageMemoryRequirements {
     /// Optional: true
     pub pNext: *const core::ffi::c_void,
     pub pCreateInfo: *const VkImageCreateInfo,
-    /// Optional: true
+    /// Optional: true,  No Auto-Validity
     pub planeAspect: VkImageAspectFlagBits,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
@@ -30850,94 +31645,10 @@ impl VkPhysicalDeviceFaultFeaturesEXT {
         self
     }
 }
-/// [VkDeviceFaultAddressInfoEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressInfoEXT.html)
-///
-/// *Note: This is a **returned only** struct.*
 #[cfg(feature = "VK_EXT_device_fault")]
-#[repr(C)]
-#[derive(Debug, Clone, Copy)]
-pub struct VkDeviceFaultAddressInfoEXT {
-    pub addressType: VkDeviceFaultAddressTypeEXT,
-    pub reportedAddress: VkDeviceAddress,
-    pub addressPrecision: VkDeviceSize,
-}
+pub type VkDeviceFaultAddressInfoEXT = VkDeviceFaultAddressInfoKHR;
 #[cfg(feature = "VK_EXT_device_fault")]
-unsafe impl Send for VkDeviceFaultAddressInfoEXT {}
-#[cfg(feature = "VK_EXT_device_fault")]
-unsafe impl Sync for VkDeviceFaultAddressInfoEXT {}
-#[cfg(feature = "VK_EXT_device_fault")]
-impl VkDeviceFaultAddressInfoEXT {
-    pub const DEFAULT: Self = Self {
-        addressType: VkDeviceFaultAddressTypeEXT(0),
-        reportedAddress: 0,
-        addressPrecision: 0,
-    };
-    #[inline]
-    pub const fn new() -> Self {
-        Self::DEFAULT
-    }
-    #[inline]
-    pub const fn with_addressType(mut self, val: VkDeviceFaultAddressTypeEXT) -> Self {
-        self.addressType = val;
-        self
-    }
-    #[inline]
-    pub const fn with_reportedAddress(mut self, val: VkDeviceAddress) -> Self {
-        self.reportedAddress = val;
-        self
-    }
-    #[inline]
-    pub const fn with_addressPrecision(mut self, val: VkDeviceSize) -> Self {
-        self.addressPrecision = val;
-        self
-    }
-}
-/// [VkDeviceFaultVendorInfoEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorInfoEXT.html)
-///
-/// *Note: This is a **returned only** struct.*
-#[cfg(feature = "VK_EXT_device_fault")]
-#[repr(C)]
-#[derive(Debug, Clone, Copy)]
-pub struct VkDeviceFaultVendorInfoEXT {
-    /// Length: null-terminated,  No Auto-Validity
-    pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
-    pub vendorFaultCode: u64,
-    pub vendorFaultData: u64,
-}
-#[cfg(feature = "VK_EXT_device_fault")]
-unsafe impl Send for VkDeviceFaultVendorInfoEXT {}
-#[cfg(feature = "VK_EXT_device_fault")]
-unsafe impl Sync for VkDeviceFaultVendorInfoEXT {}
-#[cfg(feature = "VK_EXT_device_fault")]
-impl VkDeviceFaultVendorInfoEXT {
-    pub const DEFAULT: Self = Self {
-        description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
-        vendorFaultCode: 0,
-        vendorFaultData: 0,
-    };
-    #[inline]
-    pub const fn new() -> Self {
-        Self::DEFAULT
-    }
-    #[inline]
-    pub const fn with_description(
-        mut self,
-        val: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
-    ) -> Self {
-        self.description = val;
-        self
-    }
-    #[inline]
-    pub const fn with_vendorFaultCode(mut self, val: u64) -> Self {
-        self.vendorFaultCode = val;
-        self
-    }
-    #[inline]
-    pub const fn with_vendorFaultData(mut self, val: u64) -> Self {
-        self.vendorFaultData = val;
-        self
-    }
-}
+pub type VkDeviceFaultVendorInfoEXT = VkDeviceFaultVendorInfoKHR;
 /// [VkDeviceFaultCountsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultCountsEXT.html)
 #[cfg(feature = "VK_EXT_device_fault")]
 #[repr(C)]
@@ -31008,9 +31719,9 @@ pub struct VkDeviceFaultInfoEXT {
     /// Length: null-terminated,  No Auto-Validity
     pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
     /// Optional: true
-    pub pAddressInfos: *mut VkDeviceFaultAddressInfoEXT,
+    pub pAddressInfos: *mut VkDeviceFaultAddressInfoKHR,
     /// Optional: true
-    pub pVendorInfos: *mut VkDeviceFaultVendorInfoEXT,
+    pub pVendorInfos: *mut VkDeviceFaultVendorInfoKHR,
     /// Optional: true
     pub pVendorBinaryData: *mut core::ffi::c_void,
 }
@@ -31050,14 +31761,14 @@ impl VkDeviceFaultInfoEXT {
     /** # Safety
     The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
     #[inline]
-    pub const fn with_pAddressInfos(mut self, val: *mut VkDeviceFaultAddressInfoEXT) -> Self {
+    pub const fn with_pAddressInfos(mut self, val: *mut VkDeviceFaultAddressInfoKHR) -> Self {
         self.pAddressInfos = val;
         self
     }
     /** # Safety
     The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
     #[inline]
-    pub const fn with_pVendorInfos(mut self, val: *mut VkDeviceFaultVendorInfoEXT) -> Self {
+    pub const fn with_pVendorInfos(mut self, val: *mut VkDeviceFaultVendorInfoKHR) -> Self {
         self.pVendorInfos = val;
         self
     }
@@ -31069,105 +31780,9 @@ impl VkDeviceFaultInfoEXT {
         self
     }
 }
-/// [VkDeviceFaultVendorBinaryHeaderVersionOneEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html)
 #[cfg(feature = "VK_EXT_device_fault")]
-#[repr(C)]
-#[derive(Debug, Clone, Copy)]
-pub struct VkDeviceFaultVendorBinaryHeaderVersionOneEXT {
-    pub headerSize: u32,
-    pub headerVersion: VkDeviceFaultVendorBinaryHeaderVersionEXT,
-    pub vendorID: u32,
-    pub deviceID: u32,
-    pub driverVersion: u32,
-    pub pipelineCacheUUID: [u8; VK_UUID_SIZE as usize],
-    pub applicationNameOffset: u32,
-    pub applicationVersion: u32,
-    pub engineNameOffset: u32,
-    pub engineVersion: u32,
-    pub apiVersion: u32,
-}
-#[cfg(feature = "VK_EXT_device_fault")]
-unsafe impl Send for VkDeviceFaultVendorBinaryHeaderVersionOneEXT {}
-#[cfg(feature = "VK_EXT_device_fault")]
-unsafe impl Sync for VkDeviceFaultVendorBinaryHeaderVersionOneEXT {}
-#[cfg(feature = "VK_EXT_device_fault")]
-impl VkDeviceFaultVendorBinaryHeaderVersionOneEXT {
-    pub const DEFAULT: Self = Self {
-        headerSize: 0,
-        headerVersion: VkDeviceFaultVendorBinaryHeaderVersionEXT(0),
-        vendorID: 0,
-        deviceID: 0,
-        driverVersion: 0,
-        pipelineCacheUUID: [0u8; VK_UUID_SIZE as usize],
-        applicationNameOffset: 0,
-        applicationVersion: 0,
-        engineNameOffset: 0,
-        engineVersion: 0,
-        apiVersion: 0,
-    };
-    #[inline]
-    pub const fn new() -> Self {
-        Self::DEFAULT
-    }
-    #[inline]
-    pub const fn with_headerSize(mut self, val: u32) -> Self {
-        self.headerSize = val;
-        self
-    }
-    #[inline]
-    pub const fn with_headerVersion(
-        mut self,
-        val: VkDeviceFaultVendorBinaryHeaderVersionEXT,
-    ) -> Self {
-        self.headerVersion = val;
-        self
-    }
-    #[inline]
-    pub const fn with_vendorID(mut self, val: u32) -> Self {
-        self.vendorID = val;
-        self
-    }
-    #[inline]
-    pub const fn with_deviceID(mut self, val: u32) -> Self {
-        self.deviceID = val;
-        self
-    }
-    #[inline]
-    pub const fn with_driverVersion(mut self, val: u32) -> Self {
-        self.driverVersion = val;
-        self
-    }
-    #[inline]
-    pub const fn with_pipelineCacheUUID(mut self, val: [u8; VK_UUID_SIZE as usize]) -> Self {
-        self.pipelineCacheUUID = val;
-        self
-    }
-    #[inline]
-    pub const fn with_applicationNameOffset(mut self, val: u32) -> Self {
-        self.applicationNameOffset = val;
-        self
-    }
-    #[inline]
-    pub const fn with_applicationVersion(mut self, val: u32) -> Self {
-        self.applicationVersion = val;
-        self
-    }
-    #[inline]
-    pub const fn with_engineNameOffset(mut self, val: u32) -> Self {
-        self.engineNameOffset = val;
-        self
-    }
-    #[inline]
-    pub const fn with_engineVersion(mut self, val: u32) -> Self {
-        self.engineVersion = val;
-        self
-    }
-    #[inline]
-    pub const fn with_apiVersion(mut self, val: u32) -> Self {
-        self.apiVersion = val;
-        self
-    }
-}
+pub type VkDeviceFaultVendorBinaryHeaderVersionOneEXT =
+    VkDeviceFaultVendorBinaryHeaderVersionOneKHR;
 /// [VkIndirectCommandsLayoutUsageFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutUsageFlagsEXT.html)
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 pub type VkIndirectCommandsLayoutUsageFlagsEXT = VkFlags;
@@ -40267,6 +40882,7 @@ pub struct VkSwapchainCalibratedTimestampInfoEXT {
     /// Optional: true
     pub pNext: *const core::ffi::c_void,
     pub swapchain: VkSwapchainKHR,
+    /// Optional: true
     pub presentStage: VkPresentStageFlagsEXT,
     pub timeDomainId: u64,
 }
@@ -40307,6 +40923,48 @@ impl VkSwapchainCalibratedTimestampInfoEXT {
     #[inline]
     pub const fn with_timeDomainId(mut self, val: u64) -> Self {
         self.timeDomainId = val;
+        self
+    }
+}
+/// [VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub primitiveRestartIndex: VkBool32,
+}
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+unsafe impl Send for VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT {}
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+unsafe impl Sync for VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT {}
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+impl VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT {
+    pub const DEFAULT: Self = Self {
+        sType:
+            VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT,
+        pNext: core::ptr::null_mut(),
+        primitiveRestartIndex: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_primitiveRestartIndex(mut self, val: VkBool32) -> Self {
+        self.primitiveRestartIndex = val;
         self
     }
 }
@@ -44373,31 +45031,31 @@ impl VkMemoryGetZirconHandleInfoFUCHSIA {
 /// [zx_handle_t](https://docs.vulkan.org/refpages/latest/refpages/source/zx_handle_t.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_imagepipe_surface",
     feature = "VK_FUCHSIA_external_semaphore",
-    feature = "VK_FUCHSIA_imagepipe_surface"
+    feature = "VK_FUCHSIA_external_memory"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct zx_handle_t(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_imagepipe_surface",
     feature = "VK_FUCHSIA_external_semaphore",
-    feature = "VK_FUCHSIA_imagepipe_surface"
+    feature = "VK_FUCHSIA_external_memory"
 ))]
 impl zx_handle_t {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_imagepipe_surface",
     feature = "VK_FUCHSIA_external_semaphore",
-    feature = "VK_FUCHSIA_imagepipe_surface"
+    feature = "VK_FUCHSIA_external_memory"
 ))]
 unsafe impl Send for zx_handle_t {}
 #[cfg(any(
-    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_imagepipe_surface",
     feature = "VK_FUCHSIA_external_semaphore",
-    feature = "VK_FUCHSIA_imagepipe_surface"
+    feature = "VK_FUCHSIA_external_memory"
 ))]
 unsafe impl Sync for zx_handle_t {}
 /// [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreZirconHandleInfoFUCHSIA.html)
@@ -54026,6 +54684,438 @@ impl VkMemoryMarkerInfoAMD {
         self
     }
 }
+/// [VkDeviceFaultFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultFlagsKHR.html)
+#[cfg(feature = "VK_KHR_device_fault")]
+pub type VkDeviceFaultFlagsKHR = VkFlags;
+/// [VkDeviceFaultAddressInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressInfoKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDeviceFaultAddressInfoKHR {
+    pub addressType: VkDeviceFaultAddressTypeKHR,
+    pub reportedAddress: VkDeviceAddress,
+    pub addressPrecision: VkDeviceSize,
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Send for VkDeviceFaultAddressInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Sync for VkDeviceFaultAddressInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkDeviceFaultAddressInfoKHR {
+    pub const DEFAULT: Self = Self {
+        addressType: VkDeviceFaultAddressTypeKHR(0),
+        reportedAddress: 0,
+        addressPrecision: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    #[inline]
+    pub const fn with_addressType(mut self, val: VkDeviceFaultAddressTypeKHR) -> Self {
+        self.addressType = val;
+        self
+    }
+    #[inline]
+    pub const fn with_reportedAddress(mut self, val: VkDeviceAddress) -> Self {
+        self.reportedAddress = val;
+        self
+    }
+    #[inline]
+    pub const fn with_addressPrecision(mut self, val: VkDeviceSize) -> Self {
+        self.addressPrecision = val;
+        self
+    }
+}
+/// [VkDeviceFaultVendorInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorInfoKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDeviceFaultVendorInfoKHR {
+    /// Length: null-terminated,  No Auto-Validity
+    pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
+    pub vendorFaultCode: u64,
+    pub vendorFaultData: u64,
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Send for VkDeviceFaultVendorInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Sync for VkDeviceFaultVendorInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkDeviceFaultVendorInfoKHR {
+    pub const DEFAULT: Self = Self {
+        description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
+        vendorFaultCode: 0,
+        vendorFaultData: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    #[inline]
+    pub const fn with_description(
+        mut self,
+        val: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
+    ) -> Self {
+        self.description = val;
+        self
+    }
+    #[inline]
+    pub const fn with_vendorFaultCode(mut self, val: u64) -> Self {
+        self.vendorFaultCode = val;
+        self
+    }
+    #[inline]
+    pub const fn with_vendorFaultData(mut self, val: u64) -> Self {
+        self.vendorFaultData = val;
+        self
+    }
+}
+/// [VkDeviceFaultInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultInfoKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDeviceFaultInfoKHR {
+    /// Values: VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub flags: VkDeviceFaultFlagsKHR,
+    pub groupId: u64,
+    /// Length: null-terminated,  No Auto-Validity
+    pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
+    /// Optional: true
+    pub faultAddressInfo: VkDeviceFaultAddressInfoKHR,
+    /// Optional: true
+    pub instructionAddressInfo: VkDeviceFaultAddressInfoKHR,
+    /// Optional: true
+    pub vendorInfo: VkDeviceFaultVendorInfoKHR,
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Send for VkDeviceFaultInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Sync for VkDeviceFaultInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkDeviceFaultInfoKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR,
+        pNext: core::ptr::null_mut(),
+        flags: 0,
+        groupId: 0,
+        description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
+        faultAddressInfo: VkDeviceFaultAddressInfoKHR::DEFAULT,
+        instructionAddressInfo: VkDeviceFaultAddressInfoKHR::DEFAULT,
+        vendorInfo: VkDeviceFaultVendorInfoKHR::DEFAULT,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_flags(mut self, val: VkDeviceFaultFlagsKHR) -> Self {
+        self.flags = val;
+        self
+    }
+    #[inline]
+    pub const fn with_groupId(mut self, val: u64) -> Self {
+        self.groupId = val;
+        self
+    }
+    #[inline]
+    pub const fn with_description(
+        mut self,
+        val: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
+    ) -> Self {
+        self.description = val;
+        self
+    }
+    #[inline]
+    pub const fn with_faultAddressInfo(mut self, val: VkDeviceFaultAddressInfoKHR) -> Self {
+        self.faultAddressInfo = val;
+        self
+    }
+    #[inline]
+    pub const fn with_instructionAddressInfo(mut self, val: VkDeviceFaultAddressInfoKHR) -> Self {
+        self.instructionAddressInfo = val;
+        self
+    }
+    #[inline]
+    pub const fn with_vendorInfo(mut self, val: VkDeviceFaultVendorInfoKHR) -> Self {
+        self.vendorInfo = val;
+        self
+    }
+}
+/// [VkDeviceFaultDebugInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultDebugInfoKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDeviceFaultDebugInfoKHR {
+    /// Values: VK_STRUCTURE_TYPE_DEVICE_FAULT_DEBUG_INFO_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub vendorBinarySize: u32,
+    /// Optional: true,  Length: vendorBinarySize
+    pub pVendorBinaryData: *mut core::ffi::c_void,
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Send for VkDeviceFaultDebugInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Sync for VkDeviceFaultDebugInfoKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkDeviceFaultDebugInfoKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_DEBUG_INFO_KHR,
+        pNext: core::ptr::null_mut(),
+        vendorBinarySize: 0,
+        pVendorBinaryData: core::ptr::null_mut(),
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_vendorBinarySize(mut self, val: u32) -> Self {
+        self.vendorBinarySize = val;
+        self
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pVendorBinaryData(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pVendorBinaryData = val;
+        self
+    }
+}
+/// [VkDeviceFaultVendorBinaryHeaderVersionOneKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultVendorBinaryHeaderVersionOneKHR.html)
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDeviceFaultVendorBinaryHeaderVersionOneKHR {
+    pub headerSize: u32,
+    pub headerVersion: VkDeviceFaultVendorBinaryHeaderVersionKHR,
+    pub vendorID: u32,
+    pub deviceID: u32,
+    pub driverVersion: u32,
+    pub pipelineCacheUUID: [u8; VK_UUID_SIZE as usize],
+    pub applicationNameOffset: u32,
+    pub applicationVersion: u32,
+    pub engineNameOffset: u32,
+    pub engineVersion: u32,
+    pub apiVersion: u32,
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Send for VkDeviceFaultVendorBinaryHeaderVersionOneKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Sync for VkDeviceFaultVendorBinaryHeaderVersionOneKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkDeviceFaultVendorBinaryHeaderVersionOneKHR {
+    pub const DEFAULT: Self = Self {
+        headerSize: 0,
+        headerVersion: VkDeviceFaultVendorBinaryHeaderVersionKHR(0),
+        vendorID: 0,
+        deviceID: 0,
+        driverVersion: 0,
+        pipelineCacheUUID: [0u8; VK_UUID_SIZE as usize],
+        applicationNameOffset: 0,
+        applicationVersion: 0,
+        engineNameOffset: 0,
+        engineVersion: 0,
+        apiVersion: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    #[inline]
+    pub const fn with_headerSize(mut self, val: u32) -> Self {
+        self.headerSize = val;
+        self
+    }
+    #[inline]
+    pub const fn with_headerVersion(
+        mut self,
+        val: VkDeviceFaultVendorBinaryHeaderVersionKHR,
+    ) -> Self {
+        self.headerVersion = val;
+        self
+    }
+    #[inline]
+    pub const fn with_vendorID(mut self, val: u32) -> Self {
+        self.vendorID = val;
+        self
+    }
+    #[inline]
+    pub const fn with_deviceID(mut self, val: u32) -> Self {
+        self.deviceID = val;
+        self
+    }
+    #[inline]
+    pub const fn with_driverVersion(mut self, val: u32) -> Self {
+        self.driverVersion = val;
+        self
+    }
+    #[inline]
+    pub const fn with_pipelineCacheUUID(mut self, val: [u8; VK_UUID_SIZE as usize]) -> Self {
+        self.pipelineCacheUUID = val;
+        self
+    }
+    #[inline]
+    pub const fn with_applicationNameOffset(mut self, val: u32) -> Self {
+        self.applicationNameOffset = val;
+        self
+    }
+    #[inline]
+    pub const fn with_applicationVersion(mut self, val: u32) -> Self {
+        self.applicationVersion = val;
+        self
+    }
+    #[inline]
+    pub const fn with_engineNameOffset(mut self, val: u32) -> Self {
+        self.engineNameOffset = val;
+        self
+    }
+    #[inline]
+    pub const fn with_engineVersion(mut self, val: u32) -> Self {
+        self.engineVersion = val;
+        self
+    }
+    #[inline]
+    pub const fn with_apiVersion(mut self, val: u32) -> Self {
+        self.apiVersion = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceFaultFeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFaultFeaturesKHR.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceFaultFeaturesKHR {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_FEATURES_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub deviceFault: VkBool32,
+    pub deviceFaultVendorBinary: VkBool32,
+    pub deviceFaultReportMasked: VkBool32,
+    pub deviceFaultDeviceLostOnMasked: VkBool32,
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Send for VkPhysicalDeviceFaultFeaturesKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Sync for VkPhysicalDeviceFaultFeaturesKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkPhysicalDeviceFaultFeaturesKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_FEATURES_KHR,
+        pNext: core::ptr::null_mut(),
+        deviceFault: 0,
+        deviceFaultVendorBinary: 0,
+        deviceFaultReportMasked: 0,
+        deviceFaultDeviceLostOnMasked: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_deviceFault(mut self, val: VkBool32) -> Self {
+        self.deviceFault = val;
+        self
+    }
+    #[inline]
+    pub const fn with_deviceFaultVendorBinary(mut self, val: VkBool32) -> Self {
+        self.deviceFaultVendorBinary = val;
+        self
+    }
+    #[inline]
+    pub const fn with_deviceFaultReportMasked(mut self, val: VkBool32) -> Self {
+        self.deviceFaultReportMasked = val;
+        self
+    }
+    #[inline]
+    pub const fn with_deviceFaultDeviceLostOnMasked(mut self, val: VkBool32) -> Self {
+        self.deviceFaultDeviceLostOnMasked = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceFaultPropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFaultPropertiesKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_KHR_device_fault")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceFaultPropertiesKHR {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Limit Type: [Max]
+    pub maxDeviceFaultCount: u32,
+}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Send for VkPhysicalDeviceFaultPropertiesKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+unsafe impl Sync for VkPhysicalDeviceFaultPropertiesKHR {}
+#[cfg(feature = "VK_KHR_device_fault")]
+impl VkPhysicalDeviceFaultPropertiesKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR,
+        pNext: core::ptr::null_mut(),
+        maxDeviceFaultCount: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_maxDeviceFaultCount(mut self, val: u32) -> Self {
+        self.maxDeviceFaultCount = val;
+        self
+    }
+}
 #[cfg(feature = "VK_KHR_device_group")]
 pub type VkPeerMemoryFeatureFlagsKHR = VkPeerMemoryFeatureFlags;
 #[cfg(feature = "VK_KHR_device_group")]
@@ -54361,9 +55451,6 @@ pub type VkDeviceGroupDeviceCreateInfoKHR = VkDeviceGroupDeviceCreateInfo;
 /// [VkDisplayPlaneAlphaFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlaneAlphaFlagsKHR.html)
 #[cfg(feature = "VK_KHR_display")]
 pub type VkDisplayPlaneAlphaFlagsKHR = VkFlags;
-/// [VkSurfaceTransformFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceTransformFlagsKHR.html)
-#[cfg(feature = "VK_KHR_display")]
-pub type VkSurfaceTransformFlagsKHR = VkFlags;
 /// [VkDisplayModeCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_display")]
 pub type VkDisplayModeCreateFlagsKHR = VkFlags;
@@ -55193,133 +56280,133 @@ impl VkFenceGetWin32HandleInfoKHR {
 /// [LPCWSTR](https://docs.vulkan.org/refpages/latest/refpages/source/LPCWSTR.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LPCWSTR(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_fence_win32"
 ))]
 impl LPCWSTR {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for LPCWSTR {}
 #[cfg(any(
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for LPCWSTR {}
 /// [HANDLE](https://docs.vulkan.org/refpages/latest/refpages/source/HANDLE.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HANDLE(pub *mut core::ffi::c_void);
 #[cfg(any(
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32"
 ))]
 impl HANDLE {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Send for HANDLE {}
 #[cfg(any(
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Sync for HANDLE {}
 /// [SECURITY_ATTRIBUTES](https://docs.vulkan.org/refpages/latest/refpages/source/SECURITY_ATTRIBUTES.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
+    feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
+    feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_fence_win32"
 ))]
 impl SECURITY_ATTRIBUTES {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
+    feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for SECURITY_ATTRIBUTES {}
 #[cfg(any(
+    feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for SECURITY_ATTRIBUTES {}
 /// [DWORD](https://docs.vulkan.org/refpages/latest/refpages/source/DWORD.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32"
+    feature = "VK_KHR_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DWORD(pub *mut core::ffi::c_void);
 #[cfg(any(
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32"
+    feature = "VK_KHR_external_memory_win32"
 ))]
 impl DWORD {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32"
+    feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Send for DWORD {}
 #[cfg(any(
     feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_semaphore_win32",
-    feature = "VK_KHR_external_fence_win32"
+    feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Sync for DWORD {}
 #[cfg(feature = "VK_KHR_external_memory")]
@@ -57970,7 +59057,7 @@ impl VkPhysicalDeviceMaintenance8FeaturesKHR {
 }
 /// [VkMemoryBarrierAccessFlags3KHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryBarrierAccessFlags3KHR.html)
 ///
-/// **Extends:** VkSubpassDependency2, VkBufferMemoryBarrier2, VkImageMemoryBarrier2.
+/// **Extends:** VkSubpassDependency2, VkBufferMemoryBarrier2, VkImageMemoryBarrier2, VkMemoryRangeBarriersInfoKHR.
 #[cfg(feature = "VK_KHR_maintenance8")]
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
@@ -61280,6 +62367,145 @@ pub type VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR =
 pub type VkAttachmentReferenceStencilLayoutKHR = VkAttachmentReferenceStencilLayout;
 #[cfg(feature = "VK_KHR_separate_depth_stencil_layouts")]
 pub type VkAttachmentDescriptionStencilLayoutKHR = VkAttachmentDescriptionStencilLayout;
+/// [VkPhysicalDeviceShaderAbortFeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAbortFeaturesKHR.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_KHR_shader_abort")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceShaderAbortFeaturesKHR {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub shaderAbort: VkBool32,
+}
+#[cfg(feature = "VK_KHR_shader_abort")]
+unsafe impl Send for VkPhysicalDeviceShaderAbortFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_abort")]
+unsafe impl Sync for VkPhysicalDeviceShaderAbortFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_abort")]
+impl VkPhysicalDeviceShaderAbortFeaturesKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR,
+        pNext: core::ptr::null_mut(),
+        shaderAbort: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_shaderAbort(mut self, val: VkBool32) -> Self {
+        self.shaderAbort = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceShaderAbortPropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderAbortPropertiesKHR.html)
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_KHR_shader_abort")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceShaderAbortPropertiesKHR {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Limit Type: [Max]
+    pub maxShaderAbortMessageSize: u64,
+}
+#[cfg(feature = "VK_KHR_shader_abort")]
+unsafe impl Send for VkPhysicalDeviceShaderAbortPropertiesKHR {}
+#[cfg(feature = "VK_KHR_shader_abort")]
+unsafe impl Sync for VkPhysicalDeviceShaderAbortPropertiesKHR {}
+#[cfg(feature = "VK_KHR_shader_abort")]
+impl VkPhysicalDeviceShaderAbortPropertiesKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR,
+        pNext: core::ptr::null_mut(),
+        maxShaderAbortMessageSize: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_maxShaderAbortMessageSize(mut self, val: u64) -> Self {
+        self.maxShaderAbortMessageSize = val;
+        self
+    }
+}
+/// [VkDeviceFaultShaderAbortMessageInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultShaderAbortMessageInfoKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// **Extends:** VkDeviceFaultDebugInfoKHR.
+#[cfg(feature = "VK_KHR_shader_abort")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDeviceFaultShaderAbortMessageInfoKHR {
+    /// Values: VK_STRUCTURE_TYPE_DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Optional: true
+    pub messageDataSize: u64,
+    /// Optional: true,  Length: messageDataSize
+    pub pMessageData: *mut core::ffi::c_void,
+}
+#[cfg(feature = "VK_KHR_shader_abort")]
+unsafe impl Send for VkDeviceFaultShaderAbortMessageInfoKHR {}
+#[cfg(feature = "VK_KHR_shader_abort")]
+unsafe impl Sync for VkDeviceFaultShaderAbortMessageInfoKHR {}
+#[cfg(feature = "VK_KHR_shader_abort")]
+impl VkDeviceFaultShaderAbortMessageInfoKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR,
+        pNext: core::ptr::null_mut(),
+        messageDataSize: 0,
+        pMessageData: core::ptr::null_mut(),
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_messageDataSize(mut self, val: u64) -> Self {
+        self.messageDataSize = val;
+        self
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pMessageData(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pMessageData = val;
+        self
+    }
+}
 #[cfg(feature = "VK_KHR_shader_atomic_int64")]
 pub type VkPhysicalDeviceShaderAtomicInt64FeaturesKHR = VkPhysicalDeviceShaderAtomicInt64Features;
 /// [VkPhysicalDeviceShaderBfloat16FeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderBfloat16FeaturesKHR.html)
@@ -61382,6 +62608,47 @@ impl VkPhysicalDeviceShaderClockFeaturesKHR {
     #[inline]
     pub const fn with_shaderDeviceClock(mut self, val: VkBool32) -> Self {
         self.shaderDeviceClock = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceShaderConstantDataFeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderConstantDataFeaturesKHR.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_KHR_shader_constant_data")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceShaderConstantDataFeaturesKHR {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub shaderConstantData: VkBool32,
+}
+#[cfg(feature = "VK_KHR_shader_constant_data")]
+unsafe impl Send for VkPhysicalDeviceShaderConstantDataFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_constant_data")]
+unsafe impl Sync for VkPhysicalDeviceShaderConstantDataFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_constant_data")]
+impl VkPhysicalDeviceShaderConstantDataFeaturesKHR {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR,
+        pNext: core::ptr::null_mut(),
+        shaderConstantData: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_shaderConstantData(mut self, val: VkBool32) -> Self {
+        self.shaderConstantData = val;
         self
     }
 }
@@ -61719,6 +62986,9 @@ impl VkSharedPresentSurfaceCapabilitiesKHR {
 /// [VkCompositeAlphaFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkCompositeAlphaFlagsKHR.html)
 #[cfg(feature = "VK_KHR_surface")]
 pub type VkCompositeAlphaFlagsKHR = VkFlags;
+/// [VkSurfaceTransformFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceTransformFlagsKHR.html)
+#[cfg(feature = "VK_KHR_surface")]
+pub type VkSurfaceTransformFlagsKHR = VkFlags;
 /// [VkSurfaceKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceKHR.html)
 #[cfg(feature = "VK_KHR_surface")]
 #[repr(transparent)]
@@ -86005,27 +87275,27 @@ impl VkPhysicalDeviceExternalSciSyncFeaturesNV {
 /// [NvSciSyncAttrList](https://docs.vulkan.org/refpages/latest/refpages/source/NvSciSyncAttrList.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_NV_external_sci_sync",
-    feature = "VK_NV_external_sci_sync2"
+    feature = "VK_NV_external_sci_sync2",
+    feature = "VK_NV_external_sci_sync"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct NvSciSyncAttrList(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_NV_external_sci_sync",
-    feature = "VK_NV_external_sci_sync2"
+    feature = "VK_NV_external_sci_sync2",
+    feature = "VK_NV_external_sci_sync"
 ))]
 impl NvSciSyncAttrList {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-    feature = "VK_NV_external_sci_sync",
-    feature = "VK_NV_external_sci_sync2"
+    feature = "VK_NV_external_sci_sync2",
+    feature = "VK_NV_external_sci_sync"
 ))]
 unsafe impl Send for NvSciSyncAttrList {}
 #[cfg(any(
-    feature = "VK_NV_external_sci_sync",
-    feature = "VK_NV_external_sci_sync2"
+    feature = "VK_NV_external_sci_sync2",
+    feature = "VK_NV_external_sci_sync"
 ))]
 unsafe impl Sync for NvSciSyncAttrList {}
 /// [VkExportFenceSciSyncInfoNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportFenceSciSyncInfoNV.html)
@@ -87511,7 +88781,7 @@ pub struct VkDecompressMemoryRegionNV {
     pub dstAddress: VkDeviceAddress,
     pub compressedSize: VkDeviceSize,
     pub decompressedSize: VkDeviceSize,
-    pub decompressionMethod: VkMemoryDecompressionMethodFlagsNV,
+    pub decompressionMethod: VkMemoryDecompressionMethodFlagsEXT,
 }
 #[cfg(feature = "VK_NV_memory_decompression")]
 unsafe impl Send for VkDecompressMemoryRegionNV {}
@@ -87553,7 +88823,7 @@ impl VkDecompressMemoryRegionNV {
     #[inline]
     pub const fn with_decompressionMethod(
         mut self,
-        val: VkMemoryDecompressionMethodFlagsNV,
+        val: VkMemoryDecompressionMethodFlagsEXT,
     ) -> Self {
         self.decompressionMethod = val;
         self
@@ -89733,7 +91003,7 @@ pub struct VkAccelerationStructureInfoNV {
     pub pNext: *const core::ffi::c_void,
     pub type_: VkAccelerationStructureTypeNV,
     /// Optional: true
-    pub flags: VkBuildAccelerationStructureFlagsNV,
+    pub flags: VkBuildAccelerationStructureFlagsKHR,
     /// Optional: true
     pub instanceCount: u32,
     /// Optional: true
@@ -89773,7 +91043,7 @@ impl VkAccelerationStructureInfoNV {
         self
     }
     #[inline]
-    pub const fn with_flags(mut self, val: VkBuildAccelerationStructureFlagsNV) -> Self {
+    pub const fn with_flags(mut self, val: VkBuildAccelerationStructureFlagsKHR) -> Self {
         self.flags = val;
         self
     }
@@ -93121,6 +94391,139 @@ impl VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM {
         self
     }
 }
+/// [VkPerfHintInfoQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPerfHintInfoQCOM.html)
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPerfHintInfoQCOM {
+    /// Values: VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub type_: VkPerfHintTypeQCOM,
+    pub scale: u32,
+}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+unsafe impl Send for VkPerfHintInfoQCOM {}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+unsafe impl Sync for VkPerfHintInfoQCOM {}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+impl VkPerfHintInfoQCOM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM,
+        pNext: core::ptr::null_mut(),
+        type_: VkPerfHintTypeQCOM(0),
+        scale: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_type(mut self, val: VkPerfHintTypeQCOM) -> Self {
+        self.type_ = val;
+        self
+    }
+    #[inline]
+    pub const fn with_scale(mut self, val: u32) -> Self {
+        self.scale = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceQueuePerfHintFeaturesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceQueuePerfHintFeaturesQCOM.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceQueuePerfHintFeaturesQCOM {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    pub queuePerfHint: VkBool32,
+}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+unsafe impl Send for VkPhysicalDeviceQueuePerfHintFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+unsafe impl Sync for VkPhysicalDeviceQueuePerfHintFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+impl VkPhysicalDeviceQueuePerfHintFeaturesQCOM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM,
+        pNext: core::ptr::null_mut(),
+        queuePerfHint: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_queuePerfHint(mut self, val: VkBool32) -> Self {
+        self.queuePerfHint = val;
+        self
+    }
+}
+/// [VkPhysicalDeviceQueuePerfHintPropertiesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceQueuePerfHintPropertiesQCOM.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceQueuePerfHintPropertiesQCOM {
+    /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM
+    pub sType: VkStructureType,
+    /// Optional: true
+    pub pNext: *mut core::ffi::c_void,
+    /// Limit Type: [Bitmask],  No Auto-Validity
+    pub supportedQueues: VkQueueFlags,
+}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+unsafe impl Send for VkPhysicalDeviceQueuePerfHintPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+unsafe impl Sync for VkPhysicalDeviceQueuePerfHintPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+impl VkPhysicalDeviceQueuePerfHintPropertiesQCOM {
+    pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM,
+        pNext: core::ptr::null_mut(),
+        supportedQueues: 0,
+    };
+    #[inline]
+    pub const fn new() -> Self {
+        Self::DEFAULT
+    }
+    /** # Safety
+    The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+    #[inline]
+    pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+        self.pNext = val;
+        self
+    }
+    #[inline]
+    pub const fn with_supportedQueues(mut self, val: VkQueueFlags) -> Self {
+        self.supportedQueues = val;
+        self
+    }
+}
 /// [VkRenderPassTransformBeginInfoQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassTransformBeginInfoQCOM.html)
 ///
 /// **Extends:** VkRenderPassBeginInfo.
@@ -93725,7 +95128,7 @@ pub struct VkPhysicalDeviceTileShadingPropertiesQCOM {
     pub maxApronSize: u32,
     /// Limit Type: [Max]
     pub preferNonCoherent: VkBool32,
-    /// Limit Type: [Max, Mul]
+    /// Limit Type: [Exact]
     pub tileGranularity: VkExtent2D,
     /// Limit Type: [Max]
     pub maxTileShadingRate: VkExtent2D,

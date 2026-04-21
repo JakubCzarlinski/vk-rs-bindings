@@ -528,9 +528,13 @@ VK_KHR_fragment_shading_rate = []
 VK_AMD_shader_core_properties2 = ["VK_AMD_shader_core_properties"]
 # type: device
 VK_AMD_device_coherent_memory = []
+# type: device
+VK_KHR_shader_constant_data = []
 # promoted to: VK_VERSION_1_4
 # type: device
 VK_KHR_dynamic_rendering_local_read = []
+# type: device
+VK_KHR_shader_abort = ["VK_KHR_get_physical_device_properties2", "VK_KHR_device_fault", "VK_KHR_shader_constant_data"]
 # type: device
 VK_EXT_shader_image_atomic_int64 = []
 # type: device
@@ -668,6 +672,8 @@ VK_NV_device_diagnostics_config = []
 # type: device
 VK_QCOM_render_pass_store_ops = []
 # type: device
+VK_QCOM_queue_perf_hint = []
+# type: device
 VK_NV_cuda_kernel_launch = []
 # type: device
 VK_KHR_object_refresh = []
@@ -723,6 +729,7 @@ VK_EXT_attachment_feedback_loop_layout = []
 # promoted to: VK_VERSION_1_3
 # type: device
 VK_EXT_4444_formats = []
+# promoted to: VK_KHR_device_fault
 # type: device
 VK_EXT_device_fault = []
 # promoted to: VK_EXT_rasterization_order_attachment_access
@@ -946,6 +953,8 @@ VK_KHR_cooperative_matrix = []
 # type: device
 VK_ARM_data_graph = ["VK_VERSION_1_3", "VK_KHR_maintenance5", "VK_KHR_deferred_host_operations"]
 # type: device
+VK_ARM_data_graph_instruction_set_tosa = ["VK_ARM_data_graph"]
+# type: device
 VK_QCOM_multiview_per_view_render_areas = []
 # type: device
 VK_KHR_compute_shader_derivatives = []
@@ -1037,6 +1046,8 @@ VK_NV_partitioned_acceleration_structure = ["VK_KHR_acceleration_structure"]
 # type: device
 VK_EXT_device_generated_commands = []
 # type: device
+VK_KHR_device_fault = ["VK_KHR_get_physical_device_properties2"]
+# type: device
 VK_KHR_maintenance8 = ["VK_VERSION_1_1"]
 # type: device
 VK_MESA_image_alignment_control = []
@@ -1095,6 +1106,8 @@ VK_QCOM_data_graph_model = ["VK_ARM_data_graph"]
 # type: device
 VK_KHR_maintenance10 = []
 # type: device
+VK_ARM_data_graph_optical_flow = ["VK_ARM_data_graph"]
+# type: device
 VK_EXT_shader_long_vector = ["VK_VERSION_1_2"]
 # type: device
 VK_SEC_pipeline_cache_incremental_mode = []
@@ -1108,3 +1121,5 @@ VK_EXT_shader_subgroup_partitioned = []
 VK_SEC_ubm_surface = ["VK_KHR_surface"]
 # type: device
 VK_VALVE_shader_mixed_float_dot_product = []
+# type: device
+VK_EXT_primitive_restart_index = []

@@ -38,6 +38,8 @@ pub struct QueueDispatchTable {
     pub vkGetQueueCheckpointDataNV: Option<PFN_vkGetQueueCheckpointDataNV>,
     #[cfg(feature = "VK_NV_low_latency2")]
     pub vkQueueNotifyOutOfBandNV: Option<PFN_vkQueueNotifyOutOfBandNV>,
+    #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+    pub vkQueueSetPerfHintQCOM: Option<PFN_vkQueueSetPerfHintQCOM>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl QueueDispatchTable {
@@ -68,6 +70,8 @@ impl QueueDispatchTable {
         vkGetQueueCheckpointDataNV: None,
         #[cfg(feature = "VK_NV_low_latency2")]
         vkQueueNotifyOutOfBandNV: None,
+        #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+        vkQueueSetPerfHintQCOM: None,
     };
     #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
@@ -141,6 +145,11 @@ impl QueueDispatchTable {
         #[cfg(feature = "VK_NV_low_latency2")]
         {
             table.vkQueueNotifyOutOfBandNV = loader(c"vkQueueNotifyOutOfBandNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+        {
+            table.vkQueueSetPerfHintQCOM = loader(c"vkQueueSetPerfHintQCOM".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         table
@@ -677,6 +686,48 @@ impl<'dev> Queue<'dev> {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table).vkQueueNotifyOutOfBandNV.unwrap_unchecked()(self.raw, pQueueTypeInfo)
+        }
+    }
+    /// [`vkQueueSetPerfHintQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerfHintQCOM.html)
+    ///
+    /// Provided by:
+    /// - `VK_QCOM_queue_perf_hint`
+    ///
+    ///
+    /// # Parameters
+    /// - `queue`
+    /// - `pPerfHintInfo`
+    ///
+    /// # Returns
+    ///
+    /// **Success Codes:**
+    ///   - VK_SUCCESS
+    ///
+    /// **Error Codes:**
+    ///   - VK_ERROR_DEVICE_LOST
+    ///   - VK_ERROR_UNKNOWN
+    ///   - VK_ERROR_VALIDATION_FAILED
+    #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+    #[inline(always)]
+    pub fn vkQueueSetPerfHintQCOM(
+        &self,
+        pPerfHintInfo: *const VkPerfHintInfoQCOM,
+    ) -> Result<VkResult, VkResult> {
+        let r = unsafe {
+            (self.table).vkQueueSetPerfHintQCOM.unwrap_unchecked()(self.raw, pPerfHintInfo)
+        };
+        match r {
+            VkResult::VK_SUCCESS => Ok(r),
+            VkResult::VK_ERROR_DEVICE_LOST | VkResult::VK_ERROR_UNKNOWN => Err(r),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
         }
     }
 }

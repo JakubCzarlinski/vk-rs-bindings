@@ -332,6 +332,10 @@ pub struct DeviceDispatchTable {
     pub vkCreateDescriptorUpdateTemplateKHR: Option<PFN_vkCreateDescriptorUpdateTemplateKHR>,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     pub vkCreateAccelerationStructure2KHR: Option<PFN_vkCreateAccelerationStructure2KHR>,
+    #[cfg(feature = "VK_KHR_device_fault")]
+    pub vkGetDeviceFaultDebugInfoKHR: Option<PFN_vkGetDeviceFaultDebugInfoKHR>,
+    #[cfg(feature = "VK_KHR_device_fault")]
+    pub vkGetDeviceFaultReportsKHR: Option<PFN_vkGetDeviceFaultReportsKHR>,
     #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
     pub vkAcquireNextImage2KHR: Option<PFN_vkAcquireNextImage2KHR>,
     #[cfg(feature = "VK_KHR_device_group")]
@@ -804,6 +808,10 @@ impl DeviceDispatchTable {
         vkCreateDescriptorUpdateTemplateKHR: None,
         #[cfg(feature = "VK_KHR_device_address_commands")]
         vkCreateAccelerationStructure2KHR: None,
+        #[cfg(feature = "VK_KHR_device_fault")]
+        vkGetDeviceFaultDebugInfoKHR: None,
+        #[cfg(feature = "VK_KHR_device_fault")]
+        vkGetDeviceFaultReportsKHR: None,
         #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
         vkAcquireNextImage2KHR: None,
         #[cfg(feature = "VK_KHR_device_group")]
@@ -1768,6 +1776,16 @@ impl DeviceDispatchTable {
             table.vkCreateAccelerationStructure2KHR =
                 loader(c"vkCreateAccelerationStructure2KHR".as_ptr())
                     .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_fault")]
+        {
+            table.vkGetDeviceFaultDebugInfoKHR = loader(c"vkGetDeviceFaultDebugInfoKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_KHR_device_fault")]
+        {
+            table.vkGetDeviceFaultReportsKHR = loader(c"vkGetDeviceFaultReportsKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
         {
@@ -7623,7 +7641,7 @@ impl<'inst> Device<'inst> {
     #[inline(always)]
     pub fn vkGetPipelinePropertiesEXT(
         &self,
-        pPipelineInfo: *const VkPipelineInfoEXT,
+        pPipelineInfo: *const VkPipelineInfoKHR,
         pPipelineProperties: *mut VkBaseOutStructure,
     ) -> Result<VkResult, VkResult> {
         let r = unsafe {
@@ -9400,6 +9418,107 @@ impl<'inst> Device<'inst> {
                 table: &self.acceleration_structure_khr_table,
             },
         )
+    }
+    /// [`vkGetDeviceFaultDebugInfoKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultDebugInfoKHR.html)
+    ///
+    /// Provided by:
+    /// - `VK_KHR_device_fault`
+    ///
+    ///
+    /// # Parameters
+    /// - `device`
+    /// - `pDebugInfo`
+    ///
+    /// # Returns
+    ///
+    /// **Success Codes:**
+    ///   - VK_SUCCESS
+    ///   - VK_INCOMPLETE
+    ///
+    /// **Error Codes:**
+    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
+    ///   - VK_ERROR_NOT_ENOUGH_SPACE_KHR
+    ///   - VK_ERROR_UNKNOWN
+    ///   - VK_ERROR_VALIDATION_FAILED
+    #[cfg(feature = "VK_KHR_device_fault")]
+    #[inline(always)]
+    pub fn vkGetDeviceFaultDebugInfoKHR(
+        &self,
+        pDebugInfo: *mut VkDeviceFaultDebugInfoKHR,
+    ) -> Result<VkResult, VkResult> {
+        let r = unsafe {
+            (&self.table)
+                .vkGetDeviceFaultDebugInfoKHR
+                .unwrap_unchecked()(self.raw, pDebugInfo)
+        };
+        match r {
+            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
+            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
+            #[cfg(feature = "VK_KHR_pipeline_binary")]
+            VkResult::VK_ERROR_NOT_ENOUGH_SPACE_KHR => Err(r),
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
+        }
+    }
+    /// [`vkGetDeviceFaultReportsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultReportsKHR.html)
+    ///
+    /// Provided by:
+    /// - `VK_KHR_device_fault`
+    ///
+    ///
+    /// # Parameters
+    /// - `device`
+    /// - `timeout`
+    /// - `pFaultCounts`
+    /// - `pFaultInfo`: optional: true, len: pFaultCounts
+    ///
+    /// # Returns
+    ///
+    /// **Success Codes:**
+    ///   - VK_SUCCESS
+    ///   - VK_INCOMPLETE
+    ///   - VK_TIMEOUT
+    ///
+    /// **Error Codes:**
+    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
+    ///   - VK_ERROR_UNKNOWN
+    ///   - VK_ERROR_VALIDATION_FAILED
+    #[cfg(feature = "VK_KHR_device_fault")]
+    #[inline(always)]
+    pub fn vkGetDeviceFaultReportsKHR(
+        &self,
+        timeout: u64,
+        pFaultCounts: *mut u32,
+        pFaultInfo: *mut VkDeviceFaultInfoKHR,
+    ) -> Result<VkResult, VkResult> {
+        let r = unsafe {
+            (&self.table).vkGetDeviceFaultReportsKHR.unwrap_unchecked()(
+                self.raw,
+                timeout,
+                pFaultCounts,
+                pFaultInfo,
+            )
+        };
+        match r {
+            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE | VkResult::VK_TIMEOUT => Ok(r),
+            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
+        }
     }
     /// [`vkAcquireNextImage2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireNextImage2KHR.html)
     ///
@@ -12664,7 +12783,7 @@ impl<'inst> Device<'inst> {
     pub fn vkGetAccelerationStructureMemoryRequirementsNV(
         &self,
         pInfo: *const VkAccelerationStructureMemoryRequirementsInfoNV,
-        pMemoryRequirements: *mut VkMemoryRequirements2KHR,
+        pMemoryRequirements: *mut VkMemoryRequirements2,
     ) {
         unsafe {
             // SAFETY: table is fully loaded at creation.

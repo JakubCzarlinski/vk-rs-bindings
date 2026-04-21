@@ -19,6 +19,15 @@ pub struct PhysicalDeviceDispatchTable {
     #[cfg(feature = "VK_ARM_data_graph")]
     pub vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM:
         Option<PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM>,
+    #[cfg(any(
+        feature = "VK_ARM_data_graph_instruction_set_tosa",
+        feature = "VK_ARM_data_graph_optical_flow"
+    ))]
+    pub vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM>,
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    pub vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM:
+        Option<PFN_vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM>,
     #[cfg(feature = "VK_ARM_performance_counters_by_region")]
     pub vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM:
         Option<PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM>,
@@ -263,6 +272,13 @@ impl PhysicalDeviceDispatchTable {
         vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM: None,
         #[cfg(feature = "VK_ARM_data_graph")]
         vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM: None,
+        #[cfg(any(
+            feature = "VK_ARM_data_graph_instruction_set_tosa",
+            feature = "VK_ARM_data_graph_optical_flow"
+        ))]
+        vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM: None,
+        #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+        vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM: None,
         #[cfg(feature = "VK_ARM_performance_counters_by_region")]
         vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM: None,
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
@@ -462,6 +478,23 @@ impl PhysicalDeviceDispatchTable {
             table.vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM =
                 loader(c"vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM".as_ptr())
                     .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(any(
+            feature = "VK_ARM_data_graph_instruction_set_tosa",
+            feature = "VK_ARM_data_graph_optical_flow"
+        ))]
+        {
+            table.vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM = loader(
+                c"vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+        {
+            table.vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM = loader(
+                c"vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_performance_counters_by_region")]
         {
@@ -1086,6 +1119,131 @@ impl<'inst> PhysicalDevice<'inst> {
             VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
             VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
             | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
+            | VkResult::VK_ERROR_UNKNOWN => Err(r),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
+        }
+    }
+    /// [`vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM.html)
+    ///
+    /// Provided by:
+    /// - `VK_ARM_data_graph_instruction_set_tosa`
+    /// - `VK_ARM_data_graph_optical_flow`
+    ///
+    ///
+    /// # Parameters
+    /// - `physicalDevice`
+    /// - `queueFamilyIndex`
+    /// - `pQueueFamilyDataGraphProperties`
+    /// - `pProperties`
+    ///
+    /// # Returns
+    ///
+    /// **Success Codes:**
+    ///   - VK_SUCCESS
+    ///
+    /// **Error Codes:**
+    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
+    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
+    ///   - VK_ERROR_UNKNOWN
+    ///   - VK_ERROR_VALIDATION_FAILED
+    #[cfg(any(
+        feature = "VK_ARM_data_graph_instruction_set_tosa",
+        feature = "VK_ARM_data_graph_optical_flow"
+    ))]
+    #[inline(always)]
+    pub fn vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM(
+        &self,
+        queueFamilyIndex: u32,
+        pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM,
+        pProperties: *mut VkBaseOutStructure,
+    ) -> Result<VkResult, VkResult> {
+        let r = unsafe {
+            (self.table)
+                .vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM
+                .unwrap_unchecked()(
+                self.raw,
+                queueFamilyIndex,
+                pQueueFamilyDataGraphProperties,
+                pProperties,
+            )
+        };
+        match r {
+            VkResult::VK_SUCCESS => Ok(r),
+            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
+            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
+            | VkResult::VK_ERROR_UNKNOWN => Err(r),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
+            _ => {
+                if r >= VkResult::VK_SUCCESS {
+                    Ok(r)
+                } else {
+                    Err(r)
+                }
+            }
+        }
+    }
+    /// [`vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM.html)
+    ///
+    /// Provided by:
+    /// - `VK_ARM_data_graph_optical_flow`
+    ///
+    ///
+    /// # Parameters
+    /// - `physicalDevice`
+    /// - `queueFamilyIndex`
+    /// - `pQueueFamilyDataGraphProperties`
+    /// - `pOpticalFlowImageFormatInfo`
+    /// - `pFormatCount`: optional: pointer required, values optional if pointer not null
+    /// - `pImageFormatProperties`: optional: true, len: pFormatCount
+    ///
+    /// # Returns
+    ///
+    /// **Success Codes:**
+    ///   - VK_SUCCESS
+    ///   - VK_INCOMPLETE
+    ///
+    /// **Error Codes:**
+    ///   - VK_ERROR_EXTENSION_NOT_PRESENT
+    ///   - VK_ERROR_INITIALIZATION_FAILED
+    ///   - VK_ERROR_FORMAT_NOT_SUPPORTED
+    ///   - VK_ERROR_UNKNOWN
+    ///   - VK_ERROR_VALIDATION_FAILED
+    #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+    #[inline(always)]
+    pub fn vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM(
+        &self,
+        queueFamilyIndex: u32,
+        pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM,
+        pOpticalFlowImageFormatInfo: *const VkDataGraphOpticalFlowImageFormatInfoARM,
+        pFormatCount: *mut u32,
+        pImageFormatProperties: *mut VkDataGraphOpticalFlowImageFormatPropertiesARM,
+    ) -> Result<VkResult, VkResult> {
+        let r = unsafe {
+            (self.table)
+                .vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM
+                .unwrap_unchecked()(
+                self.raw,
+                queueFamilyIndex,
+                pQueueFamilyDataGraphProperties,
+                pOpticalFlowImageFormatInfo,
+                pFormatCount,
+                pImageFormatProperties,
+            )
+        };
+        match r {
+            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
+            VkResult::VK_ERROR_EXTENSION_NOT_PRESENT
+            | VkResult::VK_ERROR_INITIALIZATION_FAILED
+            | VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED
             | VkResult::VK_ERROR_UNKNOWN => Err(r),
             #[cfg(feature = "VK_BASE_VERSION_1_0")]
             VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),

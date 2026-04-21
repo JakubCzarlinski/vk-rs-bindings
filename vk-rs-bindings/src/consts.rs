@@ -80,6 +80,8 @@ pub const VK_COMPUTE_OCCUPANCY_PRIORITY_LOW_NV: f32 = 0.25f32;
 pub const VK_COMPUTE_OCCUPANCY_PRIORITY_NORMAL_NV: f32 = 0.50f32;
 /// [VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV](https://docs.vulkan.org/refpages/latest/refpages/source/VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV.html)
 pub const VK_COMPUTE_OCCUPANCY_PRIORITY_HIGH_NV: f32 = 0.75f32;
+/// [VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM](https://docs.vulkan.org/refpages/latest/refpages/source/VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM.html)
+pub const VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM: u32 = 128;
 /// [VKSC_API_VARIANT](https://docs.vulkan.org/refpages/latest/refpages/source/VKSC_API_VARIANT.html)
 #[cfg(feature = "VKSC_VERSION_1_0")]
 pub const VKSC_API_VARIANT: u32 = 1u32;
@@ -88,7 +90,7 @@ pub const VKSC_API_VARIANT: u32 = 1u32;
 pub const VKSC_API_VERSION_1_0: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
 /// [VK_HEADER_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION.html)
 #[cfg(feature = "VKSC_VERSION_1_0")]
-pub const VK_HEADER_VERSION: u32 = 20u32;
+pub const VK_HEADER_VERSION: u32 = 21u32;
 /// [VK_HEADER_VERSION_COMPLETE](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION_COMPLETE.html)
 #[cfg(feature = "VKSC_VERSION_1_0")]
 pub const VK_HEADER_VERSION_COMPLETE: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
@@ -394,6 +396,28 @@ pub const VK_ARM_DATA_GRAPH_SPEC_VERSION: u32 = 1;
 /// Extension type: device extension.
 #[cfg(feature = "VK_ARM_data_graph")]
 pub const VK_ARM_DATA_GRAPH_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_ARM_data_graph";
+/// [VK_ARM_DATA_GRAPH_INSTRUCTION_SET_TOSA_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_instruction_set_tosa.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+pub const VK_ARM_DATA_GRAPH_INSTRUCTION_SET_TOSA_SPEC_VERSION: u32 = 1;
+/// [VK_ARM_DATA_GRAPH_INSTRUCTION_SET_TOSA_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_instruction_set_tosa.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
+pub const VK_ARM_DATA_GRAPH_INSTRUCTION_SET_TOSA_EXTENSION_NAME: &'static core::ffi::CStr =
+    c"VK_ARM_data_graph_instruction_set_tosa";
+/// [VK_ARM_DATA_GRAPH_OPTICAL_FLOW_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_optical_flow.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+pub const VK_ARM_DATA_GRAPH_OPTICAL_FLOW_SPEC_VERSION: u32 = 1;
+/// [VK_ARM_DATA_GRAPH_OPTICAL_FLOW_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_optical_flow.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+pub const VK_ARM_DATA_GRAPH_OPTICAL_FLOW_EXTENSION_NAME: &'static core::ffi::CStr =
+    c"VK_ARM_data_graph_optical_flow";
 /// [VK_ARM_FORMAT_PACK_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_format_pack.html)
 ///
 /// Extension type: device extension.
@@ -452,7 +476,7 @@ pub const VK_ARM_RENDER_PASS_STRIPED_EXTENSION_NAME: &'static core::ffi::CStr =
 ///
 /// Extension type: device extension.
 #[cfg(feature = "VK_ARM_scheduling_controls")]
-pub const VK_ARM_SCHEDULING_CONTROLS_SPEC_VERSION: u32 = 1;
+pub const VK_ARM_SCHEDULING_CONTROLS_SPEC_VERSION: u32 = 2;
 /// [VK_ARM_SCHEDULING_CONTROLS_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_scheduling_controls.html)
 ///
 /// Extension type: device extension.
@@ -564,7 +588,7 @@ pub const VK_API_VERSION: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
 pub const VK_API_VERSION_1_0: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
 /// [VK_HEADER_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION.html)
 #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
-pub const VK_HEADER_VERSION: u32 = 346u32;
+pub const VK_HEADER_VERSION: u32 = 349u32;
 /// [VK_HEADER_VERSION_COMPLETE](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION_COMPLETE.html)
 #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
 pub const VK_HEADER_VERSION_COMPLETE: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 4u32, 0u32);
@@ -1641,6 +1665,17 @@ pub const VK_EXT_PRESENT_TIMING_SPEC_VERSION: u32 = 3;
 /// Extension type: device extension.
 #[cfg(feature = "VK_EXT_present_timing")]
 pub const VK_EXT_PRESENT_TIMING_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_EXT_present_timing";
+/// [VK_EXT_PRIMITIVE_RESTART_INDEX_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_primitive_restart_index.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+pub const VK_EXT_PRIMITIVE_RESTART_INDEX_SPEC_VERSION: u32 = 1;
+/// [VK_EXT_PRIMITIVE_RESTART_INDEX_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_primitive_restart_index.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+pub const VK_EXT_PRIMITIVE_RESTART_INDEX_EXTENSION_NAME: &'static core::ffi::CStr =
+    c"VK_EXT_primitive_restart_index";
 /// [VK_EXT_PRIMITIVE_TOPOLOGY_LIST_RESTART_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_primitive_topology_list_restart.html)
 ///
 /// Extension type: device extension.
@@ -2585,6 +2620,16 @@ pub const VK_KHR_DEVICE_ADDRESS_COMMANDS_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_KHR_device_address_commands")]
 pub const VK_KHR_DEVICE_ADDRESS_COMMANDS_EXTENSION_NAME: &'static core::ffi::CStr =
     c"VK_KHR_device_address_commands";
+/// [VK_KHR_DEVICE_FAULT_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_device_fault.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_device_fault")]
+pub const VK_KHR_DEVICE_FAULT_SPEC_VERSION: u32 = 1;
+/// [VK_KHR_DEVICE_FAULT_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_device_fault.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_device_fault")]
+pub const VK_KHR_DEVICE_FAULT_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_KHR_device_fault";
 /// [VK_KHR_DEVICE_GROUP_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_device_group.html)
 ///
 /// Extension type: device extension.
@@ -3322,6 +3367,16 @@ pub const VK_KHR_SEPARATE_DEPTH_STENCIL_LAYOUTS_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_KHR_separate_depth_stencil_layouts")]
 pub const VK_KHR_SEPARATE_DEPTH_STENCIL_LAYOUTS_EXTENSION_NAME: &'static core::ffi::CStr =
     c"VK_KHR_separate_depth_stencil_layouts";
+/// [VK_KHR_SHADER_ABORT_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_abort.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_shader_abort")]
+pub const VK_KHR_SHADER_ABORT_SPEC_VERSION: u32 = 1;
+/// [VK_KHR_SHADER_ABORT_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_abort.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_shader_abort")]
+pub const VK_KHR_SHADER_ABORT_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_KHR_shader_abort";
 /// [VK_KHR_SHADER_ATOMIC_INT64_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_atomic_int64.html)
 ///
 /// Extension type: device extension.
@@ -3354,6 +3409,17 @@ pub const VK_KHR_SHADER_CLOCK_SPEC_VERSION: u32 = 1;
 /// Extension type: device extension.
 #[cfg(feature = "VK_KHR_shader_clock")]
 pub const VK_KHR_SHADER_CLOCK_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_KHR_shader_clock";
+/// [VK_KHR_SHADER_CONSTANT_DATA_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_constant_data.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_shader_constant_data")]
+pub const VK_KHR_SHADER_CONSTANT_DATA_SPEC_VERSION: u32 = 1;
+/// [VK_KHR_SHADER_CONSTANT_DATA_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_constant_data.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_shader_constant_data")]
+pub const VK_KHR_SHADER_CONSTANT_DATA_EXTENSION_NAME: &'static core::ffi::CStr =
+    c"VK_KHR_shader_constant_data";
 /// [VK_KHR_SHADER_DRAW_PARAMETERS_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_draw_parameters.html)
 ///
 /// Extension type: device extension.
@@ -5152,6 +5218,17 @@ pub const VK_QCOM_MULTIVIEW_PER_VIEW_VIEWPORTS_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_QCOM_multiview_per_view_viewports")]
 pub const VK_QCOM_MULTIVIEW_PER_VIEW_VIEWPORTS_EXTENSION_NAME: &'static core::ffi::CStr =
     c"VK_QCOM_multiview_per_view_viewports";
+/// [VK_QCOM_QUEUE_PERF_HINT_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_queue_perf_hint.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+pub const VK_QCOM_QUEUE_PERF_HINT_SPEC_VERSION: u32 = 1;
+/// [VK_QCOM_QUEUE_PERF_HINT_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_queue_perf_hint.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+pub const VK_QCOM_QUEUE_PERF_HINT_EXTENSION_NAME: &'static core::ffi::CStr =
+    c"VK_QCOM_queue_perf_hint";
 /// [VK_QCOM_RENDER_PASS_SHADER_RESOLVE_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_render_pass_shader_resolve.html)
 ///
 /// Extension type: device extension.

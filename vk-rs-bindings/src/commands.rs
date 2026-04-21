@@ -4962,6 +4962,23 @@ pub type PFN_vkCmdSetDiscardRectangleModeEXT = unsafe extern "system" fn(
     commandBuffer: VkCommandBuffer,
     discardRectangleMode: VkDiscardRectangleModeEXT,
 );
+/// [`vkCmdSetDispatchParametersARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDispatchParametersARM.html)
+///
+/// Provided by:
+/// - `VK_ARM_scheduling_controls`
+///
+/// - **Queues:** Compute
+/// - **Render Pass:** Outside
+/// - **Tasks:** State
+///
+/// # Parameters
+/// - `commandBuffer`
+/// - `pDispatchParameters`
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+pub type PFN_vkCmdSetDispatchParametersARM = unsafe extern "system" fn(
+    commandBuffer: VkCommandBuffer,
+    pDispatchParameters: *const VkDispatchParametersARM,
+);
 /// [`vkCmdSetEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetEvent.html)
 ///
 /// Provided by:
@@ -5415,6 +5432,21 @@ pub type PFN_vkCmdSetPrimitiveRestartEnable =
     feature = "VK_EXT_shader_object"
 ))]
 pub type PFN_vkCmdSetPrimitiveRestartEnableEXT = PFN_vkCmdSetPrimitiveRestartEnable;
+/// [`vkCmdSetPrimitiveRestartIndexEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveRestartIndexEXT.html)
+///
+/// Provided by:
+/// - `VK_EXT_primitive_restart_index`
+///
+/// - **Queues:** Graphics
+/// - **Render Pass:** Both
+/// - **Tasks:** State
+///
+/// # Parameters
+/// - `commandBuffer`
+/// - `primitiveRestartIndex`: optional: true
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+pub type PFN_vkCmdSetPrimitiveRestartIndexEXT =
+    unsafe extern "system" fn(commandBuffer: VkCommandBuffer, primitiveRestartIndex: u32);
 /// [`vkCmdSetPrimitiveTopology`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveTopology.html)
 ///
 /// Provided by:
@@ -10707,7 +10739,7 @@ pub type PFN_vkGetAccelerationStructureHandleNV = unsafe extern "system" fn(
 pub type PFN_vkGetAccelerationStructureMemoryRequirementsNV = unsafe extern "system" fn(
     device: VkDevice,
     pInfo: *const VkAccelerationStructureMemoryRequirementsInfoNV,
-    pMemoryRequirements: *mut VkMemoryRequirements2KHR,
+    pMemoryRequirements: *mut VkMemoryRequirements2,
 );
 /// [`vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html)
 ///
@@ -11312,6 +11344,32 @@ pub type PFN_vkGetDeviceBufferMemoryRequirementsKHR = PFN_vkGetDeviceBufferMemor
 #[cfg(feature = "VK_NVX_image_view_handle")]
 pub type PFN_vkGetDeviceCombinedImageSamplerIndexNVX =
     unsafe extern "system" fn(device: VkDevice, imageViewIndex: u64, samplerIndex: u64) -> u64;
+/// [`vkGetDeviceFaultDebugInfoKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultDebugInfoKHR.html)
+///
+/// Provided by:
+/// - `VK_KHR_device_fault`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `pDebugInfo`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - VK_SUCCESS
+///   - VK_INCOMPLETE
+///
+/// **Error Codes:**
+///   - VK_ERROR_OUT_OF_HOST_MEMORY
+///   - VK_ERROR_NOT_ENOUGH_SPACE_KHR
+///   - VK_ERROR_UNKNOWN
+///   - VK_ERROR_VALIDATION_FAILED
+#[cfg(feature = "VK_KHR_device_fault")]
+pub type PFN_vkGetDeviceFaultDebugInfoKHR = unsafe extern "system" fn(
+    device: VkDevice,
+    pDebugInfo: *mut VkDeviceFaultDebugInfoKHR,
+) -> VkResult;
 /// [`vkGetDeviceFaultInfoEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultInfoEXT.html)
 ///
 /// Provided by:
@@ -11338,6 +11396,36 @@ pub type PFN_vkGetDeviceFaultInfoEXT = unsafe extern "system" fn(
     device: VkDevice,
     pFaultCounts: *mut VkDeviceFaultCountsEXT,
     pFaultInfo: *mut VkDeviceFaultInfoEXT,
+) -> VkResult;
+/// [`vkGetDeviceFaultReportsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultReportsKHR.html)
+///
+/// Provided by:
+/// - `VK_KHR_device_fault`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `timeout`
+/// - `pFaultCounts`
+/// - `pFaultInfo`: optional: true, len: pFaultCounts
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - VK_SUCCESS
+///   - VK_INCOMPLETE
+///   - VK_TIMEOUT
+///
+/// **Error Codes:**
+///   - VK_ERROR_OUT_OF_HOST_MEMORY
+///   - VK_ERROR_UNKNOWN
+///   - VK_ERROR_VALIDATION_FAILED
+#[cfg(feature = "VK_KHR_device_fault")]
+pub type PFN_vkGetDeviceFaultReportsKHR = unsafe extern "system" fn(
+    device: VkDevice,
+    timeout: u64,
+    pFaultCounts: *mut u32,
+    pFaultInfo: *mut VkDeviceFaultInfoKHR,
 ) -> VkResult;
 /// [`vkGetDeviceGroupPeerMemoryFeatures`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupPeerMemoryFeatures.html)
 ///
@@ -13903,6 +13991,76 @@ pub type PFN_vkGetPhysicalDeviceProperties2 = unsafe extern "system" fn(
 ///
 #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
 pub type PFN_vkGetPhysicalDeviceProperties2KHR = PFN_vkGetPhysicalDeviceProperties2;
+/// [`vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM.html)
+///
+/// Provided by:
+/// - `VK_ARM_data_graph_instruction_set_tosa`
+/// - `VK_ARM_data_graph_optical_flow`
+///
+///
+/// # Parameters
+/// - `physicalDevice`
+/// - `queueFamilyIndex`
+/// - `pQueueFamilyDataGraphProperties`
+/// - `pProperties`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - VK_SUCCESS
+///
+/// **Error Codes:**
+///   - VK_ERROR_OUT_OF_HOST_MEMORY
+///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
+///   - VK_ERROR_UNKNOWN
+///   - VK_ERROR_VALIDATION_FAILED
+#[cfg(any(
+    feature = "VK_ARM_data_graph_instruction_set_tosa",
+    feature = "VK_ARM_data_graph_optical_flow"
+))]
+pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM =
+    unsafe extern "system" fn(
+        physicalDevice: VkPhysicalDevice,
+        queueFamilyIndex: u32,
+        pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM,
+        pProperties: *mut VkBaseOutStructure,
+    ) -> VkResult;
+/// [`vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM.html)
+///
+/// Provided by:
+/// - `VK_ARM_data_graph_optical_flow`
+///
+///
+/// # Parameters
+/// - `physicalDevice`
+/// - `queueFamilyIndex`
+/// - `pQueueFamilyDataGraphProperties`
+/// - `pOpticalFlowImageFormatInfo`
+/// - `pFormatCount`: optional: pointer required, values optional if pointer not null
+/// - `pImageFormatProperties`: optional: true, len: pFormatCount
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - VK_SUCCESS
+///   - VK_INCOMPLETE
+///
+/// **Error Codes:**
+///   - VK_ERROR_EXTENSION_NOT_PRESENT
+///   - VK_ERROR_INITIALIZATION_FAILED
+///   - VK_ERROR_FORMAT_NOT_SUPPORTED
+///   - VK_ERROR_UNKNOWN
+///   - VK_ERROR_VALIDATION_FAILED
+#[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM =
+    unsafe extern "system" fn(
+        physicalDevice: VkPhysicalDevice,
+        queueFamilyIndex: u32,
+        pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM,
+        pOpticalFlowImageFormatInfo: *const VkDataGraphOpticalFlowImageFormatInfoARM,
+        pFormatCount: *mut u32,
+        pImageFormatProperties: *mut VkDataGraphOpticalFlowImageFormatPropertiesARM,
+    ) -> VkResult;
 /// [`vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM.html)
 ///
 /// Provided by:
@@ -14878,7 +15036,7 @@ pub type PFN_vkGetPipelineKeyKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_pipeline_properties")]
 pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
-    pPipelineInfo: *const VkPipelineInfoEXT,
+    pPipelineInfo: *const VkPipelineInfoKHR,
     pPipelineProperties: *mut VkBaseOutStructure,
 ) -> VkResult;
 /// [`vkGetPrivateData`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPrivateData.html)
@@ -16355,6 +16513,28 @@ pub type PFN_vkQueueNotifyOutOfBandNV =
 #[cfg(feature = "VK_KHR_swapchain")]
 pub type PFN_vkQueuePresentKHR =
     unsafe extern "system" fn(queue: VkQueue, pPresentInfo: *const VkPresentInfoKHR) -> VkResult;
+/// [`vkQueueSetPerfHintQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerfHintQCOM.html)
+///
+/// Provided by:
+/// - `VK_QCOM_queue_perf_hint`
+///
+///
+/// # Parameters
+/// - `queue`
+/// - `pPerfHintInfo`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - VK_SUCCESS
+///
+/// **Error Codes:**
+///   - VK_ERROR_DEVICE_LOST
+///   - VK_ERROR_UNKNOWN
+///   - VK_ERROR_VALIDATION_FAILED
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+pub type PFN_vkQueueSetPerfHintQCOM =
+    unsafe extern "system" fn(queue: VkQueue, pPerfHintInfo: *const VkPerfHintInfoQCOM) -> VkResult;
 /// [`vkQueueSetPerformanceConfigurationINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerformanceConfigurationINTEL.html)
 ///
 /// Provided by:

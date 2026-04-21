@@ -29,6 +29,8 @@ pub struct CommandBufferDispatchTable {
     pub vkCmdDrawIndirectCountAMD: Option<PFN_vkCmdDrawIndirectCountAMD>,
     #[cfg(feature = "VK_ARM_data_graph")]
     pub vkCmdDispatchDataGraphARM: Option<PFN_vkCmdDispatchDataGraphARM>,
+    #[cfg(feature = "VK_ARM_scheduling_controls")]
+    pub vkCmdSetDispatchParametersARM: Option<PFN_vkCmdSetDispatchParametersARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     pub vkCmdBeginShaderInstrumentationARM: Option<PFN_vkCmdBeginShaderInstrumentationARM>,
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
@@ -444,6 +446,8 @@ pub struct CommandBufferDispatchTable {
     pub vkCmdCopyMicromapToMemoryEXT: Option<PFN_vkCmdCopyMicromapToMemoryEXT>,
     #[cfg(feature = "VK_EXT_opacity_micromap")]
     pub vkCmdWriteMicromapsPropertiesEXT: Option<PFN_vkCmdWriteMicromapsPropertiesEXT>,
+    #[cfg(feature = "VK_EXT_primitive_restart_index")]
+    pub vkCmdSetPrimitiveRestartIndexEXT: Option<PFN_vkCmdSetPrimitiveRestartIndexEXT>,
     #[cfg(feature = "VK_EXT_sample_locations")]
     pub vkCmdSetSampleLocationsEXT: Option<PFN_vkCmdSetSampleLocationsEXT>,
     #[cfg(feature = "VK_EXT_shader_object")]
@@ -829,6 +833,8 @@ impl CommandBufferDispatchTable {
         vkCmdDrawIndirectCountAMD: None,
         #[cfg(feature = "VK_ARM_data_graph")]
         vkCmdDispatchDataGraphARM: None,
+        #[cfg(feature = "VK_ARM_scheduling_controls")]
+        vkCmdSetDispatchParametersARM: None,
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         vkCmdBeginShaderInstrumentationARM: None,
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
@@ -1238,6 +1244,8 @@ impl CommandBufferDispatchTable {
         vkCmdCopyMicromapToMemoryEXT: None,
         #[cfg(feature = "VK_EXT_opacity_micromap")]
         vkCmdWriteMicromapsPropertiesEXT: None,
+        #[cfg(feature = "VK_EXT_primitive_restart_index")]
+        vkCmdSetPrimitiveRestartIndexEXT: None,
         #[cfg(feature = "VK_EXT_sample_locations")]
         vkCmdSetSampleLocationsEXT: None,
         #[cfg(feature = "VK_EXT_shader_object")]
@@ -1644,6 +1652,11 @@ impl CommandBufferDispatchTable {
         #[cfg(feature = "VK_ARM_data_graph")]
         {
             table.vkCmdDispatchDataGraphARM = loader(c"vkCmdDispatchDataGraphARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_ARM_scheduling_controls")]
+        {
+            table.vkCmdSetDispatchParametersARM = loader(c"vkCmdSetDispatchParametersARM".as_ptr())
                 .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
@@ -2484,6 +2497,12 @@ impl CommandBufferDispatchTable {
         {
             table.vkCmdWriteMicromapsPropertiesEXT =
                 loader(c"vkCmdWriteMicromapsPropertiesEXT".as_ptr())
+                    .map(|f| unsafe { core::mem::transmute(f) });
+        }
+        #[cfg(feature = "VK_EXT_primitive_restart_index")]
+        {
+            table.vkCmdSetPrimitiveRestartIndexEXT =
+                loader(c"vkCmdSetPrimitiveRestartIndexEXT".as_ptr())
                     .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_EXT_sample_locations")]
@@ -3758,6 +3777,31 @@ impl<'dev> CommandBuffer<'dev> {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (self.table).vkCmdDispatchDataGraphARM.unwrap_unchecked()(self.raw, session, pInfo)
+        }
+    }
+    /// [`vkCmdSetDispatchParametersARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDispatchParametersARM.html)
+    ///
+    /// Provided by:
+    /// - `VK_ARM_scheduling_controls`
+    ///
+    /// - **Queues:** Compute
+    /// - **Render Pass:** Outside
+    /// - **Tasks:** State
+    ///
+    /// # Parameters
+    /// - `commandBuffer`
+    /// - `pDispatchParameters`
+    #[cfg(feature = "VK_ARM_scheduling_controls")]
+    #[inline(always)]
+    pub fn vkCmdSetDispatchParametersARM(
+        &self,
+        pDispatchParameters: *const VkDispatchParametersARM,
+    ) {
+        unsafe {
+            // SAFETY: table is fully loaded at creation.
+            (self.table)
+                .vkCmdSetDispatchParametersARM
+                .unwrap_unchecked()(self.raw, pDispatchParameters)
         }
     }
     /// [`vkCmdBeginShaderInstrumentationARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginShaderInstrumentationARM.html)
@@ -7520,6 +7564,28 @@ impl<'dev> CommandBuffer<'dev> {
                 queryPool,
                 firstQuery,
             )
+        }
+    }
+    /// [`vkCmdSetPrimitiveRestartIndexEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPrimitiveRestartIndexEXT.html)
+    ///
+    /// Provided by:
+    /// - `VK_EXT_primitive_restart_index`
+    ///
+    /// - **Queues:** Graphics
+    /// - **Render Pass:** Both
+    /// - **Tasks:** State
+    ///
+    /// # Parameters
+    /// - `commandBuffer`
+    /// - `primitiveRestartIndex`: optional: true
+    #[cfg(feature = "VK_EXT_primitive_restart_index")]
+    #[inline(always)]
+    pub fn vkCmdSetPrimitiveRestartIndexEXT(&self, primitiveRestartIndex: u32) {
+        unsafe {
+            // SAFETY: table is fully loaded at creation.
+            (self.table)
+                .vkCmdSetPrimitiveRestartIndexEXT
+                .unwrap_unchecked()(self.raw, primitiveRestartIndex)
         }
     }
     /// [`vkCmdSetSampleLocationsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetSampleLocationsEXT.html)

@@ -52,6 +52,10 @@ pub struct DescriptorUpdateTemplate<'dev> {
     pub(crate) table: &'dev DescriptorUpdateTemplateDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl<'dev> Send for DescriptorUpdateTemplate<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl<'dev> Sync for DescriptorUpdateTemplate<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl<'dev> Drop for DescriptorUpdateTemplate<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

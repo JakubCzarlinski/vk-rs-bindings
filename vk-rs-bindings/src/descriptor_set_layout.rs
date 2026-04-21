@@ -62,6 +62,10 @@ pub struct DescriptorSetLayout<'dev> {
     pub(crate) table: &'dev DescriptorSetLayoutDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for DescriptorSetLayout<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for DescriptorSetLayout<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for DescriptorSetLayout<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

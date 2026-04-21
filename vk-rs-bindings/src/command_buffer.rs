@@ -3419,6 +3419,10 @@ pub struct CommandBuffer<'dev> {
     pub(crate) table: &'dev CommandBufferDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for CommandBuffer<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for CommandBuffer<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for CommandBuffer<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

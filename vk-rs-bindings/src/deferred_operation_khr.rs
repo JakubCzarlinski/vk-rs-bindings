@@ -166,6 +166,10 @@ pub struct DeferredOperationKHR<'dev> {
     pub(crate) table: &'dev DeferredOperationKHRDispatchTable,
 }
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
+unsafe impl<'dev> Send for DeferredOperationKHR<'dev> {}
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+unsafe impl<'dev> Sync for DeferredOperationKHR<'dev> {}
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
 impl<'dev> Drop for DeferredOperationKHR<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

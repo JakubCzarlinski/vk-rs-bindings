@@ -42,6 +42,10 @@ pub struct AccelerationStructureKHR<'dev> {
     pub(crate) table: &'dev AccelerationStructureKHRDispatchTable,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl<'dev> Send for AccelerationStructureKHR<'dev> {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl<'dev> Sync for AccelerationStructureKHR<'dev> {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl<'dev> Drop for AccelerationStructureKHR<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

@@ -63,6 +63,10 @@ pub struct IndirectExecutionSetEXT<'dev> {
     pub(crate) table: &'dev IndirectExecutionSetEXTDispatchTable,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl<'dev> Send for IndirectExecutionSetEXT<'dev> {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl<'dev> Sync for IndirectExecutionSetEXT<'dev> {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl<'dev> Drop for IndirectExecutionSetEXT<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

@@ -68,6 +68,10 @@ pub struct QueryPool<'dev> {
     pub(crate) table: &'dev QueryPoolDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for QueryPool<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for QueryPool<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for QueryPool<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

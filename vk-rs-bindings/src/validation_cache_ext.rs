@@ -59,6 +59,10 @@ pub struct ValidationCacheEXT<'dev> {
     pub(crate) table: &'dev ValidationCacheEXTDispatchTable,
 }
 #[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl<'dev> Send for ValidationCacheEXT<'dev> {}
+#[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl<'dev> Sync for ValidationCacheEXT<'dev> {}
+#[cfg(feature = "VK_EXT_validation_cache")]
 impl<'dev> Drop for ValidationCacheEXT<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

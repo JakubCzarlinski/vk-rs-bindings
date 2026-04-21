@@ -86,6 +86,10 @@ pub struct DeviceMemory<'dev> {
     pub(crate) table: &'dev DeviceMemoryDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for DeviceMemory<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for DeviceMemory<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for DeviceMemory<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

@@ -41,6 +41,10 @@ pub struct CuFunctionNVX<'dev> {
     pub(crate) table: &'dev CuFunctionNVXDispatchTable,
 }
 #[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl<'dev> Send for CuFunctionNVX<'dev> {}
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl<'dev> Sync for CuFunctionNVX<'dev> {}
+#[cfg(feature = "VK_NVX_binary_import")]
 impl<'dev> Drop for CuFunctionNVX<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

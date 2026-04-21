@@ -96,6 +96,10 @@ pub struct CommandPool<'dev> {
     pub(crate) table: &'dev CommandPoolDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for CommandPool<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for CommandPool<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for CommandPool<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

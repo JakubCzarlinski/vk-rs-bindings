@@ -68,6 +68,10 @@ pub struct Event<'dev> {
     pub(crate) table: &'dev EventDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for Event<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for Event<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for Event<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

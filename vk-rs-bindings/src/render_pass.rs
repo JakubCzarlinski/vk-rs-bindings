@@ -61,6 +61,10 @@ pub struct RenderPass<'dev> {
     pub(crate) table: &'dev RenderPassDispatchTable,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl<'dev> Send for RenderPass<'dev> {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl<'dev> Sync for RenderPass<'dev> {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl<'dev> Drop for RenderPass<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

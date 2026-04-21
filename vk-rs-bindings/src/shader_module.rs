@@ -51,6 +51,10 @@ pub struct ShaderModule<'dev> {
     pub(crate) table: &'dev ShaderModuleDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for ShaderModule<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for ShaderModule<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for ShaderModule<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

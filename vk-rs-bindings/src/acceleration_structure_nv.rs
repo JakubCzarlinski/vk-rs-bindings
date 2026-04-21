@@ -52,6 +52,10 @@ pub struct AccelerationStructureNV<'dev> {
     pub(crate) table: &'dev AccelerationStructureNVDispatchTable,
 }
 #[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl<'dev> Send for AccelerationStructureNV<'dev> {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl<'dev> Sync for AccelerationStructureNV<'dev> {}
+#[cfg(feature = "VK_NV_ray_tracing")]
 impl<'dev> Drop for AccelerationStructureNV<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

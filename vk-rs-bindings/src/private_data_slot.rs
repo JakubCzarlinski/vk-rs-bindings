@@ -50,6 +50,10 @@ pub struct PrivateDataSlot<'dev> {
     pub(crate) table: &'dev PrivateDataSlotDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl<'dev> Send for PrivateDataSlot<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl<'dev> Sync for PrivateDataSlot<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl<'dev> Drop for PrivateDataSlot<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

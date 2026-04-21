@@ -41,6 +41,10 @@ pub struct CudaFunctionNV<'dev> {
     pub(crate) table: &'dev CudaFunctionNVDispatchTable,
 }
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl<'dev> Send for CudaFunctionNV<'dev> {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl<'dev> Sync for CudaFunctionNV<'dev> {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl<'dev> Drop for CudaFunctionNV<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

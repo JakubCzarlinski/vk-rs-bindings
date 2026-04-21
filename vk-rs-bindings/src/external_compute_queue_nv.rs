@@ -52,6 +52,10 @@ pub struct ExternalComputeQueueNV<'dev> {
     pub(crate) table: &'dev ExternalComputeQueueNVDispatchTable,
 }
 #[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl<'dev> Send for ExternalComputeQueueNV<'dev> {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl<'dev> Sync for ExternalComputeQueueNV<'dev> {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
 impl<'dev> Drop for ExternalComputeQueueNV<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

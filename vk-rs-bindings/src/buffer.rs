@@ -59,6 +59,10 @@ pub struct Buffer<'dev> {
     pub(crate) table: &'dev BufferDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for Buffer<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for Buffer<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for Buffer<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

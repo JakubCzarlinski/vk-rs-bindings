@@ -52,6 +52,10 @@ pub struct SamplerYcbcrConversion<'dev> {
     pub(crate) table: &'dev SamplerYcbcrConversionDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl<'dev> Send for SamplerYcbcrConversion<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl<'dev> Sync for SamplerYcbcrConversion<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl<'dev> Drop for SamplerYcbcrConversion<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

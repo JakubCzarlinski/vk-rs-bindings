@@ -50,6 +50,10 @@ pub struct ImageView<'dev> {
     pub(crate) table: &'dev ImageViewDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for ImageView<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for ImageView<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for ImageView<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

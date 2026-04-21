@@ -51,6 +51,10 @@ pub struct OpticalFlowSessionNV<'dev> {
     pub(crate) table: &'dev OpticalFlowSessionNVDispatchTable,
 }
 #[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl<'dev> Send for OpticalFlowSessionNV<'dev> {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl<'dev> Sync for OpticalFlowSessionNV<'dev> {}
+#[cfg(feature = "VK_NV_optical_flow")]
 impl<'dev> Drop for OpticalFlowSessionNV<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

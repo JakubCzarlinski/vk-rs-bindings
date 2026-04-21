@@ -41,6 +41,10 @@ pub struct PipelineBinaryKHR<'dev> {
     pub(crate) table: &'dev PipelineBinaryKHRDispatchTable,
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl<'dev> Send for PipelineBinaryKHR<'dev> {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl<'dev> Sync for PipelineBinaryKHR<'dev> {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl<'dev> Drop for PipelineBinaryKHR<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

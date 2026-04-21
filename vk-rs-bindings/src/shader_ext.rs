@@ -50,6 +50,10 @@ pub struct ShaderEXT<'dev> {
     pub(crate) table: &'dev ShaderEXTDispatchTable,
 }
 #[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl<'dev> Send for ShaderEXT<'dev> {}
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl<'dev> Sync for ShaderEXT<'dev> {}
+#[cfg(feature = "VK_EXT_shader_object")]
 impl<'dev> Drop for ShaderEXT<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

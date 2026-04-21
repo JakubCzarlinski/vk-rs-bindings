@@ -50,6 +50,10 @@ pub struct Fence<'dev> {
     pub(crate) table: &'dev FenceDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for Fence<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for Fence<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for Fence<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

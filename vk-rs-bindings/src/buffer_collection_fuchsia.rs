@@ -74,6 +74,10 @@ pub struct BufferCollectionFUCHSIA<'dev> {
     pub(crate) table: &'dev BufferCollectionFUCHSIADispatchTable,
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl<'dev> Send for BufferCollectionFUCHSIA<'dev> {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl<'dev> Sync for BufferCollectionFUCHSIA<'dev> {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl<'dev> Drop for BufferCollectionFUCHSIA<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

@@ -41,6 +41,10 @@ pub struct TensorARM<'dev> {
     pub(crate) table: &'dev TensorARMDispatchTable,
 }
 #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+unsafe impl<'dev> Send for TensorARM<'dev> {}
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+unsafe impl<'dev> Sync for TensorARM<'dev> {}
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
 impl<'dev> Drop for TensorARM<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

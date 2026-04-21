@@ -41,6 +41,10 @@ pub struct TensorViewARM<'dev> {
     pub(crate) table: &'dev TensorViewARMDispatchTable,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl<'dev> Send for TensorViewARM<'dev> {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl<'dev> Sync for TensorViewARM<'dev> {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl<'dev> Drop for TensorViewARM<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

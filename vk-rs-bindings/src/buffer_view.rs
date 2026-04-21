@@ -41,6 +41,10 @@ pub struct BufferView<'dev> {
     pub(crate) table: &'dev BufferViewDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for BufferView<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for BufferView<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for BufferView<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

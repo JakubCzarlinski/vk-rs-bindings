@@ -62,6 +62,10 @@ pub struct ShaderInstrumentationARM<'dev> {
     pub(crate) table: &'dev ShaderInstrumentationARMDispatchTable,
 }
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl<'dev> Send for ShaderInstrumentationARM<'dev> {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl<'dev> Sync for ShaderInstrumentationARM<'dev> {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl<'dev> Drop for ShaderInstrumentationARM<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

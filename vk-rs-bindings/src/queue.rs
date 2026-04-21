@@ -153,6 +153,10 @@ pub struct Queue<'dev> {
     pub(crate) table: &'dev QueueDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for Queue<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for Queue<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for Queue<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

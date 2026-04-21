@@ -211,6 +211,10 @@ pub struct SwapchainKHR<'dev> {
     pub(crate) table: &'dev SwapchainKHRDispatchTable,
 }
 #[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl<'dev> Send for SwapchainKHR<'dev> {}
+#[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl<'dev> Sync for SwapchainKHR<'dev> {}
+#[cfg(feature = "VK_KHR_swapchain")]
 impl<'dev> Drop for SwapchainKHR<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

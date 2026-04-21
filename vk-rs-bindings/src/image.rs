@@ -127,6 +127,10 @@ pub struct Image<'dev> {
     pub(crate) table: &'dev ImageDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for Image<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for Image<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for Image<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

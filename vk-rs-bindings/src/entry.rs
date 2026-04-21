@@ -75,6 +75,8 @@ pub struct VulkanLib {
     _lib: libloading::Library,
     pub(crate) get_instance_proc_addr: PFN_vkGetInstanceProcAddr,
 }
+unsafe impl Send for VulkanLib {}
+unsafe impl Sync for VulkanLib {}
 impl VulkanLib {
     /// Open the platform Vulkan loader.
     pub fn load() -> Result<Self, LoadError> {
@@ -167,6 +169,8 @@ pub struct Entry<'lib> {
     /// table via `vkGetInstanceProcAddr` after the instance is created.
     lib: &'lib VulkanLib,
 }
+unsafe impl<'lib> Send for Entry<'lib> {}
+unsafe impl<'lib> Sync for Entry<'lib> {}
 impl<'lib> Entry<'lib> {
     /// Create an `Entry` by loading all pre-instance commands from `lib`.
     #[inline]

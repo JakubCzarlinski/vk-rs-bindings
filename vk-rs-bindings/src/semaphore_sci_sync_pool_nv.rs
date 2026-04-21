@@ -42,6 +42,10 @@ pub struct SemaphoreSciSyncPoolNV<'dev> {
     pub(crate) table: &'dev SemaphoreSciSyncPoolNVDispatchTable,
 }
 #[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl<'dev> Send for SemaphoreSciSyncPoolNV<'dev> {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl<'dev> Sync for SemaphoreSciSyncPoolNV<'dev> {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
 impl<'dev> Drop for SemaphoreSciSyncPoolNV<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

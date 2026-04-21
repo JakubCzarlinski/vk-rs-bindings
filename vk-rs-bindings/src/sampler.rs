@@ -41,6 +41,10 @@ pub struct Sampler<'dev> {
     pub(crate) table: &'dev SamplerDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for Sampler<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for Sampler<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for Sampler<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

@@ -62,6 +62,10 @@ pub struct DescriptorSet<'dev> {
     pub(crate) table: &'dev DescriptorSetDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for DescriptorSet<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for DescriptorSet<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for DescriptorSet<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

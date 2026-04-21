@@ -42,6 +42,10 @@ pub struct DataGraphPipelineSessionARM<'dev> {
     pub(crate) table: &'dev DataGraphPipelineSessionARMDispatchTable,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl<'dev> Send for DataGraphPipelineSessionARM<'dev> {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl<'dev> Sync for DataGraphPipelineSessionARM<'dev> {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl<'dev> Drop for DataGraphPipelineSessionARM<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

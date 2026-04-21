@@ -41,6 +41,10 @@ pub struct MicromapEXT<'dev> {
     pub(crate) table: &'dev MicromapEXTDispatchTable,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl<'dev> Send for MicromapEXT<'dev> {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl<'dev> Sync for MicromapEXT<'dev> {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl<'dev> Drop for MicromapEXT<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

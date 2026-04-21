@@ -344,6 +344,10 @@ pub struct Instance<'lib> {
     _lib: core::marker::PhantomData<&'lib VulkanLib>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'lib> Send for Instance<'lib> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'lib> Sync for Instance<'lib> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'lib> Instance<'lib> {
     /// Wrap a raw `VkInstance` with a pre-loaded dispatch table.
     ///

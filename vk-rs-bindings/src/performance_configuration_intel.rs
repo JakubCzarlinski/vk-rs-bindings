@@ -42,6 +42,10 @@ pub struct PerformanceConfigurationINTEL<'dev> {
     pub(crate) table: &'dev PerformanceConfigurationINTELDispatchTable,
 }
 #[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl<'dev> Send for PerformanceConfigurationINTEL<'dev> {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl<'dev> Sync for PerformanceConfigurationINTEL<'dev> {}
+#[cfg(feature = "VK_INTEL_performance_query")]
 impl<'dev> Drop for PerformanceConfigurationINTEL<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

@@ -23,6 +23,10 @@ pub struct VkPipelineCacheStageValidationIndexEntry {
     pub codeOffset: u64,
 }
 #[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkPipelineCacheStageValidationIndexEntry {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkPipelineCacheStageValidationIndexEntry {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkPipelineCacheStageValidationIndexEntry {
     pub const DEFAULT: Self = Self {
         codeSize: 0,
@@ -56,6 +60,10 @@ pub struct VkPipelineCacheSafetyCriticalIndexEntry {
     pub stageIndexStride: u32,
     pub stageIndexOffset: u64,
 }
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkPipelineCacheSafetyCriticalIndexEntry {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkPipelineCacheSafetyCriticalIndexEntry {}
 #[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkPipelineCacheSafetyCriticalIndexEntry {
     pub const DEFAULT: Self = Self {
@@ -120,6 +128,10 @@ pub struct VkPipelineCacheHeaderVersionSafetyCriticalOne {
     pub pipelineIndexOffset: u64,
 }
 #[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkPipelineCacheHeaderVersionSafetyCriticalOne {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkPipelineCacheHeaderVersionSafetyCriticalOne {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkPipelineCacheHeaderVersionSafetyCriticalOne {
     pub const DEFAULT: Self = Self {
         headerVersionOne: VkPipelineCacheHeaderVersionOne::DEFAULT,
@@ -179,6 +191,10 @@ pub struct VkFaultData {
     pub faultType: VkFaultType,
 }
 #[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkFaultData {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkFaultData {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkFaultData {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_FAULT_DATA,
@@ -225,6 +241,10 @@ pub struct VkFaultCallbackInfo {
     pub pFaults: *mut VkFaultData,
     pub pfnFaultCallback: PFN_vkFaultCallbackFunction,
 }
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkFaultCallbackInfo {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkFaultCallbackInfo {}
 #[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkFaultCallbackInfo {
     pub const DEFAULT: Self = Self {
@@ -278,6 +298,10 @@ pub struct VkPipelineOfflineCreateInfo {
     pub matchControl: VkPipelineMatchControl,
     pub poolEntrySize: VkDeviceSize,
 }
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkPipelineOfflineCreateInfo {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkPipelineOfflineCreateInfo {}
 #[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkPipelineOfflineCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -366,6 +390,10 @@ pub struct VkPhysicalDeviceVulkanSC10Properties {
     /// Limit Type: [Max]
     pub maxCommandBufferSize: VkDeviceSize,
 }
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDeviceVulkanSC10Properties {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDeviceVulkanSC10Properties {}
 #[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkPhysicalDeviceVulkanSC10Properties {
     pub const DEFAULT: Self = Self {
@@ -508,6 +536,10 @@ pub struct VkPipelinePoolSize {
     pub poolEntryCount: u32,
 }
 #[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkPipelinePoolSize {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkPipelinePoolSize {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkPipelinePoolSize {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_POOL_SIZE,
@@ -623,6 +655,10 @@ pub struct VkDeviceObjectReservationCreateInfo {
     pub maxTimestampQueriesPerPool: u32,
     pub maxImmutableSamplersPerDescriptorSetLayout: u32,
 }
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkDeviceObjectReservationCreateInfo {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkDeviceObjectReservationCreateInfo {}
 #[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkDeviceObjectReservationCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -909,6 +945,10 @@ pub struct VkCommandPoolMemoryReservationCreateInfo {
     pub commandPoolMaxCommandBuffers: u32,
 }
 #[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkCommandPoolMemoryReservationCreateInfo {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkCommandPoolMemoryReservationCreateInfo {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkCommandPoolMemoryReservationCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_POOL_MEMORY_RESERVATION_CREATE_INFO,
@@ -953,6 +993,10 @@ pub struct VkCommandPoolMemoryConsumption {
     pub commandPoolReservedSize: VkDeviceSize,
     pub commandBufferAllocated: VkDeviceSize,
 }
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkCommandPoolMemoryConsumption {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkCommandPoolMemoryConsumption {}
 #[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkCommandPoolMemoryConsumption {
     pub const DEFAULT: Self = Self {
@@ -1003,6 +1047,10 @@ pub struct VkPhysicalDeviceVulkanSC10Features {
     pub shaderAtomicInstructions: VkBool32,
 }
 #[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDeviceVulkanSC10Features {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDeviceVulkanSC10Features {}
+#[cfg(feature = "VKSC_VERSION_1_0")]
 impl VkPhysicalDeviceVulkanSC10Features {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_SC_1_0_FEATURES,
@@ -1039,6 +1087,10 @@ pub struct VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX {
     pub pNext: *mut core::ffi::c_void,
     pub denseGeometryFormat: VkBool32,
 }
+#[cfg(feature = "VK_AMDX_dense_geometry_format")]
+unsafe impl Send for VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX {}
+#[cfg(feature = "VK_AMDX_dense_geometry_format")]
+unsafe impl Sync for VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX {}
 #[cfg(feature = "VK_AMDX_dense_geometry_format")]
 impl VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX {
     pub const DEFAULT: Self = Self {
@@ -1083,6 +1135,10 @@ pub struct VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX {
     pub maxGeometryIndex: u32,
     pub format: VkCompressedTriangleFormatAMDX,
 }
+#[cfg(feature = "VK_AMDX_dense_geometry_format")]
+unsafe impl Send for VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX {}
+#[cfg(feature = "VK_AMDX_dense_geometry_format")]
+unsafe impl Sync for VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX {}
 #[cfg(feature = "VK_AMDX_dense_geometry_format")]
 impl VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX {
     pub const DEFAULT: Self = Self {
@@ -1154,6 +1210,10 @@ pub union VkDeviceOrHostAddressConstAMDX {
     pub hostAddress: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkDeviceOrHostAddressConstAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkDeviceOrHostAddressConstAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkDeviceOrHostAddressConstAMDX {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -1203,6 +1263,10 @@ pub struct VkPhysicalDeviceShaderEnqueuePropertiesAMDX {
     /// Limit Type: [Max]
     pub maxExecutionGraphWorkgroups: u32,
 }
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkPhysicalDeviceShaderEnqueuePropertiesAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkPhysicalDeviceShaderEnqueuePropertiesAMDX {}
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkPhysicalDeviceShaderEnqueuePropertiesAMDX {
     pub const DEFAULT: Self = Self {
@@ -1278,6 +1342,10 @@ pub struct VkPhysicalDeviceShaderEnqueueFeaturesAMDX {
     pub shaderMeshEnqueue: VkBool32,
 }
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkPhysicalDeviceShaderEnqueueFeaturesAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkPhysicalDeviceShaderEnqueueFeaturesAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkPhysicalDeviceShaderEnqueueFeaturesAMDX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX,
@@ -1330,6 +1398,10 @@ pub struct VkExecutionGraphPipelineCreateInfoAMDX {
     pub basePipelineHandle: VkPipeline,
     pub basePipelineIndex: i32,
 }
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkExecutionGraphPipelineCreateInfoAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkExecutionGraphPipelineCreateInfoAMDX {}
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkExecutionGraphPipelineCreateInfoAMDX {
     pub const DEFAULT: Self = Self {
@@ -1410,6 +1482,10 @@ pub struct VkPipelineShaderStageNodeCreateInfoAMDX {
     pub index: u32,
 }
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkPipelineShaderStageNodeCreateInfoAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkPipelineShaderStageNodeCreateInfoAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkPipelineShaderStageNodeCreateInfoAMDX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX,
@@ -1454,6 +1530,10 @@ pub struct VkExecutionGraphPipelineScratchSizeAMDX {
     pub maxSize: VkDeviceSize,
     pub sizeGranularity: VkDeviceSize,
 }
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkExecutionGraphPipelineScratchSizeAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkExecutionGraphPipelineScratchSizeAMDX {}
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkExecutionGraphPipelineScratchSizeAMDX {
     pub const DEFAULT: Self = Self {
@@ -1503,6 +1583,10 @@ pub struct VkDispatchGraphInfoAMDX {
     pub payloadStride: u64,
 }
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkDispatchGraphInfoAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkDispatchGraphInfoAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkDispatchGraphInfoAMDX {
     pub const DEFAULT: Self = Self {
         nodeIndex: 0,
@@ -1547,6 +1631,10 @@ pub struct VkDispatchGraphCountInfoAMDX {
     pub stride: u64,
 }
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Send for VkDispatchGraphCountInfoAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+unsafe impl Sync for VkDispatchGraphCountInfoAMDX {}
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
 impl VkDispatchGraphCountInfoAMDX {
     pub const DEFAULT: Self = Self {
         count: 0,
@@ -1587,6 +1675,10 @@ pub struct VkPhysicalDeviceAntiLagFeaturesAMD {
     pub antiLag: VkBool32,
 }
 #[cfg(feature = "VK_AMD_anti_lag")]
+unsafe impl Send for VkPhysicalDeviceAntiLagFeaturesAMD {}
+#[cfg(feature = "VK_AMD_anti_lag")]
+unsafe impl Sync for VkPhysicalDeviceAntiLagFeaturesAMD {}
+#[cfg(feature = "VK_AMD_anti_lag")]
 impl VkPhysicalDeviceAntiLagFeaturesAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD,
@@ -1624,6 +1716,10 @@ pub struct VkAntiLagDataAMD {
     /// Optional: true
     pub pPresentationInfo: *const VkAntiLagPresentationInfoAMD,
 }
+#[cfg(feature = "VK_AMD_anti_lag")]
+unsafe impl Send for VkAntiLagDataAMD {}
+#[cfg(feature = "VK_AMD_anti_lag")]
+unsafe impl Sync for VkAntiLagDataAMD {}
 #[cfg(feature = "VK_AMD_anti_lag")]
 impl VkAntiLagDataAMD {
     pub const DEFAULT: Self = Self {
@@ -1678,6 +1774,10 @@ pub struct VkAntiLagPresentationInfoAMD {
     pub frameIndex: u64,
 }
 #[cfg(feature = "VK_AMD_anti_lag")]
+unsafe impl Send for VkAntiLagPresentationInfoAMD {}
+#[cfg(feature = "VK_AMD_anti_lag")]
+unsafe impl Sync for VkAntiLagPresentationInfoAMD {}
+#[cfg(feature = "VK_AMD_anti_lag")]
 impl VkAntiLagPresentationInfoAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD,
@@ -1721,6 +1821,10 @@ pub struct VkPhysicalDeviceCoherentMemoryFeaturesAMD {
     pub deviceCoherentMemory: VkBool32,
 }
 #[cfg(feature = "VK_AMD_device_coherent_memory")]
+unsafe impl Send for VkPhysicalDeviceCoherentMemoryFeaturesAMD {}
+#[cfg(feature = "VK_AMD_device_coherent_memory")]
+unsafe impl Sync for VkPhysicalDeviceCoherentMemoryFeaturesAMD {}
+#[cfg(feature = "VK_AMD_device_coherent_memory")]
 impl VkPhysicalDeviceCoherentMemoryFeaturesAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD,
@@ -1760,6 +1864,10 @@ pub struct VkDisplayNativeHdrSurfaceCapabilitiesAMD {
     pub localDimmingSupport: VkBool32,
 }
 #[cfg(feature = "VK_AMD_display_native_hdr")]
+unsafe impl Send for VkDisplayNativeHdrSurfaceCapabilitiesAMD {}
+#[cfg(feature = "VK_AMD_display_native_hdr")]
+unsafe impl Sync for VkDisplayNativeHdrSurfaceCapabilitiesAMD {}
+#[cfg(feature = "VK_AMD_display_native_hdr")]
 impl VkDisplayNativeHdrSurfaceCapabilitiesAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD,
@@ -1797,6 +1905,10 @@ pub struct VkSwapchainDisplayNativeHdrCreateInfoAMD {
     pub localDimmingEnable: VkBool32,
 }
 #[cfg(feature = "VK_AMD_display_native_hdr")]
+unsafe impl Send for VkSwapchainDisplayNativeHdrCreateInfoAMD {}
+#[cfg(feature = "VK_AMD_display_native_hdr")]
+unsafe impl Sync for VkSwapchainDisplayNativeHdrCreateInfoAMD {}
+#[cfg(feature = "VK_AMD_display_native_hdr")]
 impl VkSwapchainDisplayNativeHdrCreateInfoAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD,
@@ -1833,6 +1945,10 @@ pub struct VkDeviceMemoryOverallocationCreateInfoAMD {
     pub pNext: *const core::ffi::c_void,
     pub overallocationBehavior: VkMemoryOverallocationBehaviorAMD,
 }
+#[cfg(feature = "VK_AMD_memory_overallocation_behavior")]
+unsafe impl Send for VkDeviceMemoryOverallocationCreateInfoAMD {}
+#[cfg(feature = "VK_AMD_memory_overallocation_behavior")]
+unsafe impl Sync for VkDeviceMemoryOverallocationCreateInfoAMD {}
 #[cfg(feature = "VK_AMD_memory_overallocation_behavior")]
 impl VkDeviceMemoryOverallocationCreateInfoAMD {
     pub const DEFAULT: Self = Self {
@@ -1878,6 +1994,10 @@ pub struct VkAttachmentSampleCountInfoAMD {
     /// Optional: true,  No Auto-Validity
     pub depthStencilAttachmentSamples: VkSampleCountFlagBits,
 }
+#[cfg(feature = "VK_AMD_mixed_attachment_samples")]
+unsafe impl Send for VkAttachmentSampleCountInfoAMD {}
+#[cfg(feature = "VK_AMD_mixed_attachment_samples")]
+unsafe impl Sync for VkAttachmentSampleCountInfoAMD {}
 #[cfg(feature = "VK_AMD_mixed_attachment_samples")]
 impl VkAttachmentSampleCountInfoAMD {
     pub const DEFAULT: Self = Self {
@@ -1934,6 +2054,10 @@ pub struct VkPipelineCompilerControlCreateInfoAMD {
     pub compilerControlFlags: VkPipelineCompilerControlFlagsAMD,
 }
 #[cfg(feature = "VK_AMD_pipeline_compiler_control")]
+unsafe impl Send for VkPipelineCompilerControlCreateInfoAMD {}
+#[cfg(feature = "VK_AMD_pipeline_compiler_control")]
+unsafe impl Sync for VkPipelineCompilerControlCreateInfoAMD {}
+#[cfg(feature = "VK_AMD_pipeline_compiler_control")]
 impl VkPipelineCompilerControlCreateInfoAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD,
@@ -1973,6 +2097,10 @@ pub struct VkPipelineRasterizationStateRasterizationOrderAMD {
     pub pNext: *const core::ffi::c_void,
     pub rasterizationOrder: VkRasterizationOrderAMD,
 }
+#[cfg(feature = "VK_AMD_rasterization_order")]
+unsafe impl Send for VkPipelineRasterizationStateRasterizationOrderAMD {}
+#[cfg(feature = "VK_AMD_rasterization_order")]
+unsafe impl Sync for VkPipelineRasterizationStateRasterizationOrderAMD {}
 #[cfg(feature = "VK_AMD_rasterization_order")]
 impl VkPipelineRasterizationStateRasterizationOrderAMD {
     pub const DEFAULT: Self = Self {
@@ -2042,6 +2170,10 @@ pub struct VkPhysicalDeviceShaderCorePropertiesAMD {
     /// Limit Type: [Min, Mul]
     pub vgprAllocationGranularity: u32,
 }
+#[cfg(feature = "VK_AMD_shader_core_properties")]
+unsafe impl Send for VkPhysicalDeviceShaderCorePropertiesAMD {}
+#[cfg(feature = "VK_AMD_shader_core_properties")]
+unsafe impl Sync for VkPhysicalDeviceShaderCorePropertiesAMD {}
 #[cfg(feature = "VK_AMD_shader_core_properties")]
 impl VkPhysicalDeviceShaderCorePropertiesAMD {
     pub const DEFAULT: Self = Self {
@@ -2168,6 +2300,10 @@ pub struct VkPhysicalDeviceShaderCoreProperties2AMD {
     pub activeComputeUnitCount: u32,
 }
 #[cfg(feature = "VK_AMD_shader_core_properties2")]
+unsafe impl Send for VkPhysicalDeviceShaderCoreProperties2AMD {}
+#[cfg(feature = "VK_AMD_shader_core_properties2")]
+unsafe impl Sync for VkPhysicalDeviceShaderCoreProperties2AMD {}
+#[cfg(feature = "VK_AMD_shader_core_properties2")]
 impl VkPhysicalDeviceShaderCoreProperties2AMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD,
@@ -2211,6 +2347,10 @@ pub struct VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD {
     pub shaderEarlyAndLateFragmentTests: VkBool32,
 }
 #[cfg(feature = "VK_AMD_shader_early_and_late_fragment_tests")]
+unsafe impl Send for VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD {}
+#[cfg(feature = "VK_AMD_shader_early_and_late_fragment_tests")]
+unsafe impl Sync for VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD {}
+#[cfg(feature = "VK_AMD_shader_early_and_late_fragment_tests")]
 impl VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD,
@@ -2247,6 +2387,10 @@ pub struct VkShaderResourceUsageAMD {
     pub ldsUsageSizeInBytes: usize,
     pub scratchMemUsageInBytes: usize,
 }
+#[cfg(feature = "VK_AMD_shader_info")]
+unsafe impl Send for VkShaderResourceUsageAMD {}
+#[cfg(feature = "VK_AMD_shader_info")]
+unsafe impl Sync for VkShaderResourceUsageAMD {}
 #[cfg(feature = "VK_AMD_shader_info")]
 impl VkShaderResourceUsageAMD {
     pub const DEFAULT: Self = Self {
@@ -2301,6 +2445,10 @@ pub struct VkShaderStatisticsInfoAMD {
     pub numAvailableSgprs: u32,
     pub computeWorkGroupSize: [u32; 3],
 }
+#[cfg(feature = "VK_AMD_shader_info")]
+unsafe impl Send for VkShaderStatisticsInfoAMD {}
+#[cfg(feature = "VK_AMD_shader_info")]
+unsafe impl Sync for VkShaderStatisticsInfoAMD {}
 #[cfg(feature = "VK_AMD_shader_info")]
 impl VkShaderStatisticsInfoAMD {
     pub const DEFAULT: Self = Self {
@@ -2368,6 +2516,10 @@ pub struct VkTextureLODGatherFormatPropertiesAMD {
     pub supportsTextureGatherLODBiasAMD: VkBool32,
 }
 #[cfg(feature = "VK_AMD_texture_gather_bias_lod")]
+unsafe impl Send for VkTextureLODGatherFormatPropertiesAMD {}
+#[cfg(feature = "VK_AMD_texture_gather_bias_lod")]
+unsafe impl Sync for VkTextureLODGatherFormatPropertiesAMD {}
+#[cfg(feature = "VK_AMD_texture_gather_bias_lod")]
 impl VkTextureLODGatherFormatPropertiesAMD {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD,
@@ -2404,6 +2556,10 @@ pub struct VkPhysicalDeviceExternalFormatResolveFeaturesANDROID {
     pub pNext: *mut core::ffi::c_void,
     pub externalFormatResolve: VkBool32,
 }
+#[cfg(feature = "VK_ANDROID_external_format_resolve")]
+unsafe impl Send for VkPhysicalDeviceExternalFormatResolveFeaturesANDROID {}
+#[cfg(feature = "VK_ANDROID_external_format_resolve")]
+unsafe impl Sync for VkPhysicalDeviceExternalFormatResolveFeaturesANDROID {}
 #[cfg(feature = "VK_ANDROID_external_format_resolve")]
 impl VkPhysicalDeviceExternalFormatResolveFeaturesANDROID {
     pub const DEFAULT: Self = Self {
@@ -2450,6 +2606,10 @@ pub struct VkPhysicalDeviceExternalFormatResolvePropertiesANDROID {
     /// Limit Type: [Noauto]
     pub externalFormatResolveChromaOffsetY: VkChromaLocation,
 }
+#[cfg(feature = "VK_ANDROID_external_format_resolve")]
+unsafe impl Send for VkPhysicalDeviceExternalFormatResolvePropertiesANDROID {}
+#[cfg(feature = "VK_ANDROID_external_format_resolve")]
+unsafe impl Sync for VkPhysicalDeviceExternalFormatResolvePropertiesANDROID {}
 #[cfg(feature = "VK_ANDROID_external_format_resolve")]
 impl VkPhysicalDeviceExternalFormatResolvePropertiesANDROID {
     pub const DEFAULT: Self = Self {
@@ -2505,6 +2665,10 @@ pub struct VkAndroidHardwareBufferFormatResolvePropertiesANDROID {
     pub colorAttachmentFormat: VkFormat,
 }
 #[cfg(feature = "VK_ANDROID_external_format_resolve")]
+unsafe impl Send for VkAndroidHardwareBufferFormatResolvePropertiesANDROID {}
+#[cfg(feature = "VK_ANDROID_external_format_resolve")]
+unsafe impl Sync for VkAndroidHardwareBufferFormatResolvePropertiesANDROID {}
+#[cfg(feature = "VK_ANDROID_external_format_resolve")]
 impl VkAndroidHardwareBufferFormatResolvePropertiesANDROID {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID,
@@ -2538,6 +2702,10 @@ pub struct AHardwareBuffer(pub *mut core::ffi::c_void);
 impl AHardwareBuffer {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for AHardwareBuffer {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for AHardwareBuffer {}
 /// [VkImportAndroidHardwareBufferInfoANDROID](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportAndroidHardwareBufferInfoANDROID.html)
 ///
 /// **Extends:** VkMemoryAllocateInfo.
@@ -2551,6 +2719,10 @@ pub struct VkImportAndroidHardwareBufferInfoANDROID {
     pub pNext: *const core::ffi::c_void,
     pub buffer: *mut AHardwareBuffer,
 }
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for VkImportAndroidHardwareBufferInfoANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for VkImportAndroidHardwareBufferInfoANDROID {}
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 impl VkImportAndroidHardwareBufferInfoANDROID {
     pub const DEFAULT: Self = Self {
@@ -2593,6 +2765,10 @@ pub struct VkAndroidHardwareBufferUsageANDROID {
     pub androidHardwareBufferUsage: u64,
 }
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for VkAndroidHardwareBufferUsageANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for VkAndroidHardwareBufferUsageANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 impl VkAndroidHardwareBufferUsageANDROID {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_USAGE_ANDROID,
@@ -2630,6 +2806,10 @@ pub struct VkAndroidHardwareBufferPropertiesANDROID {
     pub allocationSize: VkDeviceSize,
     pub memoryTypeBits: u32,
 }
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for VkAndroidHardwareBufferPropertiesANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for VkAndroidHardwareBufferPropertiesANDROID {}
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 impl VkAndroidHardwareBufferPropertiesANDROID {
     pub const DEFAULT: Self = Self {
@@ -2671,6 +2851,10 @@ pub struct VkMemoryGetAndroidHardwareBufferInfoANDROID {
     pub pNext: *const core::ffi::c_void,
     pub memory: VkDeviceMemory,
 }
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for VkMemoryGetAndroidHardwareBufferInfoANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for VkMemoryGetAndroidHardwareBufferInfoANDROID {}
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 impl VkMemoryGetAndroidHardwareBufferInfoANDROID {
     pub const DEFAULT: Self = Self {
@@ -2717,6 +2901,10 @@ pub struct VkAndroidHardwareBufferFormatPropertiesANDROID {
     pub suggestedXChromaOffset: VkChromaLocation,
     pub suggestedYChromaOffset: VkChromaLocation,
 }
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for VkAndroidHardwareBufferFormatPropertiesANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for VkAndroidHardwareBufferFormatPropertiesANDROID {}
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 impl VkAndroidHardwareBufferFormatPropertiesANDROID {
     pub const DEFAULT: Self = Self {
@@ -2797,6 +2985,10 @@ pub struct VkExternalFormatANDROID {
     pub externalFormat: u64,
 }
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for VkExternalFormatANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for VkExternalFormatANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 impl VkExternalFormatANDROID {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID,
@@ -2842,6 +3034,10 @@ pub struct VkAndroidHardwareBufferFormatProperties2ANDROID {
     pub suggestedXChromaOffset: VkChromaLocation,
     pub suggestedYChromaOffset: VkChromaLocation,
 }
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Send for VkAndroidHardwareBufferFormatProperties2ANDROID {}
+#[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+unsafe impl Sync for VkAndroidHardwareBufferFormatProperties2ANDROID {}
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 impl VkAndroidHardwareBufferFormatProperties2ANDROID {
     pub const DEFAULT: Self = Self {
@@ -2931,6 +3127,10 @@ impl Default for VkDataGraphPipelineSessionARM {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineSessionARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineSessionARM {}
 /// [VkPhysicalDeviceDataGraphFeaturesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphFeaturesARM.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -2948,6 +3148,10 @@ pub struct VkPhysicalDeviceDataGraphFeaturesARM {
     pub dataGraphDescriptorBuffer: VkBool32,
     pub dataGraphShaderModule: VkBool32,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkPhysicalDeviceDataGraphFeaturesARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkPhysicalDeviceDataGraphFeaturesARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkPhysicalDeviceDataGraphFeaturesARM {
     pub const DEFAULT: Self = Self {
@@ -3012,6 +3216,10 @@ pub struct VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM {
     pub groupSize: u32,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM,
@@ -3060,6 +3268,10 @@ pub struct VkDataGraphPipelineConstantARM {
     pub pConstantData: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineConstantARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineConstantARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineConstantARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_ARM,
@@ -3105,6 +3317,10 @@ pub struct VkDataGraphPipelineResourceInfoARM {
     /// Optional: true
     pub arrayElement: u32,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineResourceInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineResourceInfoARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineResourceInfoARM {
     pub const DEFAULT: Self = Self {
@@ -3156,6 +3372,10 @@ pub struct VkDataGraphPipelineCompilerControlCreateInfoARM {
     pub pVendorOptions: *const core::ffi::c_char,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineCompilerControlCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineCompilerControlCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineCompilerControlCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType:
@@ -3199,6 +3419,10 @@ pub struct VkDataGraphPipelineCreateInfoARM {
     /// Length: resourceInfoCount
     pub pResourceInfos: *const VkDataGraphPipelineResourceInfoARM,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineCreateInfoARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineCreateInfoARM {
     pub const DEFAULT: Self = Self {
@@ -3269,6 +3493,10 @@ pub struct VkDataGraphPipelineShaderModuleCreateInfoARM {
     pub pConstants: *const VkDataGraphPipelineConstantARM,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineShaderModuleCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineShaderModuleCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineShaderModuleCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM,
@@ -3336,6 +3564,10 @@ pub struct VkDataGraphPipelineSessionCreateInfoARM {
     pub dataGraphPipeline: VkPipeline,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineSessionCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineSessionCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineSessionCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM,
@@ -3377,6 +3609,10 @@ pub struct VkDataGraphPipelineSessionBindPointRequirementsInfoARM {
     pub session: VkDataGraphPipelineSessionARM,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineSessionBindPointRequirementsInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineSessionBindPointRequirementsInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineSessionBindPointRequirementsInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM,
@@ -3415,6 +3651,10 @@ pub struct VkDataGraphPipelineSessionBindPointRequirementARM {
     pub bindPointType: VkDataGraphPipelineSessionBindPointTypeARM,
     pub numObjects: u32,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineSessionBindPointRequirementARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineSessionBindPointRequirementARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineSessionBindPointRequirementARM {
     pub const DEFAULT: Self = Self {
@@ -3468,6 +3708,10 @@ pub struct VkDataGraphPipelineSessionMemoryRequirementsInfoARM {
     pub objectIndex: u32,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineSessionMemoryRequirementsInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineSessionMemoryRequirementsInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineSessionMemoryRequirementsInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM,
@@ -3518,6 +3762,10 @@ pub struct VkBindDataGraphPipelineSessionMemoryInfoARM {
     pub memory: VkDeviceMemory,
     pub memoryOffset: VkDeviceSize,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkBindDataGraphPipelineSessionMemoryInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkBindDataGraphPipelineSessionMemoryInfoARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkBindDataGraphPipelineSessionMemoryInfoARM {
     pub const DEFAULT: Self = Self {
@@ -3578,6 +3826,10 @@ pub struct VkDataGraphPipelineInfoARM {
     pub dataGraphPipeline: VkPipeline,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_INFO_ARM,
@@ -3617,6 +3869,10 @@ pub struct VkDataGraphPipelinePropertyQueryResultARM {
     /// Optional: true,  Length: dataSize
     pub pData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelinePropertyQueryResultARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelinePropertyQueryResultARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelinePropertyQueryResultARM {
     pub const DEFAULT: Self = Self {
@@ -3677,6 +3933,10 @@ pub struct VkDataGraphPipelineIdentifierCreateInfoARM {
     pub pIdentifier: *const u8,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineIdentifierCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineIdentifierCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineIdentifierCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM,
@@ -3721,6 +3981,10 @@ pub struct VkDataGraphPipelineDispatchInfoARM {
     pub flags: VkDataGraphPipelineDispatchFlagsARM,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphPipelineDispatchInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphPipelineDispatchInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphPipelineDispatchInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM,
@@ -3753,6 +4017,10 @@ pub struct VkPhysicalDeviceDataGraphProcessingEngineARM {
     pub type_: VkPhysicalDeviceDataGraphProcessingEngineTypeARM,
     pub isForeign: VkBool32,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkPhysicalDeviceDataGraphProcessingEngineARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkPhysicalDeviceDataGraphProcessingEngineARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkPhysicalDeviceDataGraphProcessingEngineARM {
     pub const DEFAULT: Self = Self {
@@ -3789,6 +4057,10 @@ pub struct VkPhysicalDeviceDataGraphOperationSupportARM {
         [core::ffi::c_char; VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
     pub version: u32,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkPhysicalDeviceDataGraphOperationSupportARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkPhysicalDeviceDataGraphOperationSupportARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkPhysicalDeviceDataGraphOperationSupportARM {
     pub const DEFAULT: Self = Self {
@@ -3838,6 +4110,10 @@ pub struct VkQueueFamilyDataGraphPropertiesARM {
     pub operation: VkPhysicalDeviceDataGraphOperationSupportARM,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkQueueFamilyDataGraphPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkQueueFamilyDataGraphPropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkQueueFamilyDataGraphPropertiesARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM,
@@ -3882,6 +4158,10 @@ pub struct VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM {
     pub queueFamilyIndex: u32,
     pub engineType: VkPhysicalDeviceDataGraphProcessingEngineTypeARM,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM {
     pub const DEFAULT: Self = Self {
@@ -3929,6 +4209,10 @@ pub struct VkQueueFamilyDataGraphProcessingEnginePropertiesARM {
     pub foreignSemaphoreHandleTypes: VkExternalSemaphoreHandleTypeFlags,
     pub foreignMemoryHandleTypes: VkExternalMemoryHandleTypeFlags,
 }
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkQueueFamilyDataGraphProcessingEnginePropertiesARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkQueueFamilyDataGraphProcessingEnginePropertiesARM {}
 #[cfg(feature = "VK_ARM_data_graph")]
 impl VkQueueFamilyDataGraphProcessingEnginePropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -3981,6 +4265,10 @@ pub struct VkDataGraphProcessingEngineCreateInfoARM {
     pub pProcessingEngines: *mut VkPhysicalDeviceDataGraphProcessingEngineARM,
 }
 #[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Send for VkDataGraphProcessingEngineCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
+unsafe impl Sync for VkDataGraphProcessingEngineCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph")]
 impl VkDataGraphProcessingEngineCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM,
@@ -4029,6 +4317,10 @@ pub struct VkPhysicalDeviceFormatPackFeaturesARM {
     pub formatPack: VkBool32,
 }
 #[cfg(feature = "VK_ARM_format_pack")]
+unsafe impl Send for VkPhysicalDeviceFormatPackFeaturesARM {}
+#[cfg(feature = "VK_ARM_format_pack")]
+unsafe impl Sync for VkPhysicalDeviceFormatPackFeaturesARM {}
+#[cfg(feature = "VK_ARM_format_pack")]
 impl VkPhysicalDeviceFormatPackFeaturesARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM,
@@ -4068,6 +4360,10 @@ pub struct VkPhysicalDevicePerformanceCountersByRegionFeaturesARM {
     pub pNext: *mut core::ffi::c_void,
     pub performanceCountersByRegion: VkBool32,
 }
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Send for VkPhysicalDevicePerformanceCountersByRegionFeaturesARM {}
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Sync for VkPhysicalDevicePerformanceCountersByRegionFeaturesARM {}
 #[cfg(feature = "VK_ARM_performance_counters_by_region")]
 impl VkPhysicalDevicePerformanceCountersByRegionFeaturesARM {
     pub const DEFAULT: Self = Self {
@@ -4118,6 +4414,10 @@ pub struct VkPhysicalDevicePerformanceCountersByRegionPropertiesARM {
     /// Limit Type: [Exact]
     pub identityTransformOrder: VkBool32,
 }
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Send for VkPhysicalDevicePerformanceCountersByRegionPropertiesARM {}
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Sync for VkPhysicalDevicePerformanceCountersByRegionPropertiesARM {}
 #[cfg(feature = "VK_ARM_performance_counters_by_region")]
 impl VkPhysicalDevicePerformanceCountersByRegionPropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -4180,6 +4480,10 @@ pub struct VkPerformanceCounterARM {
     pub counterID: u32,
 }
 #[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Send for VkPerformanceCounterARM {}
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Sync for VkPerformanceCounterARM {}
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
 impl VkPerformanceCounterARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_ARM,
@@ -4219,6 +4523,10 @@ pub struct VkPerformanceCounterDescriptionARM {
     /// Length: null-terminated
     pub name: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
 }
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Send for VkPerformanceCounterDescriptionARM {}
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Sync for VkPerformanceCounterDescriptionARM {}
 #[cfg(feature = "VK_ARM_performance_counters_by_region")]
 impl VkPerformanceCounterDescriptionARM {
     pub const DEFAULT: Self = Self {
@@ -4271,6 +4579,10 @@ pub struct VkRenderPassPerformanceCountersByRegionBeginInfoARM {
     /// Length: counterIndexCount
     pub pCounterIndices: *mut u32,
 }
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Send for VkRenderPassPerformanceCountersByRegionBeginInfoARM {}
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+unsafe impl Sync for VkRenderPassPerformanceCountersByRegionBeginInfoARM {}
 #[cfg(feature = "VK_ARM_performance_counters_by_region")]
 impl VkRenderPassPerformanceCountersByRegionBeginInfoARM {
     pub const DEFAULT: Self = Self {
@@ -4337,6 +4649,10 @@ pub struct VkPhysicalDevicePipelineOpacityMicromapFeaturesARM {
     pub pipelineOpacityMicromap: VkBool32,
 }
 #[cfg(feature = "VK_ARM_pipeline_opacity_micromap")]
+unsafe impl Send for VkPhysicalDevicePipelineOpacityMicromapFeaturesARM {}
+#[cfg(feature = "VK_ARM_pipeline_opacity_micromap")]
+unsafe impl Sync for VkPhysicalDevicePipelineOpacityMicromapFeaturesARM {}
+#[cfg(feature = "VK_ARM_pipeline_opacity_micromap")]
 impl VkPhysicalDevicePipelineOpacityMicromapFeaturesARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM,
@@ -4376,6 +4692,10 @@ pub struct VkPhysicalDeviceRenderPassStripedFeaturesARM {
     pub pNext: *mut core::ffi::c_void,
     pub renderPassStriped: VkBool32,
 }
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Send for VkPhysicalDeviceRenderPassStripedFeaturesARM {}
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Sync for VkPhysicalDeviceRenderPassStripedFeaturesARM {}
 #[cfg(feature = "VK_ARM_render_pass_striped")]
 impl VkPhysicalDeviceRenderPassStripedFeaturesARM {
     pub const DEFAULT: Self = Self {
@@ -4421,6 +4741,10 @@ pub struct VkPhysicalDeviceRenderPassStripedPropertiesARM {
     pub maxRenderPassStripes: u32,
 }
 #[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Send for VkPhysicalDeviceRenderPassStripedPropertiesARM {}
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Sync for VkPhysicalDeviceRenderPassStripedPropertiesARM {}
+#[cfg(feature = "VK_ARM_render_pass_striped")]
 impl VkPhysicalDeviceRenderPassStripedPropertiesARM {
     pub const DEFAULT: Self = Self {
         sType:
@@ -4463,6 +4787,10 @@ pub struct VkRenderPassStripeInfoARM {
     pub stripeArea: VkRect2D,
 }
 #[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Send for VkRenderPassStripeInfoARM {}
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Sync for VkRenderPassStripeInfoARM {}
+#[cfg(feature = "VK_ARM_render_pass_striped")]
 impl VkRenderPassStripeInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_INFO_ARM,
@@ -4501,6 +4829,10 @@ pub struct VkRenderPassStripeBeginInfoARM {
     /// Length: stripeInfoCount
     pub pStripeInfos: *const VkRenderPassStripeInfoARM,
 }
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Send for VkRenderPassStripeBeginInfoARM {}
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Sync for VkRenderPassStripeBeginInfoARM {}
 #[cfg(feature = "VK_ARM_render_pass_striped")]
 impl VkRenderPassStripeBeginInfoARM {
     pub const DEFAULT: Self = Self {
@@ -4548,6 +4880,10 @@ pub struct VkRenderPassStripeSubmitInfoARM {
     /// Length: stripeSemaphoreInfoCount
     pub pStripeSemaphoreInfos: *const VkSemaphoreSubmitInfo,
 }
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Send for VkRenderPassStripeSubmitInfoARM {}
+#[cfg(feature = "VK_ARM_render_pass_striped")]
+unsafe impl Sync for VkRenderPassStripeSubmitInfoARM {}
 #[cfg(feature = "VK_ARM_render_pass_striped")]
 impl VkRenderPassStripeSubmitInfoARM {
     pub const DEFAULT: Self = Self {
@@ -4597,6 +4933,10 @@ pub struct VkDeviceQueueShaderCoreControlCreateInfoARM {
     pub shaderCoreCount: u32,
 }
 #[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Send for VkDeviceQueueShaderCoreControlCreateInfoARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Sync for VkDeviceQueueShaderCoreControlCreateInfoARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
 impl VkDeviceQueueShaderCoreControlCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM,
@@ -4633,6 +4973,10 @@ pub struct VkPhysicalDeviceSchedulingControlsFeaturesARM {
     pub pNext: *mut core::ffi::c_void,
     pub schedulingControls: VkBool32,
 }
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Send for VkPhysicalDeviceSchedulingControlsFeaturesARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Sync for VkPhysicalDeviceSchedulingControlsFeaturesARM {}
 #[cfg(feature = "VK_ARM_scheduling_controls")]
 impl VkPhysicalDeviceSchedulingControlsFeaturesARM {
     pub const DEFAULT: Self = Self {
@@ -4675,6 +5019,10 @@ pub struct VkPhysicalDeviceSchedulingControlsPropertiesARM {
     /// Limit Type: [Bitmask]
     pub schedulingControlsFlags: VkPhysicalDeviceSchedulingControlsFlagsARM,
 }
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Send for VkPhysicalDeviceSchedulingControlsPropertiesARM {}
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+unsafe impl Sync for VkPhysicalDeviceSchedulingControlsPropertiesARM {}
 #[cfg(feature = "VK_ARM_scheduling_controls")]
 impl VkPhysicalDeviceSchedulingControlsPropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -4726,6 +5074,10 @@ pub struct VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM {
     pub shaderWarpsPerCore: u32,
 }
 #[cfg(feature = "VK_ARM_shader_core_builtins")]
+unsafe impl Send for VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM {}
+#[cfg(feature = "VK_ARM_shader_core_builtins")]
+unsafe impl Sync for VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM {}
+#[cfg(feature = "VK_ARM_shader_core_builtins")]
 impl VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM {
     pub const DEFAULT: Self = Self {
         sType:
@@ -4776,6 +5128,10 @@ pub struct VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM {
     pub shaderCoreBuiltins: VkBool32,
 }
 #[cfg(feature = "VK_ARM_shader_core_builtins")]
+unsafe impl Send for VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM {}
+#[cfg(feature = "VK_ARM_shader_core_builtins")]
+unsafe impl Sync for VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM {}
+#[cfg(feature = "VK_ARM_shader_core_builtins")]
 impl VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM,
@@ -4821,6 +5177,10 @@ pub struct VkPhysicalDeviceShaderCorePropertiesARM {
     /// Limit Type: [Exact]
     pub fmaRate: u32,
 }
+#[cfg(feature = "VK_ARM_shader_core_properties")]
+unsafe impl Send for VkPhysicalDeviceShaderCorePropertiesARM {}
+#[cfg(feature = "VK_ARM_shader_core_properties")]
+unsafe impl Sync for VkPhysicalDeviceShaderCorePropertiesARM {}
 #[cfg(feature = "VK_ARM_shader_core_properties")]
 impl VkPhysicalDeviceShaderCorePropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -4876,6 +5236,10 @@ impl Default for VkShaderInstrumentationARM {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Send for VkShaderInstrumentationARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Sync for VkShaderInstrumentationARM {}
 /// [VkPhysicalDeviceShaderInstrumentationFeaturesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderInstrumentationFeaturesARM.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -4889,6 +5253,10 @@ pub struct VkPhysicalDeviceShaderInstrumentationFeaturesARM {
     pub pNext: *mut core::ffi::c_void,
     pub shaderInstrumentation: VkBool32,
 }
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Send for VkPhysicalDeviceShaderInstrumentationFeaturesARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Sync for VkPhysicalDeviceShaderInstrumentationFeaturesARM {}
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl VkPhysicalDeviceShaderInstrumentationFeaturesARM {
     pub const DEFAULT: Self = Self {
@@ -4935,6 +5303,10 @@ pub struct VkPhysicalDeviceShaderInstrumentationPropertiesARM {
     pub perBasicBlockGranularity: VkBool32,
 }
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Send for VkPhysicalDeviceShaderInstrumentationPropertiesARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Sync for VkPhysicalDeviceShaderInstrumentationPropertiesARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl VkPhysicalDeviceShaderInstrumentationPropertiesARM {
     pub const DEFAULT: Self = Self {
         sType:
@@ -4976,6 +5348,10 @@ pub struct VkShaderInstrumentationCreateInfoARM {
     pub pNext: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Send for VkShaderInstrumentationCreateInfoARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Sync for VkShaderInstrumentationCreateInfoARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl VkShaderInstrumentationCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_CREATE_INFO_ARM,
@@ -5007,6 +5383,10 @@ pub struct VkShaderInstrumentationMetricDescriptionARM {
     /// Length: null-terminated
     pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
 }
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Send for VkShaderInstrumentationMetricDescriptionARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Sync for VkShaderInstrumentationMetricDescriptionARM {}
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl VkShaderInstrumentationMetricDescriptionARM {
     pub const DEFAULT: Self = Self {
@@ -5053,6 +5433,10 @@ pub struct VkShaderInstrumentationMetricDataHeaderARM {
     pub stages: VkShaderStageFlags,
     pub basicBlockIndex: u32,
 }
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Send for VkShaderInstrumentationMetricDataHeaderARM {}
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+unsafe impl Sync for VkShaderInstrumentationMetricDataHeaderARM {}
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl VkShaderInstrumentationMetricDataHeaderARM {
     pub const DEFAULT: Self = Self {
@@ -5108,6 +5492,10 @@ impl Default for VkTensorViewARM {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorViewARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorViewARM {}
 /// [VkTensorDescriptionARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorDescriptionARM.html)
 ///
 /// **Extends:** VkDataGraphPipelineResourceInfoARM, VkDataGraphPipelineConstantARM.
@@ -5128,6 +5516,10 @@ pub struct VkTensorDescriptionARM {
     pub pStrides: *const i64,
     pub usage: VkTensorUsageFlagsARM,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorDescriptionARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorDescriptionARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorDescriptionARM {
     pub const DEFAULT: Self = Self {
@@ -5205,6 +5597,10 @@ pub struct VkTensorCreateInfoARM {
     pub pQueueFamilyIndices: *const u32,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorCreateInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorCreateInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorCreateInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM,
@@ -5268,6 +5664,10 @@ pub struct VkTensorMemoryRequirementsInfoARM {
     pub tensor: VkTensorARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorMemoryRequirementsInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorMemoryRequirementsInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorMemoryRequirementsInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TENSOR_MEMORY_REQUIREMENTS_INFO_ARM,
@@ -5304,6 +5704,10 @@ pub struct VkBindTensorMemoryInfoARM {
     pub memory: VkDeviceMemory,
     pub memoryOffset: VkDeviceSize,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkBindTensorMemoryInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkBindTensorMemoryInfoARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkBindTensorMemoryInfoARM {
     pub const DEFAULT: Self = Self {
@@ -5356,6 +5760,10 @@ pub struct VkWriteDescriptorSetTensorARM {
     pub pTensorViews: *const VkTensorViewARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkWriteDescriptorSetTensorARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkWriteDescriptorSetTensorARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkWriteDescriptorSetTensorARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM,
@@ -5407,6 +5815,10 @@ pub struct VkTensorFormatPropertiesARM {
     /// Limit Type: [Bitmask]
     pub linearTilingTensorFeatures: VkFormatFeatureFlags2,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorFormatPropertiesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorFormatPropertiesARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorFormatPropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -5479,6 +5891,10 @@ pub struct VkPhysicalDeviceTensorPropertiesARM {
     /// Limit Type: [Bitmask]
     pub shaderTensorSupportedStages: VkShaderStageFlags,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkPhysicalDeviceTensorPropertiesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkPhysicalDeviceTensorPropertiesARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkPhysicalDeviceTensorPropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -5605,6 +6021,10 @@ pub struct VkTensorMemoryBarrierARM {
     pub tensor: VkTensorARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorMemoryBarrierARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorMemoryBarrierARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorMemoryBarrierARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TENSOR_MEMORY_BARRIER_ARM,
@@ -5679,6 +6099,10 @@ pub struct VkTensorDependencyInfoARM {
     pub pTensorMemoryBarriers: *const VkTensorMemoryBarrierARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorDependencyInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorDependencyInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorDependencyInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM,
@@ -5731,6 +6155,10 @@ pub struct VkPhysicalDeviceTensorFeaturesARM {
     pub descriptorBindingStorageTensorUpdateAfterBind: VkBool32,
     pub tensors: VkBool32,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkPhysicalDeviceTensorFeaturesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkPhysicalDeviceTensorFeaturesARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkPhysicalDeviceTensorFeaturesARM {
     pub const DEFAULT: Self = Self {
@@ -5800,6 +6228,10 @@ pub struct VkDeviceTensorMemoryRequirementsARM {
     pub pCreateInfo: *const VkTensorCreateInfoARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkDeviceTensorMemoryRequirementsARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkDeviceTensorMemoryRequirementsARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkDeviceTensorMemoryRequirementsARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM,
@@ -5840,6 +6272,10 @@ pub struct VkCopyTensorInfoARM {
     /// Length: regionCount
     pub pRegions: *const VkTensorCopyARM,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkCopyTensorInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkCopyTensorInfoARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkCopyTensorInfoARM {
     pub const DEFAULT: Self = Self {
@@ -5903,6 +6339,10 @@ pub struct VkTensorCopyARM {
     pub pExtent: *const u64,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorCopyARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorCopyARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorCopyARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TENSOR_COPY_ARM,
@@ -5964,6 +6404,10 @@ pub struct VkMemoryDedicatedAllocateInfoTensorARM {
     pub tensor: VkTensorARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkMemoryDedicatedAllocateInfoTensorARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkMemoryDedicatedAllocateInfoTensorARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkMemoryDedicatedAllocateInfoTensorARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM,
@@ -6007,6 +6451,10 @@ pub struct VkPhysicalDeviceDescriptorBufferTensorPropertiesARM {
     /// Limit Type: [Max]
     pub tensorDescriptorSize: usize,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkPhysicalDeviceDescriptorBufferTensorPropertiesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorBufferTensorPropertiesARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkPhysicalDeviceDescriptorBufferTensorPropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -6057,6 +6505,10 @@ pub struct VkPhysicalDeviceDescriptorBufferTensorFeaturesARM {
     pub descriptorBufferTensorDescriptors: VkBool32,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkPhysicalDeviceDescriptorBufferTensorFeaturesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorBufferTensorFeaturesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkPhysicalDeviceDescriptorBufferTensorFeaturesARM {
     pub const DEFAULT: Self = Self {
         sType:
@@ -6093,6 +6545,10 @@ pub struct VkTensorCaptureDescriptorDataInfoARM {
     pub tensor: VkTensorARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorCaptureDescriptorDataInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorCaptureDescriptorDataInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorCaptureDescriptorDataInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM,
@@ -6127,6 +6583,10 @@ pub struct VkTensorViewCaptureDescriptorDataInfoARM {
     pub pNext: *const core::ffi::c_void,
     pub tensorView: VkTensorViewARM,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkTensorViewCaptureDescriptorDataInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkTensorViewCaptureDescriptorDataInfoARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorViewCaptureDescriptorDataInfoARM {
     pub const DEFAULT: Self = Self {
@@ -6166,6 +6626,10 @@ pub struct VkDescriptorGetTensorInfoARM {
     pub tensorView: VkTensorViewARM,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkDescriptorGetTensorInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkDescriptorGetTensorInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkDescriptorGetTensorInfoARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_GET_TENSOR_INFO_ARM,
@@ -6204,6 +6668,10 @@ pub struct VkFrameBoundaryTensorsARM {
     /// Length: tensorCount
     pub pTensors: *const VkTensorARM,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkFrameBoundaryTensorsARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkFrameBoundaryTensorsARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkFrameBoundaryTensorsARM {
     pub const DEFAULT: Self = Self {
@@ -6250,6 +6718,10 @@ pub struct VkPhysicalDeviceExternalTensorInfoARM {
     pub pDescription: *const VkTensorDescriptionARM,
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkPhysicalDeviceExternalTensorInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkPhysicalDeviceExternalTensorInfoARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkPhysicalDeviceExternalTensorInfoARM {
     pub const DEFAULT: Self = Self {
@@ -6300,6 +6772,10 @@ pub struct VkExternalTensorPropertiesARM {
     pub externalMemoryProperties: VkExternalMemoryProperties,
 }
 #[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkExternalTensorPropertiesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkExternalTensorPropertiesARM {}
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkExternalTensorPropertiesARM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM,
@@ -6337,6 +6813,10 @@ pub struct VkExternalMemoryTensorCreateInfoARM {
     /// Optional: true
     pub handleTypes: VkExternalMemoryHandleTypeFlags,
 }
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Send for VkExternalMemoryTensorCreateInfoARM {}
+#[cfg(feature = "VK_ARM_tensors")]
+unsafe impl Sync for VkExternalMemoryTensorCreateInfoARM {}
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkExternalMemoryTensorCreateInfoARM {
     pub const DEFAULT: Self = Self {
@@ -6380,6 +6860,10 @@ impl Default for VkTensorARM {
         Self::NULL
     }
 }
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+unsafe impl Send for VkTensorARM {}
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+unsafe impl Sync for VkTensorARM {}
 /// [VkTensorViewCreateInfoARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewCreateInfoARM.html)
 #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
 #[repr(C)]
@@ -6394,6 +6878,10 @@ pub struct VkTensorViewCreateInfoARM {
     pub tensor: VkTensorARM,
     pub format: VkFormat,
 }
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+unsafe impl Send for VkTensorViewCreateInfoARM {}
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+unsafe impl Sync for VkTensorViewCreateInfoARM {}
 #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
 impl VkTensorViewCreateInfoARM {
     pub const DEFAULT: Self = Self {
@@ -6551,6 +7039,10 @@ impl Default for VkInstance {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkInstance {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkInstance {}
 /// [VkPhysicalDevice](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevice.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6567,6 +7059,10 @@ impl Default for VkPhysicalDevice {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDevice {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDevice {}
 /// [VkDevice](https://docs.vulkan.org/refpages/latest/refpages/source/VkDevice.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6583,6 +7079,10 @@ impl Default for VkDevice {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkDevice {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkDevice {}
 /// [VkQueue](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueue.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6599,6 +7099,10 @@ impl Default for VkQueue {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkQueue {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkQueue {}
 /// [VkCommandBuffer](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBuffer.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6615,6 +7119,10 @@ impl Default for VkCommandBuffer {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkCommandBuffer {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkCommandBuffer {}
 /// [VkDeviceMemory](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemory.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6631,6 +7139,10 @@ impl Default for VkDeviceMemory {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkDeviceMemory {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkDeviceMemory {}
 /// [VkCommandPool](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPool.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6647,6 +7159,10 @@ impl Default for VkCommandPool {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkCommandPool {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkCommandPool {}
 /// [VkBuffer](https://docs.vulkan.org/refpages/latest/refpages/source/VkBuffer.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6663,6 +7179,10 @@ impl Default for VkBuffer {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBuffer {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBuffer {}
 /// [VkImage](https://docs.vulkan.org/refpages/latest/refpages/source/VkImage.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6679,6 +7199,10 @@ impl Default for VkImage {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImage {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImage {}
 /// [VkImageView](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageView.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6695,6 +7219,10 @@ impl Default for VkImageView {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageView {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageView {}
 /// [VkFence](https://docs.vulkan.org/refpages/latest/refpages/source/VkFence.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6711,6 +7239,10 @@ impl Default for VkFence {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkFence {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkFence {}
 /// [VkSemaphore](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphore.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6727,6 +7259,10 @@ impl Default for VkSemaphore {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSemaphore {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSemaphore {}
 /// [VkQueryPool](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPool.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -6743,6 +7279,10 @@ impl Default for VkQueryPool {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkQueryPool {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkQueryPool {}
 /// [PFN_vkInternalAllocationNotification](https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkInternalAllocationNotification.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkInternalAllocationNotification = Option<
@@ -6802,6 +7342,10 @@ pub struct VkBaseOutStructure {
     pub pNext: *mut VkBaseOutStructure,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBaseOutStructure {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBaseOutStructure {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBaseOutStructure {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType(0),
@@ -6829,6 +7373,10 @@ pub struct VkBaseInStructure {
     pub pNext: *const VkBaseInStructure,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBaseInStructure {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBaseInStructure {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBaseInStructure {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType(0),
@@ -6854,6 +7402,10 @@ pub struct VkOffset2D {
     pub x: i32,
     pub y: i32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkOffset2D {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkOffset2D {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkOffset2D {
     pub const DEFAULT: Self = Self { x: 0, y: 0 };
@@ -6881,6 +7433,10 @@ pub struct VkOffset3D {
     pub y: i32,
     pub z: i32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkOffset3D {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkOffset3D {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkOffset3D {
     pub const DEFAULT: Self = Self { x: 0, y: 0, z: 0 };
@@ -6913,6 +7469,10 @@ pub struct VkExtent2D {
     pub height: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkExtent2D {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkExtent2D {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkExtent2D {
     pub const DEFAULT: Self = Self {
         width: 0,
@@ -6942,6 +7502,10 @@ pub struct VkExtent3D {
     pub height: u32,
     pub depth: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkExtent3D {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkExtent3D {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkExtent3D {
     pub const DEFAULT: Self = Self {
@@ -6978,6 +7542,10 @@ pub struct VkRect2D {
     pub extent: VkExtent2D,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkRect2D {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkRect2D {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkRect2D {
     pub const DEFAULT: Self = Self {
         offset: VkOffset2D::DEFAULT,
@@ -7008,6 +7576,10 @@ pub struct VkComponentMapping {
     pub b: VkComponentSwizzle,
     pub a: VkComponentSwizzle,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkComponentMapping {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkComponentMapping {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkComponentMapping {
     pub const DEFAULT: Self = Self {
@@ -7069,6 +7641,10 @@ pub struct VkPhysicalDeviceProperties {
     /// Limit Type: [Struct]
     pub sparseProperties: VkPhysicalDeviceSparseProperties,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDeviceProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDeviceProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkPhysicalDeviceProperties {
     pub const DEFAULT: Self = Self {
@@ -7147,6 +7723,10 @@ pub struct VkExtensionProperties {
     pub specVersion: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkExtensionProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkExtensionProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkExtensionProperties {
     pub const DEFAULT: Self = Self {
         extensionName: [0i8; VK_MAX_EXTENSION_NAME_SIZE as usize],
@@ -7184,6 +7764,10 @@ pub struct VkLayerProperties {
     /// Length: null-terminated
     pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkLayerProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkLayerProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkLayerProperties {
     pub const DEFAULT: Self = Self {
@@ -7240,6 +7824,10 @@ pub struct VkApplicationInfo {
     pub engineVersion: u32,
     pub apiVersion: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkApplicationInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkApplicationInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkApplicationInfo {
     pub const DEFAULT: Self = Self {
@@ -7311,6 +7899,10 @@ pub struct VkAllocationCallbacks {
     pub pfnInternalFree: PFN_vkInternalFreeNotification,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkAllocationCallbacks {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkAllocationCallbacks {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkAllocationCallbacks {
     pub const DEFAULT: Self = Self {
         pUserData: core::ptr::null_mut(),
@@ -7376,6 +7968,10 @@ pub struct VkDeviceQueueCreateInfo {
     /// Length: queueCount
     pub pQueuePriorities: *const f32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkDeviceQueueCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkDeviceQueueCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkDeviceQueueCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -7448,6 +8044,10 @@ pub struct VkDeviceCreateInfo {
     /// Optional: true
     pub pEnabledFeatures: *const VkPhysicalDeviceFeatures,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkDeviceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkDeviceCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkDeviceCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -7550,6 +8150,10 @@ pub struct VkInstanceCreateInfo {
     pub ppEnabledExtensionNames: *const *const core::ffi::c_char,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkInstanceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkInstanceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkInstanceCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
@@ -7631,6 +8235,10 @@ pub struct VkQueueFamilyProperties {
     pub minImageTransferGranularity: VkExtent3D,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkQueueFamilyProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkQueueFamilyProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueueFamilyProperties {
     pub const DEFAULT: Self = Self {
         queueFlags: 0,
@@ -7677,6 +8285,10 @@ pub struct VkPhysicalDeviceMemoryProperties {
     /// Length: memoryHeapCount
     pub memoryHeaps: [VkMemoryHeap; VK_MAX_MEMORY_HEAPS as usize],
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDeviceMemoryProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDeviceMemoryProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkPhysicalDeviceMemoryProperties {
     pub const DEFAULT: Self = Self {
@@ -7729,6 +8341,10 @@ pub struct VkMemoryAllocateInfo {
     pub memoryTypeIndex: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkMemoryAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkMemoryAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryAllocateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,
@@ -7769,6 +8385,10 @@ pub struct VkMemoryRequirements {
     pub alignment: VkDeviceSize,
     pub memoryTypeBits: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkMemoryRequirements {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkMemoryRequirements {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryRequirements {
     pub const DEFAULT: Self = Self {
@@ -7813,6 +8433,10 @@ pub struct VkSparseImageFormatProperties {
     pub flags: VkSparseImageFormatFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSparseImageFormatProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSparseImageFormatProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseImageFormatProperties {
     pub const DEFAULT: Self = Self {
         aspectMask: 0,
@@ -7852,6 +8476,10 @@ pub struct VkSparseImageMemoryRequirements {
     pub imageMipTailOffset: VkDeviceSize,
     pub imageMipTailStride: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSparseImageMemoryRequirements {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSparseImageMemoryRequirements {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseImageMemoryRequirements {
     pub const DEFAULT: Self = Self {
@@ -7903,6 +8531,10 @@ pub struct VkMemoryType {
     pub heapIndex: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkMemoryType {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkMemoryType {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryType {
     pub const DEFAULT: Self = Self {
         propertyFlags: 0,
@@ -7935,6 +8567,10 @@ pub struct VkMemoryHeap {
     pub flags: VkMemoryHeapFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkMemoryHeap {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkMemoryHeap {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryHeap {
     pub const DEFAULT: Self = Self { size: 0, flags: 0 };
     #[inline]
@@ -7965,6 +8601,10 @@ pub struct VkMappedMemoryRange {
     pub offset: VkDeviceSize,
     pub size: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkMappedMemoryRange {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkMappedMemoryRange {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMappedMemoryRange {
     pub const DEFAULT: Self = Self {
@@ -8018,6 +8658,10 @@ pub struct VkFormatProperties {
     pub bufferFeatures: VkFormatFeatureFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkFormatProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkFormatProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkFormatProperties {
     pub const DEFAULT: Self = Self {
         linearTilingFeatures: 0,
@@ -8058,6 +8702,10 @@ pub struct VkImageFormatProperties {
     pub sampleCounts: VkSampleCountFlags,
     pub maxResourceSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageFormatProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageFormatProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageFormatProperties {
     pub const DEFAULT: Self = Self {
@@ -8117,6 +8765,10 @@ pub struct VkBufferCreateInfo {
     /// Length: queueFamilyIndexCount,  No Auto-Validity
     pub pQueueFamilyIndices: *const u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBufferCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBufferCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBufferCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -8183,6 +8835,10 @@ pub struct VkImageSubresource {
     pub arrayLayer: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageSubresource {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageSubresource {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageSubresource {
     pub const DEFAULT: Self = Self {
         aspectMask: 0,
@@ -8219,6 +8875,10 @@ pub struct VkImageSubresourceLayers {
     pub baseArrayLayer: u32,
     pub layerCount: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageSubresourceLayers {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageSubresourceLayers {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageSubresourceLayers {
     pub const DEFAULT: Self = Self {
@@ -8263,6 +8923,10 @@ pub struct VkImageSubresourceRange {
     pub baseArrayLayer: u32,
     pub layerCount: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageSubresourceRange {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageSubresourceRange {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageSubresourceRange {
     pub const DEFAULT: Self = Self {
@@ -8318,6 +8982,10 @@ pub struct VkMemoryBarrier {
     pub dstAccessMask: VkAccessFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkMemoryBarrier {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkMemoryBarrier {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryBarrier {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER,
@@ -8367,6 +9035,10 @@ pub struct VkBufferMemoryBarrier {
     pub offset: VkDeviceSize,
     pub size: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBufferMemoryBarrier {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBufferMemoryBarrier {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBufferMemoryBarrier {
     pub const DEFAULT: Self = Self {
@@ -8448,6 +9120,10 @@ pub struct VkImageMemoryBarrier {
     pub image: VkImage,
     pub subresourceRange: VkImageSubresourceRange,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageMemoryBarrier {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageMemoryBarrier {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageMemoryBarrier {
     pub const DEFAULT: Self = Self {
@@ -8540,6 +9216,10 @@ pub struct VkImageCreateInfo {
     pub pQueueFamilyIndices: *const u32,
     pub initialLayout: VkImageLayout,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -8650,6 +9330,10 @@ pub struct VkSubresourceLayout {
     pub depthPitch: VkDeviceSize,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSubresourceLayout {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSubresourceLayout {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSubresourceLayout {
     pub const DEFAULT: Self = Self {
         offset: 0,
@@ -8705,6 +9389,10 @@ pub struct VkImageViewCreateInfo {
     pub components: VkComponentMapping,
     pub subresourceRange: VkImageSubresourceRange,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageViewCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageViewCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageViewCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -8770,6 +9458,10 @@ pub struct VkBufferCopy {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBufferCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBufferCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBufferCopy {
     pub const DEFAULT: Self = Self {
         srcOffset: 0,
@@ -8809,6 +9501,10 @@ pub struct VkSparseMemoryBind {
     /// Optional: true
     pub flags: VkSparseMemoryBindFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSparseMemoryBind {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSparseMemoryBind {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseMemoryBind {
     pub const DEFAULT: Self = Self {
@@ -8862,6 +9558,10 @@ pub struct VkSparseImageMemoryBind {
     /// Optional: true
     pub flags: VkSparseMemoryBindFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSparseImageMemoryBind {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSparseImageMemoryBind {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseImageMemoryBind {
     pub const DEFAULT: Self = Self {
@@ -8918,6 +9618,10 @@ pub struct VkSparseBufferMemoryBindInfo {
     pub pBinds: *const VkSparseMemoryBind,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSparseBufferMemoryBindInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSparseBufferMemoryBindInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseBufferMemoryBindInfo {
     pub const DEFAULT: Self = Self {
         buffer: VkBuffer::DEFAULT,
@@ -8957,6 +9661,10 @@ pub struct VkSparseImageOpaqueMemoryBindInfo {
     pub pBinds: *const VkSparseMemoryBind,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSparseImageOpaqueMemoryBindInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSparseImageOpaqueMemoryBindInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseImageOpaqueMemoryBindInfo {
     pub const DEFAULT: Self = Self {
         image: VkImage::DEFAULT,
@@ -8995,6 +9703,10 @@ pub struct VkSparseImageMemoryBindInfo {
     /// Length: bindCount
     pub pBinds: *const VkSparseImageMemoryBind,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSparseImageMemoryBindInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSparseImageMemoryBindInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseImageMemoryBindInfo {
     pub const DEFAULT: Self = Self {
@@ -9054,6 +9766,10 @@ pub struct VkBindSparseInfo {
     /// Length: signalSemaphoreCount
     pub pSignalSemaphores: *const VkSemaphore,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBindSparseInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBindSparseInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBindSparseInfo {
     pub const DEFAULT: Self = Self {
@@ -9157,6 +9873,10 @@ pub struct VkImageCopy {
     pub extent: VkExtent3D,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkImageCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkImageCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageCopy {
     pub const DEFAULT: Self = Self {
         srcSubresource: VkImageSubresourceLayers::DEFAULT,
@@ -9207,6 +9927,10 @@ pub struct VkBufferImageCopy {
     pub imageOffset: VkOffset3D,
     pub imageExtent: VkExtent3D,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkBufferImageCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkBufferImageCopy {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBufferImageCopy {
     pub const DEFAULT: Self = Self {
@@ -9266,6 +9990,10 @@ pub struct VkCommandPoolCreateInfo {
     pub queueFamilyIndex: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkCommandPoolCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkCommandPoolCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkCommandPoolCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
@@ -9308,6 +10036,10 @@ pub struct VkCommandBufferAllocateInfo {
     pub level: VkCommandBufferLevel,
     pub commandBufferCount: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkCommandBufferAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkCommandBufferAllocateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkCommandBufferAllocateInfo {
     pub const DEFAULT: Self = Self {
@@ -9364,6 +10096,10 @@ pub struct VkCommandBufferInheritanceInfo {
     /// Optional: true,  No Auto-Validity
     pub pipelineStatistics: VkQueryPipelineStatisticFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkCommandBufferInheritanceInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkCommandBufferInheritanceInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkCommandBufferInheritanceInfo {
     pub const DEFAULT: Self = Self {
@@ -9433,6 +10169,10 @@ pub struct VkCommandBufferBeginInfo {
     pub pInheritanceInfo: *const VkCommandBufferInheritanceInfo,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkCommandBufferBeginInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkCommandBufferBeginInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkCommandBufferBeginInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
@@ -9479,6 +10219,10 @@ pub struct VkFenceCreateInfo {
     /// Optional: true
     pub flags: VkFenceCreateFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkFenceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkFenceCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkFenceCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -9564,6 +10308,10 @@ pub struct VkPhysicalDeviceFeatures {
     pub variableMultisampleRate: VkBool32,
     pub inheritedQueries: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDeviceFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDeviceFeatures {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkPhysicalDeviceFeatures {
     pub const DEFAULT: Self = Self {
@@ -9924,6 +10672,10 @@ pub struct VkPhysicalDeviceSparseProperties {
     pub residencyNonResidentStrict: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDeviceSparseProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDeviceSparseProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkPhysicalDeviceSparseProperties {
     pub const DEFAULT: Self = Self {
         residencyStandard2DBlockShape: 0,
@@ -10184,6 +10936,10 @@ pub struct VkPhysicalDeviceLimits {
     /// Limit Type: [Min, Pot]
     pub nonCoherentAtomSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkPhysicalDeviceLimits {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkPhysicalDeviceLimits {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkPhysicalDeviceLimits {
     pub const DEFAULT: Self = Self {
@@ -10845,6 +11601,10 @@ pub struct VkSemaphoreCreateInfo {
     pub flags: VkSemaphoreCreateFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSemaphoreCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSemaphoreCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSemaphoreCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO,
@@ -10884,6 +11644,10 @@ pub struct VkQueryPoolCreateInfo {
     /// Optional: true,  No Auto-Validity
     pub pipelineStatistics: VkQueryPipelineStatisticFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkQueryPoolCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkQueryPoolCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueryPoolCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -10951,6 +11715,10 @@ pub struct VkSubmitInfo {
     /// Length: signalSemaphoreCount
     pub pSignalSemaphores: *const VkSemaphore,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Send for VkSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl Sync for VkSubmitInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSubmitInfo {
     pub const DEFAULT: Self = Self {
@@ -11069,6 +11837,10 @@ pub struct VkPhysicalDeviceFeatures2 {
     pub features: VkPhysicalDeviceFeatures,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceFeatures2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceFeatures2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceFeatures2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
@@ -11108,6 +11880,10 @@ pub struct VkPhysicalDeviceProperties2 {
     /// Limit Type: [Struct]
     pub properties: VkPhysicalDeviceProperties,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceProperties2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceProperties2 {
     pub const DEFAULT: Self = Self {
@@ -11149,6 +11925,10 @@ pub struct VkFormatProperties2 {
     pub formatProperties: VkFormatProperties,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkFormatProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkFormatProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkFormatProperties2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2,
@@ -11185,6 +11965,10 @@ pub struct VkImageFormatProperties2 {
     pub pNext: *mut core::ffi::c_void,
     pub imageFormatProperties: VkImageFormatProperties,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkImageFormatProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkImageFormatProperties2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkImageFormatProperties2 {
     pub const DEFAULT: Self = Self {
@@ -11225,6 +12009,10 @@ pub struct VkPhysicalDeviceImageFormatInfo2 {
     /// Optional: true
     pub flags: VkImageCreateFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceImageFormatInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceImageFormatInfo2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceImageFormatInfo2 {
     pub const DEFAULT: Self = Self {
@@ -11290,6 +12078,10 @@ pub struct VkQueueFamilyProperties2 {
     pub queueFamilyProperties: VkQueueFamilyProperties,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkQueueFamilyProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkQueueFamilyProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkQueueFamilyProperties2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2,
@@ -11326,6 +12118,10 @@ pub struct VkPhysicalDeviceMemoryProperties2 {
     pub pNext: *mut core::ffi::c_void,
     pub memoryProperties: VkPhysicalDeviceMemoryProperties,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceMemoryProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceMemoryProperties2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceMemoryProperties2 {
     pub const DEFAULT: Self = Self {
@@ -11367,6 +12163,10 @@ pub struct VkSparseImageFormatProperties2 {
     pub properties: VkSparseImageFormatProperties,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkSparseImageFormatProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkSparseImageFormatProperties2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkSparseImageFormatProperties2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SPARSE_IMAGE_FORMAT_PROPERTIES_2,
@@ -11405,6 +12205,10 @@ pub struct VkPhysicalDeviceSparseImageFormatInfo2 {
     pub usage: VkImageUsageFlags,
     pub tiling: VkImageTiling,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceSparseImageFormatInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceSparseImageFormatInfo2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceSparseImageFormatInfo2 {
     pub const DEFAULT: Self = Self {
@@ -11466,6 +12270,10 @@ pub struct VkExternalMemoryProperties {
     pub compatibleHandleTypes: VkExternalMemoryHandleTypeFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExternalMemoryProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExternalMemoryProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalMemoryProperties {
     pub const DEFAULT: Self = Self {
         externalMemoryFeatures: 0,
@@ -11513,6 +12321,10 @@ pub struct VkPhysicalDeviceExternalImageFormatInfo {
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceExternalImageFormatInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceExternalImageFormatInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceExternalImageFormatInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO,
@@ -11552,6 +12364,10 @@ pub struct VkExternalImageFormatProperties {
     pub externalMemoryProperties: VkExternalMemoryProperties,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExternalImageFormatProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExternalImageFormatProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalImageFormatProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_IMAGE_FORMAT_PROPERTIES,
@@ -11590,6 +12406,10 @@ pub struct VkPhysicalDeviceExternalBufferInfo {
     pub usage: VkBufferUsageFlags,
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceExternalBufferInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceExternalBufferInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceExternalBufferInfo {
     pub const DEFAULT: Self = Self {
@@ -11640,6 +12460,10 @@ pub struct VkExternalBufferProperties {
     pub externalMemoryProperties: VkExternalMemoryProperties,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExternalBufferProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExternalBufferProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalBufferProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_BUFFER_PROPERTIES,
@@ -11689,6 +12513,10 @@ pub struct VkPhysicalDeviceIDProperties {
     /// Limit Type: [Max]
     pub deviceLUIDValid: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceIDProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceIDProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceIDProperties {
     pub const DEFAULT: Self = Self {
@@ -11752,6 +12580,10 @@ pub struct VkExternalMemoryImageCreateInfo {
     pub handleTypes: VkExternalMemoryHandleTypeFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExternalMemoryImageCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExternalMemoryImageCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalMemoryImageCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO,
@@ -11789,6 +12621,10 @@ pub struct VkExternalMemoryBufferCreateInfo {
     /// Optional: true
     pub handleTypes: VkExternalMemoryHandleTypeFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExternalMemoryBufferCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExternalMemoryBufferCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalMemoryBufferCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -11828,6 +12664,10 @@ pub struct VkExportMemoryAllocateInfo {
     pub handleTypes: VkExternalMemoryHandleTypeFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExportMemoryAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExportMemoryAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExportMemoryAllocateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO,
@@ -11862,6 +12702,10 @@ pub struct VkPhysicalDeviceExternalSemaphoreInfo {
     pub pNext: *const core::ffi::c_void,
     pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceExternalSemaphoreInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceExternalSemaphoreInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceExternalSemaphoreInfo {
     pub const DEFAULT: Self = Self {
@@ -11902,6 +12746,10 @@ pub struct VkExternalSemaphoreProperties {
     /// Optional: true
     pub externalSemaphoreFeatures: VkExternalSemaphoreFeatureFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExternalSemaphoreProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExternalSemaphoreProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalSemaphoreProperties {
     pub const DEFAULT: Self = Self {
@@ -11962,6 +12810,10 @@ pub struct VkExportSemaphoreCreateInfo {
     pub handleTypes: VkExternalSemaphoreHandleTypeFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExportSemaphoreCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExportSemaphoreCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExportSemaphoreCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO,
@@ -11996,6 +12848,10 @@ pub struct VkPhysicalDeviceExternalFenceInfo {
     pub pNext: *const core::ffi::c_void,
     pub handleType: VkExternalFenceHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceExternalFenceInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceExternalFenceInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceExternalFenceInfo {
     pub const DEFAULT: Self = Self {
@@ -12036,6 +12892,10 @@ pub struct VkExternalFenceProperties {
     /// Optional: true
     pub externalFenceFeatures: VkExternalFenceFeatureFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExternalFenceProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExternalFenceProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalFenceProperties {
     pub const DEFAULT: Self = Self {
@@ -12090,6 +12950,10 @@ pub struct VkExportFenceCreateInfo {
     pub handleTypes: VkExternalFenceHandleTypeFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkExportFenceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkExportFenceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExportFenceCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_FENCE_CREATE_INFO,
@@ -12129,6 +12993,10 @@ pub struct VkPhysicalDeviceGroupProperties {
     pub physicalDevices: [VkPhysicalDevice; VK_MAX_DEVICE_GROUP_SIZE as usize],
     pub subsetAllocation: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceGroupProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceGroupProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceGroupProperties {
     pub const DEFAULT: Self = Self {
@@ -12184,6 +13052,10 @@ pub struct VkMemoryAllocateFlagsInfo {
     pub deviceMask: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkMemoryAllocateFlagsInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkMemoryAllocateFlagsInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkMemoryAllocateFlagsInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO,
@@ -12226,6 +13098,10 @@ pub struct VkBindBufferMemoryInfo {
     pub memory: VkDeviceMemory,
     pub memoryOffset: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkBindBufferMemoryInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkBindBufferMemoryInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkBindBufferMemoryInfo {
     pub const DEFAULT: Self = Self {
@@ -12279,6 +13155,10 @@ pub struct VkBindBufferMemoryDeviceGroupInfo {
     pub pDeviceIndices: *const u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkBindBufferMemoryDeviceGroupInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkBindBufferMemoryDeviceGroupInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkBindBufferMemoryDeviceGroupInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO,
@@ -12324,6 +13204,10 @@ pub struct VkBindImageMemoryInfo {
     pub memory: VkDeviceMemory,
     pub memoryOffset: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkBindImageMemoryInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkBindImageMemoryInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkBindImageMemoryInfo {
     pub const DEFAULT: Self = Self {
@@ -12380,6 +13264,10 @@ pub struct VkBindImageMemoryDeviceGroupInfo {
     /// Length: splitInstanceBindRegionCount
     pub pSplitInstanceBindRegions: *const VkRect2D,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkBindImageMemoryDeviceGroupInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkBindImageMemoryDeviceGroupInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkBindImageMemoryDeviceGroupInfo {
     pub const DEFAULT: Self = Self {
@@ -12440,6 +13328,10 @@ pub struct VkDeviceGroupCommandBufferBeginInfo {
     pub deviceMask: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkDeviceGroupCommandBufferBeginInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkDeviceGroupCommandBufferBeginInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkDeviceGroupCommandBufferBeginInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO,
@@ -12487,6 +13379,10 @@ pub struct VkDeviceGroupSubmitInfo {
     /// Length: signalSemaphoreCount
     pub pSignalSemaphoreDeviceIndices: *const u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkDeviceGroupSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkDeviceGroupSubmitInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkDeviceGroupSubmitInfo {
     pub const DEFAULT: Self = Self {
@@ -12562,6 +13458,10 @@ pub struct VkDeviceGroupBindSparseInfo {
     pub memoryDeviceIndex: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkDeviceGroupBindSparseInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkDeviceGroupBindSparseInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkDeviceGroupBindSparseInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO,
@@ -12608,6 +13508,10 @@ pub struct VkDeviceGroupDeviceCreateInfo {
     pub pPhysicalDevices: *const VkPhysicalDevice,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkDeviceGroupDeviceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkDeviceGroupDeviceCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkDeviceGroupDeviceCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO,
@@ -12651,6 +13555,10 @@ pub struct VkBufferMemoryRequirementsInfo2 {
     pub buffer: VkBuffer,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkBufferMemoryRequirementsInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkBufferMemoryRequirementsInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkBufferMemoryRequirementsInfo2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2,
@@ -12686,6 +13594,10 @@ pub struct VkImageMemoryRequirementsInfo2 {
     pub image: VkImage,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkImageMemoryRequirementsInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkImageMemoryRequirementsInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkImageMemoryRequirementsInfo2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_MEMORY_REQUIREMENTS_INFO_2,
@@ -12720,6 +13632,10 @@ pub struct VkImageSparseMemoryRequirementsInfo2 {
     pub pNext: *const core::ffi::c_void,
     pub image: VkImage,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkImageSparseMemoryRequirementsInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkImageSparseMemoryRequirementsInfo2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkImageSparseMemoryRequirementsInfo2 {
     pub const DEFAULT: Self = Self {
@@ -12758,6 +13674,10 @@ pub struct VkMemoryRequirements2 {
     pub memoryRequirements: VkMemoryRequirements,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkMemoryRequirements2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkMemoryRequirements2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkMemoryRequirements2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2,
@@ -12794,6 +13714,10 @@ pub struct VkSparseImageMemoryRequirements2 {
     pub pNext: *mut core::ffi::c_void,
     pub memoryRequirements: VkSparseImageMemoryRequirements,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkSparseImageMemoryRequirements2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkSparseImageMemoryRequirements2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkSparseImageMemoryRequirements2 {
     pub const DEFAULT: Self = Self {
@@ -12834,6 +13758,10 @@ pub struct VkMemoryDedicatedRequirements {
     pub prefersDedicatedAllocation: VkBool32,
     pub requiresDedicatedAllocation: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkMemoryDedicatedRequirements {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkMemoryDedicatedRequirements {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkMemoryDedicatedRequirements {
     pub const DEFAULT: Self = Self {
@@ -12881,6 +13809,10 @@ pub struct VkMemoryDedicatedAllocateInfo {
     pub buffer: VkBuffer,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkMemoryDedicatedAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkMemoryDedicatedAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkMemoryDedicatedAllocateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO,
@@ -12924,6 +13856,10 @@ pub struct VkImageViewUsageCreateInfo {
     pub usage: VkImageUsageFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkImageViewUsageCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkImageViewUsageCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkImageViewUsageCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO,
@@ -12960,6 +13896,10 @@ pub struct VkBindImagePlaneMemoryInfo {
     pub pNext: *const core::ffi::c_void,
     pub planeAspect: VkImageAspectFlagBits,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkBindImagePlaneMemoryInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkBindImagePlaneMemoryInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkBindImagePlaneMemoryInfo {
     pub const DEFAULT: Self = Self {
@@ -12998,6 +13938,10 @@ pub struct VkImagePlaneMemoryRequirementsInfo {
     pub planeAspect: VkImageAspectFlagBits,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkImagePlaneMemoryRequirementsInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkImagePlaneMemoryRequirementsInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkImagePlaneMemoryRequirementsInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO,
@@ -13035,6 +13979,10 @@ pub struct VkProtectedSubmitInfo {
     pub protectedSubmit: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkProtectedSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkProtectedSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkProtectedSubmitInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PROTECTED_SUBMIT_INFO,
@@ -13071,6 +14019,10 @@ pub struct VkPhysicalDeviceProtectedMemoryFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub protectedMemory: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceProtectedMemoryFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceProtectedMemoryFeatures {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceProtectedMemoryFeatures {
     pub const DEFAULT: Self = Self {
@@ -13114,6 +14066,10 @@ pub struct VkPhysicalDeviceProtectedMemoryProperties {
     pub protectedNoFault: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceProtectedMemoryProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceProtectedMemoryProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkPhysicalDeviceProtectedMemoryProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES,
@@ -13151,6 +14107,10 @@ pub struct VkDeviceQueueInfo2 {
     pub queueFamilyIndex: u32,
     pub queueIndex: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Send for VkDeviceQueueInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+unsafe impl Sync for VkDeviceQueueInfo2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkDeviceQueueInfo2 {
     pub const DEFAULT: Self = Self {
@@ -13203,6 +14163,10 @@ pub struct VkConformanceVersion {
     pub subminor: u8,
     pub patch: u8,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkConformanceVersion {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkConformanceVersion {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkConformanceVersion {
     pub const DEFAULT: Self = Self {
@@ -13260,6 +14224,10 @@ pub struct VkPhysicalDeviceDriverProperties {
     /// Limit Type: [Exact]
     pub conformanceVersion: VkConformanceVersion,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceDriverProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceDriverProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceDriverProperties {
     pub const DEFAULT: Self = Self {
@@ -13325,6 +14293,10 @@ pub struct VkImageFormatListCreateInfo {
     pub pViewFormats: *const VkFormat,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkImageFormatListCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkImageFormatListCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkImageFormatListCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO,
@@ -13370,6 +14342,10 @@ pub struct VkPhysicalDeviceHostQueryResetFeatures {
     pub hostQueryReset: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceHostQueryResetFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceHostQueryResetFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceHostQueryResetFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES,
@@ -13406,6 +14382,10 @@ pub struct VkPhysicalDeviceTimelineSemaphoreFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub timelineSemaphore: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceTimelineSemaphoreFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceTimelineSemaphoreFeatures {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceTimelineSemaphoreFeatures {
     pub const DEFAULT: Self = Self {
@@ -13449,6 +14429,10 @@ pub struct VkPhysicalDeviceTimelineSemaphoreProperties {
     pub maxTimelineSemaphoreValueDifference: u64,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceTimelineSemaphoreProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceTimelineSemaphoreProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceTimelineSemaphoreProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES,
@@ -13486,6 +14470,10 @@ pub struct VkSemaphoreTypeCreateInfo {
     pub semaphoreType: VkSemaphoreType,
     pub initialValue: u64,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkSemaphoreTypeCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkSemaphoreTypeCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkSemaphoreTypeCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -13536,6 +14524,10 @@ pub struct VkTimelineSemaphoreSubmitInfo {
     /// Optional: true,  Length: signalSemaphoreValueCount
     pub pSignalSemaphoreValues: *const u64,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkTimelineSemaphoreSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkTimelineSemaphoreSubmitInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkTimelineSemaphoreSubmitInfo {
     pub const DEFAULT: Self = Self {
@@ -13600,6 +14592,10 @@ pub struct VkSemaphoreWaitInfo {
     pub pValues: *const u64,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkSemaphoreWaitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkSemaphoreWaitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkSemaphoreWaitInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_WAIT_INFO,
@@ -13658,6 +14654,10 @@ pub struct VkSemaphoreSignalInfo {
     pub value: u64,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkSemaphoreSignalInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkSemaphoreSignalInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkSemaphoreSignalInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO,
@@ -13702,6 +14702,10 @@ pub struct VkPhysicalDeviceVulkanMemoryModelFeatures {
     pub vulkanMemoryModelDeviceScope: VkBool32,
     pub vulkanMemoryModelAvailabilityVisibilityChains: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceVulkanMemoryModelFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceVulkanMemoryModelFeatures {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceVulkanMemoryModelFeatures {
     pub const DEFAULT: Self = Self {
@@ -13757,6 +14761,10 @@ pub struct VkPhysicalDeviceBufferDeviceAddressFeatures {
     pub bufferDeviceAddressMultiDevice: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceBufferDeviceAddressFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceBufferDeviceAddressFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceBufferDeviceAddressFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES,
@@ -13804,6 +14812,10 @@ pub struct VkBufferDeviceAddressInfo {
     pub buffer: VkBuffer,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkBufferDeviceAddressInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkBufferDeviceAddressInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkBufferDeviceAddressInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO,
@@ -13840,6 +14852,10 @@ pub struct VkBufferOpaqueCaptureAddressCreateInfo {
     pub pNext: *const core::ffi::c_void,
     pub opaqueCaptureAddress: u64,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkBufferOpaqueCaptureAddressCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkBufferOpaqueCaptureAddressCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkBufferOpaqueCaptureAddressCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -13878,6 +14894,10 @@ pub struct VkMemoryOpaqueCaptureAddressAllocateInfo {
     pub opaqueCaptureAddress: u64,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkMemoryOpaqueCaptureAddressAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkMemoryOpaqueCaptureAddressAllocateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkMemoryOpaqueCaptureAddressAllocateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO,
@@ -13912,6 +14932,10 @@ pub struct VkDeviceMemoryOpaqueCaptureAddressInfo {
     pub pNext: *const core::ffi::c_void,
     pub memory: VkDeviceMemory,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkDeviceMemoryOpaqueCaptureAddressInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkDeviceMemoryOpaqueCaptureAddressInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkDeviceMemoryOpaqueCaptureAddressInfo {
     pub const DEFAULT: Self = Self {
@@ -13960,6 +14984,10 @@ pub struct VkPhysicalDeviceVulkan11Features {
     pub samplerYcbcrConversion: VkBool32,
     pub shaderDrawParameters: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceVulkan11Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceVulkan11Features {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceVulkan11Features {
     pub const DEFAULT: Self = Self {
@@ -14096,6 +15124,10 @@ pub struct VkPhysicalDeviceVulkan11Properties {
     /// Limit Type: [Max]
     pub maxMemoryAllocationSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceVulkan11Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceVulkan11Properties {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceVulkan11Properties {
     pub const DEFAULT: Self = Self {
@@ -14263,6 +15295,10 @@ pub struct VkPhysicalDeviceVulkan12Features {
     pub shaderOutputLayer: VkBool32,
     pub subgroupBroadcastDynamicId: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceVulkan12Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceVulkan12Features {}
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceVulkan12Features {
     pub const DEFAULT: Self = Self {
@@ -14720,6 +15756,10 @@ pub struct VkPhysicalDeviceVulkan12Properties {
     pub framebufferIntegerColorSampleCounts: VkSampleCountFlags,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceVulkan12Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceVulkan12Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_2")]
 impl VkPhysicalDeviceVulkan12Properties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES,
@@ -15134,6 +16174,10 @@ impl Default for VkPrivateDataSlot {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPrivateDataSlot {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPrivateDataSlot {}
 /// [VkDevicePrivateDataCreateInfo](https://docs.vulkan.org/refpages/latest/refpages/source/VkDevicePrivateDataCreateInfo.html)
 ///
 /// **Extends:** VkDeviceCreateInfo.
@@ -15147,6 +16191,10 @@ pub struct VkDevicePrivateDataCreateInfo {
     pub pNext: *const core::ffi::c_void,
     pub privateDataSlotRequestCount: u32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkDevicePrivateDataCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkDevicePrivateDataCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkDevicePrivateDataCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -15182,6 +16230,10 @@ pub struct VkPrivateDataSlotCreateInfo {
     pub pNext: *const core::ffi::c_void,
     pub flags: VkPrivateDataSlotCreateFlags,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPrivateDataSlotCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPrivateDataSlotCreateInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPrivateDataSlotCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -15220,6 +16272,10 @@ pub struct VkPhysicalDevicePrivateDataFeatures {
     pub privateData: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDevicePrivateDataFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDevicePrivateDataFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDevicePrivateDataFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES,
@@ -15254,6 +16310,10 @@ pub struct VkDeviceBufferMemoryRequirements {
     pub pNext: *const core::ffi::c_void,
     pub pCreateInfo: *const VkBufferCreateInfo,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkDeviceBufferMemoryRequirements {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkDeviceBufferMemoryRequirements {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkDeviceBufferMemoryRequirements {
     pub const DEFAULT: Self = Self {
@@ -15293,6 +16353,10 @@ pub struct VkDeviceImageMemoryRequirements {
     /// Optional: true
     pub planeAspect: VkImageAspectFlagBits,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkDeviceImageMemoryRequirements {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkDeviceImageMemoryRequirements {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkDeviceImageMemoryRequirements {
     pub const DEFAULT: Self = Self {
@@ -15339,6 +16403,10 @@ pub struct VkPhysicalDeviceMaintenance4Features {
     pub maintenance4: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceMaintenance4Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance4Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDeviceMaintenance4Features {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES,
@@ -15381,6 +16449,10 @@ pub struct VkPhysicalDeviceMaintenance4Properties {
     pub maxBufferSize: VkDeviceSize,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceMaintenance4Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance4Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDeviceMaintenance4Properties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES,
@@ -15417,6 +16489,10 @@ pub struct VkPhysicalDeviceTextureCompressionASTCHDRFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub textureCompressionASTC_HDR: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceTextureCompressionASTCHDRFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceTextureCompressionASTCHDRFeatures {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDeviceTextureCompressionASTCHDRFeatures {
     pub const DEFAULT: Self = Self {
@@ -15469,6 +16545,10 @@ pub struct VkPhysicalDeviceVulkan13Features {
     pub shaderIntegerDotProduct: VkBool32,
     pub maintenance4: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceVulkan13Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceVulkan13Features {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDeviceVulkan13Features {
     pub const DEFAULT: Self = Self {
@@ -15686,6 +16766,10 @@ pub struct VkPhysicalDeviceVulkan13Properties {
     /// Limit Type: [Max]
     pub maxBufferSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceVulkan13Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceVulkan13Properties {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDeviceVulkan13Properties {
     pub const DEFAULT: Self = Self {
@@ -16074,6 +17158,10 @@ pub struct VkPhysicalDeviceToolProperties {
     pub layer: [core::ffi::c_char; VK_MAX_EXTENSION_NAME_SIZE as usize],
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceToolProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceToolProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDeviceToolProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES,
@@ -16149,6 +17237,10 @@ pub struct VkBufferCopy2 {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkBufferCopy2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkBufferCopy2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkBufferCopy2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COPY_2,
@@ -16199,6 +17291,10 @@ pub struct VkImageCopy2 {
     pub dstOffset: VkOffset3D,
     pub extent: VkExtent3D,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkImageCopy2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkImageCopy2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkImageCopy2 {
     pub const DEFAULT: Self = Self {
@@ -16264,6 +17360,10 @@ pub struct VkBufferImageCopy2 {
     pub imageOffset: VkOffset3D,
     pub imageExtent: VkExtent3D,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkBufferImageCopy2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkBufferImageCopy2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkBufferImageCopy2 {
     pub const DEFAULT: Self = Self {
@@ -16335,6 +17435,10 @@ pub struct VkCopyBufferInfo2 {
     pub pRegions: *const VkBufferCopy2,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkCopyBufferInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkCopyBufferInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkCopyBufferInfo2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_BUFFER_INFO_2,
@@ -16395,6 +17499,10 @@ pub struct VkCopyImageInfo2 {
     /// Length: regionCount
     pub pRegions: *const VkImageCopy2,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkCopyImageInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkCopyImageInfo2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkCopyImageInfo2 {
     pub const DEFAULT: Self = Self {
@@ -16469,6 +17577,10 @@ pub struct VkCopyBufferToImageInfo2 {
     pub pRegions: *const VkBufferImageCopy2,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkCopyBufferToImageInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkCopyBufferToImageInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkCopyBufferToImageInfo2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_BUFFER_TO_IMAGE_INFO_2,
@@ -16535,6 +17647,10 @@ pub struct VkCopyImageToBufferInfo2 {
     /// Length: regionCount
     pub pRegions: *const VkBufferImageCopy2,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkCopyImageToBufferInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkCopyImageToBufferInfo2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkCopyImageToBufferInfo2 {
     pub const DEFAULT: Self = Self {
@@ -16606,6 +17722,10 @@ pub struct VkMemoryBarrier2 {
     pub dstAccessMask: VkAccessFlags2,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkMemoryBarrier2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkMemoryBarrier2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkMemoryBarrier2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER_2,
@@ -16671,6 +17791,10 @@ pub struct VkImageMemoryBarrier2 {
     pub image: VkImage,
     pub subresourceRange: VkImageSubresourceRange,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkImageMemoryBarrier2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkImageMemoryBarrier2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkImageMemoryBarrier2 {
     pub const DEFAULT: Self = Self {
@@ -16774,6 +17898,10 @@ pub struct VkBufferMemoryBarrier2 {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkBufferMemoryBarrier2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkBufferMemoryBarrier2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkBufferMemoryBarrier2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER_2,
@@ -16870,6 +17998,10 @@ pub struct VkDependencyInfo {
     pub pImageMemoryBarriers: *const VkImageMemoryBarrier2,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkDependencyInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkDependencyInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkDependencyInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEPENDENCY_INFO,
@@ -16951,6 +18083,10 @@ pub struct VkSemaphoreSubmitInfo {
     pub deviceIndex: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkSemaphoreSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkSemaphoreSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkSemaphoreSubmitInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO,
@@ -17005,6 +18141,10 @@ pub struct VkCommandBufferSubmitInfo {
     pub deviceMask: u32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkCommandBufferSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkCommandBufferSubmitInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkCommandBufferSubmitInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_SUBMIT_INFO,
@@ -17058,6 +18198,10 @@ pub struct VkSubmitInfo2 {
     /// Length: signalSemaphoreInfoCount
     pub pSignalSemaphoreInfos: *const VkSemaphoreSubmitInfo,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkSubmitInfo2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkSubmitInfo2 {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkSubmitInfo2 {
     pub const DEFAULT: Self = Self {
@@ -17138,6 +18282,10 @@ pub struct VkPhysicalDeviceSynchronization2Features {
     pub synchronization2: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceSynchronization2Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceSynchronization2Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkPhysicalDeviceSynchronization2Features {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES,
@@ -17183,6 +18331,10 @@ pub struct VkFormatProperties3 {
     /// Optional: true,  Limit Type: [Bitmask]
     pub bufferFeatures: VkFormatFeatureFlags2,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Send for VkFormatProperties3 {}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+unsafe impl Sync for VkFormatProperties3 {}
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl VkFormatProperties3 {
     pub const DEFAULT: Self = Self {
@@ -17245,6 +18397,10 @@ pub struct VkBufferUsageFlags2CreateInfo {
     pub usage: VkBufferUsageFlags2,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkBufferUsageFlags2CreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkBufferUsageFlags2CreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkBufferUsageFlags2CreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO,
@@ -17281,6 +18437,10 @@ pub struct VkPhysicalDeviceMaintenance5Features {
     pub pNext: *mut core::ffi::c_void,
     pub maintenance5: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceMaintenance5Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance5Features {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceMaintenance5Features {
     pub const DEFAULT: Self = Self {
@@ -17333,6 +18493,10 @@ pub struct VkPhysicalDeviceMaintenance5Properties {
     /// Limit Type: [Max]
     pub nonStrictWideLinesUseParallelogram: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceMaintenance5Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance5Properties {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceMaintenance5Properties {
     pub const DEFAULT: Self = Self {
@@ -17410,6 +18574,10 @@ pub struct VkPhysicalDeviceMaintenance6Features {
     pub maintenance6: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceMaintenance6Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance6Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceMaintenance6Features {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES,
@@ -17455,6 +18623,10 @@ pub struct VkPhysicalDeviceMaintenance6Properties {
     /// Limit Type: [Max]
     pub fragmentShadingRateClampCombinerInputs: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceMaintenance6Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance6Properties {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceMaintenance6Properties {
     pub const DEFAULT: Self = Self {
@@ -17505,6 +18677,10 @@ pub struct VkDeviceQueueGlobalPriorityCreateInfo {
     pub globalPriority: VkQueueGlobalPriority,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkDeviceQueueGlobalPriorityCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkDeviceQueueGlobalPriorityCreateInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkDeviceQueueGlobalPriorityCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO,
@@ -17541,6 +18717,10 @@ pub struct VkPhysicalDeviceGlobalPriorityQueryFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub globalPriorityQuery: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceGlobalPriorityQueryFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceGlobalPriorityQueryFeatures {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceGlobalPriorityQueryFeatures {
     pub const DEFAULT: Self = Self {
@@ -17585,6 +18765,10 @@ pub struct VkQueueFamilyGlobalPriorityProperties {
     /// Length: priorityCount,  Limit Type: [Bitmask]
     pub priorities: [VkQueueGlobalPriority; VK_MAX_GLOBAL_PRIORITY_SIZE as usize],
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkQueueFamilyGlobalPriorityProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkQueueFamilyGlobalPriorityProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkQueueFamilyGlobalPriorityProperties {
     pub const DEFAULT: Self = Self {
@@ -17631,6 +18815,10 @@ pub struct VkPhysicalDeviceIndexTypeUint8Features {
     pub pNext: *mut core::ffi::c_void,
     pub indexTypeUint8: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceIndexTypeUint8Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceIndexTypeUint8Features {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceIndexTypeUint8Features {
     pub const DEFAULT: Self = Self {
@@ -17688,6 +18876,10 @@ pub struct VkPhysicalDeviceVulkan14Features {
     pub hostImageCopy: VkBool32,
     pub pushDescriptor: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceVulkan14Features {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceVulkan14Features {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceVulkan14Features {
     pub const DEFAULT: Self = Self {
@@ -17898,6 +19090,10 @@ pub struct VkPhysicalDeviceVulkan14Properties {
     /// Limit Type: [Max]
     pub identicalMemoryTypeRequirements: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceVulkan14Properties {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceVulkan14Properties {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceVulkan14Properties {
     pub const DEFAULT: Self = Self {
@@ -18111,6 +19307,10 @@ pub struct VkPhysicalDeviceHostImageCopyFeatures {
     pub hostImageCopy: VkBool32,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceHostImageCopyFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceHostImageCopyFeatures {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceHostImageCopyFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES,
@@ -18160,6 +19360,10 @@ pub struct VkPhysicalDeviceHostImageCopyProperties {
     /// Limit Type: [Max]
     pub identicalMemoryTypeRequirements: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceHostImageCopyProperties {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceHostImageCopyProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkPhysicalDeviceHostImageCopyProperties {
     pub const DEFAULT: Self = Self {
@@ -18235,6 +19439,10 @@ pub struct VkMemoryToImageCopy {
     pub imageExtent: VkExtent3D,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkMemoryToImageCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkMemoryToImageCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkMemoryToImageCopy {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_TO_IMAGE_COPY,
@@ -18306,6 +19514,10 @@ pub struct VkImageToMemoryCopy {
     pub imageOffset: VkOffset3D,
     pub imageExtent: VkExtent3D,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkImageToMemoryCopy {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkImageToMemoryCopy {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkImageToMemoryCopy {
     pub const DEFAULT: Self = Self {
@@ -18380,6 +19592,10 @@ pub struct VkCopyMemoryToImageInfo {
     pub pRegions: *const VkMemoryToImageCopy,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkCopyMemoryToImageInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkCopyMemoryToImageInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkCopyMemoryToImageInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INFO,
@@ -18446,6 +19662,10 @@ pub struct VkCopyImageToMemoryInfo {
     /// Length: regionCount
     pub pRegions: *const VkImageToMemoryCopy,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkCopyImageToMemoryInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkCopyImageToMemoryInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkCopyImageToMemoryInfo {
     pub const DEFAULT: Self = Self {
@@ -18515,6 +19735,10 @@ pub struct VkCopyImageToImageInfo {
     /// Length: regionCount
     pub pRegions: *const VkImageCopy2,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkCopyImageToImageInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkCopyImageToImageInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkCopyImageToImageInfo {
     pub const DEFAULT: Self = Self {
@@ -18592,6 +19816,10 @@ pub struct VkHostImageLayoutTransitionInfo {
     pub subresourceRange: VkImageSubresourceRange,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkHostImageLayoutTransitionInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkHostImageLayoutTransitionInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkHostImageLayoutTransitionInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_HOST_IMAGE_LAYOUT_TRANSITION_INFO,
@@ -18649,6 +19877,10 @@ pub struct VkSubresourceHostMemcpySize {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkSubresourceHostMemcpySize {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkSubresourceHostMemcpySize {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkSubresourceHostMemcpySize {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SUBRESOURCE_HOST_MEMCPY_SIZE,
@@ -18688,6 +19920,10 @@ pub struct VkHostImageCopyDevicePerformanceQuery {
     pub optimalDeviceAccess: VkBool32,
     pub identicalMemoryLayout: VkBool32,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkHostImageCopyDevicePerformanceQuery {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkHostImageCopyDevicePerformanceQuery {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkHostImageCopyDevicePerformanceQuery {
     pub const DEFAULT: Self = Self {
@@ -18730,6 +19966,10 @@ pub struct VkImageSubresource2 {
     pub imageSubresource: VkImageSubresource,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkImageSubresource2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkImageSubresource2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkImageSubresource2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2,
@@ -18767,6 +20007,10 @@ pub struct VkSubresourceLayout2 {
     pub subresourceLayout: VkSubresourceLayout,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkSubresourceLayout2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkSubresourceLayout2 {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkSubresourceLayout2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2,
@@ -18802,6 +20046,10 @@ pub struct VkDeviceImageSubresourceInfo {
     pub pCreateInfo: *const VkImageCreateInfo,
     pub pSubresource: *const VkImageSubresource2,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkDeviceImageSubresourceInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkDeviceImageSubresourceInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkDeviceImageSubresourceInfo {
     pub const DEFAULT: Self = Self {
@@ -18851,6 +20099,10 @@ pub struct VkMemoryMapInfo {
     pub offset: VkDeviceSize,
     pub size: VkDeviceSize,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkMemoryMapInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkMemoryMapInfo {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkMemoryMapInfo {
     pub const DEFAULT: Self = Self {
@@ -18907,6 +20159,10 @@ pub struct VkMemoryUnmapInfo {
     pub memory: VkDeviceMemory,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkMemoryUnmapInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkMemoryUnmapInfo {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkMemoryUnmapInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO,
@@ -18949,6 +20205,10 @@ pub struct VkBindMemoryStatus {
     pub pNext: *const core::ffi::c_void,
     pub pResult: *mut VkResult,
 }
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Send for VkBindMemoryStatus {}
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+unsafe impl Sync for VkBindMemoryStatus {}
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 impl VkBindMemoryStatus {
     pub const DEFAULT: Self = Self {
@@ -19024,6 +20284,10 @@ impl Default for VkBufferView {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkBufferView {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkBufferView {}
 /// [VkShaderModule](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModule.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19040,6 +20304,10 @@ impl Default for VkShaderModule {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkShaderModule {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkShaderModule {}
 /// [VkPipeline](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipeline.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19056,6 +20324,10 @@ impl Default for VkPipeline {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPipeline {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPipeline {}
 /// [VkPipelineLayout](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayout.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19072,6 +20344,10 @@ impl Default for VkPipelineLayout {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPipelineLayout {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPipelineLayout {}
 /// [VkSampler](https://docs.vulkan.org/refpages/latest/refpages/source/VkSampler.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19088,6 +20364,10 @@ impl Default for VkSampler {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkSampler {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkSampler {}
 /// [VkDescriptorSet](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSet.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19104,6 +20384,10 @@ impl Default for VkDescriptorSet {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorSet {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorSet {}
 /// [VkDescriptorSetLayout](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayout.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19120,6 +20404,10 @@ impl Default for VkDescriptorSetLayout {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorSetLayout {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorSetLayout {}
 /// [VkDescriptorPool](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPool.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19136,6 +20424,10 @@ impl Default for VkDescriptorPool {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorPool {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorPool {}
 /// [VkEvent](https://docs.vulkan.org/refpages/latest/refpages/source/VkEvent.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19152,6 +20444,10 @@ impl Default for VkEvent {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkEvent {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkEvent {}
 /// [VkPipelineCache](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCache.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(transparent)]
@@ -19168,6 +20464,10 @@ impl Default for VkPipelineCache {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPipelineCache {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPipelineCache {}
 /// [VkDescriptorBufferInfo](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBufferInfo.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[repr(C)]
@@ -19178,6 +20478,10 @@ pub struct VkDescriptorBufferInfo {
     pub offset: VkDeviceSize,
     pub range: VkDeviceSize,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorBufferInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorBufferInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDescriptorBufferInfo {
     pub const DEFAULT: Self = Self {
@@ -19217,6 +20521,10 @@ pub struct VkDescriptorImageInfo {
     /// No Auto-Validity
     pub imageLayout: VkImageLayout,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorImageInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorImageInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDescriptorImageInfo {
     pub const DEFAULT: Self = Self {
@@ -19266,6 +20574,10 @@ pub struct VkWriteDescriptorSet {
     /// Length: descriptorCount,  No Auto-Validity
     pub pTexelBufferView: *const VkBufferView,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkWriteDescriptorSet {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkWriteDescriptorSet {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkWriteDescriptorSet {
     pub const DEFAULT: Self = Self {
@@ -19356,6 +20668,10 @@ pub struct VkCopyDescriptorSet {
     pub descriptorCount: u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkCopyDescriptorSet {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkCopyDescriptorSet {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkCopyDescriptorSet {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET,
@@ -19432,6 +20748,10 @@ pub struct VkBufferViewCreateInfo {
     pub range: VkDeviceSize,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkBufferViewCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkBufferViewCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkBufferViewCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO,
@@ -19497,6 +20817,10 @@ pub struct VkShaderModuleCreateInfo {
     pub pCode: *const u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkShaderModuleCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkShaderModuleCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkShaderModuleCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO,
@@ -19548,6 +20872,10 @@ pub struct VkDescriptorSetLayoutBinding {
     /// Optional: true,  Length: descriptorCount,  No Auto-Validity
     pub pImmutableSamplers: *const VkSampler,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorSetLayoutBinding {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorSetLayoutBinding {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDescriptorSetLayoutBinding {
     pub const DEFAULT: Self = Self {
@@ -19606,6 +20934,10 @@ pub struct VkDescriptorSetLayoutCreateInfo {
     pub pBindings: *const VkDescriptorSetLayoutBinding,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorSetLayoutCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorSetLayoutCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDescriptorSetLayoutCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO,
@@ -19652,6 +20984,10 @@ pub struct VkDescriptorPoolSize {
     pub descriptorCount: u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorPoolSize {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorPoolSize {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDescriptorPoolSize {
     pub const DEFAULT: Self = Self {
         type_: VkDescriptorType(0),
@@ -19689,6 +21025,10 @@ pub struct VkDescriptorPoolCreateInfo {
     /// Length: poolSizeCount
     pub pPoolSizes: *const VkDescriptorPoolSize,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorPoolCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorPoolCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDescriptorPoolCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -19748,6 +21088,10 @@ pub struct VkDescriptorSetAllocateInfo {
     pub pSetLayouts: *const VkDescriptorSetLayout,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDescriptorSetAllocateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDescriptorSetAllocateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDescriptorSetAllocateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO,
@@ -19796,6 +21140,10 @@ pub struct VkSpecializationMapEntry {
     pub size: usize,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkSpecializationMapEntry {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkSpecializationMapEntry {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkSpecializationMapEntry {
     pub const DEFAULT: Self = Self {
         constantID: 0,
@@ -19836,6 +21184,10 @@ pub struct VkSpecializationInfo {
     /// Length: dataSize
     pub pData: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkSpecializationInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkSpecializationInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkSpecializationInfo {
     pub const DEFAULT: Self = Self {
@@ -19896,6 +21248,10 @@ pub struct VkPipelineShaderStageCreateInfo {
     /// Optional: true
     pub pSpecializationInfo: *const VkSpecializationInfo,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPipelineShaderStageCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPipelineShaderStageCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkPipelineShaderStageCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -19979,6 +21335,10 @@ pub struct VkComputePipelineCreateInfo {
     pub basePipelineIndex: i32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkComputePipelineCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkComputePipelineCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkComputePipelineCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO,
@@ -20046,6 +21406,10 @@ pub struct VkPipelineCacheCreateInfo {
     pub pInitialData: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPipelineCacheCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPipelineCacheCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkPipelineCacheCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO,
@@ -20105,6 +21469,10 @@ pub struct VkPipelineCacheHeaderVersionOne {
     pub pipelineCacheUUID: [u8; VK_UUID_SIZE as usize],
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPipelineCacheHeaderVersionOne {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPipelineCacheHeaderVersionOne {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkPipelineCacheHeaderVersionOne {
     pub const DEFAULT: Self = Self {
         headerSize: 0,
@@ -20152,6 +21520,10 @@ pub struct VkPushConstantRange {
     pub offset: u32,
     pub size: u32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPushConstantRange {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPushConstantRange {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkPushConstantRange {
     pub const DEFAULT: Self = Self {
@@ -20201,6 +21573,10 @@ pub struct VkPipelineLayoutCreateInfo {
     /// Length: pushConstantRangeCount
     pub pPushConstantRanges: *const VkPushConstantRange,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkPipelineLayoutCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkPipelineLayoutCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkPipelineLayoutCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -20282,6 +21658,10 @@ pub struct VkSamplerCreateInfo {
     pub borderColor: VkBorderColor,
     pub unnormalizedCoordinates: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkSamplerCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkSamplerCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkSamplerCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -20408,6 +21788,10 @@ pub union VkClearColorValue {
     pub uint32: [u32; 4],
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkClearColorValue {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkClearColorValue {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkClearColorValue {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -20439,6 +21823,10 @@ pub struct VkEventCreateInfo {
     /// Optional: true
     pub flags: VkEventCreateFlags,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkEventCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkEventCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkEventCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -20475,6 +21863,10 @@ pub struct VkDispatchIndirectCommand {
     /// No Auto-Validity
     pub z: u32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Send for VkDispatchIndirectCommand {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl Sync for VkDispatchIndirectCommand {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkDispatchIndirectCommand {
     pub const DEFAULT: Self = Self { x: 0, y: 0, z: 0 };
@@ -20517,6 +21909,10 @@ impl Default for VkDescriptorUpdateTemplate {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkDescriptorUpdateTemplate {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkDescriptorUpdateTemplate {}
 /// [VkSamplerYcbcrConversion](https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerYcbcrConversion.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 #[repr(transparent)]
@@ -20533,6 +21929,10 @@ impl Default for VkSamplerYcbcrConversion {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkSamplerYcbcrConversion {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkSamplerYcbcrConversion {}
 /// [VkPhysicalDeviceVariablePointersFeatures](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVariablePointersFeatures.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -20547,6 +21947,10 @@ pub struct VkPhysicalDeviceVariablePointersFeatures {
     pub variablePointersStorageBuffer: VkBool32,
     pub variablePointers: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceVariablePointersFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceVariablePointersFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkPhysicalDeviceVariablePointersFeatures {
     pub const DEFAULT: Self = Self {
@@ -20591,6 +21995,10 @@ pub struct VkDescriptorUpdateTemplateEntry {
     pub offset: usize,
     pub stride: usize,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkDescriptorUpdateTemplateEntry {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkDescriptorUpdateTemplateEntry {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkDescriptorUpdateTemplateEntry {
     pub const DEFAULT: Self = Self {
@@ -20660,6 +22068,10 @@ pub struct VkDescriptorUpdateTemplateCreateInfo {
     /// No Auto-Validity
     pub set: u32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkDescriptorUpdateTemplateCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkDescriptorUpdateTemplateCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkDescriptorUpdateTemplateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -20748,6 +22160,10 @@ pub struct VkPhysicalDevice16BitStorageFeatures {
     pub storageInputOutput16: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDevice16BitStorageFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDevice16BitStorageFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkPhysicalDevice16BitStorageFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES,
@@ -20814,6 +22230,10 @@ pub struct VkPhysicalDeviceSubgroupProperties {
     pub quadOperationsInAllStages: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceSubgroupProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceSubgroupProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkPhysicalDeviceSubgroupProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES,
@@ -20869,6 +22289,10 @@ pub struct VkSamplerYcbcrConversionInfo {
     pub conversion: VkSamplerYcbcrConversion,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkSamplerYcbcrConversionInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkSamplerYcbcrConversionInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkSamplerYcbcrConversionInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO,
@@ -20910,6 +22334,10 @@ pub struct VkSamplerYcbcrConversionCreateInfo {
     pub chromaFilter: VkFilter,
     pub forceExplicitReconstruction: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkSamplerYcbcrConversionCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkSamplerYcbcrConversionCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkSamplerYcbcrConversionCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -20990,6 +22418,10 @@ pub struct VkPhysicalDeviceSamplerYcbcrConversionFeatures {
     pub samplerYcbcrConversion: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceSamplerYcbcrConversionFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceSamplerYcbcrConversionFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkPhysicalDeviceSamplerYcbcrConversionFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES,
@@ -21028,6 +22460,10 @@ pub struct VkSamplerYcbcrConversionImageFormatProperties {
     pub pNext: *mut core::ffi::c_void,
     pub combinedImageSamplerDescriptorCount: u32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkSamplerYcbcrConversionImageFormatProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkSamplerYcbcrConversionImageFormatProperties {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkSamplerYcbcrConversionImageFormatProperties {
     pub const DEFAULT: Self = Self {
@@ -21073,6 +22509,10 @@ pub struct VkPhysicalDeviceMaintenance3Properties {
     pub maxMemoryAllocationSize: VkDeviceSize,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceMaintenance3Properties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance3Properties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkPhysicalDeviceMaintenance3Properties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES,
@@ -21116,6 +22556,10 @@ pub struct VkDescriptorSetLayoutSupport {
     pub supported: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Send for VkDescriptorSetLayoutSupport {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+unsafe impl Sync for VkDescriptorSetLayoutSupport {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl VkDescriptorSetLayoutSupport {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT,
@@ -21156,6 +22600,10 @@ pub struct VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures {
     /// No Auto-Validity
     pub shaderSubgroupExtendedTypes: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures {
     pub const DEFAULT: Self = Self {
@@ -21201,6 +22649,10 @@ pub struct VkPhysicalDeviceSamplerFilterMinmaxProperties {
     pub filterMinmaxImageComponentMapping: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceSamplerFilterMinmaxProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceSamplerFilterMinmaxProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceSamplerFilterMinmaxProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES,
@@ -21244,6 +22696,10 @@ pub struct VkSamplerReductionModeCreateInfo {
     pub reductionMode: VkSamplerReductionMode,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkSamplerReductionModeCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkSamplerReductionModeCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkSamplerReductionModeCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO,
@@ -21281,6 +22737,10 @@ pub struct VkPhysicalDeviceShaderFloat16Int8Features {
     pub shaderFloat16: VkBool32,
     pub shaderInt8: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceShaderFloat16Int8Features {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceShaderFloat16Int8Features {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceShaderFloat16Int8Features {
     pub const DEFAULT: Self = Self {
@@ -21361,6 +22821,10 @@ pub struct VkPhysicalDeviceFloatControlsProperties {
     /// Limit Type: [Max]
     pub shaderRoundingModeRTZFloat64: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceFloatControlsProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceFloatControlsProperties {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceFloatControlsProperties {
     pub const DEFAULT: Self = Self {
@@ -21519,6 +22983,10 @@ pub struct VkPhysicalDeviceDescriptorIndexingFeatures {
     pub descriptorBindingVariableDescriptorCount: VkBool32,
     pub runtimeDescriptorArray: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceDescriptorIndexingFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorIndexingFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceDescriptorIndexingFeatures {
     pub const DEFAULT: Self = Self {
@@ -21753,6 +23221,10 @@ pub struct VkPhysicalDeviceDescriptorIndexingProperties {
     pub maxDescriptorSetUpdateAfterBindInputAttachments: u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceDescriptorIndexingProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorIndexingProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceDescriptorIndexingProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES,
@@ -21961,6 +23433,10 @@ pub struct VkDescriptorSetLayoutBindingFlagsCreateInfo {
     pub pBindingFlags: *const VkDescriptorBindingFlags,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkDescriptorSetLayoutBindingFlagsCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkDescriptorSetLayoutBindingFlagsCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkDescriptorSetLayoutBindingFlagsCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO,
@@ -22009,6 +23485,10 @@ pub struct VkDescriptorSetVariableDescriptorCountAllocateInfo {
     pub pDescriptorCounts: *const u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkDescriptorSetVariableDescriptorCountAllocateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkDescriptorSetVariableDescriptorCountAllocateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkDescriptorSetVariableDescriptorCountAllocateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO,
@@ -22056,6 +23536,10 @@ pub struct VkDescriptorSetVariableDescriptorCountLayoutSupport {
     pub maxVariableDescriptorCount: u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkDescriptorSetVariableDescriptorCountLayoutSupport {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkDescriptorSetVariableDescriptorCountLayoutSupport {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkDescriptorSetVariableDescriptorCountLayoutSupport {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT,
@@ -22094,6 +23578,10 @@ pub struct VkPhysicalDevice8BitStorageFeatures {
     pub uniformAndStorageBuffer8BitAccess: VkBool32,
     pub storagePushConstant8: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDevice8BitStorageFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDevice8BitStorageFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDevice8BitStorageFeatures {
     pub const DEFAULT: Self = Self {
@@ -22145,6 +23633,10 @@ pub struct VkPhysicalDeviceShaderAtomicInt64Features {
     pub shaderSharedInt64Atomics: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceShaderAtomicInt64Features {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceShaderAtomicInt64Features {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceShaderAtomicInt64Features {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES,
@@ -22188,6 +23680,10 @@ pub struct VkPhysicalDeviceScalarBlockLayoutFeatures {
     pub scalarBlockLayout: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceScalarBlockLayoutFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceScalarBlockLayoutFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceScalarBlockLayoutFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES,
@@ -22224,6 +23720,10 @@ pub struct VkPhysicalDeviceUniformBufferStandardLayoutFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub uniformBufferStandardLayout: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceUniformBufferStandardLayoutFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceUniformBufferStandardLayoutFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
 impl VkPhysicalDeviceUniformBufferStandardLayoutFeatures {
     pub const DEFAULT: Self = Self {
@@ -22265,6 +23765,10 @@ pub struct VkPhysicalDeviceInlineUniformBlockFeatures {
     pub inlineUniformBlock: VkBool32,
     pub descriptorBindingInlineUniformBlockUpdateAfterBind: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceInlineUniformBlockFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceInlineUniformBlockFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceInlineUniformBlockFeatures {
     pub const DEFAULT: Self = Self {
@@ -22324,6 +23828,10 @@ pub struct VkPhysicalDeviceInlineUniformBlockProperties {
     /// Limit Type: [Max]
     pub maxDescriptorSetUpdateAfterBindInlineUniformBlocks: u32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceInlineUniformBlockProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceInlineUniformBlockProperties {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceInlineUniformBlockProperties {
     pub const DEFAULT: Self = Self {
@@ -22394,6 +23902,10 @@ pub struct VkWriteDescriptorSetInlineUniformBlock {
     pub pData: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkWriteDescriptorSetInlineUniformBlock {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkWriteDescriptorSetInlineUniformBlock {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkWriteDescriptorSetInlineUniformBlock {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK,
@@ -22439,6 +23951,10 @@ pub struct VkDescriptorPoolInlineUniformBlockCreateInfo {
     pub maxInlineUniformBlockBindings: u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkDescriptorPoolInlineUniformBlockCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkDescriptorPoolInlineUniformBlockCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkDescriptorPoolInlineUniformBlockCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO,
@@ -22472,6 +23988,10 @@ pub struct VkPipelineCreationFeedback {
     pub flags: VkPipelineCreationFeedbackFlags,
     pub duration: u64,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPipelineCreationFeedback {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPipelineCreationFeedback {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPipelineCreationFeedback {
     pub const DEFAULT: Self = Self {
@@ -22510,6 +24030,10 @@ pub struct VkPipelineCreationFeedbackCreateInfo {
     /// Length: pipelineStageCreationFeedbackCount
     pub pPipelineStageCreationFeedbacks: *mut VkPipelineCreationFeedback,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPipelineCreationFeedbackCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPipelineCreationFeedbackCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPipelineCreationFeedbackCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -22570,6 +24094,10 @@ pub struct VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures {
     pub shaderDemoteToHelperInvocation: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES,
@@ -22617,6 +24145,10 @@ pub struct VkPhysicalDeviceTexelBufferAlignmentProperties {
     /// Limit Type: [Exact]
     pub uniformTexelBufferOffsetSingleTexelAlignment: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceTexelBufferAlignmentProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceTexelBufferAlignmentProperties {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceTexelBufferAlignmentProperties {
     pub const DEFAULT: Self = Self {
@@ -22680,6 +24212,10 @@ pub struct VkPhysicalDeviceSubgroupSizeControlFeatures {
     pub computeFullSubgroups: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceSubgroupSizeControlFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceSubgroupSizeControlFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceSubgroupSizeControlFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES,
@@ -22733,6 +24269,10 @@ pub struct VkPhysicalDeviceSubgroupSizeControlProperties {
     /// Limit Type: [Bitmask]
     pub requiredSubgroupSizeStages: VkShaderStageFlags,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceSubgroupSizeControlProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceSubgroupSizeControlProperties {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceSubgroupSizeControlProperties {
     pub const DEFAULT: Self = Self {
@@ -22789,6 +24329,10 @@ pub struct VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {
     pub requiredSubgroupSize: u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO,
@@ -22825,6 +24369,10 @@ pub struct VkPhysicalDevicePipelineCreationCacheControlFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub pipelineCreationCacheControl: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDevicePipelineCreationCacheControlFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDevicePipelineCreationCacheControlFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDevicePipelineCreationCacheControlFeatures {
     pub const DEFAULT: Self = Self {
@@ -22863,6 +24411,10 @@ pub struct VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {
     pub shaderZeroInitializeWorkgroupMemory: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES,
@@ -22899,6 +24451,10 @@ pub struct VkPhysicalDeviceImageRobustnessFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub robustImageAccess: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceImageRobustnessFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceImageRobustnessFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceImageRobustnessFeatures {
     pub const DEFAULT: Self = Self {
@@ -22937,6 +24493,10 @@ pub struct VkPhysicalDeviceShaderTerminateInvocationFeatures {
     pub shaderTerminateInvocation: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceShaderTerminateInvocationFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceShaderTerminateInvocationFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceShaderTerminateInvocationFeatures {
     pub const DEFAULT: Self = Self {
         sType:
@@ -22974,6 +24534,10 @@ pub struct VkPhysicalDeviceShaderIntegerDotProductFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub shaderIntegerDotProduct: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceShaderIntegerDotProductFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceShaderIntegerDotProductFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceShaderIntegerDotProductFeatures {
     pub const DEFAULT: Self = Self {
@@ -23075,6 +24639,10 @@ pub struct VkPhysicalDeviceShaderIntegerDotProductProperties {
     /// Limit Type: [Max]
     pub integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceShaderIntegerDotProductProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceShaderIntegerDotProductProperties {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPhysicalDeviceShaderIntegerDotProductProperties {
     pub const DEFAULT: Self = Self {
@@ -23358,6 +24926,10 @@ pub struct VkPipelineCreateFlags2CreateInfo {
     pub flags: VkPipelineCreateFlags2,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPipelineCreateFlags2CreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPipelineCreateFlags2CreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPipelineCreateFlags2CreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO,
@@ -23400,6 +24972,10 @@ pub struct VkPhysicalDevicePushDescriptorProperties {
     pub maxPushDescriptors: u32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDevicePushDescriptorProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDevicePushDescriptorProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPhysicalDevicePushDescriptorProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES,
@@ -23436,6 +25012,10 @@ pub struct VkPhysicalDevicePipelineProtectedAccessFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub pipelineProtectedAccess: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDevicePipelineProtectedAccessFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDevicePipelineProtectedAccessFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPhysicalDevicePipelineProtectedAccessFeatures {
     pub const DEFAULT: Self = Self {
@@ -23474,6 +25054,10 @@ pub struct VkPhysicalDevicePipelineRobustnessFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub pipelineRobustness: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDevicePipelineRobustnessFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDevicePipelineRobustnessFeatures {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPhysicalDevicePipelineRobustnessFeatures {
     pub const DEFAULT: Self = Self {
@@ -23514,6 +25098,10 @@ pub struct VkPipelineRobustnessCreateInfo {
     pub vertexInputs: VkPipelineRobustnessBufferBehavior,
     pub images: VkPipelineRobustnessImageBehavior,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPipelineRobustnessCreateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPipelineRobustnessCreateInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPipelineRobustnessCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -23580,6 +25168,10 @@ pub struct VkPhysicalDevicePipelineRobustnessProperties {
     /// Limit Type: [Exact]
     pub defaultRobustnessImages: VkPipelineRobustnessImageBehavior,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDevicePipelineRobustnessProperties {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDevicePipelineRobustnessProperties {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPhysicalDevicePipelineRobustnessProperties {
     pub const DEFAULT: Self = Self {
@@ -23656,6 +25248,10 @@ pub struct VkBindDescriptorSetsInfo {
     /// Optional: pointer, values optional,  Length: dynamicOffsetCount
     pub pDynamicOffsets: *const u32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkBindDescriptorSetsInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkBindDescriptorSetsInfo {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkBindDescriptorSetsInfo {
     pub const DEFAULT: Self = Self {
@@ -23739,6 +25335,10 @@ pub struct VkPushConstantsInfo {
     pub pValues: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPushConstantsInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPushConstantsInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPushConstantsInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO,
@@ -23807,6 +25407,10 @@ pub struct VkPushDescriptorSetInfo {
     pub pDescriptorWrites: *const VkWriteDescriptorSet,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPushDescriptorSetInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPushDescriptorSetInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPushDescriptorSetInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO,
@@ -23873,6 +25477,10 @@ pub struct VkPushDescriptorSetWithTemplateInfo {
     pub pData: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPushDescriptorSetWithTemplateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPushDescriptorSetWithTemplateInfo {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPushDescriptorSetWithTemplateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO,
@@ -23931,6 +25539,10 @@ pub struct VkPhysicalDeviceShaderSubgroupRotateFeatures {
     pub shaderSubgroupRotateClustered: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceShaderSubgroupRotateFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceShaderSubgroupRotateFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPhysicalDeviceShaderSubgroupRotateFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES,
@@ -23974,6 +25586,10 @@ pub struct VkPhysicalDeviceShaderExpectAssumeFeatures {
     pub shaderExpectAssume: VkBool32,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceShaderExpectAssumeFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceShaderExpectAssumeFeatures {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPhysicalDeviceShaderExpectAssumeFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES,
@@ -24010,6 +25626,10 @@ pub struct VkPhysicalDeviceShaderFloatControls2Features {
     pub pNext: *mut core::ffi::c_void,
     pub shaderFloatControls2: VkBool32,
 }
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceShaderFloatControls2Features {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceShaderFloatControls2Features {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 impl VkPhysicalDeviceShaderFloatControls2Features {
     pub const DEFAULT: Self = Self {
@@ -24048,6 +25668,10 @@ pub struct VkPhysicalDevice4444FormatsFeaturesEXT {
     pub formatA4R4G4B4: VkBool32,
     pub formatA4B4G4R4: VkBool32,
 }
+#[cfg(feature = "VK_EXT_4444_formats")]
+unsafe impl Send for VkPhysicalDevice4444FormatsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_4444_formats")]
+unsafe impl Sync for VkPhysicalDevice4444FormatsFeaturesEXT {}
 #[cfg(feature = "VK_EXT_4444_formats")]
 impl VkPhysicalDevice4444FormatsFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -24088,22 +25712,36 @@ pub struct RROutput(pub *mut core::ffi::c_void);
 impl RROutput {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_acquire_xlib_display")]
+unsafe impl Send for RROutput {}
+#[cfg(feature = "VK_EXT_acquire_xlib_display")]
+unsafe impl Sync for RROutput {}
 /// [Display](https://docs.vulkan.org/refpages/latest/refpages/source/Display.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_EXT_acquire_xlib_display",
-    feature = "VK_KHR_xlib_surface"
+    feature = "VK_KHR_xlib_surface",
+    feature = "VK_EXT_acquire_xlib_display"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Display(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_EXT_acquire_xlib_display",
-    feature = "VK_KHR_xlib_surface"
+    feature = "VK_KHR_xlib_surface",
+    feature = "VK_EXT_acquire_xlib_display"
 ))]
 impl Display {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(any(
+    feature = "VK_KHR_xlib_surface",
+    feature = "VK_EXT_acquire_xlib_display"
+))]
+unsafe impl Send for Display {}
+#[cfg(any(
+    feature = "VK_KHR_xlib_surface",
+    feature = "VK_EXT_acquire_xlib_display"
+))]
+unsafe impl Sync for Display {}
 /// [VkApplicationParametersEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkApplicationParametersEXT.html)
 ///
 /// **Extends:** VkApplicationInfo, VkDeviceCreateInfo.
@@ -24121,6 +25759,10 @@ pub struct VkApplicationParametersEXT {
     pub key: u32,
     pub value: u64,
 }
+#[cfg(feature = "VK_EXT_application_parameters")]
+unsafe impl Send for VkApplicationParametersEXT {}
+#[cfg(feature = "VK_EXT_application_parameters")]
+unsafe impl Sync for VkApplicationParametersEXT {}
 #[cfg(feature = "VK_EXT_application_parameters")]
 impl VkApplicationParametersEXT {
     pub const DEFAULT: Self = Self {
@@ -24177,6 +25819,10 @@ pub struct VkImageViewASTCDecodeModeEXT {
     pub decodeMode: VkFormat,
 }
 #[cfg(feature = "VK_EXT_astc_decode_mode")]
+unsafe impl Send for VkImageViewASTCDecodeModeEXT {}
+#[cfg(feature = "VK_EXT_astc_decode_mode")]
+unsafe impl Sync for VkImageViewASTCDecodeModeEXT {}
+#[cfg(feature = "VK_EXT_astc_decode_mode")]
 impl VkImageViewASTCDecodeModeEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT,
@@ -24213,6 +25859,10 @@ pub struct VkPhysicalDeviceASTCDecodeFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub decodeModeSharedExponent: VkBool32,
 }
+#[cfg(feature = "VK_EXT_astc_decode_mode")]
+unsafe impl Send for VkPhysicalDeviceASTCDecodeFeaturesEXT {}
+#[cfg(feature = "VK_EXT_astc_decode_mode")]
+unsafe impl Sync for VkPhysicalDeviceASTCDecodeFeaturesEXT {}
 #[cfg(feature = "VK_EXT_astc_decode_mode")]
 impl VkPhysicalDeviceASTCDecodeFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -24251,6 +25901,10 @@ pub struct VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT {
     pub attachmentFeedbackLoopDynamicState: VkBool32,
 }
 #[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
+unsafe impl Send for VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT {}
+#[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
+unsafe impl Sync for VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT {}
+#[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
 impl VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT,
@@ -24288,6 +25942,10 @@ pub struct VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT {
     pub attachmentFeedbackLoopLayout: VkBool32,
 }
 #[cfg(feature = "VK_EXT_attachment_feedback_loop_layout")]
+unsafe impl Send for VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT {}
+#[cfg(feature = "VK_EXT_attachment_feedback_loop_layout")]
+unsafe impl Sync for VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT {}
+#[cfg(feature = "VK_EXT_attachment_feedback_loop_layout")]
 impl VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT,
@@ -24324,6 +25982,10 @@ pub struct VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub advancedBlendCoherentOperations: VkBool32,
 }
+#[cfg(feature = "VK_EXT_blend_operation_advanced")]
+unsafe impl Send for VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT {}
+#[cfg(feature = "VK_EXT_blend_operation_advanced")]
+unsafe impl Sync for VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT {}
 #[cfg(feature = "VK_EXT_blend_operation_advanced")]
 impl VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -24377,6 +26039,10 @@ pub struct VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT {
     /// Limit Type: [Max]
     pub advancedBlendAllOperations: VkBool32,
 }
+#[cfg(feature = "VK_EXT_blend_operation_advanced")]
+unsafe impl Send for VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT {}
+#[cfg(feature = "VK_EXT_blend_operation_advanced")]
+unsafe impl Sync for VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT {}
 #[cfg(feature = "VK_EXT_blend_operation_advanced")]
 impl VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -24447,6 +26113,10 @@ pub struct VkPipelineColorBlendAdvancedStateCreateInfoEXT {
     pub blendOverlap: VkBlendOverlapEXT,
 }
 #[cfg(feature = "VK_EXT_blend_operation_advanced")]
+unsafe impl Send for VkPipelineColorBlendAdvancedStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_blend_operation_advanced")]
+unsafe impl Sync for VkPipelineColorBlendAdvancedStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_blend_operation_advanced")]
 impl VkPipelineColorBlendAdvancedStateCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -24498,6 +26168,10 @@ pub struct VkSamplerBorderColorComponentMappingCreateInfoEXT {
     pub srgb: VkBool32,
 }
 #[cfg(feature = "VK_EXT_border_color_swizzle")]
+unsafe impl Send for VkSamplerBorderColorComponentMappingCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_border_color_swizzle")]
+unsafe impl Sync for VkSamplerBorderColorComponentMappingCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_border_color_swizzle")]
 impl VkSamplerBorderColorComponentMappingCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT,
@@ -24541,6 +26215,10 @@ pub struct VkPhysicalDeviceBorderColorSwizzleFeaturesEXT {
     pub borderColorSwizzle: VkBool32,
     pub borderColorSwizzleFromImage: VkBool32,
 }
+#[cfg(feature = "VK_EXT_border_color_swizzle")]
+unsafe impl Send for VkPhysicalDeviceBorderColorSwizzleFeaturesEXT {}
+#[cfg(feature = "VK_EXT_border_color_swizzle")]
+unsafe impl Sync for VkPhysicalDeviceBorderColorSwizzleFeaturesEXT {}
 #[cfg(feature = "VK_EXT_border_color_swizzle")]
 impl VkPhysicalDeviceBorderColorSwizzleFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -24586,6 +26264,10 @@ pub struct VkPhysicalDeviceBufferDeviceAddressFeaturesEXT {
     pub bufferDeviceAddressCaptureReplay: VkBool32,
     pub bufferDeviceAddressMultiDevice: VkBool32,
 }
+#[cfg(feature = "VK_EXT_buffer_device_address")]
+unsafe impl Send for VkPhysicalDeviceBufferDeviceAddressFeaturesEXT {}
+#[cfg(feature = "VK_EXT_buffer_device_address")]
+unsafe impl Sync for VkPhysicalDeviceBufferDeviceAddressFeaturesEXT {}
 #[cfg(feature = "VK_EXT_buffer_device_address")]
 impl VkPhysicalDeviceBufferDeviceAddressFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -24642,6 +26324,10 @@ pub struct VkBufferDeviceAddressCreateInfoEXT {
     pub deviceAddress: VkDeviceAddress,
 }
 #[cfg(feature = "VK_EXT_buffer_device_address")]
+unsafe impl Send for VkBufferDeviceAddressCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_buffer_device_address")]
+unsafe impl Sync for VkBufferDeviceAddressCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_buffer_device_address")]
 impl VkBufferDeviceAddressCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT,
@@ -24680,6 +26366,10 @@ pub struct VkPhysicalDeviceColorWriteEnableFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub colorWriteEnable: VkBool32,
 }
+#[cfg(feature = "VK_EXT_color_write_enable")]
+unsafe impl Send for VkPhysicalDeviceColorWriteEnableFeaturesEXT {}
+#[cfg(feature = "VK_EXT_color_write_enable")]
+unsafe impl Sync for VkPhysicalDeviceColorWriteEnableFeaturesEXT {}
 #[cfg(feature = "VK_EXT_color_write_enable")]
 impl VkPhysicalDeviceColorWriteEnableFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -24720,6 +26410,10 @@ pub struct VkPipelineColorWriteCreateInfoEXT {
     /// Length: attachmentCount
     pub pColorWriteEnables: *const VkBool32,
 }
+#[cfg(feature = "VK_EXT_color_write_enable")]
+unsafe impl Send for VkPipelineColorWriteCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_color_write_enable")]
+unsafe impl Sync for VkPipelineColorWriteCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_color_write_enable")]
 impl VkPipelineColorWriteCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -24771,6 +26465,10 @@ pub struct VkConditionalRenderingBeginInfoEXT {
     pub flags: VkConditionalRenderingFlagsEXT,
 }
 #[cfg(feature = "VK_EXT_conditional_rendering")]
+unsafe impl Send for VkConditionalRenderingBeginInfoEXT {}
+#[cfg(feature = "VK_EXT_conditional_rendering")]
+unsafe impl Sync for VkConditionalRenderingBeginInfoEXT {}
+#[cfg(feature = "VK_EXT_conditional_rendering")]
 impl VkConditionalRenderingBeginInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT,
@@ -24820,6 +26518,10 @@ pub struct VkCommandBufferInheritanceConditionalRenderingInfoEXT {
     pub conditionalRenderingEnable: VkBool32,
 }
 #[cfg(feature = "VK_EXT_conditional_rendering")]
+unsafe impl Send for VkCommandBufferInheritanceConditionalRenderingInfoEXT {}
+#[cfg(feature = "VK_EXT_conditional_rendering")]
+unsafe impl Sync for VkCommandBufferInheritanceConditionalRenderingInfoEXT {}
+#[cfg(feature = "VK_EXT_conditional_rendering")]
 impl VkCommandBufferInheritanceConditionalRenderingInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT,
@@ -24857,6 +26559,10 @@ pub struct VkPhysicalDeviceConditionalRenderingFeaturesEXT {
     pub conditionalRendering: VkBool32,
     pub inheritedConditionalRendering: VkBool32,
 }
+#[cfg(feature = "VK_EXT_conditional_rendering")]
+unsafe impl Send for VkPhysicalDeviceConditionalRenderingFeaturesEXT {}
+#[cfg(feature = "VK_EXT_conditional_rendering")]
+unsafe impl Sync for VkPhysicalDeviceConditionalRenderingFeaturesEXT {}
 #[cfg(feature = "VK_EXT_conditional_rendering")]
 impl VkPhysicalDeviceConditionalRenderingFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -24925,6 +26631,10 @@ pub struct VkPhysicalDeviceConservativeRasterizationPropertiesEXT {
     /// Limit Type: [Max]
     pub conservativeRasterizationPostDepthCoverage: VkBool32,
 }
+#[cfg(feature = "VK_EXT_conservative_rasterization")]
+unsafe impl Send for VkPhysicalDeviceConservativeRasterizationPropertiesEXT {}
+#[cfg(feature = "VK_EXT_conservative_rasterization")]
+unsafe impl Sync for VkPhysicalDeviceConservativeRasterizationPropertiesEXT {}
 #[cfg(feature = "VK_EXT_conservative_rasterization")]
 impl VkPhysicalDeviceConservativeRasterizationPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -25014,6 +26724,10 @@ pub struct VkPipelineRasterizationConservativeStateCreateInfoEXT {
     pub extraPrimitiveOverestimationSize: f32,
 }
 #[cfg(feature = "VK_EXT_conservative_rasterization")]
+unsafe impl Send for VkPipelineRasterizationConservativeStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_conservative_rasterization")]
+unsafe impl Sync for VkPipelineRasterizationConservativeStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_conservative_rasterization")]
 impl VkPipelineRasterizationConservativeStateCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT,
@@ -25071,6 +26785,10 @@ pub struct VkSamplerCustomBorderColorCreateInfoEXT {
     pub format: VkFormat,
 }
 #[cfg(feature = "VK_EXT_custom_border_color")]
+unsafe impl Send for VkSamplerCustomBorderColorCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_custom_border_color")]
+unsafe impl Sync for VkSamplerCustomBorderColorCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_custom_border_color")]
 impl VkSamplerCustomBorderColorCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT,
@@ -25119,6 +26837,10 @@ pub struct VkPhysicalDeviceCustomBorderColorPropertiesEXT {
     pub maxCustomBorderColorSamplers: u32,
 }
 #[cfg(feature = "VK_EXT_custom_border_color")]
+unsafe impl Send for VkPhysicalDeviceCustomBorderColorPropertiesEXT {}
+#[cfg(feature = "VK_EXT_custom_border_color")]
+unsafe impl Sync for VkPhysicalDeviceCustomBorderColorPropertiesEXT {}
+#[cfg(feature = "VK_EXT_custom_border_color")]
 impl VkPhysicalDeviceCustomBorderColorPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -25157,6 +26879,10 @@ pub struct VkPhysicalDeviceCustomBorderColorFeaturesEXT {
     pub customBorderColors: VkBool32,
     pub customBorderColorWithoutFormat: VkBool32,
 }
+#[cfg(feature = "VK_EXT_custom_border_color")]
+unsafe impl Send for VkPhysicalDeviceCustomBorderColorFeaturesEXT {}
+#[cfg(feature = "VK_EXT_custom_border_color")]
+unsafe impl Sync for VkPhysicalDeviceCustomBorderColorFeaturesEXT {}
 #[cfg(feature = "VK_EXT_custom_border_color")]
 impl VkPhysicalDeviceCustomBorderColorFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -25198,6 +26924,10 @@ pub struct VkBeginCustomResolveInfoEXT {
     pub pNext: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_EXT_custom_resolve")]
+unsafe impl Send for VkBeginCustomResolveInfoEXT {}
+#[cfg(feature = "VK_EXT_custom_resolve")]
+unsafe impl Sync for VkBeginCustomResolveInfoEXT {}
+#[cfg(feature = "VK_EXT_custom_resolve")]
 impl VkBeginCustomResolveInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BEGIN_CUSTOM_RESOLVE_INFO_EXT,
@@ -25228,6 +26958,10 @@ pub struct VkPhysicalDeviceCustomResolveFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub customResolve: VkBool32,
 }
+#[cfg(feature = "VK_EXT_custom_resolve")]
+unsafe impl Send for VkPhysicalDeviceCustomResolveFeaturesEXT {}
+#[cfg(feature = "VK_EXT_custom_resolve")]
+unsafe impl Sync for VkPhysicalDeviceCustomResolveFeaturesEXT {}
 #[cfg(feature = "VK_EXT_custom_resolve")]
 impl VkPhysicalDeviceCustomResolveFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -25273,6 +27007,10 @@ pub struct VkCustomResolveCreateInfoEXT {
     /// No Auto-Validity
     pub stencilAttachmentFormat: VkFormat,
 }
+#[cfg(feature = "VK_EXT_custom_resolve")]
+unsafe impl Send for VkCustomResolveCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_custom_resolve")]
+unsafe impl Sync for VkCustomResolveCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_custom_resolve")]
 impl VkCustomResolveCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -25339,6 +27077,10 @@ pub struct VkDebugMarkerObjectNameInfoEXT {
     pub pObjectName: *const core::ffi::c_char,
 }
 #[cfg(feature = "VK_EXT_debug_marker")]
+unsafe impl Send for VkDebugMarkerObjectNameInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_marker")]
+unsafe impl Sync for VkDebugMarkerObjectNameInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_marker")]
 impl VkDebugMarkerObjectNameInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_NAME_INFO_EXT,
@@ -25393,6 +27135,10 @@ pub struct VkDebugMarkerObjectTagInfoEXT {
     /// Length: tagSize
     pub pTag: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_debug_marker")]
+unsafe impl Send for VkDebugMarkerObjectTagInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_marker")]
+unsafe impl Sync for VkDebugMarkerObjectTagInfoEXT {}
 #[cfg(feature = "VK_EXT_debug_marker")]
 impl VkDebugMarkerObjectTagInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -25457,6 +27203,10 @@ pub struct VkDebugMarkerMarkerInfoEXT {
     pub color: [f32; 4],
 }
 #[cfg(feature = "VK_EXT_debug_marker")]
+unsafe impl Send for VkDebugMarkerMarkerInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_marker")]
+unsafe impl Sync for VkDebugMarkerMarkerInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_marker")]
 impl VkDebugMarkerMarkerInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEBUG_MARKER_MARKER_INFO_EXT,
@@ -25507,6 +27257,10 @@ impl Default for VkDebugReportCallbackEXT {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_EXT_debug_report")]
+unsafe impl Send for VkDebugReportCallbackEXT {}
+#[cfg(feature = "VK_EXT_debug_report")]
+unsafe impl Sync for VkDebugReportCallbackEXT {}
 /// [PFN_vkDebugReportCallbackEXT](https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkDebugReportCallbackEXT.html)
 #[cfg(feature = "VK_EXT_debug_report")]
 pub type PFN_vkDebugReportCallbackEXT = Option<
@@ -25538,6 +27292,10 @@ pub struct VkDebugReportCallbackCreateInfoEXT {
     /// Optional: true
     pub pUserData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_debug_report")]
+unsafe impl Send for VkDebugReportCallbackCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_report")]
+unsafe impl Sync for VkDebugReportCallbackCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_debug_report")]
 impl VkDebugReportCallbackCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -25604,6 +27362,10 @@ impl Default for VkDebugUtilsMessengerEXT {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Send for VkDebugUtilsMessengerEXT {}
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Sync for VkDebugUtilsMessengerEXT {}
 /// [PFN_vkDebugUtilsMessengerCallbackEXT](https://docs.vulkan.org/refpages/latest/refpages/source/PFN_vkDebugUtilsMessengerCallbackEXT.html)
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkDebugUtilsMessengerCallbackEXT = Option<
@@ -25631,6 +27393,10 @@ pub struct VkDebugUtilsObjectNameInfoEXT {
     /// Optional: true,  Length: null-terminated
     pub pObjectName: *const core::ffi::c_char,
 }
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Send for VkDebugUtilsObjectNameInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Sync for VkDebugUtilsObjectNameInfoEXT {}
 #[cfg(feature = "VK_EXT_debug_utils")]
 impl VkDebugUtilsObjectNameInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -25686,6 +27452,10 @@ pub struct VkDebugUtilsObjectTagInfoEXT {
     /// Length: tagSize
     pub pTag: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Send for VkDebugUtilsObjectTagInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Sync for VkDebugUtilsObjectTagInfoEXT {}
 #[cfg(feature = "VK_EXT_debug_utils")]
 impl VkDebugUtilsObjectTagInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -25750,6 +27520,10 @@ pub struct VkDebugUtilsLabelEXT {
     pub color: [f32; 4],
 }
 #[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Send for VkDebugUtilsLabelEXT {}
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Sync for VkDebugUtilsLabelEXT {}
+#[cfg(feature = "VK_EXT_debug_utils")]
 impl VkDebugUtilsLabelEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT,
@@ -25800,6 +27574,10 @@ pub struct VkDebugUtilsMessengerCreateInfoEXT {
     /// Optional: true
     pub pUserData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Send for VkDebugUtilsMessengerCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Sync for VkDebugUtilsMessengerCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_debug_utils")]
 impl VkDebugUtilsMessengerCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -25879,6 +27657,10 @@ pub struct VkDebugUtilsMessengerCallbackDataEXT {
     /// Length: objectCount
     pub pObjects: *const VkDebugUtilsObjectNameInfoEXT,
 }
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Send for VkDebugUtilsMessengerCallbackDataEXT {}
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl Sync for VkDebugUtilsMessengerCallbackDataEXT {}
 #[cfg(feature = "VK_EXT_debug_utils")]
 impl VkDebugUtilsMessengerCallbackDataEXT {
     pub const DEFAULT: Self = Self {
@@ -25981,6 +27763,10 @@ pub struct VkDepthBiasInfoEXT {
     pub depthBiasSlopeFactor: f32,
 }
 #[cfg(feature = "VK_EXT_depth_bias_control")]
+unsafe impl Send for VkDepthBiasInfoEXT {}
+#[cfg(feature = "VK_EXT_depth_bias_control")]
+unsafe impl Sync for VkDepthBiasInfoEXT {}
+#[cfg(feature = "VK_EXT_depth_bias_control")]
 impl VkDepthBiasInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEPTH_BIAS_INFO_EXT,
@@ -26031,6 +27817,10 @@ pub struct VkDepthBiasRepresentationInfoEXT {
     pub depthBiasExact: VkBool32,
 }
 #[cfg(feature = "VK_EXT_depth_bias_control")]
+unsafe impl Send for VkDepthBiasRepresentationInfoEXT {}
+#[cfg(feature = "VK_EXT_depth_bias_control")]
+unsafe impl Sync for VkDepthBiasRepresentationInfoEXT {}
+#[cfg(feature = "VK_EXT_depth_bias_control")]
 impl VkDepthBiasRepresentationInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEPTH_BIAS_REPRESENTATION_INFO_EXT,
@@ -26076,6 +27866,10 @@ pub struct VkPhysicalDeviceDepthBiasControlFeaturesEXT {
     pub floatRepresentation: VkBool32,
     pub depthBiasExact: VkBool32,
 }
+#[cfg(feature = "VK_EXT_depth_bias_control")]
+unsafe impl Send for VkPhysicalDeviceDepthBiasControlFeaturesEXT {}
+#[cfg(feature = "VK_EXT_depth_bias_control")]
+unsafe impl Sync for VkPhysicalDeviceDepthBiasControlFeaturesEXT {}
 #[cfg(feature = "VK_EXT_depth_bias_control")]
 impl VkPhysicalDeviceDepthBiasControlFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -26135,6 +27929,10 @@ pub struct VkPhysicalDeviceDepthClampControlFeaturesEXT {
     pub depthClampControl: VkBool32,
 }
 #[cfg(feature = "VK_EXT_depth_clamp_control")]
+unsafe impl Send for VkPhysicalDeviceDepthClampControlFeaturesEXT {}
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
+unsafe impl Sync for VkPhysicalDeviceDepthClampControlFeaturesEXT {}
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
 impl VkPhysicalDeviceDepthClampControlFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT,
@@ -26173,6 +27971,10 @@ pub struct VkPipelineViewportDepthClampControlCreateInfoEXT {
     /// Optional: true
     pub pDepthClampRange: *const VkDepthClampRangeEXT,
 }
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
+unsafe impl Send for VkPipelineViewportDepthClampControlCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
+unsafe impl Sync for VkPipelineViewportDepthClampControlCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_depth_clamp_control")]
 impl VkPipelineViewportDepthClampControlCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -26215,6 +28017,10 @@ pub struct VkDepthClampRangeEXT {
     pub maxDepthClamp: f32,
 }
 #[cfg(feature = "VK_EXT_depth_clamp_control")]
+unsafe impl Send for VkDepthClampRangeEXT {}
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
+unsafe impl Sync for VkDepthClampRangeEXT {}
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
 impl VkDepthClampRangeEXT {
     pub const DEFAULT: Self = Self {
         minDepthClamp: 0.0f32,
@@ -26252,6 +28058,10 @@ pub struct VkPhysicalDeviceDepthClipControlFeaturesEXT {
     pub depthClipControl: VkBool32,
 }
 #[cfg(feature = "VK_EXT_depth_clip_control")]
+unsafe impl Send for VkPhysicalDeviceDepthClipControlFeaturesEXT {}
+#[cfg(feature = "VK_EXT_depth_clip_control")]
+unsafe impl Sync for VkPhysicalDeviceDepthClipControlFeaturesEXT {}
+#[cfg(feature = "VK_EXT_depth_clip_control")]
 impl VkPhysicalDeviceDepthClipControlFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT,
@@ -26288,6 +28098,10 @@ pub struct VkPipelineViewportDepthClipControlCreateInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub negativeOneToOne: VkBool32,
 }
+#[cfg(feature = "VK_EXT_depth_clip_control")]
+unsafe impl Send for VkPipelineViewportDepthClipControlCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_depth_clip_control")]
+unsafe impl Sync for VkPipelineViewportDepthClipControlCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_depth_clip_control")]
 impl VkPipelineViewportDepthClipControlCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -26330,6 +28144,10 @@ pub struct VkPhysicalDeviceDepthClipEnableFeaturesEXT {
     pub depthClipEnable: VkBool32,
 }
 #[cfg(feature = "VK_EXT_depth_clip_enable")]
+unsafe impl Send for VkPhysicalDeviceDepthClipEnableFeaturesEXT {}
+#[cfg(feature = "VK_EXT_depth_clip_enable")]
+unsafe impl Sync for VkPhysicalDeviceDepthClipEnableFeaturesEXT {}
+#[cfg(feature = "VK_EXT_depth_clip_enable")]
 impl VkPhysicalDeviceDepthClipEnableFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT,
@@ -26368,6 +28186,10 @@ pub struct VkPipelineRasterizationDepthClipStateCreateInfoEXT {
     pub flags: VkPipelineRasterizationDepthClipStateCreateFlagsEXT,
     pub depthClipEnable: VkBool32,
 }
+#[cfg(feature = "VK_EXT_depth_clip_enable")]
+unsafe impl Send for VkPipelineRasterizationDepthClipStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_depth_clip_enable")]
+unsafe impl Sync for VkPipelineRasterizationDepthClipStateCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_depth_clip_enable")]
 impl VkPipelineRasterizationDepthClipStateCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -26417,6 +28239,10 @@ pub struct VkPhysicalDeviceDescriptorBufferFeaturesEXT {
     pub descriptorBufferImageLayoutIgnored: VkBool32,
     pub descriptorBufferPushDescriptors: VkBool32,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkPhysicalDeviceDescriptorBufferFeaturesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorBufferFeaturesEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkPhysicalDeviceDescriptorBufferFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -26541,6 +28367,10 @@ pub struct VkPhysicalDeviceDescriptorBufferPropertiesEXT {
     /// Limit Type: [Max]
     pub descriptorBufferAddressSpaceSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkPhysicalDeviceDescriptorBufferPropertiesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorBufferPropertiesEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkPhysicalDeviceDescriptorBufferPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -26782,6 +28612,10 @@ pub struct VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT {
     pub combinedImageSamplerDensityMapDescriptorSize: usize,
 }
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT,
@@ -26819,6 +28653,10 @@ pub struct VkDescriptorAddressInfoEXT {
     pub range: VkDeviceSize,
     pub format: VkFormat,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkDescriptorAddressInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkDescriptorAddressInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkDescriptorAddressInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -26869,6 +28707,10 @@ pub struct VkDescriptorBufferBindingInfoEXT {
     pub usage: VkBufferUsageFlags,
 }
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkDescriptorBufferBindingInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkDescriptorBufferBindingInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkDescriptorBufferBindingInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT,
@@ -26911,6 +28753,10 @@ pub struct VkDescriptorBufferBindingPushDescriptorBufferHandleEXT {
     pub pNext: *const core::ffi::c_void,
     pub buffer: VkBuffer,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkDescriptorBufferBindingPushDescriptorBufferHandleEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkDescriptorBufferBindingPushDescriptorBufferHandleEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkDescriptorBufferBindingPushDescriptorBufferHandleEXT {
     pub const DEFAULT: Self = Self {
@@ -26958,6 +28804,10 @@ pub union VkDescriptorDataEXT {
     pub accelerationStructure: VkDeviceAddress,
 }
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkDescriptorDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkDescriptorDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkDescriptorDataEXT {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -26990,6 +28840,10 @@ pub struct VkDescriptorGetInfoEXT {
     /// No Auto-Validity
     pub data: VkDescriptorDataEXT,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkDescriptorGetInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkDescriptorGetInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkDescriptorGetInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27032,6 +28886,10 @@ pub struct VkBufferCaptureDescriptorDataInfoEXT {
     pub buffer: VkBuffer,
 }
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkBufferCaptureDescriptorDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkBufferCaptureDescriptorDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkBufferCaptureDescriptorDataInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
@@ -27066,6 +28924,10 @@ pub struct VkImageCaptureDescriptorDataInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub image: VkImage,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkImageCaptureDescriptorDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkImageCaptureDescriptorDataInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkImageCaptureDescriptorDataInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27102,6 +28964,10 @@ pub struct VkImageViewCaptureDescriptorDataInfoEXT {
     pub imageView: VkImageView,
 }
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkImageViewCaptureDescriptorDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkImageViewCaptureDescriptorDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkImageViewCaptureDescriptorDataInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
@@ -27136,6 +29002,10 @@ pub struct VkSamplerCaptureDescriptorDataInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub sampler: VkSampler,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkSamplerCaptureDescriptorDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkSamplerCaptureDescriptorDataInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkSamplerCaptureDescriptorDataInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27174,6 +29044,10 @@ pub struct VkAccelerationStructureCaptureDescriptorDataInfoEXT {
     /// Optional: true
     pub accelerationStructureNV: VkAccelerationStructureNV,
 }
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkAccelerationStructureCaptureDescriptorDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkAccelerationStructureCaptureDescriptorDataInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkAccelerationStructureCaptureDescriptorDataInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27218,6 +29092,10 @@ pub struct VkOpaqueCaptureDescriptorDataCreateInfoEXT {
     pub opaqueCaptureDescriptorData: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Send for VkOpaqueCaptureDescriptorDataCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+unsafe impl Sync for VkOpaqueCaptureDescriptorDataCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
 impl VkOpaqueCaptureDescriptorDataCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT,
@@ -27256,6 +29134,10 @@ pub struct VkHostAddressRangeEXT {
     pub size: usize,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkHostAddressRangeEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkHostAddressRangeEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkHostAddressRangeEXT {
     pub const DEFAULT: Self = Self {
         address: core::ptr::null_mut(),
@@ -27287,6 +29169,10 @@ pub struct VkHostAddressRangeConstEXT {
     pub address: *const core::ffi::c_void,
     pub size: usize,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkHostAddressRangeConstEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkHostAddressRangeConstEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkHostAddressRangeConstEXT {
     pub const DEFAULT: Self = Self {
@@ -27322,6 +29208,10 @@ pub struct VkTexelBufferDescriptorInfoEXT {
     pub format: VkFormat,
     pub addressRange: VkDeviceAddressRangeEXT,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkTexelBufferDescriptorInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkTexelBufferDescriptorInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkTexelBufferDescriptorInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27364,6 +29254,10 @@ pub struct VkImageDescriptorInfoEXT {
     pub pView: *const VkImageViewCreateInfo,
     pub layout: VkImageLayout,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkImageDescriptorInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkImageDescriptorInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkImageDescriptorInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27411,6 +29305,10 @@ pub union VkResourceDescriptorDataEXT {
     pub pTensorARM: *const VkTensorViewCreateInfoARM,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkResourceDescriptorDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkResourceDescriptorDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkResourceDescriptorDataEXT {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -27442,6 +29340,10 @@ pub struct VkResourceDescriptorInfoEXT {
     pub type_: VkDescriptorType,
     pub data: VkResourceDescriptorDataEXT,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkResourceDescriptorInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkResourceDescriptorInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkResourceDescriptorInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27485,6 +29387,10 @@ pub struct VkBindHeapInfoEXT {
     pub reservedRangeOffset: VkDeviceSize,
     pub reservedRangeSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkBindHeapInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkBindHeapInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkBindHeapInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -27534,6 +29440,10 @@ pub struct VkPushDataInfoEXT {
     pub data: VkHostAddressRangeConstEXT,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkPushDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkPushDataInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkPushDataInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_DATA_INFO_EXT,
@@ -27575,6 +29485,10 @@ pub struct VkDescriptorMappingSourceConstantOffsetEXT {
     pub samplerHeapOffset: u32,
     pub samplerHeapArrayStride: u32,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourceConstantOffsetEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourceConstantOffsetEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceConstantOffsetEXT {
     pub const DEFAULT: Self = Self {
@@ -27633,6 +29547,10 @@ pub struct VkDescriptorMappingSourcePushIndexEXT {
     pub samplerHeapIndexStride: u32,
     pub samplerHeapArrayStride: u32,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourcePushIndexEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourcePushIndexEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourcePushIndexEXT {
     pub const DEFAULT: Self = Self {
@@ -27723,6 +29641,10 @@ pub struct VkDescriptorMappingSourceIndirectIndexEXT {
     pub samplerHeapIndexStride: u32,
     pub samplerHeapArrayStride: u32,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourceIndirectIndexEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourceIndirectIndexEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceIndirectIndexEXT {
     pub const DEFAULT: Self = Self {
@@ -27824,6 +29746,10 @@ pub struct VkDescriptorMappingSourceIndirectIndexArrayEXT {
     pub samplerHeapIndexStride: u32,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourceIndirectIndexArrayEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourceIndirectIndexArrayEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceIndirectIndexArrayEXT {
     pub const DEFAULT: Self = Self {
         heapOffset: 0,
@@ -27903,6 +29829,10 @@ pub struct VkDescriptorMappingSourceHeapDataEXT {
     pub pushOffset: u32,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourceHeapDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourceHeapDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceHeapDataEXT {
     pub const DEFAULT: Self = Self {
         heapOffset: 0,
@@ -27940,6 +29870,10 @@ pub struct VkDescriptorMappingSourceShaderRecordIndexEXT {
     pub samplerHeapIndexStride: u32,
     pub samplerHeapArrayStride: u32,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourceShaderRecordIndexEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourceShaderRecordIndexEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceShaderRecordIndexEXT {
     pub const DEFAULT: Self = Self {
@@ -28020,6 +29954,10 @@ pub struct VkDescriptorMappingSourceIndirectAddressEXT {
     pub addressOffset: u32,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourceIndirectAddressEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourceIndirectAddressEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceIndirectAddressEXT {
     pub const DEFAULT: Self = Self {
         pushOffset: 0,
@@ -28058,6 +29996,10 @@ pub union VkDescriptorMappingSourceDataEXT {
     pub shaderRecordAddressOffset: u32,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorMappingSourceDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorMappingSourceDataEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceDataEXT {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -28093,6 +30035,10 @@ pub struct VkDescriptorSetAndBindingMappingEXT {
     pub source: VkDescriptorMappingSourceEXT,
     pub sourceData: VkDescriptorMappingSourceDataEXT,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkDescriptorSetAndBindingMappingEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkDescriptorSetAndBindingMappingEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorSetAndBindingMappingEXT {
     pub const DEFAULT: Self = Self {
@@ -28164,6 +30110,10 @@ pub struct VkShaderDescriptorSetAndBindingMappingInfoEXT {
     pub pMappings: *const VkDescriptorSetAndBindingMappingEXT,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkShaderDescriptorSetAndBindingMappingInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkShaderDescriptorSetAndBindingMappingInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkShaderDescriptorSetAndBindingMappingInfoEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -28210,6 +30160,10 @@ pub struct VkSamplerCustomBorderColorIndexCreateInfoEXT {
     pub index: u32,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkSamplerCustomBorderColorIndexCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkSamplerCustomBorderColorIndexCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkSamplerCustomBorderColorIndexCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT,
@@ -28247,6 +30201,10 @@ pub struct VkOpaqueCaptureDataCreateInfoEXT {
     /// Optional: true
     pub pData: *const VkHostAddressRangeConstEXT,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkOpaqueCaptureDataCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkOpaqueCaptureDataCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkOpaqueCaptureDataCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -28287,6 +30245,10 @@ pub struct VkIndirectCommandsLayoutPushDataTokenNV {
     pub pushDataOffset: u32,
     pub pushDataSize: u32,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkIndirectCommandsLayoutPushDataTokenNV {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkIndirectCommandsLayoutPushDataTokenNV {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkIndirectCommandsLayoutPushDataTokenNV {
     pub const DEFAULT: Self = Self {
@@ -28331,6 +30293,10 @@ pub struct VkSubsampledImageFormatPropertiesEXT {
     pub subsampledImageDescriptorCount: u32,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkSubsampledImageFormatPropertiesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkSubsampledImageFormatPropertiesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkSubsampledImageFormatPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT,
@@ -28368,6 +30334,10 @@ pub struct VkPhysicalDeviceDescriptorHeapFeaturesEXT {
     pub descriptorHeap: VkBool32,
     pub descriptorHeapCaptureReplay: VkBool32,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkPhysicalDeviceDescriptorHeapFeaturesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorHeapFeaturesEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkPhysicalDeviceDescriptorHeapFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -28452,6 +30422,10 @@ pub struct VkPhysicalDeviceDescriptorHeapPropertiesEXT {
     /// Limit Type: [Exact]
     pub protectedDescriptorHeaps: VkBool32,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkPhysicalDeviceDescriptorHeapPropertiesEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorHeapPropertiesEXT {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkPhysicalDeviceDescriptorHeapPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -28601,6 +30575,10 @@ pub struct VkCommandBufferInheritanceDescriptorHeapInfoEXT {
     pub pResourceHeapBindInfo: *const VkBindHeapInfoEXT,
 }
 #[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkCommandBufferInheritanceDescriptorHeapInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkCommandBufferInheritanceDescriptorHeapInfoEXT {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkCommandBufferInheritanceDescriptorHeapInfoEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -28657,6 +30635,10 @@ pub struct VkPhysicalDeviceDescriptorHeapTensorPropertiesARM {
     /// Limit Type: [Noauto]
     pub tensorCaptureReplayOpaqueDataSize: usize,
 }
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Send for VkPhysicalDeviceDescriptorHeapTensorPropertiesARM {}
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorHeapTensorPropertiesARM {}
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkPhysicalDeviceDescriptorHeapTensorPropertiesARM {
     pub const DEFAULT: Self = Self {
@@ -28729,6 +30711,10 @@ pub struct VkPhysicalDeviceAddressBindingReportFeaturesEXT {
     pub reportAddressBinding: VkBool32,
 }
 #[cfg(feature = "VK_EXT_device_address_binding_report")]
+unsafe impl Send for VkPhysicalDeviceAddressBindingReportFeaturesEXT {}
+#[cfg(feature = "VK_EXT_device_address_binding_report")]
+unsafe impl Sync for VkPhysicalDeviceAddressBindingReportFeaturesEXT {}
+#[cfg(feature = "VK_EXT_device_address_binding_report")]
 impl VkPhysicalDeviceAddressBindingReportFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -28770,6 +30756,10 @@ pub struct VkDeviceAddressBindingCallbackDataEXT {
     pub size: VkDeviceSize,
     pub bindingType: VkDeviceAddressBindingTypeEXT,
 }
+#[cfg(feature = "VK_EXT_device_address_binding_report")]
+unsafe impl Send for VkDeviceAddressBindingCallbackDataEXT {}
+#[cfg(feature = "VK_EXT_device_address_binding_report")]
+unsafe impl Sync for VkDeviceAddressBindingCallbackDataEXT {}
 #[cfg(feature = "VK_EXT_device_address_binding_report")]
 impl VkDeviceAddressBindingCallbackDataEXT {
     pub const DEFAULT: Self = Self {
@@ -28827,6 +30817,10 @@ pub struct VkPhysicalDeviceFaultFeaturesEXT {
     pub deviceFaultVendorBinary: VkBool32,
 }
 #[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Send for VkPhysicalDeviceFaultFeaturesEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Sync for VkPhysicalDeviceFaultFeaturesEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
 impl VkPhysicalDeviceFaultFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_FEATURES_EXT,
@@ -28868,6 +30862,10 @@ pub struct VkDeviceFaultAddressInfoEXT {
     pub addressPrecision: VkDeviceSize,
 }
 #[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Send for VkDeviceFaultAddressInfoEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Sync for VkDeviceFaultAddressInfoEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
 impl VkDeviceFaultAddressInfoEXT {
     pub const DEFAULT: Self = Self {
         addressType: VkDeviceFaultAddressTypeEXT(0),
@@ -28906,6 +30904,10 @@ pub struct VkDeviceFaultVendorInfoEXT {
     pub vendorFaultCode: u64,
     pub vendorFaultData: u64,
 }
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Send for VkDeviceFaultVendorInfoEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Sync for VkDeviceFaultVendorInfoEXT {}
 #[cfg(feature = "VK_EXT_device_fault")]
 impl VkDeviceFaultVendorInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -28952,6 +30954,10 @@ pub struct VkDeviceFaultCountsEXT {
     /// Optional: true
     pub vendorBinarySize: VkDeviceSize,
 }
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Send for VkDeviceFaultCountsEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Sync for VkDeviceFaultCountsEXT {}
 #[cfg(feature = "VK_EXT_device_fault")]
 impl VkDeviceFaultCountsEXT {
     pub const DEFAULT: Self = Self {
@@ -29008,6 +31014,10 @@ pub struct VkDeviceFaultInfoEXT {
     /// Optional: true
     pub pVendorBinaryData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Send for VkDeviceFaultInfoEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Sync for VkDeviceFaultInfoEXT {}
 #[cfg(feature = "VK_EXT_device_fault")]
 impl VkDeviceFaultInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -29076,6 +31086,10 @@ pub struct VkDeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub engineVersion: u32,
     pub apiVersion: u32,
 }
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Send for VkDeviceFaultVendorBinaryHeaderVersionOneEXT {}
+#[cfg(feature = "VK_EXT_device_fault")]
+unsafe impl Sync for VkDeviceFaultVendorBinaryHeaderVersionOneEXT {}
 #[cfg(feature = "VK_EXT_device_fault")]
 impl VkDeviceFaultVendorBinaryHeaderVersionOneEXT {
     pub const DEFAULT: Self = Self {
@@ -29176,6 +31190,10 @@ impl Default for VkIndirectCommandsLayoutEXT {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsLayoutEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsLayoutEXT {}
 /// [VkIndirectExecutionSetEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectExecutionSetEXT.html)
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 #[repr(transparent)]
@@ -29192,6 +31210,10 @@ impl Default for VkIndirectExecutionSetEXT {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectExecutionSetEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectExecutionSetEXT {}
 /// [VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -29206,6 +31228,10 @@ pub struct VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {
     pub deviceGeneratedCommands: VkBool32,
     pub dynamicGeneratedPipelineLayout: VkBool32,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -29276,6 +31302,10 @@ pub struct VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
     /// Limit Type: [Max]
     pub deviceGeneratedCommandsMultiDrawIndirectCount: VkBool32,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -29395,6 +31425,10 @@ pub struct VkGeneratedCommandsPipelineInfoEXT {
     pub pipeline: VkPipeline,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkGeneratedCommandsPipelineInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkGeneratedCommandsPipelineInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkGeneratedCommandsPipelineInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_PIPELINE_INFO_EXT,
@@ -29433,6 +31467,10 @@ pub struct VkGeneratedCommandsShaderInfoEXT {
     /// Length: shaderCount
     pub pShaders: *const VkShaderEXT,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkGeneratedCommandsShaderInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkGeneratedCommandsShaderInfoEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkGeneratedCommandsShaderInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -29480,6 +31518,10 @@ pub struct VkGeneratedCommandsMemoryRequirementsInfoEXT {
     pub maxSequenceCount: u32,
     pub maxDrawCount: u32,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkGeneratedCommandsMemoryRequirementsInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkGeneratedCommandsMemoryRequirementsInfoEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkGeneratedCommandsMemoryRequirementsInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -29535,6 +31577,10 @@ pub struct VkIndirectExecutionSetPipelineInfoEXT {
     pub maxPipelineCount: u32,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectExecutionSetPipelineInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectExecutionSetPipelineInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectExecutionSetPipelineInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT,
@@ -29578,6 +31624,10 @@ pub struct VkIndirectExecutionSetShaderLayoutInfoEXT {
     /// Optional: pointer required, values optional if pointer not null,  Length: setLayoutCount
     pub pSetLayouts: *const VkDescriptorSetLayout,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectExecutionSetShaderLayoutInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectExecutionSetShaderLayoutInfoEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectExecutionSetShaderLayoutInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -29630,6 +31680,10 @@ pub struct VkIndirectExecutionSetShaderInfoEXT {
     /// Length: pushConstantRangeCount
     pub pPushConstantRanges: *const VkPushConstantRange,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectExecutionSetShaderInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectExecutionSetShaderInfoEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectExecutionSetShaderInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -29702,6 +31756,10 @@ pub union VkIndirectExecutionSetInfoEXT {
     pub pShaderInfo: *const VkIndirectExecutionSetShaderInfoEXT,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectExecutionSetInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectExecutionSetInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectExecutionSetInfoEXT {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -29734,6 +31792,10 @@ pub struct VkIndirectExecutionSetCreateInfoEXT {
     /// No Auto-Validity
     pub info: VkIndirectExecutionSetInfoEXT,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectExecutionSetCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectExecutionSetCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectExecutionSetCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -29787,6 +31849,10 @@ pub struct VkGeneratedCommandsInfoEXT {
     pub sequenceCountAddress: VkDeviceAddress,
     pub maxDrawCount: u32,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkGeneratedCommandsInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkGeneratedCommandsInfoEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkGeneratedCommandsInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -29878,6 +31944,10 @@ pub struct VkWriteIndirectExecutionSetPipelineEXT {
     pub pipeline: VkPipeline,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkWriteIndirectExecutionSetPipelineEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkWriteIndirectExecutionSetPipelineEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkWriteIndirectExecutionSetPipelineEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT,
@@ -29919,6 +31989,10 @@ pub struct VkWriteIndirectExecutionSetShaderEXT {
     pub index: u32,
     pub shader: VkShaderEXT,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkWriteIndirectExecutionSetShaderEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkWriteIndirectExecutionSetShaderEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkWriteIndirectExecutionSetShaderEXT {
     pub const DEFAULT: Self = Self {
@@ -29968,6 +32042,10 @@ pub struct VkIndirectCommandsLayoutCreateInfoEXT {
     /// Length: tokenCount
     pub pTokens: *const VkIndirectCommandsLayoutTokenEXT,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsLayoutCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsLayoutCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsLayoutCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -30039,6 +32117,10 @@ pub struct VkIndirectCommandsLayoutTokenEXT {
     pub offset: u32,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsLayoutTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsLayoutTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsLayoutTokenEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT,
@@ -30084,6 +32166,10 @@ pub struct VkDrawIndirectCountIndirectCommandEXT {
     pub commandCount: u32,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkDrawIndirectCountIndirectCommandEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkDrawIndirectCountIndirectCommandEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkDrawIndirectCountIndirectCommandEXT {
     pub const DEFAULT: Self = Self {
         bufferAddress: 0,
@@ -30118,6 +32204,10 @@ pub struct VkIndirectCommandsVertexBufferTokenEXT {
     pub vertexBindingUnit: u32,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsVertexBufferTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsVertexBufferTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsVertexBufferTokenEXT {
     pub const DEFAULT: Self = Self {
         vertexBindingUnit: 0,
@@ -30141,6 +32231,10 @@ pub struct VkBindVertexBufferIndirectCommandEXT {
     pub size: u32,
     pub stride: u32,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkBindVertexBufferIndirectCommandEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkBindVertexBufferIndirectCommandEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkBindVertexBufferIndirectCommandEXT {
     pub const DEFAULT: Self = Self {
@@ -30176,6 +32270,10 @@ pub struct VkIndirectCommandsIndexBufferTokenEXT {
     pub mode: VkIndirectCommandsInputModeFlagBitsEXT,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsIndexBufferTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsIndexBufferTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsIndexBufferTokenEXT {
     pub const DEFAULT: Self = Self {
         mode: VkIndirectCommandsInputModeFlagBitsEXT(0),
@@ -30199,6 +32297,10 @@ pub struct VkBindIndexBufferIndirectCommandEXT {
     pub size: u32,
     pub indexType: VkIndexType,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkBindIndexBufferIndirectCommandEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkBindIndexBufferIndirectCommandEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkBindIndexBufferIndirectCommandEXT {
     pub const DEFAULT: Self = Self {
@@ -30234,6 +32336,10 @@ pub struct VkIndirectCommandsPushConstantTokenEXT {
     pub updateRange: VkPushConstantRange,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsPushConstantTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsPushConstantTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsPushConstantTokenEXT {
     pub const DEFAULT: Self = Self {
         updateRange: VkPushConstantRange::DEFAULT,
@@ -30256,6 +32362,10 @@ pub struct VkIndirectCommandsExecutionSetTokenEXT {
     pub type_: VkIndirectExecutionSetInfoTypeEXT,
     pub shaderStages: VkShaderStageFlags,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsExecutionSetTokenEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsExecutionSetTokenEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsExecutionSetTokenEXT {
     pub const DEFAULT: Self = Self {
@@ -30287,6 +32397,10 @@ pub union VkIndirectCommandsTokenDataEXT {
     pub pIndexBuffer: *const VkIndirectCommandsIndexBufferTokenEXT,
     pub pExecutionSet: *const VkIndirectCommandsExecutionSetTokenEXT,
 }
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsTokenDataEXT {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsTokenDataEXT {}
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsTokenDataEXT {
     pub const DEFAULT: Self = unsafe {
@@ -30332,6 +32446,10 @@ pub struct VkPhysicalDeviceDeviceMemoryReportFeaturesEXT {
     pub deviceMemoryReport: VkBool32,
 }
 #[cfg(feature = "VK_EXT_device_memory_report")]
+unsafe impl Send for VkPhysicalDeviceDeviceMemoryReportFeaturesEXT {}
+#[cfg(feature = "VK_EXT_device_memory_report")]
+unsafe impl Sync for VkPhysicalDeviceDeviceMemoryReportFeaturesEXT {}
+#[cfg(feature = "VK_EXT_device_memory_report")]
 impl VkPhysicalDeviceDeviceMemoryReportFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT,
@@ -30371,6 +32489,10 @@ pub struct VkDeviceDeviceMemoryReportCreateInfoEXT {
     /// Optional: true
     pub pUserData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_device_memory_report")]
+unsafe impl Send for VkDeviceDeviceMemoryReportCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_device_memory_report")]
+unsafe impl Sync for VkDeviceDeviceMemoryReportCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_device_memory_report")]
 impl VkDeviceDeviceMemoryReportCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -30429,6 +32551,10 @@ pub struct VkDeviceMemoryReportCallbackDataEXT {
     pub objectHandle: u64,
     pub heapIndex: u32,
 }
+#[cfg(feature = "VK_EXT_device_memory_report")]
+unsafe impl Send for VkDeviceMemoryReportCallbackDataEXT {}
+#[cfg(feature = "VK_EXT_device_memory_report")]
+unsafe impl Sync for VkDeviceMemoryReportCallbackDataEXT {}
 #[cfg(feature = "VK_EXT_device_memory_report")]
 impl VkDeviceMemoryReportCallbackDataEXT {
     pub const DEFAULT: Self = Self {
@@ -30499,6 +32625,10 @@ pub struct IDirectFB(pub *mut core::ffi::c_void);
 impl IDirectFB {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_directfb_surface")]
+unsafe impl Send for IDirectFB {}
+#[cfg(feature = "VK_EXT_directfb_surface")]
+unsafe impl Sync for IDirectFB {}
 /// [IDirectFBSurface](https://docs.vulkan.org/refpages/latest/refpages/source/IDirectFBSurface.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_EXT_directfb_surface")]
@@ -30509,6 +32639,10 @@ pub struct IDirectFBSurface(pub *mut core::ffi::c_void);
 impl IDirectFBSurface {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_directfb_surface")]
+unsafe impl Send for IDirectFBSurface {}
+#[cfg(feature = "VK_EXT_directfb_surface")]
+unsafe impl Sync for IDirectFBSurface {}
 /// [VkDirectFBSurfaceCreateFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDirectFBSurfaceCreateFlagsEXT.html)
 #[cfg(feature = "VK_EXT_directfb_surface")]
 pub type VkDirectFBSurfaceCreateFlagsEXT = VkFlags;
@@ -30528,6 +32662,10 @@ pub struct VkDirectFBSurfaceCreateInfoEXT {
     /// No Auto-Validity
     pub surface: *mut IDirectFBSurface,
 }
+#[cfg(feature = "VK_EXT_directfb_surface")]
+unsafe impl Send for VkDirectFBSurfaceCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_directfb_surface")]
+unsafe impl Sync for VkDirectFBSurfaceCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_directfb_surface")]
 impl VkDirectFBSurfaceCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -30590,6 +32728,10 @@ pub struct VkPhysicalDeviceDiscardRectanglePropertiesEXT {
     pub maxDiscardRectangles: u32,
 }
 #[cfg(feature = "VK_EXT_discard_rectangles")]
+unsafe impl Send for VkPhysicalDeviceDiscardRectanglePropertiesEXT {}
+#[cfg(feature = "VK_EXT_discard_rectangles")]
+unsafe impl Sync for VkPhysicalDeviceDiscardRectanglePropertiesEXT {}
+#[cfg(feature = "VK_EXT_discard_rectangles")]
 impl VkPhysicalDeviceDiscardRectanglePropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT,
@@ -30632,6 +32774,10 @@ pub struct VkPipelineDiscardRectangleStateCreateInfoEXT {
     /// Length: discardRectangleCount,  No Auto-Validity
     pub pDiscardRectangles: *const VkRect2D,
 }
+#[cfg(feature = "VK_EXT_discard_rectangles")]
+unsafe impl Send for VkPipelineDiscardRectangleStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_discard_rectangles")]
+unsafe impl Sync for VkPipelineDiscardRectangleStateCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_discard_rectangles")]
 impl VkPipelineDiscardRectangleStateCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -30688,6 +32834,10 @@ pub struct VkDisplayPowerInfoEXT {
     pub powerState: VkDisplayPowerStateEXT,
 }
 #[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Send for VkDisplayPowerInfoEXT {}
+#[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Sync for VkDisplayPowerInfoEXT {}
+#[cfg(feature = "VK_EXT_display_control")]
 impl VkDisplayPowerInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_POWER_INFO_EXT,
@@ -30723,6 +32873,10 @@ pub struct VkDeviceEventInfoEXT {
     pub deviceEvent: VkDeviceEventTypeEXT,
 }
 #[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Send for VkDeviceEventInfoEXT {}
+#[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Sync for VkDeviceEventInfoEXT {}
+#[cfg(feature = "VK_EXT_display_control")]
 impl VkDeviceEventInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_EVENT_INFO_EXT,
@@ -30757,6 +32911,10 @@ pub struct VkDisplayEventInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub displayEvent: VkDisplayEventTypeEXT,
 }
+#[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Send for VkDisplayEventInfoEXT {}
+#[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Sync for VkDisplayEventInfoEXT {}
 #[cfg(feature = "VK_EXT_display_control")]
 impl VkDisplayEventInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -30795,6 +32953,10 @@ pub struct VkSwapchainCounterCreateInfoEXT {
     /// Optional: true
     pub surfaceCounters: VkSurfaceCounterFlagsEXT,
 }
+#[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Send for VkSwapchainCounterCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_display_control")]
+unsafe impl Sync for VkSwapchainCounterCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_display_control")]
 impl VkSwapchainCounterCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -30846,6 +33008,10 @@ pub struct VkSurfaceCapabilities2EXT {
     /// Optional: true
     pub supportedSurfaceCounters: VkSurfaceCounterFlagsEXT,
 }
+#[cfg(feature = "VK_EXT_display_surface_counter")]
+unsafe impl Send for VkSurfaceCapabilities2EXT {}
+#[cfg(feature = "VK_EXT_display_surface_counter")]
+unsafe impl Sync for VkSurfaceCapabilities2EXT {}
 #[cfg(feature = "VK_EXT_display_surface_counter")]
 impl VkSurfaceCapabilities2EXT {
     pub const DEFAULT: Self = Self {
@@ -30944,6 +33110,10 @@ pub struct VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT {
     pub dynamicRenderingUnusedAttachments: VkBool32,
 }
 #[cfg(feature = "VK_EXT_dynamic_rendering_unused_attachments")]
+unsafe impl Send for VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_dynamic_rendering_unused_attachments")]
+unsafe impl Sync for VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_dynamic_rendering_unused_attachments")]
 impl VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT,
@@ -30980,6 +33150,10 @@ pub struct VkPhysicalDeviceExtendedDynamicStateFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub extendedDynamicState: VkBool32,
 }
+#[cfg(feature = "VK_EXT_extended_dynamic_state")]
+unsafe impl Send for VkPhysicalDeviceExtendedDynamicStateFeaturesEXT {}
+#[cfg(feature = "VK_EXT_extended_dynamic_state")]
+unsafe impl Sync for VkPhysicalDeviceExtendedDynamicStateFeaturesEXT {}
 #[cfg(feature = "VK_EXT_extended_dynamic_state")]
 impl VkPhysicalDeviceExtendedDynamicStateFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -31020,6 +33194,10 @@ pub struct VkPhysicalDeviceExtendedDynamicState2FeaturesEXT {
     pub extendedDynamicState2LogicOp: VkBool32,
     pub extendedDynamicState2PatchControlPoints: VkBool32,
 }
+#[cfg(feature = "VK_EXT_extended_dynamic_state2")]
+unsafe impl Send for VkPhysicalDeviceExtendedDynamicState2FeaturesEXT {}
+#[cfg(feature = "VK_EXT_extended_dynamic_state2")]
+unsafe impl Sync for VkPhysicalDeviceExtendedDynamicState2FeaturesEXT {}
 #[cfg(feature = "VK_EXT_extended_dynamic_state2")]
 impl VkPhysicalDeviceExtendedDynamicState2FeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -31100,6 +33278,10 @@ pub struct VkPhysicalDeviceExtendedDynamicState3FeaturesEXT {
     pub extendedDynamicState3RepresentativeFragmentTestEnable: VkBool32,
     pub extendedDynamicState3ShadingRateImageEnable: VkBool32,
 }
+#[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+unsafe impl Send for VkPhysicalDeviceExtendedDynamicState3FeaturesEXT {}
+#[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+unsafe impl Sync for VkPhysicalDeviceExtendedDynamicState3FeaturesEXT {}
 #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
 impl VkPhysicalDeviceExtendedDynamicState3FeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -31348,6 +33530,10 @@ pub struct VkPhysicalDeviceExtendedDynamicState3PropertiesEXT {
     pub dynamicPrimitiveTopologyUnrestricted: VkBool32,
 }
 #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+unsafe impl Send for VkPhysicalDeviceExtendedDynamicState3PropertiesEXT {}
+#[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+unsafe impl Sync for VkPhysicalDeviceExtendedDynamicState3PropertiesEXT {}
+#[cfg(feature = "VK_EXT_extended_dynamic_state3")]
 impl VkPhysicalDeviceExtendedDynamicState3PropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT,
@@ -31386,6 +33572,16 @@ pub struct VkColorBlendEquationEXT {
     pub dstAlphaBlendFactor: VkBlendFactor,
     pub alphaBlendOp: VkBlendOp,
 }
+#[cfg(any(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_shader_object"
+))]
+unsafe impl Send for VkColorBlendEquationEXT {}
+#[cfg(any(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_shader_object"
+))]
+unsafe impl Sync for VkColorBlendEquationEXT {}
 #[cfg(any(
     feature = "VK_EXT_extended_dynamic_state3",
     feature = "VK_EXT_shader_object"
@@ -31452,6 +33648,16 @@ pub struct VkColorBlendAdvancedEXT {
     feature = "VK_EXT_extended_dynamic_state3",
     feature = "VK_EXT_shader_object"
 ))]
+unsafe impl Send for VkColorBlendAdvancedEXT {}
+#[cfg(any(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_shader_object"
+))]
+unsafe impl Sync for VkColorBlendAdvancedEXT {}
+#[cfg(any(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_shader_object"
+))]
 impl VkColorBlendAdvancedEXT {
     pub const DEFAULT: Self = Self {
         advancedBlendOp: VkBlendOp(0),
@@ -31504,6 +33710,10 @@ pub struct VkExternalMemoryAcquireUnmodifiedEXT {
     pub acquireUnmodifiedMemory: VkBool32,
 }
 #[cfg(feature = "VK_EXT_external_memory_acquire_unmodified")]
+unsafe impl Send for VkExternalMemoryAcquireUnmodifiedEXT {}
+#[cfg(feature = "VK_EXT_external_memory_acquire_unmodified")]
+unsafe impl Sync for VkExternalMemoryAcquireUnmodifiedEXT {}
+#[cfg(feature = "VK_EXT_external_memory_acquire_unmodified")]
 impl VkExternalMemoryAcquireUnmodifiedEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT,
@@ -31541,6 +33751,10 @@ pub struct VkImportMemoryHostPointerInfoEXT {
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
     pub pHostPointer: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_external_memory_host")]
+unsafe impl Send for VkImportMemoryHostPointerInfoEXT {}
+#[cfg(feature = "VK_EXT_external_memory_host")]
+unsafe impl Sync for VkImportMemoryHostPointerInfoEXT {}
 #[cfg(feature = "VK_EXT_external_memory_host")]
 impl VkImportMemoryHostPointerInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -31587,6 +33801,10 @@ pub struct VkMemoryHostPointerPropertiesEXT {
     pub memoryTypeBits: u32,
 }
 #[cfg(feature = "VK_EXT_external_memory_host")]
+unsafe impl Send for VkMemoryHostPointerPropertiesEXT {}
+#[cfg(feature = "VK_EXT_external_memory_host")]
+unsafe impl Sync for VkMemoryHostPointerPropertiesEXT {}
+#[cfg(feature = "VK_EXT_external_memory_host")]
 impl VkMemoryHostPointerPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_HOST_POINTER_PROPERTIES_EXT,
@@ -31629,6 +33847,10 @@ pub struct VkPhysicalDeviceExternalMemoryHostPropertiesEXT {
     pub minImportedHostPointerAlignment: VkDeviceSize,
 }
 #[cfg(feature = "VK_EXT_external_memory_host")]
+unsafe impl Send for VkPhysicalDeviceExternalMemoryHostPropertiesEXT {}
+#[cfg(feature = "VK_EXT_external_memory_host")]
+unsafe impl Sync for VkPhysicalDeviceExternalMemoryHostPropertiesEXT {}
+#[cfg(feature = "VK_EXT_external_memory_host")]
 impl VkPhysicalDeviceExternalMemoryHostPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -31669,6 +33891,10 @@ pub struct VkImportMemoryMetalHandleInfoEXT {
     /// Optional: true
     pub handle: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_external_memory_metal")]
+unsafe impl Send for VkImportMemoryMetalHandleInfoEXT {}
+#[cfg(feature = "VK_EXT_external_memory_metal")]
+unsafe impl Sync for VkImportMemoryMetalHandleInfoEXT {}
 #[cfg(feature = "VK_EXT_external_memory_metal")]
 impl VkImportMemoryMetalHandleInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -31715,6 +33941,10 @@ pub struct VkMemoryMetalHandlePropertiesEXT {
     pub memoryTypeBits: u32,
 }
 #[cfg(feature = "VK_EXT_external_memory_metal")]
+unsafe impl Send for VkMemoryMetalHandlePropertiesEXT {}
+#[cfg(feature = "VK_EXT_external_memory_metal")]
+unsafe impl Sync for VkMemoryMetalHandlePropertiesEXT {}
+#[cfg(feature = "VK_EXT_external_memory_metal")]
 impl VkMemoryMetalHandlePropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_METAL_HANDLE_PROPERTIES_EXT,
@@ -31750,6 +33980,10 @@ pub struct VkMemoryGetMetalHandleInfoEXT {
     pub memory: VkDeviceMemory,
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_EXT_external_memory_metal")]
+unsafe impl Send for VkMemoryGetMetalHandleInfoEXT {}
+#[cfg(feature = "VK_EXT_external_memory_metal")]
+unsafe impl Sync for VkMemoryGetMetalHandleInfoEXT {}
 #[cfg(feature = "VK_EXT_external_memory_metal")]
 impl VkMemoryGetMetalHandleInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -31794,6 +34028,10 @@ pub struct VkPhysicalDeviceImageViewImageFormatInfoEXT {
     pub imageViewType: VkImageViewType,
 }
 #[cfg(feature = "VK_EXT_filter_cubic")]
+unsafe impl Send for VkPhysicalDeviceImageViewImageFormatInfoEXT {}
+#[cfg(feature = "VK_EXT_filter_cubic")]
+unsafe impl Sync for VkPhysicalDeviceImageViewImageFormatInfoEXT {}
+#[cfg(feature = "VK_EXT_filter_cubic")]
 impl VkPhysicalDeviceImageViewImageFormatInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT,
@@ -31833,6 +34071,10 @@ pub struct VkFilterCubicImageViewImageFormatPropertiesEXT {
     pub filterCubic: VkBool32,
     pub filterCubicMinmax: VkBool32,
 }
+#[cfg(feature = "VK_EXT_filter_cubic")]
+unsafe impl Send for VkFilterCubicImageViewImageFormatPropertiesEXT {}
+#[cfg(feature = "VK_EXT_filter_cubic")]
+unsafe impl Sync for VkFilterCubicImageViewImageFormatPropertiesEXT {}
 #[cfg(feature = "VK_EXT_filter_cubic")]
 impl VkFilterCubicImageViewImageFormatPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -31879,6 +34121,10 @@ pub struct VkPhysicalDeviceFragmentDensityMapFeaturesEXT {
     pub fragmentDensityMapDynamic: VkBool32,
     pub fragmentDensityMapNonSubsampledImages: VkBool32,
 }
+#[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMapFeaturesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMapFeaturesEXT {}
 #[cfg(feature = "VK_EXT_fragment_density_map")]
 impl VkPhysicalDeviceFragmentDensityMapFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -31938,6 +34184,10 @@ pub struct VkPhysicalDeviceFragmentDensityMapPropertiesEXT {
     pub fragmentDensityInvocations: VkBool32,
 }
 #[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMapPropertiesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMapPropertiesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map")]
 impl VkPhysicalDeviceFragmentDensityMapPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -31988,6 +34238,10 @@ pub struct VkRenderPassFragmentDensityMapCreateInfoEXT {
     pub fragmentDensityMapAttachment: VkAttachmentReference,
 }
 #[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Send for VkRenderPassFragmentDensityMapCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Sync for VkRenderPassFragmentDensityMapCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map")]
 impl VkRenderPassFragmentDensityMapCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT,
@@ -32025,6 +34279,10 @@ pub struct VkRenderingFragmentDensityMapAttachmentInfoEXT {
     pub imageView: VkImageView,
     pub imageLayout: VkImageLayout,
 }
+#[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Send for VkRenderingFragmentDensityMapAttachmentInfoEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map")]
+unsafe impl Sync for VkRenderingFragmentDensityMapAttachmentInfoEXT {}
 #[cfg(feature = "VK_EXT_fragment_density_map")]
 impl VkRenderingFragmentDensityMapAttachmentInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -32069,6 +34327,10 @@ pub struct VkPhysicalDeviceFragmentDensityMap2FeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub fragmentDensityMapDeferred: VkBool32,
 }
+#[cfg(feature = "VK_EXT_fragment_density_map2")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMap2FeaturesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map2")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMap2FeaturesEXT {}
 #[cfg(feature = "VK_EXT_fragment_density_map2")]
 impl VkPhysicalDeviceFragmentDensityMap2FeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -32118,6 +34380,10 @@ pub struct VkPhysicalDeviceFragmentDensityMap2PropertiesEXT {
     /// Limit Type: [Max]
     pub maxDescriptorSetSubsampledSamplers: u32,
 }
+#[cfg(feature = "VK_EXT_fragment_density_map2")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMap2PropertiesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map2")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMap2PropertiesEXT {}
 #[cfg(feature = "VK_EXT_fragment_density_map2")]
 impl VkPhysicalDeviceFragmentDensityMap2PropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -32175,6 +34441,10 @@ pub struct VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {
     pub fragmentDensityMapOffset: VkBool32,
 }
 #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
 impl VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT,
@@ -32217,6 +34487,10 @@ pub struct VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {
     pub fragmentDensityOffsetGranularity: VkExtent2D,
 }
 #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
 impl VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT,
@@ -32256,6 +34530,10 @@ pub struct VkRenderPassFragmentDensityMapOffsetEndInfoEXT {
     /// Length: fragmentDensityOffsetCount
     pub pFragmentDensityOffsets: *const VkOffset2D,
 }
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+unsafe impl Send for VkRenderPassFragmentDensityMapOffsetEndInfoEXT {}
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+unsafe impl Sync for VkRenderPassFragmentDensityMapOffsetEndInfoEXT {}
 #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
 impl VkRenderPassFragmentDensityMapOffsetEndInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -32306,6 +34584,10 @@ pub struct VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT {
     pub fragmentShaderPixelInterlock: VkBool32,
     pub fragmentShaderShadingRateInterlock: VkBool32,
 }
+#[cfg(feature = "VK_EXT_fragment_shader_interlock")]
+unsafe impl Send for VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT {}
+#[cfg(feature = "VK_EXT_fragment_shader_interlock")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT {}
 #[cfg(feature = "VK_EXT_fragment_shader_interlock")]
 impl VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -32374,6 +34656,10 @@ pub struct VkFrameBoundaryEXT {
     /// Optional: true,  Length: tagSize
     pub pTag: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_frame_boundary")]
+unsafe impl Send for VkFrameBoundaryEXT {}
+#[cfg(feature = "VK_EXT_frame_boundary")]
+unsafe impl Sync for VkFrameBoundaryEXT {}
 #[cfg(feature = "VK_EXT_frame_boundary")]
 impl VkFrameBoundaryEXT {
     pub const DEFAULT: Self = Self {
@@ -32466,6 +34752,10 @@ pub struct VkPhysicalDeviceFrameBoundaryFeaturesEXT {
     pub frameBoundary: VkBool32,
 }
 #[cfg(feature = "VK_EXT_frame_boundary")]
+unsafe impl Send for VkPhysicalDeviceFrameBoundaryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_frame_boundary")]
+unsafe impl Sync for VkPhysicalDeviceFrameBoundaryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_frame_boundary")]
 impl VkPhysicalDeviceFrameBoundaryFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT,
@@ -32499,6 +34789,10 @@ pub struct HMONITOR(pub *mut core::ffi::c_void);
 impl HMONITOR {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Send for HMONITOR {}
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Sync for HMONITOR {}
 /// [VkSurfaceFullScreenExclusiveInfoEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceFullScreenExclusiveInfoEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceSurfaceInfo2KHR, VkSwapchainCreateInfoKHR.
@@ -32512,6 +34806,10 @@ pub struct VkSurfaceFullScreenExclusiveInfoEXT {
     pub pNext: *mut core::ffi::c_void,
     pub fullScreenExclusive: VkFullScreenExclusiveEXT,
 }
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Send for VkSurfaceFullScreenExclusiveInfoEXT {}
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Sync for VkSurfaceFullScreenExclusiveInfoEXT {}
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 impl VkSurfaceFullScreenExclusiveInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -32549,6 +34847,10 @@ pub struct VkSurfaceFullScreenExclusiveWin32InfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub hmonitor: HMONITOR,
 }
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Send for VkSurfaceFullScreenExclusiveWin32InfoEXT {}
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Sync for VkSurfaceFullScreenExclusiveWin32InfoEXT {}
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 impl VkSurfaceFullScreenExclusiveWin32InfoEXT {
     pub const DEFAULT: Self = Self {
@@ -32588,6 +34890,10 @@ pub struct VkSurfaceCapabilitiesFullScreenExclusiveEXT {
     pub pNext: *mut core::ffi::c_void,
     pub fullScreenExclusiveSupported: VkBool32,
 }
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Send for VkSurfaceCapabilitiesFullScreenExclusiveEXT {}
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+unsafe impl Sync for VkSurfaceCapabilitiesFullScreenExclusiveEXT {}
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 impl VkSurfaceCapabilitiesFullScreenExclusiveEXT {
     pub const DEFAULT: Self = Self {
@@ -32636,6 +34942,10 @@ pub struct VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {
     pub graphicsPipelineLibrary: VkBool32,
 }
 #[cfg(feature = "VK_EXT_graphics_pipeline_library")]
+unsafe impl Send for VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_graphics_pipeline_library")]
+unsafe impl Sync for VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_graphics_pipeline_library")]
 impl VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT,
@@ -32679,6 +34989,10 @@ pub struct VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {
     /// Limit Type: [Max]
     pub graphicsPipelineLibraryIndependentInterpolationDecoration: VkBool32,
 }
+#[cfg(feature = "VK_EXT_graphics_pipeline_library")]
+unsafe impl Send for VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {}
+#[cfg(feature = "VK_EXT_graphics_pipeline_library")]
+unsafe impl Sync for VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {}
 #[cfg(feature = "VK_EXT_graphics_pipeline_library")]
 impl VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -32726,6 +35040,10 @@ pub struct VkGraphicsPipelineLibraryCreateInfoEXT {
     pub flags: VkGraphicsPipelineLibraryFlagsEXT,
 }
 #[cfg(feature = "VK_EXT_graphics_pipeline_library")]
+unsafe impl Send for VkGraphicsPipelineLibraryCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_graphics_pipeline_library")]
+unsafe impl Sync for VkGraphicsPipelineLibraryCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_graphics_pipeline_library")]
 impl VkGraphicsPipelineLibraryCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT,
@@ -32759,6 +35077,10 @@ pub struct VkXYColorEXT {
     pub x: f32,
     pub y: f32,
 }
+#[cfg(feature = "VK_EXT_hdr_metadata")]
+unsafe impl Send for VkXYColorEXT {}
+#[cfg(feature = "VK_EXT_hdr_metadata")]
+unsafe impl Sync for VkXYColorEXT {}
 #[cfg(feature = "VK_EXT_hdr_metadata")]
 impl VkXYColorEXT {
     pub const DEFAULT: Self = Self {
@@ -32806,6 +35128,10 @@ pub struct VkHdrMetadataEXT {
     /// No Auto-Validity
     pub maxFrameAverageLightLevel: f32,
 }
+#[cfg(feature = "VK_EXT_hdr_metadata")]
+unsafe impl Send for VkHdrMetadataEXT {}
+#[cfg(feature = "VK_EXT_hdr_metadata")]
+unsafe impl Sync for VkHdrMetadataEXT {}
 #[cfg(feature = "VK_EXT_hdr_metadata")]
 impl VkHdrMetadataEXT {
     pub const DEFAULT: Self = Self {
@@ -32888,6 +35214,10 @@ pub struct VkHeadlessSurfaceCreateInfoEXT {
     pub flags: VkHeadlessSurfaceCreateFlagsEXT,
 }
 #[cfg(feature = "VK_EXT_headless_surface")]
+unsafe impl Send for VkHeadlessSurfaceCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_headless_surface")]
+unsafe impl Sync for VkHeadlessSurfaceCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_headless_surface")]
 impl VkHeadlessSurfaceCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT,
@@ -32960,6 +35290,10 @@ pub struct VkPhysicalDeviceImage2DViewOf3DFeaturesEXT {
     pub sampler2DViewOf3D: VkBool32,
 }
 #[cfg(feature = "VK_EXT_image_2d_view_of_3d")]
+unsafe impl Send for VkPhysicalDeviceImage2DViewOf3DFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_2d_view_of_3d")]
+unsafe impl Sync for VkPhysicalDeviceImage2DViewOf3DFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_2d_view_of_3d")]
 impl VkPhysicalDeviceImage2DViewOf3DFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT,
@@ -33013,6 +35347,10 @@ pub struct VkImageCompressionControlEXT {
     /// Length: compressionControlPlaneCount,  No Auto-Validity
     pub pFixedRateFlags: *mut VkImageCompressionFixedRateFlagsEXT,
 }
+#[cfg(feature = "VK_EXT_image_compression_control")]
+unsafe impl Send for VkImageCompressionControlEXT {}
+#[cfg(feature = "VK_EXT_image_compression_control")]
+unsafe impl Sync for VkImageCompressionControlEXT {}
 #[cfg(feature = "VK_EXT_image_compression_control")]
 impl VkImageCompressionControlEXT {
     pub const DEFAULT: Self = Self {
@@ -33068,6 +35406,10 @@ pub struct VkPhysicalDeviceImageCompressionControlFeaturesEXT {
     pub imageCompressionControl: VkBool32,
 }
 #[cfg(feature = "VK_EXT_image_compression_control")]
+unsafe impl Send for VkPhysicalDeviceImageCompressionControlFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_compression_control")]
+unsafe impl Sync for VkPhysicalDeviceImageCompressionControlFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_compression_control")]
 impl VkPhysicalDeviceImageCompressionControlFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT,
@@ -33107,6 +35449,10 @@ pub struct VkImageCompressionPropertiesEXT {
     pub imageCompressionFlags: VkImageCompressionFlagsEXT,
     pub imageCompressionFixedRateFlags: VkImageCompressionFixedRateFlagsEXT,
 }
+#[cfg(feature = "VK_EXT_image_compression_control")]
+unsafe impl Send for VkImageCompressionPropertiesEXT {}
+#[cfg(feature = "VK_EXT_image_compression_control")]
+unsafe impl Sync for VkImageCompressionPropertiesEXT {}
 #[cfg(feature = "VK_EXT_image_compression_control")]
 impl VkImageCompressionPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -33154,6 +35500,10 @@ pub struct VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT {
     pub imageCompressionControlSwapchain: VkBool32,
 }
 #[cfg(feature = "VK_EXT_image_compression_control_swapchain")]
+unsafe impl Send for VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_compression_control_swapchain")]
+unsafe impl Sync for VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_compression_control_swapchain")]
 impl VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT,
@@ -33197,6 +35547,10 @@ pub struct VkDrmFormatModifierPropertiesListEXT {
     /// Optional: true,  Length: drmFormatModifierCount,  Limit Type: [Struct]
     pub pDrmFormatModifierProperties: *mut VkDrmFormatModifierPropertiesEXT,
 }
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkDrmFormatModifierPropertiesListEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkDrmFormatModifierPropertiesListEXT {}
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkDrmFormatModifierPropertiesListEXT {
     pub const DEFAULT: Self = Self {
@@ -33249,6 +35603,10 @@ pub struct VkDrmFormatModifierPropertiesEXT {
     pub drmFormatModifierTilingFeatures: VkFormatFeatureFlags,
 }
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkDrmFormatModifierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkDrmFormatModifierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkDrmFormatModifierPropertiesEXT {
     pub const DEFAULT: Self = Self {
         drmFormatModifier: 0,
@@ -33293,6 +35651,10 @@ pub struct VkPhysicalDeviceImageDrmFormatModifierInfoEXT {
     /// Length: queueFamilyIndexCount,  No Auto-Validity
     pub pQueueFamilyIndices: *const u32,
 }
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkPhysicalDeviceImageDrmFormatModifierInfoEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkPhysicalDeviceImageDrmFormatModifierInfoEXT {}
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkPhysicalDeviceImageDrmFormatModifierInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -33354,6 +35716,10 @@ pub struct VkImageDrmFormatModifierListCreateInfoEXT {
     pub pDrmFormatModifiers: *const u64,
 }
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkImageDrmFormatModifierListCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkImageDrmFormatModifierListCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkImageDrmFormatModifierListCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT,
@@ -33401,6 +35767,10 @@ pub struct VkImageDrmFormatModifierExplicitCreateInfoEXT {
     /// Length: drmFormatModifierPlaneCount
     pub pPlaneLayouts: *const VkSubresourceLayout,
 }
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkImageDrmFormatModifierExplicitCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkImageDrmFormatModifierExplicitCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkImageDrmFormatModifierExplicitCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -33454,6 +35824,10 @@ pub struct VkImageDrmFormatModifierPropertiesEXT {
     pub drmFormatModifier: u64,
 }
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkImageDrmFormatModifierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkImageDrmFormatModifierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkImageDrmFormatModifierPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT,
@@ -33497,6 +35871,10 @@ pub struct VkDrmFormatModifierPropertiesList2EXT {
     /// Optional: true,  Length: drmFormatModifierCount,  Limit Type: [Struct]
     pub pDrmFormatModifierProperties: *mut VkDrmFormatModifierProperties2EXT,
 }
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkDrmFormatModifierPropertiesList2EXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkDrmFormatModifierPropertiesList2EXT {}
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkDrmFormatModifierPropertiesList2EXT {
     pub const DEFAULT: Self = Self {
@@ -33549,6 +35927,10 @@ pub struct VkDrmFormatModifierProperties2EXT {
     pub drmFormatModifierTilingFeatures: VkFormatFeatureFlags2,
 }
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Send for VkDrmFormatModifierProperties2EXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+unsafe impl Sync for VkDrmFormatModifierProperties2EXT {}
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 impl VkDrmFormatModifierProperties2EXT {
     pub const DEFAULT: Self = Self {
         drmFormatModifier: 0,
@@ -33595,6 +35977,10 @@ pub struct VkImageViewSlicedCreateInfoEXT {
     pub sliceCount: u32,
 }
 #[cfg(feature = "VK_EXT_image_sliced_view_of_3d")]
+unsafe impl Send for VkImageViewSlicedCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_image_sliced_view_of_3d")]
+unsafe impl Sync for VkImageViewSlicedCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_image_sliced_view_of_3d")]
 impl VkImageViewSlicedCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_SLICED_CREATE_INFO_EXT,
@@ -33638,6 +36024,10 @@ pub struct VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT {
     pub imageSlicedViewOf3D: VkBool32,
 }
 #[cfg(feature = "VK_EXT_image_sliced_view_of_3d")]
+unsafe impl Send for VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_sliced_view_of_3d")]
+unsafe impl Sync for VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_sliced_view_of_3d")]
 impl VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -33676,6 +36066,10 @@ pub struct VkPhysicalDeviceImageViewMinLodFeaturesEXT {
     pub minLod: VkBool32,
 }
 #[cfg(feature = "VK_EXT_image_view_min_lod")]
+unsafe impl Send for VkPhysicalDeviceImageViewMinLodFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_view_min_lod")]
+unsafe impl Sync for VkPhysicalDeviceImageViewMinLodFeaturesEXT {}
+#[cfg(feature = "VK_EXT_image_view_min_lod")]
 impl VkPhysicalDeviceImageViewMinLodFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT,
@@ -33712,6 +36106,10 @@ pub struct VkImageViewMinLodCreateInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub minLod: f32,
 }
+#[cfg(feature = "VK_EXT_image_view_min_lod")]
+unsafe impl Send for VkImageViewMinLodCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_image_view_min_lod")]
+unsafe impl Sync for VkImageViewMinLodCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_image_view_min_lod")]
 impl VkImageViewMinLodCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -33765,6 +36163,10 @@ pub struct VkLayerSettingsCreateInfoEXT {
     pub pSettings: *const VkLayerSettingEXT,
 }
 #[cfg(feature = "VK_EXT_layer_settings")]
+unsafe impl Send for VkLayerSettingsCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_layer_settings")]
+unsafe impl Sync for VkLayerSettingsCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_layer_settings")]
 impl VkLayerSettingsCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_LAYER_SETTINGS_CREATE_INFO_EXT,
@@ -33811,6 +36213,10 @@ pub struct VkLayerSettingEXT {
     /// Length: valueCount,  No Auto-Validity
     pub pValues: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_layer_settings")]
+unsafe impl Send for VkLayerSettingEXT {}
+#[cfg(feature = "VK_EXT_layer_settings")]
+unsafe impl Sync for VkLayerSettingEXT {}
 #[cfg(feature = "VK_EXT_layer_settings")]
 impl VkLayerSettingEXT {
     pub const DEFAULT: Self = Self {
@@ -33870,6 +36276,10 @@ pub struct VkPhysicalDeviceLegacyDitheringFeaturesEXT {
     pub legacyDithering: VkBool32,
 }
 #[cfg(feature = "VK_EXT_legacy_dithering")]
+unsafe impl Send for VkPhysicalDeviceLegacyDitheringFeaturesEXT {}
+#[cfg(feature = "VK_EXT_legacy_dithering")]
+unsafe impl Sync for VkPhysicalDeviceLegacyDitheringFeaturesEXT {}
+#[cfg(feature = "VK_EXT_legacy_dithering")]
 impl VkPhysicalDeviceLegacyDitheringFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT,
@@ -33906,6 +36316,10 @@ pub struct VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub legacyVertexAttributes: VkBool32,
 }
+#[cfg(feature = "VK_EXT_legacy_vertex_attributes")]
+unsafe impl Send for VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT {}
+#[cfg(feature = "VK_EXT_legacy_vertex_attributes")]
+unsafe impl Sync for VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT {}
 #[cfg(feature = "VK_EXT_legacy_vertex_attributes")]
 impl VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -33949,6 +36363,10 @@ pub struct VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT {
     /// Limit Type: [Max]
     pub nativeUnalignedPerformance: VkBool32,
 }
+#[cfg(feature = "VK_EXT_legacy_vertex_attributes")]
+unsafe impl Send for VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT {}
+#[cfg(feature = "VK_EXT_legacy_vertex_attributes")]
+unsafe impl Sync for VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT {}
 #[cfg(feature = "VK_EXT_legacy_vertex_attributes")]
 impl VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -33995,6 +36413,10 @@ pub struct VkPhysicalDeviceMapMemoryPlacedFeaturesEXT {
     pub memoryMapRangePlaced: VkBool32,
     pub memoryUnmapReserve: VkBool32,
 }
+#[cfg(feature = "VK_EXT_map_memory_placed")]
+unsafe impl Send for VkPhysicalDeviceMapMemoryPlacedFeaturesEXT {}
+#[cfg(feature = "VK_EXT_map_memory_placed")]
+unsafe impl Sync for VkPhysicalDeviceMapMemoryPlacedFeaturesEXT {}
 #[cfg(feature = "VK_EXT_map_memory_placed")]
 impl VkPhysicalDeviceMapMemoryPlacedFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -34050,6 +36472,10 @@ pub struct VkPhysicalDeviceMapMemoryPlacedPropertiesEXT {
     pub minPlacedMemoryMapAlignment: VkDeviceSize,
 }
 #[cfg(feature = "VK_EXT_map_memory_placed")]
+unsafe impl Send for VkPhysicalDeviceMapMemoryPlacedPropertiesEXT {}
+#[cfg(feature = "VK_EXT_map_memory_placed")]
+unsafe impl Sync for VkPhysicalDeviceMapMemoryPlacedPropertiesEXT {}
+#[cfg(feature = "VK_EXT_map_memory_placed")]
 impl VkPhysicalDeviceMapMemoryPlacedPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT,
@@ -34087,6 +36513,10 @@ pub struct VkMemoryMapPlacedInfoEXT {
     /// No Auto-Validity
     pub pPlacedAddress: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_map_memory_placed")]
+unsafe impl Send for VkMemoryMapPlacedInfoEXT {}
+#[cfg(feature = "VK_EXT_map_memory_placed")]
+unsafe impl Sync for VkMemoryMapPlacedInfoEXT {}
 #[cfg(feature = "VK_EXT_map_memory_placed")]
 impl VkMemoryMapPlacedInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -34129,6 +36559,10 @@ pub struct VkPhysicalDeviceMemoryBudgetPropertiesEXT {
     pub heapBudget: [VkDeviceSize; VK_MAX_MEMORY_HEAPS as usize],
     pub heapUsage: [VkDeviceSize; VK_MAX_MEMORY_HEAPS as usize],
 }
+#[cfg(feature = "VK_EXT_memory_budget")]
+unsafe impl Send for VkPhysicalDeviceMemoryBudgetPropertiesEXT {}
+#[cfg(feature = "VK_EXT_memory_budget")]
+unsafe impl Sync for VkPhysicalDeviceMemoryBudgetPropertiesEXT {}
 #[cfg(feature = "VK_EXT_memory_budget")]
 impl VkPhysicalDeviceMemoryBudgetPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -34182,6 +36616,10 @@ pub struct VkPhysicalDeviceMemoryDecompressionFeaturesEXT {
     pub memoryDecompression: VkBool32,
 }
 #[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Send for VkPhysicalDeviceMemoryDecompressionFeaturesEXT {}
+#[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Sync for VkPhysicalDeviceMemoryDecompressionFeaturesEXT {}
+#[cfg(feature = "VK_EXT_memory_decompression")]
 impl VkPhysicalDeviceMemoryDecompressionFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT,
@@ -34226,6 +36664,10 @@ pub struct VkPhysicalDeviceMemoryDecompressionPropertiesEXT {
     pub maxDecompressionIndirectCount: u64,
 }
 #[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Send for VkPhysicalDeviceMemoryDecompressionPropertiesEXT {}
+#[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Sync for VkPhysicalDeviceMemoryDecompressionPropertiesEXT {}
+#[cfg(feature = "VK_EXT_memory_decompression")]
 impl VkPhysicalDeviceMemoryDecompressionPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -34269,6 +36711,10 @@ pub struct VkDecompressMemoryRegionEXT {
     pub compressedSize: VkDeviceSize,
     pub decompressedSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Send for VkDecompressMemoryRegionEXT {}
+#[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Sync for VkDecompressMemoryRegionEXT {}
 #[cfg(feature = "VK_EXT_memory_decompression")]
 impl VkDecompressMemoryRegionEXT {
     pub const DEFAULT: Self = Self {
@@ -34316,6 +36762,10 @@ pub struct VkDecompressMemoryInfoEXT {
     /// Length: regionCount
     pub pRegions: *const VkDecompressMemoryRegionEXT,
 }
+#[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Send for VkDecompressMemoryInfoEXT {}
+#[cfg(feature = "VK_EXT_memory_decompression")]
+unsafe impl Sync for VkDecompressMemoryInfoEXT {}
 #[cfg(feature = "VK_EXT_memory_decompression")]
 impl VkDecompressMemoryInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -34371,6 +36821,10 @@ pub struct VkPhysicalDeviceMemoryPriorityFeaturesEXT {
     pub memoryPriority: VkBool32,
 }
 #[cfg(feature = "VK_EXT_memory_priority")]
+unsafe impl Send for VkPhysicalDeviceMemoryPriorityFeaturesEXT {}
+#[cfg(feature = "VK_EXT_memory_priority")]
+unsafe impl Sync for VkPhysicalDeviceMemoryPriorityFeaturesEXT {}
+#[cfg(feature = "VK_EXT_memory_priority")]
 impl VkPhysicalDeviceMemoryPriorityFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT,
@@ -34407,6 +36861,10 @@ pub struct VkMemoryPriorityAllocateInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub priority: f32,
 }
+#[cfg(feature = "VK_EXT_memory_priority")]
+unsafe impl Send for VkMemoryPriorityAllocateInfoEXT {}
+#[cfg(feature = "VK_EXT_memory_priority")]
+unsafe impl Sync for VkMemoryPriorityAllocateInfoEXT {}
 #[cfg(feature = "VK_EXT_memory_priority")]
 impl VkMemoryPriorityAllocateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -34448,6 +36906,10 @@ pub struct VkPhysicalDeviceMeshShaderFeaturesEXT {
     pub primitiveFragmentShadingRateMeshShader: VkBool32,
     pub meshShaderQueries: VkBool32,
 }
+#[cfg(feature = "VK_EXT_mesh_shader")]
+unsafe impl Send for VkPhysicalDeviceMeshShaderFeaturesEXT {}
+#[cfg(feature = "VK_EXT_mesh_shader")]
+unsafe impl Sync for VkPhysicalDeviceMeshShaderFeaturesEXT {}
 #[cfg(feature = "VK_EXT_mesh_shader")]
 impl VkPhysicalDeviceMeshShaderFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -34568,6 +37030,10 @@ pub struct VkPhysicalDeviceMeshShaderPropertiesEXT {
     /// Limit Type: [Max]
     pub prefersCompactPrimitiveOutput: VkBool32,
 }
+#[cfg(feature = "VK_EXT_mesh_shader")]
+unsafe impl Send for VkPhysicalDeviceMeshShaderPropertiesEXT {}
+#[cfg(feature = "VK_EXT_mesh_shader")]
+unsafe impl Sync for VkPhysicalDeviceMeshShaderPropertiesEXT {}
 #[cfg(feature = "VK_EXT_mesh_shader")]
 impl VkPhysicalDeviceMeshShaderPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -34767,6 +37233,10 @@ pub struct VkDrawMeshTasksIndirectCommandEXT {
     pub groupCountZ: u32,
 }
 #[cfg(feature = "VK_EXT_mesh_shader")]
+unsafe impl Send for VkDrawMeshTasksIndirectCommandEXT {}
+#[cfg(feature = "VK_EXT_mesh_shader")]
+unsafe impl Sync for VkDrawMeshTasksIndirectCommandEXT {}
+#[cfg(feature = "VK_EXT_mesh_shader")]
 impl VkDrawMeshTasksIndirectCommandEXT {
     pub const DEFAULT: Self = Self {
         groupCountX: 0,
@@ -34803,6 +37273,10 @@ pub struct MTLDevice_id(pub *mut core::ffi::c_void);
 impl MTLDevice_id {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for MTLDevice_id {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for MTLDevice_id {}
 /// [MTLCommandQueue_id](https://docs.vulkan.org/refpages/latest/refpages/source/MTLCommandQueue_id.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -34813,6 +37287,10 @@ pub struct MTLCommandQueue_id(pub *mut core::ffi::c_void);
 impl MTLCommandQueue_id {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for MTLCommandQueue_id {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for MTLCommandQueue_id {}
 /// [MTLBuffer_id](https://docs.vulkan.org/refpages/latest/refpages/source/MTLBuffer_id.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -34823,6 +37301,10 @@ pub struct MTLBuffer_id(pub *mut core::ffi::c_void);
 impl MTLBuffer_id {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for MTLBuffer_id {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for MTLBuffer_id {}
 /// [MTLTexture_id](https://docs.vulkan.org/refpages/latest/refpages/source/MTLTexture_id.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -34833,6 +37315,10 @@ pub struct MTLTexture_id(pub *mut core::ffi::c_void);
 impl MTLTexture_id {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for MTLTexture_id {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for MTLTexture_id {}
 /// [MTLSharedEvent_id](https://docs.vulkan.org/refpages/latest/refpages/source/MTLSharedEvent_id.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -34843,6 +37329,10 @@ pub struct MTLSharedEvent_id(pub *mut core::ffi::c_void);
 impl MTLSharedEvent_id {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for MTLSharedEvent_id {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for MTLSharedEvent_id {}
 /// [IOSurfaceRef](https://docs.vulkan.org/refpages/latest/refpages/source/IOSurfaceRef.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -34853,6 +37343,10 @@ pub struct IOSurfaceRef(pub *mut core::ffi::c_void);
 impl IOSurfaceRef {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for IOSurfaceRef {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for IOSurfaceRef {}
 /// [VkExportMetalObjectTypeFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalObjectTypeFlagsEXT.html)
 #[cfg(feature = "VK_EXT_metal_objects")]
 pub type VkExportMetalObjectTypeFlagsEXT = VkFlags;
@@ -34870,6 +37364,10 @@ pub struct VkExportMetalObjectCreateInfoEXT {
     /// Optional: true
     pub exportObjectType: VkExportMetalObjectTypeFlagBitsEXT,
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalObjectCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalObjectCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalObjectCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -34905,6 +37403,10 @@ pub struct VkExportMetalObjectsInfoEXT {
     pub pNext: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalObjectsInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalObjectsInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalObjectsInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECTS_INFO_EXT,
@@ -34935,6 +37437,10 @@ pub struct VkExportMetalDeviceInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub mtlDevice: MTLDevice_id,
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalDeviceInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalDeviceInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalDeviceInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -34973,6 +37479,10 @@ pub struct VkExportMetalCommandQueueInfoEXT {
     pub queue: VkQueue,
     pub mtlCommandQueue: MTLCommandQueue_id,
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalCommandQueueInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalCommandQueueInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalCommandQueueInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35018,6 +37528,10 @@ pub struct VkExportMetalBufferInfoEXT {
     pub mtlBuffer: MTLBuffer_id,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalBufferInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalBufferInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalBufferInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_BUFFER_INFO_EXT,
@@ -35060,6 +37574,10 @@ pub struct VkImportMetalBufferInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub mtlBuffer: MTLBuffer_id,
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkImportMetalBufferInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkImportMetalBufferInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_objects")]
 impl VkImportMetalBufferInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35104,6 +37622,10 @@ pub struct VkExportMetalTextureInfoEXT {
     pub plane: VkImageAspectFlagBits,
     pub mtlTexture: MTLTexture_id,
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalTextureInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalTextureInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalTextureInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35167,6 +37689,10 @@ pub struct VkImportMetalTextureInfoEXT {
     pub mtlTexture: MTLTexture_id,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkImportMetalTextureInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkImportMetalTextureInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
 impl VkImportMetalTextureInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_TEXTURE_INFO_EXT,
@@ -35210,6 +37736,10 @@ pub struct VkExportMetalIOSurfaceInfoEXT {
     pub image: VkImage,
     pub ioSurface: IOSurfaceRef,
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalIOSurfaceInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalIOSurfaceInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalIOSurfaceInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35255,6 +37785,10 @@ pub struct VkImportMetalIOSurfaceInfoEXT {
     pub ioSurface: IOSurfaceRef,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkImportMetalIOSurfaceInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkImportMetalIOSurfaceInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
 impl VkImportMetalIOSurfaceInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_IO_SURFACE_INFO_EXT,
@@ -35295,6 +37829,10 @@ pub struct VkExportMetalSharedEventInfoEXT {
     pub event: VkEvent,
     pub mtlSharedEvent: MTLSharedEvent_id,
 }
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkExportMetalSharedEventInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkExportMetalSharedEventInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_objects")]
 impl VkExportMetalSharedEventInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35345,6 +37883,10 @@ pub struct VkImportMetalSharedEventInfoEXT {
     pub mtlSharedEvent: MTLSharedEvent_id,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Send for VkImportMetalSharedEventInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
+unsafe impl Sync for VkImportMetalSharedEventInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_objects")]
 impl VkImportMetalSharedEventInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_SHARED_EVENT_INFO_EXT,
@@ -35378,6 +37920,10 @@ pub struct CAMetalLayer(pub *mut core::ffi::c_void);
 impl CAMetalLayer {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_EXT_metal_surface")]
+unsafe impl Send for CAMetalLayer {}
+#[cfg(feature = "VK_EXT_metal_surface")]
+unsafe impl Sync for CAMetalLayer {}
 /// [VkMetalSurfaceCreateFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkMetalSurfaceCreateFlagsEXT.html)
 #[cfg(feature = "VK_EXT_metal_surface")]
 pub type VkMetalSurfaceCreateFlagsEXT = VkFlags;
@@ -35395,6 +37941,10 @@ pub struct VkMetalSurfaceCreateInfoEXT {
     /// No Auto-Validity
     pub pLayer: *const CAMetalLayer,
 }
+#[cfg(feature = "VK_EXT_metal_surface")]
+unsafe impl Send for VkMetalSurfaceCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_metal_surface")]
+unsafe impl Sync for VkMetalSurfaceCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_metal_surface")]
 impl VkMetalSurfaceCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35436,6 +37986,10 @@ pub struct VkMultiDrawInfoEXT {
     pub vertexCount: u32,
 }
 #[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Send for VkMultiDrawInfoEXT {}
+#[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Sync for VkMultiDrawInfoEXT {}
+#[cfg(feature = "VK_EXT_multi_draw")]
 impl VkMultiDrawInfoEXT {
     pub const DEFAULT: Self = Self {
         firstVertex: 0,
@@ -35465,6 +38019,10 @@ pub struct VkMultiDrawIndexedInfoEXT {
     pub indexCount: u32,
     pub vertexOffset: i32,
 }
+#[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Send for VkMultiDrawIndexedInfoEXT {}
+#[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Sync for VkMultiDrawIndexedInfoEXT {}
 #[cfg(feature = "VK_EXT_multi_draw")]
 impl VkMultiDrawIndexedInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35511,6 +38069,10 @@ pub struct VkPhysicalDeviceMultiDrawPropertiesEXT {
     pub maxMultiDrawCount: u32,
 }
 #[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Send for VkPhysicalDeviceMultiDrawPropertiesEXT {}
+#[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Sync for VkPhysicalDeviceMultiDrawPropertiesEXT {}
+#[cfg(feature = "VK_EXT_multi_draw")]
 impl VkPhysicalDeviceMultiDrawPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT,
@@ -35548,6 +38110,10 @@ pub struct VkPhysicalDeviceMultiDrawFeaturesEXT {
     pub multiDraw: VkBool32,
 }
 #[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Send for VkPhysicalDeviceMultiDrawFeaturesEXT {}
+#[cfg(feature = "VK_EXT_multi_draw")]
+unsafe impl Sync for VkPhysicalDeviceMultiDrawFeaturesEXT {}
+#[cfg(feature = "VK_EXT_multi_draw")]
 impl VkPhysicalDeviceMultiDrawFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT,
@@ -35584,6 +38150,10 @@ pub struct VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub multisampledRenderToSingleSampled: VkBool32,
 }
+#[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
+unsafe impl Send for VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT {}
+#[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
+unsafe impl Sync for VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT {}
 #[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
 impl VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -35627,6 +38197,10 @@ pub struct VkSubpassResolvePerformanceQueryEXT {
     pub optimal: VkBool32,
 }
 #[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
+unsafe impl Send for VkSubpassResolvePerformanceQueryEXT {}
+#[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
+unsafe impl Sync for VkSubpassResolvePerformanceQueryEXT {}
+#[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
 impl VkSubpassResolvePerformanceQueryEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT,
@@ -35664,6 +38238,10 @@ pub struct VkMultisampledRenderToSingleSampledInfoEXT {
     pub multisampledRenderToSingleSampledEnable: VkBool32,
     pub rasterizationSamples: VkSampleCountFlagBits,
 }
+#[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
+unsafe impl Send for VkMultisampledRenderToSingleSampledInfoEXT {}
+#[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
+unsafe impl Sync for VkMultisampledRenderToSingleSampledInfoEXT {}
 #[cfg(feature = "VK_EXT_multisampled_render_to_single_sampled")]
 impl VkMultisampledRenderToSingleSampledInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35708,6 +38286,10 @@ pub struct VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {
     pub mutableDescriptorType: VkBool32,
 }
 #[cfg(feature = "VK_EXT_mutable_descriptor_type")]
+unsafe impl Send for VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {}
+#[cfg(feature = "VK_EXT_mutable_descriptor_type")]
+unsafe impl Sync for VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {}
+#[cfg(feature = "VK_EXT_mutable_descriptor_type")]
 impl VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -35742,6 +38324,10 @@ pub struct VkMutableDescriptorTypeListEXT {
     /// Length: descriptorTypeCount
     pub pDescriptorTypes: *const VkDescriptorType,
 }
+#[cfg(feature = "VK_EXT_mutable_descriptor_type")]
+unsafe impl Send for VkMutableDescriptorTypeListEXT {}
+#[cfg(feature = "VK_EXT_mutable_descriptor_type")]
+unsafe impl Sync for VkMutableDescriptorTypeListEXT {}
 #[cfg(feature = "VK_EXT_mutable_descriptor_type")]
 impl VkMutableDescriptorTypeListEXT {
     pub const DEFAULT: Self = Self {
@@ -35781,6 +38367,10 @@ pub struct VkMutableDescriptorTypeCreateInfoEXT {
     /// Length: mutableDescriptorTypeListCount
     pub pMutableDescriptorTypeLists: *const VkMutableDescriptorTypeListEXT,
 }
+#[cfg(feature = "VK_EXT_mutable_descriptor_type")]
+unsafe impl Send for VkMutableDescriptorTypeCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_mutable_descriptor_type")]
+unsafe impl Sync for VkMutableDescriptorTypeCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_mutable_descriptor_type")]
 impl VkMutableDescriptorTypeCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -35831,6 +38421,10 @@ pub struct VkPhysicalDeviceNestedCommandBufferFeaturesEXT {
     pub nestedCommandBufferRendering: VkBool32,
     pub nestedCommandBufferSimultaneousUse: VkBool32,
 }
+#[cfg(feature = "VK_EXT_nested_command_buffer")]
+unsafe impl Send for VkPhysicalDeviceNestedCommandBufferFeaturesEXT {}
+#[cfg(feature = "VK_EXT_nested_command_buffer")]
+unsafe impl Sync for VkPhysicalDeviceNestedCommandBufferFeaturesEXT {}
 #[cfg(feature = "VK_EXT_nested_command_buffer")]
 impl VkPhysicalDeviceNestedCommandBufferFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -35887,6 +38481,10 @@ pub struct VkPhysicalDeviceNestedCommandBufferPropertiesEXT {
     pub maxCommandBufferNestingLevel: u32,
 }
 #[cfg(feature = "VK_EXT_nested_command_buffer")]
+unsafe impl Send for VkPhysicalDeviceNestedCommandBufferPropertiesEXT {}
+#[cfg(feature = "VK_EXT_nested_command_buffer")]
+unsafe impl Sync for VkPhysicalDeviceNestedCommandBufferPropertiesEXT {}
+#[cfg(feature = "VK_EXT_nested_command_buffer")]
 impl VkPhysicalDeviceNestedCommandBufferPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -35924,6 +38522,10 @@ pub struct VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub nonSeamlessCubeMap: VkBool32,
 }
+#[cfg(feature = "VK_EXT_non_seamless_cube_map")]
+unsafe impl Send for VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT {}
+#[cfg(feature = "VK_EXT_non_seamless_cube_map")]
+unsafe impl Sync for VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT {}
 #[cfg(feature = "VK_EXT_non_seamless_cube_map")]
 impl VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -35971,6 +38573,10 @@ impl Default for VkMicromapEXT {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkMicromapEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkMicromapEXT {}
 /// [VkMicromapBuildInfoEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapBuildInfoEXT.html)
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 #[repr(C)]
@@ -36001,6 +38607,10 @@ pub struct VkMicromapBuildInfoEXT {
     pub triangleArray: VkDeviceOrHostAddressConstKHR,
     pub triangleArrayStride: VkDeviceSize,
 }
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkMicromapBuildInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkMicromapBuildInfoEXT {}
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkMicromapBuildInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -36108,6 +38718,10 @@ pub struct VkMicromapCreateInfoEXT {
     pub deviceAddress: VkDeviceAddress,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkMicromapCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkMicromapCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkMicromapCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_CREATE_INFO_EXT,
@@ -36174,6 +38788,10 @@ pub struct VkMicromapVersionInfoEXT {
     pub pVersionData: *const u8,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkMicromapVersionInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkMicromapVersionInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkMicromapVersionInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_VERSION_INFO_EXT,
@@ -36212,6 +38830,10 @@ pub struct VkCopyMicromapInfoEXT {
     pub dst: VkMicromapEXT,
     pub mode: VkCopyMicromapModeEXT,
 }
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkCopyMicromapInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkCopyMicromapInfoEXT {}
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkCopyMicromapInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -36263,6 +38885,10 @@ pub struct VkCopyMicromapToMemoryInfoEXT {
     pub mode: VkCopyMicromapModeEXT,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkCopyMicromapToMemoryInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkCopyMicromapToMemoryInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkCopyMicromapToMemoryInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_MICROMAP_TO_MEMORY_INFO_EXT,
@@ -36313,6 +38939,10 @@ pub struct VkCopyMemoryToMicromapInfoEXT {
     pub mode: VkCopyMicromapModeEXT,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkCopyMemoryToMicromapInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkCopyMemoryToMicromapInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkCopyMemoryToMicromapInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_TO_MICROMAP_INFO_EXT,
@@ -36362,6 +38992,10 @@ pub struct VkMicromapBuildSizesInfoEXT {
     pub discardable: VkBool32,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkMicromapBuildSizesInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkMicromapBuildSizesInfoEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkMicromapBuildSizesInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT,
@@ -36407,6 +39041,10 @@ pub struct VkMicromapUsageEXT {
     pub format: u32,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkMicromapUsageEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkMicromapUsageEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkMicromapUsageEXT {
     pub const DEFAULT: Self = Self {
         count: 0,
@@ -36442,6 +39080,10 @@ pub struct VkMicromapTriangleEXT {
     pub subdivisionLevel: u16,
     pub format: u16,
 }
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkMicromapTriangleEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkMicromapTriangleEXT {}
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkMicromapTriangleEXT {
     pub const DEFAULT: Self = Self {
@@ -36484,6 +39126,10 @@ pub struct VkPhysicalDeviceOpacityMicromapFeaturesEXT {
     pub micromapCaptureReplay: VkBool32,
     pub micromapHostCommands: VkBool32,
 }
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkPhysicalDeviceOpacityMicromapFeaturesEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkPhysicalDeviceOpacityMicromapFeaturesEXT {}
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkPhysicalDeviceOpacityMicromapFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -36541,6 +39187,10 @@ pub struct VkPhysicalDeviceOpacityMicromapPropertiesEXT {
     pub maxOpacity4StateSubdivisionLevel: u32,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkPhysicalDeviceOpacityMicromapPropertiesEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkPhysicalDeviceOpacityMicromapPropertiesEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkPhysicalDeviceOpacityMicromapPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT,
@@ -36595,6 +39245,10 @@ pub struct VkAccelerationStructureTrianglesOpacityMicromapEXT {
     /// Optional: true
     pub micromap: VkMicromapEXT,
 }
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Send for VkAccelerationStructureTrianglesOpacityMicromapEXT {}
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+unsafe impl Sync for VkAccelerationStructureTrianglesOpacityMicromapEXT {}
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkAccelerationStructureTrianglesOpacityMicromapEXT {
     pub const DEFAULT: Self = Self {
@@ -36680,6 +39334,10 @@ pub struct VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT {
     pub pageableDeviceLocalMemory: VkBool32,
 }
 #[cfg(feature = "VK_EXT_pageable_device_local_memory")]
+unsafe impl Send for VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_pageable_device_local_memory")]
+unsafe impl Sync for VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_pageable_device_local_memory")]
 impl VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT,
@@ -36727,6 +39385,10 @@ pub struct VkPhysicalDevicePCIBusInfoPropertiesEXT {
     /// Limit Type: [Noauto]
     pub pciFunction: u32,
 }
+#[cfg(feature = "VK_EXT_pci_bus_info")]
+unsafe impl Send for VkPhysicalDevicePCIBusInfoPropertiesEXT {}
+#[cfg(feature = "VK_EXT_pci_bus_info")]
+unsafe impl Sync for VkPhysicalDevicePCIBusInfoPropertiesEXT {}
 #[cfg(feature = "VK_EXT_pci_bus_info")]
 impl VkPhysicalDevicePCIBusInfoPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -36797,6 +39459,10 @@ pub struct VkPhysicalDeviceDrmPropertiesEXT {
     /// Limit Type: [Noauto]
     pub renderMinor: i64,
 }
+#[cfg(feature = "VK_EXT_physical_device_drm")]
+unsafe impl Send for VkPhysicalDeviceDrmPropertiesEXT {}
+#[cfg(feature = "VK_EXT_physical_device_drm")]
+unsafe impl Sync for VkPhysicalDeviceDrmPropertiesEXT {}
 #[cfg(feature = "VK_EXT_physical_device_drm")]
 impl VkPhysicalDeviceDrmPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -36874,6 +39540,10 @@ pub struct VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT {
     pub pipelineLibraryGroupHandles: VkBool32,
 }
 #[cfg(feature = "VK_EXT_pipeline_library_group_handles")]
+unsafe impl Send for VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT {}
+#[cfg(feature = "VK_EXT_pipeline_library_group_handles")]
+unsafe impl Sync for VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT {}
+#[cfg(feature = "VK_EXT_pipeline_library_group_handles")]
 impl VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT,
@@ -36913,6 +39583,10 @@ pub struct VkPipelinePropertiesIdentifierEXT {
     pub pipelineIdentifier: [u8; VK_UUID_SIZE as usize],
 }
 #[cfg(feature = "VK_EXT_pipeline_properties")]
+unsafe impl Send for VkPipelinePropertiesIdentifierEXT {}
+#[cfg(feature = "VK_EXT_pipeline_properties")]
+unsafe impl Sync for VkPipelinePropertiesIdentifierEXT {}
+#[cfg(feature = "VK_EXT_pipeline_properties")]
 impl VkPipelinePropertiesIdentifierEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_PROPERTIES_IDENTIFIER_EXT,
@@ -36949,6 +39623,10 @@ pub struct VkPhysicalDevicePipelinePropertiesFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub pipelinePropertiesIdentifier: VkBool32,
 }
+#[cfg(feature = "VK_EXT_pipeline_properties")]
+unsafe impl Send for VkPhysicalDevicePipelinePropertiesFeaturesEXT {}
+#[cfg(feature = "VK_EXT_pipeline_properties")]
+unsafe impl Sync for VkPhysicalDevicePipelinePropertiesFeaturesEXT {}
 #[cfg(feature = "VK_EXT_pipeline_properties")]
 impl VkPhysicalDevicePipelinePropertiesFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -37011,6 +39689,10 @@ pub struct VkPhysicalDevicePresentTimingFeaturesEXT {
     pub presentAtRelativeTime: VkBool32,
 }
 #[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPhysicalDevicePresentTimingFeaturesEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPhysicalDevicePresentTimingFeaturesEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
 impl VkPhysicalDevicePresentTimingFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT,
@@ -37064,6 +39746,10 @@ pub struct VkPresentTimingSurfaceCapabilitiesEXT {
     pub presentAtRelativeTimeSupported: VkBool32,
     pub presentStageQueries: VkPresentStageFlagsEXT,
 }
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPresentTimingSurfaceCapabilitiesEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPresentTimingSurfaceCapabilitiesEXT {}
 #[cfg(feature = "VK_EXT_present_timing")]
 impl VkPresentTimingSurfaceCapabilitiesEXT {
     pub const DEFAULT: Self = Self {
@@ -37121,6 +39807,10 @@ pub struct VkSwapchainTimingPropertiesEXT {
     pub refreshInterval: u64,
 }
 #[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkSwapchainTimingPropertiesEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkSwapchainTimingPropertiesEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
 impl VkSwapchainTimingPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_TIMING_PROPERTIES_EXT,
@@ -37167,6 +39857,10 @@ pub struct VkSwapchainTimeDomainPropertiesEXT {
     /// Optional: true,  Length: timeDomainCount
     pub pTimeDomainIds: *mut u64,
 }
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkSwapchainTimeDomainPropertiesEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkSwapchainTimeDomainPropertiesEXT {}
 #[cfg(feature = "VK_EXT_present_timing")]
 impl VkSwapchainTimeDomainPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -37218,6 +39912,10 @@ pub struct VkPresentStageTimeEXT {
     pub time: u64,
 }
 #[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPresentStageTimeEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPresentStageTimeEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
 impl VkPresentStageTimeEXT {
     pub const DEFAULT: Self = Self { stage: 0, time: 0 };
     #[inline]
@@ -37248,6 +39946,10 @@ pub struct VkPastPresentationTimingInfoEXT {
     pub flags: VkPastPresentationTimingFlagsEXT,
     pub swapchain: VkSwapchainKHR,
 }
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPastPresentationTimingInfoEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPastPresentationTimingInfoEXT {}
 #[cfg(feature = "VK_EXT_present_timing")]
 impl VkPastPresentationTimingInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -37295,6 +39997,10 @@ pub struct VkPastPresentationTimingPropertiesEXT {
     /// Length: presentationTimingCount
     pub pPresentationTimings: *mut VkPastPresentationTimingEXT,
 }
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPastPresentationTimingPropertiesEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPastPresentationTimingPropertiesEXT {}
 #[cfg(feature = "VK_EXT_present_timing")]
 impl VkPastPresentationTimingPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -37362,6 +40068,10 @@ pub struct VkPastPresentationTimingEXT {
     pub timeDomainId: u64,
     pub reportComplete: VkBool32,
 }
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPastPresentationTimingEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPastPresentationTimingEXT {}
 #[cfg(feature = "VK_EXT_present_timing")]
 impl VkPastPresentationTimingEXT {
     pub const DEFAULT: Self = Self {
@@ -37440,6 +40150,10 @@ pub struct VkPresentTimingsInfoEXT {
     pub pTimingInfos: *const VkPresentTimingInfoEXT,
 }
 #[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPresentTimingsInfoEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPresentTimingsInfoEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
 impl VkPresentTimingsInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT,
@@ -37489,6 +40203,10 @@ pub struct VkPresentTimingInfoEXT {
     /// Optional: true
     pub targetTimeDomainPresentStage: VkPresentStageFlagsEXT,
 }
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkPresentTimingInfoEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkPresentTimingInfoEXT {}
 #[cfg(feature = "VK_EXT_present_timing")]
 impl VkPresentTimingInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -37553,6 +40271,10 @@ pub struct VkSwapchainCalibratedTimestampInfoEXT {
     pub timeDomainId: u64,
 }
 #[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Send for VkSwapchainCalibratedTimestampInfoEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
+unsafe impl Sync for VkSwapchainCalibratedTimestampInfoEXT {}
+#[cfg(feature = "VK_EXT_present_timing")]
 impl VkSwapchainCalibratedTimestampInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT,
@@ -37603,6 +40325,10 @@ pub struct VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT {
     pub primitiveTopologyPatchListRestart: VkBool32,
 }
 #[cfg(feature = "VK_EXT_primitive_topology_list_restart")]
+unsafe impl Send for VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT {}
+#[cfg(feature = "VK_EXT_primitive_topology_list_restart")]
+unsafe impl Sync for VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT {}
+#[cfg(feature = "VK_EXT_primitive_topology_list_restart")]
 impl VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT,
@@ -37647,6 +40373,10 @@ pub struct VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT {
     pub primitivesGeneratedQueryWithRasterizerDiscard: VkBool32,
     pub primitivesGeneratedQueryWithNonZeroStreams: VkBool32,
 }
+#[cfg(feature = "VK_EXT_primitives_generated_query")]
+unsafe impl Send for VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_primitives_generated_query")]
+unsafe impl Sync for VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT {}
 #[cfg(feature = "VK_EXT_primitives_generated_query")]
 impl VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -37711,6 +40441,10 @@ pub struct VkPhysicalDeviceProvokingVertexFeaturesEXT {
     pub transformFeedbackPreservesProvokingVertex: VkBool32,
 }
 #[cfg(feature = "VK_EXT_provoking_vertex")]
+unsafe impl Send for VkPhysicalDeviceProvokingVertexFeaturesEXT {}
+#[cfg(feature = "VK_EXT_provoking_vertex")]
+unsafe impl Sync for VkPhysicalDeviceProvokingVertexFeaturesEXT {}
+#[cfg(feature = "VK_EXT_provoking_vertex")]
 impl VkPhysicalDeviceProvokingVertexFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT,
@@ -37761,6 +40495,10 @@ pub struct VkPhysicalDeviceProvokingVertexPropertiesEXT {
     pub transformFeedbackPreservesTriangleFanProvokingVertex: VkBool32,
 }
 #[cfg(feature = "VK_EXT_provoking_vertex")]
+unsafe impl Send for VkPhysicalDeviceProvokingVertexPropertiesEXT {}
+#[cfg(feature = "VK_EXT_provoking_vertex")]
+unsafe impl Sync for VkPhysicalDeviceProvokingVertexPropertiesEXT {}
+#[cfg(feature = "VK_EXT_provoking_vertex")]
 impl VkPhysicalDeviceProvokingVertexPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT,
@@ -37807,6 +40545,10 @@ pub struct VkPipelineRasterizationProvokingVertexStateCreateInfoEXT {
     pub provokingVertexMode: VkProvokingVertexModeEXT,
 }
 #[cfg(feature = "VK_EXT_provoking_vertex")]
+unsafe impl Send for VkPipelineRasterizationProvokingVertexStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_provoking_vertex")]
+unsafe impl Sync for VkPipelineRasterizationProvokingVertexStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_provoking_vertex")]
 impl VkPipelineRasterizationProvokingVertexStateCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT,
@@ -37845,6 +40587,10 @@ pub struct VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {
     pub rasterizationOrderDepthAttachmentAccess: VkBool32,
     pub rasterizationOrderStencilAttachmentAccess: VkBool32,
 }
+#[cfg(feature = "VK_EXT_rasterization_order_attachment_access")]
+unsafe impl Send for VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {}
+#[cfg(feature = "VK_EXT_rasterization_order_attachment_access")]
+unsafe impl Sync for VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {}
 #[cfg(feature = "VK_EXT_rasterization_order_attachment_access")]
 impl VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -37895,6 +40641,10 @@ pub struct VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT {
     pub rayTracingInvocationReorder: VkBool32,
 }
 #[cfg(feature = "VK_EXT_ray_tracing_invocation_reorder")]
+unsafe impl Send for VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT {}
+#[cfg(feature = "VK_EXT_ray_tracing_invocation_reorder")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT {}
+#[cfg(feature = "VK_EXT_ray_tracing_invocation_reorder")]
 impl VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT,
@@ -37938,6 +40688,10 @@ pub struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT {
     /// Limit Type: [Min]
     pub maxShaderBindingTableRecordIndex: u32,
 }
+#[cfg(feature = "VK_EXT_ray_tracing_invocation_reorder")]
+unsafe impl Send for VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT {}
+#[cfg(feature = "VK_EXT_ray_tracing_invocation_reorder")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT {}
 #[cfg(feature = "VK_EXT_ray_tracing_invocation_reorder")]
 impl VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -37987,6 +40741,10 @@ pub struct VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT {
     pub formatRgba10x6WithoutYCbCrSampler: VkBool32,
 }
 #[cfg(feature = "VK_EXT_rgba10x6_formats")]
+unsafe impl Send for VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_rgba10x6_formats")]
+unsafe impl Sync for VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_rgba10x6_formats")]
 impl VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT,
@@ -38022,6 +40780,10 @@ pub struct VkSampleLocationEXT {
     pub x: f32,
     pub y: f32,
 }
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkSampleLocationEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkSampleLocationEXT {}
 #[cfg(feature = "VK_EXT_sample_locations")]
 impl VkSampleLocationEXT {
     pub const DEFAULT: Self = Self {
@@ -38062,6 +40824,10 @@ pub struct VkSampleLocationsInfoEXT {
     /// Length: sampleLocationsCount
     pub pSampleLocations: *const VkSampleLocationEXT,
 }
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkSampleLocationsInfoEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkSampleLocationsInfoEXT {}
 #[cfg(feature = "VK_EXT_sample_locations")]
 impl VkSampleLocationsInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -38115,6 +40881,10 @@ pub struct VkAttachmentSampleLocationsEXT {
     pub sampleLocationsInfo: VkSampleLocationsInfoEXT,
 }
 #[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkAttachmentSampleLocationsEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkAttachmentSampleLocationsEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
 impl VkAttachmentSampleLocationsEXT {
     pub const DEFAULT: Self = Self {
         attachmentIndex: 0,
@@ -38143,6 +40913,10 @@ pub struct VkSubpassSampleLocationsEXT {
     pub subpassIndex: u32,
     pub sampleLocationsInfo: VkSampleLocationsInfoEXT,
 }
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkSubpassSampleLocationsEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkSubpassSampleLocationsEXT {}
 #[cfg(feature = "VK_EXT_sample_locations")]
 impl VkSubpassSampleLocationsEXT {
     pub const DEFAULT: Self = Self {
@@ -38184,6 +40958,10 @@ pub struct VkRenderPassSampleLocationsBeginInfoEXT {
     /// Length: postSubpassSampleLocationsCount
     pub pPostSubpassSampleLocations: *const VkSubpassSampleLocationsEXT,
 }
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkRenderPassSampleLocationsBeginInfoEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkRenderPassSampleLocationsBeginInfoEXT {}
 #[cfg(feature = "VK_EXT_sample_locations")]
 impl VkRenderPassSampleLocationsBeginInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -38251,6 +41029,10 @@ pub struct VkPipelineSampleLocationsStateCreateInfoEXT {
     pub sampleLocationsInfo: VkSampleLocationsInfoEXT,
 }
 #[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkPipelineSampleLocationsStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkPipelineSampleLocationsStateCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
 impl VkPipelineSampleLocationsStateCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT,
@@ -38306,6 +41088,10 @@ pub struct VkPhysicalDeviceSampleLocationsPropertiesEXT {
     /// Limit Type: [Max]
     pub variableSampleLocations: VkBool32,
 }
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkPhysicalDeviceSampleLocationsPropertiesEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkPhysicalDeviceSampleLocationsPropertiesEXT {}
 #[cfg(feature = "VK_EXT_sample_locations")]
 impl VkPhysicalDeviceSampleLocationsPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -38368,6 +41154,10 @@ pub struct VkMultisamplePropertiesEXT {
     pub maxSampleLocationGridSize: VkExtent2D,
 }
 #[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Send for VkMultisamplePropertiesEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
+unsafe impl Sync for VkMultisamplePropertiesEXT {}
+#[cfg(feature = "VK_EXT_sample_locations")]
 impl VkMultisamplePropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT,
@@ -38413,6 +41203,10 @@ pub struct VkPhysicalDeviceShader64BitIndexingFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub shader64BitIndexing: VkBool32,
 }
+#[cfg(feature = "VK_EXT_shader_64bit_indexing")]
+unsafe impl Send for VkPhysicalDeviceShader64BitIndexingFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_64bit_indexing")]
+unsafe impl Sync for VkPhysicalDeviceShader64BitIndexingFeaturesEXT {}
 #[cfg(feature = "VK_EXT_shader_64bit_indexing")]
 impl VkPhysicalDeviceShader64BitIndexingFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -38462,6 +41256,10 @@ pub struct VkPhysicalDeviceShaderAtomicFloatFeaturesEXT {
     pub sparseImageFloat32Atomics: VkBool32,
     pub sparseImageFloat32AtomicAdd: VkBool32,
 }
+#[cfg(feature = "VK_EXT_shader_atomic_float")]
+unsafe impl Send for VkPhysicalDeviceShaderAtomicFloatFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_atomic_float")]
+unsafe impl Sync for VkPhysicalDeviceShaderAtomicFloatFeaturesEXT {}
 #[cfg(feature = "VK_EXT_shader_atomic_float")]
 impl VkPhysicalDeviceShaderAtomicFloatFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -38577,6 +41375,10 @@ pub struct VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT {
     pub sparseImageFloat32AtomicMinMax: VkBool32,
 }
 #[cfg(feature = "VK_EXT_shader_atomic_float2")]
+unsafe impl Send for VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_atomic_float2")]
+unsafe impl Sync for VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_atomic_float2")]
 impl VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -38685,6 +41487,10 @@ pub struct VkPhysicalDeviceShaderFloat8FeaturesEXT {
     pub shaderFloat8CooperativeMatrix: VkBool32,
 }
 #[cfg(feature = "VK_EXT_shader_float8")]
+unsafe impl Send for VkPhysicalDeviceShaderFloat8FeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_float8")]
+unsafe impl Sync for VkPhysicalDeviceShaderFloat8FeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_float8")]
 impl VkPhysicalDeviceShaderFloat8FeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT,
@@ -38729,6 +41535,10 @@ pub struct VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT {
     pub sparseImageInt64Atomics: VkBool32,
 }
 #[cfg(feature = "VK_EXT_shader_image_atomic_int64")]
+unsafe impl Send for VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_image_atomic_int64")]
+unsafe impl Sync for VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_image_atomic_int64")]
 impl VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT,
@@ -38772,6 +41582,10 @@ pub struct VkPhysicalDeviceShaderLongVectorFeaturesEXT {
     pub longVector: VkBool32,
 }
 #[cfg(feature = "VK_EXT_shader_long_vector")]
+unsafe impl Send for VkPhysicalDeviceShaderLongVectorFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_long_vector")]
+unsafe impl Sync for VkPhysicalDeviceShaderLongVectorFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_long_vector")]
 impl VkPhysicalDeviceShaderLongVectorFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT,
@@ -38814,6 +41628,10 @@ pub struct VkPhysicalDeviceShaderLongVectorPropertiesEXT {
     pub maxVectorComponents: u32,
 }
 #[cfg(feature = "VK_EXT_shader_long_vector")]
+unsafe impl Send for VkPhysicalDeviceShaderLongVectorPropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_long_vector")]
+unsafe impl Sync for VkPhysicalDeviceShaderLongVectorPropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_long_vector")]
 impl VkPhysicalDeviceShaderLongVectorPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT,
@@ -38850,6 +41668,10 @@ pub struct VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub shaderModuleIdentifier: VkBool32,
 }
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Send for VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Sync for VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT {}
 #[cfg(feature = "VK_EXT_shader_module_identifier")]
 impl VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -38894,6 +41716,10 @@ pub struct VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT {
     pub shaderModuleIdentifierAlgorithmUUID: [u8; VK_UUID_SIZE as usize],
 }
 #[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Send for VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Sync for VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
 impl VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT,
@@ -38936,6 +41762,10 @@ pub struct VkPipelineShaderStageModuleIdentifierCreateInfoEXT {
     /// Length: identifierSize
     pub pIdentifier: *const u8,
 }
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Send for VkPipelineShaderStageModuleIdentifierCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Sync for VkPipelineShaderStageModuleIdentifierCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_shader_module_identifier")]
 impl VkPipelineShaderStageModuleIdentifierCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -38984,6 +41814,10 @@ pub struct VkShaderModuleIdentifierEXT {
     /// Length: identifierSize
     pub identifier: [u8; VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT as usize],
 }
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Send for VkShaderModuleIdentifierEXT {}
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+unsafe impl Sync for VkShaderModuleIdentifierEXT {}
 #[cfg(feature = "VK_EXT_shader_module_identifier")]
 impl VkShaderModuleIdentifierEXT {
     pub const DEFAULT: Self = Self {
@@ -39037,6 +41871,10 @@ impl Default for VkShaderEXT {
     }
 }
 #[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Send for VkShaderEXT {}
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Sync for VkShaderEXT {}
+#[cfg(feature = "VK_EXT_shader_object")]
 pub type VkShaderRequiredSubgroupSizeCreateInfoEXT =
     VkPipelineShaderStageRequiredSubgroupSizeCreateInfo;
 /// [VkPhysicalDeviceShaderObjectFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderObjectFeaturesEXT.html)
@@ -39052,6 +41890,10 @@ pub struct VkPhysicalDeviceShaderObjectFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub shaderObject: VkBool32,
 }
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Send for VkPhysicalDeviceShaderObjectFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Sync for VkPhysicalDeviceShaderObjectFeaturesEXT {}
 #[cfg(feature = "VK_EXT_shader_object")]
 impl VkPhysicalDeviceShaderObjectFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -39096,6 +41938,10 @@ pub struct VkPhysicalDeviceShaderObjectPropertiesEXT {
     /// Limit Type: [Noauto]
     pub shaderBinaryVersion: u32,
 }
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Send for VkPhysicalDeviceShaderObjectPropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Sync for VkPhysicalDeviceShaderObjectPropertiesEXT {}
 #[cfg(feature = "VK_EXT_shader_object")]
 impl VkPhysicalDeviceShaderObjectPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -39157,6 +42003,10 @@ pub struct VkShaderCreateInfoEXT {
     /// Optional: true
     pub pSpecializationInfo: *const VkSpecializationInfo,
 }
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Send for VkShaderCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_shader_object")]
+unsafe impl Sync for VkShaderCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_shader_object")]
 impl VkShaderCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -39278,6 +42128,16 @@ pub struct VkVertexInputBindingDescription2EXT {
     feature = "VK_EXT_vertex_input_dynamic_state",
     feature = "VK_EXT_shader_object"
 ))]
+unsafe impl Send for VkVertexInputBindingDescription2EXT {}
+#[cfg(any(
+    feature = "VK_EXT_vertex_input_dynamic_state",
+    feature = "VK_EXT_shader_object"
+))]
+unsafe impl Sync for VkVertexInputBindingDescription2EXT {}
+#[cfg(any(
+    feature = "VK_EXT_vertex_input_dynamic_state",
+    feature = "VK_EXT_shader_object"
+))]
 impl VkVertexInputBindingDescription2EXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT,
@@ -39340,6 +42200,16 @@ pub struct VkVertexInputAttributeDescription2EXT {
     feature = "VK_EXT_vertex_input_dynamic_state",
     feature = "VK_EXT_shader_object"
 ))]
+unsafe impl Send for VkVertexInputAttributeDescription2EXT {}
+#[cfg(any(
+    feature = "VK_EXT_vertex_input_dynamic_state",
+    feature = "VK_EXT_shader_object"
+))]
+unsafe impl Sync for VkVertexInputAttributeDescription2EXT {}
+#[cfg(any(
+    feature = "VK_EXT_vertex_input_dynamic_state",
+    feature = "VK_EXT_shader_object"
+))]
 impl VkVertexInputAttributeDescription2EXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT,
@@ -39395,6 +42265,10 @@ pub struct VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT {
     pub shaderReplicatedComposites: VkBool32,
 }
 #[cfg(feature = "VK_EXT_shader_replicated_composites")]
+unsafe impl Send for VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_replicated_composites")]
+unsafe impl Sync for VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_replicated_composites")]
 impl VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT,
@@ -39431,6 +42305,10 @@ pub struct VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub shaderSubgroupPartitioned: VkBool32,
 }
+#[cfg(feature = "VK_EXT_shader_subgroup_partitioned")]
+unsafe impl Send for VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_subgroup_partitioned")]
+unsafe impl Sync for VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT {}
 #[cfg(feature = "VK_EXT_shader_subgroup_partitioned")]
 impl VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -39470,6 +42348,10 @@ pub struct VkPhysicalDeviceShaderTileImageFeaturesEXT {
     pub shaderTileImageDepthReadAccess: VkBool32,
     pub shaderTileImageStencilReadAccess: VkBool32,
 }
+#[cfg(feature = "VK_EXT_shader_tile_image")]
+unsafe impl Send for VkPhysicalDeviceShaderTileImageFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_tile_image")]
+unsafe impl Sync for VkPhysicalDeviceShaderTileImageFeaturesEXT {}
 #[cfg(feature = "VK_EXT_shader_tile_image")]
 impl VkPhysicalDeviceShaderTileImageFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -39529,6 +42411,10 @@ pub struct VkPhysicalDeviceShaderTileImagePropertiesEXT {
     pub shaderTileImageReadFromHelperInvocation: VkBool32,
 }
 #[cfg(feature = "VK_EXT_shader_tile_image")]
+unsafe impl Send for VkPhysicalDeviceShaderTileImagePropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_tile_image")]
+unsafe impl Sync for VkPhysicalDeviceShaderTileImagePropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_tile_image")]
 impl VkPhysicalDeviceShaderTileImagePropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT,
@@ -39581,6 +42467,10 @@ pub struct VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT {
     pub shaderUniformBufferUnsizedArray: VkBool32,
 }
 #[cfg(feature = "VK_EXT_shader_uniform_buffer_unsized_array")]
+unsafe impl Send for VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_uniform_buffer_unsized_array")]
+unsafe impl Sync for VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_uniform_buffer_unsized_array")]
 impl VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT,
@@ -39627,6 +42517,10 @@ pub struct VkRenderPassCreationControlEXT {
     pub disallowMerging: VkBool32,
 }
 #[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Send for VkRenderPassCreationControlEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Sync for VkRenderPassCreationControlEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
 impl VkRenderPassCreationControlEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_CONTROL_EXT,
@@ -39660,6 +42554,10 @@ pub struct VkRenderPassCreationFeedbackInfoEXT {
     pub postMergeSubpassCount: u32,
 }
 #[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Send for VkRenderPassCreationFeedbackInfoEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Sync for VkRenderPassCreationFeedbackInfoEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
 impl VkRenderPassCreationFeedbackInfoEXT {
     pub const DEFAULT: Self = Self {
         postMergeSubpassCount: 0,
@@ -39687,6 +42585,10 @@ pub struct VkRenderPassCreationFeedbackCreateInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub pRenderPassFeedback: *mut VkRenderPassCreationFeedbackInfoEXT,
 }
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Send for VkRenderPassCreationFeedbackCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Sync for VkRenderPassCreationFeedbackCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_subpass_merge_feedback")]
 impl VkRenderPassCreationFeedbackCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -39728,6 +42630,10 @@ pub struct VkRenderPassSubpassFeedbackInfoEXT {
     pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
     pub postMergeIndex: u32,
 }
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Send for VkRenderPassSubpassFeedbackInfoEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Sync for VkRenderPassSubpassFeedbackInfoEXT {}
 #[cfg(feature = "VK_EXT_subpass_merge_feedback")]
 impl VkRenderPassSubpassFeedbackInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -39772,6 +42678,10 @@ pub struct VkRenderPassSubpassFeedbackCreateInfoEXT {
     pub pSubpassFeedback: *mut VkRenderPassSubpassFeedbackInfoEXT,
 }
 #[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Send for VkRenderPassSubpassFeedbackCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Sync for VkRenderPassSubpassFeedbackCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
 impl VkRenderPassSubpassFeedbackCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT,
@@ -39813,6 +42723,10 @@ pub struct VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub subpassMergeFeedback: VkBool32,
 }
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Send for VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT {}
+#[cfg(feature = "VK_EXT_subpass_merge_feedback")]
+unsafe impl Sync for VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT {}
 #[cfg(feature = "VK_EXT_subpass_merge_feedback")]
 impl VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -39875,6 +42789,10 @@ pub struct VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT {
     pub texelBufferAlignment: VkBool32,
 }
 #[cfg(feature = "VK_EXT_texel_buffer_alignment")]
+unsafe impl Send for VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT {}
+#[cfg(feature = "VK_EXT_texel_buffer_alignment")]
+unsafe impl Sync for VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT {}
+#[cfg(feature = "VK_EXT_texel_buffer_alignment")]
 impl VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -39915,6 +42833,10 @@ pub struct VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub textureCompressionASTC_3D: VkBool32,
 }
+#[cfg(feature = "VK_EXT_texture_compression_astc_3d")]
+unsafe impl Send for VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT {}
+#[cfg(feature = "VK_EXT_texture_compression_astc_3d")]
+unsafe impl Sync for VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT {}
 #[cfg(feature = "VK_EXT_texture_compression_astc_3d")]
 impl VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -39963,6 +42885,10 @@ pub struct VkPhysicalDeviceTransformFeedbackFeaturesEXT {
     pub transformFeedback: VkBool32,
     pub geometryStreams: VkBool32,
 }
+#[cfg(feature = "VK_EXT_transform_feedback")]
+unsafe impl Send for VkPhysicalDeviceTransformFeedbackFeaturesEXT {}
+#[cfg(feature = "VK_EXT_transform_feedback")]
+unsafe impl Sync for VkPhysicalDeviceTransformFeedbackFeaturesEXT {}
 #[cfg(feature = "VK_EXT_transform_feedback")]
 impl VkPhysicalDeviceTransformFeedbackFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -40029,6 +42955,10 @@ pub struct VkPhysicalDeviceTransformFeedbackPropertiesEXT {
     /// Limit Type: [Max]
     pub transformFeedbackDraw: VkBool32,
 }
+#[cfg(feature = "VK_EXT_transform_feedback")]
+unsafe impl Send for VkPhysicalDeviceTransformFeedbackPropertiesEXT {}
+#[cfg(feature = "VK_EXT_transform_feedback")]
+unsafe impl Sync for VkPhysicalDeviceTransformFeedbackPropertiesEXT {}
 #[cfg(feature = "VK_EXT_transform_feedback")]
 impl VkPhysicalDeviceTransformFeedbackPropertiesEXT {
     pub const DEFAULT: Self = Self {
@@ -40123,6 +43053,10 @@ pub struct VkPipelineRasterizationStateStreamCreateInfoEXT {
     pub rasterizationStream: u32,
 }
 #[cfg(feature = "VK_EXT_transform_feedback")]
+unsafe impl Send for VkPipelineRasterizationStateStreamCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_transform_feedback")]
+unsafe impl Sync for VkPipelineRasterizationStateStreamCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_transform_feedback")]
 impl VkPipelineRasterizationStateStreamCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType:
@@ -40175,6 +43109,10 @@ impl Default for VkValidationCacheEXT {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl Send for VkValidationCacheEXT {}
+#[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl Sync for VkValidationCacheEXT {}
 /// [VkValidationCacheCreateInfoEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkValidationCacheCreateInfoEXT.html)
 #[cfg(feature = "VK_EXT_validation_cache")]
 #[repr(C)]
@@ -40191,6 +43129,10 @@ pub struct VkValidationCacheCreateInfoEXT {
     /// Length: initialDataSize
     pub pInitialData: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl Send for VkValidationCacheCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl Sync for VkValidationCacheCreateInfoEXT {}
 #[cfg(feature = "VK_EXT_validation_cache")]
 impl VkValidationCacheCreateInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -40243,6 +43185,10 @@ pub struct VkShaderModuleValidationCacheCreateInfoEXT {
     pub validationCache: VkValidationCacheEXT,
 }
 #[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl Send for VkShaderModuleValidationCacheCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_validation_cache")]
+unsafe impl Sync for VkShaderModuleValidationCacheCreateInfoEXT {}
+#[cfg(feature = "VK_EXT_validation_cache")]
 impl VkShaderModuleValidationCacheCreateInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT,
@@ -40286,6 +43232,10 @@ pub struct VkValidationFeaturesEXT {
     /// Length: disabledValidationFeatureCount
     pub pDisabledValidationFeatures: *const VkValidationFeatureDisableEXT,
 }
+#[cfg(feature = "VK_EXT_validation_features")]
+unsafe impl Send for VkValidationFeaturesEXT {}
+#[cfg(feature = "VK_EXT_validation_features")]
+unsafe impl Sync for VkValidationFeaturesEXT {}
 #[cfg(feature = "VK_EXT_validation_features")]
 impl VkValidationFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -40354,6 +43304,10 @@ pub struct VkValidationFlagsEXT {
     pub pDisabledValidationChecks: *const VkValidationCheckEXT,
 }
 #[cfg(feature = "VK_EXT_validation_flags")]
+unsafe impl Send for VkValidationFlagsEXT {}
+#[cfg(feature = "VK_EXT_validation_flags")]
+unsafe impl Sync for VkValidationFlagsEXT {}
+#[cfg(feature = "VK_EXT_validation_flags")]
 impl VkValidationFlagsEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT,
@@ -40412,6 +43366,10 @@ pub struct VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT {
     pub maxVertexAttribDivisor: u32,
 }
 #[cfg(feature = "VK_EXT_vertex_attribute_divisor")]
+unsafe impl Send for VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT {}
+#[cfg(feature = "VK_EXT_vertex_attribute_divisor")]
+unsafe impl Sync for VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT {}
+#[cfg(feature = "VK_EXT_vertex_attribute_divisor")]
 impl VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT,
@@ -40452,6 +43410,10 @@ pub struct VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT {
     pub vertexAttributeRobustness: VkBool32,
 }
 #[cfg(feature = "VK_EXT_vertex_attribute_robustness")]
+unsafe impl Send for VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT {}
+#[cfg(feature = "VK_EXT_vertex_attribute_robustness")]
+unsafe impl Sync for VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT {}
+#[cfg(feature = "VK_EXT_vertex_attribute_robustness")]
 impl VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT,
@@ -40488,6 +43450,10 @@ pub struct VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub vertexInputDynamicState: VkBool32,
 }
+#[cfg(feature = "VK_EXT_vertex_input_dynamic_state")]
+unsafe impl Send for VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT {}
+#[cfg(feature = "VK_EXT_vertex_input_dynamic_state")]
+unsafe impl Sync for VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT {}
 #[cfg(feature = "VK_EXT_vertex_input_dynamic_state")]
 impl VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -40526,6 +43492,10 @@ pub struct VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT {
     pub ycbcr2plane444Formats: VkBool32,
 }
 #[cfg(feature = "VK_EXT_ycbcr_2plane_444_formats")]
+unsafe impl Send for VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_ycbcr_2plane_444_formats")]
+unsafe impl Sync for VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT {}
+#[cfg(feature = "VK_EXT_ycbcr_2plane_444_formats")]
 impl VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT,
@@ -40563,6 +43533,10 @@ pub struct VkPhysicalDeviceYcbcrImageArraysFeaturesEXT {
     pub ycbcrImageArrays: VkBool32,
 }
 #[cfg(feature = "VK_EXT_ycbcr_image_arrays")]
+unsafe impl Send for VkPhysicalDeviceYcbcrImageArraysFeaturesEXT {}
+#[cfg(feature = "VK_EXT_ycbcr_image_arrays")]
+unsafe impl Sync for VkPhysicalDeviceYcbcrImageArraysFeaturesEXT {}
+#[cfg(feature = "VK_EXT_ycbcr_image_arrays")]
 impl VkPhysicalDeviceYcbcrImageArraysFeaturesEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT,
@@ -40599,6 +43573,10 @@ pub struct VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT {
     pub pNext: *mut core::ffi::c_void,
     pub zeroInitializeDeviceMemory: VkBool32,
 }
+#[cfg(feature = "VK_EXT_zero_initialize_device_memory")]
+unsafe impl Send for VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT {}
+#[cfg(feature = "VK_EXT_zero_initialize_device_memory")]
+unsafe impl Sync for VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT {}
 #[cfg(feature = "VK_EXT_zero_initialize_device_memory")]
 impl VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT {
     pub const DEFAULT: Self = Self {
@@ -40645,6 +43623,10 @@ impl Default for VkBufferCollectionFUCHSIA {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkBufferCollectionFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkBufferCollectionFUCHSIA {}
 /// [VkImportMemoryBufferCollectionFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportMemoryBufferCollectionFUCHSIA.html)
 ///
 /// **Extends:** VkMemoryAllocateInfo.
@@ -40659,6 +43641,10 @@ pub struct VkImportMemoryBufferCollectionFUCHSIA {
     pub collection: VkBufferCollectionFUCHSIA,
     pub index: u32,
 }
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkImportMemoryBufferCollectionFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkImportMemoryBufferCollectionFUCHSIA {}
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkImportMemoryBufferCollectionFUCHSIA {
     pub const DEFAULT: Self = Self {
@@ -40704,6 +43690,10 @@ pub struct VkBufferCollectionImageCreateInfoFUCHSIA {
     pub index: u32,
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkBufferCollectionImageCreateInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkBufferCollectionImageCreateInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkBufferCollectionImageCreateInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA,
@@ -40748,6 +43738,10 @@ pub struct VkBufferCollectionBufferCreateInfoFUCHSIA {
     pub index: u32,
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkBufferCollectionBufferCreateInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkBufferCollectionBufferCreateInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkBufferCollectionBufferCreateInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA,
@@ -40788,6 +43782,10 @@ pub struct VkBufferCollectionCreateInfoFUCHSIA {
     pub pNext: *const core::ffi::c_void,
     pub collectionToken: zx_handle_t,
 }
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkBufferCollectionCreateInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkBufferCollectionCreateInfoFUCHSIA {}
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkBufferCollectionCreateInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
@@ -40835,6 +43833,10 @@ pub struct VkBufferCollectionPropertiesFUCHSIA {
     pub suggestedXChromaOffset: VkChromaLocation,
     pub suggestedYChromaOffset: VkChromaLocation,
 }
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkBufferCollectionPropertiesFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkBufferCollectionPropertiesFUCHSIA {}
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkBufferCollectionPropertiesFUCHSIA {
     pub const DEFAULT: Self = Self {
@@ -40934,6 +43936,10 @@ pub struct VkBufferConstraintsInfoFUCHSIA {
     pub bufferCollectionConstraints: VkBufferCollectionConstraintsInfoFUCHSIA,
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkBufferConstraintsInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkBufferConstraintsInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkBufferConstraintsInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CONSTRAINTS_INFO_FUCHSIA,
@@ -40984,6 +43990,10 @@ pub struct VkSysmemColorSpaceFUCHSIA {
     pub colorSpace: u32,
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkSysmemColorSpaceFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkSysmemColorSpaceFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkSysmemColorSpaceFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SYSMEM_COLOR_SPACE_FUCHSIA,
@@ -41026,6 +44036,10 @@ pub struct VkImageFormatConstraintsInfoFUCHSIA {
     /// Length: colorSpaceCount
     pub pColorSpaces: *const VkSysmemColorSpaceFUCHSIA,
 }
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkImageFormatConstraintsInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkImageFormatConstraintsInfoFUCHSIA {}
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkImageFormatConstraintsInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
@@ -41099,6 +44113,10 @@ pub struct VkImageConstraintsInfoFUCHSIA {
     pub flags: VkImageConstraintsInfoFlagsFUCHSIA,
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkImageConstraintsInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkImageConstraintsInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkImageConstraintsInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CONSTRAINTS_INFO_FUCHSIA,
@@ -41164,6 +44182,10 @@ pub struct VkBufferCollectionConstraintsInfoFUCHSIA {
     pub minBufferCountForSharedSlack: u32,
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Send for VkBufferCollectionConstraintsInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+unsafe impl Sync for VkBufferCollectionConstraintsInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl VkBufferCollectionConstraintsInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA,
@@ -41228,6 +44250,10 @@ pub struct VkImportMemoryZirconHandleInfoFUCHSIA {
     pub handle: zx_handle_t,
 }
 #[cfg(feature = "VK_FUCHSIA_external_memory")]
+unsafe impl Send for VkImportMemoryZirconHandleInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_memory")]
+unsafe impl Sync for VkImportMemoryZirconHandleInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_memory")]
 impl VkImportMemoryZirconHandleInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA,
@@ -41271,6 +44297,10 @@ pub struct VkMemoryZirconHandlePropertiesFUCHSIA {
     pub memoryTypeBits: u32,
 }
 #[cfg(feature = "VK_FUCHSIA_external_memory")]
+unsafe impl Send for VkMemoryZirconHandlePropertiesFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_memory")]
+unsafe impl Sync for VkMemoryZirconHandlePropertiesFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_memory")]
 impl VkMemoryZirconHandlePropertiesFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA,
@@ -41307,6 +44337,10 @@ pub struct VkMemoryGetZirconHandleInfoFUCHSIA {
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_FUCHSIA_external_memory")]
+unsafe impl Send for VkMemoryGetZirconHandleInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_memory")]
+unsafe impl Sync for VkMemoryGetZirconHandleInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_memory")]
 impl VkMemoryGetZirconHandleInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA,
@@ -41339,21 +44373,33 @@ impl VkMemoryGetZirconHandleInfoFUCHSIA {
 /// [zx_handle_t](https://docs.vulkan.org/refpages/latest/refpages/source/zx_handle_t.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_FUCHSIA_imagepipe_surface",
     feature = "VK_FUCHSIA_external_memory",
-    feature = "VK_FUCHSIA_external_semaphore"
+    feature = "VK_FUCHSIA_external_semaphore",
+    feature = "VK_FUCHSIA_imagepipe_surface"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct zx_handle_t(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_FUCHSIA_imagepipe_surface",
     feature = "VK_FUCHSIA_external_memory",
-    feature = "VK_FUCHSIA_external_semaphore"
+    feature = "VK_FUCHSIA_external_semaphore",
+    feature = "VK_FUCHSIA_imagepipe_surface"
 ))]
 impl zx_handle_t {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(any(
+    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_external_semaphore",
+    feature = "VK_FUCHSIA_imagepipe_surface"
+))]
+unsafe impl Send for zx_handle_t {}
+#[cfg(any(
+    feature = "VK_FUCHSIA_external_memory",
+    feature = "VK_FUCHSIA_external_semaphore",
+    feature = "VK_FUCHSIA_imagepipe_surface"
+))]
+unsafe impl Sync for zx_handle_t {}
 /// [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreZirconHandleInfoFUCHSIA.html)
 #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
 #[repr(C)]
@@ -41369,6 +44415,10 @@ pub struct VkImportSemaphoreZirconHandleInfoFUCHSIA {
     pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
     pub zirconHandle: zx_handle_t,
 }
+#[cfg(feature = "VK_FUCHSIA_external_semaphore")]
+unsafe impl Send for VkImportSemaphoreZirconHandleInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_semaphore")]
+unsafe impl Sync for VkImportSemaphoreZirconHandleInfoFUCHSIA {}
 #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
 impl VkImportSemaphoreZirconHandleInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
@@ -41424,6 +44474,10 @@ pub struct VkSemaphoreGetZirconHandleInfoFUCHSIA {
     pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
+unsafe impl Send for VkSemaphoreGetZirconHandleInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_semaphore")]
+unsafe impl Sync for VkSemaphoreGetZirconHandleInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_external_semaphore")]
 impl VkSemaphoreGetZirconHandleInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA,
@@ -41470,6 +44524,10 @@ pub struct VkImagePipeSurfaceCreateInfoFUCHSIA {
     pub imagePipeHandle: zx_handle_t,
 }
 #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
+unsafe impl Send for VkImagePipeSurfaceCreateInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
+unsafe impl Sync for VkImagePipeSurfaceCreateInfoFUCHSIA {}
+#[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
 impl VkImagePipeSurfaceCreateInfoFUCHSIA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA,
@@ -41509,6 +44567,10 @@ pub struct GgpFrameToken(pub *mut core::ffi::c_void);
 impl GgpFrameToken {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_GGP_frame_token")]
+unsafe impl Send for GgpFrameToken {}
+#[cfg(feature = "VK_GGP_frame_token")]
+unsafe impl Sync for GgpFrameToken {}
 /// [VkPresentFrameTokenGGP](https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentFrameTokenGGP.html)
 ///
 /// **Extends:** VkPresentInfoKHR.
@@ -41522,6 +44584,10 @@ pub struct VkPresentFrameTokenGGP {
     pub pNext: *const core::ffi::c_void,
     pub frameToken: GgpFrameToken,
 }
+#[cfg(feature = "VK_GGP_frame_token")]
+unsafe impl Send for VkPresentFrameTokenGGP {}
+#[cfg(feature = "VK_GGP_frame_token")]
+unsafe impl Sync for VkPresentFrameTokenGGP {}
 #[cfg(feature = "VK_GGP_frame_token")]
 impl VkPresentFrameTokenGGP {
     pub const DEFAULT: Self = Self {
@@ -41556,6 +44622,10 @@ pub struct GgpStreamDescriptor(pub *mut core::ffi::c_void);
 impl GgpStreamDescriptor {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_GGP_stream_descriptor_surface")]
+unsafe impl Send for GgpStreamDescriptor {}
+#[cfg(feature = "VK_GGP_stream_descriptor_surface")]
+unsafe impl Sync for GgpStreamDescriptor {}
 /// [VkStreamDescriptorSurfaceCreateFlagsGGP](https://docs.vulkan.org/refpages/latest/refpages/source/VkStreamDescriptorSurfaceCreateFlagsGGP.html)
 #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
 pub type VkStreamDescriptorSurfaceCreateFlagsGGP = VkFlags;
@@ -41572,6 +44642,10 @@ pub struct VkStreamDescriptorSurfaceCreateInfoGGP {
     pub flags: VkStreamDescriptorSurfaceCreateFlagsGGP,
     pub streamDescriptor: GgpStreamDescriptor,
 }
+#[cfg(feature = "VK_GGP_stream_descriptor_surface")]
+unsafe impl Send for VkStreamDescriptorSurfaceCreateInfoGGP {}
+#[cfg(feature = "VK_GGP_stream_descriptor_surface")]
+unsafe impl Sync for VkStreamDescriptorSurfaceCreateInfoGGP {}
 #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
 impl VkStreamDescriptorSurfaceCreateInfoGGP {
     pub const DEFAULT: Self = Self {
@@ -41612,6 +44686,10 @@ pub struct VkRefreshCycleDurationGOOGLE {
     pub refreshDuration: u64,
 }
 #[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Send for VkRefreshCycleDurationGOOGLE {}
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Sync for VkRefreshCycleDurationGOOGLE {}
+#[cfg(feature = "VK_GOOGLE_display_timing")]
 impl VkRefreshCycleDurationGOOGLE {
     pub const DEFAULT: Self = Self { refreshDuration: 0 };
     #[inline]
@@ -41637,6 +44715,10 @@ pub struct VkPastPresentationTimingGOOGLE {
     pub earliestPresentTime: u64,
     pub presentMargin: u64,
 }
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Send for VkPastPresentationTimingGOOGLE {}
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Sync for VkPastPresentationTimingGOOGLE {}
 #[cfg(feature = "VK_GOOGLE_display_timing")]
 impl VkPastPresentationTimingGOOGLE {
     pub const DEFAULT: Self = Self {
@@ -41692,6 +44774,10 @@ pub struct VkPresentTimesInfoGOOGLE {
     pub pTimes: *const VkPresentTimeGOOGLE,
 }
 #[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Send for VkPresentTimesInfoGOOGLE {}
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Sync for VkPresentTimesInfoGOOGLE {}
+#[cfg(feature = "VK_GOOGLE_display_timing")]
 impl VkPresentTimesInfoGOOGLE {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMES_INFO_GOOGLE,
@@ -41731,6 +44817,10 @@ pub struct VkPresentTimeGOOGLE {
     pub presentID: u32,
     pub desiredPresentTime: u64,
 }
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Send for VkPresentTimeGOOGLE {}
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+unsafe impl Sync for VkPresentTimeGOOGLE {}
 #[cfg(feature = "VK_GOOGLE_display_timing")]
 impl VkPresentTimeGOOGLE {
     pub const DEFAULT: Self = Self {
@@ -41819,6 +44909,10 @@ impl Default for VkFramebuffer {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkFramebuffer {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkFramebuffer {}
 /// [VkRenderPass](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPass.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[repr(transparent)]
@@ -41835,6 +44929,10 @@ impl Default for VkRenderPass {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkRenderPass {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkRenderPass {}
 /// [VkViewport](https://docs.vulkan.org/refpages/latest/refpages/source/VkViewport.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[repr(C)]
@@ -41851,6 +44949,10 @@ pub struct VkViewport {
     pub minDepth: f32,
     pub maxDepth: f32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkViewport {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkViewport {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkViewport {
     pub const DEFAULT: Self = Self {
@@ -41906,6 +45008,10 @@ pub struct VkClearRect {
     pub layerCount: u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkClearRect {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkClearRect {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkClearRect {
     pub const DEFAULT: Self = Self {
         rect: VkRect2D::DEFAULT,
@@ -41942,6 +45048,10 @@ pub struct VkImageBlit {
     pub dstSubresource: VkImageSubresourceLayers,
     pub dstOffsets: [VkOffset3D; 2],
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkImageBlit {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkImageBlit {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkImageBlit {
     pub const DEFAULT: Self = Self {
@@ -41986,6 +45096,10 @@ pub struct VkImageResolve {
     pub dstOffset: VkOffset3D,
     pub extent: VkExtent3D,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkImageResolve {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkImageResolve {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkImageResolve {
     pub const DEFAULT: Self = Self {
@@ -42035,6 +45149,10 @@ pub struct VkVertexInputBindingDescription {
     pub inputRate: VkVertexInputRate,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkVertexInputBindingDescription {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkVertexInputBindingDescription {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkVertexInputBindingDescription {
     pub const DEFAULT: Self = Self {
         binding: 0,
@@ -42071,6 +45189,10 @@ pub struct VkVertexInputAttributeDescription {
     pub format: VkFormat,
     pub offset: u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkVertexInputAttributeDescription {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkVertexInputAttributeDescription {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkVertexInputAttributeDescription {
     pub const DEFAULT: Self = Self {
@@ -42124,6 +45246,10 @@ pub struct VkPipelineVertexInputStateCreateInfo {
     /// Length: vertexAttributeDescriptionCount
     pub pVertexAttributeDescriptions: *const VkVertexInputAttributeDescription,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineVertexInputStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineVertexInputStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineVertexInputStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -42197,6 +45323,10 @@ pub struct VkPipelineInputAssemblyStateCreateInfo {
     pub primitiveRestartEnable: VkBool32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineInputAssemblyStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineInputAssemblyStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineInputAssemblyStateCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO,
@@ -42245,6 +45375,10 @@ pub struct VkPipelineTessellationStateCreateInfo {
     pub flags: VkPipelineTessellationStateCreateFlags,
     pub patchControlPoints: u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineTessellationStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineTessellationStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineTessellationStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -42295,6 +45429,10 @@ pub struct VkPipelineViewportStateCreateInfo {
     /// Optional: true,  Length: scissorCount,  No Auto-Validity
     pub pScissors: *const VkRect2D,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineViewportStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineViewportStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineViewportStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -42370,6 +45508,10 @@ pub struct VkPipelineRasterizationStateCreateInfo {
     pub depthBiasSlopeFactor: f32,
     pub lineWidth: f32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineRasterizationStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineRasterizationStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineRasterizationStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -42474,6 +45616,10 @@ pub struct VkPipelineMultisampleStateCreateInfo {
     pub alphaToOneEnable: VkBool32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineMultisampleStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineMultisampleStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineMultisampleStateCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO,
@@ -42550,6 +45696,10 @@ pub struct VkPipelineColorBlendAttachmentState {
     /// Optional: true
     pub colorWriteMask: VkColorComponentFlags,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineColorBlendAttachmentState {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineColorBlendAttachmentState {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineColorBlendAttachmentState {
     pub const DEFAULT: Self = Self {
@@ -42628,6 +45778,10 @@ pub struct VkPipelineColorBlendStateCreateInfo {
     pub blendConstants: [f32; 4],
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineColorBlendStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineColorBlendStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineColorBlendStateCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO,
@@ -42703,6 +45857,10 @@ pub struct VkPipelineDynamicStateCreateInfo {
     pub pDynamicStates: *const VkDynamicState,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineDynamicStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineDynamicStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineDynamicStateCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO,
@@ -42753,6 +45911,10 @@ pub struct VkStencilOpState {
     pub writeMask: u32,
     pub reference: u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkStencilOpState {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkStencilOpState {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkStencilOpState {
     pub const DEFAULT: Self = Self {
@@ -42825,6 +45987,10 @@ pub struct VkPipelineDepthStencilStateCreateInfo {
     pub minDepthBounds: f32,
     pub maxDepthBounds: f32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkPipelineDepthStencilStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkPipelineDepthStencilStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkPipelineDepthStencilStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -42950,6 +46116,10 @@ pub struct VkGraphicsPipelineCreateInfo {
     pub basePipelineHandle: VkPipeline,
     pub basePipelineIndex: i32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkGraphicsPipelineCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkGraphicsPipelineCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkGraphicsPipelineCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -43147,6 +46317,10 @@ pub struct VkRenderPassBeginInfo {
     pub pClearValues: *const VkClearValue,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkRenderPassBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkRenderPassBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkRenderPassBeginInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
@@ -43205,6 +46379,10 @@ pub struct VkClearDepthStencilValue {
     pub stencil: u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkClearDepthStencilValue {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkClearDepthStencilValue {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkClearDepthStencilValue {
     pub const DEFAULT: Self = Self {
         depth: 0.0f32,
@@ -43237,6 +46415,10 @@ pub union VkClearValue {
     pub depthStencil: VkClearDepthStencilValue,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkClearValue {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkClearValue {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkClearValue {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -43266,6 +46448,10 @@ pub struct VkClearAttachment {
     /// No Auto-Validity
     pub clearValue: VkClearValue,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkClearAttachment {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkClearAttachment {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkClearAttachment {
     pub const DEFAULT: Self = Self {
@@ -43310,6 +46496,10 @@ pub struct VkAttachmentDescription {
     pub initialLayout: VkImageLayout,
     pub finalLayout: VkImageLayout,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkAttachmentDescription {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkAttachmentDescription {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkAttachmentDescription {
     pub const DEFAULT: Self = Self {
@@ -43383,6 +46573,10 @@ pub struct VkAttachmentReference {
     pub layout: VkImageLayout,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkAttachmentReference {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkAttachmentReference {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkAttachmentReference {
     pub const DEFAULT: Self = Self {
         attachment: 0,
@@ -43429,6 +46623,10 @@ pub struct VkSubpassDescription {
     /// Length: preserveAttachmentCount
     pub pPreserveAttachments: *const u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkSubpassDescription {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkSubpassDescription {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkSubpassDescription {
     pub const DEFAULT: Self = Self {
@@ -43528,6 +46726,10 @@ pub struct VkSubpassDependency {
     pub dependencyFlags: VkDependencyFlags,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkSubpassDependency {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkSubpassDependency {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkSubpassDependency {
     pub const DEFAULT: Self = Self {
         srcSubpass: 0,
@@ -43602,6 +46804,10 @@ pub struct VkRenderPassCreateInfo {
     /// Length: dependencyCount
     pub pDependencies: *const VkSubpassDependency,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkRenderPassCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkRenderPassCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkRenderPassCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -43689,6 +46895,10 @@ pub struct VkFramebufferCreateInfo {
     pub layers: u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkFramebufferCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkFramebufferCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkFramebufferCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
@@ -43762,6 +46972,10 @@ pub struct VkDrawIndirectCommand {
     pub firstInstance: u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkDrawIndirectCommand {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkDrawIndirectCommand {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkDrawIndirectCommand {
     pub const DEFAULT: Self = Self {
         vertexCount: 0,
@@ -43806,6 +47020,10 @@ pub struct VkDrawIndexedIndirectCommand {
     /// No Auto-Validity
     pub firstInstance: u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Send for VkDrawIndexedIndirectCommand {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl Sync for VkDrawIndexedIndirectCommand {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkDrawIndexedIndirectCommand {
     pub const DEFAULT: Self = Self {
@@ -43860,6 +47078,10 @@ pub struct VkPhysicalDeviceMultiviewFeatures {
     pub multiviewGeometryShader: VkBool32,
     pub multiviewTessellationShader: VkBool32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceMultiviewFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceMultiviewFeatures {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkPhysicalDeviceMultiviewFeatures {
     pub const DEFAULT: Self = Self {
@@ -43917,6 +47139,10 @@ pub struct VkPhysicalDeviceMultiviewProperties {
     pub maxMultiviewInstanceIndex: u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceMultiviewProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceMultiviewProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkPhysicalDeviceMultiviewProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES,
@@ -43970,6 +47196,10 @@ pub struct VkRenderPassMultiviewCreateInfo {
     /// Length: correlationMaskCount
     pub pCorrelationMasks: *const u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkRenderPassMultiviewCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkRenderPassMultiviewCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkRenderPassMultiviewCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -44048,6 +47278,10 @@ pub struct VkDeviceGroupRenderPassBeginInfo {
     pub pDeviceRenderAreas: *const VkRect2D,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkDeviceGroupRenderPassBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkDeviceGroupRenderPassBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkDeviceGroupRenderPassBeginInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO,
@@ -44095,6 +47329,10 @@ pub struct VkInputAttachmentAspectReference {
     pub aspectMask: VkImageAspectFlags,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkInputAttachmentAspectReference {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkInputAttachmentAspectReference {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkInputAttachmentAspectReference {
     pub const DEFAULT: Self = Self {
         subpass: 0,
@@ -44136,6 +47374,10 @@ pub struct VkRenderPassInputAttachmentAspectCreateInfo {
     /// Length: aspectReferenceCount
     pub pAspectReferences: *const VkInputAttachmentAspectReference,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkRenderPassInputAttachmentAspectCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkRenderPassInputAttachmentAspectCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkRenderPassInputAttachmentAspectCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -44190,6 +47432,10 @@ pub struct VkPhysicalDevicePointClippingProperties {
     pub pointClippingBehavior: VkPointClippingBehavior,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDevicePointClippingProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDevicePointClippingProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkPhysicalDevicePointClippingProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES,
@@ -44226,6 +47472,10 @@ pub struct VkPipelineTessellationDomainOriginStateCreateInfo {
     pub pNext: *const core::ffi::c_void,
     pub domainOrigin: VkTessellationDomainOrigin,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkPipelineTessellationDomainOriginStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkPipelineTessellationDomainOriginStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkPipelineTessellationDomainOriginStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -44264,6 +47514,10 @@ pub struct VkPhysicalDeviceShaderDrawParametersFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub shaderDrawParameters: VkBool32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Send for VkPhysicalDeviceShaderDrawParametersFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
+unsafe impl Sync for VkPhysicalDeviceShaderDrawParametersFeatures {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_1")]
 impl VkPhysicalDeviceShaderDrawParametersFeatures {
     pub const DEFAULT: Self = Self {
@@ -44310,6 +47564,10 @@ pub struct VkAttachmentDescription2 {
     pub initialLayout: VkImageLayout,
     pub finalLayout: VkImageLayout,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkAttachmentDescription2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkAttachmentDescription2 {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkAttachmentDescription2 {
     pub const DEFAULT: Self = Self {
@@ -44397,6 +47655,10 @@ pub struct VkAttachmentReference2 {
     pub aspectMask: VkImageAspectFlags,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkAttachmentReference2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkAttachmentReference2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkAttachmentReference2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2,
@@ -44462,6 +47724,10 @@ pub struct VkSubpassDescription2 {
     /// Length: preserveAttachmentCount
     pub pPreserveAttachments: *const u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkSubpassDescription2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkSubpassDescription2 {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkSubpassDescription2 {
     pub const DEFAULT: Self = Self {
@@ -44583,6 +47849,10 @@ pub struct VkSubpassDependency2 {
     pub viewOffset: i32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkSubpassDependency2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkSubpassDependency2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkSubpassDependency2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2,
@@ -44676,6 +47946,10 @@ pub struct VkRenderPassCreateInfo2 {
     pub pCorrelatedViewMasks: *const u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkRenderPassCreateInfo2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkRenderPassCreateInfo2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkRenderPassCreateInfo2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2,
@@ -44767,6 +48041,10 @@ pub struct VkSubpassBeginInfo {
     pub contents: VkSubpassContents,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkSubpassBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkSubpassBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkSubpassBeginInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO,
@@ -44800,6 +48078,10 @@ pub struct VkSubpassEndInfo {
     /// Optional: true
     pub pNext: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkSubpassEndInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkSubpassEndInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkSubpassEndInfo {
     pub const DEFAULT: Self = Self {
@@ -44842,6 +48124,10 @@ pub struct VkPhysicalDeviceDepthStencilResolveProperties {
     /// Limit Type: [Max]
     pub independentResolve: VkBool32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceDepthStencilResolveProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceDepthStencilResolveProperties {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkPhysicalDeviceDepthStencilResolveProperties {
     pub const DEFAULT: Self = Self {
@@ -44903,6 +48189,10 @@ pub struct VkSubpassDescriptionDepthStencilResolve {
     pub pDepthStencilResolveAttachment: *const VkAttachmentReference2,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkSubpassDescriptionDepthStencilResolve {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkSubpassDescriptionDepthStencilResolve {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkSubpassDescriptionDepthStencilResolve {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE,
@@ -44957,6 +48247,10 @@ pub struct VkImageStencilUsageCreateInfo {
     pub stencilUsage: VkImageUsageFlags,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkImageStencilUsageCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkImageStencilUsageCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkImageStencilUsageCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO,
@@ -44993,6 +48287,10 @@ pub struct VkPhysicalDeviceImagelessFramebufferFeatures {
     pub pNext: *mut core::ffi::c_void,
     pub imagelessFramebuffer: VkBool32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceImagelessFramebufferFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceImagelessFramebufferFeatures {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkPhysicalDeviceImagelessFramebufferFeatures {
     pub const DEFAULT: Self = Self {
@@ -45033,6 +48331,10 @@ pub struct VkFramebufferAttachmentsCreateInfo {
     /// Length: attachmentImageInfoCount
     pub pAttachmentImageInfos: *const VkFramebufferAttachmentImageInfo,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkFramebufferAttachmentsCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkFramebufferAttachmentsCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkFramebufferAttachmentsCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -45088,6 +48390,10 @@ pub struct VkFramebufferAttachmentImageInfo {
     /// Length: viewFormatCount
     pub pViewFormats: *const VkFormat,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkFramebufferAttachmentImageInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkFramebufferAttachmentImageInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkFramebufferAttachmentImageInfo {
     pub const DEFAULT: Self = Self {
@@ -45167,6 +48473,10 @@ pub struct VkRenderPassAttachmentBeginInfo {
     pub pAttachments: *const VkImageView,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkRenderPassAttachmentBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkRenderPassAttachmentBeginInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkRenderPassAttachmentBeginInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO,
@@ -45212,6 +48522,10 @@ pub struct VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {
     pub separateDepthStencilLayouts: VkBool32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES,
@@ -45248,6 +48562,10 @@ pub struct VkAttachmentReferenceStencilLayout {
     pub pNext: *mut core::ffi::c_void,
     pub stencilLayout: VkImageLayout,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkAttachmentReferenceStencilLayout {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkAttachmentReferenceStencilLayout {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkAttachmentReferenceStencilLayout {
     pub const DEFAULT: Self = Self {
@@ -45286,6 +48604,10 @@ pub struct VkAttachmentDescriptionStencilLayout {
     pub stencilInitialLayout: VkImageLayout,
     pub stencilFinalLayout: VkImageLayout,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Send for VkAttachmentDescriptionStencilLayout {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+unsafe impl Sync for VkAttachmentDescriptionStencilLayout {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 impl VkAttachmentDescriptionStencilLayout {
     pub const DEFAULT: Self = Self {
@@ -45333,6 +48655,10 @@ pub struct VkImageBlit2 {
     pub dstSubresource: VkImageSubresourceLayers,
     pub dstOffsets: [VkOffset3D; 2],
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkImageBlit2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkImageBlit2 {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkImageBlit2 {
     pub const DEFAULT: Self = Self {
@@ -45390,6 +48716,10 @@ pub struct VkImageResolve2 {
     pub dstOffset: VkOffset3D,
     pub extent: VkExtent3D,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkImageResolve2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkImageResolve2 {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkImageResolve2 {
     pub const DEFAULT: Self = Self {
@@ -45456,6 +48786,10 @@ pub struct VkBlitImageInfo2 {
     pub pRegions: *const VkImageBlit2,
     pub filter: VkFilter,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkBlitImageInfo2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkBlitImageInfo2 {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkBlitImageInfo2 {
     pub const DEFAULT: Self = Self {
@@ -45536,6 +48870,10 @@ pub struct VkResolveImageInfo2 {
     pub pRegions: *const VkImageResolve2,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkResolveImageInfo2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkResolveImageInfo2 {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkResolveImageInfo2 {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RESOLVE_IMAGE_INFO_2,
@@ -45613,6 +48951,10 @@ pub struct VkPipelineRenderingCreateInfo {
     pub stencilAttachmentFormat: VkFormat,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkPipelineRenderingCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkPipelineRenderingCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkPipelineRenderingCreateInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO,
@@ -45685,6 +49027,10 @@ pub struct VkRenderingInfo {
     /// Optional: true
     pub pStencilAttachment: *const VkRenderingAttachmentInfo,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkRenderingInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkRenderingInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkRenderingInfo {
     pub const DEFAULT: Self = Self {
@@ -45779,6 +49125,10 @@ pub struct VkRenderingAttachmentInfo {
     pub clearValue: VkClearValue,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkRenderingAttachmentInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkRenderingAttachmentInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkRenderingAttachmentInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO,
@@ -45858,6 +49208,10 @@ pub struct VkPhysicalDeviceDynamicRenderingFeatures {
     pub dynamicRendering: VkBool32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkPhysicalDeviceDynamicRenderingFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkPhysicalDeviceDynamicRenderingFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkPhysicalDeviceDynamicRenderingFeatures {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES,
@@ -45907,6 +49261,10 @@ pub struct VkCommandBufferInheritanceRenderingInfo {
     /// Optional: true
     pub rasterizationSamples: VkSampleCountFlagBits,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Send for VkCommandBufferInheritanceRenderingInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+unsafe impl Sync for VkCommandBufferInheritanceRenderingInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 impl VkCommandBufferInheritanceRenderingInfo {
     pub const DEFAULT: Self = Self {
@@ -45999,6 +49357,10 @@ pub struct VkRenderingAreaInfo {
     pub stencilAttachmentFormat: VkFormat,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkRenderingAreaInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkRenderingAreaInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkRenderingAreaInfo {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDERING_AREA_INFO,
@@ -46057,6 +49419,10 @@ pub struct VkVertexInputBindingDivisorDescription {
     pub divisor: u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkVertexInputBindingDivisorDescription {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkVertexInputBindingDivisorDescription {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkVertexInputBindingDivisorDescription {
     pub const DEFAULT: Self = Self {
         binding: 0,
@@ -46092,6 +49458,10 @@ pub struct VkPipelineVertexInputDivisorStateCreateInfo {
     /// Length: vertexBindingDivisorCount
     pub pVertexBindingDivisors: *const VkVertexInputBindingDivisorDescription,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkPipelineVertexInputDivisorStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkPipelineVertexInputDivisorStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkPipelineVertexInputDivisorStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -46148,6 +49518,10 @@ pub struct VkPhysicalDeviceVertexAttributeDivisorProperties {
     pub supportsNonZeroFirstInstance: VkBool32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceVertexAttributeDivisorProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceVertexAttributeDivisorProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkPhysicalDeviceVertexAttributeDivisorProperties {
     pub const DEFAULT: Self = Self {
         sType:
@@ -46192,6 +49566,10 @@ pub struct VkPhysicalDeviceVertexAttributeDivisorFeatures {
     pub vertexAttributeInstanceRateDivisor: VkBool32,
     pub vertexAttributeInstanceRateZeroDivisor: VkBool32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceVertexAttributeDivisorFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceVertexAttributeDivisorFeatures {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkPhysicalDeviceVertexAttributeDivisorFeatures {
     pub const DEFAULT: Self = Self {
@@ -46240,6 +49618,10 @@ pub struct VkPhysicalDeviceLineRasterizationFeatures {
     pub stippledBresenhamLines: VkBool32,
     pub stippledSmoothLines: VkBool32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceLineRasterizationFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceLineRasterizationFeatures {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkPhysicalDeviceLineRasterizationFeatures {
     pub const DEFAULT: Self = Self {
@@ -46313,6 +49695,10 @@ pub struct VkPhysicalDeviceLineRasterizationProperties {
     pub lineSubPixelPrecisionBits: u32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceLineRasterizationProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceLineRasterizationProperties {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkPhysicalDeviceLineRasterizationProperties {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES,
@@ -46352,6 +49738,10 @@ pub struct VkPipelineRasterizationLineStateCreateInfo {
     pub lineStippleFactor: u32,
     pub lineStipplePattern: u16,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkPipelineRasterizationLineStateCreateInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkPipelineRasterizationLineStateCreateInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkPipelineRasterizationLineStateCreateInfo {
     pub const DEFAULT: Self = Self {
@@ -46408,6 +49798,10 @@ pub struct VkPhysicalDeviceDynamicRenderingLocalReadFeatures {
     pub dynamicRenderingLocalRead: VkBool32,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkPhysicalDeviceDynamicRenderingLocalReadFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkPhysicalDeviceDynamicRenderingLocalReadFeatures {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkPhysicalDeviceDynamicRenderingLocalReadFeatures {
     pub const DEFAULT: Self = Self {
         sType:
@@ -46448,6 +49842,10 @@ pub struct VkRenderingAttachmentLocationInfo {
     /// Length: colorAttachmentCount,  No Auto-Validity
     pub pColorAttachmentLocations: *const u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkRenderingAttachmentLocationInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkRenderingAttachmentLocationInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkRenderingAttachmentLocationInfo {
     pub const DEFAULT: Self = Self {
@@ -46500,6 +49898,10 @@ pub struct VkRenderingInputAttachmentIndexInfo {
     /// Optional: true
     pub pStencilInputAttachmentIndex: *const u32,
 }
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Send for VkRenderingInputAttachmentIndexInfo {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+unsafe impl Sync for VkRenderingInputAttachmentIndexInfo {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 impl VkRenderingInputAttachmentIndexInfo {
     pub const DEFAULT: Self = Self {
@@ -46573,6 +49975,10 @@ pub struct VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
     pub indirectBufferOffsetAlignment: VkDeviceSize,
 }
 #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+unsafe impl Send for VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+unsafe impl Sync for VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
 impl VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI,
@@ -46629,6 +50035,10 @@ pub struct VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI {
     pub multiviewClusterCullingShader: VkBool32,
 }
 #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+unsafe impl Send for VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+unsafe impl Sync for VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
 impl VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI,
@@ -46672,6 +50082,10 @@ pub struct VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI {
     pub clusterShadingRate: VkBool32,
 }
 #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+unsafe impl Send for VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+unsafe impl Sync for VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
 impl VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI,
@@ -46710,6 +50124,10 @@ pub struct VkHdrVividDynamicMetadataHUAWEI {
     /// Length: dynamicMetadataSize
     pub pDynamicMetadata: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_HUAWEI_hdr_vivid")]
+unsafe impl Send for VkHdrVividDynamicMetadataHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_hdr_vivid")]
+unsafe impl Sync for VkHdrVividDynamicMetadataHUAWEI {}
 #[cfg(feature = "VK_HUAWEI_hdr_vivid")]
 impl VkHdrVividDynamicMetadataHUAWEI {
     pub const DEFAULT: Self = Self {
@@ -46756,6 +50174,10 @@ pub struct VkPhysicalDeviceHdrVividFeaturesHUAWEI {
     pub hdrVivid: VkBool32,
 }
 #[cfg(feature = "VK_HUAWEI_hdr_vivid")]
+unsafe impl Send for VkPhysicalDeviceHdrVividFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_hdr_vivid")]
+unsafe impl Sync for VkPhysicalDeviceHdrVividFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_hdr_vivid")]
 impl VkPhysicalDeviceHdrVividFeaturesHUAWEI {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI,
@@ -46792,6 +50214,10 @@ pub struct VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {
     pub pNext: *mut core::ffi::c_void,
     pub invocationMask: VkBool32,
 }
+#[cfg(feature = "VK_HUAWEI_invocation_mask")]
+unsafe impl Send for VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_invocation_mask")]
+unsafe impl Sync for VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {}
 #[cfg(feature = "VK_HUAWEI_invocation_mask")]
 impl VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {
     pub const DEFAULT: Self = Self {
@@ -46830,6 +50256,10 @@ pub struct VkSubpassShadingPipelineCreateInfoHUAWEI {
     pub renderPass: VkRenderPass,
     pub subpass: u32,
 }
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
+unsafe impl Send for VkSubpassShadingPipelineCreateInfoHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
+unsafe impl Sync for VkSubpassShadingPipelineCreateInfoHUAWEI {}
 #[cfg(feature = "VK_HUAWEI_subpass_shading")]
 impl VkSubpassShadingPipelineCreateInfoHUAWEI {
     pub const DEFAULT: Self = Self {
@@ -46879,6 +50309,10 @@ pub struct VkPhysicalDeviceSubpassShadingPropertiesHUAWEI {
     pub maxSubpassShadingWorkgroupSizeAspectRatio: u32,
 }
 #[cfg(feature = "VK_HUAWEI_subpass_shading")]
+unsafe impl Send for VkPhysicalDeviceSubpassShadingPropertiesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
+unsafe impl Sync for VkPhysicalDeviceSubpassShadingPropertiesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
 impl VkPhysicalDeviceSubpassShadingPropertiesHUAWEI {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI,
@@ -46916,6 +50350,10 @@ pub struct VkPhysicalDeviceSubpassShadingFeaturesHUAWEI {
     pub subpassShading: VkBool32,
 }
 #[cfg(feature = "VK_HUAWEI_subpass_shading")]
+unsafe impl Send for VkPhysicalDeviceSubpassShadingFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
+unsafe impl Sync for VkPhysicalDeviceSubpassShadingFeaturesHUAWEI {}
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
 impl VkPhysicalDeviceSubpassShadingFeaturesHUAWEI {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI,
@@ -46952,6 +50390,10 @@ pub struct VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG {
     pub pNext: *mut core::ffi::c_void,
     pub relaxedLineRasterization: VkBool32,
 }
+#[cfg(feature = "VK_IMG_relaxed_line_rasterization")]
+unsafe impl Send for VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG {}
+#[cfg(feature = "VK_IMG_relaxed_line_rasterization")]
+unsafe impl Sync for VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG {}
 #[cfg(feature = "VK_IMG_relaxed_line_rasterization")]
 impl VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG {
     pub const DEFAULT: Self = Self {
@@ -46992,6 +50434,10 @@ impl Default for VkPerformanceConfigurationINTEL {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkPerformanceConfigurationINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkPerformanceConfigurationINTEL {}
 /// [VkPerformanceValueDataINTEL](https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceValueDataINTEL.html)
 #[cfg(feature = "VK_INTEL_performance_query")]
 #[repr(C)]
@@ -47004,6 +50450,10 @@ pub union VkPerformanceValueDataINTEL {
     /// Length: null-terminated
     pub valueString: *const core::ffi::c_char,
 }
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkPerformanceValueDataINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkPerformanceValueDataINTEL {}
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl VkPerformanceValueDataINTEL {
     pub const DEFAULT: Self = unsafe {
@@ -47035,6 +50485,10 @@ pub struct VkPerformanceValueINTEL {
     /// No Auto-Validity
     pub data: VkPerformanceValueDataINTEL,
 }
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkPerformanceValueINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkPerformanceValueINTEL {}
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl VkPerformanceValueINTEL {
     pub const DEFAULT: Self = Self {
@@ -47068,6 +50522,10 @@ pub struct VkInitializePerformanceApiInfoINTEL {
     /// Optional: true
     pub pUserData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkInitializePerformanceApiInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkInitializePerformanceApiInfoINTEL {}
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl VkInitializePerformanceApiInfoINTEL {
     pub const DEFAULT: Self = Self {
@@ -47107,6 +50565,10 @@ pub struct VkQueryPoolPerformanceQueryCreateInfoINTEL {
     pub pNext: *const core::ffi::c_void,
     pub performanceCountersSampling: VkQueryPoolSamplingModeINTEL,
 }
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkQueryPoolPerformanceQueryCreateInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkQueryPoolPerformanceQueryCreateInfoINTEL {}
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl VkQueryPoolPerformanceQueryCreateInfoINTEL {
     pub const DEFAULT: Self = Self {
@@ -47148,6 +50610,10 @@ pub struct VkPerformanceMarkerInfoINTEL {
     pub marker: u64,
 }
 #[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkPerformanceMarkerInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkPerformanceMarkerInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
 impl VkPerformanceMarkerInfoINTEL {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL,
@@ -47182,6 +50648,10 @@ pub struct VkPerformanceStreamMarkerInfoINTEL {
     pub pNext: *const core::ffi::c_void,
     pub marker: u32,
 }
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkPerformanceStreamMarkerInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkPerformanceStreamMarkerInfoINTEL {}
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl VkPerformanceStreamMarkerInfoINTEL {
     pub const DEFAULT: Self = Self {
@@ -47219,6 +50689,10 @@ pub struct VkPerformanceOverrideInfoINTEL {
     pub enable: VkBool32,
     pub parameter: u64,
 }
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkPerformanceOverrideInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkPerformanceOverrideInfoINTEL {}
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl VkPerformanceOverrideInfoINTEL {
     pub const DEFAULT: Self = Self {
@@ -47267,6 +50741,10 @@ pub struct VkPerformanceConfigurationAcquireInfoINTEL {
     pub type_: VkPerformanceConfigurationTypeINTEL,
 }
 #[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Send for VkPerformanceConfigurationAcquireInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
+unsafe impl Sync for VkPerformanceConfigurationAcquireInfoINTEL {}
+#[cfg(feature = "VK_INTEL_performance_query")]
 impl VkPerformanceConfigurationAcquireInfoINTEL {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL,
@@ -47303,6 +50781,10 @@ pub struct VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL {
     pub pNext: *mut core::ffi::c_void,
     pub shaderIntegerFunctions2: VkBool32,
 }
+#[cfg(feature = "VK_INTEL_shader_integer_functions2")]
+unsafe impl Send for VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL {}
+#[cfg(feature = "VK_INTEL_shader_integer_functions2")]
+unsafe impl Sync for VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL {}
 #[cfg(feature = "VK_INTEL_shader_integer_functions2")]
 impl VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL {
     pub const DEFAULT: Self = Self {
@@ -47359,6 +50841,10 @@ impl Default for VkAccelerationStructureKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureKHR {}
 /// [VkWriteDescriptorSetAccelerationStructureKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkWriteDescriptorSetAccelerationStructureKHR.html)
 ///
 /// **Extends:** VkWriteDescriptorSet.
@@ -47374,6 +50860,10 @@ pub struct VkWriteDescriptorSetAccelerationStructureKHR {
     /// Optional: pointer required, values optional if pointer not null,  Length: accelerationStructureCount
     pub pAccelerationStructures: *const VkAccelerationStructureKHR,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkWriteDescriptorSetAccelerationStructureKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkWriteDescriptorSetAccelerationStructureKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkWriteDescriptorSetAccelerationStructureKHR {
     pub const DEFAULT: Self = Self {
@@ -47426,6 +50916,10 @@ pub struct VkPhysicalDeviceAccelerationStructureFeaturesKHR {
     pub accelerationStructureHostCommands: VkBool32,
     pub descriptorBindingAccelerationStructureUpdateAfterBind: VkBool32,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkPhysicalDeviceAccelerationStructureFeaturesKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkPhysicalDeviceAccelerationStructureFeaturesKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkPhysicalDeviceAccelerationStructureFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -47510,6 +51004,10 @@ pub struct VkPhysicalDeviceAccelerationStructurePropertiesKHR {
     /// Limit Type: [Min]
     pub minAccelerationStructureScratchOffsetAlignment: u32,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkPhysicalDeviceAccelerationStructurePropertiesKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkPhysicalDeviceAccelerationStructurePropertiesKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkPhysicalDeviceAccelerationStructurePropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -47604,6 +51102,10 @@ pub struct VkAccelerationStructureGeometryTrianglesDataKHR {
     pub transformData: VkDeviceOrHostAddressConstKHR,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureGeometryTrianglesDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureGeometryTrianglesDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureGeometryTrianglesDataKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -47678,6 +51180,10 @@ pub struct VkAccelerationStructureGeometryAabbsDataKHR {
     pub stride: VkDeviceSize,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureGeometryAabbsDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureGeometryAabbsDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureGeometryAabbsDataKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR,
@@ -47721,6 +51227,10 @@ pub struct VkAccelerationStructureGeometryInstancesDataKHR {
     pub data: VkDeviceOrHostAddressConstKHR,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureGeometryInstancesDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureGeometryInstancesDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureGeometryInstancesDataKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -47761,6 +51271,10 @@ pub union VkAccelerationStructureGeometryDataKHR {
     pub instances: VkAccelerationStructureGeometryInstancesDataKHR,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureGeometryDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureGeometryDataKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureGeometryDataKHR {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -47794,6 +51308,10 @@ pub struct VkAccelerationStructureGeometryKHR {
     /// Optional: true
     pub flags: VkGeometryFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureGeometryKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureGeometryKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureGeometryKHR {
     pub const DEFAULT: Self = Self {
@@ -47857,6 +51375,10 @@ pub struct VkAccelerationStructureBuildGeometryInfoKHR {
     /// No Auto-Validity
     pub scratchData: VkDeviceOrHostAddressKHR,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureBuildGeometryInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureBuildGeometryInfoKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureBuildGeometryInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -47950,6 +51472,10 @@ pub struct VkAccelerationStructureBuildRangeInfoKHR {
     pub transformOffset: u32,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureBuildRangeInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureBuildRangeInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureBuildRangeInfoKHR {
     pub const DEFAULT: Self = Self {
         primitiveCount: 0,
@@ -48001,6 +51527,10 @@ pub struct VkAccelerationStructureCreateInfoKHR {
     /// Optional: true
     pub deviceAddress: VkDeviceAddress,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -48068,6 +51598,10 @@ pub struct VkAabbPositionsKHR {
     pub maxZ: f32,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAabbPositionsKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAabbPositionsKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAabbPositionsKHR {
     pub const DEFAULT: Self = Self {
         minX: 0.0f32,
@@ -48120,6 +51654,10 @@ pub struct VkTransformMatrixKHR {
     pub matrix: [f32; 3],
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkTransformMatrixKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkTransformMatrixKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkTransformMatrixKHR {
     pub const DEFAULT: Self = Self {
         matrix: [0.0f32; 3],
@@ -48147,6 +51685,10 @@ pub struct VkAccelerationStructureInstanceKHR {
     pub flags: VkGeometryInstanceFlagsKHR,
     pub accelerationStructureReference: u64,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureInstanceKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureInstanceKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureInstanceKHR {
     pub const DEFAULT: Self = Self {
@@ -48204,6 +51746,10 @@ pub struct VkAccelerationStructureDeviceAddressInfoKHR {
     pub accelerationStructure: VkAccelerationStructureKHR,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureDeviceAddressInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureDeviceAddressInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureDeviceAddressInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR,
@@ -48239,6 +51785,10 @@ pub struct VkAccelerationStructureVersionInfoKHR {
     /// Length: latexmath:[2 \times \mathtt{VK\_UUID\_SIZE}]
     pub pVersionData: *const u8,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureVersionInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureVersionInfoKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureVersionInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -48278,6 +51828,10 @@ pub struct VkCopyAccelerationStructureInfoKHR {
     pub dst: VkAccelerationStructureKHR,
     pub mode: VkCopyAccelerationStructureModeKHR,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkCopyAccelerationStructureInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkCopyAccelerationStructureInfoKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkCopyAccelerationStructureInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -48329,6 +51883,10 @@ pub struct VkCopyAccelerationStructureToMemoryInfoKHR {
     pub mode: VkCopyAccelerationStructureModeKHR,
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkCopyAccelerationStructureToMemoryInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkCopyAccelerationStructureToMemoryInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkCopyAccelerationStructureToMemoryInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR,
@@ -48378,6 +51936,10 @@ pub struct VkCopyMemoryToAccelerationStructureInfoKHR {
     pub dst: VkAccelerationStructureKHR,
     pub mode: VkCopyAccelerationStructureModeKHR,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkCopyMemoryToAccelerationStructureInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkCopyMemoryToAccelerationStructureInfoKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkCopyMemoryToAccelerationStructureInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -48429,6 +51991,10 @@ pub struct VkAccelerationStructureBuildSizesInfoKHR {
     pub updateScratchSize: VkDeviceSize,
     pub buildScratchSize: VkDeviceSize,
 }
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Send for VkAccelerationStructureBuildSizesInfoKHR {}
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+unsafe impl Sync for VkAccelerationStructureBuildSizesInfoKHR {}
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl VkAccelerationStructureBuildSizesInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -48482,6 +52048,16 @@ pub union VkDeviceOrHostAddressKHR {
     feature = "VK_KHR_acceleration_structure",
     feature = "VK_NV_cooperative_vector"
 ))]
+unsafe impl Send for VkDeviceOrHostAddressKHR {}
+#[cfg(any(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_NV_cooperative_vector"
+))]
+unsafe impl Sync for VkDeviceOrHostAddressKHR {}
+#[cfg(any(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_NV_cooperative_vector"
+))]
 impl VkDeviceOrHostAddressKHR {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -48521,6 +52097,16 @@ pub union VkDeviceOrHostAddressConstKHR {
     feature = "VK_KHR_acceleration_structure",
     feature = "VK_NV_cooperative_vector"
 ))]
+unsafe impl Send for VkDeviceOrHostAddressConstKHR {}
+#[cfg(any(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_NV_cooperative_vector"
+))]
+unsafe impl Sync for VkDeviceOrHostAddressConstKHR {}
+#[cfg(any(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_NV_cooperative_vector"
+))]
 impl VkDeviceOrHostAddressConstKHR {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -48553,6 +52139,10 @@ pub struct ANativeWindow(pub *mut core::ffi::c_void);
 impl ANativeWindow {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_android_surface")]
+unsafe impl Send for ANativeWindow {}
+#[cfg(feature = "VK_KHR_android_surface")]
+unsafe impl Sync for ANativeWindow {}
 /// [VkAndroidSurfaceCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAndroidSurfaceCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_android_surface")]
 pub type VkAndroidSurfaceCreateFlagsKHR = VkFlags;
@@ -48570,6 +52160,10 @@ pub struct VkAndroidSurfaceCreateInfoKHR {
     /// No Auto-Validity
     pub window: *mut ANativeWindow,
 }
+#[cfg(feature = "VK_KHR_android_surface")]
+unsafe impl Send for VkAndroidSurfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_android_surface")]
+unsafe impl Sync for VkAndroidSurfaceCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_android_surface")]
 impl VkAndroidSurfaceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -48629,6 +52223,10 @@ pub struct VkCalibratedTimestampInfoKHR {
     pub timeDomain: VkTimeDomainKHR,
 }
 #[cfg(feature = "VK_KHR_calibrated_timestamps")]
+unsafe impl Send for VkCalibratedTimestampInfoKHR {}
+#[cfg(feature = "VK_KHR_calibrated_timestamps")]
+unsafe impl Sync for VkCalibratedTimestampInfoKHR {}
+#[cfg(feature = "VK_KHR_calibrated_timestamps")]
 impl VkCalibratedTimestampInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR,
@@ -48666,6 +52264,10 @@ pub struct VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR {
     pub computeDerivativeGroupQuads: VkBool32,
     pub computeDerivativeGroupLinear: VkBool32,
 }
+#[cfg(feature = "VK_KHR_compute_shader_derivatives")]
+unsafe impl Send for VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR {}
+#[cfg(feature = "VK_KHR_compute_shader_derivatives")]
+unsafe impl Sync for VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR {}
 #[cfg(feature = "VK_KHR_compute_shader_derivatives")]
 impl VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -48715,6 +52317,10 @@ pub struct VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR {
     pub meshAndTaskShaderDerivatives: VkBool32,
 }
 #[cfg(feature = "VK_KHR_compute_shader_derivatives")]
+unsafe impl Send for VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR {}
+#[cfg(feature = "VK_KHR_compute_shader_derivatives")]
+unsafe impl Sync for VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR {}
+#[cfg(feature = "VK_KHR_compute_shader_derivatives")]
 impl VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR,
@@ -48752,6 +52358,10 @@ pub struct VkPhysicalDeviceCooperativeMatrixFeaturesKHR {
     pub cooperativeMatrix: VkBool32,
     pub cooperativeMatrixRobustBufferAccess: VkBool32,
 }
+#[cfg(feature = "VK_KHR_cooperative_matrix")]
+unsafe impl Send for VkPhysicalDeviceCooperativeMatrixFeaturesKHR {}
+#[cfg(feature = "VK_KHR_cooperative_matrix")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeMatrixFeaturesKHR {}
 #[cfg(feature = "VK_KHR_cooperative_matrix")]
 impl VkPhysicalDeviceCooperativeMatrixFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -48803,6 +52413,10 @@ pub struct VkCooperativeMatrixPropertiesKHR {
     pub saturatingAccumulation: VkBool32,
     pub scope: VkScopeKHR,
 }
+#[cfg(feature = "VK_KHR_cooperative_matrix")]
+unsafe impl Send for VkCooperativeMatrixPropertiesKHR {}
+#[cfg(feature = "VK_KHR_cooperative_matrix")]
+unsafe impl Sync for VkCooperativeMatrixPropertiesKHR {}
 #[cfg(feature = "VK_KHR_cooperative_matrix")]
 impl VkCooperativeMatrixPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -48894,6 +52508,10 @@ pub struct VkPhysicalDeviceCooperativeMatrixPropertiesKHR {
     pub cooperativeMatrixSupportedStages: VkShaderStageFlags,
 }
 #[cfg(feature = "VK_KHR_cooperative_matrix")]
+unsafe impl Send for VkPhysicalDeviceCooperativeMatrixPropertiesKHR {}
+#[cfg(feature = "VK_KHR_cooperative_matrix")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeMatrixPropertiesKHR {}
+#[cfg(feature = "VK_KHR_cooperative_matrix")]
 impl VkPhysicalDeviceCooperativeMatrixPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR,
@@ -48952,6 +52570,10 @@ pub struct VkCopyMemoryIndirectCommandKHR {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Send for VkCopyMemoryIndirectCommandKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Sync for VkCopyMemoryIndirectCommandKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
 impl VkCopyMemoryIndirectCommandKHR {
     pub const DEFAULT: Self = Self {
         srcAddress: 0,
@@ -48994,6 +52616,10 @@ pub struct VkCopyMemoryIndirectInfoKHR {
     pub copyCount: u32,
     pub copyAddressRange: VkStridedDeviceAddressRangeKHR,
 }
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Send for VkCopyMemoryIndirectInfoKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Sync for VkCopyMemoryIndirectInfoKHR {}
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
 impl VkCopyMemoryIndirectInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -49048,6 +52674,10 @@ pub struct VkCopyMemoryToImageIndirectCommandKHR {
     pub imageOffset: VkOffset3D,
     pub imageExtent: VkExtent3D,
 }
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Send for VkCopyMemoryToImageIndirectCommandKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Sync for VkCopyMemoryToImageIndirectCommandKHR {}
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
 impl VkCopyMemoryToImageIndirectCommandKHR {
     pub const DEFAULT: Self = Self {
@@ -49111,6 +52741,10 @@ pub struct VkCopyMemoryToImageIndirectInfoKHR {
     /// Length: copyCount
     pub pImageSubresources: *const VkImageSubresourceLayers,
 }
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Send for VkCopyMemoryToImageIndirectInfoKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Sync for VkCopyMemoryToImageIndirectInfoKHR {}
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
 impl VkCopyMemoryToImageIndirectInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -49182,6 +52816,10 @@ pub struct VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR {
     pub indirectMemoryToImageCopy: VkBool32,
 }
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Send for VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Sync for VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
 impl VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR,
@@ -49230,6 +52868,10 @@ pub struct VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {
     pub supportedQueues: VkQueueFlags,
 }
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Send for VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+unsafe impl Sync for VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {}
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
 impl VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -49267,6 +52909,16 @@ pub struct VkStridedDeviceAddressRangeKHR {
     pub size: VkDeviceSize,
     pub stride: VkDeviceSize,
 }
+#[cfg(any(
+    feature = "VK_KHR_device_address_commands",
+    feature = "VK_KHR_copy_memory_indirect"
+))]
+unsafe impl Send for VkStridedDeviceAddressRangeKHR {}
+#[cfg(any(
+    feature = "VK_KHR_device_address_commands",
+    feature = "VK_KHR_copy_memory_indirect"
+))]
+unsafe impl Sync for VkStridedDeviceAddressRangeKHR {}
 #[cfg(any(
     feature = "VK_KHR_device_address_commands",
     feature = "VK_KHR_copy_memory_indirect"
@@ -49331,6 +52983,10 @@ impl Default for VkDeferredOperationKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+unsafe impl Send for VkDeferredOperationKHR {}
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+unsafe impl Sync for VkDeferredOperationKHR {}
 /// [VkPhysicalDeviceDepthClampZeroOneFeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthClampZeroOneFeaturesKHR.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -49344,6 +53000,10 @@ pub struct VkPhysicalDeviceDepthClampZeroOneFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub depthClampZeroOne: VkBool32,
 }
+#[cfg(feature = "VK_KHR_depth_clamp_zero_one")]
+unsafe impl Send for VkPhysicalDeviceDepthClampZeroOneFeaturesKHR {}
+#[cfg(feature = "VK_KHR_depth_clamp_zero_one")]
+unsafe impl Sync for VkPhysicalDeviceDepthClampZeroOneFeaturesKHR {}
 #[cfg(feature = "VK_KHR_depth_clamp_zero_one")]
 impl VkPhysicalDeviceDepthClampZeroOneFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -49396,6 +53056,10 @@ pub struct VkDeviceAddressRangeKHR {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkDeviceAddressRangeKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkDeviceAddressRangeKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkDeviceAddressRangeKHR {
     pub const DEFAULT: Self = Self {
         address: 0,
@@ -49432,6 +53096,10 @@ pub struct VkDeviceMemoryCopyKHR {
     /// Optional: true
     pub dstFlags: VkAddressCommandFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkDeviceMemoryCopyKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkDeviceMemoryCopyKHR {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkDeviceMemoryCopyKHR {
     pub const DEFAULT: Self = Self {
@@ -49488,6 +53156,10 @@ pub struct VkCopyDeviceMemoryInfoKHR {
     pub pRegions: *const VkDeviceMemoryCopyKHR,
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkCopyDeviceMemoryInfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkCopyDeviceMemoryInfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkCopyDeviceMemoryInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_DEVICE_MEMORY_INFO_KHR,
@@ -49538,6 +53210,10 @@ pub struct VkDeviceMemoryImageCopyKHR {
     pub imageOffset: VkOffset3D,
     pub imageExtent: VkExtent3D,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkDeviceMemoryImageCopyKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkDeviceMemoryImageCopyKHR {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkDeviceMemoryImageCopyKHR {
     pub const DEFAULT: Self = Self {
@@ -49619,6 +53295,10 @@ pub struct VkCopyDeviceMemoryImageInfoKHR {
     pub pRegions: *const VkDeviceMemoryImageCopyKHR,
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkCopyDeviceMemoryImageInfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkCopyDeviceMemoryImageInfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkCopyDeviceMemoryImageInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_DEVICE_MEMORY_IMAGE_INFO_KHR,
@@ -49672,6 +53352,10 @@ pub struct VkMemoryRangeBarriersInfoKHR {
     /// Length: memoryRangeBarrierCount
     pub pMemoryRangeBarriers: *const VkMemoryRangeBarrierKHR,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkMemoryRangeBarriersInfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkMemoryRangeBarriersInfoKHR {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkMemoryRangeBarriersInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -49727,6 +53411,10 @@ pub struct VkMemoryRangeBarrierKHR {
     /// Optional: true
     pub addressFlags: VkAddressCommandFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkMemoryRangeBarrierKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkMemoryRangeBarrierKHR {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkMemoryRangeBarrierKHR {
     pub const DEFAULT: Self = Self {
@@ -49807,6 +53495,10 @@ pub struct VkPhysicalDeviceDeviceAddressCommandsFeaturesKHR {
     pub deviceAddressCommands: VkBool32,
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkPhysicalDeviceDeviceAddressCommandsFeaturesKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkPhysicalDeviceDeviceAddressCommandsFeaturesKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkPhysicalDeviceDeviceAddressCommandsFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -49846,6 +53538,10 @@ pub struct VkConditionalRenderingBeginInfo2EXT {
     /// Optional: true
     pub flags: VkConditionalRenderingFlagsEXT,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkConditionalRenderingBeginInfo2EXT {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkConditionalRenderingBeginInfo2EXT {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkConditionalRenderingBeginInfo2EXT {
     pub const DEFAULT: Self = Self {
@@ -49898,6 +53594,10 @@ pub struct VkAccelerationStructureCreateInfo2KHR {
     pub addressFlags: VkAddressCommandFlagsKHR,
     pub type_: VkAccelerationStructureTypeKHR,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkAccelerationStructureCreateInfo2KHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkAccelerationStructureCreateInfo2KHR {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkAccelerationStructureCreateInfo2KHR {
     pub const DEFAULT: Self = Self {
@@ -49955,6 +53655,10 @@ pub struct VkBindIndexBuffer3InfoKHR {
     pub indexType: VkIndexType,
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkBindIndexBuffer3InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkBindIndexBuffer3InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkBindIndexBuffer3InfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_INDEX_BUFFER_3_INFO_KHR,
@@ -50005,6 +53709,10 @@ pub struct VkBindVertexBuffer3InfoKHR {
     pub addressFlags: VkAddressCommandFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkBindVertexBuffer3InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkBindVertexBuffer3InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkBindVertexBuffer3InfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_VERTEX_BUFFER_3_INFO_KHR,
@@ -50054,6 +53762,10 @@ pub struct VkDrawIndirect2InfoKHR {
     pub addressFlags: VkAddressCommandFlagsKHR,
     pub drawCount: u32,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkDrawIndirect2InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkDrawIndirect2InfoKHR {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkDrawIndirect2InfoKHR {
     pub const DEFAULT: Self = Self {
@@ -50107,6 +53819,10 @@ pub struct VkDrawIndirectCount2InfoKHR {
     pub countAddressFlags: VkAddressCommandFlagsKHR,
     pub maxDrawCount: u32,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkDrawIndirectCount2InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkDrawIndirectCount2InfoKHR {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkDrawIndirectCount2InfoKHR {
     pub const DEFAULT: Self = Self {
@@ -50169,6 +53885,10 @@ pub struct VkDispatchIndirect2InfoKHR {
     pub addressFlags: VkAddressCommandFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkDispatchIndirect2InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkDispatchIndirect2InfoKHR {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkDispatchIndirect2InfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_INDIRECT_2_INFO_KHR,
@@ -50211,6 +53931,10 @@ pub struct VkBindTransformFeedbackBuffer2InfoEXT {
     /// Optional: true
     pub addressFlags: VkAddressCommandFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkBindTransformFeedbackBuffer2InfoEXT {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkBindTransformFeedbackBuffer2InfoEXT {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkBindTransformFeedbackBuffer2InfoEXT {
     pub const DEFAULT: Self = Self {
@@ -50256,6 +53980,10 @@ pub struct VkMemoryMarkerInfoAMD {
     pub dstFlags: VkAddressCommandFlagsKHR,
     pub marker: u32,
 }
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Send for VkMemoryMarkerInfoAMD {}
+#[cfg(feature = "VK_KHR_device_address_commands")]
+unsafe impl Sync for VkMemoryMarkerInfoAMD {}
 #[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkMemoryMarkerInfoAMD {
     pub const DEFAULT: Self = Self {
@@ -50334,6 +54062,10 @@ pub struct VkDeviceGroupPresentCapabilitiesKHR {
     pub modes: VkDeviceGroupPresentModeFlagsKHR,
 }
 #[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Send for VkDeviceGroupPresentCapabilitiesKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Sync for VkDeviceGroupPresentCapabilitiesKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
 impl VkDeviceGroupPresentCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR,
@@ -50378,6 +54110,10 @@ pub struct VkImageSwapchainCreateInfoKHR {
     pub swapchain: VkSwapchainKHR,
 }
 #[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Send for VkImageSwapchainCreateInfoKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Sync for VkImageSwapchainCreateInfoKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
 impl VkImageSwapchainCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_SWAPCHAIN_CREATE_INFO_KHR,
@@ -50415,6 +54151,10 @@ pub struct VkBindImageMemorySwapchainInfoKHR {
     pub swapchain: VkSwapchainKHR,
     pub imageIndex: u32,
 }
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Send for VkBindImageMemorySwapchainInfoKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Sync for VkBindImageMemorySwapchainInfoKHR {}
 #[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
 impl VkBindImageMemorySwapchainInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -50462,6 +54202,10 @@ pub struct VkAcquireNextImageInfoKHR {
     pub fence: VkFence,
     pub deviceMask: u32,
 }
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Send for VkAcquireNextImageInfoKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Sync for VkAcquireNextImageInfoKHR {}
 #[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
 impl VkAcquireNextImageInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -50528,6 +54272,10 @@ pub struct VkDeviceGroupPresentInfoKHR {
     pub mode: VkDeviceGroupPresentModeFlagBitsKHR,
 }
 #[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Send for VkDeviceGroupPresentInfoKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Sync for VkDeviceGroupPresentInfoKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
 impl VkDeviceGroupPresentInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_INFO_KHR,
@@ -50578,6 +54326,10 @@ pub struct VkDeviceGroupSwapchainCreateInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub modes: VkDeviceGroupPresentModeFlagsKHR,
 }
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Send for VkDeviceGroupSwapchainCreateInfoKHR {}
+#[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
+unsafe impl Sync for VkDeviceGroupSwapchainCreateInfoKHR {}
 #[cfg(any(feature = "VK_KHR_swapchain", feature = "VK_KHR_device_group"))]
 impl VkDeviceGroupSwapchainCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -50634,6 +54386,10 @@ impl Default for VkDisplayKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayKHR {}
 /// [VkDisplayModeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeKHR.html)
 #[cfg(feature = "VK_KHR_display")]
 #[repr(transparent)]
@@ -50650,6 +54406,10 @@ impl Default for VkDisplayModeKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayModeKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayModeKHR {}
 /// [VkDisplayPropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPropertiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -50667,6 +54427,10 @@ pub struct VkDisplayPropertiesKHR {
     pub planeReorderPossible: VkBool32,
     pub persistentContent: VkBool32,
 }
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayPropertiesKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayPropertiesKHR {}
 #[cfg(feature = "VK_KHR_display")]
 impl VkDisplayPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -50731,6 +54495,10 @@ pub struct VkDisplayPlanePropertiesKHR {
     pub currentStackIndex: u32,
 }
 #[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayPlanePropertiesKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayPlanePropertiesKHR {}
+#[cfg(feature = "VK_KHR_display")]
 impl VkDisplayPlanePropertiesKHR {
     pub const DEFAULT: Self = Self {
         currentDisplay: VkDisplayKHR::DEFAULT,
@@ -50760,6 +54528,10 @@ pub struct VkDisplayModeParametersKHR {
     /// No Auto-Validity
     pub refreshRate: u32,
 }
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayModeParametersKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayModeParametersKHR {}
 #[cfg(feature = "VK_KHR_display")]
 impl VkDisplayModeParametersKHR {
     pub const DEFAULT: Self = Self {
@@ -50791,6 +54563,10 @@ pub struct VkDisplayModePropertiesKHR {
     pub displayMode: VkDisplayModeKHR,
     pub parameters: VkDisplayModeParametersKHR,
 }
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayModePropertiesKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayModePropertiesKHR {}
 #[cfg(feature = "VK_KHR_display")]
 impl VkDisplayModePropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -50825,6 +54601,10 @@ pub struct VkDisplayModeCreateInfoKHR {
     pub flags: VkDisplayModeCreateFlagsKHR,
     pub parameters: VkDisplayModeParametersKHR,
 }
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayModeCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayModeCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_display")]
 impl VkDisplayModeCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -50873,6 +54653,10 @@ pub struct VkDisplayPlaneCapabilitiesKHR {
     pub minDstExtent: VkExtent2D,
     pub maxDstExtent: VkExtent2D,
 }
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplayPlaneCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplayPlaneCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_display")]
 impl VkDisplayPlaneCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -50956,6 +54740,10 @@ pub struct VkDisplaySurfaceCreateInfoKHR {
     pub imageExtent: VkExtent2D,
 }
 #[cfg(feature = "VK_KHR_display")]
+unsafe impl Send for VkDisplaySurfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_display")]
+unsafe impl Sync for VkDisplaySurfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_display")]
 impl VkDisplaySurfaceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR,
@@ -51036,6 +54824,10 @@ pub struct VkDisplayPresentInfoKHR {
     pub dstRect: VkRect2D,
     pub persistent: VkBool32,
 }
+#[cfg(feature = "VK_KHR_display_swapchain")]
+unsafe impl Send for VkDisplayPresentInfoKHR {}
+#[cfg(feature = "VK_KHR_display_swapchain")]
+unsafe impl Sync for VkDisplayPresentInfoKHR {}
 #[cfg(feature = "VK_KHR_display_swapchain")]
 impl VkDisplayPresentInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -51132,6 +54924,10 @@ pub struct VkImportFenceFdInfoKHR {
     pub fd: core::ffi::c_int,
 }
 #[cfg(feature = "VK_KHR_external_fence_fd")]
+unsafe impl Send for VkImportFenceFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_fd")]
+unsafe impl Sync for VkImportFenceFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_fd")]
 impl VkImportFenceFdInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_FENCE_FD_INFO_KHR,
@@ -51186,6 +54982,10 @@ pub struct VkFenceGetFdInfoKHR {
     pub handleType: VkExternalFenceHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_KHR_external_fence_fd")]
+unsafe impl Send for VkFenceGetFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_fd")]
+unsafe impl Sync for VkFenceGetFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_fd")]
 impl VkFenceGetFdInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_FENCE_GET_FD_INFO_KHR,
@@ -51234,6 +55034,10 @@ pub struct VkImportFenceWin32HandleInfoKHR {
     /// Optional: true
     pub name: LPCWSTR,
 }
+#[cfg(feature = "VK_KHR_external_fence_win32")]
+unsafe impl Send for VkImportFenceWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_win32")]
+unsafe impl Sync for VkImportFenceWin32HandleInfoKHR {}
 #[cfg(feature = "VK_KHR_external_fence_win32")]
 impl VkImportFenceWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -51299,6 +55103,10 @@ pub struct VkExportFenceWin32HandleInfoKHR {
     pub name: LPCWSTR,
 }
 #[cfg(feature = "VK_KHR_external_fence_win32")]
+unsafe impl Send for VkExportFenceWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_win32")]
+unsafe impl Sync for VkExportFenceWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_win32")]
 impl VkExportFenceWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_FENCE_WIN32_HANDLE_INFO_KHR,
@@ -51349,6 +55157,10 @@ pub struct VkFenceGetWin32HandleInfoKHR {
     pub handleType: VkExternalFenceHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_KHR_external_fence_win32")]
+unsafe impl Send for VkFenceGetWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_win32")]
+unsafe impl Sync for VkFenceGetWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_fence_win32")]
 impl VkFenceGetWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_FENCE_GET_WIN32_HANDLE_INFO_KHR,
@@ -51381,81 +55193,135 @@ impl VkFenceGetWin32HandleInfoKHR {
 /// [LPCWSTR](https://docs.vulkan.org/refpages/latest/refpages/source/LPCWSTR.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LPCWSTR(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_semaphore_win32"
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
 ))]
 impl LPCWSTR {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
+))]
+unsafe impl Send for LPCWSTR {}
+#[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
+))]
+unsafe impl Sync for LPCWSTR {}
 /// [HANDLE](https://docs.vulkan.org/refpages/latest/refpages/source/HANDLE.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_fence_win32",
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_NV_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HANDLE(pub *mut core::ffi::c_void);
 #[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32",
     feature = "VK_KHR_external_fence_win32",
-    feature = "VK_KHR_external_memory_win32",
     feature = "VK_NV_external_memory_win32"
 ))]
 impl HANDLE {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32"
+))]
+unsafe impl Send for HANDLE {}
+#[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32"
+))]
+unsafe impl Sync for HANDLE {}
 /// [SECURITY_ATTRIBUTES](https://docs.vulkan.org/refpages/latest/refpages/source/SECURITY_ATTRIBUTES.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_NV_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
     feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_semaphore_win32"
 ))]
 impl SECURITY_ATTRIBUTES {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32"
+))]
+unsafe impl Send for SECURITY_ATTRIBUTES {}
+#[cfg(any(
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_fence_win32",
+    feature = "VK_NV_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32"
+))]
+unsafe impl Sync for SECURITY_ATTRIBUTES {}
 /// [DWORD](https://docs.vulkan.org/refpages/latest/refpages/source/DWORD.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
-    feature = "VK_NV_external_memory_win32"
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DWORD(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_NV_external_memory_win32",
     feature = "VK_KHR_external_memory_win32",
-    feature = "VK_KHR_external_fence_win32",
-    feature = "VK_NV_external_memory_win32"
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
 ))]
 impl DWORD {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(any(
+    feature = "VK_NV_external_memory_win32",
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
+))]
+unsafe impl Send for DWORD {}
+#[cfg(any(
+    feature = "VK_NV_external_memory_win32",
+    feature = "VK_KHR_external_memory_win32",
+    feature = "VK_KHR_external_semaphore_win32",
+    feature = "VK_KHR_external_fence_win32"
+))]
+unsafe impl Sync for DWORD {}
 #[cfg(feature = "VK_KHR_external_memory")]
 pub type VkExternalMemoryImageCreateInfoKHR = VkExternalMemoryImageCreateInfo;
 #[cfg(feature = "VK_KHR_external_memory")]
@@ -51491,6 +55357,10 @@ pub struct VkImportMemoryFdInfoKHR {
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
     pub fd: core::ffi::c_int,
 }
+#[cfg(feature = "VK_KHR_external_memory_fd")]
+unsafe impl Send for VkImportMemoryFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_memory_fd")]
+unsafe impl Sync for VkImportMemoryFdInfoKHR {}
 #[cfg(feature = "VK_KHR_external_memory_fd")]
 impl VkImportMemoryFdInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -51535,6 +55405,10 @@ pub struct VkMemoryFdPropertiesKHR {
     pub memoryTypeBits: u32,
 }
 #[cfg(feature = "VK_KHR_external_memory_fd")]
+unsafe impl Send for VkMemoryFdPropertiesKHR {}
+#[cfg(feature = "VK_KHR_external_memory_fd")]
+unsafe impl Sync for VkMemoryFdPropertiesKHR {}
+#[cfg(feature = "VK_KHR_external_memory_fd")]
 impl VkMemoryFdPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_FD_PROPERTIES_KHR,
@@ -51570,6 +55444,10 @@ pub struct VkMemoryGetFdInfoKHR {
     pub memory: VkDeviceMemory,
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_KHR_external_memory_fd")]
+unsafe impl Send for VkMemoryGetFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_memory_fd")]
+unsafe impl Sync for VkMemoryGetFdInfoKHR {}
 #[cfg(feature = "VK_KHR_external_memory_fd")]
 impl VkMemoryGetFdInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -51618,6 +55496,10 @@ pub struct VkImportMemoryWin32HandleInfoKHR {
     /// Optional: true
     pub name: LPCWSTR,
 }
+#[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Send for VkImportMemoryWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Sync for VkImportMemoryWin32HandleInfoKHR {}
 #[cfg(feature = "VK_KHR_external_memory_win32")]
 impl VkImportMemoryWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -51671,6 +55553,10 @@ pub struct VkExportMemoryWin32HandleInfoKHR {
     pub name: LPCWSTR,
 }
 #[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Send for VkExportMemoryWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Sync for VkExportMemoryWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_memory_win32")]
 impl VkExportMemoryWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR,
@@ -51722,6 +55608,10 @@ pub struct VkMemoryWin32HandlePropertiesKHR {
     pub memoryTypeBits: u32,
 }
 #[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Send for VkMemoryWin32HandlePropertiesKHR {}
+#[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Sync for VkMemoryWin32HandlePropertiesKHR {}
+#[cfg(feature = "VK_KHR_external_memory_win32")]
 impl VkMemoryWin32HandlePropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR,
@@ -51757,6 +55647,10 @@ pub struct VkMemoryGetWin32HandleInfoKHR {
     pub memory: VkDeviceMemory,
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Send for VkMemoryGetWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_memory_win32")]
+unsafe impl Sync for VkMemoryGetWin32HandleInfoKHR {}
 #[cfg(feature = "VK_KHR_external_memory_win32")]
 impl VkMemoryGetWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -51815,6 +55709,10 @@ pub struct VkImportSemaphoreFdInfoKHR {
     pub fd: core::ffi::c_int,
 }
 #[cfg(feature = "VK_KHR_external_semaphore_fd")]
+unsafe impl Send for VkImportSemaphoreFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_fd")]
+unsafe impl Sync for VkImportSemaphoreFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_fd")]
 impl VkImportSemaphoreFdInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_SEMAPHORE_FD_INFO_KHR,
@@ -51869,6 +55767,10 @@ pub struct VkSemaphoreGetFdInfoKHR {
     pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_KHR_external_semaphore_fd")]
+unsafe impl Send for VkSemaphoreGetFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_fd")]
+unsafe impl Sync for VkSemaphoreGetFdInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_fd")]
 impl VkSemaphoreGetFdInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_GET_FD_INFO_KHR,
@@ -51917,6 +55819,10 @@ pub struct VkImportSemaphoreWin32HandleInfoKHR {
     /// Optional: true
     pub name: LPCWSTR,
 }
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Send for VkImportSemaphoreWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Sync for VkImportSemaphoreWin32HandleInfoKHR {}
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
 impl VkImportSemaphoreWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -51982,6 +55888,10 @@ pub struct VkExportSemaphoreWin32HandleInfoKHR {
     pub name: LPCWSTR,
 }
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Send for VkExportSemaphoreWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Sync for VkExportSemaphoreWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
 impl VkExportSemaphoreWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR,
@@ -52039,6 +55949,10 @@ pub struct VkD3D12FenceSubmitInfoKHR {
     /// Optional: true,  Length: signalSemaphoreValuesCount
     pub pSignalSemaphoreValues: *const u64,
 }
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Send for VkD3D12FenceSubmitInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Sync for VkD3D12FenceSubmitInfoKHR {}
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
 impl VkD3D12FenceSubmitInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -52098,6 +56012,10 @@ pub struct VkSemaphoreGetWin32HandleInfoKHR {
     pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Send for VkSemaphoreGetWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
+unsafe impl Sync for VkSemaphoreGetWin32HandleInfoKHR {}
+#[cfg(feature = "VK_KHR_external_semaphore_win32")]
 impl VkSemaphoreGetWin32HandleInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR,
@@ -52145,6 +56063,10 @@ pub struct VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {
     pub fragmentShaderBarycentric: VkBool32,
 }
 #[cfg(feature = "VK_KHR_fragment_shader_barycentric")]
+unsafe impl Send for VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {}
+#[cfg(feature = "VK_KHR_fragment_shader_barycentric")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {}
+#[cfg(feature = "VK_KHR_fragment_shader_barycentric")]
 impl VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR,
@@ -52187,6 +56109,10 @@ pub struct VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR {
     pub triStripVertexOrderIndependentOfProvokingVertex: VkBool32,
 }
 #[cfg(feature = "VK_KHR_fragment_shader_barycentric")]
+unsafe impl Send for VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR {}
+#[cfg(feature = "VK_KHR_fragment_shader_barycentric")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR {}
+#[cfg(feature = "VK_KHR_fragment_shader_barycentric")]
 impl VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR,
@@ -52228,6 +56154,10 @@ pub struct VkFragmentShadingRateAttachmentInfoKHR {
     pub pFragmentShadingRateAttachment: *const VkAttachmentReference2,
     pub shadingRateAttachmentTexelSize: VkExtent2D,
 }
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Send for VkFragmentShadingRateAttachmentInfoKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Sync for VkFragmentShadingRateAttachmentInfoKHR {}
 #[cfg(feature = "VK_KHR_fragment_shading_rate")]
 impl VkFragmentShadingRateAttachmentInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -52279,6 +56209,10 @@ pub struct VkPipelineFragmentShadingRateStateCreateInfoKHR {
     pub combinerOps: [VkFragmentShadingRateCombinerOpKHR; 2],
 }
 #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Send for VkPipelineFragmentShadingRateStateCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Sync for VkPipelineFragmentShadingRateStateCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
 impl VkPipelineFragmentShadingRateStateCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -52324,6 +56258,10 @@ pub struct VkPhysicalDeviceFragmentShadingRateFeaturesKHR {
     pub primitiveFragmentShadingRate: VkBool32,
     pub attachmentFragmentShadingRate: VkBool32,
 }
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Send for VkPhysicalDeviceFragmentShadingRateFeaturesKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShadingRateFeaturesKHR {}
 #[cfg(feature = "VK_KHR_fragment_shading_rate")]
 impl VkPhysicalDeviceFragmentShadingRateFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -52411,6 +56349,10 @@ pub struct VkPhysicalDeviceFragmentShadingRatePropertiesKHR {
     /// Limit Type: [Max]
     pub fragmentShadingRateStrictMultiplyCombiner: VkBool32,
 }
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Send for VkPhysicalDeviceFragmentShadingRatePropertiesKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShadingRatePropertiesKHR {}
 #[cfg(feature = "VK_KHR_fragment_shading_rate")]
 impl VkPhysicalDeviceFragmentShadingRatePropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -52568,6 +56510,10 @@ pub struct VkPhysicalDeviceFragmentShadingRateKHR {
     pub fragmentSize: VkExtent2D,
 }
 #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Send for VkPhysicalDeviceFragmentShadingRateKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShadingRateKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
 impl VkPhysicalDeviceFragmentShadingRateKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR,
@@ -52613,6 +56559,10 @@ pub struct VkRenderingFragmentShadingRateAttachmentInfoKHR {
     pub imageLayout: VkImageLayout,
     pub shadingRateAttachmentTexelSize: VkExtent2D,
 }
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Send for VkRenderingFragmentShadingRateAttachmentInfoKHR {}
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+unsafe impl Sync for VkRenderingFragmentShadingRateAttachmentInfoKHR {}
 #[cfg(feature = "VK_KHR_fragment_shading_rate")]
 impl VkRenderingFragmentShadingRateAttachmentInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -52664,6 +56614,10 @@ pub struct VkDisplayProperties2KHR {
     pub displayProperties: VkDisplayPropertiesKHR,
 }
 #[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Send for VkDisplayProperties2KHR {}
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Sync for VkDisplayProperties2KHR {}
+#[cfg(feature = "VK_KHR_get_display_properties2")]
 impl VkDisplayProperties2KHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_PROPERTIES_2_KHR,
@@ -52700,6 +56654,10 @@ pub struct VkDisplayPlaneProperties2KHR {
     pub pNext: *mut core::ffi::c_void,
     pub displayPlaneProperties: VkDisplayPlanePropertiesKHR,
 }
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Send for VkDisplayPlaneProperties2KHR {}
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Sync for VkDisplayPlaneProperties2KHR {}
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 impl VkDisplayPlaneProperties2KHR {
     pub const DEFAULT: Self = Self {
@@ -52738,6 +56696,10 @@ pub struct VkDisplayModeProperties2KHR {
     pub displayModeProperties: VkDisplayModePropertiesKHR,
 }
 #[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Send for VkDisplayModeProperties2KHR {}
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Sync for VkDisplayModeProperties2KHR {}
+#[cfg(feature = "VK_KHR_get_display_properties2")]
 impl VkDisplayModeProperties2KHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_MODE_PROPERTIES_2_KHR,
@@ -52773,6 +56735,10 @@ pub struct VkDisplayPlaneInfo2KHR {
     pub mode: VkDisplayModeKHR,
     pub planeIndex: u32,
 }
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Send for VkDisplayPlaneInfo2KHR {}
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Sync for VkDisplayPlaneInfo2KHR {}
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 impl VkDisplayPlaneInfo2KHR {
     pub const DEFAULT: Self = Self {
@@ -52816,6 +56782,10 @@ pub struct VkDisplayPlaneCapabilities2KHR {
     pub pNext: *mut core::ffi::c_void,
     pub capabilities: VkDisplayPlaneCapabilitiesKHR,
 }
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Send for VkDisplayPlaneCapabilities2KHR {}
+#[cfg(feature = "VK_KHR_get_display_properties2")]
+unsafe impl Sync for VkDisplayPlaneCapabilities2KHR {}
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 impl VkDisplayPlaneCapabilities2KHR {
     pub const DEFAULT: Self = Self {
@@ -52881,6 +56851,10 @@ pub struct VkPhysicalDeviceSurfaceInfo2KHR {
     pub surface: VkSurfaceKHR,
 }
 #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
+unsafe impl Send for VkPhysicalDeviceSurfaceInfo2KHR {}
+#[cfg(feature = "VK_KHR_get_surface_capabilities2")]
+unsafe impl Sync for VkPhysicalDeviceSurfaceInfo2KHR {}
+#[cfg(feature = "VK_KHR_get_surface_capabilities2")]
 impl VkPhysicalDeviceSurfaceInfo2KHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR,
@@ -52918,6 +56892,10 @@ pub struct VkSurfaceCapabilities2KHR {
     pub surfaceCapabilities: VkSurfaceCapabilitiesKHR,
 }
 #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
+unsafe impl Send for VkSurfaceCapabilities2KHR {}
+#[cfg(feature = "VK_KHR_get_surface_capabilities2")]
+unsafe impl Sync for VkSurfaceCapabilities2KHR {}
+#[cfg(feature = "VK_KHR_get_surface_capabilities2")]
 impl VkSurfaceCapabilities2KHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR,
@@ -52954,6 +56932,10 @@ pub struct VkSurfaceFormat2KHR {
     pub pNext: *mut core::ffi::c_void,
     pub surfaceFormat: VkSurfaceFormatKHR,
 }
+#[cfg(feature = "VK_KHR_get_surface_capabilities2")]
+unsafe impl Send for VkSurfaceFormat2KHR {}
+#[cfg(feature = "VK_KHR_get_surface_capabilities2")]
+unsafe impl Sync for VkSurfaceFormat2KHR {}
 #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
 impl VkSurfaceFormat2KHR {
     pub const DEFAULT: Self = Self {
@@ -53012,6 +56994,10 @@ pub struct VkPresentRegionsKHR {
     pub pRegions: *const VkPresentRegionKHR,
 }
 #[cfg(feature = "VK_KHR_incremental_present")]
+unsafe impl Send for VkPresentRegionsKHR {}
+#[cfg(feature = "VK_KHR_incremental_present")]
+unsafe impl Sync for VkPresentRegionsKHR {}
+#[cfg(feature = "VK_KHR_incremental_present")]
 impl VkPresentRegionsKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PRESENT_REGIONS_KHR,
@@ -53054,6 +57040,10 @@ pub struct VkPresentRegionKHR {
     pub pRectangles: *const VkRectLayerKHR,
 }
 #[cfg(feature = "VK_KHR_incremental_present")]
+unsafe impl Send for VkPresentRegionKHR {}
+#[cfg(feature = "VK_KHR_incremental_present")]
+unsafe impl Sync for VkPresentRegionKHR {}
+#[cfg(feature = "VK_KHR_incremental_present")]
 impl VkPresentRegionKHR {
     pub const DEFAULT: Self = Self {
         rectangleCount: 0,
@@ -53086,6 +57076,10 @@ pub struct VkRectLayerKHR {
     pub extent: VkExtent2D,
     pub layer: u32,
 }
+#[cfg(feature = "VK_KHR_incremental_present")]
+unsafe impl Send for VkRectLayerKHR {}
+#[cfg(feature = "VK_KHR_incremental_present")]
+unsafe impl Sync for VkRectLayerKHR {}
 #[cfg(feature = "VK_KHR_incremental_present")]
 impl VkRectLayerKHR {
     pub const DEFAULT: Self = Self {
@@ -53128,6 +57122,10 @@ pub struct VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub internallySynchronizedQueues: VkBool32,
 }
+#[cfg(feature = "VK_KHR_internally_synchronized_queues")]
+unsafe impl Send for VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR {}
+#[cfg(feature = "VK_KHR_internally_synchronized_queues")]
+unsafe impl Sync for VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR {}
 #[cfg(feature = "VK_KHR_internally_synchronized_queues")]
 impl VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -53190,6 +57188,10 @@ pub struct VkPhysicalDeviceMaintenance10PropertiesKHR {
     pub resolveSrgbFormatSupportsTransferFunctionControl: VkBool32,
 }
 #[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Send for VkPhysicalDeviceMaintenance10PropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance10PropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl VkPhysicalDeviceMaintenance10PropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR,
@@ -53242,6 +57244,10 @@ pub struct VkPhysicalDeviceMaintenance10FeaturesKHR {
     pub maintenance10: VkBool32,
 }
 #[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Send for VkPhysicalDeviceMaintenance10FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance10FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl VkPhysicalDeviceMaintenance10FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR,
@@ -53276,6 +57282,10 @@ pub struct VkRenderingEndInfoKHR {
     pub pNext: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Send for VkRenderingEndInfoKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Sync for VkRenderingEndInfoKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl VkRenderingEndInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDERING_END_INFO_KHR,
@@ -53307,6 +57317,10 @@ pub struct VkRenderingAttachmentFlagsInfoKHR {
     /// Optional: true
     pub flags: VkRenderingAttachmentFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Send for VkRenderingAttachmentFlagsInfoKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Sync for VkRenderingAttachmentFlagsInfoKHR {}
 #[cfg(feature = "VK_KHR_maintenance10")]
 impl VkRenderingAttachmentFlagsInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -53349,6 +57363,10 @@ pub struct VkResolveImageModeInfoKHR {
     /// Optional: true
     pub stencilResolveMode: VkResolveModeFlagBits,
 }
+#[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Send for VkResolveImageModeInfoKHR {}
+#[cfg(feature = "VK_KHR_maintenance10")]
+unsafe impl Sync for VkResolveImageModeInfoKHR {}
 #[cfg(feature = "VK_KHR_maintenance10")]
 impl VkResolveImageModeInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -53464,6 +57482,10 @@ pub struct VkSetDescriptorBufferOffsetsInfoEXT {
     pub pOffsets: *const VkDeviceSize,
 }
 #[cfg(feature = "VK_KHR_maintenance6")]
+unsafe impl Send for VkSetDescriptorBufferOffsetsInfoEXT {}
+#[cfg(feature = "VK_KHR_maintenance6")]
+unsafe impl Sync for VkSetDescriptorBufferOffsetsInfoEXT {}
+#[cfg(feature = "VK_KHR_maintenance6")]
 impl VkSetDescriptorBufferOffsetsInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT,
@@ -53537,6 +57559,10 @@ pub struct VkBindDescriptorBufferEmbeddedSamplersInfoEXT {
     pub set: u32,
 }
 #[cfg(feature = "VK_KHR_maintenance6")]
+unsafe impl Send for VkBindDescriptorBufferEmbeddedSamplersInfoEXT {}
+#[cfg(feature = "VK_KHR_maintenance6")]
+unsafe impl Sync for VkBindDescriptorBufferEmbeddedSamplersInfoEXT {}
+#[cfg(feature = "VK_KHR_maintenance6")]
 impl VkBindDescriptorBufferEmbeddedSamplersInfoEXT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT,
@@ -53585,6 +57611,10 @@ pub struct VkPhysicalDeviceMaintenance7FeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub maintenance7: VkBool32,
 }
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Send for VkPhysicalDeviceMaintenance7FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance7FeaturesKHR {}
 #[cfg(feature = "VK_KHR_maintenance7")]
 impl VkPhysicalDeviceMaintenance7FeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -53641,6 +57671,10 @@ pub struct VkPhysicalDeviceMaintenance7PropertiesKHR {
     /// Limit Type: [Max]
     pub maxDescriptorSetUpdateAfterBindTotalBuffersDynamic: u32,
 }
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Send for VkPhysicalDeviceMaintenance7PropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance7PropertiesKHR {}
 #[cfg(feature = "VK_KHR_maintenance7")]
 impl VkPhysicalDeviceMaintenance7PropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -53735,6 +57769,10 @@ pub struct VkPhysicalDeviceLayeredApiPropertiesListKHR {
     pub pLayeredApis: *mut VkPhysicalDeviceLayeredApiPropertiesKHR,
 }
 #[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Send for VkPhysicalDeviceLayeredApiPropertiesListKHR {}
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Sync for VkPhysicalDeviceLayeredApiPropertiesListKHR {}
+#[cfg(feature = "VK_KHR_maintenance7")]
 impl VkPhysicalDeviceLayeredApiPropertiesListKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR,
@@ -53791,6 +57829,10 @@ pub struct VkPhysicalDeviceLayeredApiPropertiesKHR {
     /// Limit Type: [Noauto]
     pub deviceName: [core::ffi::c_char; VK_MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Send for VkPhysicalDeviceLayeredApiPropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Sync for VkPhysicalDeviceLayeredApiPropertiesKHR {}
 #[cfg(feature = "VK_KHR_maintenance7")]
 impl VkPhysicalDeviceLayeredApiPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -53855,6 +57897,10 @@ pub struct VkPhysicalDeviceLayeredApiVulkanPropertiesKHR {
     pub properties: VkPhysicalDeviceProperties2,
 }
 #[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Send for VkPhysicalDeviceLayeredApiVulkanPropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance7")]
+unsafe impl Sync for VkPhysicalDeviceLayeredApiVulkanPropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance7")]
 impl VkPhysicalDeviceLayeredApiVulkanPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR,
@@ -53895,6 +57941,10 @@ pub struct VkPhysicalDeviceMaintenance8FeaturesKHR {
     pub maintenance8: VkBool32,
 }
 #[cfg(feature = "VK_KHR_maintenance8")]
+unsafe impl Send for VkPhysicalDeviceMaintenance8FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance8")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance8FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance8")]
 impl VkPhysicalDeviceMaintenance8FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR,
@@ -53934,6 +57984,10 @@ pub struct VkMemoryBarrierAccessFlags3KHR {
     /// Optional: true
     pub dstAccessMask3: VkAccessFlags3KHR,
 }
+#[cfg(feature = "VK_KHR_maintenance8")]
+unsafe impl Send for VkMemoryBarrierAccessFlags3KHR {}
+#[cfg(feature = "VK_KHR_maintenance8")]
+unsafe impl Sync for VkMemoryBarrierAccessFlags3KHR {}
 #[cfg(feature = "VK_KHR_maintenance8")]
 impl VkMemoryBarrierAccessFlags3KHR {
     pub const DEFAULT: Self = Self {
@@ -53978,6 +58032,10 @@ pub struct VkPhysicalDeviceMaintenance9FeaturesKHR {
     pub maintenance9: VkBool32,
 }
 #[cfg(feature = "VK_KHR_maintenance9")]
+unsafe impl Send for VkPhysicalDeviceMaintenance9FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance9")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance9FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance9")]
 impl VkPhysicalDeviceMaintenance9FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR,
@@ -54021,6 +58079,10 @@ pub struct VkPhysicalDeviceMaintenance9PropertiesKHR {
     /// Limit Type: [Exact]
     pub defaultVertexAttributeValue: VkDefaultVertexAttributeValueKHR,
 }
+#[cfg(feature = "VK_KHR_maintenance9")]
+unsafe impl Send for VkPhysicalDeviceMaintenance9PropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance9")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance9PropertiesKHR {}
 #[cfg(feature = "VK_KHR_maintenance9")]
 impl VkPhysicalDeviceMaintenance9PropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -54073,6 +58135,10 @@ pub struct VkQueueFamilyOwnershipTransferPropertiesKHR {
     pub optimalImageTransferToQueueFamilies: u32,
 }
 #[cfg(feature = "VK_KHR_maintenance9")]
+unsafe impl Send for VkQueueFamilyOwnershipTransferPropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance9")]
+unsafe impl Sync for VkQueueFamilyOwnershipTransferPropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance9")]
 impl VkQueueFamilyOwnershipTransferPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR,
@@ -54123,6 +58189,10 @@ pub struct VkRefreshObjectKHR {
     pub flags: VkRefreshObjectFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_object_refresh")]
+unsafe impl Send for VkRefreshObjectKHR {}
+#[cfg(feature = "VK_KHR_object_refresh")]
+unsafe impl Sync for VkRefreshObjectKHR {}
+#[cfg(feature = "VK_KHR_object_refresh")]
 impl VkRefreshObjectKHR {
     pub const DEFAULT: Self = Self {
         objectType: VkObjectType(0),
@@ -54162,6 +58232,10 @@ pub struct VkRefreshObjectListKHR {
     /// Length: objectCount
     pub pObjects: *const VkRefreshObjectKHR,
 }
+#[cfg(feature = "VK_KHR_object_refresh")]
+unsafe impl Send for VkRefreshObjectListKHR {}
+#[cfg(feature = "VK_KHR_object_refresh")]
+unsafe impl Sync for VkRefreshObjectListKHR {}
 #[cfg(feature = "VK_KHR_object_refresh")]
 impl VkRefreshObjectListKHR {
     pub const DEFAULT: Self = Self {
@@ -54215,6 +58289,10 @@ pub struct VkPhysicalDevicePerformanceQueryFeaturesKHR {
     pub performanceCounterMultipleQueryPools: VkBool32,
 }
 #[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkPhysicalDevicePerformanceQueryFeaturesKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkPhysicalDevicePerformanceQueryFeaturesKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
 impl VkPhysicalDevicePerformanceQueryFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR,
@@ -54263,6 +58341,10 @@ pub struct VkPhysicalDevicePerformanceQueryPropertiesKHR {
     pub allowCommandBufferQueryCopies: VkBool32,
 }
 #[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkPhysicalDevicePerformanceQueryPropertiesKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkPhysicalDevicePerformanceQueryPropertiesKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
 impl VkPhysicalDevicePerformanceQueryPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR,
@@ -54302,6 +58384,10 @@ pub struct VkPerformanceCounterKHR {
     pub storage: VkPerformanceCounterStorageKHR,
     pub uuid: [u8; VK_UUID_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkPerformanceCounterKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkPerformanceCounterKHR {}
 #[cfg(feature = "VK_KHR_performance_query")]
 impl VkPerformanceCounterKHR {
     pub const DEFAULT: Self = Self {
@@ -54364,6 +58450,10 @@ pub struct VkPerformanceCounterDescriptionKHR {
     /// Length: null-terminated
     pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkPerformanceCounterDescriptionKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkPerformanceCounterDescriptionKHR {}
 #[cfg(feature = "VK_KHR_performance_query")]
 impl VkPerformanceCounterDescriptionKHR {
     pub const DEFAULT: Self = Self {
@@ -54432,6 +58522,10 @@ pub struct VkQueryPoolPerformanceCreateInfoKHR {
     pub pCounterIndices: *const u32,
 }
 #[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkQueryPoolPerformanceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkQueryPoolPerformanceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
 impl VkQueryPoolPerformanceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR,
@@ -54484,6 +58578,10 @@ pub union VkPerformanceCounterResultKHR {
     pub float64: f64,
 }
 #[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkPerformanceCounterResultKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkPerformanceCounterResultKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
 impl VkPerformanceCounterResultKHR {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -54516,6 +58614,10 @@ pub struct VkAcquireProfilingLockInfoKHR {
     pub flags: VkAcquireProfilingLockFlagsKHR,
     pub timeout: u64,
 }
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkAcquireProfilingLockInfoKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkAcquireProfilingLockInfoKHR {}
 #[cfg(feature = "VK_KHR_performance_query")]
 impl VkAcquireProfilingLockInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -54560,6 +58662,10 @@ pub struct VkPerformanceQuerySubmitInfoKHR {
     pub counterPassIndex: u32,
 }
 #[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkPerformanceQuerySubmitInfoKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkPerformanceQuerySubmitInfoKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
 impl VkPerformanceQuerySubmitInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR,
@@ -54596,6 +58702,10 @@ pub struct VkPerformanceQueryReservationInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub maxPerformanceQueriesPerPool: u32,
 }
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Send for VkPerformanceQueryReservationInfoKHR {}
+#[cfg(feature = "VK_KHR_performance_query")]
+unsafe impl Sync for VkPerformanceQueryReservationInfoKHR {}
 #[cfg(feature = "VK_KHR_performance_query")]
 impl VkPerformanceQueryReservationInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -54636,6 +58746,10 @@ impl Default for VkPipelineBinaryKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryKHR {}
 /// [VkPipelineBinaryCreateInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBinaryCreateInfoKHR.html)
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 #[repr(C)]
@@ -54652,6 +58766,10 @@ pub struct VkPipelineBinaryCreateInfoKHR {
     /// Optional: true
     pub pPipelineCreateInfo: *const VkPipelineCreateInfoKHR,
 }
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineBinaryCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -54710,6 +58828,10 @@ pub struct VkPipelineBinaryHandlesInfoKHR {
     pub pPipelineBinaries: *mut VkPipelineBinaryKHR,
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryHandlesInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryHandlesInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineBinaryHandlesInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_HANDLES_INFO_KHR,
@@ -54751,6 +58873,10 @@ pub struct VkPipelineBinaryDataKHR {
     pub pData: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryDataKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryDataKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineBinaryDataKHR {
     pub const DEFAULT: Self = Self {
         dataSize: 0,
@@ -54784,6 +58910,10 @@ pub struct VkPipelineBinaryKeysAndDataKHR {
     /// Length: binaryCount
     pub pPipelineBinaryData: *const VkPipelineBinaryDataKHR,
 }
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryKeysAndDataKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryKeysAndDataKHR {}
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineBinaryKeysAndDataKHR {
     pub const DEFAULT: Self = Self {
@@ -54828,6 +58958,10 @@ pub struct VkPipelineBinaryKeyKHR {
     pub keySize: u32,
     pub key: [u8; VK_MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize],
 }
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryKeyKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryKeyKHR {}
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineBinaryKeyKHR {
     pub const DEFAULT: Self = Self {
@@ -54878,6 +59012,10 @@ pub struct VkPipelineBinaryInfoKHR {
     pub pPipelineBinaries: *const VkPipelineBinaryKHR,
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineBinaryInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_INFO_KHR,
@@ -54921,6 +59059,10 @@ pub struct VkReleaseCapturedPipelineDataInfoKHR {
     pub pipeline: VkPipeline,
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkReleaseCapturedPipelineDataInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkReleaseCapturedPipelineDataInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkReleaseCapturedPipelineDataInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR,
@@ -54956,6 +59098,10 @@ pub struct VkPipelineBinaryDataInfoKHR {
     pub pipelineBinary: VkPipelineBinaryKHR,
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineBinaryDataInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineBinaryDataInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineBinaryDataInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_DATA_INFO_KHR,
@@ -54990,6 +59136,10 @@ pub struct VkPipelineCreateInfoKHR {
     pub pNext: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPipelineCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPipelineCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPipelineCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CREATE_INFO_KHR,
@@ -55020,6 +59170,10 @@ pub struct VkPhysicalDevicePipelineBinaryFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub pipelineBinaries: VkBool32,
 }
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPhysicalDevicePipelineBinaryFeaturesKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPhysicalDevicePipelineBinaryFeaturesKHR {}
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPhysicalDevicePipelineBinaryFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -55057,6 +59211,10 @@ pub struct VkDevicePipelineBinaryInternalCacheControlKHR {
     pub pNext: *const core::ffi::c_void,
     pub disableInternalCache: VkBool32,
 }
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkDevicePipelineBinaryInternalCacheControlKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkDevicePipelineBinaryInternalCacheControlKHR {}
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkDevicePipelineBinaryInternalCacheControlKHR {
     pub const DEFAULT: Self = Self {
@@ -55107,6 +59265,10 @@ pub struct VkPhysicalDevicePipelineBinaryPropertiesKHR {
     /// Limit Type: [Max]
     pub pipelineBinaryCompressedData: VkBool32,
 }
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Send for VkPhysicalDevicePipelineBinaryPropertiesKHR {}
+#[cfg(feature = "VK_KHR_pipeline_binary")]
+unsafe impl Sync for VkPhysicalDevicePipelineBinaryPropertiesKHR {}
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 impl VkPhysicalDevicePipelineBinaryPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -55169,6 +59331,10 @@ pub struct VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR {
     pub pipelineExecutableInfo: VkBool32,
 }
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Send for VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Sync for VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 impl VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR,
@@ -55203,6 +59369,10 @@ pub struct VkPipelineInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub pipeline: VkPipeline,
 }
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Send for VkPipelineInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Sync for VkPipelineInfoKHR {}
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 impl VkPipelineInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -55245,6 +59415,10 @@ pub struct VkPipelineExecutablePropertiesKHR {
     pub description: [core::ffi::c_char; VK_MAX_DESCRIPTION_SIZE as usize],
     pub subgroupSize: u32,
 }
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Send for VkPipelineExecutablePropertiesKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Sync for VkPipelineExecutablePropertiesKHR {}
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 impl VkPipelineExecutablePropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -55306,6 +59480,10 @@ pub struct VkPipelineExecutableInfoKHR {
     pub executableIndex: u32,
 }
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Send for VkPipelineExecutableInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Sync for VkPipelineExecutableInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 impl VkPipelineExecutableInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_INFO_KHR,
@@ -55348,6 +59526,10 @@ pub union VkPipelineExecutableStatisticValueKHR {
     pub f64: f64,
 }
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Send for VkPipelineExecutableStatisticValueKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Sync for VkPipelineExecutableStatisticValueKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 impl VkPipelineExecutableStatisticValueKHR {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -55386,6 +59568,10 @@ pub struct VkPipelineExecutableStatisticKHR {
     /// No Auto-Validity
     pub value: VkPipelineExecutableStatisticValueKHR,
 }
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Send for VkPipelineExecutableStatisticKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Sync for VkPipelineExecutableStatisticKHR {}
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 impl VkPipelineExecutableStatisticKHR {
     pub const DEFAULT: Self = Self {
@@ -55454,6 +59640,10 @@ pub struct VkPipelineExecutableInternalRepresentationKHR {
     /// Optional: true,  Length: dataSize
     pub pData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Send for VkPipelineExecutableInternalRepresentationKHR {}
+#[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+unsafe impl Sync for VkPipelineExecutableInternalRepresentationKHR {}
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 impl VkPipelineExecutableInternalRepresentationKHR {
     pub const DEFAULT: Self = Self {
@@ -55527,6 +59717,10 @@ pub struct VkPipelineLibraryCreateInfoKHR {
     pub pLibraries: *const VkPipeline,
 }
 #[cfg(feature = "VK_KHR_pipeline_library")]
+unsafe impl Send for VkPipelineLibraryCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_library")]
+unsafe impl Sync for VkPipelineLibraryCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_pipeline_library")]
 impl VkPipelineLibraryCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR,
@@ -55585,6 +59779,10 @@ pub struct VkPhysicalDevicePortabilitySubsetFeaturesKHR {
     pub triangleFans: VkBool32,
     pub vertexAttributeAccessBeyondStride: VkBool32,
 }
+#[cfg(feature = "VK_KHR_portability_subset")]
+unsafe impl Send for VkPhysicalDevicePortabilitySubsetFeaturesKHR {}
+#[cfg(feature = "VK_KHR_portability_subset")]
+unsafe impl Sync for VkPhysicalDevicePortabilitySubsetFeaturesKHR {}
 #[cfg(feature = "VK_KHR_portability_subset")]
 impl VkPhysicalDevicePortabilitySubsetFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -55712,6 +59910,10 @@ pub struct VkPhysicalDevicePortabilitySubsetPropertiesKHR {
     pub minVertexInputBindingStrideAlignment: u32,
 }
 #[cfg(feature = "VK_KHR_portability_subset")]
+unsafe impl Send for VkPhysicalDevicePortabilitySubsetPropertiesKHR {}
+#[cfg(feature = "VK_KHR_portability_subset")]
+unsafe impl Sync for VkPhysicalDevicePortabilitySubsetPropertiesKHR {}
+#[cfg(feature = "VK_KHR_portability_subset")]
 impl VkPhysicalDevicePortabilitySubsetPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR,
@@ -55748,6 +59950,10 @@ pub struct VkPhysicalDevicePresentIdFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub presentId: VkBool32,
 }
+#[cfg(feature = "VK_KHR_present_id")]
+unsafe impl Send for VkPhysicalDevicePresentIdFeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_id")]
+unsafe impl Sync for VkPhysicalDevicePresentIdFeaturesKHR {}
 #[cfg(feature = "VK_KHR_present_id")]
 impl VkPhysicalDevicePresentIdFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -55787,6 +59993,10 @@ pub struct VkPresentIdKHR {
     /// Optional: true,  Length: swapchainCount
     pub pPresentIds: *const u64,
 }
+#[cfg(feature = "VK_KHR_present_id")]
+unsafe impl Send for VkPresentIdKHR {}
+#[cfg(feature = "VK_KHR_present_id")]
+unsafe impl Sync for VkPresentIdKHR {}
 #[cfg(feature = "VK_KHR_present_id")]
 impl VkPresentIdKHR {
     pub const DEFAULT: Self = Self {
@@ -55833,6 +60043,10 @@ pub struct VkPhysicalDevicePresentId2FeaturesKHR {
     pub presentId2: VkBool32,
 }
 #[cfg(feature = "VK_KHR_present_id2")]
+unsafe impl Send for VkPhysicalDevicePresentId2FeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_id2")]
+unsafe impl Sync for VkPhysicalDevicePresentId2FeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_id2")]
 impl VkPhysicalDevicePresentId2FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR,
@@ -55871,6 +60085,10 @@ pub struct VkPresentId2KHR {
     /// Optional: true,  Length: swapchainCount
     pub pPresentIds: *const u64,
 }
+#[cfg(feature = "VK_KHR_present_id2")]
+unsafe impl Send for VkPresentId2KHR {}
+#[cfg(feature = "VK_KHR_present_id2")]
+unsafe impl Sync for VkPresentId2KHR {}
 #[cfg(feature = "VK_KHR_present_id2")]
 impl VkPresentId2KHR {
     pub const DEFAULT: Self = Self {
@@ -55917,6 +60135,10 @@ pub struct VkSurfaceCapabilitiesPresentId2KHR {
     pub presentId2Supported: VkBool32,
 }
 #[cfg(feature = "VK_KHR_present_id2")]
+unsafe impl Send for VkSurfaceCapabilitiesPresentId2KHR {}
+#[cfg(feature = "VK_KHR_present_id2")]
+unsafe impl Sync for VkSurfaceCapabilitiesPresentId2KHR {}
+#[cfg(feature = "VK_KHR_present_id2")]
 impl VkSurfaceCapabilitiesPresentId2KHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_ID_2_KHR,
@@ -55953,6 +60175,10 @@ pub struct VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub presentModeFifoLatestReady: VkBool32,
 }
+#[cfg(feature = "VK_KHR_present_mode_fifo_latest_ready")]
+unsafe impl Send for VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_mode_fifo_latest_ready")]
+unsafe impl Sync for VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {}
 #[cfg(feature = "VK_KHR_present_mode_fifo_latest_ready")]
 impl VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -55991,6 +60217,10 @@ pub struct VkPhysicalDevicePresentWaitFeaturesKHR {
     pub presentWait: VkBool32,
 }
 #[cfg(feature = "VK_KHR_present_wait")]
+unsafe impl Send for VkPhysicalDevicePresentWaitFeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_wait")]
+unsafe impl Sync for VkPhysicalDevicePresentWaitFeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_wait")]
 impl VkPhysicalDevicePresentWaitFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR,
@@ -56026,6 +60256,10 @@ pub struct VkPresentWait2InfoKHR {
     pub presentId: u64,
     pub timeout: u64,
 }
+#[cfg(feature = "VK_KHR_present_wait2")]
+unsafe impl Send for VkPresentWait2InfoKHR {}
+#[cfg(feature = "VK_KHR_present_wait2")]
+unsafe impl Sync for VkPresentWait2InfoKHR {}
 #[cfg(feature = "VK_KHR_present_wait2")]
 impl VkPresentWait2InfoKHR {
     pub const DEFAULT: Self = Self {
@@ -56070,6 +60304,10 @@ pub struct VkPhysicalDevicePresentWait2FeaturesKHR {
     pub presentWait2: VkBool32,
 }
 #[cfg(feature = "VK_KHR_present_wait2")]
+unsafe impl Send for VkPhysicalDevicePresentWait2FeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_wait2")]
+unsafe impl Sync for VkPhysicalDevicePresentWait2FeaturesKHR {}
+#[cfg(feature = "VK_KHR_present_wait2")]
 impl VkPhysicalDevicePresentWait2FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR,
@@ -56106,6 +60344,10 @@ pub struct VkSurfaceCapabilitiesPresentWait2KHR {
     pub pNext: *mut core::ffi::c_void,
     pub presentWait2Supported: VkBool32,
 }
+#[cfg(feature = "VK_KHR_present_wait2")]
+unsafe impl Send for VkSurfaceCapabilitiesPresentWait2KHR {}
+#[cfg(feature = "VK_KHR_present_wait2")]
+unsafe impl Sync for VkSurfaceCapabilitiesPresentWait2KHR {}
 #[cfg(feature = "VK_KHR_present_wait2")]
 impl VkSurfaceCapabilitiesPresentWait2KHR {
     pub const DEFAULT: Self = Self {
@@ -56145,6 +60387,10 @@ pub struct VkPhysicalDeviceRayQueryFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub rayQuery: VkBool32,
 }
+#[cfg(feature = "VK_KHR_ray_query")]
+unsafe impl Send for VkPhysicalDeviceRayQueryFeaturesKHR {}
+#[cfg(feature = "VK_KHR_ray_query")]
+unsafe impl Sync for VkPhysicalDeviceRayQueryFeaturesKHR {}
 #[cfg(feature = "VK_KHR_ray_query")]
 impl VkPhysicalDeviceRayQueryFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -56189,6 +60435,10 @@ pub struct VkTraceRaysIndirectCommand2KHR {
     pub height: u32,
     pub depth: u32,
 }
+#[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+unsafe impl Send for VkTraceRaysIndirectCommand2KHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+unsafe impl Sync for VkTraceRaysIndirectCommand2KHR {}
 #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
 impl VkTraceRaysIndirectCommand2KHR {
     pub const DEFAULT: Self = Self {
@@ -56297,6 +60547,10 @@ pub struct VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR {
     pub rayTracingPipelineTraceRaysIndirect2: VkBool32,
 }
 #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+unsafe impl Send for VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
 impl VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR,
@@ -56343,6 +60597,10 @@ pub struct VkRayTracingShaderGroupCreateInfoKHR {
     /// Optional: true
     pub pShaderGroupCaptureReplayHandle: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Send for VkRayTracingShaderGroupCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Sync for VkRayTracingShaderGroupCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 impl VkRayTracingShaderGroupCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -56434,6 +60692,10 @@ pub struct VkRayTracingPipelineCreateInfoKHR {
     pub basePipelineHandle: VkPipeline,
     pub basePipelineIndex: i32,
 }
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Send for VkRayTracingPipelineCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Sync for VkRayTracingPipelineCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 impl VkRayTracingPipelineCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -56558,6 +60820,10 @@ pub struct VkPhysicalDeviceRayTracingPipelineFeaturesKHR {
     pub rayTraversalPrimitiveCulling: VkBool32,
 }
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Send for VkPhysicalDeviceRayTracingPipelineFeaturesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingPipelineFeaturesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 impl VkPhysicalDeviceRayTracingPipelineFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR,
@@ -56644,6 +60910,10 @@ pub struct VkPhysicalDeviceRayTracingPipelinePropertiesKHR {
     pub maxRayHitAttributeSize: u32,
 }
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Send for VkPhysicalDeviceRayTracingPipelinePropertiesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingPipelinePropertiesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 impl VkPhysicalDeviceRayTracingPipelinePropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -56721,6 +60991,10 @@ pub struct VkStridedDeviceAddressRegionKHR {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Send for VkStridedDeviceAddressRegionKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Sync for VkStridedDeviceAddressRegionKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 impl VkStridedDeviceAddressRegionKHR {
     pub const DEFAULT: Self = Self {
         deviceAddress: 0,
@@ -56756,6 +61030,10 @@ pub struct VkTraceRaysIndirectCommandKHR {
     pub height: u32,
     pub depth: u32,
 }
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Send for VkTraceRaysIndirectCommandKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Sync for VkTraceRaysIndirectCommandKHR {}
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 impl VkTraceRaysIndirectCommandKHR {
     pub const DEFAULT: Self = Self {
@@ -56795,6 +61073,10 @@ pub struct VkRayTracingPipelineInterfaceCreateInfoKHR {
     pub maxPipelineRayPayloadSize: u32,
     pub maxPipelineRayHitAttributeSize: u32,
 }
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Send for VkRayTracingPipelineInterfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+unsafe impl Sync for VkRayTracingPipelineInterfaceCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 impl VkRayTracingPipelineInterfaceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -56839,6 +61121,10 @@ pub struct VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR {
     pub rayTracingPositionFetch: VkBool32,
 }
 #[cfg(feature = "VK_KHR_ray_tracing_position_fetch")]
+unsafe impl Send for VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_position_fetch")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR {}
+#[cfg(feature = "VK_KHR_ray_tracing_position_fetch")]
 impl VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR,
@@ -56877,6 +61163,10 @@ pub struct VkPhysicalDeviceRobustness2FeaturesKHR {
     pub robustImageAccess2: VkBool32,
     pub nullDescriptor: VkBool32,
 }
+#[cfg(feature = "VK_KHR_robustness2")]
+unsafe impl Send for VkPhysicalDeviceRobustness2FeaturesKHR {}
+#[cfg(feature = "VK_KHR_robustness2")]
+unsafe impl Sync for VkPhysicalDeviceRobustness2FeaturesKHR {}
 #[cfg(feature = "VK_KHR_robustness2")]
 impl VkPhysicalDeviceRobustness2FeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -56933,6 +61223,10 @@ pub struct VkPhysicalDeviceRobustness2PropertiesKHR {
     /// Limit Type: [Min, Pot]
     pub robustUniformBufferAccessSizeAlignment: VkDeviceSize,
 }
+#[cfg(feature = "VK_KHR_robustness2")]
+unsafe impl Send for VkPhysicalDeviceRobustness2PropertiesKHR {}
+#[cfg(feature = "VK_KHR_robustness2")]
+unsafe impl Sync for VkPhysicalDeviceRobustness2PropertiesKHR {}
 #[cfg(feature = "VK_KHR_robustness2")]
 impl VkPhysicalDeviceRobustness2PropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -57004,6 +61298,10 @@ pub struct VkPhysicalDeviceShaderBfloat16FeaturesKHR {
     pub shaderBFloat16CooperativeMatrix: VkBool32,
 }
 #[cfg(feature = "VK_KHR_shader_bfloat16")]
+unsafe impl Send for VkPhysicalDeviceShaderBfloat16FeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_bfloat16")]
+unsafe impl Sync for VkPhysicalDeviceShaderBfloat16FeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_bfloat16")]
 impl VkPhysicalDeviceShaderBfloat16FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR,
@@ -57053,6 +61351,10 @@ pub struct VkPhysicalDeviceShaderClockFeaturesKHR {
     pub shaderSubgroupClock: VkBool32,
     pub shaderDeviceClock: VkBool32,
 }
+#[cfg(feature = "VK_KHR_shader_clock")]
+unsafe impl Send for VkPhysicalDeviceShaderClockFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_clock")]
+unsafe impl Sync for VkPhysicalDeviceShaderClockFeaturesKHR {}
 #[cfg(feature = "VK_KHR_shader_clock")]
 impl VkPhysicalDeviceShaderClockFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -57110,6 +61412,10 @@ pub struct VkPhysicalDeviceShaderFmaFeaturesKHR {
     pub shaderFmaFloat64: VkBool32,
 }
 #[cfg(feature = "VK_KHR_shader_fma")]
+unsafe impl Send for VkPhysicalDeviceShaderFmaFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_fma")]
+unsafe impl Sync for VkPhysicalDeviceShaderFmaFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_fma")]
 impl VkPhysicalDeviceShaderFmaFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR,
@@ -57165,6 +61471,10 @@ pub struct VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR {
     pub shaderMaximalReconvergence: VkBool32,
 }
 #[cfg(feature = "VK_KHR_shader_maximal_reconvergence")]
+unsafe impl Send for VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_maximal_reconvergence")]
+unsafe impl Sync for VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_maximal_reconvergence")]
 impl VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR,
@@ -57202,6 +61512,10 @@ pub struct VkPhysicalDeviceShaderQuadControlFeaturesKHR {
     pub shaderQuadControl: VkBool32,
 }
 #[cfg(feature = "VK_KHR_shader_quad_control")]
+unsafe impl Send for VkPhysicalDeviceShaderQuadControlFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_quad_control")]
+unsafe impl Sync for VkPhysicalDeviceShaderQuadControlFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_quad_control")]
 impl VkPhysicalDeviceShaderQuadControlFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR,
@@ -57238,6 +61552,10 @@ pub struct VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub shaderRelaxedExtendedInstruction: VkBool32,
 }
+#[cfg(feature = "VK_KHR_shader_relaxed_extended_instruction")]
+unsafe impl Send for VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_relaxed_extended_instruction")]
+unsafe impl Sync for VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR {}
 #[cfg(feature = "VK_KHR_shader_relaxed_extended_instruction")]
 impl VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -57282,6 +61600,10 @@ pub struct VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR {
     pub shaderSubgroupUniformControlFlow: VkBool32,
 }
 #[cfg(feature = "VK_KHR_shader_subgroup_uniform_control_flow")]
+unsafe impl Send for VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_subgroup_uniform_control_flow")]
+unsafe impl Sync for VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_subgroup_uniform_control_flow")]
 impl VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR,
@@ -57321,6 +61643,10 @@ pub struct VkPhysicalDeviceShaderUntypedPointersFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub shaderUntypedPointers: VkBool32,
 }
+#[cfg(feature = "VK_KHR_shader_untyped_pointers")]
+unsafe impl Send for VkPhysicalDeviceShaderUntypedPointersFeaturesKHR {}
+#[cfg(feature = "VK_KHR_shader_untyped_pointers")]
+unsafe impl Sync for VkPhysicalDeviceShaderUntypedPointersFeaturesKHR {}
 #[cfg(feature = "VK_KHR_shader_untyped_pointers")]
 impl VkPhysicalDeviceShaderUntypedPointersFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -57362,6 +61688,10 @@ pub struct VkSharedPresentSurfaceCapabilitiesKHR {
     /// Optional: true
     pub sharedPresentSupportedUsageFlags: VkImageUsageFlags,
 }
+#[cfg(feature = "VK_KHR_shared_presentable_image")]
+unsafe impl Send for VkSharedPresentSurfaceCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_shared_presentable_image")]
+unsafe impl Sync for VkSharedPresentSurfaceCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_shared_presentable_image")]
 impl VkSharedPresentSurfaceCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -57405,6 +61735,10 @@ impl Default for VkSurfaceKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_surface")]
+unsafe impl Send for VkSurfaceKHR {}
+#[cfg(feature = "VK_KHR_surface")]
+unsafe impl Sync for VkSurfaceKHR {}
 /// [VkSurfaceCapabilitiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilitiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -57423,6 +61757,10 @@ pub struct VkSurfaceCapabilitiesKHR {
     pub supportedCompositeAlpha: VkCompositeAlphaFlagsKHR,
     pub supportedUsageFlags: VkImageUsageFlags,
 }
+#[cfg(feature = "VK_KHR_surface")]
+unsafe impl Send for VkSurfaceCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_surface")]
+unsafe impl Sync for VkSurfaceCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_surface")]
 impl VkSurfaceCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -57503,6 +61841,10 @@ pub struct VkSurfaceFormatKHR {
     pub colorSpace: VkColorSpaceKHR,
 }
 #[cfg(feature = "VK_KHR_surface")]
+unsafe impl Send for VkSurfaceFormatKHR {}
+#[cfg(feature = "VK_KHR_surface")]
+unsafe impl Sync for VkSurfaceFormatKHR {}
+#[cfg(feature = "VK_KHR_surface")]
 impl VkSurfaceFormatKHR {
     pub const DEFAULT: Self = Self {
         format: VkFormat(0),
@@ -57542,6 +61884,10 @@ pub struct VkSurfacePresentModeKHR {
     pub pNext: *mut core::ffi::c_void,
     pub presentMode: VkPresentModeKHR,
 }
+#[cfg(feature = "VK_KHR_surface_maintenance1")]
+unsafe impl Send for VkSurfacePresentModeKHR {}
+#[cfg(feature = "VK_KHR_surface_maintenance1")]
+unsafe impl Sync for VkSurfacePresentModeKHR {}
 #[cfg(feature = "VK_KHR_surface_maintenance1")]
 impl VkSurfacePresentModeKHR {
     pub const DEFAULT: Self = Self {
@@ -57588,6 +61934,10 @@ pub struct VkSurfacePresentScalingCapabilitiesKHR {
     /// Optional: true
     pub maxScaledImageExtent: VkExtent2D,
 }
+#[cfg(feature = "VK_KHR_surface_maintenance1")]
+unsafe impl Send for VkSurfacePresentScalingCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_surface_maintenance1")]
+unsafe impl Sync for VkSurfacePresentScalingCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_surface_maintenance1")]
 impl VkSurfacePresentScalingCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -57653,6 +62003,10 @@ pub struct VkSurfacePresentModeCompatibilityKHR {
     pub pPresentModes: *mut VkPresentModeKHR,
 }
 #[cfg(feature = "VK_KHR_surface_maintenance1")]
+unsafe impl Send for VkSurfacePresentModeCompatibilityKHR {}
+#[cfg(feature = "VK_KHR_surface_maintenance1")]
+unsafe impl Sync for VkSurfacePresentModeCompatibilityKHR {}
+#[cfg(feature = "VK_KHR_surface_maintenance1")]
 impl VkSurfacePresentModeCompatibilityKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_KHR,
@@ -57700,6 +62054,10 @@ pub struct VkSurfaceProtectedCapabilitiesKHR {
     pub supportsProtected: VkBool32,
 }
 #[cfg(feature = "VK_KHR_surface_protected_capabilities")]
+unsafe impl Send for VkSurfaceProtectedCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_surface_protected_capabilities")]
+unsafe impl Sync for VkSurfaceProtectedCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_surface_protected_capabilities")]
 impl VkSurfaceProtectedCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PROTECTED_CAPABILITIES_KHR,
@@ -57742,6 +62100,10 @@ impl Default for VkSwapchainKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl Send for VkSwapchainKHR {}
+#[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl Sync for VkSwapchainKHR {}
 /// [VkSwapchainCreateInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainCreateInfoKHR.html)
 #[cfg(feature = "VK_KHR_swapchain")]
 #[repr(C)]
@@ -57776,6 +62138,10 @@ pub struct VkSwapchainCreateInfoKHR {
     /// Optional: true,  No Auto-Validity
     pub oldSwapchain: VkSwapchainKHR,
 }
+#[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl Send for VkSwapchainCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl Sync for VkSwapchainCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_swapchain")]
 impl VkSwapchainCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -57924,6 +62290,10 @@ pub struct VkPresentInfoKHR {
     pub pResults: *mut VkResult,
 }
 #[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl Send for VkPresentInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain")]
+unsafe impl Sync for VkPresentInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain")]
 impl VkPresentInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PRESENT_INFO_KHR,
@@ -57999,6 +62369,10 @@ pub struct VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
     pub swapchainMaintenance1: VkBool32,
 }
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Send for VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Sync for VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 impl VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -58038,6 +62412,10 @@ pub struct VkSwapchainPresentFenceInfoKHR {
     /// Optional: pointer required, values optional if pointer not null,  Length: swapchainCount
     pub pFences: *const VkFence,
 }
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Send for VkSwapchainPresentFenceInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Sync for VkSwapchainPresentFenceInfoKHR {}
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 impl VkSwapchainPresentFenceInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -58086,6 +62464,10 @@ pub struct VkSwapchainPresentModesCreateInfoKHR {
     pub pPresentModes: *const VkPresentModeKHR,
 }
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Send for VkSwapchainPresentModesCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Sync for VkSwapchainPresentModesCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 impl VkSwapchainPresentModesCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR,
@@ -58132,6 +62514,10 @@ pub struct VkSwapchainPresentModeInfoKHR {
     /// Length: swapchainCount
     pub pPresentModes: *const VkPresentModeKHR,
 }
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Send for VkSwapchainPresentModeInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Sync for VkSwapchainPresentModeInfoKHR {}
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 impl VkSwapchainPresentModeInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -58183,6 +62569,10 @@ pub struct VkSwapchainPresentScalingCreateInfoKHR {
     pub presentGravityY: VkPresentGravityFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Send for VkSwapchainPresentScalingCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Sync for VkSwapchainPresentScalingCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 impl VkSwapchainPresentScalingCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR,
@@ -58232,6 +62622,10 @@ pub struct VkReleaseSwapchainImagesInfoKHR {
     /// Length: imageIndexCount
     pub pImageIndices: *const u32,
 }
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Send for VkReleaseSwapchainImagesInfoKHR {}
+#[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+unsafe impl Sync for VkReleaseSwapchainImagesInfoKHR {}
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 impl VkReleaseSwapchainImagesInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -58322,6 +62716,10 @@ pub struct VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR {
     pub unifiedImageLayoutsVideo: VkBool32,
 }
 #[cfg(feature = "VK_KHR_unified_image_layouts")]
+unsafe impl Send for VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR {}
+#[cfg(feature = "VK_KHR_unified_image_layouts")]
+unsafe impl Sync for VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR {}
+#[cfg(feature = "VK_KHR_unified_image_layouts")]
 impl VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -58365,6 +62763,10 @@ pub struct VkAttachmentFeedbackLoopInfoEXT {
     pub pNext: *const core::ffi::c_void,
     pub feedbackLoopEnable: VkBool32,
 }
+#[cfg(feature = "VK_KHR_unified_image_layouts")]
+unsafe impl Send for VkAttachmentFeedbackLoopInfoEXT {}
+#[cfg(feature = "VK_KHR_unified_image_layouts")]
+unsafe impl Sync for VkAttachmentFeedbackLoopInfoEXT {}
 #[cfg(feature = "VK_KHR_unified_image_layouts")]
 impl VkAttachmentFeedbackLoopInfoEXT {
     pub const DEFAULT: Self = Self {
@@ -58422,6 +62824,10 @@ pub struct VkVideoDecodeAV1ProfileInfoKHR {
     pub filmGrainSupport: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for VkVideoDecodeAV1ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for VkVideoDecodeAV1ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
 impl VkVideoDecodeAV1ProfileInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_PROFILE_INFO_KHR,
@@ -58470,6 +62876,10 @@ pub struct VkVideoDecodeAV1CapabilitiesKHR {
     pub maxLevel: StdVideoAV1Level,
 }
 #[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for VkVideoDecodeAV1CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for VkVideoDecodeAV1CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
 impl VkVideoDecodeAV1CapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_CAPABILITIES_KHR,
@@ -58506,6 +62916,10 @@ pub struct VkVideoDecodeAV1SessionParametersCreateInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub pStdSequenceHeader: *const StdVideoAV1SequenceHeader,
 }
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for VkVideoDecodeAV1SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for VkVideoDecodeAV1SessionParametersCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_av1")]
 impl VkVideoDecodeAV1SessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -58553,6 +62967,10 @@ pub struct VkVideoDecodeAV1PictureInfoKHR {
     /// Length: tileCount
     pub pTileSizes: *const u32,
 }
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for VkVideoDecodeAV1PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for VkVideoDecodeAV1PictureInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_av1")]
 impl VkVideoDecodeAV1PictureInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -58630,6 +63048,10 @@ pub struct VkVideoDecodeAV1DpbSlotInfoKHR {
     pub pStdReferenceInfo: *const StdVideoDecodeAV1ReferenceInfo,
 }
 #[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for VkVideoDecodeAV1DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for VkVideoDecodeAV1DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
 impl VkVideoDecodeAV1DpbSlotInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR,
@@ -58694,6 +63116,10 @@ pub struct StdVideoDecodeAV1PictureInfoFlags {
     pub apply_grain: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for StdVideoDecodeAV1PictureInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for StdVideoDecodeAV1PictureInfoFlags {}
 #[cfg(feature = "VK_KHR_video_decode_av1")]
 impl StdVideoDecodeAV1PictureInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -58918,6 +63344,10 @@ pub struct StdVideoDecodeAV1PictureInfo {
     pub pFilmGrain: *const StdVideoAV1FilmGrain,
 }
 #[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for StdVideoDecodeAV1PictureInfo {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for StdVideoDecodeAV1PictureInfo {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
 impl StdVideoDecodeAV1PictureInfo {
     pub const DEFAULT: Self = Self {
         flags: StdVideoDecodeAV1PictureInfoFlags::DEFAULT,
@@ -59105,6 +63535,10 @@ pub struct StdVideoDecodeAV1ReferenceInfoFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for StdVideoDecodeAV1ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for StdVideoDecodeAV1ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
 impl StdVideoDecodeAV1ReferenceInfoFlags {
     pub const DEFAULT: Self = Self {
         disable_frame_end_update_cdf: 0,
@@ -59142,6 +63576,10 @@ pub struct StdVideoDecodeAV1ReferenceInfo {
     pub OrderHint: u8,
     pub SavedOrderHints: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
 }
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Send for StdVideoDecodeAV1ReferenceInfo {}
+#[cfg(feature = "VK_KHR_video_decode_av1")]
+unsafe impl Sync for StdVideoDecodeAV1ReferenceInfo {}
 #[cfg(feature = "VK_KHR_video_decode_av1")]
 impl StdVideoDecodeAV1ReferenceInfo {
     pub const DEFAULT: Self = Self {
@@ -59203,6 +63641,10 @@ pub struct VkVideoDecodeH264ProfileInfoKHR {
     pub pictureLayout: VkVideoDecodeH264PictureLayoutFlagBitsKHR,
 }
 #[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for VkVideoDecodeH264ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for VkVideoDecodeH264ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
 impl VkVideoDecodeH264ProfileInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PROFILE_INFO_KHR,
@@ -59256,6 +63698,10 @@ pub struct VkVideoDecodeH264CapabilitiesKHR {
     pub fieldOffsetGranularity: VkOffset2D,
 }
 #[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for VkVideoDecodeH264CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for VkVideoDecodeH264CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
 impl VkVideoDecodeH264CapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_CAPABILITIES_KHR,
@@ -59305,6 +63751,10 @@ pub struct VkVideoDecodeH264SessionParametersAddInfoKHR {
     /// Length: stdPPSCount
     pub pStdPPSs: *const StdVideoH264PictureParameterSet,
 }
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for VkVideoDecodeH264SessionParametersAddInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for VkVideoDecodeH264SessionParametersAddInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_h264")]
 impl VkVideoDecodeH264SessionParametersAddInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -59368,6 +63818,10 @@ pub struct VkVideoDecodeH264SessionParametersCreateInfoKHR {
     pub pParametersAddInfo: *const VkVideoDecodeH264SessionParametersAddInfoKHR,
 }
 #[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for VkVideoDecodeH264SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for VkVideoDecodeH264SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
 impl VkVideoDecodeH264SessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -59426,6 +63880,10 @@ pub struct VkVideoDecodeH264PictureInfoKHR {
     pub pSliceOffsets: *const u32,
 }
 #[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for VkVideoDecodeH264PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for VkVideoDecodeH264PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
 impl VkVideoDecodeH264PictureInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_PICTURE_INFO_KHR,
@@ -59479,6 +63937,10 @@ pub struct VkVideoDecodeH264DpbSlotInfoKHR {
     pub pStdReferenceInfo: *const StdVideoDecodeH264ReferenceInfo,
 }
 #[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for VkVideoDecodeH264DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for VkVideoDecodeH264DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
 impl VkVideoDecodeH264DpbSlotInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR,
@@ -59519,6 +63981,10 @@ pub struct StdVideoDecodeH264PictureInfoFlags {
     pub is_reference: u32,
     pub complementary_field_pair: u32,
 }
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for StdVideoDecodeH264PictureInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for StdVideoDecodeH264PictureInfoFlags {}
 #[cfg(feature = "VK_KHR_video_decode_h264")]
 impl StdVideoDecodeH264PictureInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -59580,6 +64046,10 @@ pub struct StdVideoDecodeH264PictureInfo {
     pub idr_pic_id: u16,
     pub PicOrderCnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for StdVideoDecodeH264PictureInfo {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for StdVideoDecodeH264PictureInfo {}
 #[cfg(feature = "VK_KHR_video_decode_h264")]
 impl StdVideoDecodeH264PictureInfo {
     pub const DEFAULT: Self = Self {
@@ -59651,6 +64121,10 @@ pub struct StdVideoDecodeH264ReferenceInfoFlags {
     pub is_non_existing: u32,
 }
 #[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for StdVideoDecodeH264ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for StdVideoDecodeH264ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
 impl StdVideoDecodeH264ReferenceInfoFlags {
     pub const DEFAULT: Self = Self {
         top_field_flag: 0,
@@ -59693,6 +64167,10 @@ pub struct StdVideoDecodeH264ReferenceInfo {
     pub reserved: u16,
     pub PicOrderCnt: [i32; STD_VIDEO_DECODE_H264_FIELD_ORDER_COUNT_LIST_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Send for StdVideoDecodeH264ReferenceInfo {}
+#[cfg(feature = "VK_KHR_video_decode_h264")]
+unsafe impl Sync for StdVideoDecodeH264ReferenceInfo {}
 #[cfg(feature = "VK_KHR_video_decode_h264")]
 impl StdVideoDecodeH264ReferenceInfo {
     pub const DEFAULT: Self = Self {
@@ -59743,6 +64221,10 @@ pub struct VkVideoDecodeH265ProfileInfoKHR {
     pub stdProfileIdc: StdVideoH265ProfileIdc,
 }
 #[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for VkVideoDecodeH265ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for VkVideoDecodeH265ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
 impl VkVideoDecodeH265ProfileInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PROFILE_INFO_KHR,
@@ -59784,6 +64266,10 @@ pub struct VkVideoDecodeH265CapabilitiesKHR {
     /// Limit Type: [Max]
     pub maxLevelIdc: StdVideoH265LevelIdc,
 }
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for VkVideoDecodeH265CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for VkVideoDecodeH265CapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_decode_h265")]
 impl VkVideoDecodeH265CapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -59832,6 +64318,10 @@ pub struct VkVideoDecodeH265SessionParametersAddInfoKHR {
     /// Length: stdPPSCount
     pub pStdPPSs: *const StdVideoH265PictureParameterSet,
 }
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for VkVideoDecodeH265SessionParametersAddInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for VkVideoDecodeH265SessionParametersAddInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_h265")]
 impl VkVideoDecodeH265SessionParametersAddInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -59910,6 +64400,10 @@ pub struct VkVideoDecodeH265SessionParametersCreateInfoKHR {
     pub pParametersAddInfo: *const VkVideoDecodeH265SessionParametersAddInfoKHR,
 }
 #[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for VkVideoDecodeH265SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for VkVideoDecodeH265SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
 impl VkVideoDecodeH265SessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -59974,6 +64468,10 @@ pub struct VkVideoDecodeH265PictureInfoKHR {
     pub pSliceSegmentOffsets: *const u32,
 }
 #[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for VkVideoDecodeH265PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for VkVideoDecodeH265PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
 impl VkVideoDecodeH265PictureInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_PICTURE_INFO_KHR,
@@ -60027,6 +64525,10 @@ pub struct VkVideoDecodeH265DpbSlotInfoKHR {
     pub pStdReferenceInfo: *const StdVideoDecodeH265ReferenceInfo,
 }
 #[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for VkVideoDecodeH265DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for VkVideoDecodeH265DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
 impl VkVideoDecodeH265DpbSlotInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR,
@@ -60065,6 +64567,10 @@ pub struct StdVideoDecodeH265PictureInfoFlags {
     pub IsReference: u32,
     pub short_term_ref_pic_set_sps_flag: u32,
 }
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for StdVideoDecodeH265PictureInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for StdVideoDecodeH265PictureInfoFlags {}
 #[cfg(feature = "VK_KHR_video_decode_h265")]
 impl StdVideoDecodeH265PictureInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -60115,6 +64621,10 @@ pub struct StdVideoDecodeH265PictureInfo {
     pub RefPicSetStCurrAfter: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
     pub RefPicSetLtCurr: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for StdVideoDecodeH265PictureInfo {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for StdVideoDecodeH265PictureInfo {}
 #[cfg(feature = "VK_KHR_video_decode_h265")]
 impl StdVideoDecodeH265PictureInfo {
     pub const DEFAULT: Self = Self {
@@ -60208,6 +64718,10 @@ pub struct StdVideoDecodeH265ReferenceInfoFlags {
     pub unused_for_reference: u32,
 }
 #[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for StdVideoDecodeH265ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for StdVideoDecodeH265ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
 impl StdVideoDecodeH265ReferenceInfoFlags {
     pub const DEFAULT: Self = Self {
         used_for_long_term_reference: 0,
@@ -60236,6 +64750,10 @@ pub struct StdVideoDecodeH265ReferenceInfo {
     pub flags: StdVideoDecodeH265ReferenceInfoFlags,
     pub PicOrderCntVal: i32,
 }
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Send for StdVideoDecodeH265ReferenceInfo {}
+#[cfg(feature = "VK_KHR_video_decode_h265")]
+unsafe impl Sync for StdVideoDecodeH265ReferenceInfo {}
 #[cfg(feature = "VK_KHR_video_decode_h265")]
 impl StdVideoDecodeH265ReferenceInfo {
     pub const DEFAULT: Self = Self {
@@ -60285,6 +64803,10 @@ pub struct VkVideoDecodeCapabilitiesKHR {
     pub flags: VkVideoDecodeCapabilityFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_video_decode_queue")]
+unsafe impl Send for VkVideoDecodeCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_queue")]
+unsafe impl Sync for VkVideoDecodeCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_queue")]
 impl VkVideoDecodeCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_CAPABILITIES_KHR,
@@ -60322,6 +64844,10 @@ pub struct VkVideoDecodeUsageInfoKHR {
     /// Optional: true
     pub videoUsageHints: VkVideoDecodeUsageFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_decode_queue")]
+unsafe impl Send for VkVideoDecodeUsageInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_queue")]
+unsafe impl Sync for VkVideoDecodeUsageInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_queue")]
 impl VkVideoDecodeUsageInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -60368,6 +64894,10 @@ pub struct VkVideoDecodeInfoKHR {
     /// Length: referenceSlotCount
     pub pReferenceSlots: *const VkVideoReferenceSlotInfoKHR,
 }
+#[cfg(feature = "VK_KHR_video_decode_queue")]
+unsafe impl Send for VkVideoDecodeInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_queue")]
+unsafe impl Sync for VkVideoDecodeInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_queue")]
 impl VkVideoDecodeInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -60455,6 +64985,10 @@ pub struct VkPhysicalDeviceVideoDecodeVP9FeaturesKHR {
     pub videoDecodeVP9: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Send for VkPhysicalDeviceVideoDecodeVP9FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Sync for VkPhysicalDeviceVideoDecodeVP9FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
 impl VkPhysicalDeviceVideoDecodeVP9FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR,
@@ -60491,6 +65025,10 @@ pub struct VkVideoDecodeVP9ProfileInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub stdProfile: StdVideoVP9Profile,
 }
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Send for VkVideoDecodeVP9ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Sync for VkVideoDecodeVP9ProfileInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_vp9")]
 impl VkVideoDecodeVP9ProfileInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -60534,6 +65072,10 @@ pub struct VkVideoDecodeVP9CapabilitiesKHR {
     pub maxLevel: StdVideoVP9Level,
 }
 #[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Send for VkVideoDecodeVP9CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Sync for VkVideoDecodeVP9CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
 impl VkVideoDecodeVP9CapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_CAPABILITIES_KHR,
@@ -60574,6 +65116,10 @@ pub struct VkVideoDecodeVP9PictureInfoKHR {
     pub compressedHeaderOffset: u32,
     pub tilesOffset: u32,
 }
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Send for VkVideoDecodeVP9PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Sync for VkVideoDecodeVP9PictureInfoKHR {}
 #[cfg(feature = "VK_KHR_video_decode_vp9")]
 impl VkVideoDecodeVP9PictureInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -60642,6 +65188,10 @@ pub struct StdVideoDecodeVP9PictureInfoFlags {
     pub UsePrevFrameMvs: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Send for StdVideoDecodeVP9PictureInfoFlags {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Sync for StdVideoDecodeVP9PictureInfoFlags {}
 #[cfg(feature = "VK_KHR_video_decode_vp9")]
 impl StdVideoDecodeVP9PictureInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -60730,6 +65280,10 @@ pub struct StdVideoDecodeVP9PictureInfo {
     /// Optional: true
     pub pSegmentation: *const StdVideoVP9Segmentation,
 }
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Send for StdVideoDecodeVP9PictureInfo {}
+#[cfg(feature = "VK_KHR_video_decode_vp9")]
+unsafe impl Sync for StdVideoDecodeVP9PictureInfo {}
 #[cfg(feature = "VK_KHR_video_decode_vp9")]
 impl StdVideoDecodeVP9PictureInfo {
     pub const DEFAULT: Self = Self {
@@ -60930,6 +65484,10 @@ pub struct VkVideoEncodeAV1CapabilitiesKHR {
     pub stdSyntaxFlags: VkVideoEncodeAV1StdFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1CapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_CAPABILITIES_KHR,
@@ -61124,6 +65682,10 @@ pub struct VkVideoEncodeAV1QualityLevelPropertiesKHR {
     pub preferredBidirectionalCompoundReferenceNameMask: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1QualityLevelPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1QualityLevelPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1QualityLevelPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR,
@@ -61257,6 +65819,10 @@ pub struct VkPhysicalDeviceVideoEncodeAV1FeaturesKHR {
     pub videoEncodeAV1: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkPhysicalDeviceVideoEncodeAV1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkPhysicalDeviceVideoEncodeAV1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkPhysicalDeviceVideoEncodeAV1FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR,
@@ -61294,6 +65860,10 @@ pub struct VkVideoEncodeAV1SessionCreateInfoKHR {
     pub useMaxLevel: VkBool32,
     pub maxLevel: StdVideoAV1Level,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1SessionCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1SessionCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1SessionCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -61343,6 +65913,10 @@ pub struct VkVideoEncodeAV1SessionParametersCreateInfoKHR {
     /// Optional: true,  Length: stdOperatingPointCount
     pub pStdOperatingPoints: *const StdVideoEncodeAV1OperatingPointInfo,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1SessionParametersCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1SessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -61412,6 +65986,10 @@ pub struct VkVideoEncodeAV1DpbSlotInfoKHR {
     pub pStdReferenceInfo: *const StdVideoEncodeAV1ReferenceInfo,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1DpbSlotInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR,
@@ -61459,6 +66037,10 @@ pub struct VkVideoEncodeAV1PictureInfoKHR {
     pub primaryReferenceCdfOnly: VkBool32,
     pub generateObuExtensionHeader: VkBool32,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1PictureInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1PictureInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -61538,6 +66120,10 @@ pub struct VkVideoEncodeAV1ProfileInfoKHR {
     pub stdProfile: StdVideoAV1Profile,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1ProfileInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_PROFILE_INFO_KHR,
@@ -61579,6 +66165,10 @@ pub struct VkVideoEncodeAV1RateControlInfoKHR {
     pub consecutiveBipredictiveFrameCount: u32,
     pub temporalLayerCount: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1RateControlInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1RateControlInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1RateControlInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -61640,6 +66230,10 @@ pub struct VkVideoEncodeAV1QIndexKHR {
     pub bipredictiveQIndex: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1QIndexKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1QIndexKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1QIndexKHR {
     pub const DEFAULT: Self = Self {
         intraQIndex: 0,
@@ -61678,6 +66272,10 @@ pub struct VkVideoEncodeAV1FrameSizeKHR {
     /// No Auto-Validity
     pub bipredictiveFrameSize: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1FrameSizeKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1FrameSizeKHR {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1FrameSizeKHR {
     pub const DEFAULT: Self = Self {
@@ -61721,6 +66319,10 @@ pub struct VkVideoEncodeAV1GopRemainingFrameInfoKHR {
     pub gopRemainingPredictive: u32,
     pub gopRemainingBipredictive: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1GopRemainingFrameInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1GopRemainingFrameInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1GopRemainingFrameInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -61781,6 +66383,10 @@ pub struct VkVideoEncodeAV1RateControlLayerInfoKHR {
     pub useMaxFrameSize: VkBool32,
     pub maxFrameSize: VkVideoEncodeAV1FrameSizeKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for VkVideoEncodeAV1RateControlLayerInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for VkVideoEncodeAV1RateControlLayerInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1RateControlLayerInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -61844,6 +66450,10 @@ pub struct StdVideoEncodeAV1ExtensionHeader {
     pub spatial_id: u8,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1ExtensionHeader {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1ExtensionHeader {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1ExtensionHeader {
     pub const DEFAULT: Self = Self {
         temporal_id: 0,
@@ -61875,6 +66485,10 @@ pub struct StdVideoEncodeAV1DecoderModelInfo {
     pub reserved1: u8,
     pub num_units_in_decoding_tick: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1DecoderModelInfo {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1DecoderModelInfo {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1DecoderModelInfo {
     pub const DEFAULT: Self = Self {
@@ -61925,6 +66539,10 @@ pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1OperatingPointInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1OperatingPointInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1OperatingPointInfoFlags {
     pub const DEFAULT: Self = Self {
         decoder_model_present_for_this_op: 0,
@@ -61970,6 +66588,10 @@ pub struct StdVideoEncodeAV1OperatingPointInfo {
     pub encoder_buffer_delay: u32,
     pub initial_display_delay_minus_1: u8,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1OperatingPointInfo {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1OperatingPointInfo {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1OperatingPointInfo {
     pub const DEFAULT: Self = Self {
@@ -62057,6 +66679,10 @@ pub struct StdVideoEncodeAV1PictureInfoFlags {
     pub showable_frame: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1PictureInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1PictureInfoFlags {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1PictureInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -62286,6 +66912,10 @@ pub struct StdVideoEncodeAV1PictureInfo {
     pub pBufferRemovalTimes: *const u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1PictureInfo {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1PictureInfo {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1PictureInfo {
     pub const DEFAULT: Self = Self {
         flags: StdVideoEncodeAV1PictureInfoFlags::DEFAULT,
@@ -62496,6 +67126,10 @@ pub struct StdVideoEncodeAV1ReferenceInfoFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1ReferenceInfoFlags {
     pub const DEFAULT: Self = Self {
         disable_frame_end_update_cdf: 0,
@@ -62535,6 +67169,10 @@ pub struct StdVideoEncodeAV1ReferenceInfo {
     /// Optional: true
     pub pExtensionHeader: *const StdVideoEncodeAV1ExtensionHeader,
 }
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Send for StdVideoEncodeAV1ReferenceInfo {}
+#[cfg(feature = "VK_KHR_video_encode_av1")]
+unsafe impl Sync for StdVideoEncodeAV1ReferenceInfo {}
 #[cfg(feature = "VK_KHR_video_encode_av1")]
 impl StdVideoEncodeAV1ReferenceInfo {
     pub const DEFAULT: Self = Self {
@@ -62636,6 +67274,10 @@ pub struct VkVideoEncodeH264CapabilitiesKHR {
     /// Limit Type: [Bitmask],  No Auto-Validity
     pub stdSyntaxFlags: VkVideoEncodeH264StdFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264CapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264CapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -62756,6 +67398,10 @@ pub struct VkVideoEncodeH264QualityLevelPropertiesKHR {
     pub preferredStdEntropyCodingModeFlag: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264QualityLevelPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264QualityLevelPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264QualityLevelPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR,
@@ -62845,6 +67491,10 @@ pub struct VkVideoEncodeH264SessionCreateInfoKHR {
     pub maxLevelIdc: StdVideoH264LevelIdc,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264SessionCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264SessionCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264SessionCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR,
@@ -62894,6 +67544,10 @@ pub struct VkVideoEncodeH264SessionParametersAddInfoKHR {
     /// Optional: true,  Length: stdPPSCount
     pub pStdPPSs: *const StdVideoH264PictureParameterSet,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264SessionParametersAddInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264SessionParametersAddInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264SessionParametersAddInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -62957,6 +67611,10 @@ pub struct VkVideoEncodeH264SessionParametersCreateInfoKHR {
     pub pParametersAddInfo: *const VkVideoEncodeH264SessionParametersAddInfoKHR,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264SessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -63014,6 +67672,10 @@ pub struct VkVideoEncodeH264SessionParametersGetInfoKHR {
     pub stdSPSId: u32,
     pub stdPPSId: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264SessionParametersGetInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264SessionParametersGetInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264SessionParametersGetInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -63073,6 +67735,10 @@ pub struct VkVideoEncodeH264SessionParametersFeedbackInfoKHR {
     pub hasStdPPSOverrides: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264SessionParametersFeedbackInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264SessionParametersFeedbackInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264SessionParametersFeedbackInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR,
@@ -63115,6 +67781,10 @@ pub struct VkVideoEncodeH264DpbSlotInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub pStdReferenceInfo: *const StdVideoEncodeH264ReferenceInfo,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264DpbSlotInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264DpbSlotInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -63161,6 +67831,10 @@ pub struct VkVideoEncodeH264PictureInfoKHR {
     pub pStdPictureInfo: *const StdVideoEncodeH264PictureInfo,
     pub generatePrefixNalu: VkBool32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264PictureInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264PictureInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -63224,6 +67898,10 @@ pub struct VkVideoEncodeH264ProfileInfoKHR {
     pub stdProfileIdc: StdVideoH264ProfileIdc,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264ProfileInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_PROFILE_INFO_KHR,
@@ -63259,6 +67937,10 @@ pub struct VkVideoEncodeH264NaluSliceInfoKHR {
     pub constantQp: i32,
     pub pStdSliceHeader: *const StdVideoEncodeH264SliceHeader,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264NaluSliceInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264NaluSliceInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264NaluSliceInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -63309,6 +67991,10 @@ pub struct VkVideoEncodeH264RateControlInfoKHR {
     pub consecutiveBFrameCount: u32,
     pub temporalLayerCount: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264RateControlInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264RateControlInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264RateControlInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -63370,6 +68056,10 @@ pub struct VkVideoEncodeH264QpKHR {
     pub qpB: i32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264QpKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264QpKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264QpKHR {
     pub const DEFAULT: Self = Self {
         qpI: 0,
@@ -63408,6 +68098,10 @@ pub struct VkVideoEncodeH264FrameSizeKHR {
     /// No Auto-Validity
     pub frameBSize: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264FrameSizeKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264FrameSizeKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264FrameSizeKHR {
     pub const DEFAULT: Self = Self {
@@ -63451,6 +68145,10 @@ pub struct VkVideoEncodeH264GopRemainingFrameInfoKHR {
     pub gopRemainingP: u32,
     pub gopRemainingB: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264GopRemainingFrameInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264GopRemainingFrameInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264GopRemainingFrameInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -63511,6 +68209,10 @@ pub struct VkVideoEncodeH264RateControlLayerInfoKHR {
     pub useMaxFrameSize: VkBool32,
     pub maxFrameSize: VkVideoEncodeH264FrameSizeKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for VkVideoEncodeH264RateControlLayerInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for VkVideoEncodeH264RateControlLayerInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264RateControlLayerInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -63576,6 +68278,10 @@ pub struct StdVideoEncodeH264WeightTableFlags {
     pub chroma_weight_l1_flag: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264WeightTableFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264WeightTableFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264WeightTableFlags {
     pub const DEFAULT: Self = Self {
         luma_weight_l0_flag: 0,
@@ -63625,6 +68331,10 @@ pub struct StdVideoEncodeH264WeightTable {
     pub chroma_weight_l1: [i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize],
     pub chroma_offset_l1: [i8; STD_VIDEO_H264_MAX_CHROMA_PLANES as usize],
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264WeightTable {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264WeightTable {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264WeightTable {
     pub const DEFAULT: Self = Self {
@@ -63734,6 +68444,10 @@ pub struct StdVideoEncodeH264SliceHeaderFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264SliceHeaderFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264SliceHeaderFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264SliceHeaderFlags {
     pub const DEFAULT: Self = Self {
         direct_spatial_mv_pred_flag: 0,
@@ -63772,6 +68486,10 @@ pub struct StdVideoEncodeH264PictureInfoFlags {
     pub adaptive_ref_pic_marking_mode_flag: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264PictureInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264PictureInfoFlags {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264PictureInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -63826,6 +68544,10 @@ pub struct StdVideoEncodeH264ReferenceInfoFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264ReferenceInfoFlags {
     pub const DEFAULT: Self = Self {
         used_for_long_term_reference: 0,
@@ -63855,6 +68577,10 @@ pub struct StdVideoEncodeH264ReferenceListsInfoFlags {
     pub ref_pic_list_modification_flag_l1: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264ReferenceListsInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264ReferenceListsInfoFlags {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264ReferenceListsInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -63891,6 +68617,10 @@ pub struct StdVideoEncodeH264RefListModEntry {
     pub abs_diff_pic_num_minus1: u16,
     pub long_term_pic_num: u16,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264RefListModEntry {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264RefListModEntry {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264RefListModEntry {
     pub const DEFAULT: Self = Self {
@@ -63932,6 +68662,10 @@ pub struct StdVideoEncodeH264RefPicMarkingEntry {
     pub long_term_frame_idx: u16,
     pub max_long_term_frame_idx_plus1: u16,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264RefPicMarkingEntry {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264RefPicMarkingEntry {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264RefPicMarkingEntry {
     pub const DEFAULT: Self = Self {
@@ -63995,6 +68729,10 @@ pub struct StdVideoEncodeH264ReferenceListsInfo {
     /// Length: refPicMarkingOpCount
     pub pRefPicMarkingOperations: *const StdVideoEncodeH264RefPicMarkingEntry,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264ReferenceListsInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264ReferenceListsInfo {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264ReferenceListsInfo {
     pub const DEFAULT: Self = Self {
@@ -64115,6 +68853,10 @@ pub struct StdVideoEncodeH264PictureInfo {
     pub pRefLists: *const StdVideoEncodeH264ReferenceListsInfo,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264PictureInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264PictureInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264PictureInfo {
     pub const DEFAULT: Self = Self {
         flags: StdVideoEncodeH264PictureInfoFlags::DEFAULT,
@@ -64202,6 +68944,10 @@ pub struct StdVideoEncodeH264ReferenceInfo {
     pub temporal_id: u8,
 }
 #[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264ReferenceInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264ReferenceInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264ReferenceInfo {
     pub const DEFAULT: Self = Self {
         flags: StdVideoEncodeH264ReferenceInfoFlags::DEFAULT,
@@ -64269,6 +69015,10 @@ pub struct StdVideoEncodeH264SliceHeader {
     /// Optional: true
     pub pWeightTable: *const StdVideoEncodeH264WeightTable,
 }
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Send for StdVideoEncodeH264SliceHeader {}
+#[cfg(feature = "VK_KHR_video_encode_h264")]
+unsafe impl Sync for StdVideoEncodeH264SliceHeader {}
 #[cfg(feature = "VK_KHR_video_encode_h264")]
 impl StdVideoEncodeH264SliceHeader {
     pub const DEFAULT: Self = Self {
@@ -64406,6 +69156,10 @@ pub struct VkVideoEncodeH265CapabilitiesKHR {
     /// Limit Type: [Bitmask],  No Auto-Validity
     pub stdSyntaxFlags: VkVideoEncodeH265StdFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265CapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265CapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265CapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -64546,6 +69300,10 @@ pub struct VkVideoEncodeH265QualityLevelPropertiesKHR {
     pub preferredMaxL1ReferenceCount: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265QualityLevelPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265QualityLevelPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265QualityLevelPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR,
@@ -64629,6 +69387,10 @@ pub struct VkVideoEncodeH265SessionCreateInfoKHR {
     pub maxLevelIdc: StdVideoH265LevelIdc,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265SessionCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265SessionCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265SessionCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR,
@@ -64682,6 +69444,10 @@ pub struct VkVideoEncodeH265SessionParametersAddInfoKHR {
     /// Optional: true,  Length: stdPPSCount
     pub pStdPPSs: *const StdVideoH265PictureParameterSet,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265SessionParametersAddInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265SessionParametersAddInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265SessionParametersAddInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -64760,6 +69526,10 @@ pub struct VkVideoEncodeH265SessionParametersCreateInfoKHR {
     pub pParametersAddInfo: *const VkVideoEncodeH265SessionParametersAddInfoKHR,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265SessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265SessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -64825,6 +69595,10 @@ pub struct VkVideoEncodeH265SessionParametersGetInfoKHR {
     pub stdSPSId: u32,
     pub stdPPSId: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265SessionParametersGetInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265SessionParametersGetInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265SessionParametersGetInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -64897,6 +69671,10 @@ pub struct VkVideoEncodeH265SessionParametersFeedbackInfoKHR {
     pub hasStdPPSOverrides: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265SessionParametersFeedbackInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265SessionParametersFeedbackInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265SessionParametersFeedbackInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR,
@@ -64948,6 +69726,10 @@ pub struct VkVideoEncodeH265PictureInfoKHR {
     pub pNaluSliceSegmentEntries: *const VkVideoEncodeH265NaluSliceSegmentInfoKHR,
     pub pStdPictureInfo: *const StdVideoEncodeH265PictureInfo,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265PictureInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265PictureInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265PictureInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -65004,6 +69786,10 @@ pub struct VkVideoEncodeH265NaluSliceSegmentInfoKHR {
     pub pStdSliceSegmentHeader: *const StdVideoEncodeH265SliceSegmentHeader,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265NaluSliceSegmentInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265NaluSliceSegmentInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265NaluSliceSegmentInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR,
@@ -65056,6 +69842,10 @@ pub struct VkVideoEncodeH265RateControlInfoKHR {
     pub consecutiveBFrameCount: u32,
     pub subLayerCount: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265RateControlInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265RateControlInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265RateControlInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -65117,6 +69907,10 @@ pub struct VkVideoEncodeH265QpKHR {
     pub qpB: i32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265QpKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265QpKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265QpKHR {
     pub const DEFAULT: Self = Self {
         qpI: 0,
@@ -65155,6 +69949,10 @@ pub struct VkVideoEncodeH265FrameSizeKHR {
     /// No Auto-Validity
     pub frameBSize: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265FrameSizeKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265FrameSizeKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265FrameSizeKHR {
     pub const DEFAULT: Self = Self {
@@ -65198,6 +69996,10 @@ pub struct VkVideoEncodeH265GopRemainingFrameInfoKHR {
     pub gopRemainingP: u32,
     pub gopRemainingB: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265GopRemainingFrameInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265GopRemainingFrameInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265GopRemainingFrameInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -65258,6 +70060,10 @@ pub struct VkVideoEncodeH265RateControlLayerInfoKHR {
     pub useMaxFrameSize: VkBool32,
     pub maxFrameSize: VkVideoEncodeH265FrameSizeKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265RateControlLayerInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265RateControlLayerInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265RateControlLayerInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -65326,6 +70132,10 @@ pub struct VkVideoEncodeH265ProfileInfoKHR {
     pub stdProfileIdc: StdVideoH265ProfileIdc,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265ProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265ProfileInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_PROFILE_INFO_KHR,
@@ -65362,6 +70172,10 @@ pub struct VkVideoEncodeH265DpbSlotInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub pStdReferenceInfo: *const StdVideoEncodeH265ReferenceInfo,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for VkVideoEncodeH265DpbSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for VkVideoEncodeH265DpbSlotInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265DpbSlotInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -65401,6 +70215,10 @@ pub struct StdVideoEncodeH265WeightTableFlags {
     pub luma_weight_l1_flag: u16,
     pub chroma_weight_l1_flag: u16,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265WeightTableFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265WeightTableFlags {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265WeightTableFlags {
     pub const DEFAULT: Self = Self {
@@ -65451,6 +70269,10 @@ pub struct StdVideoEncodeH265WeightTable {
     pub delta_chroma_weight_l1: [i8; STD_VIDEO_H265_MAX_CHROMA_PLANES as usize],
     pub delta_chroma_offset_l1: [i8; STD_VIDEO_H265_MAX_CHROMA_PLANES as usize],
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265WeightTable {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265WeightTable {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265WeightTable {
     pub const DEFAULT: Self = Self {
@@ -65564,6 +70386,10 @@ pub struct StdVideoEncodeH265LongTermRefPics {
     pub delta_poc_msb_cycle_lt: [u8; STD_VIDEO_H265_MAX_DELTA_POC as usize],
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265LongTermRefPics {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265LongTermRefPics {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265LongTermRefPics {
     pub const DEFAULT: Self = Self {
         num_long_term_sps: 0,
@@ -65645,6 +70471,10 @@ pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
     pub slice_loop_filter_across_slices_enabled_flag: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265SliceSegmentHeaderFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265SliceSegmentHeaderFlags {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265SliceSegmentHeaderFlags {
     pub const DEFAULT: Self = Self {
@@ -65754,6 +70584,10 @@ pub struct StdVideoEncodeH265SliceSegmentHeader {
     /// Optional: true
     pub pWeightTable: *const StdVideoEncodeH265WeightTable,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265SliceSegmentHeader {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265SliceSegmentHeader {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265SliceSegmentHeader {
     pub const DEFAULT: Self = Self {
@@ -65865,6 +70699,10 @@ pub struct StdVideoEncodeH265ReferenceListsInfoFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265ReferenceListsInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265ReferenceListsInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265ReferenceListsInfoFlags {
     pub const DEFAULT: Self = Self {
         ref_pic_list_modification_flag_l0: 0,
@@ -65904,6 +70742,10 @@ pub struct StdVideoEncodeH265ReferenceListsInfo {
     pub list_entry_l0: [u8; STD_VIDEO_H265_MAX_NUM_LIST_REF as usize],
     pub list_entry_l1: [u8; STD_VIDEO_H265_MAX_NUM_LIST_REF as usize],
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265ReferenceListsInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265ReferenceListsInfo {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265ReferenceListsInfo {
     pub const DEFAULT: Self = Self {
@@ -65983,6 +70825,10 @@ pub struct StdVideoEncodeH265PictureInfoFlags {
     pub slice_temporal_mvp_enabled_flag: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265PictureInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265PictureInfoFlags {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265PictureInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -66073,6 +70919,10 @@ pub struct StdVideoEncodeH265PictureInfo {
     /// Optional: true
     pub pLongTermRefPics: *const StdVideoEncodeH265LongTermRefPics,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265PictureInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265PictureInfo {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265PictureInfo {
     pub const DEFAULT: Self = Self {
@@ -66179,6 +71029,10 @@ pub struct StdVideoEncodeH265ReferenceInfoFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265ReferenceInfoFlags {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265ReferenceInfoFlags {
     pub const DEFAULT: Self = Self {
         used_for_long_term_reference: 0,
@@ -66215,6 +71069,10 @@ pub struct StdVideoEncodeH265ReferenceInfo {
     pub PicOrderCntVal: i32,
     pub TemporalId: u8,
 }
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Send for StdVideoEncodeH265ReferenceInfo {}
+#[cfg(feature = "VK_KHR_video_encode_h265")]
+unsafe impl Sync for StdVideoEncodeH265ReferenceInfo {}
 #[cfg(feature = "VK_KHR_video_encode_h265")]
 impl StdVideoEncodeH265ReferenceInfo {
     pub const DEFAULT: Self = Self {
@@ -66277,6 +71135,10 @@ pub struct VkVideoEncodeIntraRefreshCapabilitiesKHR {
     /// Limit Type: [Max]
     pub nonRectangularIntraRefreshRegions: VkBool32,
 }
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Send for VkVideoEncodeIntraRefreshCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Sync for VkVideoEncodeIntraRefreshCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
 impl VkVideoEncodeIntraRefreshCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -66343,6 +71205,10 @@ pub struct VkVideoEncodeSessionIntraRefreshCreateInfoKHR {
     pub intraRefreshMode: VkVideoEncodeIntraRefreshModeFlagBitsKHR,
 }
 #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Send for VkVideoEncodeSessionIntraRefreshCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Sync for VkVideoEncodeSessionIntraRefreshCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
 impl VkVideoEncodeSessionIntraRefreshCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -66384,6 +71250,10 @@ pub struct VkVideoEncodeIntraRefreshInfoKHR {
     pub intraRefreshCycleDuration: u32,
     pub intraRefreshIndex: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Send for VkVideoEncodeIntraRefreshInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Sync for VkVideoEncodeIntraRefreshInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
 impl VkVideoEncodeIntraRefreshInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -66428,6 +71298,10 @@ pub struct VkVideoReferenceIntraRefreshInfoKHR {
     pub dirtyIntraRefreshRegions: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Send for VkVideoReferenceIntraRefreshInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Sync for VkVideoReferenceIntraRefreshInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
 impl VkVideoReferenceIntraRefreshInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR,
@@ -66464,6 +71338,10 @@ pub struct VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub videoEncodeIntraRefresh: VkBool32,
 }
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Send for VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+unsafe impl Sync for VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
 impl VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -66506,6 +71384,10 @@ pub struct VkVideoEncodeQuantizationMapCapabilitiesKHR {
     /// Limit Type: [Max]
     pub maxQuantizationMapExtent: VkExtent2D,
 }
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoEncodeQuantizationMapCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoEncodeQuantizationMapCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoEncodeQuantizationMapCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -66550,6 +71432,10 @@ pub struct VkVideoEncodeH264QuantizationMapCapabilitiesKHR {
     /// Limit Type: [Max]
     pub maxQpDelta: i32,
 }
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoEncodeH264QuantizationMapCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoEncodeH264QuantizationMapCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoEncodeH264QuantizationMapCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -66602,6 +71488,10 @@ pub struct VkVideoEncodeH265QuantizationMapCapabilitiesKHR {
     pub maxQpDelta: i32,
 }
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoEncodeH265QuantizationMapCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoEncodeH265QuantizationMapCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoEncodeH265QuantizationMapCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -66653,6 +71543,10 @@ pub struct VkVideoEncodeAV1QuantizationMapCapabilitiesKHR {
     pub maxQIndexDelta: i32,
 }
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoEncodeAV1QuantizationMapCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoEncodeAV1QuantizationMapCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoEncodeAV1QuantizationMapCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
         sType:
@@ -66702,6 +71596,10 @@ pub struct VkVideoFormatQuantizationMapPropertiesKHR {
     pub quantizationMapTexelSize: VkExtent2D,
 }
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoFormatQuantizationMapPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoFormatQuantizationMapPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoFormatQuantizationMapPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR,
@@ -66743,6 +71641,10 @@ pub struct VkVideoFormatH265QuantizationMapPropertiesKHR {
     /// Limit Type: [Bitmask]
     pub compatibleCtbSizes: VkVideoEncodeH265CtbSizeFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoFormatH265QuantizationMapPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoFormatH265QuantizationMapPropertiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoFormatH265QuantizationMapPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -66786,6 +71688,10 @@ pub struct VkVideoFormatAV1QuantizationMapPropertiesKHR {
     pub compatibleSuperblockSizes: VkVideoEncodeAV1SuperblockSizeFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoFormatAV1QuantizationMapPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoFormatAV1QuantizationMapPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoFormatAV1QuantizationMapPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR,
@@ -66827,6 +71733,10 @@ pub struct VkVideoEncodeQuantizationMapInfoKHR {
     pub quantizationMap: VkImageView,
     pub quantizationMapExtent: VkExtent2D,
 }
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoEncodeQuantizationMapInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoEncodeQuantizationMapInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoEncodeQuantizationMapInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -66871,6 +71781,10 @@ pub struct VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR {
     pub quantizationMapTexelSize: VkExtent2D,
 }
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR,
@@ -66907,6 +71821,10 @@ pub struct VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR {
     pub pNext: *mut core::ffi::c_void,
     pub videoEncodeQuantizationMap: VkBool32,
 }
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Send for VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+unsafe impl Sync for VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
 impl VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -66964,6 +71882,10 @@ pub struct VkVideoEncodeSessionParametersGetInfoKHR {
     pub videoSessionParameters: VkVideoSessionParametersKHR,
 }
 #[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeSessionParametersGetInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeSessionParametersGetInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeSessionParametersGetInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR,
@@ -67000,6 +71922,10 @@ pub struct VkVideoEncodeSessionParametersFeedbackInfoKHR {
     pub pNext: *mut core::ffi::c_void,
     pub hasOverrides: VkBool32,
 }
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeSessionParametersFeedbackInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeSessionParametersFeedbackInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeSessionParametersFeedbackInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67042,6 +71968,10 @@ pub struct VkVideoEncodeUsageInfoKHR {
     /// Optional: true
     pub tuningMode: VkVideoEncodeTuningModeKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeUsageInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeUsageInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeUsageInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67101,6 +72031,10 @@ pub struct VkVideoEncodeInfoKHR {
     pub pReferenceSlots: *const VkVideoReferenceSlotInfoKHR,
     pub precedingExternallyEncodedBytes: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67194,6 +72128,10 @@ pub struct VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {
     pub encodeFeedbackFlags: VkVideoEncodeFeedbackFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR,
@@ -67231,6 +72169,10 @@ pub struct VkVideoEncodeQualityLevelInfoKHR {
     pub qualityLevel: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeQualityLevelInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeQualityLevelInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeQualityLevelInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR,
@@ -67266,6 +72208,10 @@ pub struct VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR {
     pub pVideoProfile: *const VkVideoProfileInfoKHR,
     pub qualityLevel: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67313,6 +72259,10 @@ pub struct VkVideoEncodeQualityLevelPropertiesKHR {
     pub preferredRateControlMode: VkVideoEncodeRateControlModeFlagBitsKHR,
     pub preferredRateControlLayerCount: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeQualityLevelPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeQualityLevelPropertiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeQualityLevelPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -67368,6 +72318,10 @@ pub struct VkVideoEncodeRateControlInfoKHR {
     pub virtualBufferSizeInMs: u32,
     pub initialVirtualBufferSizeInMs: u32,
 }
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeRateControlInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeRateControlInfoKHR {}
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeRateControlInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67442,6 +72396,10 @@ pub struct VkVideoEncodeRateControlLayerInfoKHR {
     pub frameRateDenominator: u32,
 }
 #[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeRateControlLayerInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeRateControlLayerInfoKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeRateControlLayerInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR,
@@ -67513,6 +72471,10 @@ pub struct VkVideoEncodeCapabilitiesKHR {
     /// Limit Type: [Bitmask]
     pub supportedEncodeFeedbackFlags: VkVideoEncodeFeedbackFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Send for VkVideoEncodeCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+unsafe impl Sync for VkVideoEncodeCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 impl VkVideoEncodeCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -67593,6 +72555,10 @@ pub struct VkPhysicalDeviceVideoMaintenance1FeaturesKHR {
     pub videoMaintenance1: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_maintenance1")]
+unsafe impl Send for VkPhysicalDeviceVideoMaintenance1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance1")]
+unsafe impl Sync for VkPhysicalDeviceVideoMaintenance1FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance1")]
 impl VkPhysicalDeviceVideoMaintenance1FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR,
@@ -67632,6 +72598,10 @@ pub struct VkVideoInlineQueryInfoKHR {
     pub firstQuery: u32,
     pub queryCount: u32,
 }
+#[cfg(feature = "VK_KHR_video_maintenance1")]
+unsafe impl Send for VkVideoInlineQueryInfoKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance1")]
+unsafe impl Sync for VkVideoInlineQueryInfoKHR {}
 #[cfg(feature = "VK_KHR_video_maintenance1")]
 impl VkVideoInlineQueryInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67682,6 +72652,10 @@ pub struct VkPhysicalDeviceVideoMaintenance2FeaturesKHR {
     pub videoMaintenance2: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Send for VkPhysicalDeviceVideoMaintenance2FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Sync for VkPhysicalDeviceVideoMaintenance2FeaturesKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance2")]
 impl VkPhysicalDeviceVideoMaintenance2FeaturesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR,
@@ -67721,6 +72695,10 @@ pub struct VkVideoDecodeH264InlineSessionParametersInfoKHR {
     /// Optional: true
     pub pStdPPS: *const StdVideoH264PictureParameterSet,
 }
+#[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Send for VkVideoDecodeH264InlineSessionParametersInfoKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Sync for VkVideoDecodeH264InlineSessionParametersInfoKHR {}
 #[cfg(feature = "VK_KHR_video_maintenance2")]
 impl VkVideoDecodeH264InlineSessionParametersInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67774,6 +72752,10 @@ pub struct VkVideoDecodeH265InlineSessionParametersInfoKHR {
     /// Optional: true
     pub pStdPPS: *const StdVideoH265PictureParameterSet,
 }
+#[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Send for VkVideoDecodeH265InlineSessionParametersInfoKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Sync for VkVideoDecodeH265InlineSessionParametersInfoKHR {}
 #[cfg(feature = "VK_KHR_video_maintenance2")]
 impl VkVideoDecodeH265InlineSessionParametersInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67831,6 +72813,10 @@ pub struct VkVideoDecodeAV1InlineSessionParametersInfoKHR {
     /// Optional: true
     pub pStdSequenceHeader: *const StdVideoAV1SequenceHeader,
 }
+#[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Send for VkVideoDecodeAV1InlineSessionParametersInfoKHR {}
+#[cfg(feature = "VK_KHR_video_maintenance2")]
+unsafe impl Sync for VkVideoDecodeAV1InlineSessionParametersInfoKHR {}
 #[cfg(feature = "VK_KHR_video_maintenance2")]
 impl VkVideoDecodeAV1InlineSessionParametersInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -67901,6 +72887,10 @@ impl Default for VkVideoSessionKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoSessionKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoSessionKHR {}
 /// [VkVideoSessionParametersKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoSessionParametersKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
 #[repr(transparent)]
@@ -67917,6 +72907,10 @@ impl Default for VkVideoSessionParametersKHR {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoSessionParametersKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoSessionParametersKHR {}
 /// [VkQueueFamilyVideoPropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyVideoPropertiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -67935,6 +72929,10 @@ pub struct VkQueueFamilyVideoPropertiesKHR {
     /// Limit Type: [Bitmask]
     pub videoCodecOperations: VkVideoCodecOperationFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkQueueFamilyVideoPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkQueueFamilyVideoPropertiesKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkQueueFamilyVideoPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -67978,6 +72976,10 @@ pub struct VkQueueFamilyQueryResultStatusPropertiesKHR {
     pub queryResultStatusSupport: VkBool32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkQueueFamilyQueryResultStatusPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkQueueFamilyQueryResultStatusPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VkQueueFamilyQueryResultStatusPropertiesKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR,
@@ -68017,6 +73019,10 @@ pub struct VkVideoProfileListInfoKHR {
     /// Length: profileCount
     pub pProfiles: *const VkVideoProfileInfoKHR,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoProfileListInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoProfileListInfoKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoProfileListInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -68060,6 +73066,10 @@ pub struct VkPhysicalDeviceVideoFormatInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub imageUsage: VkImageUsageFlags,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkPhysicalDeviceVideoFormatInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkPhysicalDeviceVideoFormatInfoKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkPhysicalDeviceVideoFormatInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -68110,6 +73120,10 @@ pub struct VkVideoFormatPropertiesKHR {
     /// Limit Type: [Bitmask]
     pub imageUsageFlags: VkImageUsageFlags,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoFormatPropertiesKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoFormatPropertiesKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoFormatPropertiesKHR {
     pub const DEFAULT: Self = Self {
@@ -68181,6 +73195,10 @@ pub struct VkVideoProfileInfoKHR {
     /// Optional: true
     pub chromaBitDepth: VkVideoComponentBitDepthFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoProfileInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoProfileInfoKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoProfileInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -68255,6 +73273,10 @@ pub struct VkVideoCapabilitiesKHR {
     /// Limit Type: [Noauto]
     pub stdHeaderVersion: VkExtensionProperties,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoCapabilitiesKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoCapabilitiesKHR {
     pub const DEFAULT: Self = Self {
@@ -68342,6 +73364,10 @@ pub struct VkVideoSessionMemoryRequirementsKHR {
     pub memoryRequirements: VkMemoryRequirements,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoSessionMemoryRequirementsKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoSessionMemoryRequirementsKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoSessionMemoryRequirementsKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR,
@@ -68385,6 +73411,10 @@ pub struct VkBindVideoSessionMemoryInfoKHR {
     pub memoryOffset: VkDeviceSize,
     pub memorySize: VkDeviceSize,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkBindVideoSessionMemoryInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkBindVideoSessionMemoryInfoKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkBindVideoSessionMemoryInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -68442,6 +73472,10 @@ pub struct VkVideoPictureResourceInfoKHR {
     pub imageViewBinding: VkImageView,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoPictureResourceInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoPictureResourceInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoPictureResourceInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PICTURE_RESOURCE_INFO_KHR,
@@ -68497,6 +73531,10 @@ pub struct VkVideoReferenceSlotInfoKHR {
     pub pPictureResource: *const VkVideoPictureResourceInfoKHR,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoReferenceSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoReferenceSlotInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoReferenceSlotInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR,
@@ -68551,6 +73589,10 @@ pub struct VkVideoSessionCreateInfoKHR {
     pub maxActiveReferencePictures: u32,
     pub pStdHeaderVersion: *const VkExtensionProperties,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoSessionCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoSessionCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoSessionCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -68643,6 +73685,10 @@ pub struct VkVideoSessionParametersCreateInfoKHR {
     pub videoSession: VkVideoSessionKHR,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoSessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoSessionParametersCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoSessionParametersCreateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR,
@@ -68693,6 +73739,10 @@ pub struct VkVideoSessionParametersUpdateInfoKHR {
     pub updateSequenceCount: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoSessionParametersUpdateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoSessionParametersUpdateInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoSessionParametersUpdateInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR,
@@ -68735,6 +73785,10 @@ pub struct VkVideoBeginCodingInfoKHR {
     /// Length: referenceSlotCount
     pub pReferenceSlots: *const VkVideoReferenceSlotInfoKHR,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoBeginCodingInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoBeginCodingInfoKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoBeginCodingInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -68798,6 +73852,10 @@ pub struct VkVideoEndCodingInfoKHR {
     pub flags: VkVideoEndCodingFlagsKHR,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoEndCodingInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoEndCodingInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoEndCodingInfoKHR {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_END_CODING_INFO_KHR,
@@ -68832,6 +73890,10 @@ pub struct VkVideoCodingControlInfoKHR {
     pub pNext: *const core::ffi::c_void,
     pub flags: VkVideoCodingControlFlagsKHR,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for VkVideoCodingControlInfoKHR {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for VkVideoCodingControlInfoKHR {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl VkVideoCodingControlInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -68874,6 +73936,10 @@ pub struct StdVideoH264SpsVuiFlags {
     pub nal_hrd_parameters_present_flag: u32,
     pub vcl_hrd_parameters_present_flag: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264SpsVuiFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264SpsVuiFlags {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264SpsVuiFlags {
     pub const DEFAULT: Self = Self {
@@ -68974,6 +74040,10 @@ pub struct StdVideoH264HrdParameters {
     pub dpb_output_delay_length_minus1: u32,
     pub time_offset_length: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264HrdParameters {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264HrdParameters {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264HrdParameters {
     pub const DEFAULT: Self = Self {
@@ -69081,6 +74151,10 @@ pub struct StdVideoH264SequenceParameterSetVui {
     /// Optional: true
     pub pHrdParameters: *const StdVideoH264HrdParameters,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264SequenceParameterSetVui {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264SequenceParameterSetVui {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264SequenceParameterSetVui {
     pub const DEFAULT: Self = Self {
@@ -69211,6 +74285,10 @@ pub struct StdVideoH264SpsFlags {
     pub vui_parameters_present_flag: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264SpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264SpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264SpsFlags {
     pub const DEFAULT: Self = Self {
         constraint_set0_flag: 0,
@@ -69326,6 +74404,10 @@ pub struct StdVideoH264ScalingLists {
     pub ScalingList8x8: [u8; STD_VIDEO_H264_SCALING_LIST_8X8_NUM_ELEMENTS as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264ScalingLists {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264ScalingLists {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264ScalingLists {
     pub const DEFAULT: Self = Self {
         scaling_list_present_mask: 0,
@@ -69398,6 +74480,10 @@ pub struct StdVideoH264SequenceParameterSet {
     /// Optional: true
     pub pSequenceParameterSetVui: *const StdVideoH264SequenceParameterSetVui,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264SequenceParameterSet {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264SequenceParameterSet {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264SequenceParameterSet {
     pub const DEFAULT: Self = Self {
@@ -69581,6 +74667,10 @@ pub struct StdVideoH264PpsFlags {
     pub pic_scaling_matrix_present_flag: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264PpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264PpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264PpsFlags {
     pub const DEFAULT: Self = Self {
         transform_8x8_mode_flag: 0,
@@ -69655,6 +74745,10 @@ pub struct StdVideoH264PictureParameterSet {
     /// Optional: true
     pub pScalingLists: *const StdVideoH264ScalingLists,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH264PictureParameterSet {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH264PictureParameterSet {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH264PictureParameterSet {
     pub const DEFAULT: Self = Self {
@@ -69744,6 +74838,10 @@ pub struct StdVideoH265ProfileTierLevelFlags {
     pub general_frame_only_constraint_flag: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265ProfileTierLevelFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265ProfileTierLevelFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265ProfileTierLevelFlags {
     pub const DEFAULT: Self = Self {
         general_tier_flag: 0,
@@ -69794,6 +74892,10 @@ pub struct StdVideoH265ProfileTierLevel {
     pub general_level_idc: StdVideoH265LevelIdc,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265ProfileTierLevel {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265ProfileTierLevel {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265ProfileTierLevel {
     pub const DEFAULT: Self = Self {
         flags: StdVideoH265ProfileTierLevelFlags::DEFAULT,
@@ -69831,6 +74933,10 @@ pub struct StdVideoH265DecPicBufMgr {
     pub max_dec_pic_buffering_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
     pub max_num_reorder_pics: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265DecPicBufMgr {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265DecPicBufMgr {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265DecPicBufMgr {
     pub const DEFAULT: Self = Self {
@@ -69880,6 +74986,10 @@ pub struct StdVideoH265SubLayerHrdParameters {
     pub bit_rate_du_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
     pub cbr_flag: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265SubLayerHrdParameters {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265SubLayerHrdParameters {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265SubLayerHrdParameters {
     pub const DEFAULT: Self = Self {
@@ -69944,6 +75054,10 @@ pub struct StdVideoH265HrdFlags {
     pub fixed_pic_rate_within_cvs_flag: u32,
     pub low_delay_hrd_flag: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265HrdFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265HrdFlags {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265HrdFlags {
     pub const DEFAULT: Self = Self {
@@ -70018,6 +75132,10 @@ pub struct StdVideoH265HrdParameters {
     /// Optional: true,  Length: *_max_sub_layers_minus1 + 1
     pub pSubLayerHrdParametersVcl: *const StdVideoH265SubLayerHrdParameters,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265HrdParameters {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265HrdParameters {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265HrdParameters {
     pub const DEFAULT: Self = Self {
@@ -70144,6 +75262,10 @@ pub struct StdVideoH265VpsFlags {
     pub vps_poc_proportional_to_timing_flag: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265VpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265VpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265VpsFlags {
     pub const DEFAULT: Self = Self {
         vps_temporal_id_nesting_flag: 0,
@@ -70197,6 +75319,10 @@ pub struct StdVideoH265VideoParameterSet {
     /// Optional: true
     pub pProfileTierLevel: *const StdVideoH265ProfileTierLevel,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265VideoParameterSet {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265VideoParameterSet {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265VideoParameterSet {
     pub const DEFAULT: Self = Self {
@@ -70300,6 +75426,10 @@ pub struct StdVideoH265ScalingLists {
     pub ScalingListDCCoef32x32: [u8; STD_VIDEO_H265_SCALING_LIST_32X32_NUM_LISTS as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265ScalingLists {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265ScalingLists {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265ScalingLists {
     pub const DEFAULT: Self = Self {
         ScalingList4x4: [0u8; STD_VIDEO_H265_SCALING_LIST_4X4_NUM_ELEMENTS as usize],
@@ -70371,6 +75501,10 @@ pub struct StdVideoH265ShortTermRefPicSetFlags {
     pub delta_rps_sign: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265ShortTermRefPicSetFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265ShortTermRefPicSetFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265ShortTermRefPicSetFlags {
     pub const DEFAULT: Self = Self {
         inter_ref_pic_set_prediction_flag: 0,
@@ -70411,6 +75545,10 @@ pub struct StdVideoH265ShortTermRefPicSet {
     pub delta_poc_s0_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
     pub delta_poc_s1_minus1: [u16; STD_VIDEO_H265_MAX_DPB_SIZE as usize],
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265ShortTermRefPicSet {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265ShortTermRefPicSet {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265ShortTermRefPicSet {
     pub const DEFAULT: Self = Self {
@@ -70519,6 +75657,10 @@ pub struct StdVideoH265LongTermRefPicsSps {
     pub lt_ref_pic_poc_lsb_sps: [u32; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265LongTermRefPicsSps {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265LongTermRefPicsSps {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265LongTermRefPicsSps {
     pub const DEFAULT: Self = Self {
         used_by_curr_pic_lt_sps_flag: 0,
@@ -70566,6 +75708,10 @@ pub struct StdVideoH265SpsVuiFlags {
     pub motion_vectors_over_pic_boundaries_flag: u32,
     pub restricted_ref_pic_lists_flag: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265SpsVuiFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265SpsVuiFlags {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265SpsVuiFlags {
     pub const DEFAULT: Self = Self {
@@ -70716,6 +75862,10 @@ pub struct StdVideoH265SequenceParameterSetVui {
     /// Optional: true
     pub pHrdParameters: *const StdVideoH265HrdParameters,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265SequenceParameterSetVui {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265SequenceParameterSetVui {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265SequenceParameterSetVui {
     pub const DEFAULT: Self = Self {
@@ -70892,6 +76042,10 @@ pub struct StdVideoH265PredictorPaletteEntries {
         [u16; STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265PredictorPaletteEntries {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265PredictorPaletteEntries {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265PredictorPaletteEntries {
     pub const DEFAULT: Self = Self {
         PredictorPaletteEntries: [0u16;
@@ -70946,6 +76100,10 @@ pub struct StdVideoH265SpsFlags {
     pub sps_palette_predictor_initializers_present_flag: u32,
     pub intra_boundary_filtering_disabled_flag: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265SpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265SpsFlags {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265SpsFlags {
     pub const DEFAULT: Self = Self {
@@ -71187,6 +76345,10 @@ pub struct StdVideoH265SequenceParameterSet {
     /// Optional: true
     pub pPredictorPaletteEntries: *const StdVideoH265PredictorPaletteEntries,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265SequenceParameterSet {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265SequenceParameterSet {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265SequenceParameterSet {
     pub const DEFAULT: Self = Self {
@@ -71497,6 +76659,10 @@ pub struct StdVideoH265PpsFlags {
     pub pps_range_extension_flag: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265PpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265PpsFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265PpsFlags {
     pub const DEFAULT: Self = Self {
         dependent_slice_segments_enabled_flag: 0,
@@ -71735,6 +76901,10 @@ pub struct StdVideoH265PictureParameterSet {
     /// Optional: true
     pub pPredictorPaletteEntries: *const StdVideoH265PredictorPaletteEntries,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoH265PictureParameterSet {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoH265PictureParameterSet {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoH265PictureParameterSet {
     pub const DEFAULT: Self = Self {
@@ -71988,6 +77158,10 @@ pub struct StdVideoVP9ColorConfigFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoVP9ColorConfigFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoVP9ColorConfigFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoVP9ColorConfigFlags {
     pub const DEFAULT: Self = Self {
         color_range: 0,
@@ -72020,6 +77194,10 @@ pub struct StdVideoVP9ColorConfig {
     pub reserved1: u8,
     pub color_space: StdVideoVP9ColorSpace,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoVP9ColorConfig {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoVP9ColorConfig {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoVP9ColorConfig {
     pub const DEFAULT: Self = Self {
@@ -72075,6 +77253,10 @@ pub struct StdVideoVP9LoopFilterFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoVP9LoopFilterFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoVP9LoopFilterFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoVP9LoopFilterFlags {
     pub const DEFAULT: Self = Self {
         loop_filter_delta_enabled: 0,
@@ -72114,6 +77296,10 @@ pub struct StdVideoVP9LoopFilter {
     pub update_mode_delta: u8,
     pub loop_filter_mode_deltas: [i8; STD_VIDEO_VP9_LOOP_FILTER_ADJUSTMENTS as usize],
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoVP9LoopFilter {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoVP9LoopFilter {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoVP9LoopFilter {
     pub const DEFAULT: Self = Self {
@@ -72183,6 +77369,10 @@ pub struct StdVideoVP9SegmentationFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoVP9SegmentationFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoVP9SegmentationFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoVP9SegmentationFlags {
     pub const DEFAULT: Self = Self {
         segmentation_update_map: 0,
@@ -72232,6 +77422,10 @@ pub struct StdVideoVP9Segmentation {
     pub FeatureEnabled: [u8; STD_VIDEO_VP9_MAX_SEGMENTS as usize],
     pub FeatureData: [i16; STD_VIDEO_VP9_SEG_LVL_MAX as usize],
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoVP9Segmentation {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoVP9Segmentation {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoVP9Segmentation {
     pub const DEFAULT: Self = Self {
@@ -72295,6 +77489,10 @@ pub struct StdVideoAV1ColorConfigFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1ColorConfigFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1ColorConfigFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1ColorConfigFlags {
     pub const DEFAULT: Self = Self {
         mono_chrome: 0,
@@ -72348,6 +77546,10 @@ pub struct StdVideoAV1ColorConfig {
     pub matrix_coefficients: StdVideoAV1MatrixCoefficients,
     pub chroma_sample_position: StdVideoAV1ChromaSamplePosition,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1ColorConfig {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1ColorConfig {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1ColorConfig {
     pub const DEFAULT: Self = Self {
@@ -72426,6 +77628,10 @@ pub struct StdVideoAV1TimingInfoFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1TimingInfoFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1TimingInfoFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1TimingInfoFlags {
     pub const DEFAULT: Self = Self {
         equal_picture_interval: 0,
@@ -72456,6 +77662,10 @@ pub struct StdVideoAV1TimingInfo {
     pub time_scale: u32,
     pub num_ticks_per_picture_minus_1: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1TimingInfo {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1TimingInfo {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1TimingInfo {
     pub const DEFAULT: Self = Self {
@@ -72515,6 +77725,10 @@ pub struct StdVideoAV1SequenceHeaderFlags {
     pub initial_display_delay_present_flag: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1SequenceHeaderFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1SequenceHeaderFlags {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1SequenceHeaderFlags {
     pub const DEFAULT: Self = Self {
@@ -72666,6 +77880,10 @@ pub struct StdVideoAV1SequenceHeader {
     pub pTimingInfo: *const StdVideoAV1TimingInfo,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1SequenceHeader {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1SequenceHeader {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1SequenceHeader {
     pub const DEFAULT: Self = Self {
         flags: StdVideoAV1SequenceHeaderFlags::DEFAULT,
@@ -72772,6 +77990,10 @@ pub struct StdVideoAV1LoopFilterFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1LoopFilterFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1LoopFilterFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1LoopFilterFlags {
     pub const DEFAULT: Self = Self {
         loop_filter_delta_enabled: 0,
@@ -72811,6 +78033,10 @@ pub struct StdVideoAV1LoopFilter {
     pub update_mode_delta: u8,
     pub loop_filter_mode_deltas: [i8; STD_VIDEO_AV1_LOOP_FILTER_ADJUSTMENTS as usize],
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1LoopFilter {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1LoopFilter {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1LoopFilter {
     pub const DEFAULT: Self = Self {
@@ -72881,6 +78107,10 @@ pub struct StdVideoAV1QuantizationFlags {
     pub reserved: u32,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1QuantizationFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1QuantizationFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1QuantizationFlags {
     pub const DEFAULT: Self = Self {
         using_qmatrix: 0,
@@ -72923,6 +78153,10 @@ pub struct StdVideoAV1Quantization {
     pub qm_u: u8,
     pub qm_v: u8,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1Quantization {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1Quantization {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1Quantization {
     pub const DEFAULT: Self = Self {
@@ -73001,6 +78235,10 @@ pub struct StdVideoAV1Segmentation {
     pub FeatureData: [i16; STD_VIDEO_AV1_SEG_LVL_MAX as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1Segmentation {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1Segmentation {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1Segmentation {
     pub const DEFAULT: Self = Self {
         FeatureEnabled: [0u8; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
@@ -73035,6 +78273,10 @@ pub struct StdVideoAV1TileInfoFlags {
     pub uniform_tile_spacing_flag: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1TileInfoFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1TileInfoFlags {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1TileInfoFlags {
     pub const DEFAULT: Self = Self {
@@ -73076,6 +78318,10 @@ pub struct StdVideoAV1TileInfo {
     /// Length: TileRows
     pub pHeightInSbsMinus1: *const u16,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1TileInfo {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1TileInfo {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1TileInfo {
     pub const DEFAULT: Self = Self {
@@ -73166,6 +78412,10 @@ pub struct StdVideoAV1CDEF {
     pub cdef_uv_sec_strength: [u8; STD_VIDEO_AV1_MAX_CDEF_FILTER_STRENGTHS as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1CDEF {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1CDEF {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1CDEF {
     pub const DEFAULT: Self = Self {
         cdef_damping_minus_3: 0,
@@ -73232,6 +78482,10 @@ pub struct StdVideoAV1LoopRestoration {
     pub LoopRestorationSize: [u16; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1LoopRestoration {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1LoopRestoration {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1LoopRestoration {
     pub const DEFAULT: Self = Self {
         FrameRestorationType: [StdVideoAV1FrameRestorationType(0);
@@ -73268,6 +78522,10 @@ pub struct StdVideoAV1GlobalMotion {
     pub gm_params: [i32; STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS as usize],
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1GlobalMotion {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1GlobalMotion {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1GlobalMotion {
     pub const DEFAULT: Self = Self {
         GmType: [0u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
@@ -73302,6 +78560,10 @@ pub struct StdVideoAV1FilmGrainFlags {
     pub update_grain: u32,
     pub reserved: u32,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1FilmGrainFlags {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1FilmGrainFlags {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1FilmGrainFlags {
     pub const DEFAULT: Self = Self {
@@ -73372,6 +78634,10 @@ pub struct StdVideoAV1FilmGrain {
     pub cr_luma_mult: u8,
     pub cr_offset: u16,
 }
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Send for StdVideoAV1FilmGrain {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl Sync for StdVideoAV1FilmGrain {}
 #[cfg(feature = "VK_KHR_video_queue")]
 impl StdVideoAV1FilmGrain {
     pub const DEFAULT: Self = Self {
@@ -73570,6 +78836,10 @@ pub struct wl_display(pub *mut core::ffi::c_void);
 impl wl_display {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_wayland_surface")]
+unsafe impl Send for wl_display {}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+unsafe impl Sync for wl_display {}
 /// [wl_surface](https://docs.vulkan.org/refpages/latest/refpages/source/wl_surface.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_KHR_wayland_surface")]
@@ -73580,6 +78850,10 @@ pub struct wl_surface(pub *mut core::ffi::c_void);
 impl wl_surface {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_wayland_surface")]
+unsafe impl Send for wl_surface {}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+unsafe impl Sync for wl_surface {}
 /// [VkWaylandSurfaceCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkWaylandSurfaceCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_wayland_surface")]
 pub type VkWaylandSurfaceCreateFlagsKHR = VkFlags;
@@ -73599,6 +78873,10 @@ pub struct VkWaylandSurfaceCreateInfoKHR {
     /// No Auto-Validity
     pub surface: *mut wl_surface,
 }
+#[cfg(feature = "VK_KHR_wayland_surface")]
+unsafe impl Send for VkWaylandSurfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+unsafe impl Sync for VkWaylandSurfaceCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_wayland_surface")]
 impl VkWaylandSurfaceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -73665,6 +78943,10 @@ pub struct VkWin32KeyedMutexAcquireReleaseInfoKHR {
     /// Length: releaseCount
     pub pReleaseKeys: *const u64,
 }
+#[cfg(feature = "VK_KHR_win32_keyed_mutex")]
+unsafe impl Send for VkWin32KeyedMutexAcquireReleaseInfoKHR {}
+#[cfg(feature = "VK_KHR_win32_keyed_mutex")]
+unsafe impl Sync for VkWin32KeyedMutexAcquireReleaseInfoKHR {}
 #[cfg(feature = "VK_KHR_win32_keyed_mutex")]
 impl VkWin32KeyedMutexAcquireReleaseInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -73745,6 +79027,10 @@ pub struct HINSTANCE(pub *mut core::ffi::c_void);
 impl HINSTANCE {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_win32_surface")]
+unsafe impl Send for HINSTANCE {}
+#[cfg(feature = "VK_KHR_win32_surface")]
+unsafe impl Sync for HINSTANCE {}
 /// [HWND](https://docs.vulkan.org/refpages/latest/refpages/source/HWND.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_KHR_win32_surface")]
@@ -73755,6 +79041,10 @@ pub struct HWND(pub *mut core::ffi::c_void);
 impl HWND {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_win32_surface")]
+unsafe impl Send for HWND {}
+#[cfg(feature = "VK_KHR_win32_surface")]
+unsafe impl Sync for HWND {}
 /// [VkWin32SurfaceCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkWin32SurfaceCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_win32_surface")]
 pub type VkWin32SurfaceCreateFlagsKHR = VkFlags;
@@ -73772,6 +79062,10 @@ pub struct VkWin32SurfaceCreateInfoKHR {
     pub hinstance: HINSTANCE,
     pub hwnd: HWND,
 }
+#[cfg(feature = "VK_KHR_win32_surface")]
+unsafe impl Send for VkWin32SurfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_win32_surface")]
+unsafe impl Sync for VkWin32SurfaceCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_win32_surface")]
 impl VkWin32SurfaceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -73824,6 +79118,10 @@ pub struct VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR {
     pub workgroupMemoryExplicitLayout8BitAccess: VkBool32,
     pub workgroupMemoryExplicitLayout16BitAccess: VkBool32,
 }
+#[cfg(feature = "VK_KHR_workgroup_memory_explicit_layout")]
+unsafe impl Send for VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR {}
+#[cfg(feature = "VK_KHR_workgroup_memory_explicit_layout")]
+unsafe impl Sync for VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR {}
 #[cfg(feature = "VK_KHR_workgroup_memory_explicit_layout")]
 impl VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR {
     pub const DEFAULT: Self = Self {
@@ -73879,6 +79177,10 @@ pub struct xcb_connection_t(pub *mut core::ffi::c_void);
 impl xcb_connection_t {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Send for xcb_connection_t {}
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Sync for xcb_connection_t {}
 /// [xcb_visualid_t](https://docs.vulkan.org/refpages/latest/refpages/source/xcb_visualid_t.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_KHR_xcb_surface")]
@@ -73889,6 +79191,10 @@ pub struct xcb_visualid_t(pub *mut core::ffi::c_void);
 impl xcb_visualid_t {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Send for xcb_visualid_t {}
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Sync for xcb_visualid_t {}
 /// [xcb_window_t](https://docs.vulkan.org/refpages/latest/refpages/source/xcb_window_t.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_KHR_xcb_surface")]
@@ -73899,6 +79205,10 @@ pub struct xcb_window_t(pub *mut core::ffi::c_void);
 impl xcb_window_t {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Send for xcb_window_t {}
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Sync for xcb_window_t {}
 /// [VkXcbSurfaceCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkXcbSurfaceCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_xcb_surface")]
 pub type VkXcbSurfaceCreateFlagsKHR = VkFlags;
@@ -73917,6 +79227,10 @@ pub struct VkXcbSurfaceCreateInfoKHR {
     pub connection: *mut xcb_connection_t,
     pub window: xcb_window_t,
 }
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Send for VkXcbSurfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_xcb_surface")]
+unsafe impl Sync for VkXcbSurfaceCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_xcb_surface")]
 impl VkXcbSurfaceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -73965,6 +79279,10 @@ pub struct VisualID(pub *mut core::ffi::c_void);
 impl VisualID {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_xlib_surface")]
+unsafe impl Send for VisualID {}
+#[cfg(feature = "VK_KHR_xlib_surface")]
+unsafe impl Sync for VisualID {}
 /// [Window](https://docs.vulkan.org/refpages/latest/refpages/source/Window.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_KHR_xlib_surface")]
@@ -73975,6 +79293,10 @@ pub struct Window(pub *mut core::ffi::c_void);
 impl Window {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_KHR_xlib_surface")]
+unsafe impl Send for Window {}
+#[cfg(feature = "VK_KHR_xlib_surface")]
+unsafe impl Sync for Window {}
 /// [VkXlibSurfaceCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkXlibSurfaceCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_xlib_surface")]
 pub type VkXlibSurfaceCreateFlagsKHR = VkFlags;
@@ -73993,6 +79315,10 @@ pub struct VkXlibSurfaceCreateInfoKHR {
     pub dpy: *mut Display,
     pub window: Window,
 }
+#[cfg(feature = "VK_KHR_xlib_surface")]
+unsafe impl Send for VkXlibSurfaceCreateInfoKHR {}
+#[cfg(feature = "VK_KHR_xlib_surface")]
+unsafe impl Sync for VkXlibSurfaceCreateInfoKHR {}
 #[cfg(feature = "VK_KHR_xlib_surface")]
 impl VkXlibSurfaceCreateInfoKHR {
     pub const DEFAULT: Self = Self {
@@ -74059,6 +79385,10 @@ pub struct VkDirectDriverLoadingInfoLUNARG {
     pub pfnGetInstanceProcAddr: PFN_vkGetInstanceProcAddrLUNARG,
 }
 #[cfg(feature = "VK_LUNARG_direct_driver_loading")]
+unsafe impl Send for VkDirectDriverLoadingInfoLUNARG {}
+#[cfg(feature = "VK_LUNARG_direct_driver_loading")]
+unsafe impl Sync for VkDirectDriverLoadingInfoLUNARG {}
+#[cfg(feature = "VK_LUNARG_direct_driver_loading")]
 impl VkDirectDriverLoadingInfoLUNARG {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_INFO_LUNARG,
@@ -74107,6 +79437,10 @@ pub struct VkDirectDriverLoadingListLUNARG {
     /// Length: driverCount
     pub pDrivers: *const VkDirectDriverLoadingInfoLUNARG,
 }
+#[cfg(feature = "VK_LUNARG_direct_driver_loading")]
+unsafe impl Send for VkDirectDriverLoadingListLUNARG {}
+#[cfg(feature = "VK_LUNARG_direct_driver_loading")]
+unsafe impl Sync for VkDirectDriverLoadingListLUNARG {}
 #[cfg(feature = "VK_LUNARG_direct_driver_loading")]
 impl VkDirectDriverLoadingListLUNARG {
     pub const DEFAULT: Self = Self {
@@ -74159,6 +79493,10 @@ pub struct VkPhysicalDeviceImageAlignmentControlFeaturesMESA {
     pub imageAlignmentControl: VkBool32,
 }
 #[cfg(feature = "VK_MESA_image_alignment_control")]
+unsafe impl Send for VkPhysicalDeviceImageAlignmentControlFeaturesMESA {}
+#[cfg(feature = "VK_MESA_image_alignment_control")]
+unsafe impl Sync for VkPhysicalDeviceImageAlignmentControlFeaturesMESA {}
+#[cfg(feature = "VK_MESA_image_alignment_control")]
 impl VkPhysicalDeviceImageAlignmentControlFeaturesMESA {
     pub const DEFAULT: Self = Self {
         sType:
@@ -74202,6 +79540,10 @@ pub struct VkPhysicalDeviceImageAlignmentControlPropertiesMESA {
     pub supportedImageAlignmentMask: u32,
 }
 #[cfg(feature = "VK_MESA_image_alignment_control")]
+unsafe impl Send for VkPhysicalDeviceImageAlignmentControlPropertiesMESA {}
+#[cfg(feature = "VK_MESA_image_alignment_control")]
+unsafe impl Sync for VkPhysicalDeviceImageAlignmentControlPropertiesMESA {}
+#[cfg(feature = "VK_MESA_image_alignment_control")]
 impl VkPhysicalDeviceImageAlignmentControlPropertiesMESA {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA,
@@ -74238,6 +79580,10 @@ pub struct VkImageAlignmentControlCreateInfoMESA {
     pub pNext: *const core::ffi::c_void,
     pub maximumRequestedAlignment: u32,
 }
+#[cfg(feature = "VK_MESA_image_alignment_control")]
+unsafe impl Send for VkImageAlignmentControlCreateInfoMESA {}
+#[cfg(feature = "VK_MESA_image_alignment_control")]
+unsafe impl Sync for VkImageAlignmentControlCreateInfoMESA {}
 #[cfg(feature = "VK_MESA_image_alignment_control")]
 impl VkImageAlignmentControlCreateInfoMESA {
     pub const DEFAULT: Self = Self {
@@ -74281,6 +79627,10 @@ pub struct VkPhysicalDeviceLayeredDriverPropertiesMSFT {
     pub underlyingAPI: VkLayeredDriverUnderlyingApiMSFT,
 }
 #[cfg(feature = "VK_MSFT_layered_driver")]
+unsafe impl Send for VkPhysicalDeviceLayeredDriverPropertiesMSFT {}
+#[cfg(feature = "VK_MSFT_layered_driver")]
+unsafe impl Sync for VkPhysicalDeviceLayeredDriverPropertiesMSFT {}
+#[cfg(feature = "VK_MSFT_layered_driver")]
 impl VkPhysicalDeviceLayeredDriverPropertiesMSFT {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT,
@@ -74321,6 +79671,10 @@ pub struct VkIOSSurfaceCreateInfoMVK {
     /// No Auto-Validity
     pub pView: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_MVK_ios_surface")]
+unsafe impl Send for VkIOSSurfaceCreateInfoMVK {}
+#[cfg(feature = "VK_MVK_ios_surface")]
+unsafe impl Sync for VkIOSSurfaceCreateInfoMVK {}
 #[cfg(feature = "VK_MVK_ios_surface")]
 impl VkIOSSurfaceCreateInfoMVK {
     pub const DEFAULT: Self = Self {
@@ -74371,6 +79725,10 @@ pub struct VkMacOSSurfaceCreateInfoMVK {
     pub pView: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_MVK_macos_surface")]
+unsafe impl Send for VkMacOSSurfaceCreateInfoMVK {}
+#[cfg(feature = "VK_MVK_macos_surface")]
+unsafe impl Sync for VkMacOSSurfaceCreateInfoMVK {}
+#[cfg(feature = "VK_MVK_macos_surface")]
 impl VkMacOSSurfaceCreateInfoMVK {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
@@ -74420,6 +79778,10 @@ pub struct VkViSurfaceCreateInfoNN {
     pub window: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_NN_vi_surface")]
+unsafe impl Send for VkViSurfaceCreateInfoNN {}
+#[cfg(feature = "VK_NN_vi_surface")]
+unsafe impl Sync for VkViSurfaceCreateInfoNN {}
+#[cfg(feature = "VK_NN_vi_surface")]
 impl VkViSurfaceCreateInfoNN {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VI_SURFACE_CREATE_INFO_NN,
@@ -74467,6 +79829,10 @@ impl Default for VkCuModuleNVX {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Send for VkCuModuleNVX {}
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Sync for VkCuModuleNVX {}
 /// [VkCuFunctionNVX](https://docs.vulkan.org/refpages/latest/refpages/source/VkCuFunctionNVX.html)
 #[cfg(feature = "VK_NVX_binary_import")]
 #[repr(transparent)]
@@ -74483,6 +79849,10 @@ impl Default for VkCuFunctionNVX {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Send for VkCuFunctionNVX {}
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Sync for VkCuFunctionNVX {}
 /// [VkCuModuleCreateInfoNVX](https://docs.vulkan.org/refpages/latest/refpages/source/VkCuModuleCreateInfoNVX.html)
 #[cfg(feature = "VK_NVX_binary_import")]
 #[repr(C)]
@@ -74497,6 +79867,10 @@ pub struct VkCuModuleCreateInfoNVX {
     /// Length: dataSize
     pub pData: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Send for VkCuModuleCreateInfoNVX {}
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Sync for VkCuModuleCreateInfoNVX {}
 #[cfg(feature = "VK_NVX_binary_import")]
 impl VkCuModuleCreateInfoNVX {
     pub const DEFAULT: Self = Self {
@@ -74543,6 +79917,10 @@ pub struct VkCuModuleTexturingModeCreateInfoNVX {
     pub use64bitTexturing: VkBool32,
 }
 #[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Send for VkCuModuleTexturingModeCreateInfoNVX {}
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Sync for VkCuModuleTexturingModeCreateInfoNVX {}
+#[cfg(feature = "VK_NVX_binary_import")]
 impl VkCuModuleTexturingModeCreateInfoNVX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX,
@@ -74579,6 +79957,10 @@ pub struct VkCuFunctionCreateInfoNVX {
     /// Length: null-terminated
     pub pName: *const core::ffi::c_char,
 }
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Send for VkCuFunctionCreateInfoNVX {}
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Sync for VkCuFunctionCreateInfoNVX {}
 #[cfg(feature = "VK_NVX_binary_import")]
 impl VkCuFunctionCreateInfoNVX {
     pub const DEFAULT: Self = Self {
@@ -74637,6 +80019,10 @@ pub struct VkCuLaunchInfoNVX {
     /// Length: extraCount
     pub pExtras: *const *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Send for VkCuLaunchInfoNVX {}
+#[cfg(feature = "VK_NVX_binary_import")]
+unsafe impl Sync for VkCuLaunchInfoNVX {}
 #[cfg(feature = "VK_NVX_binary_import")]
 impl VkCuLaunchInfoNVX {
     pub const DEFAULT: Self = Self {
@@ -74746,6 +80132,10 @@ pub struct VkImageViewHandleInfoNVX {
     pub sampler: VkSampler,
 }
 #[cfg(feature = "VK_NVX_image_view_handle")]
+unsafe impl Send for VkImageViewHandleInfoNVX {}
+#[cfg(feature = "VK_NVX_image_view_handle")]
+unsafe impl Sync for VkImageViewHandleInfoNVX {}
+#[cfg(feature = "VK_NVX_image_view_handle")]
 impl VkImageViewHandleInfoNVX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX,
@@ -74796,6 +80186,10 @@ pub struct VkImageViewAddressPropertiesNVX {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_NVX_image_view_handle")]
+unsafe impl Send for VkImageViewAddressPropertiesNVX {}
+#[cfg(feature = "VK_NVX_image_view_handle")]
+unsafe impl Sync for VkImageViewAddressPropertiesNVX {}
+#[cfg(feature = "VK_NVX_image_view_handle")]
 impl VkImageViewAddressPropertiesNVX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ADDRESS_PROPERTIES_NVX,
@@ -74844,6 +80238,10 @@ pub struct VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX {
     pub perViewPositionAllComponents: VkBool32,
 }
 #[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
+unsafe impl Send for VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX {}
+#[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
+unsafe impl Sync for VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX {}
+#[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
 impl VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX,
@@ -74881,6 +80279,10 @@ pub struct VkMultiviewPerViewAttributesInfoNVX {
     pub perViewAttributes: VkBool32,
     pub perViewAttributesPositionXOnly: VkBool32,
 }
+#[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
+unsafe impl Send for VkMultiviewPerViewAttributesInfoNVX {}
+#[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
+unsafe impl Sync for VkMultiviewPerViewAttributesInfoNVX {}
 #[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
 impl VkMultiviewPerViewAttributesInfoNVX {
     pub const DEFAULT: Self = Self {
@@ -74920,6 +80322,10 @@ pub struct VkViewportWScalingNV {
     pub ycoeff: f32,
 }
 #[cfg(feature = "VK_NV_clip_space_w_scaling")]
+unsafe impl Send for VkViewportWScalingNV {}
+#[cfg(feature = "VK_NV_clip_space_w_scaling")]
+unsafe impl Sync for VkViewportWScalingNV {}
+#[cfg(feature = "VK_NV_clip_space_w_scaling")]
 impl VkViewportWScalingNV {
     pub const DEFAULT: Self = Self {
         xcoeff: 0.0f32,
@@ -74956,6 +80362,10 @@ pub struct VkPipelineViewportWScalingStateCreateInfoNV {
     /// Optional: true,  Length: viewportCount,  No Auto-Validity
     pub pViewportWScalings: *const VkViewportWScalingNV,
 }
+#[cfg(feature = "VK_NV_clip_space_w_scaling")]
+unsafe impl Send for VkPipelineViewportWScalingStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_clip_space_w_scaling")]
+unsafe impl Sync for VkPipelineViewportWScalingStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_clip_space_w_scaling")]
 impl VkPipelineViewportWScalingStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -75020,6 +80430,10 @@ pub struct VkPhysicalDeviceClusterAccelerationStructureFeaturesNV {
     pub clusterAccelerationStructure: VkBool32,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkPhysicalDeviceClusterAccelerationStructureFeaturesNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkPhysicalDeviceClusterAccelerationStructureFeaturesNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkPhysicalDeviceClusterAccelerationStructureFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV,
@@ -75075,6 +80489,10 @@ pub struct VkPhysicalDeviceClusterAccelerationStructurePropertiesNV {
     /// Limit Type: [Max]
     pub maxClusterGeometryIndex: u32,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkPhysicalDeviceClusterAccelerationStructurePropertiesNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkPhysicalDeviceClusterAccelerationStructurePropertiesNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkPhysicalDeviceClusterAccelerationStructurePropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -75150,6 +80568,10 @@ pub struct VkStridedDeviceAddressNV {
     pub strideInBytes: VkDeviceSize,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkStridedDeviceAddressNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkStridedDeviceAddressNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkStridedDeviceAddressNV {
     pub const DEFAULT: Self = Self {
         startAddress: 0,
@@ -75184,6 +80606,10 @@ pub struct VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV {
     pub allowClusterAccelerationStructure: VkBool32,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV,
@@ -75216,6 +80642,10 @@ pub struct VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
     pub reserved: u32,
     pub geometryFlags: u32,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
     pub const DEFAULT: Self = Self {
@@ -75251,6 +80681,10 @@ pub struct VkClusterAccelerationStructureMoveObjectsInfoNV {
     pub srcAccelerationStructure: VkDeviceAddress,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureMoveObjectsInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureMoveObjectsInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureMoveObjectsInfoNV {
     pub const DEFAULT: Self = Self {
         srcAccelerationStructure: 0,
@@ -75274,6 +80708,10 @@ pub struct VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
     pub clusterReferencesStride: u32,
     pub clusterReferences: VkDeviceAddress,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
     pub const DEFAULT: Self = Self {
@@ -75308,6 +80746,10 @@ impl VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
 pub struct VkClusterAccelerationStructureGetTemplateIndicesInfoNV {
     pub clusterTemplateAddress: VkDeviceAddress,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureGetTemplateIndicesInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureGetTemplateIndicesInfoNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureGetTemplateIndicesInfoNV {
     pub const DEFAULT: Self = Self {
@@ -75351,6 +80793,10 @@ pub struct VkClusterAccelerationStructureBuildTriangleClusterInfoNV {
     /// Optional: true
     pub opacityMicromapIndexBuffer: VkDeviceAddress,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureBuildTriangleClusterInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureBuildTriangleClusterInfoNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureBuildTriangleClusterInfoNV {
     pub const DEFAULT: Self = Self {
@@ -75501,6 +80947,10 @@ pub struct VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     pub instantiationBoundingBoxLimit: VkDeviceAddress,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     pub const DEFAULT: Self = Self {
         clusterID: 0,
@@ -75636,6 +81086,10 @@ pub struct VkClusterAccelerationStructureInstantiateClusterInfoNV {
     pub vertexBuffer: VkStridedDeviceAddressNV,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureInstantiateClusterInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureInstantiateClusterInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureInstantiateClusterInfoNV {
     pub const DEFAULT: Self = Self {
         clusterIdOffset: 0,
@@ -75687,6 +81141,10 @@ pub struct VkClusterAccelerationStructureClustersBottomLevelInputNV {
     pub maxClusterCountPerAccelerationStructure: u32,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureClustersBottomLevelInputNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureClustersBottomLevelInputNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureClustersBottomLevelInputNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV,
@@ -75734,6 +81192,10 @@ pub struct VkClusterAccelerationStructureTriangleClusterInputNV {
     pub maxTotalVertexCount: u32,
     pub minPositionTruncateBitCount: u32,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureTriangleClusterInputNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureTriangleClusterInputNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureTriangleClusterInputNV {
     pub const DEFAULT: Self = Self {
@@ -75814,6 +81276,10 @@ pub struct VkClusterAccelerationStructureMoveObjectsInputNV {
     pub maxMovedBytes: VkDeviceSize,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureMoveObjectsInputNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureMoveObjectsInputNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureMoveObjectsInputNV {
     pub const DEFAULT: Self = Self {
         sType:
@@ -75860,6 +81326,10 @@ pub union VkClusterAccelerationStructureOpInputNV {
     pub pMoveObjects: *mut VkClusterAccelerationStructureMoveObjectsInputNV,
 }
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureOpInputNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureOpInputNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureOpInputNV {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -75899,6 +81369,10 @@ pub struct VkClusterAccelerationStructureInputInfoNV {
     pub opMode: VkClusterAccelerationStructureOpModeNV,
     pub opInput: VkClusterAccelerationStructureOpInputNV,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureInputInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureInputInfoNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureInputInfoNV {
     pub const DEFAULT: Self = Self {
@@ -75968,6 +81442,10 @@ pub struct VkClusterAccelerationStructureCommandsInfoNV {
     /// Optional: true
     pub addressResolutionFlags: VkClusterAccelerationStructureAddressResolutionFlagsNV,
 }
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Send for VkClusterAccelerationStructureCommandsInfoNV {}
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+unsafe impl Sync for VkClusterAccelerationStructureCommandsInfoNV {}
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 impl VkClusterAccelerationStructureCommandsInfoNV {
     pub const DEFAULT: Self = Self {
@@ -76051,6 +81529,10 @@ pub struct VkPhysicalDeviceCommandBufferInheritanceFeaturesNV {
     pub commandBufferInheritance: VkBool32,
 }
 #[cfg(feature = "VK_NV_command_buffer_inheritance")]
+unsafe impl Send for VkPhysicalDeviceCommandBufferInheritanceFeaturesNV {}
+#[cfg(feature = "VK_NV_command_buffer_inheritance")]
+unsafe impl Sync for VkPhysicalDeviceCommandBufferInheritanceFeaturesNV {}
+#[cfg(feature = "VK_NV_command_buffer_inheritance")]
 impl VkPhysicalDeviceCommandBufferInheritanceFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV,
@@ -76086,6 +81568,10 @@ pub struct VkComputeOccupancyPriorityParametersNV {
     pub occupancyPriority: f32,
     pub occupancyThrottling: f32,
 }
+#[cfg(feature = "VK_NV_compute_occupancy_priority")]
+unsafe impl Send for VkComputeOccupancyPriorityParametersNV {}
+#[cfg(feature = "VK_NV_compute_occupancy_priority")]
+unsafe impl Sync for VkComputeOccupancyPriorityParametersNV {}
 #[cfg(feature = "VK_NV_compute_occupancy_priority")]
 impl VkComputeOccupancyPriorityParametersNV {
     pub const DEFAULT: Self = Self {
@@ -76130,6 +81616,10 @@ pub struct VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV {
     pub computeOccupancyPriority: VkBool32,
 }
 #[cfg(feature = "VK_NV_compute_occupancy_priority")]
+unsafe impl Send for VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV {}
+#[cfg(feature = "VK_NV_compute_occupancy_priority")]
+unsafe impl Sync for VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV {}
+#[cfg(feature = "VK_NV_compute_occupancy_priority")]
 impl VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV,
@@ -76170,6 +81660,10 @@ pub struct VkPhysicalDeviceCooperativeMatrixFeaturesNV {
     pub cooperativeMatrix: VkBool32,
     pub cooperativeMatrixRobustBufferAccess: VkBool32,
 }
+#[cfg(feature = "VK_NV_cooperative_matrix")]
+unsafe impl Send for VkPhysicalDeviceCooperativeMatrixFeaturesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeMatrixFeaturesNV {}
 #[cfg(feature = "VK_NV_cooperative_matrix")]
 impl VkPhysicalDeviceCooperativeMatrixFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -76219,6 +81713,10 @@ pub struct VkPhysicalDeviceCooperativeMatrixPropertiesNV {
     pub cooperativeMatrixSupportedStages: VkShaderStageFlags,
 }
 #[cfg(feature = "VK_NV_cooperative_matrix")]
+unsafe impl Send for VkPhysicalDeviceCooperativeMatrixPropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeMatrixPropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix")]
 impl VkPhysicalDeviceCooperativeMatrixPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV,
@@ -76262,6 +81760,10 @@ pub struct VkCooperativeMatrixPropertiesNV {
     pub DType: VkComponentTypeNV,
     pub scope: VkScopeNV,
 }
+#[cfg(feature = "VK_NV_cooperative_matrix")]
+unsafe impl Send for VkCooperativeMatrixPropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix")]
+unsafe impl Sync for VkCooperativeMatrixPropertiesNV {}
 #[cfg(feature = "VK_NV_cooperative_matrix")]
 impl VkCooperativeMatrixPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -76348,6 +81850,10 @@ pub struct VkPhysicalDeviceCooperativeMatrix2FeaturesNV {
     pub cooperativeMatrixBlockLoads: VkBool32,
 }
 #[cfg(feature = "VK_NV_cooperative_matrix2")]
+unsafe impl Send for VkPhysicalDeviceCooperativeMatrix2FeaturesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix2")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeMatrix2FeaturesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix2")]
 impl VkPhysicalDeviceCooperativeMatrix2FeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV,
@@ -76430,6 +81936,10 @@ pub struct VkPhysicalDeviceCooperativeMatrix2PropertiesNV {
     pub cooperativeMatrixWorkgroupScopeReservedSharedMemory: u32,
 }
 #[cfg(feature = "VK_NV_cooperative_matrix2")]
+unsafe impl Send for VkPhysicalDeviceCooperativeMatrix2PropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix2")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeMatrix2PropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix2")]
 impl VkPhysicalDeviceCooperativeMatrix2PropertiesNV {
     pub const DEFAULT: Self = Self {
         sType:
@@ -76491,6 +82001,10 @@ pub struct VkCooperativeMatrixFlexibleDimensionsPropertiesNV {
     pub scope: VkScopeKHR,
     pub workgroupInvocations: u32,
 }
+#[cfg(feature = "VK_NV_cooperative_matrix2")]
+unsafe impl Send for VkCooperativeMatrixFlexibleDimensionsPropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_matrix2")]
+unsafe impl Sync for VkCooperativeMatrixFlexibleDimensionsPropertiesNV {}
 #[cfg(feature = "VK_NV_cooperative_matrix2")]
 impl VkCooperativeMatrixFlexibleDimensionsPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -76585,6 +82099,10 @@ pub struct VkPhysicalDeviceCooperativeVectorFeaturesNV {
     pub cooperativeVectorTraining: VkBool32,
 }
 #[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Send for VkPhysicalDeviceCooperativeVectorFeaturesNV {}
+#[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeVectorFeaturesNV {}
+#[cfg(feature = "VK_NV_cooperative_vector")]
 impl VkPhysicalDeviceCooperativeVectorFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV,
@@ -76630,6 +82148,10 @@ pub struct VkCooperativeVectorPropertiesNV {
     pub resultType: VkComponentTypeKHR,
     pub transpose: VkBool32,
 }
+#[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Send for VkCooperativeVectorPropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Sync for VkCooperativeVectorPropertiesNV {}
 #[cfg(feature = "VK_NV_cooperative_vector")]
 impl VkCooperativeVectorPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -76709,6 +82231,10 @@ pub struct VkPhysicalDeviceCooperativeVectorPropertiesNV {
     pub maxCooperativeVectorComponents: u32,
 }
 #[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Send for VkPhysicalDeviceCooperativeVectorPropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeVectorPropertiesNV {}
+#[cfg(feature = "VK_NV_cooperative_vector")]
 impl VkPhysicalDeviceCooperativeVectorPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV,
@@ -76779,6 +82305,10 @@ pub struct VkConvertCooperativeVectorMatrixInfoNV {
     pub dstLayout: VkCooperativeVectorMatrixLayoutNV,
     pub dstStride: usize,
 }
+#[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Send for VkConvertCooperativeVectorMatrixInfoNV {}
+#[cfg(feature = "VK_NV_cooperative_vector")]
+unsafe impl Sync for VkConvertCooperativeVectorMatrixInfoNV {}
 #[cfg(feature = "VK_NV_cooperative_vector")]
 impl VkConvertCooperativeVectorMatrixInfoNV {
     pub const DEFAULT: Self = Self {
@@ -76889,6 +82419,10 @@ pub struct VkPhysicalDeviceCopyMemoryIndirectFeaturesNV {
     pub indirectCopy: VkBool32,
 }
 #[cfg(feature = "VK_NV_copy_memory_indirect")]
+unsafe impl Send for VkPhysicalDeviceCopyMemoryIndirectFeaturesNV {}
+#[cfg(feature = "VK_NV_copy_memory_indirect")]
+unsafe impl Sync for VkPhysicalDeviceCopyMemoryIndirectFeaturesNV {}
+#[cfg(feature = "VK_NV_copy_memory_indirect")]
 impl VkPhysicalDeviceCopyMemoryIndirectFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV,
@@ -76928,6 +82462,10 @@ pub struct VkPhysicalDeviceCornerSampledImageFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub cornerSampledImage: VkBool32,
 }
+#[cfg(feature = "VK_NV_corner_sampled_image")]
+unsafe impl Send for VkPhysicalDeviceCornerSampledImageFeaturesNV {}
+#[cfg(feature = "VK_NV_corner_sampled_image")]
+unsafe impl Sync for VkPhysicalDeviceCornerSampledImageFeaturesNV {}
 #[cfg(feature = "VK_NV_corner_sampled_image")]
 impl VkPhysicalDeviceCornerSampledImageFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -76969,6 +82507,10 @@ pub struct VkPhysicalDeviceCoverageReductionModeFeaturesNV {
     pub coverageReductionMode: VkBool32,
 }
 #[cfg(feature = "VK_NV_coverage_reduction_mode")]
+unsafe impl Send for VkPhysicalDeviceCoverageReductionModeFeaturesNV {}
+#[cfg(feature = "VK_NV_coverage_reduction_mode")]
+unsafe impl Sync for VkPhysicalDeviceCoverageReductionModeFeaturesNV {}
+#[cfg(feature = "VK_NV_coverage_reduction_mode")]
 impl VkPhysicalDeviceCoverageReductionModeFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType:
@@ -77008,6 +82550,10 @@ pub struct VkPipelineCoverageReductionStateCreateInfoNV {
     pub flags: VkPipelineCoverageReductionStateCreateFlagsNV,
     pub coverageReductionMode: VkCoverageReductionModeNV,
 }
+#[cfg(feature = "VK_NV_coverage_reduction_mode")]
+unsafe impl Send for VkPipelineCoverageReductionStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_coverage_reduction_mode")]
+unsafe impl Sync for VkPipelineCoverageReductionStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_coverage_reduction_mode")]
 impl VkPipelineCoverageReductionStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -77054,6 +82600,10 @@ pub struct VkFramebufferMixedSamplesCombinationNV {
     pub depthStencilSamples: VkSampleCountFlags,
     pub colorSamples: VkSampleCountFlags,
 }
+#[cfg(feature = "VK_NV_coverage_reduction_mode")]
+unsafe impl Send for VkFramebufferMixedSamplesCombinationNV {}
+#[cfg(feature = "VK_NV_coverage_reduction_mode")]
+unsafe impl Sync for VkFramebufferMixedSamplesCombinationNV {}
 #[cfg(feature = "VK_NV_coverage_reduction_mode")]
 impl VkFramebufferMixedSamplesCombinationNV {
     pub const DEFAULT: Self = Self {
@@ -77112,6 +82662,10 @@ impl Default for VkCudaModuleNV {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Send for VkCudaModuleNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Sync for VkCudaModuleNV {}
 /// [VkCudaFunctionNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaFunctionNV.html)
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 #[repr(transparent)]
@@ -77128,6 +82682,10 @@ impl Default for VkCudaFunctionNV {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Send for VkCudaFunctionNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Sync for VkCudaFunctionNV {}
 /// [VkCudaModuleCreateInfoNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkCudaModuleCreateInfoNV.html)
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 #[repr(C)]
@@ -77141,6 +82699,10 @@ pub struct VkCudaModuleCreateInfoNV {
     /// Length: dataSize
     pub pData: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Send for VkCudaModuleCreateInfoNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Sync for VkCudaModuleCreateInfoNV {}
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl VkCudaModuleCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -77186,6 +82748,10 @@ pub struct VkCudaFunctionCreateInfoNV {
     /// Length: null-terminated
     pub pName: *const core::ffi::c_char,
 }
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Send for VkCudaFunctionCreateInfoNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Sync for VkCudaFunctionCreateInfoNV {}
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl VkCudaFunctionCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -77244,6 +82810,10 @@ pub struct VkCudaLaunchInfoNV {
     /// Length: extraCount,  No Auto-Validity
     pub pExtras: *const *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Send for VkCudaLaunchInfoNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Sync for VkCudaLaunchInfoNV {}
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl VkCudaLaunchInfoNV {
     pub const DEFAULT: Self = Self {
@@ -77352,6 +82922,10 @@ pub struct VkPhysicalDeviceCudaKernelLaunchFeaturesNV {
     pub cudaKernelLaunchFeatures: VkBool32,
 }
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Send for VkPhysicalDeviceCudaKernelLaunchFeaturesNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Sync for VkPhysicalDeviceCudaKernelLaunchFeaturesNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl VkPhysicalDeviceCudaKernelLaunchFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV,
@@ -77396,6 +82970,10 @@ pub struct VkPhysicalDeviceCudaKernelLaunchPropertiesNV {
     pub computeCapabilityMajor: u32,
 }
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Send for VkPhysicalDeviceCudaKernelLaunchPropertiesNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+unsafe impl Sync for VkPhysicalDeviceCudaKernelLaunchPropertiesNV {}
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl VkPhysicalDeviceCudaKernelLaunchPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV,
@@ -77439,6 +83017,10 @@ pub struct VkDedicatedAllocationImageCreateInfoNV {
     pub dedicatedAllocation: VkBool32,
 }
 #[cfg(feature = "VK_NV_dedicated_allocation")]
+unsafe impl Send for VkDedicatedAllocationImageCreateInfoNV {}
+#[cfg(feature = "VK_NV_dedicated_allocation")]
+unsafe impl Sync for VkDedicatedAllocationImageCreateInfoNV {}
+#[cfg(feature = "VK_NV_dedicated_allocation")]
 impl VkDedicatedAllocationImageCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV,
@@ -77475,6 +83057,10 @@ pub struct VkDedicatedAllocationBufferCreateInfoNV {
     pub pNext: *const core::ffi::c_void,
     pub dedicatedAllocation: VkBool32,
 }
+#[cfg(feature = "VK_NV_dedicated_allocation")]
+unsafe impl Send for VkDedicatedAllocationBufferCreateInfoNV {}
+#[cfg(feature = "VK_NV_dedicated_allocation")]
+unsafe impl Sync for VkDedicatedAllocationBufferCreateInfoNV {}
 #[cfg(feature = "VK_NV_dedicated_allocation")]
 impl VkDedicatedAllocationBufferCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -77515,6 +83101,10 @@ pub struct VkDedicatedAllocationMemoryAllocateInfoNV {
     /// Optional: true
     pub buffer: VkBuffer,
 }
+#[cfg(feature = "VK_NV_dedicated_allocation")]
+unsafe impl Send for VkDedicatedAllocationMemoryAllocateInfoNV {}
+#[cfg(feature = "VK_NV_dedicated_allocation")]
+unsafe impl Sync for VkDedicatedAllocationMemoryAllocateInfoNV {}
 #[cfg(feature = "VK_NV_dedicated_allocation")]
 impl VkDedicatedAllocationMemoryAllocateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -77559,6 +83149,10 @@ pub struct VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV {
     pub dedicatedAllocationImageAliasing: VkBool32,
 }
 #[cfg(feature = "VK_NV_dedicated_allocation_image_aliasing")]
+unsafe impl Send for VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV {}
+#[cfg(feature = "VK_NV_dedicated_allocation_image_aliasing")]
+unsafe impl Sync for VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV {}
+#[cfg(feature = "VK_NV_dedicated_allocation_image_aliasing")]
 impl VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV,
@@ -77595,6 +83189,10 @@ pub struct VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub descriptorPoolOverallocation: VkBool32,
 }
+#[cfg(feature = "VK_NV_descriptor_pool_overallocation")]
+unsafe impl Send for VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV {}
+#[cfg(feature = "VK_NV_descriptor_pool_overallocation")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV {}
 #[cfg(feature = "VK_NV_descriptor_pool_overallocation")]
 impl VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -77638,6 +83236,10 @@ pub struct VkQueueFamilyCheckpointPropertiesNV {
     pub checkpointExecutionStageMask: VkPipelineStageFlags,
 }
 #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Send for VkQueueFamilyCheckpointPropertiesNV {}
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Sync for VkQueueFamilyCheckpointPropertiesNV {}
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
 impl VkQueueFamilyCheckpointPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV,
@@ -77676,6 +83278,10 @@ pub struct VkCheckpointDataNV {
     /// No Auto-Validity
     pub pCheckpointMarker: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Send for VkCheckpointDataNV {}
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Sync for VkCheckpointDataNV {}
 #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
 impl VkCheckpointDataNV {
     pub const DEFAULT: Self = Self {
@@ -77727,6 +83333,10 @@ pub struct VkQueueFamilyCheckpointProperties2NV {
     pub checkpointExecutionStageMask: VkPipelineStageFlags2,
 }
 #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Send for VkQueueFamilyCheckpointProperties2NV {}
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Sync for VkQueueFamilyCheckpointProperties2NV {}
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
 impl VkQueueFamilyCheckpointProperties2NV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV,
@@ -77765,6 +83375,10 @@ pub struct VkCheckpointData2NV {
     /// No Auto-Validity
     pub pCheckpointMarker: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Send for VkCheckpointData2NV {}
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+unsafe impl Sync for VkCheckpointData2NV {}
 #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
 impl VkCheckpointData2NV {
     pub const DEFAULT: Self = Self {
@@ -77814,6 +83428,10 @@ pub struct VkPhysicalDeviceDiagnosticsConfigFeaturesNV {
     pub diagnosticsConfig: VkBool32,
 }
 #[cfg(feature = "VK_NV_device_diagnostics_config")]
+unsafe impl Send for VkPhysicalDeviceDiagnosticsConfigFeaturesNV {}
+#[cfg(feature = "VK_NV_device_diagnostics_config")]
+unsafe impl Sync for VkPhysicalDeviceDiagnosticsConfigFeaturesNV {}
+#[cfg(feature = "VK_NV_device_diagnostics_config")]
 impl VkPhysicalDeviceDiagnosticsConfigFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV,
@@ -77851,6 +83469,10 @@ pub struct VkDeviceDiagnosticsConfigCreateInfoNV {
     /// Optional: true
     pub flags: VkDeviceDiagnosticsConfigFlagsNV,
 }
+#[cfg(feature = "VK_NV_device_diagnostics_config")]
+unsafe impl Send for VkDeviceDiagnosticsConfigCreateInfoNV {}
+#[cfg(feature = "VK_NV_device_diagnostics_config")]
+unsafe impl Sync for VkDeviceDiagnosticsConfigCreateInfoNV {}
 #[cfg(feature = "VK_NV_device_diagnostics_config")]
 impl VkDeviceDiagnosticsConfigCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -77897,6 +83519,10 @@ impl Default for VkIndirectCommandsLayoutNV {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsLayoutNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsLayoutNV {}
 /// [VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -77910,6 +83536,10 @@ pub struct VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub deviceGeneratedCommands: VkBool32,
 }
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV {}
 #[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -77969,6 +83599,10 @@ pub struct VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV {
     /// Limit Type: [Min]
     pub minIndirectCommandsBufferOffsetAlignment: u32,
 }
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV {}
 #[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -78059,6 +83693,10 @@ pub struct VkGraphicsShaderGroupCreateInfoNV {
     pub pTessellationState: *const VkPipelineTessellationStateCreateInfo,
 }
 #[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkGraphicsShaderGroupCreateInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkGraphicsShaderGroupCreateInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkGraphicsShaderGroupCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_SHADER_GROUP_CREATE_INFO_NV,
@@ -78133,6 +83771,10 @@ pub struct VkGraphicsPipelineShaderGroupsCreateInfoNV {
     pub pPipelines: *const VkPipeline,
 }
 #[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkGraphicsPipelineShaderGroupsCreateInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkGraphicsPipelineShaderGroupsCreateInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkGraphicsPipelineShaderGroupsCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV,
@@ -78186,6 +83828,10 @@ pub struct VkBindShaderGroupIndirectCommandNV {
     pub groupIndex: u32,
 }
 #[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkBindShaderGroupIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkBindShaderGroupIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkBindShaderGroupIndirectCommandNV {
     pub const DEFAULT: Self = Self { groupIndex: 0 };
     #[inline]
@@ -78207,6 +83853,10 @@ pub struct VkBindIndexBufferIndirectCommandNV {
     pub size: u32,
     pub indexType: VkIndexType,
 }
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkBindIndexBufferIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkBindIndexBufferIndirectCommandNV {}
 #[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkBindIndexBufferIndirectCommandNV {
     pub const DEFAULT: Self = Self {
@@ -78244,6 +83894,10 @@ pub struct VkBindVertexBufferIndirectCommandNV {
     pub stride: u32,
 }
 #[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkBindVertexBufferIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkBindVertexBufferIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkBindVertexBufferIndirectCommandNV {
     pub const DEFAULT: Self = Self {
         bufferAddress: 0,
@@ -78278,6 +83932,10 @@ pub struct VkSetStateFlagsIndirectCommandNV {
     pub data: u32,
 }
 #[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkSetStateFlagsIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkSetStateFlagsIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkSetStateFlagsIndirectCommandNV {
     pub const DEFAULT: Self = Self { data: 0 };
     #[inline]
@@ -78298,6 +83956,10 @@ pub struct VkIndirectCommandsStreamNV {
     pub buffer: VkBuffer,
     pub offset: VkDeviceSize,
 }
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsStreamNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsStreamNV {}
 #[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkIndirectCommandsStreamNV {
     pub const DEFAULT: Self = Self {
@@ -78348,6 +84010,10 @@ pub struct VkIndirectCommandsLayoutTokenNV {
     /// Length: indexTypeCount
     pub pIndexTypeValues: *const u32,
 }
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsLayoutTokenNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsLayoutTokenNV {}
 #[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkIndirectCommandsLayoutTokenNV {
     pub const DEFAULT: Self = Self {
@@ -78468,6 +84134,10 @@ pub struct VkIndirectCommandsLayoutCreateInfoNV {
     pub pStreamStrides: *const u32,
 }
 #[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkIndirectCommandsLayoutCreateInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkIndirectCommandsLayoutCreateInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkIndirectCommandsLayoutCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV,
@@ -78552,6 +84222,10 @@ pub struct VkGeneratedCommandsInfoNV {
     pub sequencesIndexBuffer: VkBuffer,
     pub sequencesIndexOffset: VkDeviceSize,
 }
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkGeneratedCommandsInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkGeneratedCommandsInfoNV {}
 #[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkGeneratedCommandsInfoNV {
     pub const DEFAULT: Self = Self {
@@ -78666,6 +84340,10 @@ pub struct VkGeneratedCommandsMemoryRequirementsInfoNV {
     pub maxSequencesCount: u32,
 }
 #[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Send for VkGeneratedCommandsMemoryRequirementsInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
+unsafe impl Sync for VkGeneratedCommandsMemoryRequirementsInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands")]
 impl VkGeneratedCommandsMemoryRequirementsInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV,
@@ -78724,6 +84402,10 @@ pub struct VkComputePipelineIndirectBufferInfoNV {
     pub pipelineDeviceAddressCaptureReplay: VkDeviceAddress,
 }
 #[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Send for VkComputePipelineIndirectBufferInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Sync for VkComputePipelineIndirectBufferInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
 impl VkComputePipelineIndirectBufferInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV,
@@ -78775,6 +84457,10 @@ pub struct VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {
     pub deviceGeneratedComputeCaptureReplay: VkBool32,
 }
 #[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Send for VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Sync for VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
 impl VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV,
@@ -78823,6 +84509,10 @@ pub struct VkPipelineIndirectDeviceAddressInfoNV {
     pub pipeline: VkPipeline,
 }
 #[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Send for VkPipelineIndirectDeviceAddressInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Sync for VkPipelineIndirectDeviceAddressInfoNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
 impl VkPipelineIndirectDeviceAddressInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV,
@@ -78860,6 +84550,10 @@ pub struct VkBindPipelineIndirectCommandNV {
     pub pipelineAddress: VkDeviceAddress,
 }
 #[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Send for VkBindPipelineIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
+unsafe impl Sync for VkBindPipelineIndirectCommandNV {}
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
 impl VkBindPipelineIndirectCommandNV {
     pub const DEFAULT: Self = Self { pipelineAddress: 0 };
     #[inline]
@@ -78885,6 +84579,10 @@ pub struct VkPhysicalDeviceDisplacementMicromapFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub displacementMicromap: VkBool32,
 }
+#[cfg(feature = "VK_NV_displacement_micromap")]
+unsafe impl Send for VkPhysicalDeviceDisplacementMicromapFeaturesNV {}
+#[cfg(feature = "VK_NV_displacement_micromap")]
+unsafe impl Sync for VkPhysicalDeviceDisplacementMicromapFeaturesNV {}
 #[cfg(feature = "VK_NV_displacement_micromap")]
 impl VkPhysicalDeviceDisplacementMicromapFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -78927,6 +84625,10 @@ pub struct VkPhysicalDeviceDisplacementMicromapPropertiesNV {
     /// Limit Type: [Max]
     pub maxDisplacementMicromapSubdivisionLevel: u32,
 }
+#[cfg(feature = "VK_NV_displacement_micromap")]
+unsafe impl Send for VkPhysicalDeviceDisplacementMicromapPropertiesNV {}
+#[cfg(feature = "VK_NV_displacement_micromap")]
+unsafe impl Sync for VkPhysicalDeviceDisplacementMicromapPropertiesNV {}
 #[cfg(feature = "VK_NV_displacement_micromap")]
 impl VkPhysicalDeviceDisplacementMicromapPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -78988,6 +84690,10 @@ pub struct VkAccelerationStructureTrianglesDisplacementMicromapNV {
     /// Optional: true
     pub micromap: VkMicromapEXT,
 }
+#[cfg(feature = "VK_NV_displacement_micromap")]
+unsafe impl Send for VkAccelerationStructureTrianglesDisplacementMicromapNV {}
+#[cfg(feature = "VK_NV_displacement_micromap")]
+unsafe impl Sync for VkAccelerationStructureTrianglesDisplacementMicromapNV {}
 #[cfg(feature = "VK_NV_displacement_micromap")]
 impl VkAccelerationStructureTrianglesDisplacementMicromapNV {
     pub const DEFAULT: Self = Self {
@@ -79129,6 +84835,10 @@ pub struct VkDisplaySurfaceStereoCreateInfoNV {
     pub stereoType: VkDisplaySurfaceStereoTypeNV,
 }
 #[cfg(feature = "VK_NV_display_stereo")]
+unsafe impl Send for VkDisplaySurfaceStereoCreateInfoNV {}
+#[cfg(feature = "VK_NV_display_stereo")]
+unsafe impl Sync for VkDisplaySurfaceStereoCreateInfoNV {}
+#[cfg(feature = "VK_NV_display_stereo")]
 impl VkDisplaySurfaceStereoCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV,
@@ -79168,6 +84878,10 @@ pub struct VkDisplayModeStereoPropertiesNV {
     pub hdmi3DSupported: VkBool32,
 }
 #[cfg(feature = "VK_NV_display_stereo")]
+unsafe impl Send for VkDisplayModeStereoPropertiesNV {}
+#[cfg(feature = "VK_NV_display_stereo")]
+unsafe impl Sync for VkDisplayModeStereoPropertiesNV {}
+#[cfg(feature = "VK_NV_display_stereo")]
 impl VkDisplayModeStereoPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_MODE_STEREO_PROPERTIES_NV,
@@ -79204,6 +84918,10 @@ pub struct VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub extendedSparseAddressSpace: VkBool32,
 }
+#[cfg(feature = "VK_NV_extended_sparse_address_space")]
+unsafe impl Send for VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV {}
+#[cfg(feature = "VK_NV_extended_sparse_address_space")]
+unsafe impl Sync for VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV {}
 #[cfg(feature = "VK_NV_extended_sparse_address_space")]
 impl VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -79250,6 +84968,10 @@ pub struct VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV {
     /// Limit Type: [Bitmask]
     pub extendedSparseBufferUsageFlags: VkBufferUsageFlags,
 }
+#[cfg(feature = "VK_NV_extended_sparse_address_space")]
+unsafe impl Send for VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV {}
+#[cfg(feature = "VK_NV_extended_sparse_address_space")]
+unsafe impl Sync for VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV {}
 #[cfg(feature = "VK_NV_extended_sparse_address_space")]
 impl VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -79302,6 +85024,10 @@ impl Default for VkExternalComputeQueueNV {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Send for VkExternalComputeQueueNV {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Sync for VkExternalComputeQueueNV {}
 /// [VkExternalComputeQueueDeviceCreateInfoNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalComputeQueueDeviceCreateInfoNV.html)
 ///
 /// **Extends:** VkDeviceCreateInfo.
@@ -79315,6 +85041,10 @@ pub struct VkExternalComputeQueueDeviceCreateInfoNV {
     pub pNext: *const core::ffi::c_void,
     pub reservedExternalQueues: u32,
 }
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Send for VkExternalComputeQueueDeviceCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Sync for VkExternalComputeQueueDeviceCreateInfoNV {}
 #[cfg(feature = "VK_NV_external_compute_queue")]
 impl VkExternalComputeQueueDeviceCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -79351,6 +85081,10 @@ pub struct VkExternalComputeQueueCreateInfoNV {
     pub preferredQueue: VkQueue,
 }
 #[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Send for VkExternalComputeQueueCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Sync for VkExternalComputeQueueCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
 impl VkExternalComputeQueueCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV,
@@ -79385,6 +85119,10 @@ pub struct VkExternalComputeQueueDataParamsNV {
     pub pNext: *const core::ffi::c_void,
     pub deviceIndex: u32,
 }
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Send for VkExternalComputeQueueDataParamsNV {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Sync for VkExternalComputeQueueDataParamsNV {}
 #[cfg(feature = "VK_NV_external_compute_queue")]
 impl VkExternalComputeQueueDataParamsNV {
     pub const DEFAULT: Self = Self {
@@ -79429,6 +85167,10 @@ pub struct VkPhysicalDeviceExternalComputeQueuePropertiesNV {
     /// Limit Type: [Noauto]
     pub maxExternalQueues: u32,
 }
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Send for VkPhysicalDeviceExternalComputeQueuePropertiesNV {}
+#[cfg(feature = "VK_NV_external_compute_queue")]
+unsafe impl Sync for VkPhysicalDeviceExternalComputeQueuePropertiesNV {}
 #[cfg(feature = "VK_NV_external_compute_queue")]
 impl VkPhysicalDeviceExternalComputeQueuePropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -79475,6 +85217,10 @@ pub struct VkExternalMemoryImageCreateInfoNV {
     pub handleTypes: VkExternalMemoryHandleTypeFlagsNV,
 }
 #[cfg(feature = "VK_NV_external_memory")]
+unsafe impl Send for VkExternalMemoryImageCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_memory")]
+unsafe impl Sync for VkExternalMemoryImageCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_memory")]
 impl VkExternalMemoryImageCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV,
@@ -79512,6 +85258,10 @@ pub struct VkExportMemoryAllocateInfoNV {
     /// Optional: true
     pub handleTypes: VkExternalMemoryHandleTypeFlagsNV,
 }
+#[cfg(feature = "VK_NV_external_memory")]
+unsafe impl Send for VkExportMemoryAllocateInfoNV {}
+#[cfg(feature = "VK_NV_external_memory")]
+unsafe impl Sync for VkExportMemoryAllocateInfoNV {}
 #[cfg(feature = "VK_NV_external_memory")]
 impl VkExportMemoryAllocateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -79557,6 +85307,10 @@ pub struct VkExternalImageFormatPropertiesNV {
     /// Optional: true
     pub compatibleHandleTypes: VkExternalMemoryHandleTypeFlagsNV,
 }
+#[cfg(feature = "VK_NV_external_memory_capabilities")]
+unsafe impl Send for VkExternalImageFormatPropertiesNV {}
+#[cfg(feature = "VK_NV_external_memory_capabilities")]
+unsafe impl Sync for VkExternalImageFormatPropertiesNV {}
 #[cfg(feature = "VK_NV_external_memory_capabilities")]
 impl VkExternalImageFormatPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -79616,6 +85370,10 @@ pub struct VkPhysicalDeviceExternalMemoryRDMAFeaturesNV {
     pub externalMemoryRDMA: VkBool32,
 }
 #[cfg(feature = "VK_NV_external_memory_rdma")]
+unsafe impl Send for VkPhysicalDeviceExternalMemoryRDMAFeaturesNV {}
+#[cfg(feature = "VK_NV_external_memory_rdma")]
+unsafe impl Sync for VkPhysicalDeviceExternalMemoryRDMAFeaturesNV {}
+#[cfg(feature = "VK_NV_external_memory_rdma")]
 impl VkPhysicalDeviceExternalMemoryRDMAFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV,
@@ -79651,6 +85409,10 @@ pub struct VkMemoryGetRemoteAddressInfoNV {
     pub memory: VkDeviceMemory,
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
+#[cfg(feature = "VK_NV_external_memory_rdma")]
+unsafe impl Send for VkMemoryGetRemoteAddressInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_rdma")]
+unsafe impl Sync for VkMemoryGetRemoteAddressInfoNV {}
 #[cfg(feature = "VK_NV_external_memory_rdma")]
 impl VkMemoryGetRemoteAddressInfoNV {
     pub const DEFAULT: Self = Self {
@@ -79691,6 +85453,10 @@ pub struct NvSciBufAttrList(pub *mut core::ffi::c_void);
 impl NvSciBufAttrList {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Send for NvSciBufAttrList {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Sync for NvSciBufAttrList {}
 /// [NvSciBufObj](https://docs.vulkan.org/refpages/latest/refpages/source/NvSciBufObj.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
@@ -79701,6 +85467,10 @@ pub struct NvSciBufObj(pub *mut core::ffi::c_void);
 impl NvSciBufObj {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Send for NvSciBufObj {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Sync for NvSciBufObj {}
 /// [VkExportMemorySciBufInfoNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMemorySciBufInfoNV.html)
 ///
 /// **Extends:** VkMemoryAllocateInfo.
@@ -79714,6 +85484,10 @@ pub struct VkExportMemorySciBufInfoNV {
     pub pNext: *const core::ffi::c_void,
     pub pAttributes: NvSciBufAttrList,
 }
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Send for VkExportMemorySciBufInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Sync for VkExportMemorySciBufInfoNV {}
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
 impl VkExportMemorySciBufInfoNV {
     pub const DEFAULT: Self = Self {
@@ -79752,6 +85526,10 @@ pub struct VkImportMemorySciBufInfoNV {
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
     pub handle: NvSciBufObj,
 }
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Send for VkImportMemorySciBufInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Sync for VkImportMemorySciBufInfoNV {}
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
 impl VkImportMemorySciBufInfoNV {
     pub const DEFAULT: Self = Self {
@@ -79795,6 +85573,10 @@ pub struct VkMemoryGetSciBufInfoNV {
     pub handleType: VkExternalMemoryHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Send for VkMemoryGetSciBufInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Sync for VkMemoryGetSciBufInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
 impl VkMemoryGetSciBufInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_SCI_BUF_INFO_NV,
@@ -79836,6 +85618,10 @@ pub struct VkMemorySciBufPropertiesNV {
     pub memoryTypeBits: u32,
 }
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Send for VkMemorySciBufPropertiesNV {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Sync for VkMemorySciBufPropertiesNV {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
 impl VkMemorySciBufPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_SCI_BUF_PROPERTIES_NV,
@@ -79873,6 +85659,10 @@ pub struct VkPhysicalDeviceExternalMemorySciBufFeaturesNV {
     pub sciBufImport: VkBool32,
     pub sciBufExport: VkBool32,
 }
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Send for VkPhysicalDeviceExternalMemorySciBufFeaturesNV {}
+#[cfg(feature = "VK_NV_external_memory_sci_buf")]
+unsafe impl Sync for VkPhysicalDeviceExternalMemorySciBufFeaturesNV {}
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
 impl VkPhysicalDeviceExternalMemorySciBufFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -79923,6 +85713,10 @@ pub struct VkImportMemoryWin32HandleInfoNV {
     pub handle: HANDLE,
 }
 #[cfg(feature = "VK_NV_external_memory_win32")]
+unsafe impl Send for VkImportMemoryWin32HandleInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_win32")]
+unsafe impl Sync for VkImportMemoryWin32HandleInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_win32")]
 impl VkImportMemoryWin32HandleInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_WIN32_HANDLE_INFO_NV,
@@ -79969,6 +85763,10 @@ pub struct VkExportMemoryWin32HandleInfoNV {
     pub dwAccess: DWORD,
 }
 #[cfg(feature = "VK_NV_external_memory_win32")]
+unsafe impl Send for VkExportMemoryWin32HandleInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_win32")]
+unsafe impl Sync for VkExportMemoryWin32HandleInfoNV {}
+#[cfg(feature = "VK_NV_external_memory_win32")]
 impl VkExportMemoryWin32HandleInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_MEMORY_WIN32_HANDLE_INFO_NV,
@@ -80014,6 +85812,10 @@ pub struct VkExportSemaphoreSciSyncInfoNV {
     pub pAttributes: NvSciSyncAttrList,
 }
 #[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Send for VkExportSemaphoreSciSyncInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Sync for VkExportSemaphoreSciSyncInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync")]
 impl VkExportSemaphoreSciSyncInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_SCI_SYNC_INFO_NV,
@@ -80050,6 +85852,10 @@ pub struct VkImportSemaphoreSciSyncInfoNV {
     pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
     pub handle: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Send for VkImportSemaphoreSciSyncInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Sync for VkImportSemaphoreSciSyncInfoNV {}
 #[cfg(feature = "VK_NV_external_sci_sync")]
 impl VkImportSemaphoreSciSyncInfoNV {
     pub const DEFAULT: Self = Self {
@@ -80101,6 +85907,10 @@ pub struct VkSemaphoreGetSciSyncInfoNV {
     pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
 }
 #[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Send for VkSemaphoreGetSciSyncInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Sync for VkSemaphoreGetSciSyncInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync")]
 impl VkSemaphoreGetSciSyncInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_GET_SCI_SYNC_INFO_NV,
@@ -80147,6 +85957,10 @@ pub struct VkPhysicalDeviceExternalSciSyncFeaturesNV {
     pub sciSyncExport: VkBool32,
 }
 #[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Send for VkPhysicalDeviceExternalSciSyncFeaturesNV {}
+#[cfg(feature = "VK_NV_external_sci_sync")]
+unsafe impl Sync for VkPhysicalDeviceExternalSciSyncFeaturesNV {}
+#[cfg(feature = "VK_NV_external_sci_sync")]
 impl VkPhysicalDeviceExternalSciSyncFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SCI_SYNC_FEATURES_NV,
@@ -80191,19 +86005,29 @@ impl VkPhysicalDeviceExternalSciSyncFeaturesNV {
 /// [NvSciSyncAttrList](https://docs.vulkan.org/refpages/latest/refpages/source/NvSciSyncAttrList.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-    feature = "VK_NV_external_sci_sync2",
-    feature = "VK_NV_external_sci_sync"
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct NvSciSyncAttrList(pub *mut core::ffi::c_void);
 #[cfg(any(
-    feature = "VK_NV_external_sci_sync2",
-    feature = "VK_NV_external_sci_sync"
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
 ))]
 impl NvSciSyncAttrList {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Send for NvSciSyncAttrList {}
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Sync for NvSciSyncAttrList {}
 /// [VkExportFenceSciSyncInfoNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportFenceSciSyncInfoNV.html)
 ///
 /// **Extends:** VkFenceCreateInfo.
@@ -80220,6 +86044,16 @@ pub struct VkExportFenceSciSyncInfoNV {
     pub pNext: *const core::ffi::c_void,
     pub pAttributes: NvSciSyncAttrList,
 }
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Send for VkExportFenceSciSyncInfoNV {}
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Sync for VkExportFenceSciSyncInfoNV {}
 #[cfg(any(
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
@@ -80263,6 +86097,16 @@ pub struct VkImportFenceSciSyncInfoNV {
     pub handleType: VkExternalFenceHandleTypeFlagBits,
     pub handle: *mut core::ffi::c_void,
 }
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Send for VkImportFenceSciSyncInfoNV {}
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Sync for VkImportFenceSciSyncInfoNV {}
 #[cfg(any(
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
@@ -80323,6 +86167,16 @@ pub struct VkFenceGetSciSyncInfoNV {
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
 ))]
+unsafe impl Send for VkFenceGetSciSyncInfoNV {}
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Sync for VkFenceGetSciSyncInfoNV {}
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
 impl VkFenceGetSciSyncInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_FENCE_GET_SCI_SYNC_INFO_NV,
@@ -80371,6 +86225,16 @@ pub struct VkSciSyncAttributesInfoNV {
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
 ))]
+unsafe impl Send for VkSciSyncAttributesInfoNV {}
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
+unsafe impl Sync for VkSciSyncAttributesInfoNV {}
+#[cfg(any(
+    feature = "VK_NV_external_sci_sync",
+    feature = "VK_NV_external_sci_sync2"
+))]
 impl VkSciSyncAttributesInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SCI_SYNC_ATTRIBUTES_INFO_NV,
@@ -80410,6 +86274,10 @@ pub struct NvSciSyncObj(pub *mut core::ffi::c_void);
 impl NvSciSyncObj {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Send for NvSciSyncObj {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Sync for NvSciSyncObj {}
 /// [NvSciSyncFence](https://docs.vulkan.org/refpages/latest/refpages/source/NvSciSyncFence.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_NV_external_sci_sync2")]
@@ -80420,6 +86288,10 @@ pub struct NvSciSyncFence(pub *mut core::ffi::c_void);
 impl NvSciSyncFence {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Send for NvSciSyncFence {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Sync for NvSciSyncFence {}
 /// [VkSemaphoreSciSyncPoolNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreSciSyncPoolNV.html)
 #[cfg(feature = "VK_NV_external_sci_sync2")]
 #[repr(transparent)]
@@ -80436,6 +86308,10 @@ impl Default for VkSemaphoreSciSyncPoolNV {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Send for VkSemaphoreSciSyncPoolNV {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Sync for VkSemaphoreSciSyncPoolNV {}
 /// [VkPhysicalDeviceExternalSciSync2FeaturesNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalSciSync2FeaturesNV.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -80452,6 +86328,10 @@ pub struct VkPhysicalDeviceExternalSciSync2FeaturesNV {
     pub sciSyncImport: VkBool32,
     pub sciSyncExport: VkBool32,
 }
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Send for VkPhysicalDeviceExternalSciSync2FeaturesNV {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Sync for VkPhysicalDeviceExternalSciSync2FeaturesNV {}
 #[cfg(feature = "VK_NV_external_sci_sync2")]
 impl VkPhysicalDeviceExternalSciSync2FeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -80506,6 +86386,10 @@ pub struct VkSemaphoreSciSyncPoolCreateInfoNV {
     pub handle: NvSciSyncObj,
 }
 #[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Send for VkSemaphoreSciSyncPoolCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Sync for VkSemaphoreSciSyncPoolCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
 impl VkSemaphoreSciSyncPoolCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SCI_SYNC_POOL_CREATE_INFO_NV,
@@ -80543,6 +86427,10 @@ pub struct VkSemaphoreSciSyncCreateInfoNV {
     pub semaphorePool: VkSemaphoreSciSyncPoolNV,
     pub pFence: *const NvSciSyncFence,
 }
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Send for VkSemaphoreSciSyncCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Sync for VkSemaphoreSciSyncCreateInfoNV {}
 #[cfg(feature = "VK_NV_external_sci_sync2")]
 impl VkSemaphoreSciSyncCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -80589,6 +86477,10 @@ pub struct VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV {
     pub semaphoreSciSyncPoolRequestCount: u32,
 }
 #[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Send for VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
+unsafe impl Sync for VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV {}
+#[cfg(feature = "VK_NV_external_sci_sync2")]
 impl VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_SEMAPHORE_SCI_SYNC_POOL_RESERVATION_CREATE_INFO_NV,
@@ -80632,6 +86524,10 @@ pub struct VkPipelineCoverageToColorStateCreateInfoNV {
     /// Optional: true
     pub coverageToColorLocation: u32,
 }
+#[cfg(feature = "VK_NV_fragment_coverage_to_color")]
+unsafe impl Send for VkPipelineCoverageToColorStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_fragment_coverage_to_color")]
+unsafe impl Sync for VkPipelineCoverageToColorStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_fragment_coverage_to_color")]
 impl VkPipelineCoverageToColorStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -80687,6 +86583,10 @@ pub struct VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV {
     pub noInvocationFragmentShadingRates: VkBool32,
 }
 #[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+unsafe impl Send for VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV {}
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV {}
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
 impl VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV,
@@ -80741,6 +86641,10 @@ pub struct VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV {
     pub maxFragmentShadingRateInvocationCount: VkSampleCountFlagBits,
 }
 #[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+unsafe impl Send for VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV {}
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+unsafe impl Sync for VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV {}
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
 impl VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV,
@@ -80785,6 +86689,10 @@ pub struct VkPipelineFragmentShadingRateEnumStateCreateInfoNV {
     /// No Auto-Validity
     pub combinerOps: [VkFragmentShadingRateCombinerOpKHR; 2],
 }
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+unsafe impl Send for VkPipelineFragmentShadingRateEnumStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+unsafe impl Sync for VkPipelineFragmentShadingRateEnumStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
 impl VkPipelineFragmentShadingRateEnumStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -80844,6 +86752,10 @@ pub struct VkPipelineCoverageModulationStateCreateInfoNV {
     /// Optional: true,  Length: coverageModulationTableCount,  No Auto-Validity
     pub pCoverageModulationTable: *const f32,
 }
+#[cfg(feature = "VK_NV_framebuffer_mixed_samples")]
+unsafe impl Send for VkPipelineCoverageModulationStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_framebuffer_mixed_samples")]
+unsafe impl Sync for VkPipelineCoverageModulationStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_framebuffer_mixed_samples")]
 impl VkPipelineCoverageModulationStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -80910,6 +86822,10 @@ pub struct VkPhysicalDeviceInheritedViewportScissorFeaturesNV {
     pub inheritedViewportScissor2D: VkBool32,
 }
 #[cfg(feature = "VK_NV_inherited_viewport_scissor")]
+unsafe impl Send for VkPhysicalDeviceInheritedViewportScissorFeaturesNV {}
+#[cfg(feature = "VK_NV_inherited_viewport_scissor")]
+unsafe impl Sync for VkPhysicalDeviceInheritedViewportScissorFeaturesNV {}
+#[cfg(feature = "VK_NV_inherited_viewport_scissor")]
 impl VkPhysicalDeviceInheritedViewportScissorFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV,
@@ -80949,6 +86865,10 @@ pub struct VkCommandBufferInheritanceViewportScissorInfoNV {
     /// No Auto-Validity
     pub pViewportDepths: *const VkViewport,
 }
+#[cfg(feature = "VK_NV_inherited_viewport_scissor")]
+unsafe impl Send for VkCommandBufferInheritanceViewportScissorInfoNV {}
+#[cfg(feature = "VK_NV_inherited_viewport_scissor")]
+unsafe impl Sync for VkCommandBufferInheritanceViewportScissorInfoNV {}
 #[cfg(feature = "VK_NV_inherited_viewport_scissor")]
 impl VkCommandBufferInheritanceViewportScissorInfoNV {
     pub const DEFAULT: Self = Self {
@@ -81002,6 +86922,10 @@ pub struct VkPhysicalDeviceLinearColorAttachmentFeaturesNV {
     pub linearColorAttachment: VkBool32,
 }
 #[cfg(feature = "VK_NV_linear_color_attachment")]
+unsafe impl Send for VkPhysicalDeviceLinearColorAttachmentFeaturesNV {}
+#[cfg(feature = "VK_NV_linear_color_attachment")]
+unsafe impl Sync for VkPhysicalDeviceLinearColorAttachmentFeaturesNV {}
+#[cfg(feature = "VK_NV_linear_color_attachment")]
 impl VkPhysicalDeviceLinearColorAttachmentFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType:
@@ -81039,6 +86963,10 @@ pub struct VkQueryLowLatencySupportNV {
     pub pNext: *const core::ffi::c_void,
     pub pQueriedLowLatencyData: *mut core::ffi::c_void,
 }
+#[cfg(feature = "VK_NV_low_latency")]
+unsafe impl Send for VkQueryLowLatencySupportNV {}
+#[cfg(feature = "VK_NV_low_latency")]
+unsafe impl Sync for VkQueryLowLatencySupportNV {}
 #[cfg(feature = "VK_NV_low_latency")]
 impl VkQueryLowLatencySupportNV {
     pub const DEFAULT: Self = Self {
@@ -81078,6 +87006,10 @@ pub struct VkLatencySleepModeInfoNV {
     pub lowLatencyBoost: VkBool32,
     pub minimumIntervalUs: u32,
 }
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkLatencySleepModeInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkLatencySleepModeInfoNV {}
 #[cfg(feature = "VK_NV_low_latency2")]
 impl VkLatencySleepModeInfoNV {
     pub const DEFAULT: Self = Self {
@@ -81127,6 +87059,10 @@ pub struct VkLatencySleepInfoNV {
     pub value: u64,
 }
 #[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkLatencySleepInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkLatencySleepInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
 impl VkLatencySleepInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SLEEP_INFO_NV,
@@ -81168,6 +87104,10 @@ pub struct VkSetLatencyMarkerInfoNV {
     pub presentID: u64,
     pub marker: VkLatencyMarkerNV,
 }
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkSetLatencyMarkerInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkSetLatencyMarkerInfoNV {}
 #[cfg(feature = "VK_NV_low_latency2")]
 impl VkSetLatencyMarkerInfoNV {
     pub const DEFAULT: Self = Self {
@@ -81212,6 +87152,10 @@ pub struct VkGetLatencyMarkerInfoNV {
     /// Optional: true,  Length: timingCount
     pub pTimings: *mut VkLatencyTimingsFrameReportNV,
 }
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkGetLatencyMarkerInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkGetLatencyMarkerInfoNV {}
 #[cfg(feature = "VK_NV_low_latency2")]
 impl VkGetLatencyMarkerInfoNV {
     pub const DEFAULT: Self = Self {
@@ -81270,6 +87214,10 @@ pub struct VkLatencyTimingsFrameReportNV {
     pub gpuRenderStartTimeUs: u64,
     pub gpuRenderEndTimeUs: u64,
 }
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkLatencyTimingsFrameReportNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkLatencyTimingsFrameReportNV {}
 #[cfg(feature = "VK_NV_low_latency2")]
 impl VkLatencyTimingsFrameReportNV {
     pub const DEFAULT: Self = Self {
@@ -81384,6 +87332,10 @@ pub struct VkOutOfBandQueueTypeInfoNV {
     pub queueType: VkOutOfBandQueueTypeNV,
 }
 #[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkOutOfBandQueueTypeInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkOutOfBandQueueTypeInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
 impl VkOutOfBandQueueTypeInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_OUT_OF_BAND_QUEUE_TYPE_INFO_NV,
@@ -81420,6 +87372,10 @@ pub struct VkLatencySubmissionPresentIdNV {
     pub pNext: *const core::ffi::c_void,
     pub presentID: u64,
 }
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkLatencySubmissionPresentIdNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkLatencySubmissionPresentIdNV {}
 #[cfg(feature = "VK_NV_low_latency2")]
 impl VkLatencySubmissionPresentIdNV {
     pub const DEFAULT: Self = Self {
@@ -81458,6 +87414,10 @@ pub struct VkSwapchainLatencyCreateInfoNV {
     /// Optional: true
     pub latencyModeEnable: VkBool32,
 }
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkSwapchainLatencyCreateInfoNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkSwapchainLatencyCreateInfoNV {}
 #[cfg(feature = "VK_NV_low_latency2")]
 impl VkSwapchainLatencyCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -81498,6 +87458,10 @@ pub struct VkLatencySurfaceCapabilitiesNV {
     /// Optional: true,  Length: presentModeCount
     pub pPresentModes: *mut VkPresentModeKHR,
 }
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Send for VkLatencySurfaceCapabilitiesNV {}
+#[cfg(feature = "VK_NV_low_latency2")]
+unsafe impl Sync for VkLatencySurfaceCapabilitiesNV {}
 #[cfg(feature = "VK_NV_low_latency2")]
 impl VkLatencySurfaceCapabilitiesNV {
     pub const DEFAULT: Self = Self {
@@ -81549,6 +87513,10 @@ pub struct VkDecompressMemoryRegionNV {
     pub decompressedSize: VkDeviceSize,
     pub decompressionMethod: VkMemoryDecompressionMethodFlagsNV,
 }
+#[cfg(feature = "VK_NV_memory_decompression")]
+unsafe impl Send for VkDecompressMemoryRegionNV {}
+#[cfg(feature = "VK_NV_memory_decompression")]
+unsafe impl Sync for VkDecompressMemoryRegionNV {}
 #[cfg(feature = "VK_NV_memory_decompression")]
 impl VkDecompressMemoryRegionNV {
     pub const DEFAULT: Self = Self {
@@ -81605,6 +87573,10 @@ pub struct VkPhysicalDeviceMeshShaderFeaturesNV {
     pub taskShader: VkBool32,
     pub meshShader: VkBool32,
 }
+#[cfg(feature = "VK_NV_mesh_shader")]
+unsafe impl Send for VkPhysicalDeviceMeshShaderFeaturesNV {}
+#[cfg(feature = "VK_NV_mesh_shader")]
+unsafe impl Sync for VkPhysicalDeviceMeshShaderFeaturesNV {}
 #[cfg(feature = "VK_NV_mesh_shader")]
 impl VkPhysicalDeviceMeshShaderFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -81677,6 +87649,10 @@ pub struct VkPhysicalDeviceMeshShaderPropertiesNV {
     /// Limit Type: [Min, Mul]
     pub meshOutputPerPrimitiveGranularity: u32,
 }
+#[cfg(feature = "VK_NV_mesh_shader")]
+unsafe impl Send for VkPhysicalDeviceMeshShaderPropertiesNV {}
+#[cfg(feature = "VK_NV_mesh_shader")]
+unsafe impl Sync for VkPhysicalDeviceMeshShaderPropertiesNV {}
 #[cfg(feature = "VK_NV_mesh_shader")]
 impl VkPhysicalDeviceMeshShaderPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -81782,6 +87758,10 @@ pub struct VkDrawMeshTasksIndirectCommandNV {
     pub firstTask: u32,
 }
 #[cfg(feature = "VK_NV_mesh_shader")]
+unsafe impl Send for VkDrawMeshTasksIndirectCommandNV {}
+#[cfg(feature = "VK_NV_mesh_shader")]
+unsafe impl Sync for VkDrawMeshTasksIndirectCommandNV {}
+#[cfg(feature = "VK_NV_mesh_shader")]
 impl VkDrawMeshTasksIndirectCommandNV {
     pub const DEFAULT: Self = Self {
         taskCount: 0,
@@ -81830,6 +87810,10 @@ impl Default for VkOpticalFlowSessionNV {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkOpticalFlowSessionNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkOpticalFlowSessionNV {}
 /// [VkPhysicalDeviceOpticalFlowFeaturesNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpticalFlowFeaturesNV.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -81843,6 +87827,10 @@ pub struct VkPhysicalDeviceOpticalFlowFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub opticalFlow: VkBool32,
 }
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkPhysicalDeviceOpticalFlowFeaturesNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkPhysicalDeviceOpticalFlowFeaturesNV {}
 #[cfg(feature = "VK_NV_optical_flow")]
 impl VkPhysicalDeviceOpticalFlowFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -81905,6 +87893,10 @@ pub struct VkPhysicalDeviceOpticalFlowPropertiesNV {
     /// Limit Type: [Noauto]
     pub maxNumRegionsOfInterest: u32,
 }
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkPhysicalDeviceOpticalFlowPropertiesNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkPhysicalDeviceOpticalFlowPropertiesNV {}
 #[cfg(feature = "VK_NV_optical_flow")]
 impl VkPhysicalDeviceOpticalFlowPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -82006,6 +87998,10 @@ pub struct VkOpticalFlowImageFormatInfoNV {
     pub usage: VkOpticalFlowUsageFlagsNV,
 }
 #[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkOpticalFlowImageFormatInfoNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkOpticalFlowImageFormatInfoNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
 impl VkOpticalFlowImageFormatInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV,
@@ -82042,6 +88038,10 @@ pub struct VkOpticalFlowImageFormatPropertiesNV {
     pub pNext: *mut core::ffi::c_void,
     pub format: VkFormat,
 }
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkOpticalFlowImageFormatPropertiesNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkOpticalFlowImageFormatPropertiesNV {}
 #[cfg(feature = "VK_NV_optical_flow")]
 impl VkOpticalFlowImageFormatPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -82089,6 +88089,10 @@ pub struct VkOpticalFlowSessionCreateInfoNV {
     /// Optional: true
     pub flags: VkOpticalFlowSessionCreateFlagsNV,
 }
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkOpticalFlowSessionCreateInfoNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkOpticalFlowSessionCreateInfoNV {}
 #[cfg(feature = "VK_NV_optical_flow")]
 impl VkOpticalFlowSessionCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -82177,6 +88181,10 @@ pub struct VkOpticalFlowSessionCreatePrivateDataInfoNV {
     pub pPrivateData: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkOpticalFlowSessionCreatePrivateDataInfoNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkOpticalFlowSessionCreatePrivateDataInfoNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
 impl VkOpticalFlowSessionCreatePrivateDataInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV,
@@ -82230,6 +88238,10 @@ pub struct VkOpticalFlowExecuteInfoNV {
     /// Length: regionCount
     pub pRegions: *const VkRect2D,
 }
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Send for VkOpticalFlowExecuteInfoNV {}
+#[cfg(feature = "VK_NV_optical_flow")]
+unsafe impl Sync for VkOpticalFlowExecuteInfoNV {}
 #[cfg(feature = "VK_NV_optical_flow")]
 impl VkOpticalFlowExecuteInfoNV {
     pub const DEFAULT: Self = Self {
@@ -82285,6 +88297,10 @@ pub struct VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV {
     pub partitionedAccelerationStructure: VkBool32,
 }
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV,
@@ -82327,6 +88343,10 @@ pub struct VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV {
     pub maxPartitionCount: u32,
 }
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV,
@@ -82359,6 +88379,10 @@ pub struct VkBuildPartitionedAccelerationStructureIndirectCommandNV {
     pub argCount: u32,
     pub argData: VkStridedDeviceAddressNV,
 }
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkBuildPartitionedAccelerationStructureIndirectCommandNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkBuildPartitionedAccelerationStructureIndirectCommandNV {}
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkBuildPartitionedAccelerationStructureIndirectCommandNV {
     pub const DEFAULT: Self = Self {
@@ -82400,6 +88424,10 @@ pub struct VkPartitionedAccelerationStructureFlagsNV {
     pub enablePartitionTranslation: VkBool32,
 }
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkPartitionedAccelerationStructureFlagsNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkPartitionedAccelerationStructureFlagsNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkPartitionedAccelerationStructureFlagsNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV,
@@ -82439,6 +88467,10 @@ pub struct VkPartitionedAccelerationStructureWriteInstanceDataNV {
     pub partitionIndex: u32,
     pub accelerationStructure: VkDeviceAddress,
 }
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkPartitionedAccelerationStructureWriteInstanceDataNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkPartitionedAccelerationStructureWriteInstanceDataNV {}
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkPartitionedAccelerationStructureWriteInstanceDataNV {
     pub const DEFAULT: Self = Self {
@@ -82515,6 +88547,10 @@ pub struct VkPartitionedAccelerationStructureUpdateInstanceDataNV {
     pub accelerationStructure: VkDeviceAddress,
 }
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkPartitionedAccelerationStructureUpdateInstanceDataNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkPartitionedAccelerationStructureUpdateInstanceDataNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkPartitionedAccelerationStructureUpdateInstanceDataNV {
     pub const DEFAULT: Self = Self {
         instanceIndex: 0,
@@ -82549,6 +88585,10 @@ pub struct VkPartitionedAccelerationStructureWritePartitionTranslationDataNV {
     pub partitionIndex: u32,
     pub partitionTranslation: [f32; 3],
 }
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkPartitionedAccelerationStructureWritePartitionTranslationDataNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkPartitionedAccelerationStructureWritePartitionTranslationDataNV {}
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkPartitionedAccelerationStructureWritePartitionTranslationDataNV {
     pub const DEFAULT: Self = Self {
@@ -82585,6 +88625,10 @@ pub struct VkWriteDescriptorSetPartitionedAccelerationStructureNV {
     /// Optional: pointer required, values optional if pointer not null,  Length: accelerationStructureCount
     pub pAccelerationStructures: *const VkDeviceAddress,
 }
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkWriteDescriptorSetPartitionedAccelerationStructureNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkWriteDescriptorSetPartitionedAccelerationStructureNV {}
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkWriteDescriptorSetPartitionedAccelerationStructureNV {
     pub const DEFAULT: Self = Self {
@@ -82633,6 +88677,10 @@ pub struct VkPartitionedAccelerationStructureInstancesInputNV {
     pub partitionCount: u32,
     pub maxInstanceInGlobalPartitionCount: u32,
 }
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkPartitionedAccelerationStructureInstancesInputNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkPartitionedAccelerationStructureInstancesInputNV {}
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkPartitionedAccelerationStructureInstancesInputNV {
     pub const DEFAULT: Self = Self {
@@ -82700,6 +88748,10 @@ pub struct VkBuildPartitionedAccelerationStructureInfoNV {
     pub srcInfos: VkDeviceAddress,
     pub srcInfosCount: VkDeviceAddress,
 }
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Send for VkBuildPartitionedAccelerationStructureInfoNV {}
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+unsafe impl Sync for VkBuildPartitionedAccelerationStructureInfoNV {}
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 impl VkBuildPartitionedAccelerationStructureInfoNV {
     pub const DEFAULT: Self = Self {
@@ -82772,6 +88824,10 @@ pub struct VkPhysicalDevicePerStageDescriptorSetFeaturesNV {
     pub dynamicPipelineLayout: VkBool32,
 }
 #[cfg(feature = "VK_NV_per_stage_descriptor_set")]
+unsafe impl Send for VkPhysicalDevicePerStageDescriptorSetFeaturesNV {}
+#[cfg(feature = "VK_NV_per_stage_descriptor_set")]
+unsafe impl Sync for VkPhysicalDevicePerStageDescriptorSetFeaturesNV {}
+#[cfg(feature = "VK_NV_per_stage_descriptor_set")]
 impl VkPhysicalDevicePerStageDescriptorSetFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType:
@@ -82816,6 +88872,10 @@ pub struct VkPhysicalDevicePresentBarrierFeaturesNV {
     pub presentBarrier: VkBool32,
 }
 #[cfg(feature = "VK_NV_present_barrier")]
+unsafe impl Send for VkPhysicalDevicePresentBarrierFeaturesNV {}
+#[cfg(feature = "VK_NV_present_barrier")]
+unsafe impl Sync for VkPhysicalDevicePresentBarrierFeaturesNV {}
+#[cfg(feature = "VK_NV_present_barrier")]
 impl VkPhysicalDevicePresentBarrierFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV,
@@ -82855,6 +88915,10 @@ pub struct VkSurfaceCapabilitiesPresentBarrierNV {
     pub presentBarrierSupported: VkBool32,
 }
 #[cfg(feature = "VK_NV_present_barrier")]
+unsafe impl Send for VkSurfaceCapabilitiesPresentBarrierNV {}
+#[cfg(feature = "VK_NV_present_barrier")]
+unsafe impl Sync for VkSurfaceCapabilitiesPresentBarrierNV {}
+#[cfg(feature = "VK_NV_present_barrier")]
 impl VkSurfaceCapabilitiesPresentBarrierNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV,
@@ -82891,6 +88955,10 @@ pub struct VkSwapchainPresentBarrierCreateInfoNV {
     pub pNext: *mut core::ffi::c_void,
     pub presentBarrierEnable: VkBool32,
 }
+#[cfg(feature = "VK_NV_present_barrier")]
+unsafe impl Send for VkSwapchainPresentBarrierCreateInfoNV {}
+#[cfg(feature = "VK_NV_present_barrier")]
+unsafe impl Sync for VkSwapchainPresentBarrierCreateInfoNV {}
 #[cfg(feature = "VK_NV_present_barrier")]
 impl VkSwapchainPresentBarrierCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -82929,6 +88997,10 @@ pub struct VkSetPresentConfigNV {
     pub numFramesPerBatch: u32,
     pub presentConfigFeedback: u32,
 }
+#[cfg(feature = "VK_NV_present_metering")]
+unsafe impl Send for VkSetPresentConfigNV {}
+#[cfg(feature = "VK_NV_present_metering")]
+unsafe impl Sync for VkSetPresentConfigNV {}
 #[cfg(feature = "VK_NV_present_metering")]
 impl VkSetPresentConfigNV {
     pub const DEFAULT: Self = Self {
@@ -82973,6 +89045,10 @@ pub struct VkPhysicalDevicePresentMeteringFeaturesNV {
     pub presentMetering: VkBool32,
 }
 #[cfg(feature = "VK_NV_present_metering")]
+unsafe impl Send for VkPhysicalDevicePresentMeteringFeaturesNV {}
+#[cfg(feature = "VK_NV_present_metering")]
+unsafe impl Sync for VkPhysicalDevicePresentMeteringFeaturesNV {}
+#[cfg(feature = "VK_NV_present_metering")]
 impl VkPhysicalDevicePresentMeteringFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV,
@@ -83010,6 +89086,10 @@ pub struct VkPushConstantBankInfoNV {
     pub bank: u32,
 }
 #[cfg(feature = "VK_NV_push_constant_bank")]
+unsafe impl Send for VkPushConstantBankInfoNV {}
+#[cfg(feature = "VK_NV_push_constant_bank")]
+unsafe impl Sync for VkPushConstantBankInfoNV {}
+#[cfg(feature = "VK_NV_push_constant_bank")]
 impl VkPushConstantBankInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANT_BANK_INFO_NV,
@@ -83046,6 +89126,10 @@ pub struct VkPhysicalDevicePushConstantBankFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub pushConstantBank: VkBool32,
 }
+#[cfg(feature = "VK_NV_push_constant_bank")]
+unsafe impl Send for VkPhysicalDevicePushConstantBankFeaturesNV {}
+#[cfg(feature = "VK_NV_push_constant_bank")]
+unsafe impl Sync for VkPhysicalDevicePushConstantBankFeaturesNV {}
 #[cfg(feature = "VK_NV_push_constant_bank")]
 impl VkPhysicalDevicePushConstantBankFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -83094,6 +89178,10 @@ pub struct VkPhysicalDevicePushConstantBankPropertiesNV {
     /// Limit Type: [Max]
     pub maxComputePushDataBanks: u32,
 }
+#[cfg(feature = "VK_NV_push_constant_bank")]
+unsafe impl Send for VkPhysicalDevicePushConstantBankPropertiesNV {}
+#[cfg(feature = "VK_NV_push_constant_bank")]
+unsafe impl Sync for VkPhysicalDevicePushConstantBankPropertiesNV {}
 #[cfg(feature = "VK_NV_push_constant_bank")]
 impl VkPhysicalDevicePushConstantBankPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -83150,6 +89238,10 @@ pub struct VkPhysicalDeviceRawAccessChainsFeaturesNV {
     pub shaderRawAccessChains: VkBool32,
 }
 #[cfg(feature = "VK_NV_raw_access_chains")]
+unsafe impl Send for VkPhysicalDeviceRawAccessChainsFeaturesNV {}
+#[cfg(feature = "VK_NV_raw_access_chains")]
+unsafe impl Sync for VkPhysicalDeviceRawAccessChainsFeaturesNV {}
+#[cfg(feature = "VK_NV_raw_access_chains")]
 impl VkPhysicalDeviceRawAccessChainsFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV,
@@ -83195,6 +89287,10 @@ impl Default for VkAccelerationStructureNV {
         Self::NULL
     }
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkAccelerationStructureNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkAccelerationStructureNV {}
 /// [VkRayTracingShaderGroupCreateInfoNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkRayTracingShaderGroupCreateInfoNV.html)
 #[cfg(feature = "VK_NV_ray_tracing")]
 #[repr(C)]
@@ -83210,6 +89306,10 @@ pub struct VkRayTracingShaderGroupCreateInfoNV {
     pub anyHitShader: u32,
     pub intersectionShader: u32,
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkRayTracingShaderGroupCreateInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkRayTracingShaderGroupCreateInfoNV {}
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl VkRayTracingShaderGroupCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -83282,6 +89382,10 @@ pub struct VkRayTracingPipelineCreateInfoNV {
     pub basePipelineHandle: VkPipeline,
     pub basePipelineIndex: i32,
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkRayTracingPipelineCreateInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkRayTracingPipelineCreateInfoNV {}
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl VkRayTracingPipelineCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -83383,6 +89487,10 @@ pub struct VkGeometryTrianglesNV {
     pub transformOffset: VkDeviceSize,
 }
 #[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkGeometryTrianglesNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkGeometryTrianglesNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
 impl VkGeometryTrianglesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_GEOMETRY_TRIANGLES_NV,
@@ -83482,6 +89590,10 @@ pub struct VkGeometryAABBNV {
     pub offset: VkDeviceSize,
 }
 #[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkGeometryAABBNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkGeometryAABBNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
 impl VkGeometryAABBNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_GEOMETRY_AABB_NV,
@@ -83532,6 +89644,10 @@ pub struct VkGeometryDataNV {
     pub aabbs: VkGeometryAABBNV,
 }
 #[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkGeometryDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkGeometryDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
 impl VkGeometryDataNV {
     pub const DEFAULT: Self = Self {
         triangles: VkGeometryTrianglesNV::DEFAULT,
@@ -83566,6 +89682,10 @@ pub struct VkGeometryNV {
     /// Optional: true
     pub flags: VkGeometryFlagsKHR,
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkGeometryNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkGeometryNV {}
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl VkGeometryNV {
     pub const DEFAULT: Self = Self {
@@ -83621,6 +89741,10 @@ pub struct VkAccelerationStructureInfoNV {
     /// Length: geometryCount
     pub pGeometries: *const VkGeometryNV,
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkAccelerationStructureInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkAccelerationStructureInfoNV {}
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl VkAccelerationStructureInfoNV {
     pub const DEFAULT: Self = Self {
@@ -83684,6 +89808,10 @@ pub struct VkAccelerationStructureCreateInfoNV {
     pub info: VkAccelerationStructureInfoNV,
 }
 #[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkAccelerationStructureCreateInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkAccelerationStructureCreateInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
 impl VkAccelerationStructureCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_NV,
@@ -83730,6 +89858,10 @@ pub struct VkBindAccelerationStructureMemoryInfoNV {
     /// Length: deviceIndexCount
     pub pDeviceIndices: *const u32,
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkBindAccelerationStructureMemoryInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkBindAccelerationStructureMemoryInfoNV {}
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl VkBindAccelerationStructureMemoryInfoNV {
     pub const DEFAULT: Self = Self {
@@ -83796,6 +89928,10 @@ pub struct VkWriteDescriptorSetAccelerationStructureNV {
     pub pAccelerationStructures: *const VkAccelerationStructureNV,
 }
 #[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkWriteDescriptorSetAccelerationStructureNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkWriteDescriptorSetAccelerationStructureNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
 impl VkWriteDescriptorSetAccelerationStructureNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV,
@@ -83842,6 +89978,10 @@ pub struct VkAccelerationStructureMemoryRequirementsInfoNV {
     pub type_: VkAccelerationStructureMemoryRequirementsTypeNV,
     pub accelerationStructure: VkAccelerationStructureNV,
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkAccelerationStructureMemoryRequirementsInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkAccelerationStructureMemoryRequirementsInfoNV {}
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl VkAccelerationStructureMemoryRequirementsInfoNV {
     pub const DEFAULT: Self = Self {
@@ -83905,6 +90045,10 @@ pub struct VkPhysicalDeviceRayTracingPropertiesNV {
     /// Limit Type: [Max]
     pub maxDescriptorSetAccelerationStructures: u32,
 }
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Send for VkPhysicalDeviceRayTracingPropertiesNV {}
+#[cfg(feature = "VK_NV_ray_tracing")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingPropertiesNV {}
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl VkPhysicalDeviceRayTracingPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -83991,6 +90135,10 @@ pub struct VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV {
     pub rayTracingInvocationReorder: VkBool32,
 }
 #[cfg(feature = "VK_NV_ray_tracing_invocation_reorder")]
+unsafe impl Send for VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_invocation_reorder")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_invocation_reorder")]
 impl VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV,
@@ -84032,6 +90180,10 @@ pub struct VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {
     /// Limit Type: [Noauto]
     pub rayTracingInvocationReorderReorderingHint: VkRayTracingInvocationReorderModeEXT,
 }
+#[cfg(feature = "VK_NV_ray_tracing_invocation_reorder")]
+unsafe impl Send for VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_invocation_reorder")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {}
 #[cfg(feature = "VK_NV_ray_tracing_invocation_reorder")]
 impl VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV {
     pub const DEFAULT: Self = Self {
@@ -84084,6 +90236,10 @@ pub struct VkAccelerationStructureGeometryLinearSweptSpheresDataNV {
     pub indexingMode: VkRayTracingLssIndexingModeNV,
     pub endCapsMode: VkRayTracingLssPrimitiveEndCapsModeNV,
 }
+#[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
+unsafe impl Send for VkAccelerationStructureGeometryLinearSweptSpheresDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
+unsafe impl Sync for VkAccelerationStructureGeometryLinearSweptSpheresDataNV {}
 #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
 impl VkAccelerationStructureGeometryLinearSweptSpheresDataNV {
     pub const DEFAULT: Self = Self {
@@ -84190,6 +90346,10 @@ pub struct VkAccelerationStructureGeometrySpheresDataNV {
     pub indexStride: VkDeviceSize,
 }
 #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
+unsafe impl Send for VkAccelerationStructureGeometrySpheresDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
+unsafe impl Sync for VkAccelerationStructureGeometrySpheresDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
 impl VkAccelerationStructureGeometrySpheresDataNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV,
@@ -84276,6 +90436,10 @@ pub struct VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV {
     pub linearSweptSpheres: VkBool32,
 }
 #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
+unsafe impl Send for VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
 impl VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV,
@@ -84326,6 +90490,10 @@ pub struct VkPhysicalDeviceRayTracingMotionBlurFeaturesNV {
     pub rayTracingMotionBlurPipelineTraceRaysIndirect: VkBool32,
 }
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkPhysicalDeviceRayTracingMotionBlurFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingMotionBlurFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkPhysicalDeviceRayTracingMotionBlurFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType:
@@ -84374,6 +90542,10 @@ pub struct VkAccelerationStructureGeometryMotionTrianglesDataNV {
     pub vertexData: VkDeviceOrHostAddressConstKHR,
 }
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkAccelerationStructureGeometryMotionTrianglesDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkAccelerationStructureGeometryMotionTrianglesDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkAccelerationStructureGeometryMotionTrianglesDataNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV,
@@ -84412,6 +90584,10 @@ pub struct VkAccelerationStructureMotionInfoNV {
     /// Optional: true
     pub flags: VkAccelerationStructureMotionInfoFlagsNV,
 }
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkAccelerationStructureMotionInfoNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkAccelerationStructureMotionInfoNV {}
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkAccelerationStructureMotionInfoNV {
     pub const DEFAULT: Self = Self {
@@ -84464,6 +90640,10 @@ pub struct VkSRTDataNV {
     pub ty: f32,
     pub tz: f32,
 }
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkSRTDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkSRTDataNV {}
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkSRTDataNV {
     pub const DEFAULT: Self = Self {
@@ -84584,6 +90764,10 @@ pub struct VkAccelerationStructureSRTMotionInstanceNV {
     pub accelerationStructureReference: u64,
 }
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkAccelerationStructureSRTMotionInstanceNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkAccelerationStructureSRTMotionInstanceNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkAccelerationStructureSRTMotionInstanceNV {
     pub const DEFAULT: Self = Self {
         transformT0: VkSRTDataNV::DEFAULT,
@@ -84649,6 +90833,10 @@ pub struct VkAccelerationStructureMatrixMotionInstanceNV {
     pub accelerationStructureReference: u64,
 }
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkAccelerationStructureMatrixMotionInstanceNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkAccelerationStructureMatrixMotionInstanceNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkAccelerationStructureMatrixMotionInstanceNV {
     pub const DEFAULT: Self = Self {
         transformT0: VkTransformMatrixKHR::DEFAULT,
@@ -84709,6 +90897,10 @@ pub union VkAccelerationStructureMotionInstanceDataNV {
     pub srtMotionInstance: VkAccelerationStructureSRTMotionInstanceNV,
 }
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkAccelerationStructureMotionInstanceDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkAccelerationStructureMotionInstanceDataNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkAccelerationStructureMotionInstanceDataNV {
     pub const DEFAULT: Self = unsafe {
         Self {
@@ -84738,6 +90930,10 @@ pub struct VkAccelerationStructureMotionInstanceNV {
     pub flags: VkAccelerationStructureMotionInstanceFlagsNV,
     pub data: VkAccelerationStructureMotionInstanceDataNV,
 }
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Send for VkAccelerationStructureMotionInstanceNV {}
+#[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
+unsafe impl Sync for VkAccelerationStructureMotionInstanceNV {}
 #[cfg(feature = "VK_NV_ray_tracing_motion_blur")]
 impl VkAccelerationStructureMotionInstanceNV {
     pub const DEFAULT: Self = Self {
@@ -84779,6 +90975,10 @@ pub struct VkPhysicalDeviceRayTracingValidationFeaturesNV {
     pub rayTracingValidation: VkBool32,
 }
 #[cfg(feature = "VK_NV_ray_tracing_validation")]
+unsafe impl Send for VkPhysicalDeviceRayTracingValidationFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_validation")]
+unsafe impl Sync for VkPhysicalDeviceRayTracingValidationFeaturesNV {}
+#[cfg(feature = "VK_NV_ray_tracing_validation")]
 impl VkPhysicalDeviceRayTracingValidationFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType:
@@ -84817,6 +91017,10 @@ pub struct VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV {
     pub representativeFragmentTest: VkBool32,
 }
 #[cfg(feature = "VK_NV_representative_fragment_test")]
+unsafe impl Send for VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV {}
+#[cfg(feature = "VK_NV_representative_fragment_test")]
+unsafe impl Sync for VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV {}
+#[cfg(feature = "VK_NV_representative_fragment_test")]
 impl VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV,
@@ -84854,6 +91058,10 @@ pub struct VkPipelineRepresentativeFragmentTestStateCreateInfoNV {
     pub representativeFragmentTestEnable: VkBool32,
 }
 #[cfg(feature = "VK_NV_representative_fragment_test")]
+unsafe impl Send for VkPipelineRepresentativeFragmentTestStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_representative_fragment_test")]
+unsafe impl Sync for VkPipelineRepresentativeFragmentTestStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_representative_fragment_test")]
 impl VkPipelineRepresentativeFragmentTestStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV,
@@ -84890,6 +91098,10 @@ pub struct VkPhysicalDeviceExclusiveScissorFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub exclusiveScissor: VkBool32,
 }
+#[cfg(feature = "VK_NV_scissor_exclusive")]
+unsafe impl Send for VkPhysicalDeviceExclusiveScissorFeaturesNV {}
+#[cfg(feature = "VK_NV_scissor_exclusive")]
+unsafe impl Sync for VkPhysicalDeviceExclusiveScissorFeaturesNV {}
 #[cfg(feature = "VK_NV_scissor_exclusive")]
 impl VkPhysicalDeviceExclusiveScissorFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -84930,6 +91142,10 @@ pub struct VkPipelineViewportExclusiveScissorStateCreateInfoNV {
     /// Length: exclusiveScissorCount,  No Auto-Validity
     pub pExclusiveScissors: *const VkRect2D,
 }
+#[cfg(feature = "VK_NV_scissor_exclusive")]
+unsafe impl Send for VkPipelineViewportExclusiveScissorStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_scissor_exclusive")]
+unsafe impl Sync for VkPipelineViewportExclusiveScissorStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_scissor_exclusive")]
 impl VkPipelineViewportExclusiveScissorStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -84976,6 +91192,10 @@ pub struct VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV {
     pub shaderFloat16VectorAtomics: VkBool32,
 }
 #[cfg(feature = "VK_NV_shader_atomic_float16_vector")]
+unsafe impl Send for VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV {}
+#[cfg(feature = "VK_NV_shader_atomic_float16_vector")]
+unsafe impl Sync for VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV {}
+#[cfg(feature = "VK_NV_shader_atomic_float16_vector")]
 impl VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV,
@@ -85012,6 +91232,10 @@ pub struct VkPhysicalDeviceShaderImageFootprintFeaturesNV {
     pub pNext: *mut core::ffi::c_void,
     pub imageFootprint: VkBool32,
 }
+#[cfg(feature = "VK_NV_shader_image_footprint")]
+unsafe impl Send for VkPhysicalDeviceShaderImageFootprintFeaturesNV {}
+#[cfg(feature = "VK_NV_shader_image_footprint")]
+unsafe impl Sync for VkPhysicalDeviceShaderImageFootprintFeaturesNV {}
 #[cfg(feature = "VK_NV_shader_image_footprint")]
 impl VkPhysicalDeviceShaderImageFootprintFeaturesNV {
     pub const DEFAULT: Self = Self {
@@ -85058,6 +91282,10 @@ pub struct VkPhysicalDeviceShaderSMBuiltinsPropertiesNV {
     pub shaderWarpsPerSM: u32,
 }
 #[cfg(feature = "VK_NV_shader_sm_builtins")]
+unsafe impl Send for VkPhysicalDeviceShaderSMBuiltinsPropertiesNV {}
+#[cfg(feature = "VK_NV_shader_sm_builtins")]
+unsafe impl Sync for VkPhysicalDeviceShaderSMBuiltinsPropertiesNV {}
+#[cfg(feature = "VK_NV_shader_sm_builtins")]
 impl VkPhysicalDeviceShaderSMBuiltinsPropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV,
@@ -85101,6 +91329,10 @@ pub struct VkPhysicalDeviceShaderSMBuiltinsFeaturesNV {
     pub shaderSMBuiltins: VkBool32,
 }
 #[cfg(feature = "VK_NV_shader_sm_builtins")]
+unsafe impl Send for VkPhysicalDeviceShaderSMBuiltinsFeaturesNV {}
+#[cfg(feature = "VK_NV_shader_sm_builtins")]
+unsafe impl Sync for VkPhysicalDeviceShaderSMBuiltinsFeaturesNV {}
+#[cfg(feature = "VK_NV_shader_sm_builtins")]
 impl VkPhysicalDeviceShaderSMBuiltinsFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV,
@@ -85133,6 +91365,10 @@ pub struct VkShadingRatePaletteNV {
     /// Length: shadingRatePaletteEntryCount
     pub pShadingRatePaletteEntries: *const VkShadingRatePaletteEntryNV,
 }
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Send for VkShadingRatePaletteNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Sync for VkShadingRatePaletteNV {}
 #[cfg(feature = "VK_NV_shading_rate_image")]
 impl VkShadingRatePaletteNV {
     pub const DEFAULT: Self = Self {
@@ -85176,6 +91412,10 @@ pub struct VkPipelineViewportShadingRateImageStateCreateInfoNV {
     /// Length: viewportCount,  No Auto-Validity
     pub pShadingRatePalettes: *const VkShadingRatePaletteNV,
 }
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Send for VkPipelineViewportShadingRateImageStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Sync for VkPipelineViewportShadingRateImageStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_shading_rate_image")]
 impl VkPipelineViewportShadingRateImageStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -85229,6 +91469,10 @@ pub struct VkPhysicalDeviceShadingRateImageFeaturesNV {
     pub shadingRateCoarseSampleOrder: VkBool32,
 }
 #[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Send for VkPhysicalDeviceShadingRateImageFeaturesNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Sync for VkPhysicalDeviceShadingRateImageFeaturesNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
 impl VkPhysicalDeviceShadingRateImageFeaturesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV,
@@ -85281,6 +91525,10 @@ pub struct VkPhysicalDeviceShadingRateImagePropertiesNV {
     pub shadingRateMaxCoarseSamples: u32,
 }
 #[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Send for VkPhysicalDeviceShadingRateImagePropertiesNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Sync for VkPhysicalDeviceShadingRateImagePropertiesNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
 impl VkPhysicalDeviceShadingRateImagePropertiesNV {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV,
@@ -85326,6 +91574,10 @@ pub struct VkCoarseSampleLocationNV {
     pub sample: u32,
 }
 #[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Send for VkCoarseSampleLocationNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Sync for VkCoarseSampleLocationNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
 impl VkCoarseSampleLocationNV {
     pub const DEFAULT: Self = Self {
         pixelX: 0,
@@ -85363,6 +91615,10 @@ pub struct VkCoarseSampleOrderCustomNV {
     /// Length: sampleLocationCount
     pub pSampleLocations: *const VkCoarseSampleLocationNV,
 }
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Send for VkCoarseSampleOrderCustomNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Sync for VkCoarseSampleOrderCustomNV {}
 #[cfg(feature = "VK_NV_shading_rate_image")]
 impl VkCoarseSampleOrderCustomNV {
     pub const DEFAULT: Self = Self {
@@ -85415,6 +91671,10 @@ pub struct VkPipelineViewportCoarseSampleOrderStateCreateInfoNV {
     /// Length: customSampleOrderCount
     pub pCustomSampleOrders: *const VkCoarseSampleOrderCustomNV,
 }
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Send for VkPipelineViewportCoarseSampleOrderStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_shading_rate_image")]
+unsafe impl Sync for VkPipelineViewportCoarseSampleOrderStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_shading_rate_image")]
 impl VkPipelineViewportCoarseSampleOrderStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -85470,6 +91730,10 @@ pub struct VkViewportSwizzleNV {
     pub w: VkViewportCoordinateSwizzleNV,
 }
 #[cfg(feature = "VK_NV_viewport_swizzle")]
+unsafe impl Send for VkViewportSwizzleNV {}
+#[cfg(feature = "VK_NV_viewport_swizzle")]
+unsafe impl Sync for VkViewportSwizzleNV {}
+#[cfg(feature = "VK_NV_viewport_swizzle")]
 impl VkViewportSwizzleNV {
     pub const DEFAULT: Self = Self {
         x: VkViewportCoordinateSwizzleNV(0),
@@ -85519,6 +91783,10 @@ pub struct VkPipelineViewportSwizzleStateCreateInfoNV {
     /// Length: viewportCount
     pub pViewportSwizzles: *const VkViewportSwizzleNV,
 }
+#[cfg(feature = "VK_NV_viewport_swizzle")]
+unsafe impl Send for VkPipelineViewportSwizzleStateCreateInfoNV {}
+#[cfg(feature = "VK_NV_viewport_swizzle")]
+unsafe impl Sync for VkPipelineViewportSwizzleStateCreateInfoNV {}
 #[cfg(feature = "VK_NV_viewport_swizzle")]
 impl VkPipelineViewportSwizzleStateCreateInfoNV {
     pub const DEFAULT: Self = Self {
@@ -85583,6 +91851,10 @@ pub struct VkWin32KeyedMutexAcquireReleaseInfoNV {
     /// Length: releaseCount
     pub pReleaseKeys: *const u64,
 }
+#[cfg(feature = "VK_NV_win32_keyed_mutex")]
+unsafe impl Send for VkWin32KeyedMutexAcquireReleaseInfoNV {}
+#[cfg(feature = "VK_NV_win32_keyed_mutex")]
+unsafe impl Sync for VkWin32KeyedMutexAcquireReleaseInfoNV {}
 #[cfg(feature = "VK_NV_win32_keyed_mutex")]
 impl VkWin32KeyedMutexAcquireReleaseInfoNV {
     pub const DEFAULT: Self = Self {
@@ -85663,6 +91935,10 @@ pub struct OH_NativeBuffer(pub *mut core::ffi::c_void);
 impl OH_NativeBuffer {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Send for OH_NativeBuffer {}
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Sync for OH_NativeBuffer {}
 /// [VkNativeBufferUsageOHOS](https://docs.vulkan.org/refpages/latest/refpages/source/VkNativeBufferUsageOHOS.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -85678,6 +91954,10 @@ pub struct VkNativeBufferUsageOHOS {
     pub pNext: *mut core::ffi::c_void,
     pub OHOSNativeBufferUsage: u64,
 }
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Send for VkNativeBufferUsageOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Sync for VkNativeBufferUsageOHOS {}
 #[cfg(feature = "VK_OHOS_external_memory")]
 impl VkNativeBufferUsageOHOS {
     pub const DEFAULT: Self = Self {
@@ -85716,6 +91996,10 @@ pub struct VkNativeBufferPropertiesOHOS {
     pub allocationSize: VkDeviceSize,
     pub memoryTypeBits: u32,
 }
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Send for VkNativeBufferPropertiesOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Sync for VkNativeBufferPropertiesOHOS {}
 #[cfg(feature = "VK_OHOS_external_memory")]
 impl VkNativeBufferPropertiesOHOS {
     pub const DEFAULT: Self = Self {
@@ -85768,6 +92052,10 @@ pub struct VkNativeBufferFormatPropertiesOHOS {
     pub suggestedXChromaOffset: VkChromaLocation,
     pub suggestedYChromaOffset: VkChromaLocation,
 }
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Send for VkNativeBufferFormatPropertiesOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Sync for VkNativeBufferFormatPropertiesOHOS {}
 #[cfg(feature = "VK_OHOS_external_memory")]
 impl VkNativeBufferFormatPropertiesOHOS {
     pub const DEFAULT: Self = Self {
@@ -85848,6 +92136,10 @@ pub struct VkImportNativeBufferInfoOHOS {
     pub buffer: *mut OH_NativeBuffer,
 }
 #[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Send for VkImportNativeBufferInfoOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Sync for VkImportNativeBufferInfoOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
 impl VkImportNativeBufferInfoOHOS {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_NATIVE_BUFFER_INFO_OHOS,
@@ -85884,6 +92176,10 @@ pub struct VkMemoryGetNativeBufferInfoOHOS {
     pub pNext: *const core::ffi::c_void,
     pub memory: VkDeviceMemory,
 }
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Send for VkMemoryGetNativeBufferInfoOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Sync for VkMemoryGetNativeBufferInfoOHOS {}
 #[cfg(feature = "VK_OHOS_external_memory")]
 impl VkMemoryGetNativeBufferInfoOHOS {
     pub const DEFAULT: Self = Self {
@@ -85922,6 +92218,10 @@ pub struct VkExternalFormatOHOS {
     pub externalFormat: u64,
 }
 #[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Send for VkExternalFormatOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
+unsafe impl Sync for VkExternalFormatOHOS {}
+#[cfg(feature = "VK_OHOS_external_memory")]
 impl VkExternalFormatOHOS {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS,
@@ -85955,6 +92255,10 @@ pub struct OHNativeWindow(pub *mut core::ffi::c_void);
 impl OHNativeWindow {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_OHOS_surface")]
+unsafe impl Send for OHNativeWindow {}
+#[cfg(feature = "VK_OHOS_surface")]
+unsafe impl Sync for OHNativeWindow {}
 /// [VkSurfaceCreateFlagsOHOS](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCreateFlagsOHOS.html)
 #[cfg(feature = "VK_OHOS_surface")]
 pub type VkSurfaceCreateFlagsOHOS = VkFlags;
@@ -85972,6 +92276,10 @@ pub struct VkSurfaceCreateInfoOHOS {
     /// No Auto-Validity
     pub window: *mut OHNativeWindow,
 }
+#[cfg(feature = "VK_OHOS_surface")]
+unsafe impl Send for VkSurfaceCreateInfoOHOS {}
+#[cfg(feature = "VK_OHOS_surface")]
+unsafe impl Sync for VkSurfaceCreateInfoOHOS {}
 #[cfg(feature = "VK_OHOS_surface")]
 impl VkSurfaceCreateInfoOHOS {
     pub const DEFAULT: Self = Self {
@@ -86018,6 +92326,10 @@ pub struct VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM {
     pub cooperativeMatrixConversion: VkBool32,
 }
 #[cfg(feature = "VK_QCOM_cooperative_matrix_conversion")]
+unsafe impl Send for VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_cooperative_matrix_conversion")]
+unsafe impl Sync for VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_cooperative_matrix_conversion")]
 impl VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM,
@@ -86052,6 +92364,10 @@ pub struct VkPipelineCacheHeaderVersionDataGraphQCOM {
     pub cacheVersion: u32,
     pub toolchainVersion: [u32; VK_DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM as usize],
 }
+#[cfg(feature = "VK_QCOM_data_graph_model")]
+unsafe impl Send for VkPipelineCacheHeaderVersionDataGraphQCOM {}
+#[cfg(feature = "VK_QCOM_data_graph_model")]
+unsafe impl Sync for VkPipelineCacheHeaderVersionDataGraphQCOM {}
 #[cfg(feature = "VK_QCOM_data_graph_model")]
 impl VkPipelineCacheHeaderVersionDataGraphQCOM {
     pub const DEFAULT: Self = Self {
@@ -86108,6 +92424,10 @@ pub struct VkDataGraphPipelineBuiltinModelCreateInfoQCOM {
     pub pOperation: *const VkPhysicalDeviceDataGraphOperationSupportARM,
 }
 #[cfg(feature = "VK_QCOM_data_graph_model")]
+unsafe impl Send for VkDataGraphPipelineBuiltinModelCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_data_graph_model")]
+unsafe impl Sync for VkDataGraphPipelineBuiltinModelCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_data_graph_model")]
 impl VkDataGraphPipelineBuiltinModelCreateInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType:
@@ -86151,6 +92471,10 @@ pub struct VkPhysicalDeviceDataGraphModelFeaturesQCOM {
     pub dataGraphModel: VkBool32,
 }
 #[cfg(feature = "VK_QCOM_data_graph_model")]
+unsafe impl Send for VkPhysicalDeviceDataGraphModelFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_data_graph_model")]
+unsafe impl Sync for VkPhysicalDeviceDataGraphModelFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_data_graph_model")]
 impl VkPhysicalDeviceDataGraphModelFeaturesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM,
@@ -86187,6 +92511,10 @@ pub struct VkPhysicalDeviceCubicClampFeaturesQCOM {
     pub pNext: *mut core::ffi::c_void,
     pub cubicRangeClamp: VkBool32,
 }
+#[cfg(feature = "VK_QCOM_filter_cubic_clamp")]
+unsafe impl Send for VkPhysicalDeviceCubicClampFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_filter_cubic_clamp")]
+unsafe impl Sync for VkPhysicalDeviceCubicClampFeaturesQCOM {}
 #[cfg(feature = "VK_QCOM_filter_cubic_clamp")]
 impl VkPhysicalDeviceCubicClampFeaturesQCOM {
     pub const DEFAULT: Self = Self {
@@ -86225,6 +92553,10 @@ pub struct VkPhysicalDeviceCubicWeightsFeaturesQCOM {
     pub selectableCubicWeights: VkBool32,
 }
 #[cfg(feature = "VK_QCOM_filter_cubic_weights")]
+unsafe impl Send for VkPhysicalDeviceCubicWeightsFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_filter_cubic_weights")]
+unsafe impl Sync for VkPhysicalDeviceCubicWeightsFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_filter_cubic_weights")]
 impl VkPhysicalDeviceCubicWeightsFeaturesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM,
@@ -86262,6 +92594,10 @@ pub struct VkSamplerCubicWeightsCreateInfoQCOM {
     pub cubicWeights: VkCubicFilterWeightsQCOM,
 }
 #[cfg(feature = "VK_QCOM_filter_cubic_weights")]
+unsafe impl Send for VkSamplerCubicWeightsCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_filter_cubic_weights")]
+unsafe impl Sync for VkSamplerCubicWeightsCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_filter_cubic_weights")]
 impl VkSamplerCubicWeightsCreateInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM,
@@ -86298,6 +92634,10 @@ pub struct VkBlitImageCubicWeightsInfoQCOM {
     pub pNext: *const core::ffi::c_void,
     pub cubicWeights: VkCubicFilterWeightsQCOM,
 }
+#[cfg(feature = "VK_QCOM_filter_cubic_weights")]
+unsafe impl Send for VkBlitImageCubicWeightsInfoQCOM {}
+#[cfg(feature = "VK_QCOM_filter_cubic_weights")]
+unsafe impl Sync for VkBlitImageCubicWeightsInfoQCOM {}
 #[cfg(feature = "VK_QCOM_filter_cubic_weights")]
 impl VkBlitImageCubicWeightsInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -86346,6 +92686,10 @@ pub struct VkImageViewSampleWeightCreateInfoQCOM {
     pub filterSize: VkExtent2D,
     pub numPhases: u32,
 }
+#[cfg(feature = "VK_QCOM_image_processing")]
+unsafe impl Send for VkImageViewSampleWeightCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing")]
+unsafe impl Sync for VkImageViewSampleWeightCreateInfoQCOM {}
 #[cfg(feature = "VK_QCOM_image_processing")]
 impl VkImageViewSampleWeightCreateInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -86397,6 +92741,10 @@ pub struct VkPhysicalDeviceImageProcessingFeaturesQCOM {
     pub textureBoxFilter: VkBool32,
     pub textureBlockMatch: VkBool32,
 }
+#[cfg(feature = "VK_QCOM_image_processing")]
+unsafe impl Send for VkPhysicalDeviceImageProcessingFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing")]
+unsafe impl Sync for VkPhysicalDeviceImageProcessingFeaturesQCOM {}
 #[cfg(feature = "VK_QCOM_image_processing")]
 impl VkPhysicalDeviceImageProcessingFeaturesQCOM {
     pub const DEFAULT: Self = Self {
@@ -86458,6 +92806,10 @@ pub struct VkPhysicalDeviceImageProcessingPropertiesQCOM {
     pub maxBoxFilterBlockSize: VkExtent2D,
 }
 #[cfg(feature = "VK_QCOM_image_processing")]
+unsafe impl Send for VkPhysicalDeviceImageProcessingPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing")]
+unsafe impl Sync for VkPhysicalDeviceImageProcessingPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing")]
 impl VkPhysicalDeviceImageProcessingPropertiesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM,
@@ -86513,6 +92865,10 @@ pub struct VkPhysicalDeviceImageProcessing2FeaturesQCOM {
     pub textureBlockMatch2: VkBool32,
 }
 #[cfg(feature = "VK_QCOM_image_processing2")]
+unsafe impl Send for VkPhysicalDeviceImageProcessing2FeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing2")]
+unsafe impl Sync for VkPhysicalDeviceImageProcessing2FeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing2")]
 impl VkPhysicalDeviceImageProcessing2FeaturesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM,
@@ -86555,6 +92911,10 @@ pub struct VkPhysicalDeviceImageProcessing2PropertiesQCOM {
     pub maxBlockMatchWindow: VkExtent2D,
 }
 #[cfg(feature = "VK_QCOM_image_processing2")]
+unsafe impl Send for VkPhysicalDeviceImageProcessing2PropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing2")]
+unsafe impl Sync for VkPhysicalDeviceImageProcessing2PropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing2")]
 impl VkPhysicalDeviceImageProcessing2PropertiesQCOM {
     pub const DEFAULT: Self = Self {
         sType:
@@ -86593,6 +92953,10 @@ pub struct VkSamplerBlockMatchWindowCreateInfoQCOM {
     pub windowExtent: VkExtent2D,
     pub windowCompareMode: VkBlockMatchWindowCompareModeQCOM,
 }
+#[cfg(feature = "VK_QCOM_image_processing2")]
+unsafe impl Send for VkSamplerBlockMatchWindowCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing2")]
+unsafe impl Sync for VkSamplerBlockMatchWindowCreateInfoQCOM {}
 #[cfg(feature = "VK_QCOM_image_processing2")]
 impl VkSamplerBlockMatchWindowCreateInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -86637,6 +93001,10 @@ pub struct VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM {
     pub multiviewPerViewRenderAreas: VkBool32,
 }
 #[cfg(feature = "VK_QCOM_multiview_per_view_render_areas")]
+unsafe impl Send for VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_multiview_per_view_render_areas")]
+unsafe impl Sync for VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_multiview_per_view_render_areas")]
 impl VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM,
@@ -86676,6 +93044,10 @@ pub struct VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM {
     /// Length: perViewRenderAreaCount
     pub pPerViewRenderAreas: *const VkRect2D,
 }
+#[cfg(feature = "VK_QCOM_multiview_per_view_render_areas")]
+unsafe impl Send for VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM {}
+#[cfg(feature = "VK_QCOM_multiview_per_view_render_areas")]
+unsafe impl Sync for VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM {}
 #[cfg(feature = "VK_QCOM_multiview_per_view_render_areas")]
 impl VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -86722,6 +93094,10 @@ pub struct VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM {
     pub multiviewPerViewViewports: VkBool32,
 }
 #[cfg(feature = "VK_QCOM_multiview_per_view_viewports")]
+unsafe impl Send for VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_multiview_per_view_viewports")]
+unsafe impl Sync for VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_multiview_per_view_viewports")]
 impl VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM,
@@ -86759,6 +93135,10 @@ pub struct VkRenderPassTransformBeginInfoQCOM {
     /// No Auto-Validity
     pub transform: VkSurfaceTransformFlagBitsKHR,
 }
+#[cfg(feature = "VK_QCOM_render_pass_transform")]
+unsafe impl Send for VkRenderPassTransformBeginInfoQCOM {}
+#[cfg(feature = "VK_QCOM_render_pass_transform")]
+unsafe impl Sync for VkRenderPassTransformBeginInfoQCOM {}
 #[cfg(feature = "VK_QCOM_render_pass_transform")]
 impl VkRenderPassTransformBeginInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -86798,6 +93178,10 @@ pub struct VkCommandBufferInheritanceRenderPassTransformInfoQCOM {
     pub transform: VkSurfaceTransformFlagBitsKHR,
     pub renderArea: VkRect2D,
 }
+#[cfg(feature = "VK_QCOM_render_pass_transform")]
+unsafe impl Send for VkCommandBufferInheritanceRenderPassTransformInfoQCOM {}
+#[cfg(feature = "VK_QCOM_render_pass_transform")]
+unsafe impl Sync for VkCommandBufferInheritanceRenderPassTransformInfoQCOM {}
 #[cfg(feature = "VK_QCOM_render_pass_transform")]
 impl VkCommandBufferInheritanceRenderPassTransformInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -86843,6 +93227,10 @@ pub struct VkCopyCommandTransformInfoQCOM {
     pub transform: VkSurfaceTransformFlagBitsKHR,
 }
 #[cfg(feature = "VK_QCOM_rotated_copy_commands")]
+unsafe impl Send for VkCopyCommandTransformInfoQCOM {}
+#[cfg(feature = "VK_QCOM_rotated_copy_commands")]
+unsafe impl Sync for VkCopyCommandTransformInfoQCOM {}
+#[cfg(feature = "VK_QCOM_rotated_copy_commands")]
 impl VkCopyCommandTransformInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_COMMAND_TRANSFORM_INFO_QCOM,
@@ -86880,6 +93268,10 @@ pub struct VkTileMemoryBindInfoQCOM {
     pub memory: VkDeviceMemory,
 }
 #[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Send for VkTileMemoryBindInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Sync for VkTileMemoryBindInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
 impl VkTileMemoryBindInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM,
@@ -86916,6 +93308,10 @@ pub struct VkPhysicalDeviceTileMemoryHeapFeaturesQCOM {
     pub pNext: *mut core::ffi::c_void,
     pub tileMemoryHeap: VkBool32,
 }
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Send for VkPhysicalDeviceTileMemoryHeapFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Sync for VkPhysicalDeviceTileMemoryHeapFeaturesQCOM {}
 #[cfg(feature = "VK_QCOM_tile_memory_heap")]
 impl VkPhysicalDeviceTileMemoryHeapFeaturesQCOM {
     pub const DEFAULT: Self = Self {
@@ -86958,6 +93354,10 @@ pub struct VkPhysicalDeviceTileMemoryHeapPropertiesQCOM {
     /// Limit Type: [Max]
     pub tileBufferTransfers: VkBool32,
 }
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Send for VkPhysicalDeviceTileMemoryHeapPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Sync for VkPhysicalDeviceTileMemoryHeapPropertiesQCOM {}
 #[cfg(feature = "VK_QCOM_tile_memory_heap")]
 impl VkPhysicalDeviceTileMemoryHeapPropertiesQCOM {
     pub const DEFAULT: Self = Self {
@@ -87002,6 +93402,10 @@ pub struct VkTileMemorySizeInfoQCOM {
     pub size: VkDeviceSize,
 }
 #[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Send for VkTileMemorySizeInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Sync for VkTileMemorySizeInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
 impl VkTileMemorySizeInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM,
@@ -87039,6 +93443,10 @@ pub struct VkTileMemoryRequirementsQCOM {
     pub size: VkDeviceSize,
     pub alignment: VkDeviceSize,
 }
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Send for VkTileMemoryRequirementsQCOM {}
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+unsafe impl Sync for VkTileMemoryRequirementsQCOM {}
 #[cfg(feature = "VK_QCOM_tile_memory_heap")]
 impl VkTileMemoryRequirementsQCOM {
     pub const DEFAULT: Self = Self {
@@ -87083,6 +93491,10 @@ pub struct VkPhysicalDeviceTilePropertiesFeaturesQCOM {
     pub tileProperties: VkBool32,
 }
 #[cfg(feature = "VK_QCOM_tile_properties")]
+unsafe impl Send for VkPhysicalDeviceTilePropertiesFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_properties")]
+unsafe impl Sync for VkPhysicalDeviceTilePropertiesFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_properties")]
 impl VkPhysicalDeviceTilePropertiesFeaturesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM,
@@ -87119,6 +93531,10 @@ pub struct VkTilePropertiesQCOM {
     pub apronSize: VkExtent2D,
     pub origin: VkOffset2D,
 }
+#[cfg(feature = "VK_QCOM_tile_properties")]
+unsafe impl Send for VkTilePropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_properties")]
+unsafe impl Sync for VkTilePropertiesQCOM {}
 #[cfg(feature = "VK_QCOM_tile_properties")]
 impl VkTilePropertiesQCOM {
     pub const DEFAULT: Self = Self {
@@ -87184,6 +93600,10 @@ pub struct VkPhysicalDeviceTileShadingFeaturesQCOM {
     pub tileShadingAtomicOps: VkBool32,
     pub tileShadingImageProcessing: VkBool32,
 }
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Send for VkPhysicalDeviceTileShadingFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Sync for VkPhysicalDeviceTileShadingFeaturesQCOM {}
 #[cfg(feature = "VK_QCOM_tile_shading")]
 impl VkPhysicalDeviceTileShadingFeaturesQCOM {
     pub const DEFAULT: Self = Self {
@@ -87311,6 +93731,10 @@ pub struct VkPhysicalDeviceTileShadingPropertiesQCOM {
     pub maxTileShadingRate: VkExtent2D,
 }
 #[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Send for VkPhysicalDeviceTileShadingPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Sync for VkPhysicalDeviceTileShadingPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
 impl VkPhysicalDeviceTileShadingPropertiesQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM,
@@ -87369,6 +93793,10 @@ pub struct VkRenderPassTileShadingCreateInfoQCOM {
     pub tileApronSize: VkExtent2D,
 }
 #[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Send for VkRenderPassTileShadingCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Sync for VkRenderPassTileShadingCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
 impl VkRenderPassTileShadingCreateInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM,
@@ -87409,6 +93837,10 @@ pub struct VkPerTileBeginInfoQCOM {
     pub pNext: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Send for VkPerTileBeginInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Sync for VkPerTileBeginInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
 impl VkPerTileBeginInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PER_TILE_BEGIN_INFO_QCOM,
@@ -87437,6 +93869,10 @@ pub struct VkPerTileEndInfoQCOM {
     pub pNext: *const core::ffi::c_void,
 }
 #[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Send for VkPerTileEndInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Sync for VkPerTileEndInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
 impl VkPerTileEndInfoQCOM {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PER_TILE_END_INFO_QCOM,
@@ -87464,6 +93900,10 @@ pub struct VkDispatchTileInfoQCOM {
     /// Optional: true
     pub pNext: *const core::ffi::c_void,
 }
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Send for VkDispatchTileInfoQCOM {}
+#[cfg(feature = "VK_QCOM_tile_shading")]
+unsafe impl Sync for VkDispatchTileInfoQCOM {}
 #[cfg(feature = "VK_QCOM_tile_shading")]
 impl VkDispatchTileInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -87495,6 +93935,10 @@ pub struct VkPhysicalDeviceYcbcrDegammaFeaturesQCOM {
     pub pNext: *mut core::ffi::c_void,
     pub ycbcrDegamma: VkBool32,
 }
+#[cfg(feature = "VK_QCOM_ycbcr_degamma")]
+unsafe impl Send for VkPhysicalDeviceYcbcrDegammaFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_ycbcr_degamma")]
+unsafe impl Sync for VkPhysicalDeviceYcbcrDegammaFeaturesQCOM {}
 #[cfg(feature = "VK_QCOM_ycbcr_degamma")]
 impl VkPhysicalDeviceYcbcrDegammaFeaturesQCOM {
     pub const DEFAULT: Self = Self {
@@ -87533,6 +93977,10 @@ pub struct VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {
     pub enableYDegamma: VkBool32,
     pub enableCbCrDegamma: VkBool32,
 }
+#[cfg(feature = "VK_QCOM_ycbcr_degamma")]
+unsafe impl Send for VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {}
+#[cfg(feature = "VK_QCOM_ycbcr_degamma")]
+unsafe impl Sync for VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {}
 #[cfg(feature = "VK_QCOM_ycbcr_degamma")]
 impl VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {
     pub const DEFAULT: Self = Self {
@@ -87573,6 +94021,10 @@ pub struct _screen_buffer(pub *mut core::ffi::c_void);
 impl _screen_buffer {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Send for _screen_buffer {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Sync for _screen_buffer {}
 /// [VkImportScreenBufferInfoQNX](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportScreenBufferInfoQNX.html)
 ///
 /// **Extends:** VkMemoryAllocateInfo.
@@ -87587,6 +94039,10 @@ pub struct VkImportScreenBufferInfoQNX {
     /// No Auto-Validity
     pub buffer: *mut _screen_buffer,
 }
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Send for VkImportScreenBufferInfoQNX {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Sync for VkImportScreenBufferInfoQNX {}
 #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
 impl VkImportScreenBufferInfoQNX {
     pub const DEFAULT: Self = Self {
@@ -87627,6 +94083,10 @@ pub struct VkScreenBufferPropertiesQNX {
     pub allocationSize: VkDeviceSize,
     pub memoryTypeBits: u32,
 }
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Send for VkScreenBufferPropertiesQNX {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Sync for VkScreenBufferPropertiesQNX {}
 #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
 impl VkScreenBufferPropertiesQNX {
     pub const DEFAULT: Self = Self {
@@ -87680,6 +94140,10 @@ pub struct VkScreenBufferFormatPropertiesQNX {
     pub suggestedXChromaOffset: VkChromaLocation,
     pub suggestedYChromaOffset: VkChromaLocation,
 }
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Send for VkScreenBufferFormatPropertiesQNX {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Sync for VkScreenBufferFormatPropertiesQNX {}
 #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
 impl VkScreenBufferFormatPropertiesQNX {
     pub const DEFAULT: Self = Self {
@@ -87766,6 +94230,10 @@ pub struct VkExternalFormatQNX {
     pub externalFormat: u64,
 }
 #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Send for VkExternalFormatQNX {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Sync for VkExternalFormatQNX {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
 impl VkExternalFormatQNX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_QNX,
@@ -87803,6 +94271,10 @@ pub struct VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX {
     pub screenBufferImport: VkBool32,
 }
 #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Send for VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+unsafe impl Sync for VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX {}
+#[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
 impl VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX,
@@ -87836,6 +94308,10 @@ pub struct _screen_context(pub *mut core::ffi::c_void);
 impl _screen_context {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_QNX_screen_surface")]
+unsafe impl Send for _screen_context {}
+#[cfg(feature = "VK_QNX_screen_surface")]
+unsafe impl Sync for _screen_context {}
 /// [_screen_window](https://docs.vulkan.org/refpages/latest/refpages/source/_screen_window.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_QNX_screen_surface")]
@@ -87846,6 +94322,10 @@ pub struct _screen_window(pub *mut core::ffi::c_void);
 impl _screen_window {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_QNX_screen_surface")]
+unsafe impl Send for _screen_window {}
+#[cfg(feature = "VK_QNX_screen_surface")]
+unsafe impl Sync for _screen_window {}
 /// [VkScreenSurfaceCreateFlagsQNX](https://docs.vulkan.org/refpages/latest/refpages/source/VkScreenSurfaceCreateFlagsQNX.html)
 #[cfg(feature = "VK_QNX_screen_surface")]
 pub type VkScreenSurfaceCreateFlagsQNX = VkFlags;
@@ -87865,6 +94345,10 @@ pub struct VkScreenSurfaceCreateInfoQNX {
     /// No Auto-Validity
     pub window: *mut _screen_window,
 }
+#[cfg(feature = "VK_QNX_screen_surface")]
+unsafe impl Send for VkScreenSurfaceCreateInfoQNX {}
+#[cfg(feature = "VK_QNX_screen_surface")]
+unsafe impl Sync for VkScreenSurfaceCreateInfoQNX {}
 #[cfg(feature = "VK_QNX_screen_surface")]
 impl VkScreenSurfaceCreateInfoQNX {
     pub const DEFAULT: Self = Self {
@@ -87919,6 +94403,10 @@ pub struct VkPhysicalDeviceAmigoProfilingFeaturesSEC {
     pub amigoProfiling: VkBool32,
 }
 #[cfg(feature = "VK_SEC_amigo_profiling")]
+unsafe impl Send for VkPhysicalDeviceAmigoProfilingFeaturesSEC {}
+#[cfg(feature = "VK_SEC_amigo_profiling")]
+unsafe impl Sync for VkPhysicalDeviceAmigoProfilingFeaturesSEC {}
+#[cfg(feature = "VK_SEC_amigo_profiling")]
 impl VkPhysicalDeviceAmigoProfilingFeaturesSEC {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC,
@@ -87956,6 +94444,10 @@ pub struct VkAmigoProfilingSubmitInfoSEC {
     pub firstDrawTimestamp: u64,
     pub swapBufferTimestamp: u64,
 }
+#[cfg(feature = "VK_SEC_amigo_profiling")]
+unsafe impl Send for VkAmigoProfilingSubmitInfoSEC {}
+#[cfg(feature = "VK_SEC_amigo_profiling")]
+unsafe impl Sync for VkAmigoProfilingSubmitInfoSEC {}
 #[cfg(feature = "VK_SEC_amigo_profiling")]
 impl VkAmigoProfilingSubmitInfoSEC {
     pub const DEFAULT: Self = Self {
@@ -88000,6 +94492,10 @@ pub struct VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC {
     pub pipelineCacheIncrementalMode: VkBool32,
 }
 #[cfg(feature = "VK_SEC_pipeline_cache_incremental_mode")]
+unsafe impl Send for VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC {}
+#[cfg(feature = "VK_SEC_pipeline_cache_incremental_mode")]
+unsafe impl Sync for VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC {}
+#[cfg(feature = "VK_SEC_pipeline_cache_incremental_mode")]
 impl VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC,
@@ -88033,6 +94529,10 @@ pub struct ubm_device(pub *mut core::ffi::c_void);
 impl ubm_device {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_SEC_ubm_surface")]
+unsafe impl Send for ubm_device {}
+#[cfg(feature = "VK_SEC_ubm_surface")]
+unsafe impl Sync for ubm_device {}
 /// [ubm_surface](https://docs.vulkan.org/refpages/latest/refpages/source/ubm_surface.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(feature = "VK_SEC_ubm_surface")]
@@ -88043,6 +94543,10 @@ pub struct ubm_surface(pub *mut core::ffi::c_void);
 impl ubm_surface {
     pub const NULL: Self = Self(core::ptr::null_mut());
 }
+#[cfg(feature = "VK_SEC_ubm_surface")]
+unsafe impl Send for ubm_surface {}
+#[cfg(feature = "VK_SEC_ubm_surface")]
+unsafe impl Sync for ubm_surface {}
 /// [VkUbmSurfaceCreateFlagsSEC](https://docs.vulkan.org/refpages/latest/refpages/source/VkUbmSurfaceCreateFlagsSEC.html)
 #[cfg(feature = "VK_SEC_ubm_surface")]
 pub type VkUbmSurfaceCreateFlagsSEC = VkFlags;
@@ -88062,6 +94566,10 @@ pub struct VkUbmSurfaceCreateInfoSEC {
     /// No Auto-Validity
     pub surface: *mut ubm_surface,
 }
+#[cfg(feature = "VK_SEC_ubm_surface")]
+unsafe impl Send for VkUbmSurfaceCreateInfoSEC {}
+#[cfg(feature = "VK_SEC_ubm_surface")]
+unsafe impl Sync for VkUbmSurfaceCreateInfoSEC {}
 #[cfg(feature = "VK_SEC_ubm_surface")]
 impl VkUbmSurfaceCreateInfoSEC {
     pub const DEFAULT: Self = Self {
@@ -88116,6 +94624,10 @@ pub struct VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {
     pub descriptorSetHostMapping: VkBool32,
 }
 #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+unsafe impl Send for VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {}
+#[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+unsafe impl Sync for VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {}
+#[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
 impl VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE,
@@ -88151,6 +94663,10 @@ pub struct VkDescriptorSetBindingReferenceVALVE {
     pub descriptorSetLayout: VkDescriptorSetLayout,
     pub binding: u32,
 }
+#[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+unsafe impl Send for VkDescriptorSetBindingReferenceVALVE {}
+#[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+unsafe impl Sync for VkDescriptorSetBindingReferenceVALVE {}
 #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
 impl VkDescriptorSetBindingReferenceVALVE {
     pub const DEFAULT: Self = Self {
@@ -88193,6 +94709,10 @@ pub struct VkDescriptorSetLayoutHostMappingInfoVALVE {
     pub descriptorOffset: usize,
     pub descriptorSize: u32,
 }
+#[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+unsafe impl Send for VkDescriptorSetLayoutHostMappingInfoVALVE {}
+#[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+unsafe impl Sync for VkDescriptorSetLayoutHostMappingInfoVALVE {}
 #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
 impl VkDescriptorSetLayoutHostMappingInfoVALVE {
     pub const DEFAULT: Self = Self {
@@ -88242,6 +94762,10 @@ pub struct VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE {
     pub maxFragmentDensityMapLayers: u32,
 }
 #[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE {}
+#[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE {}
+#[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
 impl VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE,
@@ -88279,6 +94803,10 @@ pub struct VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE {
     pub fragmentDensityMapLayered: VkBool32,
 }
 #[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
+unsafe impl Send for VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE {}
+#[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
+unsafe impl Sync for VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE {}
+#[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
 impl VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE,
@@ -88315,6 +94843,10 @@ pub struct VkPipelineFragmentDensityMapLayeredCreateInfoVALVE {
     pub pNext: *const core::ffi::c_void,
     pub maxFragmentDensityMapLayers: u32,
 }
+#[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
+unsafe impl Send for VkPipelineFragmentDensityMapLayeredCreateInfoVALVE {}
+#[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
+unsafe impl Sync for VkPipelineFragmentDensityMapLayeredCreateInfoVALVE {}
 #[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
 impl VkPipelineFragmentDensityMapLayeredCreateInfoVALVE {
     pub const DEFAULT: Self = Self {
@@ -88362,6 +94894,10 @@ pub struct VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE {
     pub shaderMixedFloatDotProductBFloat16Acc: VkBool32,
     pub shaderMixedFloatDotProductFloat8AccFloat32: VkBool32,
 }
+#[cfg(feature = "VK_VALVE_shader_mixed_float_dot_product")]
+unsafe impl Send for VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE {}
+#[cfg(feature = "VK_VALVE_shader_mixed_float_dot_product")]
+unsafe impl Sync for VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE {}
 #[cfg(feature = "VK_VALVE_shader_mixed_float_dot_product")]
 impl VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE {
     pub const DEFAULT: Self = Self {
@@ -88427,6 +94963,10 @@ pub struct VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE {
     pub videoEncodeRgbConversion: VkBool32,
 }
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Send for VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE {}
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Sync for VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE {}
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
 impl VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE,
@@ -88474,6 +95014,10 @@ pub struct VkVideoEncodeRgbConversionCapabilitiesVALVE {
     /// Limit Type: [Bitmask]
     pub yChromaOffsets: VkVideoEncodeRgbChromaOffsetFlagsVALVE,
 }
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Send for VkVideoEncodeRgbConversionCapabilitiesVALVE {}
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Sync for VkVideoEncodeRgbConversionCapabilitiesVALVE {}
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
 impl VkVideoEncodeRgbConversionCapabilitiesVALVE {
     pub const DEFAULT: Self = Self {
@@ -88536,6 +95080,10 @@ pub struct VkVideoEncodeProfileRgbConversionInfoVALVE {
     pub performEncodeRgbConversion: VkBool32,
 }
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Send for VkVideoEncodeProfileRgbConversionInfoVALVE {}
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Sync for VkVideoEncodeProfileRgbConversionInfoVALVE {}
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
 impl VkVideoEncodeProfileRgbConversionInfoVALVE {
     pub const DEFAULT: Self = Self {
         sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE,
@@ -88575,6 +95123,10 @@ pub struct VkVideoEncodeSessionRgbConversionCreateInfoVALVE {
     pub xChromaOffset: VkVideoEncodeRgbChromaOffsetFlagBitsVALVE,
     pub yChromaOffset: VkVideoEncodeRgbChromaOffsetFlagBitsVALVE,
 }
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Send for VkVideoEncodeSessionRgbConversionCreateInfoVALVE {}
+#[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
+unsafe impl Sync for VkVideoEncodeSessionRgbConversionCreateInfoVALVE {}
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
 impl VkVideoEncodeSessionRgbConversionCreateInfoVALVE {
     pub const DEFAULT: Self = Self {

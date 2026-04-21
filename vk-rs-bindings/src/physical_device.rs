@@ -1000,6 +1000,10 @@ pub struct PhysicalDevice<'inst> {
     pub(crate) table: &'inst PhysicalDeviceDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'inst> Send for PhysicalDevice<'inst> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'inst> Sync for PhysicalDevice<'inst> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'inst> PhysicalDevice<'inst> {
     #[inline]
     pub fn raw(&self) -> VkPhysicalDevice {

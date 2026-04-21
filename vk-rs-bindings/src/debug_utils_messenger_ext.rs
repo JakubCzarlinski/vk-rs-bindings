@@ -30,6 +30,10 @@ pub struct DebugUtilsMessengerEXT<'dev> {
     pub(crate) table: &'dev DebugUtilsMessengerEXTDispatchTable,
 }
 #[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl<'dev> Send for DebugUtilsMessengerEXT<'dev> {}
+#[cfg(feature = "VK_EXT_debug_utils")]
+unsafe impl<'dev> Sync for DebugUtilsMessengerEXT<'dev> {}
+#[cfg(feature = "VK_EXT_debug_utils")]
 impl<'dev> Drop for DebugUtilsMessengerEXT<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

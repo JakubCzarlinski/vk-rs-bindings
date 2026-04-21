@@ -41,6 +41,10 @@ pub struct PipelineLayout<'dev> {
     pub(crate) table: &'dev PipelineLayoutDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for PipelineLayout<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for PipelineLayout<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for PipelineLayout<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

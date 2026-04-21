@@ -59,6 +59,10 @@ pub struct Semaphore<'dev> {
     pub(crate) table: &'dev SemaphoreDispatchTable,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Send for Semaphore<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+unsafe impl<'dev> Sync for Semaphore<'dev> {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Drop for Semaphore<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

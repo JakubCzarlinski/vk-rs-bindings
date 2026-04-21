@@ -42,6 +42,10 @@ pub struct IndirectCommandsLayoutEXT<'dev> {
     pub(crate) table: &'dev IndirectCommandsLayoutEXTDispatchTable,
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl<'dev> Send for IndirectCommandsLayoutEXT<'dev> {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+unsafe impl<'dev> Sync for IndirectCommandsLayoutEXT<'dev> {}
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl<'dev> Drop for IndirectCommandsLayoutEXT<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

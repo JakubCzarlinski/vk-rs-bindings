@@ -51,6 +51,10 @@ pub struct Framebuffer<'dev> {
     pub(crate) table: &'dev FramebufferDispatchTable,
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl<'dev> Send for Framebuffer<'dev> {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+unsafe impl<'dev> Sync for Framebuffer<'dev> {}
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl<'dev> Drop for Framebuffer<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

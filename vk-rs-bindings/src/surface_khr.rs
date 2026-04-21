@@ -30,6 +30,10 @@ pub struct SurfaceKHR<'dev> {
     pub(crate) table: &'dev SurfaceKHRDispatchTable,
 }
 #[cfg(feature = "VK_KHR_surface")]
+unsafe impl<'dev> Send for SurfaceKHR<'dev> {}
+#[cfg(feature = "VK_KHR_surface")]
+unsafe impl<'dev> Sync for SurfaceKHR<'dev> {}
+#[cfg(feature = "VK_KHR_surface")]
 impl<'dev> Drop for SurfaceKHR<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

@@ -78,6 +78,10 @@ pub struct PipelineCache<'dev> {
     pub(crate) table: &'dev PipelineCacheDispatchTable,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Send for PipelineCache<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+unsafe impl<'dev> Sync for PipelineCache<'dev> {}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Drop for PipelineCache<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

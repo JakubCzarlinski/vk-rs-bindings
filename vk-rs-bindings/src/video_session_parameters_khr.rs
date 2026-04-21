@@ -52,6 +52,10 @@ pub struct VideoSessionParametersKHR<'dev> {
     pub(crate) table: &'dev VideoSessionParametersKHRDispatchTable,
 }
 #[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl<'dev> Send for VideoSessionParametersKHR<'dev> {}
+#[cfg(feature = "VK_KHR_video_queue")]
+unsafe impl<'dev> Sync for VideoSessionParametersKHR<'dev> {}
+#[cfg(feature = "VK_KHR_video_queue")]
 impl<'dev> Drop for VideoSessionParametersKHR<'dev> {
     fn drop(&mut self) {
         if self.raw.0.is_null() {

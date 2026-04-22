@@ -481,7 +481,7 @@ Those callbacks are not a replacement for explicit `VkDeviceMemory` management a
 Current automated validation:
 
 - `cargo test -p vk-alloc`
-- `cargo check -p vk-demo --bin compute`
+- `cargo check -p vk-demo-compute`
 
 Criterion:
 

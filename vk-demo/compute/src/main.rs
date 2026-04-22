@@ -1,10 +1,11 @@
 use core::ffi::CStr;
-use std::ffi::c_void;
+use core::ffi::c_void;
+use core::mem;
 use vk::*;
 use vk_alloc::{AllocationCreateInfo, Allocator};
 
 // Minimal SPIR-V compute shader: result = a + b
-const COMPUTE_SHADER_SPV: &[u8] = include_bytes!("shader.spv");
+const COMPUTE_SHADER_SPV: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/shader.spv"));
 
 const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
     .with_apiVersion(VK_API_VERSION_1_4)
@@ -55,7 +56,7 @@ fn main() {
         let (descriptor_set_layout, pipeline_layout, pipeline) =
             create_compute_pipeline(&device).expect("Failed to create pipeline");
 
-        let buffer_size = 2 * std::mem::size_of::<u32>() as u64;
+        let buffer_size = 2 * mem::size_of::<u32>() as u64;
         let mut input_buffer =
             create_storage_buffer(&allocator, buffer_size).expect("Failed to create input buffer");
         let output_buffer =

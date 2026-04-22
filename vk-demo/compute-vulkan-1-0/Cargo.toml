@@ -1,0 +1,11 @@
+[package]
+name = "vk-demo-compute-vulkan-1-0"
+version = "0.1.0"
+edition = "2024"
+description = "Vulkan 1.0 compute demo of vk-rs-bindings"
+build = "build.rs"
+
+[dependencies.vk]
+path = "../../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = ["VK_COMPUTE_VERSION_1_0"]

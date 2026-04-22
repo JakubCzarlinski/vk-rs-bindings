@@ -1,37 +1,25 @@
 [package]
-name = "vk-demo"
+name = "vk-demo-spinning-triangle"
 version = "0.1.0"
 edition = "2024"
-description = "Vulkan Rust FFI generator from vk.xml + video.xml"
+description = "Spinning triangle demo of vk-rs-bindings"
 build = "build.rs"
-
-
-[[bin]]
-name = "compute"
-path = "src/compute.rs"
-
-[[bin]]
-name = "spinning-triangle"
-path = "src/spinning_triangle.rs"
-
 
 [dependencies]
 winit = "0.29"
 raw-window-handle = "0.6.2"
-vk-alloc = { path = "../vk-alloc" }
 
 [dependencies.vk]
-path = "../vk-rs-bindings"
+path = "../../vk-rs-bindings"
 package = "vk-rs-bindings"
 features = [
   "VK_VERSION_1_4",
   "VK_KHR_surface",
-  "VK_KHR_display",
   "VK_KHR_swapchain",
 ]
 
 [target.'cfg(target_os = "linux")'.dependencies.vk]
-path = "../vk-rs-bindings"
+path = "../../vk-rs-bindings"
 package = "vk-rs-bindings"
 features = ["VK_KHR_wayland_surface"]
 
@@ -39,6 +27,6 @@ features = ["VK_KHR_wayland_surface"]
 raw-window-metal = "1.1.0"
 
 [target.'cfg(target_os = "macos")'.dependencies.vk]
-path = "../vk-rs-bindings"
+path = "../../vk-rs-bindings"
 package = "vk-rs-bindings"
 features = ["VK_EXT_metal_surface"]

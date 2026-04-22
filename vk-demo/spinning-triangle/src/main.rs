@@ -1,14 +1,14 @@
+use core::ffi::{c_char, c_void};
+use core::sync::atomic::{AtomicBool, AtomicU32, Ordering};
+use core::time::Duration;
 #[cfg(target_os = "linux")]
 use raw_window_handle::{HasDisplayHandle, RawDisplayHandle};
 use raw_window_handle::{HasWindowHandle, RawWindowHandle};
 #[cfg(target_os = "macos")]
 use raw_window_metal::Layer;
-use std::ffi::{c_char, c_void};
-use std::ptr::{null, null_mut};
 use std::sync::Arc;
-use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use std::thread::sleep;
-use std::time::{Duration, Instant};
+use std::time::Instant;
 use vk::*;
 use winit::dpi::PhysicalSize;
 use winit::event::{Event, WindowEvent};

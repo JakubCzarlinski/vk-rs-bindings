@@ -60,8 +60,9 @@ cargo fmt
 
 ## Demos
 
-- `cargo run -p vk-demo --bin compute`
-- `cargo run -p vk-demo --bin spinning-triangle`
+- `cargo run -p vk-demo-compute`
+- `cargo run -p vk-demo-compute-vulkan-1-0`
+- `cargo run -p vk-demo-spinning-triangle`
 
 ## Workspace layout
 
@@ -69,3 +70,4 @@ cargo fmt
 - `vk-rs-bindings/`: generated low-level Vulkan FFI crate (raw handles, structs, commands, enums, consts).
 - `vk-alloc/`: allocator utilities built on top of `vk-rs-bindings`. This is in early stages of development.
 - `vk-demo/`: example applications showing end-to-end Vulkan usage.
+  `vk-demo/compute/`, `vk-demo/compute-vulkan-1-0/`, and `vk-demo/spinning-triangle/` are separate crates so they can keep independent dependencies and Vulkan feature sets.

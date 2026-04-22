@@ -1,0 +1,14 @@
+[package]
+name = "vk-demo-compute"
+version = "0.1.0"
+edition = "2024"
+description = "Compute demo of vk-rs-bindings"
+build = "build.rs"
+
+[dependencies]
+vk-alloc = { path = "../../vk-alloc" }
+
+[dependencies.vk]
+path = "../../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = ["VK_COMPUTE_VERSION_1_4"]

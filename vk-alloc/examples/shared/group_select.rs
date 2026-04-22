@@ -9,7 +9,7 @@ pub(crate) struct DeviceGroupSelection<'inst> {
 pub(crate) fn select_device_group<'inst>(
     instance: &'inst vk::Instance<'inst>,
 ) -> Result<DeviceGroupSelection<'inst>, String> {
-    let mut physical_devices = instance
+    let physical_devices = instance
         .vkEnumeratePhysicalDevices()
         .map_err(|err| format!("vkEnumeratePhysicalDevices failed: {err:?}"))?;
     let mut group_count = 0;
@@ -26,13 +26,13 @@ pub(crate) fn select_device_group<'inst>(
             continue;
         }
         let raw_devices = &group.physicalDevices[..group.physicalDeviceCount as usize];
-        let Some(leader_index) = physical_devices
+        let leader_raw = raw_devices[0];
+        let Some(leader_ref) = physical_devices
             .iter()
-            .position(|physical_device| physical_device.raw() == raw_devices[0])
+            .find(|physical_device| physical_device.raw() == leader_raw)
         else {
             continue;
         };
-        let leader_ref = &physical_devices[leader_index];
         let Some(queue_family_index) = find_compute_queue_family(leader_ref) else {
             continue;
         };
@@ -57,7 +57,10 @@ pub(crate) fn select_device_group<'inst>(
             "Using device group leader: {leader_name} ({} physical devices)",
             raw_devices.len()
         );
-        let leader = physical_devices.swap_remove(leader_index);
+        let leader = physical_devices
+            .into_iter()
+            .find(|physical_device| physical_device.raw() == leader_raw)
+            .expect("leader physical device missing while selecting group");
         return Ok(DeviceGroupSelection {
             leader,
             raw_devices: raw_devices.to_vec().into_boxed_slice(),

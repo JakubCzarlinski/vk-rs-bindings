@@ -135,10 +135,8 @@ fn main() {
                 pending_resize = Some(size);
                 window.request_redraw();
             }
-            Event::AboutToWait => {
-                if Instant::now() >= next_render_tick {
-                    window.request_redraw();
-                }
+            Event::AboutToWait if Instant::now() >= next_render_tick => {
+                window.request_redraw();
             }
             Event::WindowEvent {
                 event: WindowEvent::RedrawRequested,
@@ -821,10 +819,13 @@ fn create_command_buffers<'p>(command_pools: &'p [CommandPool<'_>]) -> Vec<Comma
             .with_commandPool(pool.raw())
             .with_level(VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY)
             .with_commandBufferCount(1);
-        let mut command_buffers = pool
+        let command_buffer = pool
             .vkAllocateCommandBuffers(&alloc_info)
-            .expect("vkAllocateCommandBuffers failed");
-        result.push(command_buffers.pop().expect("no command buffer allocated"));
+            .expect("vkAllocateCommandBuffers failed")
+            .into_iter()
+            .next()
+            .expect("no command buffer allocated");
+        result.push(command_buffer);
     }
     result
 }

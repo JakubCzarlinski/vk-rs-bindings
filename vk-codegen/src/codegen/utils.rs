@@ -727,22 +727,19 @@ pub fn safe_method(
 
             let mut fwd_second = fwd.clone();
             fwd_second[ci] = quote! { &mut count };
-            fwd_second[ai] = quote! { out.as_mut_ptr() };
+            fwd_second[ai] = quote! { out.as_mut_ptr().cast() };
 
             quote! {
                 #cfg #depr
                 #[inline]
-                pub fn #fname(&self, #(#p_defs),*) -> Result<alloc::vec::Vec<#elem_ty>, VkResult> {
+                pub fn #fname(&self, #(#p_defs),*) -> Result<alloc::boxed::Box<[#elem_ty]>, VkResult> {
                     let mut count: u32 = 0;
                     let r = unsafe { #fp(#(#fwd_first),*) };
                     if #is_err { return Err(r); }
-                    if count == 0 { return Ok(alloc::vec::Vec::new()); }
-                    let mut out = alloc::vec::Vec::with_capacity(count as usize);
+                    if count == 0 { return Ok(alloc::boxed::Box::<[#elem_ty; 0]>::new([])); }
+                    let mut out = alloc::boxed::Box::<[#elem_ty]>::new_uninit_slice(count as usize);
                     let r = unsafe { #fp(#(#fwd_second),*) };
-                    #check2 .map(|_| {
-                        unsafe { out.set_len(count as usize); }
-                        out
-                    })
+                    #check2 .map(|_| unsafe { out.assume_init() })
                 }
             }
         }

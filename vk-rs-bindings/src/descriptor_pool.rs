@@ -109,11 +109,17 @@ impl<'dev> DescriptorPool<'dev> {
     pub fn vkAllocateDescriptorSets<'pool>(
         &'pool self,
         pAllocateInfo: *const VkDescriptorSetAllocateInfo,
-    ) -> Result<alloc::vec::Vec<crate::descriptor_set::DescriptorSet<'pool>>, VkResult> {
+    ) -> Result<alloc::boxed::Box<[crate::descriptor_set::DescriptorSet<'pool>]>, VkResult> {
         let count = unsafe { (*pAllocateInfo).descriptorSetCount };
-        let mut raw_sets = alloc::vec::Vec::with_capacity(count as usize);
+        let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(count as usize);
         let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
-        let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr()) };
+        let r = unsafe {
+            fp(
+                self.device().raw,
+                pAllocateInfo,
+                raw_sets.as_mut_ptr().cast(),
+            )
+        };
         if let Err(e) = {
             match r {
                 VkResult::VK_SUCCESS => Ok(r),
@@ -136,9 +142,7 @@ impl<'dev> DescriptorPool<'dev> {
         } {
             return Err(e);
         }
-        unsafe {
-            raw_sets.set_len(count as usize);
-        }
+        let raw_sets = unsafe { raw_sets.assume_init() };
         Ok(raw_sets
             .into_iter()
             .map(|raw| crate::descriptor_set::DescriptorSet {

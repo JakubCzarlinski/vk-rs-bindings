@@ -431,13 +431,13 @@ fn gen_allocate_command_buffers(
         pub fn vkAllocateCommandBuffers<'pool>(
             &'pool self,
             pAllocateInfo: *const VkCommandBufferAllocateInfo,
-        ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'pool>>, VkResult> {
+        ) -> Result<alloc::boxed::Box<[crate::command_buffer::CommandBuffer<'pool>]>, VkResult> {
             let count = unsafe { (*pAllocateInfo).commandBufferCount };
-            let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
+            let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr()) };
+            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr().cast()) };
             if let Err(e) = { #result_check } { return Err(e); }
-            unsafe { raw_buffers.set_len(count as usize); }
+            let raw_buffers = unsafe { raw_buffers.assume_init() };
 
             Ok(raw_buffers.into_iter().map(|raw| crate::command_buffer::CommandBuffer {
                 raw,
@@ -478,13 +478,13 @@ fn gen_allocate_descriptor_sets(
         pub fn vkAllocateDescriptorSets<'pool>(
             &'pool self,
             pAllocateInfo: *const VkDescriptorSetAllocateInfo,
-        ) -> Result<alloc::vec::Vec<crate::descriptor_set::DescriptorSet<'pool>>, VkResult> {
+        ) -> Result<alloc::boxed::Box<[crate::descriptor_set::DescriptorSet<'pool>]>, VkResult> {
             let count = unsafe { (*pAllocateInfo).descriptorSetCount };
-            let mut raw_sets = alloc::vec::Vec::with_capacity(count as usize);
+            let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr()) };
+            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr().cast()) };
             if let Err(e) = { #result_check } { return Err(e); }
-            unsafe { raw_sets.set_len(count as usize); }
+            let raw_sets = unsafe { raw_sets.assume_init() };
 
             Ok(raw_sets.into_iter().map(|raw| crate::descriptor_set::DescriptorSet {
                 raw,

@@ -5243,9 +5243,9 @@ impl<'inst> Device<'inst> {
         createInfoCount: u32,
         pCreateInfos: *const VkComputePipelineCreateInfo,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<alloc::vec::Vec<crate::pipeline::Pipeline<'dev>>, VkResult> {
+    ) -> Result<alloc::boxed::Box<[crate::pipeline::Pipeline<'dev>]>, VkResult> {
         let count = createInfoCount;
-        let mut raw_pipelines = alloc::vec::Vec::with_capacity(count as usize);
+        let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(count as usize);
         let fp = unsafe { self.table.vkCreateComputePipelines.unwrap_unchecked() };
         let r = unsafe {
             fp(
@@ -5254,7 +5254,7 @@ impl<'inst> Device<'inst> {
                 createInfoCount,
                 pCreateInfos,
                 pAllocator,
-                raw_pipelines.as_mut_ptr(),
+                raw_pipelines.as_mut_ptr().cast(),
             )
         };
         if let Err(e) = {
@@ -5282,9 +5282,7 @@ impl<'inst> Device<'inst> {
         } {
             return Err(e);
         }
-        unsafe {
-            raw_pipelines.set_len(count as usize);
-        }
+        let raw_pipelines = unsafe { raw_pipelines.assume_init() };
         Ok(raw_pipelines
             .into_iter()
             .map(|raw| crate::pipeline::Pipeline {
@@ -8383,9 +8381,9 @@ impl<'inst> Device<'inst> {
         createInfoCount: u32,
         pCreateInfos: *const VkGraphicsPipelineCreateInfo,
         pAllocator: *const VkAllocationCallbacks,
-    ) -> Result<alloc::vec::Vec<crate::pipeline::Pipeline<'dev>>, VkResult> {
+    ) -> Result<alloc::boxed::Box<[crate::pipeline::Pipeline<'dev>]>, VkResult> {
         let count = createInfoCount;
-        let mut raw_pipelines = alloc::vec::Vec::with_capacity(count as usize);
+        let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(count as usize);
         let fp = unsafe { self.table.vkCreateGraphicsPipelines.unwrap_unchecked() };
         let r = unsafe {
             fp(
@@ -8394,7 +8392,7 @@ impl<'inst> Device<'inst> {
                 createInfoCount,
                 pCreateInfos,
                 pAllocator,
-                raw_pipelines.as_mut_ptr(),
+                raw_pipelines.as_mut_ptr().cast(),
             )
         };
         if let Err(e) = {
@@ -8422,9 +8420,7 @@ impl<'inst> Device<'inst> {
         } {
             return Err(e);
         }
-        unsafe {
-            raw_pipelines.set_len(count as usize);
-        }
+        let raw_pipelines = unsafe { raw_pipelines.assume_init() };
         Ok(raw_pipelines
             .into_iter()
             .map(|raw| crate::pipeline::Pipeline {

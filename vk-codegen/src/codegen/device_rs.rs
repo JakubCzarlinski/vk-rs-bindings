@@ -334,13 +334,13 @@ fn gen_create_pipelines(
         pub fn #fname<'dev>(
             &'dev self,
             #(#p_defs,)*
-        ) -> Result<alloc::vec::Vec<crate::pipeline::Pipeline<'dev>>, VkResult> {
+        ) -> Result<alloc::boxed::Box<[crate::pipeline::Pipeline<'dev>]>, VkResult> {
             let count = createInfoCount;
-            let mut raw_pipelines = alloc::vec::Vec::with_capacity(count as usize);
+            let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.#fname.unwrap_unchecked() };
-            let r = unsafe { fp(self.raw, #(#p_fwd,)* raw_pipelines.as_mut_ptr()) };
+            let r = unsafe { fp(self.raw, #(#p_fwd,)* raw_pipelines.as_mut_ptr().cast()) };
             if let Err(e) = { #result_check } { return Err(e); }
-            unsafe { raw_pipelines.set_len(count as usize); }
+            let raw_pipelines = unsafe { raw_pipelines.assume_init() };
 
             Ok(raw_pipelines.into_iter().map(|raw| crate::pipeline::Pipeline {
                 raw,

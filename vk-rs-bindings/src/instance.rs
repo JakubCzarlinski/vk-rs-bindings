@@ -414,7 +414,7 @@ impl<'lib> Instance<'lib> {
     #[inline]
     pub fn vkEnumeratePhysicalDevices<'inst>(
         &'inst self,
-    ) -> Result<alloc::vec::Vec<crate::physical_device::PhysicalDevice<'inst>>, VkResult> {
+    ) -> Result<alloc::boxed::Box<[crate::physical_device::PhysicalDevice<'inst>]>, VkResult> {
         use crate::physical_device::PhysicalDevice;
         let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
         let mut count = 0;
@@ -431,10 +431,13 @@ impl<'lib> Instance<'lib> {
             return Err(r);
         }
         if count == 0 {
-            return Ok(alloc::vec::Vec::new());
+            return Ok(alloc::boxed::Box::<
+                [crate::physical_device::PhysicalDevice<'inst>; 0],
+            >::new([]));
         }
-        let mut raw_gpus = alloc::vec::Vec::with_capacity(count as usize);
-        let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr()) };
+        let mut raw_gpus =
+            alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);
+        let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
         if let Err(e) = {
             match r {
                 VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
@@ -455,9 +458,7 @@ impl<'lib> Instance<'lib> {
         } {
             return Err(e);
         }
-        unsafe {
-            raw_gpus.set_len(count as usize);
-        }
+        let raw_gpus = unsafe { raw_gpus.assume_init() };
         Ok(raw_gpus
             .into_iter()
             .map(|raw| PhysicalDevice {

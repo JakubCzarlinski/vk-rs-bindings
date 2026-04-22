@@ -165,11 +165,18 @@ impl<'dev> CommandPool<'dev> {
     pub fn vkAllocateCommandBuffers<'pool>(
         &'pool self,
         pAllocateInfo: *const VkCommandBufferAllocateInfo,
-    ) -> Result<alloc::vec::Vec<crate::command_buffer::CommandBuffer<'pool>>, VkResult> {
+    ) -> Result<alloc::boxed::Box<[crate::command_buffer::CommandBuffer<'pool>]>, VkResult> {
         let count = unsafe { (*pAllocateInfo).commandBufferCount };
-        let mut raw_buffers = alloc::vec::Vec::with_capacity(count as usize);
+        let mut raw_buffers =
+            alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(count as usize);
         let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
-        let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr()) };
+        let r = unsafe {
+            fp(
+                self.device().raw,
+                pAllocateInfo,
+                raw_buffers.as_mut_ptr().cast(),
+            )
+        };
         if let Err(e) = {
             match r {
                 VkResult::VK_SUCCESS => Ok(r),
@@ -189,9 +196,7 @@ impl<'dev> CommandPool<'dev> {
         } {
             return Err(e);
         }
-        unsafe {
-            raw_buffers.set_len(count as usize);
-        }
+        let raw_buffers = unsafe { raw_buffers.assume_init() };
         Ok(raw_buffers
             .into_iter()
             .map(|raw| crate::command_buffer::CommandBuffer {

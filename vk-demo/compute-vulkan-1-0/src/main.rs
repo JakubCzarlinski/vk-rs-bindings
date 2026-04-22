@@ -110,18 +110,19 @@ fn create_instance(library: &'_ VulkanLib) -> Instance<'_> {
         .expect("Failed to create instance")
 }
 
+#[allow(deprecated)]
 fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
-    #[allow(deprecated)]
-    fn queue_family_properties(physical_device: &PhysicalDevice) -> Vec<VkQueueFamilyProperties> {
-        let mut count = 0;
-        physical_device.vkGetPhysicalDeviceQueueFamilyProperties(&raw mut count, null_mut());
-        let mut props = vec![VkQueueFamilyProperties::DEFAULT; count as usize];
-        physical_device
-            .vkGetPhysicalDeviceQueueFamilyProperties(&raw mut count, props.as_mut_ptr());
-        props
+    let mut count = 0;
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties(&raw mut count, null_mut());
+    if count == 0 {
+        return None;
     }
 
-    let props = queue_family_properties(physical_device);
+    let mut props = Box::<[VkQueueFamilyProperties]>::new_uninit_slice(count as usize);
+    physical_device
+        .vkGetPhysicalDeviceQueueFamilyProperties(&raw mut count, props.as_mut_ptr().cast());
+
+    let props = unsafe { props.assume_init() };
 
     props.iter().enumerate().find_map(|(i, p)| {
         if (p.queueFlags & VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT.0) != 0 {
@@ -133,10 +134,12 @@ fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
 }
 
 fn create_device<'inst>(instance: &'inst Instance) -> (Device<'inst>, PhysicalDevice<'inst>, u32) {
-    let mut physical_devices = instance
+    let physical_device = instance
         .vkEnumeratePhysicalDevices()
-        .expect("Failed to enumerate physical devices");
-    let physical_device = physical_devices.remove(0);
+        .expect("Failed to enumerate physical devices")
+        .into_iter()
+        .next()
+        .expect("No physical devices found");
 
     let queue_family_index =
         find_queue_family(&physical_device).expect("No suitable queue family found");
@@ -165,7 +168,7 @@ fn create_compute_pipeline<'a>(
     (
         DescriptorSetLayout<'a>,
         PipelineLayout<'a>,
-        Vec<Pipeline<'a>>,
+        Box<[Pipeline<'a>]>,
     ),
     String,
 > {
@@ -242,19 +245,15 @@ struct HostVisibleBuffer<'a> {
     memory: DeviceMemory<'a>,
 }
 
+#[allow(deprecated)]
 fn find_host_visible_memory_type(
     physical_device: &PhysicalDevice<'_>,
     memory_type_bits: u32,
     required_flags: u32,
 ) -> Result<u32, String> {
-    #[allow(deprecated)]
-    fn memory_properties(physical_device: &PhysicalDevice<'_>) -> VkPhysicalDeviceMemoryProperties {
-        let mut properties = VkPhysicalDeviceMemoryProperties::DEFAULT;
-        physical_device.vkGetPhysicalDeviceMemoryProperties(&raw mut properties);
-        properties
-    }
+    let mut properties = VkPhysicalDeviceMemoryProperties::DEFAULT;
+    physical_device.vkGetPhysicalDeviceMemoryProperties(&raw mut properties);
 
-    let properties = memory_properties(physical_device);
     for index in 0..properties.memoryTypeCount {
         let mask = 1u32 << index;
         if (memory_type_bits & mask) == 0 {
@@ -323,7 +322,7 @@ fn create_descriptor_set<'a>(
     input: &Buffer<'a>,
     output: &Buffer<'a>,
     input_size: u64,
-) -> Result<Vec<DescriptorSet<'a>>, String> {
+) -> Result<Box<[DescriptorSet<'a>]>, String> {
     let layouts = [layout.raw()];
     let alloc_info = VkDescriptorSetAllocateInfo::DEFAULT
         .with_descriptorSetCount(1)
@@ -364,6 +363,7 @@ fn create_descriptor_set<'a>(
     Ok(ds)
 }
 
+#[allow(deprecated)]
 fn run_compute<'a>(
     device: &Device<'a>,
     queue: &Queue<'a>,
@@ -372,16 +372,6 @@ fn run_compute<'a>(
     layout: &PipelineLayout<'a>,
     descriptor_set: &DescriptorSet<'a>,
 ) -> Result<(), String> {
-    #[allow(deprecated)]
-    fn submit(queue: &Queue<'_>, command_buffer: VkCommandBuffer) -> Result<(), VkResult> {
-        let submit = VkSubmitInfo::DEFAULT
-            .with_commandBufferCount(1)
-            .with_pCommandBuffers(&raw const command_buffer);
-        queue
-            .vkQueueSubmit(1, &raw const submit, VkFence::NULL)
-            .map(|_| ())
-    }
-
     let pool_info = VkCommandPoolCreateInfo::DEFAULT
         .with_flags(VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT.0)
         .with_queueFamilyIndex(queue_familiy_index);
@@ -393,7 +383,7 @@ fn run_compute<'a>(
         .with_level(VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY)
         .with_commandBufferCount(1)
         .with_commandPool(cmd_pool.raw());
-    let cmd_buffers: Vec<CommandBuffer<'_>> = cmd_pool
+    let cmd_buffers = cmd_pool
         .vkAllocateCommandBuffers(&raw const cmd_buffer_info)
         .map_err(|e| format!("CBAlloc: {e:?}"))?;
     let cmd_buffer: &CommandBuffer<'_> = &cmd_buffers[0];
@@ -420,7 +410,13 @@ fn run_compute<'a>(
         .vkEndCommandBuffer()
         .map_err(|e| format!("EndCB: {e:?}"))?;
     println!("Submitting compute command buffer...");
-    submit(queue, cmd_buffer.raw()).map_err(|e| format!("Submit: {e:?}"))?;
+    let command_buffer = cmd_buffer.raw();
+    let submit = VkSubmitInfo::DEFAULT
+        .with_commandBufferCount(1)
+        .with_pCommandBuffers(&raw const command_buffer);
+    queue
+        .vkQueueSubmit(1, &raw const submit, VkFence::NULL)
+        .map_err(|e| format!("Submit: {e:?}"))?;
     queue
         .vkQueueWaitIdle()
         .map_err(|e| format!("WaitIdle: {e:?}"))?;

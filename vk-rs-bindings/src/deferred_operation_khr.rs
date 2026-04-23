@@ -183,23 +183,23 @@ impl<'dev> Drop for DeferredOperationKHR<'dev> {
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
 impl<'dev> DeferredOperationKHR<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkDeferredOperationKHR {
+    pub const fn raw(&self) -> VkDeferredOperationKHR {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &DeferredOperationKHRDispatchTable {
+    pub const fn table(&self) -> &DeferredOperationKHRDispatchTable {
         self.table
     }
     /// [`vkCreateDataGraphPipelinesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDataGraphPipelinesARM.html)

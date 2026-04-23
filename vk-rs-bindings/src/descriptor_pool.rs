@@ -85,23 +85,23 @@ impl<'dev> Drop for DescriptorPool<'dev> {
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> DescriptorPool<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkDescriptorPool {
+    pub const fn raw(&self) -> VkDescriptorPool {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &DescriptorPoolDispatchTable {
+    pub const fn table(&self) -> &DescriptorPoolDispatchTable {
         self.table
     }
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

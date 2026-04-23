@@ -59,23 +59,23 @@ impl<'dev> Drop for AccelerationStructureKHR<'dev> {
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl<'dev> AccelerationStructureKHR<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkAccelerationStructureKHR {
+    pub const fn raw(&self) -> VkAccelerationStructureKHR {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &AccelerationStructureKHRDispatchTable {
+    pub const fn table(&self) -> &AccelerationStructureKHRDispatchTable {
         self.table
     }
     /// [`vkDestroyAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyAccelerationStructureKHR.html)

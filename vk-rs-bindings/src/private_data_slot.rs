@@ -67,23 +67,23 @@ impl<'dev> Drop for PrivateDataSlot<'dev> {
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 impl<'dev> PrivateDataSlot<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkPrivateDataSlot {
+    pub const fn raw(&self) -> VkPrivateDataSlot {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &PrivateDataSlotDispatchTable {
+    pub const fn table(&self) -> &PrivateDataSlotDispatchTable {
         self.table
     }
     /// [`vkDestroyPrivateDataSlot`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPrivateDataSlot.html)

@@ -113,23 +113,23 @@ impl<'dev> Drop for CommandPool<'dev> {
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> CommandPool<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkCommandPool {
+    pub const fn raw(&self) -> VkCommandPool {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &CommandPoolDispatchTable {
+    pub const fn table(&self) -> &CommandPoolDispatchTable {
         self.table
     }
     /// [`vkGetCommandPoolMemoryConsumption`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetCommandPoolMemoryConsumption.html)

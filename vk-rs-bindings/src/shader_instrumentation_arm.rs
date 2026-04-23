@@ -79,23 +79,23 @@ impl<'dev> Drop for ShaderInstrumentationARM<'dev> {
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl<'dev> ShaderInstrumentationARM<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkShaderInstrumentationARM {
+    pub const fn raw(&self) -> VkShaderInstrumentationARM {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &ShaderInstrumentationARMDispatchTable {
+    pub const fn table(&self) -> &ShaderInstrumentationARMDispatchTable {
         self.table
     }
     /// [`vkClearShaderInstrumentationMetricsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkClearShaderInstrumentationMetricsARM.html)

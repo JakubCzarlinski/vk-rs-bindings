@@ -328,7 +328,7 @@ fn gen_handle_module(
             quote! { self.parent },
             quote! {
                 #[inline]
-                pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
+                pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
             },
         )
     } else if meta.parent_vk_name == "VkInstance" {
@@ -337,7 +337,7 @@ fn gen_handle_module(
             quote! {},
             quote! {
                 #[inline]
-                pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent }
+                pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent }
             },
         )
     } else {
@@ -346,14 +346,14 @@ fn gen_handle_module(
             quote! { self.parent.device() },
             quote! {
                 #[inline]
-                pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
+                pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
             },
         )
     };
     let device_method = if meta.root_vk_name == "VkDevice" {
         quote! {
             #[inline]
-            pub fn device(&self) -> &'dev crate::device::Device<'dev> { #device_accessor }
+            pub const fn device(&self) -> &'dev crate::device::Device<'dev> { #device_accessor }
         }
     } else {
         quote! {}
@@ -407,11 +407,11 @@ fn gen_handle_module(
 
         #wrapper_cfg
         impl<'dev> #struct_name<'dev> {
-            #[inline] pub fn raw(&self) -> #vk_ident { self.raw }
-            #[inline] pub fn parent(&self) -> &'dev #parent_ty_decl { self.parent }
+            #[inline] pub const fn raw(&self) -> #vk_ident { self.raw }
+            #[inline] pub const fn parent(&self) -> &'dev #parent_ty_decl { self.parent }
             #device_method
             #instance_method
-            #[inline] pub fn table(&self) -> &#table_name { self.table }
+            #[inline] pub const fn table(&self) -> &#table_name { self.table }
             #methods_ts
         }
     }

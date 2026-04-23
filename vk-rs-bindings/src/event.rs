@@ -85,23 +85,23 @@ impl<'dev> Drop for Event<'dev> {
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> Event<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkEvent {
+    pub const fn raw(&self) -> VkEvent {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &EventDispatchTable {
+    pub const fn table(&self) -> &EventDispatchTable {
         self.table
     }
     /// [`vkDestroyEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyEvent.html)

@@ -95,23 +95,23 @@ impl<'dev> Drop for PipelineCache<'dev> {
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> PipelineCache<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkPipelineCache {
+    pub const fn raw(&self) -> VkPipelineCache {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &PipelineCacheDispatchTable {
+    pub const fn table(&self) -> &PipelineCacheDispatchTable {
         self.table
     }
     /// [`vkCreateExecutionGraphPipelinesAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateExecutionGraphPipelinesAMDX.html)

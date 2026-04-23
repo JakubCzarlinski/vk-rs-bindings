@@ -56,23 +56,23 @@ impl<'dev> Drop for PerformanceConfigurationINTEL<'dev> {
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl<'dev> PerformanceConfigurationINTEL<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkPerformanceConfigurationINTEL {
+    pub const fn raw(&self) -> VkPerformanceConfigurationINTEL {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &PerformanceConfigurationINTELDispatchTable {
+    pub const fn table(&self) -> &PerformanceConfigurationINTELDispatchTable {
         self.table
     }
     /// [`vkReleasePerformanceConfigurationINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleasePerformanceConfigurationINTEL.html)

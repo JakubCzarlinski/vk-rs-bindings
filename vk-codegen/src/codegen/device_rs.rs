@@ -224,7 +224,7 @@ fn gen_device(
             /// # Safety
             /// `raw` must be a valid live `VkDevice` for `'inst`.
             #[inline]
-            pub unsafe fn from_raw(
+            pub const unsafe fn from_raw(
                 raw: VkDevice,
                 instance: &'inst Instance<'inst>,
                 table: DeviceDispatchTable,
@@ -235,15 +235,15 @@ fn gen_device(
 
             /// The raw `VkDevice` handle.
             #[inline(always)]
-            pub fn raw(&self) -> VkDevice { self.raw }
+            pub const fn raw(&self) -> VkDevice { self.raw }
 
             /// The underlying dispatch table.
             #[inline(always)]
-            pub fn table(&self) -> &DeviceDispatchTable { &self.table }
+            pub const fn table(&self) -> &DeviceDispatchTable { &self.table }
 
             /// The instance that created this device.
             #[inline(always)]
-            pub fn instance(&self) -> &'inst Instance<'inst> { self.instance }
+            pub const fn instance(&self) -> &'inst Instance<'inst> { self.instance }
 
             #methods_ts
         }

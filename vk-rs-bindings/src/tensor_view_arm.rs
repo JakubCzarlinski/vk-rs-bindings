@@ -58,23 +58,23 @@ impl<'dev> Drop for TensorViewARM<'dev> {
 #[cfg(feature = "VK_ARM_tensors")]
 impl<'dev> TensorViewARM<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkTensorViewARM {
+    pub const fn raw(&self) -> VkTensorViewARM {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &TensorViewARMDispatchTable {
+    pub const fn table(&self) -> &TensorViewARMDispatchTable {
         self.table
     }
     /// [`vkDestroyTensorViewARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyTensorViewARM.html)

@@ -2388,7 +2388,7 @@ impl<'inst> Device<'inst> {
     /// # Safety
     /// `raw` must be a valid live `VkDevice` for `'inst`.
     #[inline]
-    pub unsafe fn from_raw(
+    pub const unsafe fn from_raw(
         raw: VkDevice,
         instance: &'inst Instance<'inst>,
         table: DeviceDispatchTable,
@@ -2612,17 +2612,17 @@ impl<'inst> Device<'inst> {
     }
     /// The raw `VkDevice` handle.
     #[inline(always)]
-    pub fn raw(&self) -> VkDevice {
+    pub const fn raw(&self) -> VkDevice {
         self.raw
     }
     /// The underlying dispatch table.
     #[inline(always)]
-    pub fn table(&self) -> &DeviceDispatchTable {
+    pub const fn table(&self) -> &DeviceDispatchTable {
         &self.table
     }
     /// The instance that created this device.
     #[inline(always)]
-    pub fn instance(&self) -> &'inst Instance<'inst> {
+    pub const fn instance(&self) -> &'inst Instance<'inst> {
         self.instance
     }
     /// [`vkGetFaultData`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFaultData.html)

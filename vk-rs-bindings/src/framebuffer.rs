@@ -68,23 +68,23 @@ impl<'dev> Drop for Framebuffer<'dev> {
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl<'dev> Framebuffer<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkFramebuffer {
+    pub const fn raw(&self) -> VkFramebuffer {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &FramebufferDispatchTable {
+    pub const fn table(&self) -> &FramebufferDispatchTable {
         self.table
     }
     /// [`vkDestroyFramebuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyFramebuffer.html)

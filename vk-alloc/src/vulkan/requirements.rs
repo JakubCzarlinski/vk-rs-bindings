@@ -53,13 +53,13 @@ pub(crate) fn recommended_buffer_chunk_size(
         != 0
         && limits.max_storage_buffer_range != 0
     {
-        chunk = chunk.min(limits.max_storage_buffer_range as u64);
+        chunk = chunk.min(u64::from(limits.max_storage_buffer_range));
     }
     if usage_flags & (vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT.0 as u32)
         != 0
         && limits.max_uniform_buffer_range != 0
     {
-        chunk = chunk.min(limits.max_uniform_buffer_range as u64);
+        chunk = chunk.min(u64::from(limits.max_uniform_buffer_range));
     }
     chunk.max(1)
 }

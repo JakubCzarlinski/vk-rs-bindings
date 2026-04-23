@@ -144,23 +144,23 @@ impl<'dev> Drop for Image<'dev> {
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Image<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkImage {
+    pub const fn raw(&self) -> VkImage {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &ImageDispatchTable {
+    pub const fn table(&self) -> &ImageDispatchTable {
         self.table
     }
     /// [`vkBindImageMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory.html)

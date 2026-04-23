@@ -3455,23 +3455,23 @@ impl<'dev> Drop for CommandBuffer<'dev> {
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> CommandBuffer<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkCommandBuffer {
+    pub const fn raw(&self) -> VkCommandBuffer {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::command_pool::CommandPool<'dev> {
+    pub const fn parent(&self) -> &'dev crate::command_pool::CommandPool<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent.device()
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &CommandBufferDispatchTable {
+    pub const fn table(&self) -> &CommandBufferDispatchTable {
         self.table
     }
     /// [`vkCmdDispatchGraphAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphAMDX.html)

@@ -273,11 +273,12 @@ fn gen_enumerate_physical_devices(
         pub fn vkEnumeratePhysicalDevices<'inst>(
             &'inst self,
         ) -> Result<alloc::boxed::Box<[crate::physical_device::PhysicalDevice<'inst>]>, VkResult> {
+            use crate::physical_device::PhysicalDevice;
             let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
             let mut count = 0;
             let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
             if #is_err { return Err(r); }
-            if count == 0 { return Ok(alloc::boxed::Box::<[crate::physical_device::PhysicalDevice<'inst>; 0]>::new([])); }
+            if count == 0 { return Ok(alloc::boxed::Box::<[PhysicalDevice<'inst>; 0]>::new([])); }
             let mut raw_gpus = alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);
             let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
             if let Err(e) = { #result_check } { return Err(e); }

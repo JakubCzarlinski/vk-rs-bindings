@@ -77,23 +77,23 @@ impl<'dev> Drop for VideoSessionKHR<'dev> {
 #[cfg(feature = "VK_KHR_video_queue")]
 impl<'dev> VideoSessionKHR<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkVideoSessionKHR {
+    pub const fn raw(&self) -> VkVideoSessionKHR {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &VideoSessionKHRDispatchTable {
+    pub const fn table(&self) -> &VideoSessionKHRDispatchTable {
         self.table
     }
     /// [`vkBindVideoSessionMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindVideoSessionMemoryKHR.html)

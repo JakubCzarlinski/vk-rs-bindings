@@ -58,23 +58,23 @@ impl<'dev> Drop for CuModuleNVX<'dev> {
 #[cfg(feature = "VK_NVX_binary_import")]
 impl<'dev> CuModuleNVX<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkCuModuleNVX {
+    pub const fn raw(&self) -> VkCuModuleNVX {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &CuModuleNVXDispatchTable {
+    pub const fn table(&self) -> &CuModuleNVXDispatchTable {
         self.table
     }
     /// [`vkDestroyCuModuleNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCuModuleNVX.html)

@@ -69,23 +69,23 @@ impl<'dev> Drop for AccelerationStructureNV<'dev> {
 #[cfg(feature = "VK_NV_ray_tracing")]
 impl<'dev> AccelerationStructureNV<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkAccelerationStructureNV {
+    pub const fn raw(&self) -> VkAccelerationStructureNV {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &AccelerationStructureNVDispatchTable {
+    pub const fn table(&self) -> &AccelerationStructureNVDispatchTable {
         self.table
     }
     /// [`vkDestroyAccelerationStructureNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyAccelerationStructureNV.html)

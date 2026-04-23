@@ -59,23 +59,23 @@ impl<'dev> Drop for SemaphoreSciSyncPoolNV<'dev> {
 #[cfg(feature = "VK_NV_external_sci_sync2")]
 impl<'dev> SemaphoreSciSyncPoolNV<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkSemaphoreSciSyncPoolNV {
+    pub const fn raw(&self) -> VkSemaphoreSciSyncPoolNV {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &SemaphoreSciSyncPoolNVDispatchTable {
+    pub const fn table(&self) -> &SemaphoreSciSyncPoolNVDispatchTable {
         self.table
     }
     /// [`vkDestroySemaphoreSciSyncPoolNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySemaphoreSciSyncPoolNV.html)

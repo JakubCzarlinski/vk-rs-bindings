@@ -67,23 +67,23 @@ impl<'dev> Drop for ShaderEXT<'dev> {
 #[cfg(feature = "VK_EXT_shader_object")]
 impl<'dev> ShaderEXT<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkShaderEXT {
+    pub const fn raw(&self) -> VkShaderEXT {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &ShaderEXTDispatchTable {
+    pub const fn table(&self) -> &ShaderEXTDispatchTable {
         self.table
     }
     /// [`vkDestroyShaderEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyShaderEXT.html)

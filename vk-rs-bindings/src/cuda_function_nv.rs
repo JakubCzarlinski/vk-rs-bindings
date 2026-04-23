@@ -58,23 +58,23 @@ impl<'dev> Drop for CudaFunctionNV<'dev> {
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl<'dev> CudaFunctionNV<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkCudaFunctionNV {
+    pub const fn raw(&self) -> VkCudaFunctionNV {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &CudaFunctionNVDispatchTable {
+    pub const fn table(&self) -> &CudaFunctionNVDispatchTable {
         self.table
     }
     /// [`vkDestroyCudaFunctionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCudaFunctionNV.html)

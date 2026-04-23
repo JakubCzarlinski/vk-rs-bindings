@@ -76,23 +76,23 @@ impl<'dev> Drop for Semaphore<'dev> {
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Semaphore<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkSemaphore {
+    pub const fn raw(&self) -> VkSemaphore {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &SemaphoreDispatchTable {
+    pub const fn table(&self) -> &SemaphoreDispatchTable {
         self.table
     }
     /// [`vkDestroySemaphore`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySemaphore.html)

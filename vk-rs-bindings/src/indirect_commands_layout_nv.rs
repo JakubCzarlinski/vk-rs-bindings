@@ -59,23 +59,23 @@ impl<'dev> Drop for IndirectCommandsLayoutNV<'dev> {
 #[cfg(feature = "VK_NV_device_generated_commands")]
 impl<'dev> IndirectCommandsLayoutNV<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkIndirectCommandsLayoutNV {
+    pub const fn raw(&self) -> VkIndirectCommandsLayoutNV {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &IndirectCommandsLayoutNVDispatchTable {
+    pub const fn table(&self) -> &IndirectCommandsLayoutNVDispatchTable {
         self.table
     }
     /// [`vkDestroyIndirectCommandsLayoutNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyIndirectCommandsLayoutNV.html)

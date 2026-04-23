@@ -69,23 +69,23 @@ impl<'dev> Drop for DescriptorUpdateTemplate<'dev> {
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl<'dev> DescriptorUpdateTemplate<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkDescriptorUpdateTemplate {
+    pub const fn raw(&self) -> VkDescriptorUpdateTemplate {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &DescriptorUpdateTemplateDispatchTable {
+    pub const fn table(&self) -> &DescriptorUpdateTemplateDispatchTable {
         self.table
     }
     /// [`vkDestroyDescriptorUpdateTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorUpdateTemplate.html)

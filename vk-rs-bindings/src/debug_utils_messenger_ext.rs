@@ -47,19 +47,19 @@ impl<'dev> Drop for DebugUtilsMessengerEXT<'dev> {
 #[cfg(feature = "VK_EXT_debug_utils")]
 impl<'dev> DebugUtilsMessengerEXT<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkDebugUtilsMessengerEXT {
+    pub const fn raw(&self) -> VkDebugUtilsMessengerEXT {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
     #[inline]
-    pub fn table(&self) -> &DebugUtilsMessengerEXTDispatchTable {
+    pub const fn table(&self) -> &DebugUtilsMessengerEXTDispatchTable {
         self.table
     }
 }

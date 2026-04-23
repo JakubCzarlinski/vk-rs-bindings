@@ -67,23 +67,23 @@ impl<'dev> Drop for ImageView<'dev> {
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> ImageView<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkImageView {
+    pub const fn raw(&self) -> VkImageView {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &ImageViewDispatchTable {
+    pub const fn table(&self) -> &ImageViewDispatchTable {
         self.table
     }
     /// [`vkDestroyImageView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyImageView.html)

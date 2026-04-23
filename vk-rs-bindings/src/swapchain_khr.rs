@@ -228,23 +228,23 @@ impl<'dev> Drop for SwapchainKHR<'dev> {
 #[cfg(feature = "VK_KHR_swapchain")]
 impl<'dev> SwapchainKHR<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkSwapchainKHR {
+    pub const fn raw(&self) -> VkSwapchainKHR {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &SwapchainKHRDispatchTable {
+    pub const fn table(&self) -> &SwapchainKHRDispatchTable {
         self.table
     }
     /// [`vkSetLocalDimmingAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLocalDimmingAMD.html)

@@ -79,23 +79,23 @@ impl<'dev> Drop for DescriptorSet<'dev> {
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> DescriptorSet<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkDescriptorSet {
+    pub const fn raw(&self) -> VkDescriptorSet {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::descriptor_pool::DescriptorPool<'dev> {
+    pub const fn parent(&self) -> &'dev crate::descriptor_pool::DescriptorPool<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent.device()
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &DescriptorSetDispatchTable {
+    pub const fn table(&self) -> &DescriptorSetDispatchTable {
         self.table
     }
     /// [`vkUpdateDescriptorSetWithTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateDescriptorSetWithTemplate.html)

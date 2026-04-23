@@ -69,23 +69,23 @@ impl<'dev> Drop for ExternalComputeQueueNV<'dev> {
 #[cfg(feature = "VK_NV_external_compute_queue")]
 impl<'dev> ExternalComputeQueueNV<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkExternalComputeQueueNV {
+    pub const fn raw(&self) -> VkExternalComputeQueueNV {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &ExternalComputeQueueNVDispatchTable {
+    pub const fn table(&self) -> &ExternalComputeQueueNVDispatchTable {
         self.table
     }
     /// [`vkDestroyExternalComputeQueueNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyExternalComputeQueueNV.html)

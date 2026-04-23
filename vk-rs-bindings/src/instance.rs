@@ -431,9 +431,7 @@ impl<'lib> Instance<'lib> {
             return Err(r);
         }
         if count == 0 {
-            return Ok(alloc::boxed::Box::<
-                [crate::physical_device::PhysicalDevice<'inst>; 0],
-            >::new([]));
+            return Ok(alloc::boxed::Box::<[PhysicalDevice<'inst>; 0]>::new([]));
         }
         let mut raw_gpus =
             alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);

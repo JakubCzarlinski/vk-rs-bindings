@@ -47,19 +47,19 @@ impl<'dev> Drop for DebugReportCallbackEXT<'dev> {
 #[cfg(feature = "VK_EXT_debug_report")]
 impl<'dev> DebugReportCallbackEXT<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkDebugReportCallbackEXT {
+    pub const fn raw(&self) -> VkDebugReportCallbackEXT {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
     #[inline]
-    pub fn table(&self) -> &DebugReportCallbackEXTDispatchTable {
+    pub const fn table(&self) -> &DebugReportCallbackEXTDispatchTable {
         self.table
     }
 }

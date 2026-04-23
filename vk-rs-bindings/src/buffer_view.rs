@@ -58,23 +58,23 @@ impl<'dev> Drop for BufferView<'dev> {
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> BufferView<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkBufferView {
+    pub const fn raw(&self) -> VkBufferView {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &BufferViewDispatchTable {
+    pub const fn table(&self) -> &BufferViewDispatchTable {
         self.table
     }
     /// [`vkDestroyBufferView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBufferView.html)

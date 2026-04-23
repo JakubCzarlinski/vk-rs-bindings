@@ -176,23 +176,23 @@ impl<'dev> Drop for Queue<'dev> {
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> Queue<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkQueue {
+    pub const fn raw(&self) -> VkQueue {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn device(&self) -> &'dev crate::device::Device<'dev> {
+    pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
     #[inline]
-    pub fn table(&self) -> &QueueDispatchTable {
+    pub const fn table(&self) -> &QueueDispatchTable {
         self.table
     }
     /// [`vkQueueBindSparse`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueBindSparse.html)

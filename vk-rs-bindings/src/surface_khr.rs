@@ -47,19 +47,19 @@ impl<'dev> Drop for SurfaceKHR<'dev> {
 #[cfg(feature = "VK_KHR_surface")]
 impl<'dev> SurfaceKHR<'dev> {
     #[inline]
-    pub fn raw(&self) -> VkSurfaceKHR {
+    pub const fn raw(&self) -> VkSurfaceKHR {
         self.raw
     }
     #[inline]
-    pub fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
     #[inline]
-    pub fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
     #[inline]
-    pub fn table(&self) -> &SurfaceKHRDispatchTable {
+    pub const fn table(&self) -> &SurfaceKHRDispatchTable {
         self.table
     }
 }

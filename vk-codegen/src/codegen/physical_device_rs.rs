@@ -179,7 +179,6 @@ fn gen_create_device(
             use crate::device::{Device, DeviceDispatchTable};
             let fp  = unsafe { self.table.vkCreateDevice.unwrap_unchecked() };
             let mut raw = VkDevice::NULL;
-            // first parameter is physically self.raw
             let r = unsafe { fp(self.raw, #(#p_fwd,)* &mut raw) };
             if let Err(e) = { #result_check } { return Err(e); }
             let gdpa  = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };

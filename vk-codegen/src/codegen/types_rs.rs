@@ -51,27 +51,6 @@ pub fn gen_types_rs(reg: &Registry) -> String {
         }
     }
 
-    // Emit: file header + one #[cfg(...)] block per unique feature group
-    let mut ts = TokenStream::new();
-    ts.extend(quote! {
-        //! Struct, union, handle, typedef, and platform handle definitions.
-        #[allow(unused_imports)] use core::ffi::{c_char, c_void};
-        #[allow(unused_imports)] use crate::consts::*;
-        #[allow(unused_imports)] use crate::enums::*;
-    });
-
-    for (key, items) in &groups {
-        let cfg = cfg_any(key);
-        ts.extend(quote! {
-            #cfg
-            const _: () = ();  // cfg anchor - items follow
-        });
-        // Emit each item with its own cfg (they may have the same key but
-        // we still need individual attributes for correct visibility)
-        ts.extend(items.clone());
-    }
-
-    // Actually we want items emitted directly, not nested. Rebuild without the anchor:
     let mut out = TokenStream::new();
     out.extend(quote! {
         //! Struct, union, handle, typedef, and platform handle definitions.

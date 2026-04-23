@@ -24,8 +24,6 @@ pub struct InstanceDispatchTable {
     pub vkEnumeratePhysicalDevices: Option<PFN_vkEnumeratePhysicalDevices>,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     pub vkGetDeviceProcAddr: Option<PFN_vkGetDeviceProcAddr>,
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    pub vkGetInstanceProcAddr: Option<PFN_vkGetInstanceProcAddr>,
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     pub vkEnumeratePhysicalDeviceGroups: Option<PFN_vkEnumeratePhysicalDeviceGroups>,
     #[cfg(feature = "VK_EXT_debug_report")]
@@ -88,8 +86,6 @@ impl InstanceDispatchTable {
         vkEnumeratePhysicalDevices: None,
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         vkGetDeviceProcAddr: None,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        vkGetInstanceProcAddr: None,
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         vkEnumeratePhysicalDeviceGroups: None,
         #[cfg(feature = "VK_EXT_debug_report")]
@@ -163,11 +159,6 @@ impl InstanceDispatchTable {
         {
             table.vkGetDeviceProcAddr =
                 loader(c"vkGetDeviceProcAddr".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetInstanceProcAddr = loader(c"vkGetInstanceProcAddr".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
         }
         #[cfg(feature = "VK_BASE_VERSION_1_1")]
         {
@@ -486,24 +477,6 @@ impl<'lib> Instance<'lib> {
         unsafe {
             // SAFETY: table is fully loaded at creation.
             (&self.table).vkGetDeviceProcAddr.unwrap_unchecked()(device, pName)
-        }
-    }
-    /// [`vkGetInstanceProcAddr`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetInstanceProcAddr.html)
-    ///
-    /// Provided by:
-    /// - `VK_BASE_VERSION_1_0`
-    ///
-    /// - **Export Scopes:** Vulkan, VulkanSC
-    ///
-    /// # Parameters
-    /// - `instance`: optional: true
-    /// - `pName`: len: null-terminated
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    #[inline(always)]
-    pub fn vkGetInstanceProcAddr(&self, pName: *const core::ffi::c_char) -> PFN_vkVoidFunction {
-        unsafe {
-            // SAFETY: table is fully loaded at creation.
-            (&self.table).vkGetInstanceProcAddr.unwrap_unchecked()(self.raw, pName)
         }
     }
     /// [`vkEnumeratePhysicalDeviceGroups`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceGroups.html)

@@ -45,6 +45,17 @@ fn preamble() -> TokenStream {
     }
 }
 
+// TODO(czarlinski): consider stripping the Option type. I have tried this
+// already, but if a user enabled features: A, B, C which are the maximum
+// requirements, but for some devices features A and B are supported but C is
+// not, then the user would get a error when loading a command from feature C.
+// The current approach allows users of the lib to enable ABC, but only load AB
+// at runtime, however, if such device then uses a command from C, they will
+// deref a None. A solution would be to strip the Option type, and on load, if
+// a command is not found, then set the field to a dummy function pointer that
+// return a VkResult error code indicating the command is not supported on this
+// device.
+
 // InstanceDispatchTable
 // Pure data: Option<PFN_*> fields + load constructors only.
 fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
@@ -58,6 +69,9 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
 
     for cmds in groups.values() {
         for (name, providers, _cmd) in cmds {
+            if name == "vkGetInstanceProcAddr" {
+                continue;
+            }
             let cfg = cfg_any(providers);
             let fname = format_ident!("{}", name);
             let pfn = format_ident!("PFN_{}", name);
@@ -122,6 +136,9 @@ fn gen_instance(
     let mut methods_ts = TokenStream::new();
     for cmds in groups.values() {
         for (name, providers, cmd) in cmds {
+            if name == "vkGetInstanceProcAddr" {
+                continue;
+            }
             if name == "vkEnumeratePhysicalDevices" {
                 methods_ts.extend(gen_enumerate_physical_devices(cmd, providers, result_cfgs));
             } else if name == "vkDestroyInstance" {

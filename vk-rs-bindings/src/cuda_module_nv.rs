@@ -127,13 +127,13 @@ impl<'dev> CudaModuleNV<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NV_cuda_kernel_launch")]
     #[inline(always)]
     pub fn vkGetCudaModuleCacheNV(
@@ -149,18 +149,10 @@ impl<'dev> CudaModuleNV<'dev> {
                 pCacheData,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
 }

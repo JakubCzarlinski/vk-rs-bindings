@@ -410,15 +410,7 @@ impl<'lib> Instance<'lib> {
         let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
         let mut count = 0;
         let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
-        if match r {
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_UNKNOWN => true,
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => true,
-            _ => r < VkResult::VK_SUCCESS,
-        } {
+        if r < VkResult::VK_SUCCESS {
             return Err(r);
         }
         if count == 0 {
@@ -427,25 +419,8 @@ impl<'lib> Instance<'lib> {
         let mut raw_gpus =
             alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);
         let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
-        if let Err(e) = {
-            match r {
-                VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-                VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-                | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-                | VkResult::VK_ERROR_INITIALIZATION_FAILED
-                | VkResult::VK_ERROR_UNKNOWN => Err(r),
-                #[cfg(feature = "VK_BASE_VERSION_1_0")]
-                VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-                _ => {
-                    if r >= VkResult::VK_SUCCESS {
-                        Ok(r)
-                    } else {
-                        Err(r)
-                    }
-                }
-            }
-        } {
-            return Err(e);
+        if r < VkResult::VK_SUCCESS {
+            return Err(r);
         }
         let raw_gpus = unsafe { raw_gpus.assume_init() };
         Ok(raw_gpus
@@ -494,15 +469,15 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     #[inline(always)]
     pub fn vkEnumeratePhysicalDeviceGroups(
@@ -519,21 +494,10 @@ impl<'lib> Instance<'lib> {
                 pPhysicalDeviceGroupProperties,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkCreateDebugReportCallbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDebugReportCallbackEXT.html)
@@ -551,12 +515,12 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_debug_report")]
     #[inline]
     pub fn vkCreateDebugReportCallbackEXT<'ret>(
@@ -570,26 +534,15 @@ impl<'lib> Instance<'lib> {
                 .vkCreateDebugReportCallbackEXT
                 .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
-        }
-        .map(
-            |_| crate::debug_report_callback_ext::DebugReportCallbackEXT {
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::debug_report_callback_ext::DebugReportCallbackEXT {
                 raw: handle,
                 parent: self,
                 table: &self.debug_report_callback_ext_table,
-            },
-        )
+            })
+        } else {
+            Err(r)
+        }
     }
     /// [`vkDebugReportMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugReportMessageEXT.html)
     ///
@@ -671,12 +624,12 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_debug_utils")]
     #[inline]
     pub fn vkCreateDebugUtilsMessengerEXT<'ret>(
@@ -690,26 +643,15 @@ impl<'lib> Instance<'lib> {
                 .vkCreateDebugUtilsMessengerEXT
                 .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
-        }
-        .map(
-            |_| crate::debug_utils_messenger_ext::DebugUtilsMessengerEXT {
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::debug_utils_messenger_ext::DebugUtilsMessengerEXT {
                 raw: handle,
                 parent: self,
                 table: &self.debug_utils_messenger_ext_table,
-            },
-        )
+            })
+        } else {
+            Err(r)
+        }
     }
     /// [`vkDestroyDebugUtilsMessengerEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugUtilsMessengerEXT.html)
     ///
@@ -778,13 +720,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_directfb_surface")]
     #[inline]
     pub fn vkCreateDirectFBSurfaceEXT<'ret>(
@@ -801,26 +743,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateHeadlessSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateHeadlessSurfaceEXT.html)
     ///
@@ -837,13 +768,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_headless_surface")]
     #[inline]
     pub fn vkCreateHeadlessSurfaceEXT<'ret>(
@@ -860,26 +791,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateMetalSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMetalSurfaceEXT.html)
     ///
@@ -896,14 +816,14 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_metal_surface")]
     #[inline]
     pub fn vkCreateMetalSurfaceEXT<'ret>(
@@ -920,28 +840,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateImagePipeSurfaceFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImagePipeSurfaceFUCHSIA.html)
     ///
@@ -958,13 +865,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
     #[inline]
     pub fn vkCreateImagePipeSurfaceFUCHSIA<'ret>(
@@ -978,26 +885,15 @@ impl<'lib> Instance<'lib> {
                 .vkCreateImagePipeSurfaceFUCHSIA
                 .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateStreamDescriptorSurfaceGGP`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateStreamDescriptorSurfaceGGP.html)
     ///
@@ -1014,14 +910,14 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
     #[inline]
     pub fn vkCreateStreamDescriptorSurfaceGGP<'ret>(
@@ -1035,28 +931,15 @@ impl<'lib> Instance<'lib> {
                 .vkCreateStreamDescriptorSurfaceGGP
                 .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateAndroidSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAndroidSurfaceKHR.html)
     ///
@@ -1073,14 +956,14 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_android_surface")]
     #[inline]
     pub fn vkCreateAndroidSurfaceKHR<'ret>(
@@ -1097,28 +980,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkEnumeratePhysicalDeviceGroups`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceGroups.html)
     ///
@@ -1135,15 +1005,15 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_device_group_creation")]
     #[inline(always)]
     pub fn vkEnumeratePhysicalDeviceGroupsKHR(
@@ -1160,21 +1030,10 @@ impl<'lib> Instance<'lib> {
                 pPhysicalDeviceGroupProperties,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkCreateDisplayPlaneSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDisplayPlaneSurfaceKHR.html)
@@ -1192,13 +1051,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_display")]
     #[inline]
     pub fn vkCreateDisplayPlaneSurfaceKHR<'ret>(
@@ -1212,26 +1071,15 @@ impl<'lib> Instance<'lib> {
                 .vkCreateDisplayPlaneSurfaceKHR
                 .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkDestroySurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySurfaceKHR.html)
     ///
@@ -1270,13 +1118,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_wayland_surface")]
     #[inline]
     pub fn vkCreateWaylandSurfaceKHR<'ret>(
@@ -1293,26 +1141,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateWin32SurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWin32SurfaceKHR.html)
     ///
@@ -1329,13 +1166,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_win32_surface")]
     #[inline]
     pub fn vkCreateWin32SurfaceKHR<'ret>(
@@ -1352,26 +1189,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateXcbSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXcbSurfaceKHR.html)
     ///
@@ -1388,13 +1214,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_xcb_surface")]
     #[inline]
     pub fn vkCreateXcbSurfaceKHR<'ret>(
@@ -1411,26 +1237,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateXlibSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXlibSurfaceKHR.html)
     ///
@@ -1447,13 +1262,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_xlib_surface")]
     #[inline]
     pub fn vkCreateXlibSurfaceKHR<'ret>(
@@ -1470,26 +1285,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateIOSSurfaceMVK`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIOSSurfaceMVK.html)
     ///
@@ -1506,14 +1310,14 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_MVK_ios_surface")]
     #[inline]
     pub fn vkCreateIOSSurfaceMVK<'ret>(
@@ -1530,28 +1334,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateMacOSSurfaceMVK`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMacOSSurfaceMVK.html)
     ///
@@ -1568,14 +1359,14 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_MVK_macos_surface")]
     #[inline]
     pub fn vkCreateMacOSSurfaceMVK<'ret>(
@@ -1592,28 +1383,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateViSurfaceNN`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateViSurfaceNN.html)
     ///
@@ -1630,14 +1408,14 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NN_vi_surface")]
     #[inline]
     pub fn vkCreateViSurfaceNN<'ret>(
@@ -1654,28 +1432,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateSurfaceOHOS`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSurfaceOHOS.html)
     ///
@@ -1692,13 +1457,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_OHOS_surface")]
     #[inline]
     pub fn vkCreateSurfaceOHOS<'ret>(
@@ -1715,26 +1480,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateScreenSurfaceQNX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateScreenSurfaceQNX.html)
     ///
@@ -1751,13 +1505,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_QNX_screen_surface")]
     #[inline]
     pub fn vkCreateScreenSurfaceQNX<'ret>(
@@ -1774,26 +1528,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
     /// [`vkCreateUbmSurfaceSEC`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateUbmSurfaceSEC.html)
     ///
@@ -1810,13 +1553,13 @@ impl<'lib> Instance<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_SEC_ubm_surface")]
     #[inline]
     pub fn vkCreateUbmSurfaceSEC<'ret>(
@@ -1833,26 +1576,15 @@ impl<'lib> Instance<'lib> {
                 &mut handle,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(crate::surface_khr::SurfaceKHR {
+                raw: handle,
+                parent: self,
+                table: &self.surface_khr_table,
+            })
+        } else {
+            Err(r)
         }
-        .map(|_| crate::surface_khr::SurfaceKHR {
-            raw: handle,
-            parent: self,
-            table: &self.surface_khr_table,
-        })
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

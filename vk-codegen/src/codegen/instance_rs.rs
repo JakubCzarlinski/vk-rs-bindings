@@ -3,24 +3,23 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, enabled_set, result_check_arms, safe_method,
-    safe_method_unit_with_overrides, vk_result_is_err,
+    Tier, c_str_lit, collect_groups, enabled_set, safe_method, safe_method_unit_with_overrides,
+    vk_result_is_err,
 };
-use crate::ir::{Command, Registry};
+use crate::ir::Registry;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::{BTreeMap, HashSet};
 
 pub fn gen_instance_rs(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
     handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_instance_dispatch_table(reg));
-    ts.extend(gen_instance(reg, result_cfgs, handle_types, handle_meta));
+    ts.extend(gen_instance(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
@@ -125,7 +124,6 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
 // it from self.raw.  vkCreateDevice is special-cased to return Device<'inst>.
 fn gen_instance(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
     handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> TokenStream {
@@ -140,7 +138,7 @@ fn gen_instance(
                 continue;
             }
             if name == "vkEnumeratePhysicalDevices" {
-                methods_ts.extend(gen_enumerate_physical_devices(cmd, providers, result_cfgs));
+                methods_ts.extend(gen_enumerate_physical_devices(providers));
             } else if name == "vkDestroyInstance" {
                 methods_ts.extend(safe_method_unit_with_overrides(
                     cmd,
@@ -149,7 +147,6 @@ fn gen_instance(
                     "VkInstance", // strip param[0] = VkInstance
                     quote! { self.raw },
                     quote! { &self.table },
-                    result_cfgs,
                     handle_types,
                     Some(handle_meta),
                     quote! {},
@@ -172,7 +169,6 @@ fn gen_instance(
                     "VkInstance", // strip param[0] = VkInstance
                     quote! { self.raw },
                     quote! { &self.table },
-                    result_cfgs,
                     handle_types,
                     Some(handle_meta),
                     quote! {},
@@ -275,14 +271,9 @@ fn gen_instance(
     }
 }
 
-fn gen_enumerate_physical_devices(
-    cmd: &Command,
-    providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
-) -> TokenStream {
+fn gen_enumerate_physical_devices(providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
-    let is_err = vk_result_is_err(cmd, result_cfgs);
+    let is_err = vk_result_is_err();
 
     quote! {
         #cfg
@@ -298,7 +289,7 @@ fn gen_enumerate_physical_devices(
             if count == 0 { return Ok(alloc::boxed::Box::<[PhysicalDevice<'inst>; 0]>::new([])); }
             let mut raw_gpus = alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);
             let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
-            if let Err(e) = { #result_check } { return Err(e); }
+            if r < VkResult::VK_SUCCESS { return Err(r); }
             let raw_gpus = unsafe { raw_gpus.assume_init() };
 
             Ok(raw_gpus.into_iter().map(|raw| PhysicalDevice {

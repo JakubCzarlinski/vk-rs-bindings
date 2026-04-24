@@ -1,12 +1,10 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::pretty;
-use crate::codegen::utils::{
-    c_str_lit, ctype_to_tokens, kw_escape, result_check_arms, safe_method,
-};
+use crate::codegen::utils::{c_str_lit, ctype_to_tokens, kw_escape, safe_method};
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 // Entry command names (pre-instance, resolved via vkGetInstanceProcAddr(NULL))
 const ENTRY_CMDS: &[&str] = &[
@@ -23,7 +21,6 @@ pub fn entry_cmd_set() -> HashSet<&'static str> {
 // Top-level generator
 pub fn gen_entry_rs(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
     handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> String {
@@ -31,7 +28,7 @@ pub fn gen_entry_rs(
     ts.extend(preamble());
     ts.extend(gen_vulkan_lib());
     ts.extend(gen_entry_dispatch_table(reg));
-    ts.extend(gen_entry(reg, result_cfgs, handle_types, handle_meta));
+    ts.extend(gen_entry(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
@@ -226,7 +223,6 @@ fn gen_entry_dispatch_table(reg: &Registry) -> TokenStream {
 // The only transformation is VkResult -> Result<T, VkResult>.
 fn gen_entry(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
     handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
@@ -246,12 +242,7 @@ fn gen_entry(
         providers.dedup();
 
         if name == "vkCreateInstance" {
-            methods_ts.extend(gen_create_instance(
-                cmd,
-                &providers,
-                result_cfgs,
-                handle_meta,
-            ));
+            methods_ts.extend(gen_create_instance(cmd, &providers, handle_meta));
         } else {
             // No param[0] stripping for entry commands (handle_base = "").
             methods_ts.extend(safe_method(
@@ -261,7 +252,6 @@ fn gen_entry(
                 "",
                 quote! {}, // self_handle unused when handle_base is ""
                 quote! { &self.table },
-                result_cfgs,
                 handle_types,
                 None,
                 quote! {},
@@ -309,11 +299,9 @@ fn gen_entry(
 fn gen_create_instance(
     cmd: &crate::ir::Command,
     providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
-    let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
 
     // All params except the output *mut VkInstance (returned as Instance).
     let sig_params: Vec<_> = cmd
@@ -371,7 +359,7 @@ fn gen_create_instance(
             let fp  = unsafe { self.table.vkCreateInstance.unwrap_unchecked() };
             let mut raw = VkInstance::NULL;
             let r = unsafe { fp(#(#p_fwd,)* &mut raw) };
-            if let Err(e) = { #result_check } { return Err(e); }
+            if r < VkResult::VK_SUCCESS { return Err(r); }
             let table = InstanceDispatchTable::load(|name| unsafe {
                 (self.lib.get_instance_proc_addr)(raw, name)
             });

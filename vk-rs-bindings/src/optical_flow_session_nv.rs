@@ -103,13 +103,13 @@ impl<'dev> OpticalFlowSessionNV<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NV_optical_flow")]
     #[inline(always)]
     pub fn vkBindOpticalFlowSessionImageNV(
@@ -125,20 +125,10 @@ impl<'dev> OpticalFlowSessionNV<'dev> {
                 self.device().raw(), self.raw, bindingPoint, view, layout
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkDestroyOpticalFlowSessionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyOpticalFlowSessionNV.html)

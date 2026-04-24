@@ -173,12 +173,12 @@ impl<'dev> Pipeline<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
     #[inline(always)]
     pub fn vkGetExecutionGraphPipelineNodeIndexAMDX(
@@ -191,18 +191,10 @@ impl<'dev> Pipeline<'dev> {
                 .vkGetExecutionGraphPipelineNodeIndexAMDX
                 .unwrap_unchecked()(self.device().raw(), self.raw, pNodeInfo, pNodeIndex)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetExecutionGraphPipelineScratchSizeAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetExecutionGraphPipelineScratchSizeAMDX.html)
@@ -219,12 +211,12 @@ impl<'dev> Pipeline<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
     #[inline(always)]
     pub fn vkGetExecutionGraphPipelineScratchSizeAMDX(
@@ -236,18 +228,10 @@ impl<'dev> Pipeline<'dev> {
                 .vkGetExecutionGraphPipelineScratchSizeAMDX
                 .unwrap_unchecked()(self.device().raw(), self.raw, pSizeInfo)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetShaderInfoAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderInfoAMD.html)
@@ -267,14 +251,14 @@ impl<'dev> Pipeline<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_FEATURE_NOT_PRESENT
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_FEATURE_NOT_PRESENT`
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_AMD_shader_info")]
     #[inline(always)]
     pub fn vkGetShaderInfoAMD(
@@ -294,20 +278,10 @@ impl<'dev> Pipeline<'dev> {
                 pInfo,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_FEATURE_NOT_PRESENT
-            | VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkDestroyPipeline`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipeline.html)
@@ -354,13 +328,13 @@ impl<'dev> Pipeline<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
     #[inline(always)]
     pub fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
@@ -382,20 +356,10 @@ impl<'dev> Pipeline<'dev> {
                 pData,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetRayTracingShaderGroupHandlesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupHandlesKHR.html)
@@ -415,13 +379,13 @@ impl<'dev> Pipeline<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
     #[inline(always)]
     pub fn vkGetRayTracingShaderGroupHandlesKHR(
@@ -443,20 +407,10 @@ impl<'dev> Pipeline<'dev> {
                 pData,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetRayTracingShaderGroupStackSizeKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupStackSizeKHR.html)
@@ -498,13 +452,13 @@ impl<'dev> Pipeline<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NV_ray_tracing")]
     #[inline(always)]
     pub fn vkCompileDeferredNV(&self, shader: u32) -> Result<VkResult, VkResult> {
@@ -515,20 +469,10 @@ impl<'dev> Pipeline<'dev> {
                 shader,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetRayTracingShaderGroupHandlesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRayTracingShaderGroupHandlesKHR.html)
@@ -548,13 +492,13 @@ impl<'dev> Pipeline<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NV_ray_tracing")]
     #[inline(always)]
     pub fn vkGetRayTracingShaderGroupHandlesNV(
@@ -576,20 +520,10 @@ impl<'dev> Pipeline<'dev> {
                 pData,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
 }

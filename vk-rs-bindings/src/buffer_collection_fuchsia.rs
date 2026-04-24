@@ -148,13 +148,13 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
     #[inline(always)]
     pub fn vkGetBufferCollectionPropertiesFUCHSIA(
@@ -166,20 +166,10 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
                 .vkGetBufferCollectionPropertiesFUCHSIA
                 .unwrap_unchecked()(self.device().raw(), self.raw, pProperties)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkSetBufferCollectionBufferConstraintsFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetBufferCollectionBufferConstraintsFUCHSIA.html)
@@ -196,14 +186,14 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
     #[inline(always)]
     pub fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
@@ -217,21 +207,10 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
                 self.device().raw(), self.raw, pBufferConstraintsInfo
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkSetBufferCollectionImageConstraintsFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetBufferCollectionImageConstraintsFUCHSIA.html)
@@ -248,14 +227,14 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
     #[inline(always)]
     pub fn vkSetBufferCollectionImageConstraintsFUCHSIA(
@@ -267,21 +246,10 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
                 .vkSetBufferCollectionImageConstraintsFUCHSIA
                 .unwrap_unchecked()(self.device().raw(), self.raw, pImageConstraintsInfo)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
 }

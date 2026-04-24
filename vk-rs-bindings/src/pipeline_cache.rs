@@ -132,14 +132,14 @@ impl<'dev> PipelineCache<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+    ///   - `VK_SUCCESS`
+    ///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
     #[inline(always)]
     pub fn vkCreateExecutionGraphPipelinesAMDX(
@@ -161,22 +161,10 @@ impl<'dev> PipelineCache<'dev> {
                 pPipelines,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            #[cfg(feature = "VK_EXT_pipeline_creation_cache_control")]
-            VkResult::VK_PIPELINE_COMPILE_REQUIRED_EXT => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkDestroyPipelineCache`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineCache.html)
@@ -222,14 +210,14 @@ impl<'dev> PipelineCache<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     #[inline(always)]
     pub fn vkGetPipelineCacheData(
@@ -245,20 +233,10 @@ impl<'dev> PipelineCache<'dev> {
                 pData,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkMergePipelineCaches`](https://docs.vulkan.org/refpages/latest/refpages/source/vkMergePipelineCaches.html)
@@ -277,13 +255,13 @@ impl<'dev> PipelineCache<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     #[inline(always)]
     pub fn vkMergePipelineCaches(
@@ -299,20 +277,10 @@ impl<'dev> PipelineCache<'dev> {
                 pSrcCaches,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkCreateRayTracingPipelinesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesNV.html)
@@ -333,16 +301,16 @@ impl<'dev> PipelineCache<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+    ///   - `VK_SUCCESS`
+    ///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_NO_PIPELINE_MATCH
-    ///   - VK_ERROR_OUT_OF_POOL_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_NO_PIPELINE_MATCH`
+    ///   - `VK_ERROR_OUT_OF_POOL_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NV_ray_tracing")]
     #[inline(always)]
     pub fn vkCreateRayTracingPipelinesNV(
@@ -364,26 +332,10 @@ impl<'dev> PipelineCache<'dev> {
                 pPipelines,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            #[cfg(feature = "VK_EXT_pipeline_creation_cache_control")]
-            VkResult::VK_PIPELINE_COMPILE_REQUIRED_EXT => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VKSC_VERSION_1_0")]
-            VkResult::VK_ERROR_NO_PIPELINE_MATCH => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_1")]
-            VkResult::VK_ERROR_OUT_OF_POOL_MEMORY => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
 }

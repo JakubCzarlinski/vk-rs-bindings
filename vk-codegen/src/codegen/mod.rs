@@ -26,7 +26,7 @@ use crate::codegen::instance_rs::gen_instance_rs;
 use crate::codegen::lib_rs::gen_lib_rs;
 use crate::codegen::physical_device_rs::gen_physical_device_rs;
 use crate::codegen::types_rs::gen_types_rs;
-use crate::codegen::utils::{build_handle_type_set, build_result_cfg_map};
+use crate::codegen::utils::build_handle_type_set;
 use crate::codegen::validation_rs::gen_validation_rs;
 use crate::ir::{DeprecationInfo, Registry};
 use proc_macro2::TokenStream;
@@ -51,10 +51,9 @@ pub struct GeneratedFiles {
 
 #[must_use]
 pub fn generate(reg: &Registry) -> GeneratedFiles {
-    let result_cfgs = build_result_cfg_map(reg);
     let handle_types = build_handle_type_set(reg);
     let handle_meta = crate::codegen::handles_rs::get_handle_metadata(reg);
-    let handles = gen_handles(reg, &result_cfgs, &handle_types);
+    let handles = gen_handles(reg, &handle_types);
     GeneratedFiles {
         cargo_toml: gen_cargo_toml(reg),
         lib_rs: gen_lib_rs(&handles.keys().cloned().collect::<Vec<_>>()),
@@ -63,10 +62,10 @@ pub fn generate(reg: &Registry) -> GeneratedFiles {
         consts_rs: gen_consts_rs(reg),
         commands_rs: gen_commands_rs(reg),
         validation_rs: gen_validation_rs(reg),
-        entry_rs: gen_entry_rs(reg, &result_cfgs, &handle_types, &handle_meta),
-        instance_rs: gen_instance_rs(reg, &result_cfgs, &handle_types, &handle_meta),
-        physical_device_rs: gen_physical_device_rs(reg, &result_cfgs, &handle_types, &handle_meta),
-        device_rs: gen_device_rs(reg, &result_cfgs, &handle_types, &handle_meta),
+        entry_rs: gen_entry_rs(reg, &handle_types, &handle_meta),
+        instance_rs: gen_instance_rs(reg, &handle_types, &handle_meta),
+        physical_device_rs: gen_physical_device_rs(reg, &handle_types, &handle_meta),
+        device_rs: gen_device_rs(reg, &handle_types, &handle_meta),
         handles,
         dot_graph: gen_dot_graph(reg),
     }

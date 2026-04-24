@@ -151,15 +151,15 @@ impl<'dev> QueryPool<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_NOT_READY
+    ///   - `VK_SUCCESS`
+    ///   - `VK_NOT_READY`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
     pub fn vkGetQueryPoolResults(
@@ -183,21 +183,10 @@ impl<'dev> QueryPool<'dev> {
                 flags,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_NOT_READY => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkResetQueryPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetQueryPool.html)

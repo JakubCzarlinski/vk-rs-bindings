@@ -2,8 +2,7 @@ use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    c_str_lit, collect_groups, enabled_set, result_check_arms, safe_method,
-    safe_method_unit_with_overrides,
+    c_str_lit, collect_groups, enabled_set, safe_method, safe_method_unit_with_overrides,
 };
 use crate::ir::{Command, Registry, TypedefKind};
 use proc_macro2::TokenStream;
@@ -96,26 +95,14 @@ fn root_owner(name: &str, parents: &HashMap<String, String>) -> String {
     String::new()
 }
 
-pub fn gen_handles(
-    reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
-    handle_types: &HashSet<String>,
-) -> BTreeMap<String, String> {
+pub fn gen_handles(reg: &Registry, handle_types: &HashSet<String>) -> BTreeMap<String, String> {
     let mut map = BTreeMap::new();
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
     let meta_map = get_handle_metadata(reg);
 
     for meta in meta_map.values() {
-        let content = gen_handle_module(
-            reg,
-            meta,
-            &meta_map,
-            result_cfgs,
-            handle_types,
-            &skip,
-            &enabled,
-        );
+        let content = gen_handle_module(reg, meta, &meta_map, handle_types, &skip, &enabled);
         map.insert(meta.mod_name.clone(), pretty(&content));
     }
     map
@@ -185,7 +172,6 @@ fn gen_handle_module(
     reg: &Registry,
     meta: &HandleMeta,
     meta_map: &BTreeMap<String, HandleMeta>,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
     skip: &HashSet<&str>,
     enabled: &HashSet<String>,
@@ -269,11 +255,11 @@ fn gen_handle_module(
             });
 
             if cmd_name == "vkAllocateCommandBuffers" {
-                methods_ts.extend(gen_allocate_command_buffers(cmd, providers, result_cfgs));
+                methods_ts.extend(gen_allocate_command_buffers(providers));
             } else if cmd_name == "vkFreeCommandBuffers" {
-                methods_ts.extend(gen_free_command_buffers(cmd, providers));
+                methods_ts.extend(gen_free_command_buffers(providers));
             } else if cmd_name == "vkAllocateDescriptorSets" {
-                methods_ts.extend(gen_allocate_descriptor_sets(cmd, providers, result_cfgs));
+                methods_ts.extend(gen_allocate_descriptor_sets(providers));
             } else if cmd_name == "vkFreeDescriptorSets" {
                 methods_ts.extend(gen_free_descriptor_sets(cmd, providers));
             } else if is_self_destructor_command(cmd_name, cmd, meta) {
@@ -285,7 +271,6 @@ fn gen_handle_module(
                     &meta.vk_name, // handle_base to strip
                     quote! { self.raw },
                     quote! { self.table },
-                    result_cfgs,
                     handle_types,
                     Some(meta_map),
                     quote! { self.device() },
@@ -309,7 +294,6 @@ fn gen_handle_module(
                     &meta.vk_name, // handle_base to strip
                     quote! { self.raw },
                     quote! { self.table },
-                    result_cfgs,
                     handle_types,
                     Some(meta_map),
                     device_acc,
@@ -417,13 +401,8 @@ fn gen_handle_module(
     }
 }
 
-fn gen_allocate_command_buffers(
-    cmd: &Command,
-    providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
-) -> TokenStream {
+fn gen_allocate_command_buffers(providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
 
     quote! {
         #cfg
@@ -436,7 +415,7 @@ fn gen_allocate_command_buffers(
             let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
             let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr().cast()) };
-            if let Err(e) = { #result_check } { return Err(e); }
+            if r < VkResult::VK_SUCCESS { return Err(r); }
             let raw_buffers = unsafe { raw_buffers.assume_init() };
 
             Ok(raw_buffers.into_iter().map(|raw| crate::command_buffer::CommandBuffer {
@@ -448,7 +427,7 @@ fn gen_allocate_command_buffers(
     }
 }
 
-fn gen_free_command_buffers(_cmd: &Command, providers: &[String]) -> TokenStream {
+fn gen_free_command_buffers(providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
     quote! {
         #cfg
@@ -464,13 +443,8 @@ fn gen_free_command_buffers(_cmd: &Command, providers: &[String]) -> TokenStream
     }
 }
 
-fn gen_allocate_descriptor_sets(
-    cmd: &Command,
-    providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
-) -> TokenStream {
+fn gen_allocate_descriptor_sets(providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
 
     quote! {
         #cfg
@@ -483,7 +457,7 @@ fn gen_allocate_descriptor_sets(
             let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
             let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr().cast()) };
-            if let Err(e) = { #result_check } { return Err(e); }
+            if r < VkResult::VK_SUCCESS { return Err(r); }
             let raw_sets = unsafe { raw_sets.assume_init() };
 
             Ok(raw_sets.into_iter().map(|raw| crate::descriptor_set::DescriptorSet {

@@ -1,30 +1,24 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
+use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, ctype_to_tokens, enabled_set, kw_escape, result_check_arms,
-    safe_method,
+    Tier, c_str_lit, collect_groups, ctype_to_tokens, enabled_set, kw_escape, safe_method,
 };
-use crate::ir::Registry;
+use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashSet};
 
 pub fn gen_physical_device_rs(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
+    handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_physical_device_dispatch_table(reg));
-    ts.extend(gen_physical_device(
-        reg,
-        result_cfgs,
-        handle_types,
-        handle_meta,
-    ));
+    ts.extend(gen_physical_device(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
@@ -78,9 +72,8 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
 
 fn gen_physical_device(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
+    handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
@@ -89,7 +82,7 @@ fn gen_physical_device(
     for cmds in groups.values() {
         for (name, providers, cmd) in cmds {
             if name == "vkCreateDevice" {
-                methods_ts.extend(gen_create_device(cmd, providers, result_cfgs, handle_meta));
+                methods_ts.extend(gen_create_device(cmd, providers, handle_meta));
             } else {
                 methods_ts.extend(safe_method(
                     cmd,
@@ -98,7 +91,6 @@ fn gen_physical_device(
                     "VkPhysicalDevice",
                     quote! { self.raw },
                     quote! { self.table },
-                    result_cfgs,
                     handle_types,
                     None,
                     quote! {},
@@ -131,13 +123,11 @@ fn gen_physical_device(
 }
 
 fn gen_create_device(
-    cmd: &crate::ir::Command,
+    cmd: &Command,
     providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
-    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
+    handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
-    let result_check = result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
     // remove parameter [0] since it gets replaced by `self.raw`
     let sig_params: Vec<_> = crate::codegen::utils::strip_first_param(&cmd.params)
         .iter()
@@ -180,7 +170,7 @@ fn gen_create_device(
             let fp  = unsafe { self.table.vkCreateDevice.unwrap_unchecked() };
             let mut raw = VkDevice::NULL;
             let r = unsafe { fp(self.raw, #(#p_fwd,)* &mut raw) };
-            if let Err(e) = { #result_check } { return Err(e); }
+            if r < VkResult::VK_SUCCESS { return Err(r); }
             let gdpa  = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
             let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
             #tb_load

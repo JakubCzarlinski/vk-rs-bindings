@@ -284,14 +284,14 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_OUT_OF_DATE_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_OUT_OF_DATE_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_display_control")]
     #[inline(always)]
     pub fn vkGetSwapchainCounterEXT(
@@ -307,22 +307,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pCounterValue,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkAcquireFullScreenExclusiveModeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireFullScreenExclusiveModeEXT.html)
@@ -338,15 +326,15 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_full_screen_exclusive")]
     #[inline(always)]
     pub fn vkAcquireFullScreenExclusiveModeEXT(&self) -> Result<VkResult, VkResult> {
@@ -355,23 +343,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 .vkAcquireFullScreenExclusiveModeEXT
                 .unwrap_unchecked()(self.device().raw(), self.raw)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_INITIALIZATION_FAILED
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkReleaseFullScreenExclusiveModeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseFullScreenExclusiveModeEXT.html)
@@ -387,14 +362,14 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_full_screen_exclusive")]
     #[inline(always)]
     pub fn vkReleaseFullScreenExclusiveModeEXT(&self) -> Result<VkResult, VkResult> {
@@ -403,22 +378,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 .vkReleaseFullScreenExclusiveModeEXT
                 .unwrap_unchecked()(self.device().raw(), self.raw)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetSwapchainTimeDomainPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainTimeDomainPropertiesEXT.html)
@@ -436,15 +399,15 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_present_timing")]
     #[inline(always)]
     pub fn vkGetSwapchainTimeDomainPropertiesEXT(
@@ -462,22 +425,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pTimeDomainsCounter,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetSwapchainTimingPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainTimingPropertiesEXT.html)
@@ -495,15 +446,15 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_NOT_READY
+    ///   - `VK_SUCCESS`
+    ///   - `VK_NOT_READY`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_present_timing")]
     #[inline(always)]
     pub fn vkGetSwapchainTimingPropertiesEXT(
@@ -521,22 +472,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pSwapchainTimingPropertiesCounter,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_NOT_READY => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkSetSwapchainPresentTimingQueueSizeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetSwapchainPresentTimingQueueSizeEXT.html)
@@ -553,14 +492,14 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_NOT_READY
+    ///   - `VK_SUCCESS`
+    ///   - `VK_NOT_READY`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_EXT_present_timing")]
     #[inline(always)]
     pub fn vkSetSwapchainPresentTimingQueueSizeEXT(&self, size: u32) -> Result<VkResult, VkResult> {
@@ -569,20 +508,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 .vkSetSwapchainPresentTimingQueueSizeEXT
                 .unwrap_unchecked()(self.device().raw(), self.raw, size)
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_NOT_READY => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetPastPresentationTimingGOOGLE`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingGOOGLE.html)
@@ -600,16 +529,16 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_OUT_OF_DATE_KHR
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_OUT_OF_DATE_KHR`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_GOOGLE_display_timing")]
     #[inline(always)]
     pub fn vkGetPastPresentationTimingGOOGLE(
@@ -627,24 +556,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pPresentationTimings,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetRefreshCycleDurationGOOGLE`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRefreshCycleDurationGOOGLE.html)
@@ -661,14 +576,14 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_GOOGLE_display_timing")]
     #[inline(always)]
     pub fn vkGetRefreshCycleDurationGOOGLE(
@@ -682,22 +597,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 self.device().raw(), self.raw, pDisplayTimingProperties
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkWaitForPresentKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForPresentKHR.html)
@@ -715,19 +618,19 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_TIMEOUT
-    ///   - VK_SUBOPTIMAL_KHR
+    ///   - `VK_SUCCESS`
+    ///   - `VK_TIMEOUT`
+    ///   - `VK_SUBOPTIMAL_KHR`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_OUT_OF_DATE_KHR
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_OUT_OF_DATE_KHR`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_present_wait")]
     #[inline(always)]
     pub fn vkWaitForPresentKHR(&self, presentId: u64, timeout: u64) -> Result<VkResult, VkResult> {
@@ -739,29 +642,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 timeout,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT => Ok(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_SUBOPTIMAL_KHR => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-            VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkWaitForPresent2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForPresent2KHR.html)
@@ -778,19 +662,19 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_TIMEOUT
-    ///   - VK_SUBOPTIMAL_KHR
+    ///   - `VK_SUCCESS`
+    ///   - `VK_TIMEOUT`
+    ///   - `VK_SUBOPTIMAL_KHR`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_OUT_OF_DATE_KHR
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_OUT_OF_DATE_KHR`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_present_wait2")]
     #[inline(always)]
     pub fn vkWaitForPresent2KHR(
@@ -804,29 +688,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pPresentWait2Info,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT => Ok(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_SUBOPTIMAL_KHR => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-            VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetSwapchainStatusKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainStatusKHR.html)
@@ -842,47 +707,28 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_SUBOPTIMAL_KHR
+    ///   - `VK_SUCCESS`
+    ///   - `VK_SUBOPTIMAL_KHR`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_OUT_OF_DATE_KHR
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_OUT_OF_DATE_KHR`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_shared_presentable_image")]
     #[inline(always)]
     pub fn vkGetSwapchainStatusKHR(&self) -> Result<VkResult, VkResult> {
         let r = unsafe {
             (self.table).vkGetSwapchainStatusKHR.unwrap_unchecked()(self.device().raw(), self.raw)
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_SUBOPTIMAL_KHR => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-            VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkAcquireNextImageKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireNextImageKHR.html)
@@ -902,20 +748,20 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_TIMEOUT
-    ///   - VK_NOT_READY
-    ///   - VK_SUBOPTIMAL_KHR
+    ///   - `VK_SUCCESS`
+    ///   - `VK_TIMEOUT`
+    ///   - `VK_NOT_READY`
+    ///   - `VK_SUBOPTIMAL_KHR`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_DEVICE_LOST
-    ///   - VK_ERROR_OUT_OF_DATE_KHR
-    ///   - VK_ERROR_SURFACE_LOST_KHR
-    ///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_DEVICE_LOST`
+    ///   - `VK_ERROR_OUT_OF_DATE_KHR`
+    ///   - `VK_ERROR_SURFACE_LOST_KHR`
+    ///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_swapchain")]
     #[inline(always)]
     pub fn vkAcquireNextImageKHR(
@@ -935,29 +781,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pImageIndex,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_TIMEOUT | VkResult::VK_NOT_READY => Ok(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_SUBOPTIMAL_KHR => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_DEVICE_LOST
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-            VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT => Err(r),
-            #[cfg(feature = "VK_KHR_surface")]
-            VkResult::VK_ERROR_SURFACE_LOST_KHR => Err(r),
-            #[cfg(feature = "VK_KHR_swapchain")]
-            VkResult::VK_ERROR_OUT_OF_DATE_KHR => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkDestroySwapchainKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySwapchainKHR.html)
@@ -1001,14 +828,14 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_KHR_swapchain")]
     #[inline(always)]
     pub fn vkGetSwapchainImagesKHR(
@@ -1024,20 +851,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pSwapchainImages,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkGetLatencyTimingsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetLatencyTimingsNV.html)
@@ -1076,11 +893,11 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NV_low_latency2")]
     #[inline(always)]
     pub fn vkLatencySleepNV(
@@ -1094,18 +911,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pSleepInfo,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkSetLatencyMarkerNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLatencyMarkerNV.html)
@@ -1144,12 +953,12 @@ impl<'dev> SwapchainKHR<'dev> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_INITIALIZATION_FAILED
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_INITIALIZATION_FAILED`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_NV_low_latency2")]
     #[inline(always)]
     pub fn vkSetLatencySleepModeNV(
@@ -1163,18 +972,10 @@ impl<'dev> SwapchainKHR<'dev> {
                 pSleepModeInfo,
             )
         };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_INITIALIZATION_FAILED | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
 }

@@ -19,12 +19,12 @@ use core::ffi::{c_char, c_void};
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_acquire_drm_display")]
 pub type PFN_vkAcquireDrmDisplayEXT = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -44,15 +44,15 @@ pub type PFN_vkAcquireDrmDisplayEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 pub type PFN_vkAcquireFullScreenExclusiveModeEXT =
     unsafe extern "system" fn(device: VkDevice, swapchain: VkSwapchainKHR) -> VkResult;
@@ -71,20 +71,20 @@ pub type PFN_vkAcquireFullScreenExclusiveModeEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_TIMEOUT
-///   - VK_NOT_READY
-///   - VK_SUBOPTIMAL_KHR
+///   - `VK_SUCCESS`
+///   - `VK_TIMEOUT`
+///   - `VK_NOT_READY`
+///   - `VK_SUBOPTIMAL_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
 pub type PFN_vkAcquireNextImage2KHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -108,20 +108,20 @@ pub type PFN_vkAcquireNextImage2KHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_TIMEOUT
-///   - VK_NOT_READY
-///   - VK_SUBOPTIMAL_KHR
+///   - `VK_SUCCESS`
+///   - `VK_TIMEOUT`
+///   - `VK_NOT_READY`
+///   - `VK_SUBOPTIMAL_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_swapchain")]
 pub type PFN_vkAcquireNextImageKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -145,13 +145,13 @@ pub type PFN_vkAcquireNextImageKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkAcquirePerformanceConfigurationINTEL = unsafe extern "system" fn(
     device: VkDevice,
@@ -171,13 +171,13 @@ pub type PFN_vkAcquirePerformanceConfigurationINTEL = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_TIMEOUT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_TIMEOUT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_performance_query")]
 pub type PFN_vkAcquireProfilingLockKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -196,14 +196,14 @@ pub type PFN_vkAcquireProfilingLockKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_acquire_winrt_display")]
 pub type PFN_vkAcquireWinrtDisplayNV =
     unsafe extern "system" fn(physicalDevice: VkPhysicalDevice, display: VkDisplayKHR) -> VkResult;
@@ -221,13 +221,13 @@ pub type PFN_vkAcquireWinrtDisplayNV =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_acquire_xlib_display")]
 pub type PFN_vkAcquireXlibDisplayEXT = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -249,13 +249,13 @@ pub type PFN_vkAcquireXlibDisplayEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkAllocateCommandBuffers = unsafe extern "system" fn(
     device: VkDevice,
@@ -277,15 +277,15 @@ pub type PFN_vkAllocateCommandBuffers = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_FRAGMENTED_POOL
-///   - VK_ERROR_OUT_OF_POOL_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_FRAGMENTED_POOL`
+///   - `VK_ERROR_OUT_OF_POOL_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkAllocateDescriptorSets = unsafe extern "system" fn(
     device: VkDevice,
@@ -308,15 +308,15 @@ pub type PFN_vkAllocateDescriptorSets = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkAllocateMemory = unsafe extern "system" fn(
     device: VkDevice,
@@ -350,13 +350,13 @@ pub type PFN_vkAntiLagUpdateAMD =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkBeginCommandBuffer = unsafe extern "system" fn(
     commandBuffer: VkCommandBuffer,
@@ -376,13 +376,13 @@ pub type PFN_vkBeginCommandBuffer = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkBindAccelerationStructureMemoryNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -405,14 +405,14 @@ pub type PFN_vkBindAccelerationStructureMemoryNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkBindBufferMemory = unsafe extern "system" fn(
     device: VkDevice,
@@ -435,14 +435,14 @@ pub type PFN_vkBindBufferMemory = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkBindBufferMemory2 = unsafe extern "system" fn(
     device: VkDevice,
@@ -470,13 +470,13 @@ pub type PFN_vkBindBufferMemory2KHR = PFN_vkBindBufferMemory2;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkBindDataGraphPipelineSessionMemoryARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -499,13 +499,13 @@ pub type PFN_vkBindDataGraphPipelineSessionMemoryARM = unsafe extern "system" fn
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkBindImageMemory = unsafe extern "system" fn(
     device: VkDevice,
@@ -528,13 +528,13 @@ pub type PFN_vkBindImageMemory = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkBindImageMemory2 = unsafe extern "system" fn(
     device: VkDevice,
@@ -564,13 +564,13 @@ pub type PFN_vkBindImageMemory2KHR = PFN_vkBindImageMemory2;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_optical_flow")]
 pub type PFN_vkBindOpticalFlowSessionImageNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -593,13 +593,13 @@ pub type PFN_vkBindOpticalFlowSessionImageNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkBindTensorMemoryARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -621,13 +621,13 @@ pub type PFN_vkBindTensorMemoryARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkBindVideoSessionMemoryKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -651,15 +651,15 @@ pub type PFN_vkBindVideoSessionMemoryKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkBuildAccelerationStructuresKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -683,15 +683,15 @@ pub type PFN_vkBuildAccelerationStructuresKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkBuildMicromapsEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -5318,13 +5318,13 @@ pub type PFN_vkCmdSetPatchControlPointsEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkCmdSetPerformanceMarkerINTEL = unsafe extern "system" fn(
     commandBuffer: VkCommandBuffer,
@@ -5346,13 +5346,13 @@ pub type PFN_vkCmdSetPerformanceMarkerINTEL = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkCmdSetPerformanceOverrideINTEL = unsafe extern "system" fn(
     commandBuffer: VkCommandBuffer,
@@ -5374,13 +5374,13 @@ pub type PFN_vkCmdSetPerformanceOverrideINTEL = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkCmdSetPerformanceStreamMarkerINTEL = unsafe extern "system" fn(
     commandBuffer: VkCommandBuffer,
@@ -6556,13 +6556,13 @@ pub type PFN_vkCmdWriteTimestamp2KHR = PFN_vkCmdWriteTimestamp2;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkCompileDeferredNV =
     unsafe extern "system" fn(device: VkDevice, pipeline: VkPipeline, shader: u32) -> VkResult;
@@ -6579,13 +6579,13 @@ pub type PFN_vkCompileDeferredNV =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_cooperative_vector")]
 pub type PFN_vkConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -6605,15 +6605,15 @@ pub type PFN_vkConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkCopyAccelerationStructureKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -6634,15 +6634,15 @@ pub type PFN_vkCopyAccelerationStructureKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkCopyAccelerationStructureToMemoryKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -6663,15 +6663,15 @@ pub type PFN_vkCopyAccelerationStructureToMemoryKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_MEMORY_MAP_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_MEMORY_MAP_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkCopyImageToImage = unsafe extern "system" fn(
     device: VkDevice,
@@ -6698,15 +6698,15 @@ pub type PFN_vkCopyImageToImageEXT = PFN_vkCopyImageToImage;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_MEMORY_MAP_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_MEMORY_MAP_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkCopyImageToMemory = unsafe extern "system" fn(
     device: VkDevice,
@@ -6733,15 +6733,15 @@ pub type PFN_vkCopyImageToMemoryEXT = PFN_vkCopyImageToMemory;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkCopyMemoryToAccelerationStructureKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -6762,15 +6762,15 @@ pub type PFN_vkCopyMemoryToAccelerationStructureKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_MEMORY_MAP_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_MEMORY_MAP_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkCopyMemoryToImage = unsafe extern "system" fn(
     device: VkDevice,
@@ -6797,15 +6797,15 @@ pub type PFN_vkCopyMemoryToImageEXT = PFN_vkCopyMemoryToImage;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkCopyMemoryToMicromapEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -6826,15 +6826,15 @@ pub type PFN_vkCopyMemoryToMicromapEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkCopyMicromapEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -6855,15 +6855,15 @@ pub type PFN_vkCopyMicromapEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkCopyMicromapToMemoryEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -6885,13 +6885,13 @@ pub type PFN_vkCopyMicromapToMemoryEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_VALIDATION_FAILED
-///   - VK_ERROR_UNKNOWN
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_VALIDATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
 #[cfg(feature = "VK_KHR_device_address_commands")]
 pub type PFN_vkCreateAccelerationStructure2KHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -6914,13 +6914,13 @@ pub type PFN_vkCreateAccelerationStructure2KHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 #[deprecated(note = "superseded by `vkCreateAccelerationStructure2KHR`")]
 pub type PFN_vkCreateAccelerationStructureKHR = unsafe extern "system" fn(
@@ -6944,12 +6944,12 @@ pub type PFN_vkCreateAccelerationStructureKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkCreateAccelerationStructureNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -6972,14 +6972,14 @@ pub type PFN_vkCreateAccelerationStructureNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_android_surface")]
 pub type PFN_vkCreateAndroidSurfaceKHR = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7003,14 +7003,14 @@ pub type PFN_vkCreateAndroidSurfaceKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateBuffer = unsafe extern "system" fn(
     device: VkDevice,
@@ -7033,14 +7033,14 @@ pub type PFN_vkCreateBuffer = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -7064,13 +7064,13 @@ pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateBufferView = unsafe extern "system" fn(
     device: VkDevice,
@@ -7094,13 +7094,13 @@ pub type PFN_vkCreateBufferView = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateCommandPool = unsafe extern "system" fn(
     device: VkDevice,
@@ -7127,15 +7127,15 @@ pub type PFN_vkCreateCommandPool = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+///   - `VK_SUCCESS`
+///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_SHADER_NV
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_SHADER_NV`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateComputePipelines = unsafe extern "system" fn(
     device: VkDevice,
@@ -7160,13 +7160,13 @@ pub type PFN_vkCreateComputePipelines = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NVX_binary_import")]
 pub type PFN_vkCreateCuFunctionNVX = unsafe extern "system" fn(
     device: VkDevice,
@@ -7189,13 +7189,13 @@ pub type PFN_vkCreateCuFunctionNVX = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NVX_binary_import")]
 pub type PFN_vkCreateCuModuleNVX = unsafe extern "system" fn(
     device: VkDevice,
@@ -7218,13 +7218,13 @@ pub type PFN_vkCreateCuModuleNVX = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 pub type PFN_vkCreateCudaFunctionNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -7247,13 +7247,13 @@ pub type PFN_vkCreateCudaFunctionNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 pub type PFN_vkCreateCudaModuleNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -7276,13 +7276,13 @@ pub type PFN_vkCreateCudaModuleNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkCreateDataGraphPipelineSessionARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -7308,14 +7308,14 @@ pub type PFN_vkCreateDataGraphPipelineSessionARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+///   - `VK_SUCCESS`
+///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkCreateDataGraphPipelinesARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -7341,12 +7341,12 @@ pub type PFN_vkCreateDataGraphPipelinesARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_debug_report")]
 pub type PFN_vkCreateDebugReportCallbackEXT = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7369,12 +7369,12 @@ pub type PFN_vkCreateDebugReportCallbackEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkCreateDebugUtilsMessengerEXT = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7396,12 +7396,12 @@ pub type PFN_vkCreateDebugUtilsMessengerEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
 pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -7424,14 +7424,14 @@ pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_FRAGMENTATION_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_FRAGMENTATION_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateDescriptorPool = unsafe extern "system" fn(
     device: VkDevice,
@@ -7456,13 +7456,13 @@ pub type PFN_vkCreateDescriptorPool = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateDescriptorSetLayout = unsafe extern "system" fn(
     device: VkDevice,
@@ -7486,13 +7486,13 @@ pub type PFN_vkCreateDescriptorSetLayout = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 pub type PFN_vkCreateDescriptorUpdateTemplate = unsafe extern "system" fn(
     device: VkDevice,
@@ -7524,18 +7524,18 @@ pub type PFN_vkCreateDescriptorUpdateTemplateKHR = PFN_vkCreateDescriptorUpdateT
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_EXTENSION_NOT_PRESENT
-///   - VK_ERROR_FEATURE_NOT_PRESENT
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_EXTENSION_NOT_PRESENT`
+///   - `VK_ERROR_FEATURE_NOT_PRESENT`
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
 pub type PFN_vkCreateDevice = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -7558,13 +7558,13 @@ pub type PFN_vkCreateDevice = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_directfb_surface")]
 pub type PFN_vkCreateDirectFBSurfaceEXT = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7588,14 +7588,14 @@ pub type PFN_vkCreateDirectFBSurfaceEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkCreateDisplayModeKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -7619,13 +7619,13 @@ pub type PFN_vkCreateDisplayModeKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkCreateDisplayPlaneSurfaceKHR = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7649,13 +7649,13 @@ pub type PFN_vkCreateDisplayPlaneSurfaceKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateEvent = unsafe extern "system" fn(
     device: VkDevice,
@@ -7681,14 +7681,14 @@ pub type PFN_vkCreateEvent = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+///   - `VK_SUCCESS`
+///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
 pub type PFN_vkCreateExecutionGraphPipelinesAMDX = unsafe extern "system" fn(
     device: VkDevice,
@@ -7713,13 +7713,13 @@ pub type PFN_vkCreateExecutionGraphPipelinesAMDX = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_compute_queue")]
 pub type PFN_vkCreateExternalComputeQueueNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -7743,13 +7743,13 @@ pub type PFN_vkCreateExternalComputeQueueNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateFence = unsafe extern "system" fn(
     device: VkDevice,
@@ -7773,13 +7773,13 @@ pub type PFN_vkCreateFence = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
     device: VkDevice,
@@ -7806,15 +7806,15 @@ pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+///   - `VK_SUCCESS`
+///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_SHADER_NV
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_SHADER_NV`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
     device: VkDevice,
@@ -7839,13 +7839,13 @@ pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_headless_surface")]
 pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7868,14 +7868,14 @@ pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_MVK_ios_surface")]
 pub type PFN_vkCreateIOSSurfaceMVK = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7899,15 +7899,15 @@ pub type PFN_vkCreateIOSSurfaceMVK = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_COMPRESSION_EXHAUSTED_EXT
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_COMPRESSION_EXHAUSTED_EXT`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateImage = unsafe extern "system" fn(
     device: VkDevice,
@@ -7930,13 +7930,13 @@ pub type PFN_vkCreateImage = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
 pub type PFN_vkCreateImagePipeSurfaceFUCHSIA = unsafe extern "system" fn(
     instance: VkInstance,
@@ -7960,14 +7960,14 @@ pub type PFN_vkCreateImagePipeSurfaceFUCHSIA = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateImageView = unsafe extern "system" fn(
     device: VkDevice,
@@ -7990,13 +7990,13 @@ pub type PFN_vkCreateImageView = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 pub type PFN_vkCreateIndirectCommandsLayoutEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -8019,13 +8019,13 @@ pub type PFN_vkCreateIndirectCommandsLayoutEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_device_generated_commands")]
 pub type PFN_vkCreateIndirectCommandsLayoutNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -8048,13 +8048,13 @@ pub type PFN_vkCreateIndirectCommandsLayoutNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 pub type PFN_vkCreateIndirectExecutionSetEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -8077,17 +8077,17 @@ pub type PFN_vkCreateIndirectExecutionSetEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_LAYER_NOT_PRESENT
-///   - VK_ERROR_EXTENSION_NOT_PRESENT
-///   - VK_ERROR_INCOMPATIBLE_DRIVER
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_LAYER_NOT_PRESENT`
+///   - `VK_ERROR_EXTENSION_NOT_PRESENT`
+///   - `VK_ERROR_INCOMPATIBLE_DRIVER`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateInstance = unsafe extern "system" fn(
     pCreateInfo: *const VkInstanceCreateInfo,
@@ -8109,14 +8109,14 @@ pub type PFN_vkCreateInstance = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_MVK_macos_surface")]
 pub type PFN_vkCreateMacOSSurfaceMVK = unsafe extern "system" fn(
     instance: VkInstance,
@@ -8139,14 +8139,14 @@ pub type PFN_vkCreateMacOSSurfaceMVK = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_metal_surface")]
 pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
     instance: VkInstance,
@@ -8169,13 +8169,13 @@ pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -8198,13 +8198,13 @@ pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_optical_flow")]
 pub type PFN_vkCreateOpticalFlowSessionNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -8228,16 +8228,16 @@ pub type PFN_vkCreateOpticalFlowSessionNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
-///   - VK_PIPELINE_BINARY_MISSING_KHR
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
+///   - `VK_PIPELINE_BINARY_MISSING_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkCreatePipelineBinariesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -8262,13 +8262,13 @@ pub type PFN_vkCreatePipelineBinariesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
     device: VkDevice,
@@ -8293,13 +8293,13 @@ pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreatePipelineLayout = unsafe extern "system" fn(
     device: VkDevice,
@@ -8323,12 +8323,12 @@ pub type PFN_vkCreatePipelineLayout = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkCreatePrivateDataSlot = unsafe extern "system" fn(
     device: VkDevice,
@@ -8359,13 +8359,13 @@ pub type PFN_vkCreatePrivateDataSlotEXT = PFN_vkCreatePrivateDataSlot;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateQueryPool = unsafe extern "system" fn(
     device: VkDevice,
@@ -8392,17 +8392,17 @@ pub type PFN_vkCreateQueryPool = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_OPERATION_DEFERRED_KHR
-///   - VK_OPERATION_NOT_DEFERRED_KHR
-///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+///   - `VK_SUCCESS`
+///   - `VK_OPERATION_DEFERRED_KHR`
+///   - `VK_OPERATION_NOT_DEFERRED_KHR`
+///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 pub type PFN_vkCreateRayTracingPipelinesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -8431,15 +8431,15 @@ pub type PFN_vkCreateRayTracingPipelinesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_PIPELINE_COMPILE_REQUIRED_EXT
+///   - `VK_SUCCESS`
+///   - `VK_PIPELINE_COMPILE_REQUIRED_EXT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_SHADER_NV
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_SHADER_NV`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkCreateRayTracingPipelinesNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -8466,13 +8466,13 @@ pub type PFN_vkCreateRayTracingPipelinesNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[deprecated(note = "superseded by `vkCreateRenderPass2`")]
 pub type PFN_vkCreateRenderPass = unsafe extern "system" fn(
@@ -8498,13 +8498,13 @@ pub type PFN_vkCreateRenderPass = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 pub type PFN_vkCreateRenderPass2 = unsafe extern "system" fn(
     device: VkDevice,
@@ -8536,14 +8536,14 @@ pub type PFN_vkCreateRenderPass2KHR = PFN_vkCreateRenderPass2;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateSampler = unsafe extern "system" fn(
     device: VkDevice,
@@ -8568,13 +8568,13 @@ pub type PFN_vkCreateSampler = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 pub type PFN_vkCreateSamplerYcbcrConversion = unsafe extern "system" fn(
     device: VkDevice,
@@ -8604,13 +8604,13 @@ pub type PFN_vkCreateSamplerYcbcrConversionKHR = PFN_vkCreateSamplerYcbcrConvers
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_QNX_screen_surface")]
 pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
     instance: VkInstance,
@@ -8634,13 +8634,13 @@ pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateSemaphore = unsafe extern "system" fn(
     device: VkDevice,
@@ -8663,13 +8663,13 @@ pub type PFN_vkCreateSemaphore = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_sci_sync2")]
 pub type PFN_vkCreateSemaphoreSciSyncPoolNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -8692,13 +8692,13 @@ pub type PFN_vkCreateSemaphoreSciSyncPoolNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 pub type PFN_vkCreateShaderInstrumentationARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -8723,14 +8723,14 @@ pub type PFN_vkCreateShaderInstrumentationARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_SHADER_NV
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_SHADER_NV`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateShaderModule = unsafe extern "system" fn(
     device: VkDevice,
@@ -8755,15 +8755,15 @@ pub type PFN_vkCreateShaderModule = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPATIBLE_SHADER_BINARY_EXT
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPATIBLE_SHADER_BINARY_EXT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_shader_object")]
 pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -8788,16 +8788,16 @@ pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INCOMPATIBLE_DISPLAY_KHR
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INCOMPATIBLE_DISPLAY_KHR`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display_swapchain")]
 pub type PFN_vkCreateSharedSwapchainsKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -8821,14 +8821,14 @@ pub type PFN_vkCreateSharedSwapchainsKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
 pub type PFN_vkCreateStreamDescriptorSurfaceGGP = unsafe extern "system" fn(
     instance: VkInstance,
@@ -8851,13 +8851,13 @@ pub type PFN_vkCreateStreamDescriptorSurfaceGGP = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_OHOS_surface")]
 pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
     instance: VkInstance,
@@ -8880,18 +8880,18 @@ pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_COMPRESSION_EXHAUSTED_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_COMPRESSION_EXHAUSTED_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_swapchain")]
 pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -8914,13 +8914,13 @@ pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -8943,13 +8943,13 @@ pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkCreateTensorViewARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -8972,13 +8972,13 @@ pub type PFN_vkCreateTensorViewARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_SEC_ubm_surface")]
 pub type PFN_vkCreateUbmSurfaceSEC = unsafe extern "system" fn(
     instance: VkInstance,
@@ -9001,12 +9001,12 @@ pub type PFN_vkCreateUbmSurfaceSEC = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_validation_cache")]
 pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -9029,14 +9029,14 @@ pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_NATIVE_WINDOW_IN_USE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NN_vi_surface")]
 pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
     instance: VkInstance,
@@ -9059,16 +9059,16 @@ pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR
-///   - VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkCreateVideoSessionKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -9091,15 +9091,15 @@ pub type PFN_vkCreateVideoSessionKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkCreateVideoSessionParametersKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -9122,13 +9122,13 @@ pub type PFN_vkCreateVideoSessionParametersKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_wayland_surface")]
 pub type PFN_vkCreateWaylandSurfaceKHR = unsafe extern "system" fn(
     instance: VkInstance,
@@ -9151,13 +9151,13 @@ pub type PFN_vkCreateWaylandSurfaceKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_win32_surface")]
 pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
     instance: VkInstance,
@@ -9180,13 +9180,13 @@ pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_xcb_surface")]
 pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
     instance: VkInstance,
@@ -9209,13 +9209,13 @@ pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_xlib_surface")]
 pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
     instance: VkInstance,
@@ -9236,13 +9236,13 @@ pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_debug_marker")]
 pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -9261,13 +9261,13 @@ pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_debug_marker")]
 pub type PFN_vkDebugMarkerSetObjectTagEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -9312,15 +9312,15 @@ pub type PFN_vkDebugReportMessageEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_THREAD_DONE_KHR
-///   - VK_THREAD_IDLE_KHR
+///   - `VK_SUCCESS`
+///   - `VK_THREAD_DONE_KHR`
+///   - `VK_THREAD_IDLE_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
 pub type PFN_vkDeferredOperationJoinKHR =
     unsafe extern "system" fn(device: VkDevice, operation: VkDeferredOperationKHR) -> VkResult;
@@ -10189,14 +10189,14 @@ pub type PFN_vkDestroyVideoSessionParametersKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkDeviceWaitIdle = unsafe extern "system" fn(device: VkDevice) -> VkResult;
 /// [`vkDisplayPowerControlEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDisplayPowerControlEXT.html)
@@ -10213,12 +10213,12 @@ pub type PFN_vkDeviceWaitIdle = unsafe extern "system" fn(device: VkDevice) -> V
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_display_control")]
 pub type PFN_vkDisplayPowerControlEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -10238,14 +10238,14 @@ pub type PFN_vkDisplayPowerControlEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkEndCommandBuffer =
     unsafe extern "system" fn(commandBuffer: VkCommandBuffer) -> VkResult;
@@ -10265,15 +10265,15 @@ pub type PFN_vkEndCommandBuffer =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_LAYER_NOT_PRESENT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_LAYER_NOT_PRESENT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkEnumerateDeviceExtensionProperties = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -10297,14 +10297,14 @@ pub type PFN_vkEnumerateDeviceExtensionProperties = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
 pub type PFN_vkEnumerateDeviceLayerProperties = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -10326,15 +10326,15 @@ pub type PFN_vkEnumerateDeviceLayerProperties = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_LAYER_NOT_PRESENT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_LAYER_NOT_PRESENT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkEnumerateInstanceExtensionProperties = unsafe extern "system" fn(
     pLayerName: *const core::ffi::c_char,
@@ -10355,14 +10355,14 @@ pub type PFN_vkEnumerateInstanceExtensionProperties = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkEnumerateInstanceLayerProperties = unsafe extern "system" fn(
     pPropertyCount: *mut u32,
@@ -10381,12 +10381,12 @@ pub type PFN_vkEnumerateInstanceLayerProperties = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkEnumerateInstanceVersion =
     unsafe extern "system" fn(pApiVersion: *mut u32) -> VkResult;
@@ -10405,15 +10405,15 @@ pub type PFN_vkEnumerateInstanceVersion =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkEnumeratePhysicalDeviceGroups = unsafe extern "system" fn(
     instance: VkInstance,
@@ -10443,15 +10443,15 @@ pub type PFN_vkEnumeratePhysicalDeviceGroupsKHR = PFN_vkEnumeratePhysicalDeviceG
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_performance_counters_by_region")]
 pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM =
     unsafe extern "system" fn(
@@ -10477,15 +10477,15 @@ pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM 
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_performance_query")]
 pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
     unsafe extern "system" fn(
@@ -10509,15 +10509,15 @@ pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 pub type PFN_vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM =
     unsafe extern "system" fn(
@@ -10540,15 +10540,15 @@ pub type PFN_vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkEnumeratePhysicalDevices = unsafe extern "system" fn(
     instance: VkInstance,
@@ -10584,13 +10584,13 @@ pub type PFN_vkExportMetalObjectsEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkFlushMappedMemoryRanges = unsafe extern "system" fn(
     device: VkDevice,
@@ -10632,11 +10632,11 @@ pub type PFN_vkFreeCommandBuffers = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkFreeDescriptorSets = unsafe extern "system" fn(
     device: VkDevice,
@@ -10711,13 +10711,13 @@ pub type PFN_vkGetAccelerationStructureDeviceAddressKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkGetAccelerationStructureHandleNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -10755,13 +10755,13 @@ pub type PFN_vkGetAccelerationStructureMemoryRequirementsNV = unsafe extern "sys
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
     unsafe extern "system" fn(
@@ -10783,13 +10783,13 @@ pub type PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 pub type PFN_vkGetAndroidHardwareBufferPropertiesANDROID = unsafe extern "system" fn(
     device: VkDevice,
@@ -10810,13 +10810,13 @@ pub type PFN_vkGetAndroidHardwareBufferPropertiesANDROID = unsafe extern "system
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 pub type PFN_vkGetBufferCollectionPropertiesFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -10927,13 +10927,13 @@ pub type PFN_vkGetBufferOpaqueCaptureAddressKHR = PFN_vkGetBufferOpaqueCaptureAd
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -10963,13 +10963,13 @@ pub type PFN_vkGetCalibratedTimestampsEXT = PFN_vkGetCalibratedTimestampsKHR;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_calibrated_timestamps")]
 pub type PFN_vkGetCalibratedTimestampsKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -11028,13 +11028,13 @@ pub type PFN_vkGetCommandPoolMemoryConsumption = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 pub type PFN_vkGetCudaModuleCacheNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -11057,14 +11057,14 @@ pub type PFN_vkGetCudaModuleCacheNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetDataGraphPipelineAvailablePropertiesARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -11087,14 +11087,14 @@ pub type PFN_vkGetDataGraphPipelineAvailablePropertiesARM = unsafe extern "syste
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetDataGraphPipelinePropertiesARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -11117,14 +11117,14 @@ pub type PFN_vkGetDataGraphPipelinePropertiesARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetDataGraphPipelineSessionBindPointRequirementsARM =
     unsafe extern "system" fn(
@@ -11174,12 +11174,12 @@ pub type PFN_vkGetDeferredOperationMaxConcurrencyKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_NOT_READY
+///   - `VK_SUCCESS`
+///   - `VK_NOT_READY`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
 pub type PFN_vkGetDeferredOperationResultKHR =
     unsafe extern "system" fn(device: VkDevice, operation: VkDeferredOperationKHR) -> VkResult;
@@ -11357,14 +11357,14 @@ pub type PFN_vkGetDeviceCombinedImageSamplerIndexNVX =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_NOT_ENOUGH_SPACE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_NOT_ENOUGH_SPACE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_device_fault")]
 pub type PFN_vkGetDeviceFaultDebugInfoKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -11384,13 +11384,13 @@ pub type PFN_vkGetDeviceFaultDebugInfoKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_device_fault")]
 pub type PFN_vkGetDeviceFaultInfoEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -11412,14 +11412,14 @@ pub type PFN_vkGetDeviceFaultInfoEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
-///   - VK_TIMEOUT
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
+///   - `VK_TIMEOUT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_device_fault")]
 pub type PFN_vkGetDeviceFaultReportsKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -11469,13 +11469,13 @@ pub type PFN_vkGetDeviceGroupPeerMemoryFeaturesKHR = PFN_vkGetDeviceGroupPeerMem
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
 pub type PFN_vkGetDeviceGroupPresentCapabilitiesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -11495,14 +11495,14 @@ pub type PFN_vkGetDeviceGroupPresentCapabilitiesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 pub type PFN_vkGetDeviceGroupSurfacePresentModes2EXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -11524,14 +11524,14 @@ pub type PFN_vkGetDeviceGroupSurfacePresentModes2EXT = unsafe extern "system" fn
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
 pub type PFN_vkGetDeviceGroupSurfacePresentModesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -11733,14 +11733,14 @@ pub type PFN_vkGetDeviceQueue2 = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_HUAWEI_subpass_shading")]
 pub type PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI =
     unsafe extern "system" fn(
@@ -11779,14 +11779,14 @@ pub type PFN_vkGetDeviceTensorMemoryRequirementsARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 pub type PFN_vkGetDisplayModeProperties2KHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -11809,14 +11809,14 @@ pub type PFN_vkGetDisplayModeProperties2KHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkGetDisplayModePropertiesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -11838,13 +11838,13 @@ pub type PFN_vkGetDisplayModePropertiesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 pub type PFN_vkGetDisplayPlaneCapabilities2KHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -11866,13 +11866,13 @@ pub type PFN_vkGetDisplayPlaneCapabilities2KHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkGetDisplayPlaneCapabilitiesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -11895,14 +11895,14 @@ pub type PFN_vkGetDisplayPlaneCapabilitiesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkGetDisplayPlaneSupportedDisplaysKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -11925,13 +11925,13 @@ pub type PFN_vkGetDisplayPlaneSupportedDisplaysKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_acquire_drm_display")]
 pub type PFN_vkGetDrmDisplayEXT = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -11953,11 +11953,11 @@ pub type PFN_vkGetDrmDisplayEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_QCOM_tile_properties")]
 pub type PFN_vkGetDynamicRenderingTilePropertiesQCOM = unsafe extern "system" fn(
     device: VkDevice,
@@ -11980,14 +11980,14 @@ pub type PFN_vkGetDynamicRenderingTilePropertiesQCOM = unsafe extern "system" fn
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 pub type PFN_vkGetEncodedVideoSessionParametersKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -12010,15 +12010,15 @@ pub type PFN_vkGetEncodedVideoSessionParametersKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_EVENT_SET
-///   - VK_EVENT_RESET
+///   - `VK_EVENT_SET`
+///   - `VK_EVENT_RESET`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkGetEventStatus =
     unsafe extern "system" fn(device: VkDevice, event: VkEvent) -> VkResult;
@@ -12037,12 +12037,12 @@ pub type PFN_vkGetEventStatus =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
 pub type PFN_vkGetExecutionGraphPipelineNodeIndexAMDX = unsafe extern "system" fn(
     device: VkDevice,
@@ -12064,12 +12064,12 @@ pub type PFN_vkGetExecutionGraphPipelineNodeIndexAMDX = unsafe extern "system" f
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_AMDX_shader_enqueue")]
 pub type PFN_vkGetExecutionGraphPipelineScratchSizeAMDX = unsafe extern "system" fn(
     device: VkDevice,
@@ -12109,14 +12109,14 @@ pub type PFN_vkGetExternalComputeQueueDataNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VKSC_VERSION_1_0")]
 pub type PFN_vkGetFaultData = unsafe extern "system" fn(
     device: VkDevice,
@@ -12139,13 +12139,13 @@ pub type PFN_vkGetFaultData = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_fence_fd")]
 pub type PFN_vkGetFenceFdKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -12167,13 +12167,13 @@ pub type PFN_vkGetFenceFdKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_NOT_PERMITTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_NOT_PERMITTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
@@ -12198,13 +12198,13 @@ pub type PFN_vkGetFenceSciSyncFenceNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_NOT_PERMITTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_NOT_PERMITTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
@@ -12228,15 +12228,15 @@ pub type PFN_vkGetFenceSciSyncObjNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_NOT_READY
+///   - `VK_SUCCESS`
+///   - `VK_NOT_READY`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkGetFenceStatus =
     unsafe extern "system" fn(device: VkDevice, fence: VkFence) -> VkResult;
@@ -12254,13 +12254,13 @@ pub type PFN_vkGetFenceStatus =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_fence_win32")]
 pub type PFN_vkGetFenceWin32HandleKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -12282,12 +12282,12 @@ pub type PFN_vkGetFenceWin32HandleKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_QCOM_tile_properties")]
 pub type PFN_vkGetFramebufferTilePropertiesQCOM = unsafe extern "system" fn(
     device: VkDevice,
@@ -12341,12 +12341,12 @@ pub type PFN_vkGetGeneratedCommandsMemoryRequirementsNV = unsafe extern "system"
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
 pub type PFN_vkGetImageDrmFormatModifierPropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -12409,13 +12409,13 @@ pub type PFN_vkGetImageMemoryRequirements2KHR = PFN_vkGetImageMemoryRequirements
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 pub type PFN_vkGetImageOpaqueCaptureDataEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -12437,13 +12437,13 @@ pub type PFN_vkGetImageOpaqueCaptureDataEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetImageOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -12565,12 +12565,12 @@ pub type PFN_vkGetImageSubresourceLayout2KHR = PFN_vkGetImageSubresourceLayout2;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NVX_image_view_handle")]
 pub type PFN_vkGetImageViewAddressNVX = unsafe extern "system" fn(
     device: VkDevice,
@@ -12615,13 +12615,13 @@ pub type PFN_vkGetImageViewHandleNVX =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -12673,13 +12673,13 @@ pub type PFN_vkGetLatencyTimingsNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 pub type PFN_vkGetMemoryAndroidHardwareBufferANDROID = unsafe extern "system" fn(
     device: VkDevice,
@@ -12700,13 +12700,13 @@ pub type PFN_vkGetMemoryAndroidHardwareBufferANDROID = unsafe extern "system" fn
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_memory_fd")]
 pub type PFN_vkGetMemoryFdKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -12728,13 +12728,13 @@ pub type PFN_vkGetMemoryFdKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_memory_fd")]
 pub type PFN_vkGetMemoryFdPropertiesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -12757,13 +12757,13 @@ pub type PFN_vkGetMemoryFdPropertiesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_external_memory_host")]
 pub type PFN_vkGetMemoryHostPointerPropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -12785,13 +12785,13 @@ pub type PFN_vkGetMemoryHostPointerPropertiesEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_external_memory_metal")]
 pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -12813,13 +12813,13 @@ pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_external_memory_metal")]
 pub type PFN_vkGetMemoryMetalHandlePropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -12841,12 +12841,12 @@ pub type PFN_vkGetMemoryMetalHandlePropertiesEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_OHOS_external_memory")]
 pub type PFN_vkGetMemoryNativeBufferOHOS = unsafe extern "system" fn(
     device: VkDevice,
@@ -12867,12 +12867,12 @@ pub type PFN_vkGetMemoryNativeBufferOHOS = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_memory_rdma")]
 pub type PFN_vkGetMemoryRemoteAddressNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -12893,12 +12893,12 @@ pub type PFN_vkGetMemoryRemoteAddressNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
 pub type PFN_vkGetMemorySciBufNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -12919,13 +12919,13 @@ pub type PFN_vkGetMemorySciBufNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_memory_win32")]
 pub type PFN_vkGetMemoryWin32HandleKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -12947,13 +12947,13 @@ pub type PFN_vkGetMemoryWin32HandleKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_memory_win32")]
 pub type PFN_vkGetMemoryWin32HandleNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -12976,13 +12976,13 @@ pub type PFN_vkGetMemoryWin32HandleNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_memory_win32")]
 pub type PFN_vkGetMemoryWin32HandlePropertiesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -13004,13 +13004,13 @@ pub type PFN_vkGetMemoryWin32HandlePropertiesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_external_memory")]
 pub type PFN_vkGetMemoryZirconHandleFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -13032,12 +13032,12 @@ pub type PFN_vkGetMemoryZirconHandleFUCHSIA = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_external_memory")]
 pub type PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -13077,13 +13077,13 @@ pub type PFN_vkGetMicromapBuildSizesEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_OHOS_external_memory")]
 pub type PFN_vkGetNativeBufferPropertiesOHOS = unsafe extern "system" fn(
     device: VkDevice,
@@ -13120,15 +13120,15 @@ pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern 
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_present_timing")]
 pub type PFN_vkGetPastPresentationTimingEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -13150,16 +13150,16 @@ pub type PFN_vkGetPastPresentationTimingEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_GOOGLE_display_timing")]
 pub type PFN_vkGetPastPresentationTimingGOOGLE = unsafe extern "system" fn(
     device: VkDevice,
@@ -13181,13 +13181,13 @@ pub type PFN_vkGetPastPresentationTimingGOOGLE = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkGetPerformanceParameterINTEL = unsafe extern "system" fn(
     device: VkDevice,
@@ -13216,14 +13216,14 @@ pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_calibrated_timestamps")]
 pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13245,14 +13245,14 @@ pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR = unsafe extern "sys
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_cooperative_matrix2")]
 pub type PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV =
     unsafe extern "system" fn(
@@ -13274,14 +13274,14 @@ pub type PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV 
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_cooperative_matrix")]
 pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
     unsafe extern "system" fn(
@@ -13303,14 +13303,14 @@ pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_cooperative_matrix")]
 pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV =
     unsafe extern "system" fn(
@@ -13332,14 +13332,14 @@ pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_cooperative_vector")]
 pub type PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV =
     unsafe extern "system" fn(
@@ -13392,14 +13392,14 @@ pub type PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 pub type PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13420,14 +13420,14 @@ pub type PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR = unsafe extern "syst
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13448,14 +13448,14 @@ pub type PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR = unsafe extern "syste
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 pub type PFN_vkGetPhysicalDeviceDisplayProperties2KHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13476,14 +13476,14 @@ pub type PFN_vkGetPhysicalDeviceDisplayProperties2KHR = unsafe extern "system" f
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13559,14 +13559,14 @@ pub type PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_memory_capabilities")]
 pub type PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV =
     unsafe extern "system" fn(
@@ -13594,13 +13594,13 @@ pub type PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
 pub type PFN_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV =
     unsafe extern "system" fn(
@@ -13744,13 +13744,13 @@ pub type PFN_vkGetPhysicalDeviceFormatProperties2KHR = PFN_vkGetPhysicalDeviceFo
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_fragment_shading_rate")]
 pub type PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13776,14 +13776,14 @@ pub type PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR = unsafe extern "system"
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[deprecated(note = "superseded by `vkGetPhysicalDeviceImageFormatProperties2`")]
 pub type PFN_vkGetPhysicalDeviceImageFormatProperties = unsafe extern "system" fn(
@@ -13810,19 +13810,19 @@ pub type PFN_vkGetPhysicalDeviceImageFormatProperties = unsafe extern "system" f
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-///   - VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+///   - `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceImageFormatProperties2 = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13906,15 +13906,15 @@ pub type PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT = unsafe extern "system
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_EXTENSION_NOT_PRESENT
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_EXTENSION_NOT_PRESENT`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_optical_flow")]
 pub type PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -13938,14 +13938,14 @@ pub type PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV = unsafe extern "syste
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
 pub type PFN_vkGetPhysicalDevicePresentRectanglesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14007,13 +14007,13 @@ pub type PFN_vkGetPhysicalDeviceProperties2KHR = PFN_vkGetPhysicalDeviceProperti
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(
     feature = "VK_ARM_data_graph_instruction_set_tosa",
     feature = "VK_ARM_data_graph_optical_flow"
@@ -14042,15 +14042,15 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_EXTENSION_NOT_PRESENT
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_EXTENSION_NOT_PRESENT`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
 pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM =
     unsafe extern "system" fn(
@@ -14092,14 +14092,14 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesAR
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM =
     unsafe extern "system" fn(
@@ -14182,12 +14182,12 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyProperties2KHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_object_refresh")]
 pub type PFN_vkGetPhysicalDeviceRefreshableObjectTypesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14207,13 +14207,13 @@ pub type PFN_vkGetPhysicalDeviceRefreshableObjectTypesKHR = unsafe extern "syste
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
 pub type PFN_vkGetPhysicalDeviceSciBufAttributesNV = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14234,12 +14234,12 @@ pub type PFN_vkGetPhysicalDeviceSciBufAttributesNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
@@ -14335,14 +14335,14 @@ pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties2KHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_coverage_reduction_mode")]
 pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
     unsafe extern "system" fn(
@@ -14364,14 +14364,14 @@ pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_display_surface_counter")]
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14392,14 +14392,14 @@ pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT = unsafe extern "system"
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14420,14 +14420,14 @@ pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR = unsafe extern "system"
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_surface")]
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14449,15 +14449,15 @@ pub type PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR = unsafe extern "system" 
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
 pub type PFN_vkGetPhysicalDeviceSurfaceFormats2KHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14480,15 +14480,15 @@ pub type PFN_vkGetPhysicalDeviceSurfaceFormats2KHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_surface")]
 pub type PFN_vkGetPhysicalDeviceSurfaceFormatsKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14511,15 +14511,15 @@ pub type PFN_vkGetPhysicalDeviceSurfaceFormatsKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 pub type PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14542,15 +14542,15 @@ pub type PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT = unsafe extern "system"
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_surface")]
 pub type PFN_vkGetPhysicalDeviceSurfacePresentModesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14573,14 +14573,14 @@ pub type PFN_vkGetPhysicalDeviceSurfacePresentModesKHR = unsafe extern "system" 
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_surface")]
 pub type PFN_vkGetPhysicalDeviceSurfaceSupportKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14603,13 +14603,13 @@ pub type PFN_vkGetPhysicalDeviceSurfaceSupportKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkGetPhysicalDeviceToolProperties = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14653,17 +14653,17 @@ pub type PFN_vkGetPhysicalDeviceUbmPresentationSupportSEC = unsafe extern "syste
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14684,17 +14684,17 @@ pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 pub type PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =
     unsafe extern "system" fn(
@@ -14717,19 +14717,19 @@ pub type PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR
-///   - VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -14818,14 +14818,14 @@ pub type PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR = unsafe extern "syst
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_NOT_ENOUGH_SPACE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_NOT_ENOUGH_SPACE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkGetPipelineBinaryDataKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -14850,14 +14850,14 @@ pub type PFN_vkGetPipelineBinaryDataKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkGetPipelineCacheData = unsafe extern "system" fn(
     device: VkDevice,
@@ -14880,14 +14880,14 @@ pub type PFN_vkGetPipelineCacheData = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 pub type PFN_vkGetPipelineExecutableInternalRepresentationsKHR =
     unsafe extern "system" fn(
@@ -14911,14 +14911,14 @@ pub type PFN_vkGetPipelineExecutableInternalRepresentationsKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 pub type PFN_vkGetPipelineExecutablePropertiesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -14941,14 +14941,14 @@ pub type PFN_vkGetPipelineExecutablePropertiesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 pub type PFN_vkGetPipelineExecutableStatisticsKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -15000,13 +15000,13 @@ pub type PFN_vkGetPipelineIndirectMemoryRequirementsNV = unsafe extern "system" 
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkGetPipelineKeyKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -15027,12 +15027,12 @@ pub type PFN_vkGetPipelineKeyKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_pipeline_properties")]
 pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -15087,15 +15087,15 @@ pub type PFN_vkGetPrivateDataEXT = PFN_vkGetPrivateData;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_NOT_READY
+///   - `VK_SUCCESS`
+///   - `VK_NOT_READY`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkGetQueryPoolResults = unsafe extern "system" fn(
     device: VkDevice,
@@ -15154,12 +15154,12 @@ pub type PFN_vkGetQueueCheckpointDataNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_acquire_xlib_display")]
 pub type PFN_vkGetRandROutputDisplayEXT = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -15184,13 +15184,13 @@ pub type PFN_vkGetRandROutputDisplayEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 pub type PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR =
     unsafe extern "system" fn(
@@ -15218,13 +15218,13 @@ pub type PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
 pub type PFN_vkGetRayTracingShaderGroupHandlesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -15273,14 +15273,14 @@ pub type PFN_vkGetRayTracingShaderGroupStackSizeKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_GOOGLE_display_timing")]
 pub type PFN_vkGetRefreshCycleDurationGOOGLE = unsafe extern "system" fn(
     device: VkDevice,
@@ -15342,13 +15342,13 @@ pub type PFN_vkGetRenderingAreaGranularityKHR = PFN_vkGetRenderingAreaGranularit
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -15369,13 +15369,13 @@ pub type PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT = unsafe extern "system"
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
 pub type PFN_vkGetScreenBufferPropertiesQNX = unsafe extern "system" fn(
     device: VkDevice,
@@ -15397,14 +15397,14 @@ pub type PFN_vkGetScreenBufferPropertiesQNX = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkGetSemaphoreCounterValue = unsafe extern "system" fn(
     device: VkDevice,
@@ -15432,13 +15432,13 @@ pub type PFN_vkGetSemaphoreCounterValueKHR = PFN_vkGetSemaphoreCounterValue;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_semaphore_fd")]
 pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -15459,13 +15459,13 @@ pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_NOT_PERMITTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_NOT_PERMITTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_sci_sync")]
 pub type PFN_vkGetSemaphoreSciSyncObjNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -15486,13 +15486,13 @@ pub type PFN_vkGetSemaphoreSciSyncObjNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
 pub type PFN_vkGetSemaphoreWin32HandleKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -15513,13 +15513,13 @@ pub type PFN_vkGetSemaphoreWin32HandleKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
 pub type PFN_vkGetSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -15541,14 +15541,14 @@ pub type PFN_vkGetSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_shader_object")]
 pub type PFN_vkGetShaderBinaryDataEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -15573,14 +15573,14 @@ pub type PFN_vkGetShaderBinaryDataEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_FEATURE_NOT_PRESENT
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_FEATURE_NOT_PRESENT`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_AMD_shader_info")]
 pub type PFN_vkGetShaderInfoAMD = unsafe extern "system" fn(
     device: VkDevice,
@@ -15606,14 +15606,14 @@ pub type PFN_vkGetShaderInfoAMD = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 pub type PFN_vkGetShaderInstrumentationValuesARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -15669,14 +15669,14 @@ pub type PFN_vkGetShaderModuleIdentifierEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_display_control")]
 pub type PFN_vkGetSwapchainCounterEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -15699,14 +15699,14 @@ pub type PFN_vkGetSwapchainCounterEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_swapchain")]
 pub type PFN_vkGetSwapchainImagesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -15727,18 +15727,18 @@ pub type PFN_vkGetSwapchainImagesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_SUBOPTIMAL_KHR
+///   - `VK_SUCCESS`
+///   - `VK_SUBOPTIMAL_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_shared_presentable_image")]
 pub type PFN_vkGetSwapchainStatusKHR =
     unsafe extern "system" fn(device: VkDevice, swapchain: VkSwapchainKHR) -> VkResult;
@@ -15757,15 +15757,15 @@ pub type PFN_vkGetSwapchainStatusKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_present_timing")]
 pub type PFN_vkGetSwapchainTimeDomainPropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -15788,15 +15788,15 @@ pub type PFN_vkGetSwapchainTimeDomainPropertiesEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_NOT_READY
+///   - `VK_SUCCESS`
+///   - `VK_NOT_READY`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_present_timing")]
 pub type PFN_vkGetSwapchainTimingPropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -15835,13 +15835,13 @@ pub type PFN_vkGetTensorMemoryRequirementsARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 pub type PFN_vkGetTensorOpaqueCaptureDataARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -15863,13 +15863,13 @@ pub type PFN_vkGetTensorOpaqueCaptureDataARM = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkGetTensorOpaqueCaptureDescriptorDataARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -15890,13 +15890,13 @@ pub type PFN_vkGetTensorOpaqueCaptureDescriptorDataARM = unsafe extern "system" 
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM = unsafe extern "system" fn(
     device: VkDevice,
@@ -15918,14 +15918,14 @@ pub type PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM = unsafe extern "syst
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_validation_cache")]
 pub type PFN_vkGetValidationCacheDataEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -15948,12 +15948,12 @@ pub type PFN_vkGetValidationCacheDataEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_INCOMPLETE
+///   - `VK_SUCCESS`
+///   - `VK_INCOMPLETE`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkGetVideoSessionMemoryRequirementsKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -15975,14 +15975,14 @@ pub type PFN_vkGetVideoSessionMemoryRequirementsKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_acquire_winrt_display")]
 pub type PFN_vkGetWinrtDisplayNV = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
@@ -16002,13 +16002,13 @@ pub type PFN_vkGetWinrtDisplayNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_fence_fd")]
 pub type PFN_vkImportFenceFdKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -16028,13 +16028,13 @@ pub type PFN_vkImportFenceFdKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_NOT_PERMITTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_NOT_PERMITTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
@@ -16057,13 +16057,13 @@ pub type PFN_vkImportFenceSciSyncFenceNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_NOT_PERMITTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_NOT_PERMITTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(any(
     feature = "VK_NV_external_sci_sync",
     feature = "VK_NV_external_sci_sync2"
@@ -16085,13 +16085,13 @@ pub type PFN_vkImportFenceSciSyncObjNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_fence_win32")]
 pub type PFN_vkImportFenceWin32HandleKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -16110,13 +16110,13 @@ pub type PFN_vkImportFenceWin32HandleKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_semaphore_fd")]
 pub type PFN_vkImportSemaphoreFdKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -16135,14 +16135,14 @@ pub type PFN_vkImportSemaphoreFdKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_NOT_PERMITTED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_NOT_PERMITTED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_external_sci_sync")]
 pub type PFN_vkImportSemaphoreSciSyncObjNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -16161,13 +16161,13 @@ pub type PFN_vkImportSemaphoreSciSyncObjNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
 pub type PFN_vkImportSemaphoreWin32HandleKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -16186,13 +16186,13 @@ pub type PFN_vkImportSemaphoreWin32HandleKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_INVALID_EXTERNAL_HANDLE
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
 pub type PFN_vkImportSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -16211,13 +16211,13 @@ pub type PFN_vkImportSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkInitializePerformanceApiINTEL = unsafe extern "system" fn(
     device: VkDevice,
@@ -16238,13 +16238,13 @@ pub type PFN_vkInitializePerformanceApiINTEL = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkInvalidateMappedMemoryRanges = unsafe extern "system" fn(
     device: VkDevice,
@@ -16265,11 +16265,11 @@ pub type PFN_vkInvalidateMappedMemoryRanges = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_low_latency2")]
 pub type PFN_vkLatencySleepNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -16294,14 +16294,14 @@ pub type PFN_vkLatencySleepNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_MEMORY_MAP_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_MEMORY_MAP_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkMapMemory = unsafe extern "system" fn(
     device: VkDevice,
@@ -16326,14 +16326,14 @@ pub type PFN_vkMapMemory = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_MEMORY_MAP_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_MEMORY_MAP_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkMapMemory2 = unsafe extern "system" fn(
     device: VkDevice,
@@ -16363,13 +16363,13 @@ pub type PFN_vkMapMemory2KHR = PFN_vkMapMemory2;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkMergePipelineCaches = unsafe extern "system" fn(
     device: VkDevice,
@@ -16392,13 +16392,13 @@ pub type PFN_vkMergePipelineCaches = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_validation_cache")]
 pub type PFN_vkMergeValidationCachesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -16435,14 +16435,14 @@ pub type PFN_vkQueueBeginDebugUtilsLabelEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkQueueBindSparse = unsafe extern "system" fn(
     queue: VkQueue,
@@ -16497,19 +16497,19 @@ pub type PFN_vkQueueNotifyOutOfBandNV =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_SUBOPTIMAL_KHR
+///   - `VK_SUCCESS`
+///   - `VK_SUBOPTIMAL_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
-///   - VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+///   - `VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT`
 #[cfg(feature = "VK_KHR_swapchain")]
 pub type PFN_vkQueuePresentKHR =
     unsafe extern "system" fn(queue: VkQueue, pPresentInfo: *const VkPresentInfoKHR) -> VkResult;
@@ -16526,12 +16526,12 @@ pub type PFN_vkQueuePresentKHR =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_QCOM_queue_perf_hint")]
 pub type PFN_vkQueueSetPerfHintQCOM =
     unsafe extern "system" fn(queue: VkQueue, pPerfHintInfo: *const VkPerfHintInfoQCOM) -> VkResult;
@@ -16548,13 +16548,13 @@ pub type PFN_vkQueueSetPerfHintQCOM =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkQueueSetPerformanceConfigurationINTEL = unsafe extern "system" fn(
     queue: VkQueue,
@@ -16576,14 +16576,14 @@ pub type PFN_vkQueueSetPerformanceConfigurationINTEL = unsafe extern "system" fn
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[deprecated(note = "superseded by `vkQueueSubmit2`")]
 pub type PFN_vkQueueSubmit = unsafe extern "system" fn(
@@ -16608,14 +16608,14 @@ pub type PFN_vkQueueSubmit = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkQueueSubmit2 = unsafe extern "system" fn(
     queue: VkQueue,
@@ -16643,14 +16643,14 @@ pub type PFN_vkQueueSubmit2KHR = PFN_vkQueueSubmit2;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkQueueWaitIdle = unsafe extern "system" fn(queue: VkQueue) -> VkResult;
 /// [`vkRegisterCustomBorderColorEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkRegisterCustomBorderColorEXT.html)
@@ -16668,15 +16668,15 @@ pub type PFN_vkQueueWaitIdle = unsafe extern "system" fn(queue: VkQueue) -> VkRe
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 pub type PFN_vkRegisterCustomBorderColorEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -16699,12 +16699,12 @@ pub type PFN_vkRegisterCustomBorderColorEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_display_control")]
 pub type PFN_vkRegisterDeviceEventEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -16728,12 +16728,12 @@ pub type PFN_vkRegisterDeviceEventEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_display_control")]
 pub type PFN_vkRegisterDisplayEventEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -16756,11 +16756,11 @@ pub type PFN_vkRegisterDisplayEventEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkReleaseCapturedPipelineDataKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -16780,11 +16780,11 @@ pub type PFN_vkReleaseCapturedPipelineDataKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_direct_mode_display")]
 pub type PFN_vkReleaseDisplayEXT =
     unsafe extern "system" fn(physicalDevice: VkPhysicalDevice, display: VkDisplayKHR) -> VkResult;
@@ -16801,14 +16801,14 @@ pub type PFN_vkReleaseDisplayEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 pub type PFN_vkReleaseFullScreenExclusiveModeEXT =
     unsafe extern "system" fn(device: VkDevice, swapchain: VkSwapchainKHR) -> VkResult;
@@ -16825,13 +16825,13 @@ pub type PFN_vkReleaseFullScreenExclusiveModeEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_TOO_MANY_OBJECTS
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_TOO_MANY_OBJECTS`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkReleasePerformanceConfigurationINTEL = unsafe extern "system" fn(
     device: VkDevice,
@@ -16867,12 +16867,12 @@ pub type PFN_vkReleaseSwapchainImagesEXT = PFN_vkReleaseSwapchainImagesKHR;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 pub type PFN_vkReleaseSwapchainImagesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -16892,12 +16892,12 @@ pub type PFN_vkReleaseSwapchainImagesKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkResetCommandBuffer = unsafe extern "system" fn(
     commandBuffer: VkCommandBuffer,
@@ -16918,12 +16918,12 @@ pub type PFN_vkResetCommandBuffer = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkResetCommandPool = unsafe extern "system" fn(
     device: VkDevice,
@@ -16945,11 +16945,11 @@ pub type PFN_vkResetCommandPool = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkResetDescriptorPool = unsafe extern "system" fn(
     device: VkDevice,
@@ -16970,12 +16970,12 @@ pub type PFN_vkResetDescriptorPool = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkResetEvent = unsafe extern "system" fn(device: VkDevice, event: VkEvent) -> VkResult;
 /// [`vkResetFences`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetFences.html)
@@ -16993,12 +16993,12 @@ pub type PFN_vkResetEvent = unsafe extern "system" fn(device: VkDevice, event: V
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkResetFences = unsafe extern "system" fn(
     device: VkDevice,
@@ -17045,14 +17045,14 @@ pub type PFN_vkResetQueryPoolEXT = PFN_vkResetQueryPool;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 pub type PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -17073,14 +17073,14 @@ pub type PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA = unsafe extern "syst
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_FORMAT_NOT_SUPPORTED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_FORMAT_NOT_SUPPORTED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 pub type PFN_vkSetBufferCollectionImageConstraintsFUCHSIA = unsafe extern "system" fn(
     device: VkDevice,
@@ -17100,13 +17100,13 @@ pub type PFN_vkSetBufferCollectionImageConstraintsFUCHSIA = unsafe extern "syste
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkSetDebugUtilsObjectNameEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -17125,13 +17125,13 @@ pub type PFN_vkSetDebugUtilsObjectNameEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkSetDebugUtilsObjectTagEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -17164,13 +17164,13 @@ pub type PFN_vkSetDeviceMemoryPriorityEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkSetEvent = unsafe extern "system" fn(device: VkDevice, event: VkEvent) -> VkResult;
 /// [`vkSetHdrMetadataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetHdrMetadataEXT.html)
@@ -17221,12 +17221,12 @@ pub type PFN_vkSetLatencyMarkerNV = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_NV_low_latency2")]
 pub type PFN_vkSetLatencySleepModeNV = unsafe extern "system" fn(
     device: VkDevice,
@@ -17266,12 +17266,12 @@ pub type PFN_vkSetLocalDimmingAMD = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkSetPrivateData = unsafe extern "system" fn(
     device: VkDevice,
@@ -17301,14 +17301,14 @@ pub type PFN_vkSetPrivateDataEXT = PFN_vkSetPrivateData;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_NOT_READY
+///   - `VK_SUCCESS`
+///   - `VK_NOT_READY`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_present_timing")]
 pub type PFN_vkSetSwapchainPresentTimingQueueSizeEXT =
     unsafe extern "system" fn(device: VkDevice, swapchain: VkSwapchainKHR, size: u32) -> VkResult;
@@ -17326,13 +17326,13 @@ pub type PFN_vkSetSwapchainPresentTimingQueueSizeEXT =
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkSignalSemaphore = unsafe extern "system" fn(
     device: VkDevice,
@@ -17378,15 +17378,15 @@ pub type PFN_vkSubmitDebugUtilsMessageEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_INITIALIZATION_FAILED
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_MEMORY_MAP_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_INITIALIZATION_FAILED`
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_MEMORY_MAP_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkTransitionImageLayout = unsafe extern "system" fn(
     device: VkDevice,
@@ -17460,12 +17460,12 @@ pub type PFN_vkUnmapMemory = unsafe extern "system" fn(device: VkDevice, memory:
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_MEMORY_MAP_FAILED
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_MEMORY_MAP_FAILED`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkUnmapMemory2 = unsafe extern "system" fn(
     device: VkDevice,
@@ -17587,14 +17587,14 @@ pub type PFN_vkUpdateIndirectExecutionSetShaderEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkUpdateVideoSessionParametersKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -17618,15 +17618,15 @@ pub type PFN_vkUpdateVideoSessionParametersKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_TIMEOUT
+///   - `VK_SUCCESS`
+///   - `VK_TIMEOUT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkWaitForFences = unsafe extern "system" fn(
     device: VkDevice,
@@ -17649,19 +17649,19 @@ pub type PFN_vkWaitForFences = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_TIMEOUT
-///   - VK_SUBOPTIMAL_KHR
+///   - `VK_SUCCESS`
+///   - `VK_TIMEOUT`
+///   - `VK_SUBOPTIMAL_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_present_wait2")]
 pub type PFN_vkWaitForPresent2KHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -17683,19 +17683,19 @@ pub type PFN_vkWaitForPresent2KHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_TIMEOUT
-///   - VK_SUBOPTIMAL_KHR
+///   - `VK_SUCCESS`
+///   - `VK_TIMEOUT`
+///   - `VK_SUBOPTIMAL_KHR`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_OUT_OF_DATE_KHR
-///   - VK_ERROR_SURFACE_LOST_KHR
-///   - VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_OUT_OF_DATE_KHR`
+///   - `VK_ERROR_SURFACE_LOST_KHR`
+///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_present_wait")]
 pub type PFN_vkWaitForPresentKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -17718,15 +17718,15 @@ pub type PFN_vkWaitForPresentKHR = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
-///   - VK_TIMEOUT
+///   - `VK_SUCCESS`
+///   - `VK_TIMEOUT`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_DEVICE_LOST
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_DEVICE_LOST`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkWaitSemaphores = unsafe extern "system" fn(
     device: VkDevice,
@@ -17758,13 +17758,13 @@ pub type PFN_vkWaitSemaphoresKHR = PFN_vkWaitSemaphores;
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkWriteAccelerationStructuresPropertiesKHR = unsafe extern "system" fn(
     device: VkDevice,
@@ -17793,13 +17793,13 @@ pub type PFN_vkWriteAccelerationStructuresPropertiesKHR = unsafe extern "system"
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkWriteMicromapsPropertiesEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -17825,13 +17825,13 @@ pub type PFN_vkWriteMicromapsPropertiesEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 pub type PFN_vkWriteResourceDescriptorsEXT = unsafe extern "system" fn(
     device: VkDevice,
@@ -17854,13 +17854,13 @@ pub type PFN_vkWriteResourceDescriptorsEXT = unsafe extern "system" fn(
 /// # Returns
 ///
 /// **Success Codes:**
-///   - VK_SUCCESS
+///   - `VK_SUCCESS`
 ///
 /// **Error Codes:**
-///   - VK_ERROR_OUT_OF_HOST_MEMORY
-///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-///   - VK_ERROR_UNKNOWN
-///   - VK_ERROR_VALIDATION_FAILED
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 pub type PFN_vkWriteSamplerDescriptorsEXT = unsafe extern "system" fn(
     device: VkDevice,

@@ -199,28 +199,8 @@ impl<'lib> Entry<'lib> {
         let fp = unsafe { self.table.vkCreateInstance.unwrap_unchecked() };
         let mut raw = VkInstance::NULL;
         let r = unsafe { fp(pCreateInfo, pAllocator, &mut raw) };
-        if let Err(e) = {
-            match r {
-                VkResult::VK_SUCCESS => Ok(r),
-                VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-                | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-                | VkResult::VK_ERROR_INITIALIZATION_FAILED
-                | VkResult::VK_ERROR_LAYER_NOT_PRESENT
-                | VkResult::VK_ERROR_EXTENSION_NOT_PRESENT
-                | VkResult::VK_ERROR_INCOMPATIBLE_DRIVER
-                | VkResult::VK_ERROR_UNKNOWN => Err(r),
-                #[cfg(feature = "VK_BASE_VERSION_1_0")]
-                VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-                _ => {
-                    if r >= VkResult::VK_SUCCESS {
-                        Ok(r)
-                    } else {
-                        Err(r)
-                    }
-                }
-            }
-        } {
-            return Err(e);
+        if r < VkResult::VK_SUCCESS {
+            return Err(r);
         }
         let table = InstanceDispatchTable::load(|name| unsafe {
             (self.lib.get_instance_proc_addr)(raw, name)
@@ -271,15 +251,15 @@ impl<'lib> Entry<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_LAYER_NOT_PRESENT
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_LAYER_NOT_PRESENT`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
     pub fn vkEnumerateInstanceExtensionProperties(
@@ -293,21 +273,10 @@ impl<'lib> Entry<'lib> {
                 .vkEnumerateInstanceExtensionProperties
                 .unwrap_unchecked()(pLayerName, pPropertyCount, pProperties)
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_LAYER_NOT_PRESENT
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkEnumerateInstanceLayerProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceLayerProperties.html)
@@ -324,14 +293,14 @@ impl<'lib> Entry<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
-    ///   - VK_INCOMPLETE
+    ///   - `VK_SUCCESS`
+    ///   - `VK_INCOMPLETE`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_OUT_OF_DEVICE_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     #[inline(always)]
     pub fn vkEnumerateInstanceLayerProperties(
@@ -344,20 +313,10 @@ impl<'lib> Entry<'lib> {
                 .vkEnumerateInstanceLayerProperties
                 .unwrap_unchecked()(pPropertyCount, pProperties)
         };
-        match r {
-            VkResult::VK_SUCCESS | VkResult::VK_INCOMPLETE => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY
-            | VkResult::VK_ERROR_OUT_OF_DEVICE_MEMORY
-            | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
     /// [`vkEnumerateInstanceVersion`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceVersion.html)
@@ -373,28 +332,20 @@ impl<'lib> Entry<'lib> {
     /// # Returns
     ///
     /// **Success Codes:**
-    ///   - VK_SUCCESS
+    ///   - `VK_SUCCESS`
     ///
     /// **Error Codes:**
-    ///   - VK_ERROR_OUT_OF_HOST_MEMORY
-    ///   - VK_ERROR_UNKNOWN
-    ///   - VK_ERROR_VALIDATION_FAILED
+    ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+    ///   - `VK_ERROR_UNKNOWN`
+    ///   - `VK_ERROR_VALIDATION_FAILED`
     #[cfg(feature = "VK_BASE_VERSION_1_1")]
     #[inline(always)]
     pub fn vkEnumerateInstanceVersion(&self, pApiVersion: *mut u32) -> Result<VkResult, VkResult> {
         let r = unsafe { (&self.table).vkEnumerateInstanceVersion.unwrap_unchecked()(pApiVersion) };
-        match r {
-            VkResult::VK_SUCCESS => Ok(r),
-            VkResult::VK_ERROR_OUT_OF_HOST_MEMORY | VkResult::VK_ERROR_UNKNOWN => Err(r),
-            #[cfg(feature = "VK_BASE_VERSION_1_0")]
-            VkResult::VK_ERROR_VALIDATION_FAILED => Err(r),
-            _ => {
-                if r >= VkResult::VK_SUCCESS {
-                    Ok(r)
-                } else {
-                    Err(r)
-                }
-            }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            Err(r)
         }
     }
 }

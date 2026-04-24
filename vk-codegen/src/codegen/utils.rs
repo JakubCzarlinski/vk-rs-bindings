@@ -1,10 +1,11 @@
 use crate::cfggen::cfg_any;
+use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::{deprecate_attr, refpage_url};
 use crate::ir::{CType, Command, Member, Optional, Registry, TypedefKind};
 use crate::types::c_type_to_rust;
 use proc_macro2::TokenStream;
 use quote::{ToTokens, format_ident, quote};
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::{BTreeMap, HashSet};
 
 #[derive(Clone, PartialEq, Debug, Eq, Hash)]
 pub enum Tier {
@@ -171,25 +172,6 @@ pub fn classify_return<'a>(cmd: &'a Command, handle_types: &HashSet<String>) -> 
 }
 
 #[must_use]
-pub fn build_result_cfg_map(reg: &Registry) -> HashMap<String, TokenStream> {
-    let mut map = HashMap::new();
-    let Some(variants) = reg.enums.get("VkResult") else {
-        return map;
-    };
-    for enum_def in variants {
-        for variant in &enum_def.variants {
-            let cfg = if variant.provided_by.is_empty() {
-                quote! {}
-            } else {
-                cfg_any(&variant.provided_by)
-            };
-            map.entry(variant.name.clone()).or_insert(cfg);
-        }
-    }
-    map
-}
-
-#[must_use]
 pub fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
     let mut set = HashSet::new();
     for (name, variants) in &reg.typedefs {
@@ -204,65 +186,15 @@ pub fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
 }
 
 #[must_use]
-pub fn vk_result_check(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> TokenStream {
-    result_check_arms(&cmd.success_codes, &cmd.error_codes, cfg_map)
+pub fn vk_result_is_err() -> TokenStream {
+    quote! { r < VkResult::VK_SUCCESS }
 }
 
 #[must_use]
-pub fn vk_result_is_err(cmd: &Command, cfg_map: &HashMap<String, TokenStream>) -> TokenStream {
-    if cmd.error_codes.is_empty() {
-        return quote! { r < VkResult::VK_SUCCESS };
-    }
-    let err_arms = cfg_grouped_arms(&cmd.error_codes, cfg_map, quote! { true });
+pub fn result_check_arms() -> TokenStream {
     quote! {
-        match r {
-            #(#err_arms)*
-            _ => r < VkResult::VK_SUCCESS,
-        }
+        if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
     }
-}
-
-#[must_use]
-pub fn result_check_arms(
-    success_codes: &[String],
-    error_codes: &[String],
-    cfg_map: &HashMap<String, TokenStream>,
-) -> TokenStream {
-    let ok_arms = cfg_grouped_arms(success_codes, cfg_map, quote! { Ok(r) });
-    let err_arms = cfg_grouped_arms(error_codes, cfg_map, quote! { Err(r) });
-    quote! {
-        match r {
-            #(#ok_arms)*
-            #(#err_arms)*
-            _ => if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) },
-        }
-    }
-}
-
-fn cfg_grouped_arms(
-    codes: &[String],
-    cfg_map: &HashMap<String, TokenStream>,
-    result_expr: TokenStream,
-) -> Vec<TokenStream> {
-    if codes.is_empty() {
-        return vec![];
-    }
-    let mut by_cfg: BTreeMap<String, (TokenStream, Vec<TokenStream>)> = BTreeMap::new();
-    for s in codes {
-        let id = format_ident!("{}", s);
-        let cfg = cfg_map.get(s).cloned().unwrap_or_default();
-        by_cfg
-            .entry(cfg.to_string())
-            .or_insert_with(|| (cfg, Vec::new()))
-            .1
-            .push(quote! { VkResult::#id });
-    }
-    by_cfg
-        .into_values()
-        .map(|(cfg, pats)| {
-            quote! { #cfg #(#pats)|* => #result_expr, }
-        })
-        .collect()
 }
 
 // Command grouping
@@ -399,21 +331,6 @@ pub fn pick_primary(providers: &[String], enabled: &HashSet<String>) -> String {
 }
 
 #[must_use]
-pub fn is_core(providers: &[String]) -> bool {
-    providers
-        .iter()
-        .any(|f| f.starts_with("VK_BASE_VERSION_") || f.starts_with("VK_VERSION_"))
-}
-
-#[must_use]
-pub fn is_instance_cmd(cmd: &Command) -> bool {
-    match cmd.params.first() {
-        Some(m) => m.ty.base == "VkInstance" || m.ty.base == "VkPhysicalDevice",
-        None => true,
-    }
-}
-
-#[must_use]
 pub fn is_cmd_buf_cmd(cmd: &Command) -> bool {
     cmd.params
         .first()
@@ -538,9 +455,8 @@ pub fn safe_method(
     handle_base: &str,        // "" = no stripping (Entry)
     self_handle: TokenStream, // value to substitute for param[0]
     table_expr: TokenStream,  // how to reach the PFN table
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: Option<&BTreeMap<String, crate::codegen::handles_rs::HandleMeta>>,
+    handle_meta: Option<&BTreeMap<String, HandleMeta>>,
     device_accessor: TokenStream,
     instance_accessor: TokenStream,
 ) -> TokenStream {
@@ -642,7 +558,6 @@ pub fn safe_method(
             let h_ty_str = h_ty.to_string();
             let inner = strip_out_param(sig_params);
             let (p_defs, _) = params_to_tokens(&inner);
-            let check = vk_result_check(cmd, result_cfgs);
             let last = fwd.len().saturating_sub(1);
             if !fwd.is_empty() {
                 fwd[last] = quote! { &mut handle };
@@ -676,11 +591,15 @@ pub fn safe_method(
                     pub fn #fname<'ret>(&'ret self, #(#p_defs),*) -> Result<crate::#md::#st<'ret>, VkResult> {
                         let mut handle = #h_ty::NULL;
                         let r = unsafe { #fp(#(#fwd),*) };
-                        #check .map(|_| crate::#md::#st {
-                            raw: handle,
-                            parent: #parent_expr,
-                            table: &#table_owner.#tf
-                        })
+                        if r >= VkResult::VK_SUCCESS {
+                            Ok(crate::#md::#st {
+                                raw: handle,
+                                parent: #parent_expr,
+                                table: &#table_owner.#tf
+                            })
+                        } else {
+                            Err(r)
+                        }
                     }
                 }
             } else {
@@ -690,7 +609,11 @@ pub fn safe_method(
                     pub fn #fname(&self, #(#p_defs),*) -> Result<#h_ty, VkResult> {
                         let mut handle = #h_ty::NULL;
                         let r = unsafe { #fp(#(#fwd),*) };
-                        #check .map(|_| handle)
+                        if r >= VkResult::VK_SUCCESS {
+                            Ok(handle)
+                        } else {
+                            Err(r)
+                        }
                     }
                 }
             }
@@ -718,8 +641,7 @@ pub fn safe_method(
                 .collect();
             let (p_defs, _) = params_to_tokens(&keep);
 
-            let is_err = vk_result_is_err(cmd, result_cfgs);
-            let check2 = vk_result_check(cmd, result_cfgs);
+            let is_err = vk_result_is_err();
 
             let mut fwd_first = fwd.clone();
             fwd_first[ci] = quote! { &mut count };
@@ -739,13 +661,17 @@ pub fn safe_method(
                     if count == 0 { return Ok(alloc::boxed::Box::<[#elem_ty; 0]>::new([])); }
                     let mut out = alloc::boxed::Box::<[#elem_ty]>::new_uninit_slice(count as usize);
                     let r = unsafe { #fp(#(#fwd_second),*) };
-                    #check2 .map(|_| unsafe { out.assume_init() })
+                    if r >= VkResult::VK_SUCCESS {
+                        Ok(unsafe { out.assume_init() })
+                    } else {
+                        Err(r)
+                    }
                 }
             }
         }
 
         WrapperReturn::ResultRaw => {
-            let check = vk_result_check(cmd, result_cfgs);
+            let check = result_check_arms();
             quote! {
                 #cfg #depr
                 #[inline(always)]
@@ -773,9 +699,8 @@ pub fn safe_method_unit_with_overrides(
     handle_base: &str,        // "" = no stripping (Entry)
     self_handle: TokenStream, // value to substitute for param[0]
     table_expr: TokenStream,  // how to reach the PFN table
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: Option<&BTreeMap<String, crate::codegen::handles_rs::HandleMeta>>,
+    handle_meta: Option<&BTreeMap<String, HandleMeta>>,
     device_accessor: TokenStream,
     instance_accessor: TokenStream,
     receiver: TokenStream,
@@ -790,7 +715,6 @@ pub fn safe_method_unit_with_overrides(
             handle_base,
             self_handle,
             table_expr,
-            result_cfgs,
             handle_types,
             handle_meta,
             device_accessor,
@@ -928,7 +852,7 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
             let mut line = format!(" - `{}`", p.name);
 
             let mut p_meta = Vec::new();
-            if p.optional != crate::ir::Optional::False {
+            if p.optional != Optional::False {
                 p_meta.push(format!("optional: {:?}", p.optional));
             }
             if let Some(ref len) = p.len {
@@ -955,14 +879,14 @@ pub(crate) fn create_doc(cmd: &Command, all_features: &[String]) -> String {
 
     if !cmd.success_codes.is_empty() {
         doc.push_str(&format!(
-            "\n\n **Success Codes:**\n   - {}",
-            cmd.success_codes.join("\n   - ")
+            "\n\n **Success Codes:**\n   - `{}`",
+            cmd.success_codes.join("`\n   - `")
         ));
     }
     if !cmd.error_codes.is_empty() {
         doc.push_str(&format!(
-            "\n\n **Error Codes:**\n   - {}",
-            cmd.error_codes.join("\n   - ")
+            "\n\n **Error Codes:**\n   - `{}`",
+            cmd.error_codes.join("`\n   - `")
         ));
     }
 

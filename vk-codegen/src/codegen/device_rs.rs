@@ -1,25 +1,25 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
+use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, enabled_set, is_cmd_buf_cmd, safe_method,
-    safe_method_unit_with_overrides,
+    Tier, c_str_lit, collect_groups, ctype_to_tokens, enabled_set, is_cmd_buf_cmd, kw_escape,
+    safe_method, safe_method_unit_with_overrides, strip_first_param,
 };
-use crate::ir::Registry;
+use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashSet};
 
 pub fn gen_device_rs(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
+    handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
     ts.extend(preamble());
     ts.extend(gen_device_dispatch_table(reg));
-    ts.extend(gen_device(reg, result_cfgs, handle_types, handle_meta));
+    ts.extend(gen_device(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
@@ -108,9 +108,8 @@ fn gen_device_dispatch_table(reg: &Registry) -> TokenStream {
 // here and live on CommandBuffer instead.
 fn gen_device(
     reg: &Registry,
-    result_cfgs: &HashMap<String, TokenStream>,
     handle_types: &HashSet<String>,
-    handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
+    handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> TokenStream {
     let skip = entry_cmd_set();
     let enabled = enabled_set(reg);
@@ -132,7 +131,6 @@ fn gen_device(
                     "VkDevice", // strip param[0] = VkDevice
                     quote! { self.raw },
                     quote! { &self.table },
-                    result_cfgs,
                     handle_types,
                     Some(handle_meta),
                     quote! { self },
@@ -148,9 +146,9 @@ fn gen_device(
                     },
                 ));
             } else if name == "vkCreateCommandPool" {
-                methods_ts.extend(gen_create_command_pool(cmd, providers, result_cfgs));
+                methods_ts.extend(gen_create_command_pool(providers));
             } else if name.starts_with("vkCreate") && name.ends_with("Pipelines") {
-                methods_ts.extend(gen_create_pipelines(cmd, providers, result_cfgs));
+                methods_ts.extend(gen_create_pipelines(cmd, providers));
             } else {
                 methods_ts.extend(safe_method(
                     cmd,
@@ -159,7 +157,6 @@ fn gen_device(
                     "VkDevice", // strip param[0] = VkDevice
                     quote! { self.raw },
                     quote! { &self.table },
-                    result_cfgs,
                     handle_types,
                     Some(handle_meta),
                     quote! { self },
@@ -261,7 +258,7 @@ fn gen_device(
     }
 }
 
-fn gen_get_device_queue(_cmd: &crate::ir::Command, providers: &[String]) -> TokenStream {
+fn gen_get_device_queue(_cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
     quote! {
         #cfg
@@ -279,14 +276,8 @@ fn gen_get_device_queue(_cmd: &crate::ir::Command, providers: &[String]) -> Toke
     }
 }
 
-fn gen_create_command_pool(
-    cmd: &crate::ir::Command,
-    providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
-) -> TokenStream {
+fn gen_create_command_pool(providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    let result_check =
-        crate::codegen::utils::result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
     quote! {
         #cfg
         #[inline]
@@ -298,21 +289,17 @@ fn gen_create_command_pool(
             let mut raw = VkCommandPool::NULL;
             let fp = unsafe { self.table.vkCreateCommandPool.unwrap_unchecked() };
             let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
-            if let Err(e) = { #result_check } { return Err(e); }
-            Ok(crate::command_pool::CommandPool { raw, parent: self, table: &self.command_pool_table })
+            if r >= VkResult::VK_SUCCESS {
+                Ok(crate::command_pool::CommandPool { raw, parent: self, table: &self.command_pool_table })
+            } else {
+                Err(r)
+            }
         }
     }
 }
 
-fn gen_create_pipelines(
-    cmd: &crate::ir::Command,
-    providers: &[String],
-    result_cfgs: &HashMap<String, TokenStream>,
-) -> TokenStream {
-    use crate::codegen::utils::{ctype_to_tokens, kw_escape, strip_first_param};
+fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    let result_check =
-        crate::codegen::utils::result_check_arms(&cmd.success_codes, &cmd.error_codes, result_cfgs);
     let fname = format_ident!("{}", cmd.name);
     let sig_params: Vec<_> = strip_first_param(&cmd.params)
         .iter()
@@ -339,7 +326,7 @@ fn gen_create_pipelines(
             let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.#fname.unwrap_unchecked() };
             let r = unsafe { fp(self.raw, #(#p_fwd,)* raw_pipelines.as_mut_ptr().cast()) };
-            if let Err(e) = { #result_check } { return Err(e); }
+            if r < VkResult::VK_SUCCESS { return Err(r); }
             let raw_pipelines = unsafe { raw_pipelines.assume_init() };
 
             Ok(raw_pipelines.into_iter().map(|raw| crate::pipeline::Pipeline {

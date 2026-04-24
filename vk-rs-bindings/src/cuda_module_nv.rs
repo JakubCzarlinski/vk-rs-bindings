@@ -24,23 +24,18 @@ impl CudaModuleNVDispatchTable {
         #[cfg(feature = "VK_NV_cuda_kernel_launch")]
         vkGetCudaModuleCacheNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        {
-            table.vkDestroyCudaModuleNV = loader(c"vkDestroyCudaModuleNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+            vkDestroyCudaModuleNV: loader(c"vkDestroyCudaModuleNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+            vkGetCudaModuleCacheNV: loader(c"vkGetCudaModuleCacheNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        {
-            table.vkGetCudaModuleCacheNV = loader(c"vkGetCudaModuleCacheNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]

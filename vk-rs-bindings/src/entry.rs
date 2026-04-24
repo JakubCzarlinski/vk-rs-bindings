@@ -128,30 +128,24 @@ impl EntryDispatchTable {
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateInstance =
-                loader(c"vkCreateInstance".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateInstance: loader(c"vkCreateInstance".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkEnumerateInstanceExtensionProperties: loader(
+                c"vkEnumerateInstanceExtensionProperties".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkEnumerateInstanceLayerProperties: loader(
+                c"vkEnumerateInstanceLayerProperties".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkEnumerateInstanceVersion: loader(c"vkEnumerateInstanceVersion".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkEnumerateInstanceExtensionProperties =
-                loader(c"vkEnumerateInstanceExtensionProperties".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkEnumerateInstanceLayerProperties =
-                loader(c"vkEnumerateInstanceLayerProperties".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkEnumerateInstanceVersion = loader(c"vkEnumerateInstanceVersion".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 /// Pre-instance Vulkan entry point.

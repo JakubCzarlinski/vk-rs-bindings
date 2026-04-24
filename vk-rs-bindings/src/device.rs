@@ -984,1244 +984,835 @@ impl DeviceDispatchTable {
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VKSC_VERSION_1_0")]
-        {
-            table.vkGetFaultData =
-                loader(c"vkGetFaultData".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VKSC_VERSION_1_0")]
+            vkGetFaultData: loader(c"vkGetFaultData".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMD_anti_lag")]
+            vkAntiLagUpdateAMD: loader(c"vkAntiLagUpdateAMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+            vkGetAndroidHardwareBufferPropertiesANDROID: loader(
+                c"vkGetAndroidHardwareBufferPropertiesANDROID".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+            vkGetMemoryAndroidHardwareBufferANDROID: loader(
+                c"vkGetMemoryAndroidHardwareBufferANDROID".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkBindDataGraphPipelineSessionMemoryARM: loader(
+                c"vkBindDataGraphPipelineSessionMemoryARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkCreateDataGraphPipelineSessionARM: loader(
+                c"vkCreateDataGraphPipelineSessionARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkGetDataGraphPipelineAvailablePropertiesARM: loader(
+                c"vkGetDataGraphPipelineAvailablePropertiesARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkGetDataGraphPipelinePropertiesARM: loader(
+                c"vkGetDataGraphPipelinePropertiesARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkGetDataGraphPipelineSessionBindPointRequirementsARM: loader(
+                c"vkGetDataGraphPipelineSessionBindPointRequirementsARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkGetDataGraphPipelineSessionMemoryRequirementsARM: loader(
+                c"vkGetDataGraphPipelineSessionMemoryRequirementsARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_shader_instrumentation")]
+            vkCreateShaderInstrumentationARM: loader(c"vkCreateShaderInstrumentationARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkBindTensorMemoryARM: loader(c"vkBindTensorMemoryARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkCreateTensorARM: loader(c"vkCreateTensorARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkCreateTensorViewARM: loader(c"vkCreateTensorViewARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkGetDeviceTensorMemoryRequirementsARM: loader(
+                c"vkGetDeviceTensorMemoryRequirementsARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkGetTensorMemoryRequirementsARM: loader(c"vkGetTensorMemoryRequirementsARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkGetTensorOpaqueCaptureDescriptorDataARM: loader(
+                c"vkGetTensorOpaqueCaptureDescriptorDataARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkGetTensorViewOpaqueCaptureDescriptorDataARM: loader(
+                c"vkGetTensorViewOpaqueCaptureDescriptorDataARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkAllocateMemory: loader(c"vkAllocateMemory".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateBuffer: loader(c"vkCreateBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateCommandPool: loader(c"vkCreateCommandPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateFence: loader(c"vkCreateFence".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateImage: loader(c"vkCreateImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateImageView: loader(c"vkCreateImageView".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateQueryPool: loader(c"vkCreateQueryPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCreateSemaphore: loader(c"vkCreateSemaphore".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDestroyDevice: loader(c"vkDestroyDevice".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDeviceWaitIdle: loader(c"vkDeviceWaitIdle".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkFlushMappedMemoryRanges: loader(c"vkFlushMappedMemoryRanges".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetDeviceQueue: loader(c"vkGetDeviceQueue".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkInvalidateMappedMemoryRanges: loader(c"vkInvalidateMappedMemoryRanges".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkResetFences: loader(c"vkResetFences".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkWaitForFences: loader(c"vkWaitForFences".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkBindBufferMemory2: loader(c"vkBindBufferMemory2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkBindImageMemory2: loader(c"vkBindImageMemory2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkGetBufferMemoryRequirements2: loader(c"vkGetBufferMemoryRequirements2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkGetDeviceGroupPeerMemoryFeatures: loader(
+                c"vkGetDeviceGroupPeerMemoryFeatures".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkGetDeviceQueue2: loader(c"vkGetDeviceQueue2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkGetImageMemoryRequirements2: loader(c"vkGetImageMemoryRequirements2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkGetImageSparseMemoryRequirements2: loader(
+                c"vkGetImageSparseMemoryRequirements2".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_2")]
+            vkGetBufferDeviceAddress: loader(c"vkGetBufferDeviceAddress".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_2")]
+            vkGetBufferOpaqueCaptureAddress: loader(c"vkGetBufferOpaqueCaptureAddress".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_2")]
+            vkGetDeviceMemoryOpaqueCaptureAddress: loader(
+                c"vkGetDeviceMemoryOpaqueCaptureAddress".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_2")]
+            vkSignalSemaphore: loader(c"vkSignalSemaphore".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_2")]
+            vkWaitSemaphores: loader(c"vkWaitSemaphores".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkCreatePrivateDataSlot: loader(c"vkCreatePrivateDataSlot".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkGetDeviceBufferMemoryRequirements: loader(
+                c"vkGetDeviceBufferMemoryRequirements".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkGetDeviceImageMemoryRequirements: loader(
+                c"vkGetDeviceImageMemoryRequirements".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkGetDeviceImageSparseMemoryRequirements: loader(
+                c"vkGetDeviceImageSparseMemoryRequirements".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkGetPrivateData: loader(c"vkGetPrivateData".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkSetPrivateData: loader(c"vkSetPrivateData".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkCopyImageToImage: loader(c"vkCopyImageToImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkCopyImageToMemory: loader(c"vkCopyImageToMemory".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkCopyMemoryToImage: loader(c"vkCopyMemoryToImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkGetDeviceImageSubresourceLayout: loader(
+                c"vkGetDeviceImageSubresourceLayout".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkMapMemory2: loader(c"vkMapMemory2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkTransitionImageLayout: loader(c"vkTransitionImageLayout".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkUnmapMemory2: loader(c"vkUnmapMemory2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreateBufferView: loader(c"vkCreateBufferView".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreateComputePipelines: loader(c"vkCreateComputePipelines".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreateDescriptorPool: loader(c"vkCreateDescriptorPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreateDescriptorSetLayout: loader(c"vkCreateDescriptorSetLayout".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreateEvent: loader(c"vkCreateEvent".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreatePipelineCache: loader(c"vkCreatePipelineCache".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreatePipelineLayout: loader(c"vkCreatePipelineLayout".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreateSampler: loader(c"vkCreateSampler".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCreateShaderModule: loader(c"vkCreateShaderModule".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkUpdateDescriptorSets: loader(c"vkUpdateDescriptorSets".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+            vkCreateDescriptorUpdateTemplate: loader(c"vkCreateDescriptorUpdateTemplate".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+            vkCreateSamplerYcbcrConversion: loader(c"vkCreateSamplerYcbcrConversion".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+            vkGetDescriptorSetLayoutSupport: loader(c"vkGetDescriptorSetLayoutSupport".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_buffer_device_address")]
+            vkGetBufferDeviceAddressEXT: loader(c"vkGetBufferDeviceAddressEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_calibrated_timestamps")]
+            vkGetCalibratedTimestampsEXT: loader(c"vkGetCalibratedTimestampsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_marker")]
+            vkDebugMarkerSetObjectNameEXT: loader(c"vkDebugMarkerSetObjectNameEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_marker")]
+            vkDebugMarkerSetObjectTagEXT: loader(c"vkDebugMarkerSetObjectTagEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkSetDebugUtilsObjectNameEXT: loader(c"vkSetDebugUtilsObjectNameEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkSetDebugUtilsObjectTagEXT: loader(c"vkSetDebugUtilsObjectTagEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT: loader(
+                c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetBufferOpaqueCaptureDescriptorDataEXT: loader(
+                c"vkGetBufferOpaqueCaptureDescriptorDataEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetDescriptorEXT: loader(c"vkGetDescriptorEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetImageOpaqueCaptureDescriptorDataEXT: loader(
+                c"vkGetImageOpaqueCaptureDescriptorDataEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetImageViewOpaqueCaptureDescriptorDataEXT: loader(
+                c"vkGetImageViewOpaqueCaptureDescriptorDataEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetSamplerOpaqueCaptureDescriptorDataEXT: loader(
+                c"vkGetSamplerOpaqueCaptureDescriptorDataEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkGetImageOpaqueCaptureDataEXT: loader(c"vkGetImageOpaqueCaptureDataEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkGetTensorOpaqueCaptureDataARM: loader(c"vkGetTensorOpaqueCaptureDataARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkRegisterCustomBorderColorEXT: loader(c"vkRegisterCustomBorderColorEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkUnregisterCustomBorderColorEXT: loader(c"vkUnregisterCustomBorderColorEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkWriteResourceDescriptorsEXT: loader(c"vkWriteResourceDescriptorsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkWriteSamplerDescriptorsEXT: loader(c"vkWriteSamplerDescriptorsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_fault")]
+            vkGetDeviceFaultInfoEXT: loader(c"vkGetDeviceFaultInfoEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkCreateIndirectCommandsLayoutEXT: loader(
+                c"vkCreateIndirectCommandsLayoutEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkCreateIndirectExecutionSetEXT: loader(c"vkCreateIndirectExecutionSetEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkGetGeneratedCommandsMemoryRequirementsEXT: loader(
+                c"vkGetGeneratedCommandsMemoryRequirementsEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_display_control")]
+            vkRegisterDeviceEventEXT: loader(c"vkRegisterDeviceEventEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_external_memory_host")]
+            vkGetMemoryHostPointerPropertiesEXT: loader(
+                c"vkGetMemoryHostPointerPropertiesEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_external_memory_metal")]
+            vkGetMemoryMetalHandleEXT: loader(c"vkGetMemoryMetalHandleEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_external_memory_metal")]
+            vkGetMemoryMetalHandlePropertiesEXT: loader(
+                c"vkGetMemoryMetalHandlePropertiesEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+            vkGetDeviceGroupSurfacePresentModes2EXT: loader(
+                c"vkGetDeviceGroupSurfacePresentModes2EXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_hdr_metadata")]
+            vkSetHdrMetadataEXT: loader(c"vkSetHdrMetadataEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_host_image_copy")]
+            vkCopyImageToImageEXT: loader(c"vkCopyImageToImageEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_host_image_copy")]
+            vkCopyImageToMemoryEXT: loader(c"vkCopyImageToMemoryEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_host_image_copy")]
+            vkCopyMemoryToImageEXT: loader(c"vkCopyMemoryToImageEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_host_image_copy")]
+            vkTransitionImageLayoutEXT: loader(c"vkTransitionImageLayoutEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_metal_objects")]
+            vkExportMetalObjectsEXT: loader(c"vkExportMetalObjectsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCreateMicromapEXT: loader(c"vkCreateMicromapEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkGetDeviceMicromapCompatibilityEXT: loader(
+                c"vkGetDeviceMicromapCompatibilityEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkGetMicromapBuildSizesEXT: loader(c"vkGetMicromapBuildSizesEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkWriteMicromapsPropertiesEXT: loader(c"vkWriteMicromapsPropertiesEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_pipeline_properties")]
+            vkGetPipelinePropertiesEXT: loader(c"vkGetPipelinePropertiesEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_present_timing")]
+            vkGetPastPresentationTimingEXT: loader(c"vkGetPastPresentationTimingEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_private_data")]
+            vkCreatePrivateDataSlotEXT: loader(c"vkCreatePrivateDataSlotEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_private_data")]
+            vkGetPrivateDataEXT: loader(c"vkGetPrivateDataEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_private_data")]
+            vkSetPrivateDataEXT: loader(c"vkSetPrivateDataEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_shader_module_identifier")]
+            vkGetShaderModuleCreateInfoIdentifierEXT: loader(
+                c"vkGetShaderModuleCreateInfoIdentifierEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_shader_object")]
+            vkCreateShadersEXT: loader(c"vkCreateShadersEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_swapchain_maintenance1")]
+            vkReleaseSwapchainImagesEXT: loader(c"vkReleaseSwapchainImagesEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_validation_cache")]
+            vkCreateValidationCacheEXT: loader(c"vkCreateValidationCacheEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+            vkCreateBufferCollectionFUCHSIA: loader(c"vkCreateBufferCollectionFUCHSIA".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_external_memory")]
+            vkGetMemoryZirconHandleFUCHSIA: loader(c"vkGetMemoryZirconHandleFUCHSIA".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_external_memory")]
+            vkGetMemoryZirconHandlePropertiesFUCHSIA: loader(
+                c"vkGetMemoryZirconHandlePropertiesFUCHSIA".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
+            vkGetSemaphoreZirconHandleFUCHSIA: loader(
+                c"vkGetSemaphoreZirconHandleFUCHSIA".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
+            vkImportSemaphoreZirconHandleFUCHSIA: loader(
+                c"vkImportSemaphoreZirconHandleFUCHSIA".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCreateFramebuffer: loader(c"vkCreateFramebuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCreateGraphicsPipelines: loader(c"vkCreateGraphicsPipelines".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCreateRenderPass: loader(c"vkCreateRenderPass".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+            vkCreateRenderPass2: loader(c"vkCreateRenderPass2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+            vkGetRenderingAreaGranularity: loader(c"vkGetRenderingAreaGranularity".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkAcquirePerformanceConfigurationINTEL: loader(
+                c"vkAcquirePerformanceConfigurationINTEL".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkGetPerformanceParameterINTEL: loader(c"vkGetPerformanceParameterINTEL".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkInitializePerformanceApiINTEL: loader(c"vkInitializePerformanceApiINTEL".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkUninitializePerformanceApiINTEL: loader(
+                c"vkUninitializePerformanceApiINTEL".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCreateAccelerationStructureKHR: loader(c"vkCreateAccelerationStructureKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkGetAccelerationStructureBuildSizesKHR: loader(
+                c"vkGetAccelerationStructureBuildSizesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkGetAccelerationStructureDeviceAddressKHR: loader(
+                c"vkGetAccelerationStructureDeviceAddressKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkGetDeviceAccelerationStructureCompatibilityKHR: loader(
+                c"vkGetDeviceAccelerationStructureCompatibilityKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkWriteAccelerationStructuresPropertiesKHR: loader(
+                c"vkWriteAccelerationStructuresPropertiesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_bind_memory2")]
+            vkBindBufferMemory2KHR: loader(c"vkBindBufferMemory2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_bind_memory2")]
+            vkBindImageMemory2KHR: loader(c"vkBindImageMemory2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_buffer_device_address")]
+            vkGetBufferDeviceAddressKHR: loader(c"vkGetBufferDeviceAddressKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_buffer_device_address")]
+            vkGetBufferOpaqueCaptureAddressKHR: loader(
+                c"vkGetBufferOpaqueCaptureAddressKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_buffer_device_address")]
+            vkGetDeviceMemoryOpaqueCaptureAddressKHR: loader(
+                c"vkGetDeviceMemoryOpaqueCaptureAddressKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_calibrated_timestamps")]
+            vkGetCalibratedTimestampsKHR: loader(c"vkGetCalibratedTimestampsKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_create_renderpass2")]
+            vkCreateRenderPass2KHR: loader(c"vkCreateRenderPass2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_deferred_host_operations")]
+            vkCreateDeferredOperationKHR: loader(c"vkCreateDeferredOperationKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_descriptor_update_template")]
+            vkCreateDescriptorUpdateTemplateKHR: loader(
+                c"vkCreateDescriptorUpdateTemplateKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCreateAccelerationStructure2KHR: loader(
+                c"vkCreateAccelerationStructure2KHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_fault")]
+            vkGetDeviceFaultDebugInfoKHR: loader(c"vkGetDeviceFaultDebugInfoKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_fault")]
+            vkGetDeviceFaultReportsKHR: loader(c"vkGetDeviceFaultReportsKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+            vkAcquireNextImage2KHR: loader(c"vkAcquireNextImage2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_group")]
+            vkGetDeviceGroupPeerMemoryFeaturesKHR: loader(
+                c"vkGetDeviceGroupPeerMemoryFeaturesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+            vkGetDeviceGroupPresentCapabilitiesKHR: loader(
+                c"vkGetDeviceGroupPresentCapabilitiesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_display_swapchain")]
+            vkCreateSharedSwapchainsKHR: loader(c"vkCreateSharedSwapchainsKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_fence_fd")]
+            vkGetFenceFdKHR: loader(c"vkGetFenceFdKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_fence_fd")]
+            vkImportFenceFdKHR: loader(c"vkImportFenceFdKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_fence_win32")]
+            vkGetFenceWin32HandleKHR: loader(c"vkGetFenceWin32HandleKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_fence_win32")]
+            vkImportFenceWin32HandleKHR: loader(c"vkImportFenceWin32HandleKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_memory_fd")]
+            vkGetMemoryFdKHR: loader(c"vkGetMemoryFdKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_memory_fd")]
+            vkGetMemoryFdPropertiesKHR: loader(c"vkGetMemoryFdPropertiesKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_memory_win32")]
+            vkGetMemoryWin32HandleKHR: loader(c"vkGetMemoryWin32HandleKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_memory_win32")]
+            vkGetMemoryWin32HandlePropertiesKHR: loader(
+                c"vkGetMemoryWin32HandlePropertiesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_semaphore_fd")]
+            vkGetSemaphoreFdKHR: loader(c"vkGetSemaphoreFdKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_semaphore_fd")]
+            vkImportSemaphoreFdKHR: loader(c"vkImportSemaphoreFdKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_semaphore_win32")]
+            vkGetSemaphoreWin32HandleKHR: loader(c"vkGetSemaphoreWin32HandleKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_external_semaphore_win32")]
+            vkImportSemaphoreWin32HandleKHR: loader(c"vkImportSemaphoreWin32HandleKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_get_memory_requirements2")]
+            vkGetBufferMemoryRequirements2KHR: loader(
+                c"vkGetBufferMemoryRequirements2KHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_get_memory_requirements2")]
+            vkGetImageMemoryRequirements2KHR: loader(c"vkGetImageMemoryRequirements2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_get_memory_requirements2")]
+            vkGetImageSparseMemoryRequirements2KHR: loader(
+                c"vkGetImageSparseMemoryRequirements2KHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance3")]
+            vkGetDescriptorSetLayoutSupportKHR: loader(
+                c"vkGetDescriptorSetLayoutSupportKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance4")]
+            vkGetDeviceBufferMemoryRequirementsKHR: loader(
+                c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance4")]
+            vkGetDeviceImageMemoryRequirementsKHR: loader(
+                c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance4")]
+            vkGetDeviceImageSparseMemoryRequirementsKHR: loader(
+                c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance5")]
+            vkGetDeviceImageSubresourceLayoutKHR: loader(
+                c"vkGetDeviceImageSubresourceLayoutKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance5")]
+            vkGetRenderingAreaGranularityKHR: loader(c"vkGetRenderingAreaGranularityKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_map_memory2")]
+            vkMapMemory2KHR: loader(c"vkMapMemory2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_map_memory2")]
+            vkUnmapMemory2KHR: loader(c"vkUnmapMemory2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_performance_query")]
+            vkAcquireProfilingLockKHR: loader(c"vkAcquireProfilingLockKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_performance_query")]
+            vkReleaseProfilingLockKHR: loader(c"vkReleaseProfilingLockKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_pipeline_binary")]
+            vkCreatePipelineBinariesKHR: loader(c"vkCreatePipelineBinariesKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_pipeline_binary")]
+            vkGetPipelineBinaryDataKHR: loader(c"vkGetPipelineBinaryDataKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_pipeline_binary")]
+            vkGetPipelineKeyKHR: loader(c"vkGetPipelineKeyKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_pipeline_binary")]
+            vkReleaseCapturedPipelineDataKHR: loader(c"vkReleaseCapturedPipelineDataKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+            vkGetPipelineExecutableInternalRepresentationsKHR: loader(
+                c"vkGetPipelineExecutableInternalRepresentationsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+            vkGetPipelineExecutablePropertiesKHR: loader(
+                c"vkGetPipelineExecutablePropertiesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
+            vkGetPipelineExecutableStatisticsKHR: loader(
+                c"vkGetPipelineExecutableStatisticsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+            vkCreateSamplerYcbcrConversionKHR: loader(
+                c"vkCreateSamplerYcbcrConversionKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_swapchain")]
+            vkCreateSwapchainKHR: loader(c"vkCreateSwapchainKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
+            vkReleaseSwapchainImagesKHR: loader(c"vkReleaseSwapchainImagesKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_timeline_semaphore")]
+            vkSignalSemaphoreKHR: loader(c"vkSignalSemaphoreKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_timeline_semaphore")]
+            vkWaitSemaphoresKHR: loader(c"vkWaitSemaphoresKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_encode_queue")]
+            vkGetEncodedVideoSessionParametersKHR: loader(
+                c"vkGetEncodedVideoSessionParametersKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkCreateVideoSessionKHR: loader(c"vkCreateVideoSessionKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkCreateVideoSessionParametersKHR: loader(
+                c"vkCreateVideoSessionParametersKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NVX_binary_import")]
+            vkCreateCuFunctionNVX: loader(c"vkCreateCuFunctionNVX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NVX_binary_import")]
+            vkCreateCuModuleNVX: loader(c"vkCreateCuModuleNVX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NVX_image_view_handle")]
+            vkGetDeviceCombinedImageSamplerIndexNVX: loader(
+                c"vkGetDeviceCombinedImageSamplerIndexNVX".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NVX_image_view_handle")]
+            vkGetImageViewHandle64NVX: loader(c"vkGetImageViewHandle64NVX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NVX_image_view_handle")]
+            vkGetImageViewHandleNVX: loader(c"vkGetImageViewHandleNVX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+            vkGetClusterAccelerationStructureBuildSizesNV: loader(
+                c"vkGetClusterAccelerationStructureBuildSizesNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cooperative_vector")]
+            vkConvertCooperativeVectorMatrixNV: loader(
+                c"vkConvertCooperativeVectorMatrixNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+            vkCreateCudaFunctionNV: loader(c"vkCreateCudaFunctionNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+            vkCreateCudaModuleNV: loader(c"vkCreateCudaModuleNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands")]
+            vkCreateIndirectCommandsLayoutNV: loader(c"vkCreateIndirectCommandsLayoutNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands")]
+            vkGetGeneratedCommandsMemoryRequirementsNV: loader(
+                c"vkGetGeneratedCommandsMemoryRequirementsNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands_compute")]
+            vkGetPipelineIndirectDeviceAddressNV: loader(
+                c"vkGetPipelineIndirectDeviceAddressNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands_compute")]
+            vkGetPipelineIndirectMemoryRequirementsNV: loader(
+                c"vkGetPipelineIndirectMemoryRequirementsNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_compute_queue")]
+            vkCreateExternalComputeQueueNV: loader(c"vkCreateExternalComputeQueueNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_memory_rdma")]
+            vkGetMemoryRemoteAddressNV: loader(c"vkGetMemoryRemoteAddressNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_memory_sci_buf")]
+            vkGetMemorySciBufNV: loader(c"vkGetMemorySciBufNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_NV_external_sci_sync",
+                feature = "VK_NV_external_sci_sync2"
+            ))]
+            vkGetFenceSciSyncFenceNV: loader(c"vkGetFenceSciSyncFenceNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_NV_external_sci_sync",
+                feature = "VK_NV_external_sci_sync2"
+            ))]
+            vkGetFenceSciSyncObjNV: loader(c"vkGetFenceSciSyncObjNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_sci_sync")]
+            vkGetSemaphoreSciSyncObjNV: loader(c"vkGetSemaphoreSciSyncObjNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_NV_external_sci_sync",
+                feature = "VK_NV_external_sci_sync2"
+            ))]
+            vkImportFenceSciSyncFenceNV: loader(c"vkImportFenceSciSyncFenceNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_NV_external_sci_sync",
+                feature = "VK_NV_external_sci_sync2"
+            ))]
+            vkImportFenceSciSyncObjNV: loader(c"vkImportFenceSciSyncObjNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_sci_sync")]
+            vkImportSemaphoreSciSyncObjNV: loader(c"vkImportSemaphoreSciSyncObjNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_sci_sync2")]
+            vkCreateSemaphoreSciSyncPoolNV: loader(c"vkCreateSemaphoreSciSyncPoolNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_optical_flow")]
+            vkCreateOpticalFlowSessionNV: loader(c"vkCreateOpticalFlowSessionNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+            vkGetPartitionedAccelerationStructuresBuildSizesNV: loader(
+                c"vkGetPartitionedAccelerationStructuresBuildSizesNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkBindAccelerationStructureMemoryNV: loader(
+                c"vkBindAccelerationStructureMemoryNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkCreateAccelerationStructureNV: loader(c"vkCreateAccelerationStructureNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkGetAccelerationStructureMemoryRequirementsNV: loader(
+                c"vkGetAccelerationStructureMemoryRequirementsNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_OHOS_external_memory")]
+            vkGetMemoryNativeBufferOHOS: loader(c"vkGetMemoryNativeBufferOHOS".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_OHOS_external_memory")]
+            vkGetNativeBufferPropertiesOHOS: loader(c"vkGetNativeBufferPropertiesOHOS".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QCOM_tile_properties")]
+            vkGetDynamicRenderingTilePropertiesQCOM: loader(
+                c"vkGetDynamicRenderingTilePropertiesQCOM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
+            vkGetScreenBufferPropertiesQNX: loader(c"vkGetScreenBufferPropertiesQNX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+            vkGetDescriptorSetLayoutHostMappingInfoVALVE: loader(
+                c"vkGetDescriptorSetLayoutHostMappingInfoVALVE".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_AMD_anti_lag")]
-        {
-            table.vkAntiLagUpdateAMD =
-                loader(c"vkAntiLagUpdateAMD".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
-        {
-            table.vkGetAndroidHardwareBufferPropertiesANDROID =
-                loader(c"vkGetAndroidHardwareBufferPropertiesANDROID".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
-        {
-            table.vkGetMemoryAndroidHardwareBufferANDROID =
-                loader(c"vkGetMemoryAndroidHardwareBufferANDROID".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkBindDataGraphPipelineSessionMemoryARM =
-                loader(c"vkBindDataGraphPipelineSessionMemoryARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkCreateDataGraphPipelineSessionARM =
-                loader(c"vkCreateDataGraphPipelineSessionARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkGetDataGraphPipelineAvailablePropertiesARM =
-                loader(c"vkGetDataGraphPipelineAvailablePropertiesARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkGetDataGraphPipelinePropertiesARM =
-                loader(c"vkGetDataGraphPipelinePropertiesARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkGetDataGraphPipelineSessionBindPointRequirementsARM =
-                loader(c"vkGetDataGraphPipelineSessionBindPointRequirementsARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkGetDataGraphPipelineSessionMemoryRequirementsARM =
-                loader(c"vkGetDataGraphPipelineSessionMemoryRequirementsARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        {
-            table.vkCreateShaderInstrumentationARM =
-                loader(c"vkCreateShaderInstrumentationARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkBindTensorMemoryARM = loader(c"vkBindTensorMemoryARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkCreateTensorARM =
-                loader(c"vkCreateTensorARM".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkCreateTensorViewARM = loader(c"vkCreateTensorViewARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkGetDeviceTensorMemoryRequirementsARM =
-                loader(c"vkGetDeviceTensorMemoryRequirementsARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkGetTensorMemoryRequirementsARM =
-                loader(c"vkGetTensorMemoryRequirementsARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkGetTensorOpaqueCaptureDescriptorDataARM =
-                loader(c"vkGetTensorOpaqueCaptureDescriptorDataARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkGetTensorViewOpaqueCaptureDescriptorDataARM =
-                loader(c"vkGetTensorViewOpaqueCaptureDescriptorDataARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkAllocateMemory =
-                loader(c"vkAllocateMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateBuffer =
-                loader(c"vkCreateBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateCommandPool =
-                loader(c"vkCreateCommandPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateFence =
-                loader(c"vkCreateFence".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateImage =
-                loader(c"vkCreateImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateImageView =
-                loader(c"vkCreateImageView".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateQueryPool =
-                loader(c"vkCreateQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCreateSemaphore =
-                loader(c"vkCreateSemaphore".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDestroyDevice =
-                loader(c"vkDestroyDevice".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDeviceWaitIdle =
-                loader(c"vkDeviceWaitIdle".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkFlushMappedMemoryRanges = loader(c"vkFlushMappedMemoryRanges".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetDeviceQueue =
-                loader(c"vkGetDeviceQueue".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkInvalidateMappedMemoryRanges =
-                loader(c"vkInvalidateMappedMemoryRanges".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkResetFences =
-                loader(c"vkResetFences".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkWaitForFences =
-                loader(c"vkWaitForFences".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkBindBufferMemory2 =
-                loader(c"vkBindBufferMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkBindImageMemory2 =
-                loader(c"vkBindImageMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetBufferMemoryRequirements2 =
-                loader(c"vkGetBufferMemoryRequirements2".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetDeviceGroupPeerMemoryFeatures =
-                loader(c"vkGetDeviceGroupPeerMemoryFeatures".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetDeviceQueue2 =
-                loader(c"vkGetDeviceQueue2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetImageMemoryRequirements2 = loader(c"vkGetImageMemoryRequirements2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkGetImageSparseMemoryRequirements2 =
-                loader(c"vkGetImageSparseMemoryRequirements2".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_2")]
-        {
-            table.vkGetBufferDeviceAddress = loader(c"vkGetBufferDeviceAddress".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_2")]
-        {
-            table.vkGetBufferOpaqueCaptureAddress =
-                loader(c"vkGetBufferOpaqueCaptureAddress".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_2")]
-        {
-            table.vkGetDeviceMemoryOpaqueCaptureAddress =
-                loader(c"vkGetDeviceMemoryOpaqueCaptureAddress".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_2")]
-        {
-            table.vkSignalSemaphore =
-                loader(c"vkSignalSemaphore".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_2")]
-        {
-            table.vkWaitSemaphores =
-                loader(c"vkWaitSemaphores".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkCreatePrivateDataSlot = loader(c"vkCreatePrivateDataSlot".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkGetDeviceBufferMemoryRequirements =
-                loader(c"vkGetDeviceBufferMemoryRequirements".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkGetDeviceImageMemoryRequirements =
-                loader(c"vkGetDeviceImageMemoryRequirements".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkGetDeviceImageSparseMemoryRequirements =
-                loader(c"vkGetDeviceImageSparseMemoryRequirements".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkGetPrivateData =
-                loader(c"vkGetPrivateData".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkSetPrivateData =
-                loader(c"vkSetPrivateData".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkCopyImageToImage =
-                loader(c"vkCopyImageToImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkCopyImageToMemory =
-                loader(c"vkCopyImageToMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkCopyMemoryToImage =
-                loader(c"vkCopyMemoryToImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkGetDeviceImageSubresourceLayout =
-                loader(c"vkGetDeviceImageSubresourceLayout".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkMapMemory2 =
-                loader(c"vkMapMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkTransitionImageLayout = loader(c"vkTransitionImageLayout".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkUnmapMemory2 =
-                loader(c"vkUnmapMemory2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreateBufferView =
-                loader(c"vkCreateBufferView".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreateComputePipelines = loader(c"vkCreateComputePipelines".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreateDescriptorPool = loader(c"vkCreateDescriptorPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreateDescriptorSetLayout = loader(c"vkCreateDescriptorSetLayout".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreateEvent =
-                loader(c"vkCreateEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreatePipelineCache = loader(c"vkCreatePipelineCache".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreatePipelineLayout = loader(c"vkCreatePipelineLayout".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreateSampler =
-                loader(c"vkCreateSampler".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCreateShaderModule = loader(c"vkCreateShaderModule".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkUpdateDescriptorSets = loader(c"vkUpdateDescriptorSets".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        {
-            table.vkCreateDescriptorUpdateTemplate =
-                loader(c"vkCreateDescriptorUpdateTemplate".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        {
-            table.vkCreateSamplerYcbcrConversion =
-                loader(c"vkCreateSamplerYcbcrConversion".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        {
-            table.vkGetDescriptorSetLayoutSupport =
-                loader(c"vkGetDescriptorSetLayoutSupport".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_buffer_device_address")]
-        {
-            table.vkGetBufferDeviceAddressEXT = loader(c"vkGetBufferDeviceAddressEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_calibrated_timestamps")]
-        {
-            table.vkGetCalibratedTimestampsEXT = loader(c"vkGetCalibratedTimestampsEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_marker")]
-        {
-            table.vkDebugMarkerSetObjectNameEXT = loader(c"vkDebugMarkerSetObjectNameEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_marker")]
-        {
-            table.vkDebugMarkerSetObjectTagEXT = loader(c"vkDebugMarkerSetObjectTagEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkSetDebugUtilsObjectNameEXT = loader(c"vkSetDebugUtilsObjectNameEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkSetDebugUtilsObjectTagEXT = loader(c"vkSetDebugUtilsObjectTagEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
-                loader(c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetBufferOpaqueCaptureDescriptorDataEXT =
-                loader(c"vkGetBufferOpaqueCaptureDescriptorDataEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetDescriptorEXT =
-                loader(c"vkGetDescriptorEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetImageOpaqueCaptureDescriptorDataEXT =
-                loader(c"vkGetImageOpaqueCaptureDescriptorDataEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetImageViewOpaqueCaptureDescriptorDataEXT =
-                loader(c"vkGetImageViewOpaqueCaptureDescriptorDataEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetSamplerOpaqueCaptureDescriptorDataEXT =
-                loader(c"vkGetSamplerOpaqueCaptureDescriptorDataEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkGetImageOpaqueCaptureDataEXT =
-                loader(c"vkGetImageOpaqueCaptureDataEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkGetTensorOpaqueCaptureDataARM =
-                loader(c"vkGetTensorOpaqueCaptureDataARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkRegisterCustomBorderColorEXT =
-                loader(c"vkRegisterCustomBorderColorEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkUnregisterCustomBorderColorEXT =
-                loader(c"vkUnregisterCustomBorderColorEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkWriteResourceDescriptorsEXT = loader(c"vkWriteResourceDescriptorsEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkWriteSamplerDescriptorsEXT = loader(c"vkWriteSamplerDescriptorsEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_device_fault")]
-        {
-            table.vkGetDeviceFaultInfoEXT = loader(c"vkGetDeviceFaultInfoEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkCreateIndirectCommandsLayoutEXT =
-                loader(c"vkCreateIndirectCommandsLayoutEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkCreateIndirectExecutionSetEXT =
-                loader(c"vkCreateIndirectExecutionSetEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkGetGeneratedCommandsMemoryRequirementsEXT =
-                loader(c"vkGetGeneratedCommandsMemoryRequirementsEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_display_control")]
-        {
-            table.vkRegisterDeviceEventEXT = loader(c"vkRegisterDeviceEventEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_external_memory_host")]
-        {
-            table.vkGetMemoryHostPointerPropertiesEXT =
-                loader(c"vkGetMemoryHostPointerPropertiesEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_external_memory_metal")]
-        {
-            table.vkGetMemoryMetalHandleEXT = loader(c"vkGetMemoryMetalHandleEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_external_memory_metal")]
-        {
-            table.vkGetMemoryMetalHandlePropertiesEXT =
-                loader(c"vkGetMemoryMetalHandlePropertiesEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-        {
-            table.vkGetDeviceGroupSurfacePresentModes2EXT =
-                loader(c"vkGetDeviceGroupSurfacePresentModes2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_hdr_metadata")]
-        {
-            table.vkSetHdrMetadataEXT =
-                loader(c"vkSetHdrMetadataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_host_image_copy")]
-        {
-            table.vkCopyImageToImageEXT = loader(c"vkCopyImageToImageEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_host_image_copy")]
-        {
-            table.vkCopyImageToMemoryEXT = loader(c"vkCopyImageToMemoryEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_host_image_copy")]
-        {
-            table.vkCopyMemoryToImageEXT = loader(c"vkCopyMemoryToImageEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_host_image_copy")]
-        {
-            table.vkTransitionImageLayoutEXT = loader(c"vkTransitionImageLayoutEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_metal_objects")]
-        {
-            table.vkExportMetalObjectsEXT = loader(c"vkExportMetalObjectsEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCreateMicromapEXT =
-                loader(c"vkCreateMicromapEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkGetDeviceMicromapCompatibilityEXT =
-                loader(c"vkGetDeviceMicromapCompatibilityEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkGetMicromapBuildSizesEXT = loader(c"vkGetMicromapBuildSizesEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkWriteMicromapsPropertiesEXT = loader(c"vkWriteMicromapsPropertiesEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_pipeline_properties")]
-        {
-            table.vkGetPipelinePropertiesEXT = loader(c"vkGetPipelinePropertiesEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_present_timing")]
-        {
-            table.vkGetPastPresentationTimingEXT =
-                loader(c"vkGetPastPresentationTimingEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_private_data")]
-        {
-            table.vkCreatePrivateDataSlotEXT = loader(c"vkCreatePrivateDataSlotEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_private_data")]
-        {
-            table.vkGetPrivateDataEXT =
-                loader(c"vkGetPrivateDataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_private_data")]
-        {
-            table.vkSetPrivateDataEXT =
-                loader(c"vkSetPrivateDataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_shader_module_identifier")]
-        {
-            table.vkGetShaderModuleCreateInfoIdentifierEXT =
-                loader(c"vkGetShaderModuleCreateInfoIdentifierEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_shader_object")]
-        {
-            table.vkCreateShadersEXT =
-                loader(c"vkCreateShadersEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_swapchain_maintenance1")]
-        {
-            table.vkReleaseSwapchainImagesEXT = loader(c"vkReleaseSwapchainImagesEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_validation_cache")]
-        {
-            table.vkCreateValidationCacheEXT = loader(c"vkCreateValidationCacheEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-        {
-            table.vkCreateBufferCollectionFUCHSIA =
-                loader(c"vkCreateBufferCollectionFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_external_memory")]
-        {
-            table.vkGetMemoryZirconHandleFUCHSIA =
-                loader(c"vkGetMemoryZirconHandleFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_external_memory")]
-        {
-            table.vkGetMemoryZirconHandlePropertiesFUCHSIA =
-                loader(c"vkGetMemoryZirconHandlePropertiesFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
-        {
-            table.vkGetSemaphoreZirconHandleFUCHSIA =
-                loader(c"vkGetSemaphoreZirconHandleFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
-        {
-            table.vkImportSemaphoreZirconHandleFUCHSIA =
-                loader(c"vkImportSemaphoreZirconHandleFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCreateFramebuffer =
-                loader(c"vkCreateFramebuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCreateGraphicsPipelines = loader(c"vkCreateGraphicsPipelines".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCreateRenderPass =
-                loader(c"vkCreateRenderPass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
-        {
-            table.vkCreateRenderPass2 =
-                loader(c"vkCreateRenderPass2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
-        {
-            table.vkGetRenderingAreaGranularity = loader(c"vkGetRenderingAreaGranularity".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkAcquirePerformanceConfigurationINTEL =
-                loader(c"vkAcquirePerformanceConfigurationINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkGetPerformanceParameterINTEL =
-                loader(c"vkGetPerformanceParameterINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkInitializePerformanceApiINTEL =
-                loader(c"vkInitializePerformanceApiINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkUninitializePerformanceApiINTEL =
-                loader(c"vkUninitializePerformanceApiINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCreateAccelerationStructureKHR =
-                loader(c"vkCreateAccelerationStructureKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkGetAccelerationStructureBuildSizesKHR =
-                loader(c"vkGetAccelerationStructureBuildSizesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkGetAccelerationStructureDeviceAddressKHR =
-                loader(c"vkGetAccelerationStructureDeviceAddressKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkGetDeviceAccelerationStructureCompatibilityKHR =
-                loader(c"vkGetDeviceAccelerationStructureCompatibilityKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkWriteAccelerationStructuresPropertiesKHR =
-                loader(c"vkWriteAccelerationStructuresPropertiesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_bind_memory2")]
-        {
-            table.vkBindBufferMemory2KHR = loader(c"vkBindBufferMemory2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_bind_memory2")]
-        {
-            table.vkBindImageMemory2KHR = loader(c"vkBindImageMemory2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_buffer_device_address")]
-        {
-            table.vkGetBufferDeviceAddressKHR = loader(c"vkGetBufferDeviceAddressKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_buffer_device_address")]
-        {
-            table.vkGetBufferOpaqueCaptureAddressKHR =
-                loader(c"vkGetBufferOpaqueCaptureAddressKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_buffer_device_address")]
-        {
-            table.vkGetDeviceMemoryOpaqueCaptureAddressKHR =
-                loader(c"vkGetDeviceMemoryOpaqueCaptureAddressKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_calibrated_timestamps")]
-        {
-            table.vkGetCalibratedTimestampsKHR = loader(c"vkGetCalibratedTimestampsKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_create_renderpass2")]
-        {
-            table.vkCreateRenderPass2KHR = loader(c"vkCreateRenderPass2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        {
-            table.vkCreateDeferredOperationKHR = loader(c"vkCreateDeferredOperationKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_descriptor_update_template")]
-        {
-            table.vkCreateDescriptorUpdateTemplateKHR =
-                loader(c"vkCreateDescriptorUpdateTemplateKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCreateAccelerationStructure2KHR =
-                loader(c"vkCreateAccelerationStructure2KHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_fault")]
-        {
-            table.vkGetDeviceFaultDebugInfoKHR = loader(c"vkGetDeviceFaultDebugInfoKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_fault")]
-        {
-            table.vkGetDeviceFaultReportsKHR = loader(c"vkGetDeviceFaultReportsKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
-        {
-            table.vkAcquireNextImage2KHR = loader(c"vkAcquireNextImage2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_group")]
-        {
-            table.vkGetDeviceGroupPeerMemoryFeaturesKHR =
-                loader(c"vkGetDeviceGroupPeerMemoryFeaturesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
-        {
-            table.vkGetDeviceGroupPresentCapabilitiesKHR =
-                loader(c"vkGetDeviceGroupPresentCapabilitiesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_display_swapchain")]
-        {
-            table.vkCreateSharedSwapchainsKHR = loader(c"vkCreateSharedSwapchainsKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_fence_fd")]
-        {
-            table.vkGetFenceFdKHR =
-                loader(c"vkGetFenceFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_fence_fd")]
-        {
-            table.vkImportFenceFdKHR =
-                loader(c"vkImportFenceFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_fence_win32")]
-        {
-            table.vkGetFenceWin32HandleKHR = loader(c"vkGetFenceWin32HandleKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_fence_win32")]
-        {
-            table.vkImportFenceWin32HandleKHR = loader(c"vkImportFenceWin32HandleKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_memory_fd")]
-        {
-            table.vkGetMemoryFdKHR =
-                loader(c"vkGetMemoryFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_memory_fd")]
-        {
-            table.vkGetMemoryFdPropertiesKHR = loader(c"vkGetMemoryFdPropertiesKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_memory_win32")]
-        {
-            table.vkGetMemoryWin32HandleKHR = loader(c"vkGetMemoryWin32HandleKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_memory_win32")]
-        {
-            table.vkGetMemoryWin32HandlePropertiesKHR =
-                loader(c"vkGetMemoryWin32HandlePropertiesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_semaphore_fd")]
-        {
-            table.vkGetSemaphoreFdKHR =
-                loader(c"vkGetSemaphoreFdKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_semaphore_fd")]
-        {
-            table.vkImportSemaphoreFdKHR = loader(c"vkImportSemaphoreFdKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_semaphore_win32")]
-        {
-            table.vkGetSemaphoreWin32HandleKHR = loader(c"vkGetSemaphoreWin32HandleKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_external_semaphore_win32")]
-        {
-            table.vkImportSemaphoreWin32HandleKHR =
-                loader(c"vkImportSemaphoreWin32HandleKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_get_memory_requirements2")]
-        {
-            table.vkGetBufferMemoryRequirements2KHR =
-                loader(c"vkGetBufferMemoryRequirements2KHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_get_memory_requirements2")]
-        {
-            table.vkGetImageMemoryRequirements2KHR =
-                loader(c"vkGetImageMemoryRequirements2KHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_get_memory_requirements2")]
-        {
-            table.vkGetImageSparseMemoryRequirements2KHR =
-                loader(c"vkGetImageSparseMemoryRequirements2KHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance3")]
-        {
-            table.vkGetDescriptorSetLayoutSupportKHR =
-                loader(c"vkGetDescriptorSetLayoutSupportKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance4")]
-        {
-            table.vkGetDeviceBufferMemoryRequirementsKHR =
-                loader(c"vkGetDeviceBufferMemoryRequirementsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance4")]
-        {
-            table.vkGetDeviceImageMemoryRequirementsKHR =
-                loader(c"vkGetDeviceImageMemoryRequirementsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance4")]
-        {
-            table.vkGetDeviceImageSparseMemoryRequirementsKHR =
-                loader(c"vkGetDeviceImageSparseMemoryRequirementsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance5")]
-        {
-            table.vkGetDeviceImageSubresourceLayoutKHR =
-                loader(c"vkGetDeviceImageSubresourceLayoutKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance5")]
-        {
-            table.vkGetRenderingAreaGranularityKHR =
-                loader(c"vkGetRenderingAreaGranularityKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_map_memory2")]
-        {
-            table.vkMapMemory2KHR =
-                loader(c"vkMapMemory2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_map_memory2")]
-        {
-            table.vkUnmapMemory2KHR =
-                loader(c"vkUnmapMemory2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_performance_query")]
-        {
-            table.vkAcquireProfilingLockKHR = loader(c"vkAcquireProfilingLockKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_performance_query")]
-        {
-            table.vkReleaseProfilingLockKHR = loader(c"vkReleaseProfilingLockKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_pipeline_binary")]
-        {
-            table.vkCreatePipelineBinariesKHR = loader(c"vkCreatePipelineBinariesKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_pipeline_binary")]
-        {
-            table.vkGetPipelineBinaryDataKHR = loader(c"vkGetPipelineBinaryDataKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_pipeline_binary")]
-        {
-            table.vkGetPipelineKeyKHR =
-                loader(c"vkGetPipelineKeyKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_pipeline_binary")]
-        {
-            table.vkReleaseCapturedPipelineDataKHR =
-                loader(c"vkReleaseCapturedPipelineDataKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
-        {
-            table.vkGetPipelineExecutableInternalRepresentationsKHR =
-                loader(c"vkGetPipelineExecutableInternalRepresentationsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
-        {
-            table.vkGetPipelineExecutablePropertiesKHR =
-                loader(c"vkGetPipelineExecutablePropertiesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
-        {
-            table.vkGetPipelineExecutableStatisticsKHR =
-                loader(c"vkGetPipelineExecutableStatisticsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-        {
-            table.vkCreateSamplerYcbcrConversionKHR =
-                loader(c"vkCreateSamplerYcbcrConversionKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_swapchain")]
-        {
-            table.vkCreateSwapchainKHR = loader(c"vkCreateSwapchainKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
-        {
-            table.vkReleaseSwapchainImagesKHR = loader(c"vkReleaseSwapchainImagesKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_timeline_semaphore")]
-        {
-            table.vkSignalSemaphoreKHR = loader(c"vkSignalSemaphoreKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_timeline_semaphore")]
-        {
-            table.vkWaitSemaphoresKHR =
-                loader(c"vkWaitSemaphoresKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_encode_queue")]
-        {
-            table.vkGetEncodedVideoSessionParametersKHR =
-                loader(c"vkGetEncodedVideoSessionParametersKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkCreateVideoSessionKHR = loader(c"vkCreateVideoSessionKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkCreateVideoSessionParametersKHR =
-                loader(c"vkCreateVideoSessionParametersKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NVX_binary_import")]
-        {
-            table.vkCreateCuFunctionNVX = loader(c"vkCreateCuFunctionNVX".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NVX_binary_import")]
-        {
-            table.vkCreateCuModuleNVX =
-                loader(c"vkCreateCuModuleNVX".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NVX_image_view_handle")]
-        {
-            table.vkGetDeviceCombinedImageSamplerIndexNVX =
-                loader(c"vkGetDeviceCombinedImageSamplerIndexNVX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NVX_image_view_handle")]
-        {
-            table.vkGetImageViewHandle64NVX = loader(c"vkGetImageViewHandle64NVX".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NVX_image_view_handle")]
-        {
-            table.vkGetImageViewHandleNVX = loader(c"vkGetImageViewHandleNVX".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-        {
-            table.vkGetClusterAccelerationStructureBuildSizesNV =
-                loader(c"vkGetClusterAccelerationStructureBuildSizesNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_cooperative_vector")]
-        {
-            table.vkConvertCooperativeVectorMatrixNV =
-                loader(c"vkConvertCooperativeVectorMatrixNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        {
-            table.vkCreateCudaFunctionNV = loader(c"vkCreateCudaFunctionNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        {
-            table.vkCreateCudaModuleNV = loader(c"vkCreateCudaModuleNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands")]
-        {
-            table.vkCreateIndirectCommandsLayoutNV =
-                loader(c"vkCreateIndirectCommandsLayoutNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands")]
-        {
-            table.vkGetGeneratedCommandsMemoryRequirementsNV =
-                loader(c"vkGetGeneratedCommandsMemoryRequirementsNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands_compute")]
-        {
-            table.vkGetPipelineIndirectDeviceAddressNV =
-                loader(c"vkGetPipelineIndirectDeviceAddressNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands_compute")]
-        {
-            table.vkGetPipelineIndirectMemoryRequirementsNV =
-                loader(c"vkGetPipelineIndirectMemoryRequirementsNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_external_compute_queue")]
-        {
-            table.vkCreateExternalComputeQueueNV =
-                loader(c"vkCreateExternalComputeQueueNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_external_memory_rdma")]
-        {
-            table.vkGetMemoryRemoteAddressNV = loader(c"vkGetMemoryRemoteAddressNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_external_memory_sci_buf")]
-        {
-            table.vkGetMemorySciBufNV =
-                loader(c"vkGetMemorySciBufNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_NV_external_sci_sync",
-            feature = "VK_NV_external_sci_sync2"
-        ))]
-        {
-            table.vkGetFenceSciSyncFenceNV = loader(c"vkGetFenceSciSyncFenceNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_NV_external_sci_sync",
-            feature = "VK_NV_external_sci_sync2"
-        ))]
-        {
-            table.vkGetFenceSciSyncObjNV = loader(c"vkGetFenceSciSyncObjNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_external_sci_sync")]
-        {
-            table.vkGetSemaphoreSciSyncObjNV = loader(c"vkGetSemaphoreSciSyncObjNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_NV_external_sci_sync",
-            feature = "VK_NV_external_sci_sync2"
-        ))]
-        {
-            table.vkImportFenceSciSyncFenceNV = loader(c"vkImportFenceSciSyncFenceNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_NV_external_sci_sync",
-            feature = "VK_NV_external_sci_sync2"
-        ))]
-        {
-            table.vkImportFenceSciSyncObjNV = loader(c"vkImportFenceSciSyncObjNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_external_sci_sync")]
-        {
-            table.vkImportSemaphoreSciSyncObjNV = loader(c"vkImportSemaphoreSciSyncObjNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_external_sci_sync2")]
-        {
-            table.vkCreateSemaphoreSciSyncPoolNV =
-                loader(c"vkCreateSemaphoreSciSyncPoolNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_optical_flow")]
-        {
-            table.vkCreateOpticalFlowSessionNV = loader(c"vkCreateOpticalFlowSessionNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
-        {
-            table.vkGetPartitionedAccelerationStructuresBuildSizesNV =
-                loader(c"vkGetPartitionedAccelerationStructuresBuildSizesNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkBindAccelerationStructureMemoryNV =
-                loader(c"vkBindAccelerationStructureMemoryNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkCreateAccelerationStructureNV =
-                loader(c"vkCreateAccelerationStructureNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkGetAccelerationStructureMemoryRequirementsNV =
-                loader(c"vkGetAccelerationStructureMemoryRequirementsNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_OHOS_external_memory")]
-        {
-            table.vkGetMemoryNativeBufferOHOS = loader(c"vkGetMemoryNativeBufferOHOS".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_OHOS_external_memory")]
-        {
-            table.vkGetNativeBufferPropertiesOHOS =
-                loader(c"vkGetNativeBufferPropertiesOHOS".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QCOM_tile_properties")]
-        {
-            table.vkGetDynamicRenderingTilePropertiesQCOM =
-                loader(c"vkGetDynamicRenderingTilePropertiesQCOM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QNX_external_memory_screen_buffer")]
-        {
-            table.vkGetScreenBufferPropertiesQNX =
-                loader(c"vkGetScreenBufferPropertiesQNX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
-        {
-            table.vkGetDescriptorSetLayoutHostMappingInfoVALVE =
-                loader(c"vkGetDescriptorSetLayoutHostMappingInfoVALVE".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
     /// Resolve all device commands via `vkGetDeviceProcAddr(device, …)`.
     pub fn load_for_device<F>(device: VkDevice, mut get_proc: F) -> Self

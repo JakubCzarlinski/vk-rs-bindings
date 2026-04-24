@@ -20,19 +20,15 @@ impl SemaphoreSciSyncPoolNVDispatchTable {
         #[cfg(feature = "VK_NV_external_sci_sync2")]
         vkDestroySemaphoreSciSyncPoolNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_NV_external_sci_sync2")]
-        {
-            table.vkDestroySemaphoreSciSyncPoolNV =
-                loader(c"vkDestroySemaphoreSciSyncPoolNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_NV_external_sci_sync2")]
+            vkDestroySemaphoreSciSyncPoolNV: loader(c"vkDestroySemaphoreSciSyncPoolNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        table
     }
 }
 #[cfg(feature = "VK_NV_external_sci_sync2")]

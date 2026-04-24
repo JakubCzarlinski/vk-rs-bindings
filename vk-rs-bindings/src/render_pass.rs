@@ -29,29 +29,23 @@ impl RenderPassDispatchTable {
         #[cfg(feature = "VK_HUAWEI_subpass_shading")]
         vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkDestroyRenderPass =
-                loader(c"vkDestroyRenderPass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkDestroyRenderPass: loader(c"vkDestroyRenderPass".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkGetRenderAreaGranularity: loader(c"vkGetRenderAreaGranularity".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_HUAWEI_subpass_shading")]
+            vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI: loader(
+                c"vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkGetRenderAreaGranularity = loader(c"vkGetRenderAreaGranularity".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_HUAWEI_subpass_shading")]
-        {
-            table.vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI =
-                loader(c"vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]

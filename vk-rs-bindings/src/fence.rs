@@ -24,23 +24,18 @@ impl FenceDispatchTable {
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         vkGetFenceStatus: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDestroyFence =
-                loader(c"vkDestroyFence".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDestroyFence: loader(c"vkDestroyFence".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetFenceStatus: loader(c"vkGetFenceStatus".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetFenceStatus =
-                loader(c"vkGetFenceStatus".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

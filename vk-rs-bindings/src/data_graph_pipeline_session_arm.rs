@@ -20,19 +20,17 @@ impl DataGraphPipelineSessionARMDispatchTable {
         #[cfg(feature = "VK_ARM_data_graph")]
         vkDestroyDataGraphPipelineSessionARM: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkDestroyDataGraphPipelineSessionARM =
-                loader(c"vkDestroyDataGraphPipelineSessionARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkDestroyDataGraphPipelineSessionARM: loader(
+                c"vkDestroyDataGraphPipelineSessionARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        table
     }
 }
 #[cfg(feature = "VK_ARM_data_graph")]

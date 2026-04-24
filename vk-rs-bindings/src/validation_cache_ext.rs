@@ -28,28 +28,21 @@ impl ValidationCacheEXTDispatchTable {
         #[cfg(feature = "VK_EXT_validation_cache")]
         vkMergeValidationCachesEXT: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_EXT_validation_cache")]
-        {
-            table.vkDestroyValidationCacheEXT = loader(c"vkDestroyValidationCacheEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_EXT_validation_cache")]
+            vkDestroyValidationCacheEXT: loader(c"vkDestroyValidationCacheEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_validation_cache")]
+            vkGetValidationCacheDataEXT: loader(c"vkGetValidationCacheDataEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_validation_cache")]
+            vkMergeValidationCachesEXT: loader(c"vkMergeValidationCachesEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_EXT_validation_cache")]
-        {
-            table.vkGetValidationCacheDataEXT = loader(c"vkGetValidationCacheDataEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_validation_cache")]
-        {
-            table.vkMergeValidationCachesEXT = loader(c"vkMergeValidationCachesEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_EXT_validation_cache")]

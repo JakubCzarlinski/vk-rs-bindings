@@ -28,31 +28,27 @@ impl DescriptorSetDispatchTable {
         #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
         vkGetDescriptorSetHostMappingVALVE: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        {
-            table.vkUpdateDescriptorSetWithTemplate =
-                loader(c"vkUpdateDescriptorSetWithTemplate".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+            vkUpdateDescriptorSetWithTemplate: loader(
+                c"vkUpdateDescriptorSetWithTemplate".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_descriptor_update_template")]
+            vkUpdateDescriptorSetWithTemplateKHR: loader(
+                c"vkUpdateDescriptorSetWithTemplateKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+            vkGetDescriptorSetHostMappingVALVE: loader(
+                c"vkGetDescriptorSetHostMappingVALVE".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_KHR_descriptor_update_template")]
-        {
-            table.vkUpdateDescriptorSetWithTemplateKHR =
-                loader(c"vkUpdateDescriptorSetWithTemplateKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
-        {
-            table.vkGetDescriptorSetHostMappingVALVE =
-                loader(c"vkGetDescriptorSetHostMappingVALVE".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

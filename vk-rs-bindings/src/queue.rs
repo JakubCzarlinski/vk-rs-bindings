@@ -73,86 +73,56 @@ impl QueueDispatchTable {
         #[cfg(feature = "VK_QCOM_queue_perf_hint")]
         vkQueueSetPerfHintQCOM: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkQueueBindSparse =
-                loader(c"vkQueueBindSparse".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkQueueBindSparse: loader(c"vkQueueBindSparse".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkQueueSubmit: loader(c"vkQueueSubmit".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkQueueWaitIdle: loader(c"vkQueueWaitIdle".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkQueueSubmit2: loader(c"vkQueueSubmit2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkQueueBeginDebugUtilsLabelEXT: loader(c"vkQueueBeginDebugUtilsLabelEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkQueueEndDebugUtilsLabelEXT: loader(c"vkQueueEndDebugUtilsLabelEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkQueueInsertDebugUtilsLabelEXT: loader(c"vkQueueInsertDebugUtilsLabelEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkQueueSetPerformanceConfigurationINTEL: loader(
+                c"vkQueueSetPerformanceConfigurationINTEL".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_swapchain")]
+            vkQueuePresentKHR: loader(c"vkQueuePresentKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_synchronization2")]
+            vkQueueSubmit2KHR: loader(c"vkQueueSubmit2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+            vkGetQueueCheckpointData2NV: loader(c"vkGetQueueCheckpointData2NV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+            vkGetQueueCheckpointDataNV: loader(c"vkGetQueueCheckpointDataNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_low_latency2")]
+            vkQueueNotifyOutOfBandNV: loader(c"vkQueueNotifyOutOfBandNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QCOM_queue_perf_hint")]
+            vkQueueSetPerfHintQCOM: loader(c"vkQueueSetPerfHintQCOM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkQueueSubmit =
-                loader(c"vkQueueSubmit".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkQueueWaitIdle =
-                loader(c"vkQueueWaitIdle".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkQueueSubmit2 =
-                loader(c"vkQueueSubmit2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkQueueBeginDebugUtilsLabelEXT =
-                loader(c"vkQueueBeginDebugUtilsLabelEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkQueueEndDebugUtilsLabelEXT = loader(c"vkQueueEndDebugUtilsLabelEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkQueueInsertDebugUtilsLabelEXT =
-                loader(c"vkQueueInsertDebugUtilsLabelEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkQueueSetPerformanceConfigurationINTEL =
-                loader(c"vkQueueSetPerformanceConfigurationINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_swapchain")]
-        {
-            table.vkQueuePresentKHR =
-                loader(c"vkQueuePresentKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_synchronization2")]
-        {
-            table.vkQueueSubmit2KHR =
-                loader(c"vkQueueSubmit2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
-        {
-            table.vkGetQueueCheckpointData2NV = loader(c"vkGetQueueCheckpointData2NV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
-        {
-            table.vkGetQueueCheckpointDataNV = loader(c"vkGetQueueCheckpointDataNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_low_latency2")]
-        {
-            table.vkQueueNotifyOutOfBandNV = loader(c"vkQueueNotifyOutOfBandNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QCOM_queue_perf_hint")]
-        {
-            table.vkQueueSetPerfHintQCOM = loader(c"vkQueueSetPerfHintQCOM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

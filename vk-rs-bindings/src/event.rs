@@ -32,33 +32,23 @@ impl EventDispatchTable {
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
         vkSetEvent: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkDestroyEvent =
-                loader(c"vkDestroyEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkDestroyEvent: loader(c"vkDestroyEvent".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkGetEventStatus: loader(c"vkGetEventStatus".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkResetEvent: loader(c"vkResetEvent".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkSetEvent: loader(c"vkSetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkGetEventStatus =
-                loader(c"vkGetEventStatus".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkResetEvent =
-                loader(c"vkResetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkSetEvent =
-                loader(c"vkSetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

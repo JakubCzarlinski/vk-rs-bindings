@@ -34,37 +34,30 @@ impl BufferCollectionFUCHSIADispatchTable {
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
         vkSetBufferCollectionImageConstraintsFUCHSIA: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-        {
-            table.vkDestroyBufferCollectionFUCHSIA =
-                loader(c"vkDestroyBufferCollectionFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+            vkDestroyBufferCollectionFUCHSIA: loader(c"vkDestroyBufferCollectionFUCHSIA".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+            vkGetBufferCollectionPropertiesFUCHSIA: loader(
+                c"vkGetBufferCollectionPropertiesFUCHSIA".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+            vkSetBufferCollectionBufferConstraintsFUCHSIA: loader(
+                c"vkSetBufferCollectionBufferConstraintsFUCHSIA".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+            vkSetBufferCollectionImageConstraintsFUCHSIA: loader(
+                c"vkSetBufferCollectionImageConstraintsFUCHSIA".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-        {
-            table.vkGetBufferCollectionPropertiesFUCHSIA =
-                loader(c"vkGetBufferCollectionPropertiesFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-        {
-            table.vkSetBufferCollectionBufferConstraintsFUCHSIA =
-                loader(c"vkSetBufferCollectionBufferConstraintsFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-        {
-            table.vkSetBufferCollectionImageConstraintsFUCHSIA =
-                loader(c"vkSetBufferCollectionImageConstraintsFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]

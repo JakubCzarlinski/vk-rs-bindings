@@ -14,13 +14,11 @@ pub struct DebugUtilsMessengerEXTDispatchTable {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl DebugUtilsMessengerEXTDispatchTable {
     pub const EMPTY: Self = Self {};
-    #[allow(unused_mut, unused_variables)]
-    pub fn load<F>(mut loader: F) -> Self
+    pub fn load<F>(_loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        table
+        Self {}
     }
 }
 #[cfg(feature = "VK_EXT_debug_utils")]

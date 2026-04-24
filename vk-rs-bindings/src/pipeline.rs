@@ -55,64 +55,51 @@ impl PipelineDispatchTable {
         #[cfg(feature = "VK_NV_ray_tracing")]
         vkGetRayTracingShaderGroupHandlesNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_AMDX_shader_enqueue")]
-        {
-            table.vkGetExecutionGraphPipelineNodeIndexAMDX =
-                loader(c"vkGetExecutionGraphPipelineNodeIndexAMDX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_AMDX_shader_enqueue")]
+            vkGetExecutionGraphPipelineNodeIndexAMDX: loader(
+                c"vkGetExecutionGraphPipelineNodeIndexAMDX".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMDX_shader_enqueue")]
+            vkGetExecutionGraphPipelineScratchSizeAMDX: loader(
+                c"vkGetExecutionGraphPipelineScratchSizeAMDX".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMD_shader_info")]
+            vkGetShaderInfoAMD: loader(c"vkGetShaderInfoAMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkDestroyPipeline: loader(c"vkDestroyPipeline".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+            vkGetRayTracingCaptureReplayShaderGroupHandlesKHR: loader(
+                c"vkGetRayTracingCaptureReplayShaderGroupHandlesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+            vkGetRayTracingShaderGroupHandlesKHR: loader(
+                c"vkGetRayTracingShaderGroupHandlesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+            vkGetRayTracingShaderGroupStackSizeKHR: loader(
+                c"vkGetRayTracingShaderGroupStackSizeKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkCompileDeferredNV: loader(c"vkCompileDeferredNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkGetRayTracingShaderGroupHandlesNV: loader(
+                c"vkGetRayTracingShaderGroupHandlesNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_AMDX_shader_enqueue")]
-        {
-            table.vkGetExecutionGraphPipelineScratchSizeAMDX =
-                loader(c"vkGetExecutionGraphPipelineScratchSizeAMDX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMD_shader_info")]
-        {
-            table.vkGetShaderInfoAMD =
-                loader(c"vkGetShaderInfoAMD".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkDestroyPipeline =
-                loader(c"vkDestroyPipeline".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkGetRayTracingCaptureReplayShaderGroupHandlesKHR =
-                loader(c"vkGetRayTracingCaptureReplayShaderGroupHandlesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkGetRayTracingShaderGroupHandlesKHR =
-                loader(c"vkGetRayTracingShaderGroupHandlesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkGetRayTracingShaderGroupStackSizeKHR =
-                loader(c"vkGetRayTracingShaderGroupStackSizeKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkCompileDeferredNV =
-                loader(c"vkCompileDeferredNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkGetRayTracingShaderGroupHandlesNV =
-                loader(c"vkGetRayTracingShaderGroupHandlesNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

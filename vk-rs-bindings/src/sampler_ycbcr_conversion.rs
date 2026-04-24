@@ -24,25 +24,20 @@ impl SamplerYcbcrConversionDispatchTable {
         #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
         vkDestroySamplerYcbcrConversionKHR: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        {
-            table.vkDestroySamplerYcbcrConversion =
-                loader(c"vkDestroySamplerYcbcrConversion".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+            vkDestroySamplerYcbcrConversion: loader(c"vkDestroySamplerYcbcrConversion".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+            vkDestroySamplerYcbcrConversionKHR: loader(
+                c"vkDestroySamplerYcbcrConversionKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-        {
-            table.vkDestroySamplerYcbcrConversionKHR =
-                loader(c"vkDestroySamplerYcbcrConversionKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]

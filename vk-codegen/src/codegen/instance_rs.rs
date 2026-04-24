@@ -64,7 +64,7 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
 
     let mut fields_ts = TokenStream::new();
     let mut empty_ts = TokenStream::new();
-    let mut load_ts = TokenStream::new();
+    let mut init_ts = TokenStream::new();
 
     for cmds in groups.values() {
         for (name, providers, _cmd) in cmds {
@@ -78,11 +78,9 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
 
             fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
             empty_ts.extend(quote! { #cfg #fname: None, });
-            load_ts.extend(quote! {
-                #cfg {
-                    table.#fname = loader(#clit.as_ptr())
-                        .map(|f| unsafe { core::mem::transmute(f) });
-                }
+            init_ts.extend(quote! {
+                #cfg
+                #fname: loader(#clit.as_ptr()).map(|f| unsafe { core::mem::transmute(f) }),
             });
         }
     }
@@ -103,9 +101,9 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
             /// Resolve all instance commands from the given loader closure.
             pub fn load<F>(mut loader: F) -> Self
             where F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()> {
-                let mut table = Self::EMPTY;
-                #load_ts
-                table
+                Self {
+                    #init_ts
+                }
             }
 
             /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, …)`.

@@ -40,7 +40,7 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
     let groups = collect_groups(reg, Tier::PhysicalDevice, &skip, &enabled);
     let mut fields_ts = TokenStream::new();
     let mut empty_ts = TokenStream::new();
-    let mut load_ts = TokenStream::new();
+    let mut init_ts = TokenStream::new();
     for cmds in groups.values() {
         for (name, providers, _cmd) in cmds {
             let cfg = cfg_any(providers);
@@ -49,8 +49,10 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
             let clit = c_str_lit(name);
             fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
             empty_ts.extend(quote! { #cfg #fname: None, });
-            load_ts.extend(quote! {
-                #cfg { table.#fname = loader(#clit.as_ptr()).map(|f| unsafe { core::mem::transmute(f) }); }
+            init_ts.extend(quote! {
+                #cfg
+                #fname: loader(#clit.as_ptr()).map(|f| unsafe { core::mem::transmute(f) }),
+
             });
         }
     }
@@ -62,9 +64,9 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
         impl PhysicalDeviceDispatchTable {
             pub const EMPTY: Self = Self { #empty_ts };
             pub fn load<F>(mut loader: F) -> Self where F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()> {
-                let mut table = Self::EMPTY;
-                #load_ts
-                table
+                Self {
+                    #init_ts
+                }
             }
         }
     }

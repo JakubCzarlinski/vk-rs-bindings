@@ -24,23 +24,18 @@ impl PrivateDataSlotDispatchTable {
         #[cfg(feature = "VK_EXT_private_data")]
         vkDestroyPrivateDataSlotEXT: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkDestroyPrivateDataSlot = loader(c"vkDestroyPrivateDataSlot".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkDestroyPrivateDataSlot: loader(c"vkDestroyPrivateDataSlot".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_private_data")]
+            vkDestroyPrivateDataSlotEXT: loader(c"vkDestroyPrivateDataSlotEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_EXT_private_data")]
-        {
-            table.vkDestroyPrivateDataSlotEXT = loader(c"vkDestroyPrivateDataSlotEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_3")]

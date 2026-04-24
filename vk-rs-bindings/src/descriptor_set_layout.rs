@@ -29,30 +29,23 @@ impl DescriptorSetLayoutDispatchTable {
         #[cfg(feature = "VK_EXT_descriptor_buffer")]
         vkGetDescriptorSetLayoutSizeEXT: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkDestroyDescriptorSetLayout = loader(c"vkDestroyDescriptorSetLayout".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkDestroyDescriptorSetLayout: loader(c"vkDestroyDescriptorSetLayout".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetDescriptorSetLayoutBindingOffsetEXT: loader(
+                c"vkGetDescriptorSetLayoutBindingOffsetEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkGetDescriptorSetLayoutSizeEXT: loader(c"vkGetDescriptorSetLayoutSizeEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetDescriptorSetLayoutBindingOffsetEXT =
-                loader(c"vkGetDescriptorSetLayoutBindingOffsetEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkGetDescriptorSetLayoutSizeEXT =
-                loader(c"vkGetDescriptorSetLayoutSizeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

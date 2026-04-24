@@ -144,162 +144,99 @@ impl InstanceDispatchTable {
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDestroyInstance =
-                loader(c"vkDestroyInstance".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDestroyInstance: loader(c"vkDestroyInstance".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkEnumeratePhysicalDevices: loader(c"vkEnumeratePhysicalDevices".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetDeviceProcAddr: loader(c"vkGetDeviceProcAddr".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkEnumeratePhysicalDeviceGroups: loader(c"vkEnumeratePhysicalDeviceGroups".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_report")]
+            vkCreateDebugReportCallbackEXT: loader(c"vkCreateDebugReportCallbackEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_report")]
+            vkDebugReportMessageEXT: loader(c"vkDebugReportMessageEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_report")]
+            vkDestroyDebugReportCallbackEXT: loader(c"vkDestroyDebugReportCallbackEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkCreateDebugUtilsMessengerEXT: loader(c"vkCreateDebugUtilsMessengerEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkDestroyDebugUtilsMessengerEXT: loader(c"vkDestroyDebugUtilsMessengerEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkSubmitDebugUtilsMessageEXT: loader(c"vkSubmitDebugUtilsMessageEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_directfb_surface")]
+            vkCreateDirectFBSurfaceEXT: loader(c"vkCreateDirectFBSurfaceEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_headless_surface")]
+            vkCreateHeadlessSurfaceEXT: loader(c"vkCreateHeadlessSurfaceEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_metal_surface")]
+            vkCreateMetalSurfaceEXT: loader(c"vkCreateMetalSurfaceEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
+            vkCreateImagePipeSurfaceFUCHSIA: loader(c"vkCreateImagePipeSurfaceFUCHSIA".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
+            vkCreateStreamDescriptorSurfaceGGP: loader(
+                c"vkCreateStreamDescriptorSurfaceGGP".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_android_surface")]
+            vkCreateAndroidSurfaceKHR: loader(c"vkCreateAndroidSurfaceKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_group_creation")]
+            vkEnumeratePhysicalDeviceGroupsKHR: loader(
+                c"vkEnumeratePhysicalDeviceGroupsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_display")]
+            vkCreateDisplayPlaneSurfaceKHR: loader(c"vkCreateDisplayPlaneSurfaceKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_surface")]
+            vkDestroySurfaceKHR: loader(c"vkDestroySurfaceKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_wayland_surface")]
+            vkCreateWaylandSurfaceKHR: loader(c"vkCreateWaylandSurfaceKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_win32_surface")]
+            vkCreateWin32SurfaceKHR: loader(c"vkCreateWin32SurfaceKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_xcb_surface")]
+            vkCreateXcbSurfaceKHR: loader(c"vkCreateXcbSurfaceKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_xlib_surface")]
+            vkCreateXlibSurfaceKHR: loader(c"vkCreateXlibSurfaceKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_MVK_ios_surface")]
+            vkCreateIOSSurfaceMVK: loader(c"vkCreateIOSSurfaceMVK".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_MVK_macos_surface")]
+            vkCreateMacOSSurfaceMVK: loader(c"vkCreateMacOSSurfaceMVK".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NN_vi_surface")]
+            vkCreateViSurfaceNN: loader(c"vkCreateViSurfaceNN".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_OHOS_surface")]
+            vkCreateSurfaceOHOS: loader(c"vkCreateSurfaceOHOS".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QNX_screen_surface")]
+            vkCreateScreenSurfaceQNX: loader(c"vkCreateScreenSurfaceQNX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_SEC_ubm_surface")]
+            vkCreateUbmSurfaceSEC: loader(c"vkCreateUbmSurfaceSEC".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkEnumeratePhysicalDevices = loader(c"vkEnumeratePhysicalDevices".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetDeviceProcAddr =
-                loader(c"vkGetDeviceProcAddr".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkEnumeratePhysicalDeviceGroups =
-                loader(c"vkEnumeratePhysicalDeviceGroups".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_report")]
-        {
-            table.vkCreateDebugReportCallbackEXT =
-                loader(c"vkCreateDebugReportCallbackEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_report")]
-        {
-            table.vkDebugReportMessageEXT = loader(c"vkDebugReportMessageEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_report")]
-        {
-            table.vkDestroyDebugReportCallbackEXT =
-                loader(c"vkDestroyDebugReportCallbackEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkCreateDebugUtilsMessengerEXT =
-                loader(c"vkCreateDebugUtilsMessengerEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkDestroyDebugUtilsMessengerEXT =
-                loader(c"vkDestroyDebugUtilsMessengerEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkSubmitDebugUtilsMessageEXT = loader(c"vkSubmitDebugUtilsMessageEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_directfb_surface")]
-        {
-            table.vkCreateDirectFBSurfaceEXT = loader(c"vkCreateDirectFBSurfaceEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_headless_surface")]
-        {
-            table.vkCreateHeadlessSurfaceEXT = loader(c"vkCreateHeadlessSurfaceEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_metal_surface")]
-        {
-            table.vkCreateMetalSurfaceEXT = loader(c"vkCreateMetalSurfaceEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
-        {
-            table.vkCreateImagePipeSurfaceFUCHSIA =
-                loader(c"vkCreateImagePipeSurfaceFUCHSIA".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
-        {
-            table.vkCreateStreamDescriptorSurfaceGGP =
-                loader(c"vkCreateStreamDescriptorSurfaceGGP".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_android_surface")]
-        {
-            table.vkCreateAndroidSurfaceKHR = loader(c"vkCreateAndroidSurfaceKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_group_creation")]
-        {
-            table.vkEnumeratePhysicalDeviceGroupsKHR =
-                loader(c"vkEnumeratePhysicalDeviceGroupsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_display")]
-        {
-            table.vkCreateDisplayPlaneSurfaceKHR =
-                loader(c"vkCreateDisplayPlaneSurfaceKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_surface")]
-        {
-            table.vkDestroySurfaceKHR =
-                loader(c"vkDestroySurfaceKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_wayland_surface")]
-        {
-            table.vkCreateWaylandSurfaceKHR = loader(c"vkCreateWaylandSurfaceKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_win32_surface")]
-        {
-            table.vkCreateWin32SurfaceKHR = loader(c"vkCreateWin32SurfaceKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_xcb_surface")]
-        {
-            table.vkCreateXcbSurfaceKHR = loader(c"vkCreateXcbSurfaceKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_xlib_surface")]
-        {
-            table.vkCreateXlibSurfaceKHR = loader(c"vkCreateXlibSurfaceKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_MVK_ios_surface")]
-        {
-            table.vkCreateIOSSurfaceMVK = loader(c"vkCreateIOSSurfaceMVK".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_MVK_macos_surface")]
-        {
-            table.vkCreateMacOSSurfaceMVK = loader(c"vkCreateMacOSSurfaceMVK".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NN_vi_surface")]
-        {
-            table.vkCreateViSurfaceNN =
-                loader(c"vkCreateViSurfaceNN".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_OHOS_surface")]
-        {
-            table.vkCreateSurfaceOHOS =
-                loader(c"vkCreateSurfaceOHOS".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QNX_screen_surface")]
-        {
-            table.vkCreateScreenSurfaceQNX = loader(c"vkCreateScreenSurfaceQNX".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_SEC_ubm_surface")]
-        {
-            table.vkCreateUbmSurfaceSEC = loader(c"vkCreateUbmSurfaceSEC".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
     /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, …)`.
     pub fn load_for_instance<F>(instance: VkInstance, mut get_proc: F) -> Self

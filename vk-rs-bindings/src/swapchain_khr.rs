@@ -93,115 +93,81 @@ impl SwapchainKHRDispatchTable {
         #[cfg(feature = "VK_NV_low_latency2")]
         vkSetLatencySleepModeNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_AMD_display_native_hdr")]
-        {
-            table.vkSetLocalDimmingAMD = loader(c"vkSetLocalDimmingAMD".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_AMD_display_native_hdr")]
+            vkSetLocalDimmingAMD: loader(c"vkSetLocalDimmingAMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_display_control")]
+            vkGetSwapchainCounterEXT: loader(c"vkGetSwapchainCounterEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+            vkAcquireFullScreenExclusiveModeEXT: loader(
+                c"vkAcquireFullScreenExclusiveModeEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+            vkReleaseFullScreenExclusiveModeEXT: loader(
+                c"vkReleaseFullScreenExclusiveModeEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_present_timing")]
+            vkGetSwapchainTimeDomainPropertiesEXT: loader(
+                c"vkGetSwapchainTimeDomainPropertiesEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_present_timing")]
+            vkGetSwapchainTimingPropertiesEXT: loader(
+                c"vkGetSwapchainTimingPropertiesEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_present_timing")]
+            vkSetSwapchainPresentTimingQueueSizeEXT: loader(
+                c"vkSetSwapchainPresentTimingQueueSizeEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GOOGLE_display_timing")]
+            vkGetPastPresentationTimingGOOGLE: loader(
+                c"vkGetPastPresentationTimingGOOGLE".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GOOGLE_display_timing")]
+            vkGetRefreshCycleDurationGOOGLE: loader(c"vkGetRefreshCycleDurationGOOGLE".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_present_wait")]
+            vkWaitForPresentKHR: loader(c"vkWaitForPresentKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_present_wait2")]
+            vkWaitForPresent2KHR: loader(c"vkWaitForPresent2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_shared_presentable_image")]
+            vkGetSwapchainStatusKHR: loader(c"vkGetSwapchainStatusKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_swapchain")]
+            vkAcquireNextImageKHR: loader(c"vkAcquireNextImageKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_swapchain")]
+            vkDestroySwapchainKHR: loader(c"vkDestroySwapchainKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_swapchain")]
+            vkGetSwapchainImagesKHR: loader(c"vkGetSwapchainImagesKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_low_latency2")]
+            vkGetLatencyTimingsNV: loader(c"vkGetLatencyTimingsNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_low_latency2")]
+            vkLatencySleepNV: loader(c"vkLatencySleepNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_low_latency2")]
+            vkSetLatencyMarkerNV: loader(c"vkSetLatencyMarkerNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_low_latency2")]
+            vkSetLatencySleepModeNV: loader(c"vkSetLatencySleepModeNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_EXT_display_control")]
-        {
-            table.vkGetSwapchainCounterEXT = loader(c"vkGetSwapchainCounterEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-        {
-            table.vkAcquireFullScreenExclusiveModeEXT =
-                loader(c"vkAcquireFullScreenExclusiveModeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_full_screen_exclusive")]
-        {
-            table.vkReleaseFullScreenExclusiveModeEXT =
-                loader(c"vkReleaseFullScreenExclusiveModeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_present_timing")]
-        {
-            table.vkGetSwapchainTimeDomainPropertiesEXT =
-                loader(c"vkGetSwapchainTimeDomainPropertiesEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_present_timing")]
-        {
-            table.vkGetSwapchainTimingPropertiesEXT =
-                loader(c"vkGetSwapchainTimingPropertiesEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_present_timing")]
-        {
-            table.vkSetSwapchainPresentTimingQueueSizeEXT =
-                loader(c"vkSetSwapchainPresentTimingQueueSizeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GOOGLE_display_timing")]
-        {
-            table.vkGetPastPresentationTimingGOOGLE =
-                loader(c"vkGetPastPresentationTimingGOOGLE".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GOOGLE_display_timing")]
-        {
-            table.vkGetRefreshCycleDurationGOOGLE =
-                loader(c"vkGetRefreshCycleDurationGOOGLE".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_present_wait")]
-        {
-            table.vkWaitForPresentKHR =
-                loader(c"vkWaitForPresentKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_present_wait2")]
-        {
-            table.vkWaitForPresent2KHR = loader(c"vkWaitForPresent2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_shared_presentable_image")]
-        {
-            table.vkGetSwapchainStatusKHR = loader(c"vkGetSwapchainStatusKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_swapchain")]
-        {
-            table.vkAcquireNextImageKHR = loader(c"vkAcquireNextImageKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_swapchain")]
-        {
-            table.vkDestroySwapchainKHR = loader(c"vkDestroySwapchainKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_swapchain")]
-        {
-            table.vkGetSwapchainImagesKHR = loader(c"vkGetSwapchainImagesKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_low_latency2")]
-        {
-            table.vkGetLatencyTimingsNV = loader(c"vkGetLatencyTimingsNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_low_latency2")]
-        {
-            table.vkLatencySleepNV =
-                loader(c"vkLatencySleepNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_low_latency2")]
-        {
-            table.vkSetLatencyMarkerNV = loader(c"vkSetLatencyMarkerNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_low_latency2")]
-        {
-            table.vkSetLatencySleepModeNV = loader(c"vkSetLatencySleepModeNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_KHR_swapchain")]

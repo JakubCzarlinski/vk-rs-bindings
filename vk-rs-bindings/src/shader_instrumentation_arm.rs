@@ -28,31 +28,27 @@ impl ShaderInstrumentationARMDispatchTable {
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
         vkGetShaderInstrumentationValuesARM: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        {
-            table.vkClearShaderInstrumentationMetricsARM =
-                loader(c"vkClearShaderInstrumentationMetricsARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_ARM_shader_instrumentation")]
+            vkClearShaderInstrumentationMetricsARM: loader(
+                c"vkClearShaderInstrumentationMetricsARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_shader_instrumentation")]
+            vkDestroyShaderInstrumentationARM: loader(
+                c"vkDestroyShaderInstrumentationARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_shader_instrumentation")]
+            vkGetShaderInstrumentationValuesARM: loader(
+                c"vkGetShaderInstrumentationValuesARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        {
-            table.vkDestroyShaderInstrumentationARM =
-                loader(c"vkDestroyShaderInstrumentationARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        {
-            table.vkGetShaderInstrumentationValuesARM =
-                loader(c"vkGetShaderInstrumentationValuesARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_ARM_shader_instrumentation")]

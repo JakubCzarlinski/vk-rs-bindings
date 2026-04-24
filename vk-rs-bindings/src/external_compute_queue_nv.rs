@@ -24,25 +24,18 @@ impl ExternalComputeQueueNVDispatchTable {
         #[cfg(feature = "VK_NV_external_compute_queue")]
         vkGetExternalComputeQueueDataNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_NV_external_compute_queue")]
-        {
-            table.vkDestroyExternalComputeQueueNV =
-                loader(c"vkDestroyExternalComputeQueueNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_NV_external_compute_queue")]
+            vkDestroyExternalComputeQueueNV: loader(c"vkDestroyExternalComputeQueueNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_compute_queue")]
+            vkGetExternalComputeQueueDataNV: loader(c"vkGetExternalComputeQueueDataNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_NV_external_compute_queue")]
-        {
-            table.vkGetExternalComputeQueueDataNV =
-                loader(c"vkGetExternalComputeQueueDataNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_NV_external_compute_queue")]

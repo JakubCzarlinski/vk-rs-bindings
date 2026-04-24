@@ -73,90 +73,60 @@ impl DeferredOperationKHRDispatchTable {
         #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
         vkCreateRayTracingPipelinesKHR: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkCreateDataGraphPipelinesARM = loader(c"vkCreateDataGraphPipelinesARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkCreateDataGraphPipelinesARM: loader(c"vkCreateDataGraphPipelinesARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkBuildMicromapsEXT: loader(c"vkBuildMicromapsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCopyMemoryToMicromapEXT: loader(c"vkCopyMemoryToMicromapEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCopyMicromapEXT: loader(c"vkCopyMicromapEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCopyMicromapToMemoryEXT: loader(c"vkCopyMicromapToMemoryEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkBuildAccelerationStructuresKHR: loader(c"vkBuildAccelerationStructuresKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCopyAccelerationStructureKHR: loader(c"vkCopyAccelerationStructureKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCopyAccelerationStructureToMemoryKHR: loader(
+                c"vkCopyAccelerationStructureToMemoryKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCopyMemoryToAccelerationStructureKHR: loader(
+                c"vkCopyMemoryToAccelerationStructureKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_deferred_host_operations")]
+            vkDeferredOperationJoinKHR: loader(c"vkDeferredOperationJoinKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_deferred_host_operations")]
+            vkDestroyDeferredOperationKHR: loader(c"vkDestroyDeferredOperationKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_deferred_host_operations")]
+            vkGetDeferredOperationMaxConcurrencyKHR: loader(
+                c"vkGetDeferredOperationMaxConcurrencyKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_deferred_host_operations")]
+            vkGetDeferredOperationResultKHR: loader(c"vkGetDeferredOperationResultKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+            vkCreateRayTracingPipelinesKHR: loader(c"vkCreateRayTracingPipelinesKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkBuildMicromapsEXT =
-                loader(c"vkBuildMicromapsEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCopyMemoryToMicromapEXT = loader(c"vkCopyMemoryToMicromapEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCopyMicromapEXT =
-                loader(c"vkCopyMicromapEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCopyMicromapToMemoryEXT = loader(c"vkCopyMicromapToMemoryEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkBuildAccelerationStructuresKHR =
-                loader(c"vkBuildAccelerationStructuresKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCopyAccelerationStructureKHR =
-                loader(c"vkCopyAccelerationStructureKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCopyAccelerationStructureToMemoryKHR =
-                loader(c"vkCopyAccelerationStructureToMemoryKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCopyMemoryToAccelerationStructureKHR =
-                loader(c"vkCopyMemoryToAccelerationStructureKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        {
-            table.vkDeferredOperationJoinKHR = loader(c"vkDeferredOperationJoinKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        {
-            table.vkDestroyDeferredOperationKHR = loader(c"vkDestroyDeferredOperationKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        {
-            table.vkGetDeferredOperationMaxConcurrencyKHR =
-                loader(c"vkGetDeferredOperationMaxConcurrencyKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        {
-            table.vkGetDeferredOperationResultKHR =
-                loader(c"vkGetDeferredOperationResultKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkCreateRayTracingPipelinesKHR =
-                loader(c"vkCreateRayTracingPipelinesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_KHR_deferred_host_operations")]

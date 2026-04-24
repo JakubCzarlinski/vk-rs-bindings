@@ -28,28 +28,21 @@ impl SemaphoreDispatchTable {
         #[cfg(feature = "VK_KHR_timeline_semaphore")]
         vkGetSemaphoreCounterValueKHR: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDestroySemaphore =
-                loader(c"vkDestroySemaphore".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDestroySemaphore: loader(c"vkDestroySemaphore".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_2")]
+            vkGetSemaphoreCounterValue: loader(c"vkGetSemaphoreCounterValue".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_timeline_semaphore")]
+            vkGetSemaphoreCounterValueKHR: loader(c"vkGetSemaphoreCounterValueKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_2")]
-        {
-            table.vkGetSemaphoreCounterValue = loader(c"vkGetSemaphoreCounterValue".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_timeline_semaphore")]
-        {
-            table.vkGetSemaphoreCounterValueKHR = loader(c"vkGetSemaphoreCounterValueKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

@@ -1599,1836 +1599,1225 @@ impl CommandBufferDispatchTable {
         #[cfg(feature = "VK_QCOM_tile_shading")]
         vkCmdEndPerTileExecutionQCOM: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_AMDX_shader_enqueue")]
-        {
-            table.vkCmdDispatchGraphAMDX = loader(c"vkCmdDispatchGraphAMDX".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_AMDX_shader_enqueue")]
+            vkCmdDispatchGraphAMDX: loader(c"vkCmdDispatchGraphAMDX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMDX_shader_enqueue")]
+            vkCmdDispatchGraphIndirectAMDX: loader(c"vkCmdDispatchGraphIndirectAMDX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMDX_shader_enqueue")]
+            vkCmdDispatchGraphIndirectCountAMDX: loader(
+                c"vkCmdDispatchGraphIndirectCountAMDX".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMDX_shader_enqueue")]
+            vkCmdInitializeGraphScratchMemoryAMDX: loader(
+                c"vkCmdInitializeGraphScratchMemoryAMDX".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMD_buffer_marker")]
+            vkCmdWriteBufferMarker2AMD: loader(c"vkCmdWriteBufferMarker2AMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMD_buffer_marker")]
+            vkCmdWriteBufferMarkerAMD: loader(c"vkCmdWriteBufferMarkerAMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMD_draw_indirect_count")]
+            vkCmdDrawIndexedIndirectCountAMD: loader(c"vkCmdDrawIndexedIndirectCountAMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_AMD_draw_indirect_count")]
+            vkCmdDrawIndirectCountAMD: loader(c"vkCmdDrawIndirectCountAMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_data_graph")]
+            vkCmdDispatchDataGraphARM: loader(c"vkCmdDispatchDataGraphARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_scheduling_controls")]
+            vkCmdSetDispatchParametersARM: loader(c"vkCmdSetDispatchParametersARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_shader_instrumentation")]
+            vkCmdBeginShaderInstrumentationARM: loader(
+                c"vkCmdBeginShaderInstrumentationARM".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_shader_instrumentation")]
+            vkCmdEndShaderInstrumentationARM: loader(c"vkCmdEndShaderInstrumentationARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_ARM_tensors")]
+            vkCmdCopyTensorARM: loader(c"vkCmdCopyTensorARM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkBeginCommandBuffer: loader(c"vkBeginCommandBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdBeginQuery: loader(c"vkCmdBeginQuery".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdCopyBuffer: loader(c"vkCmdCopyBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdCopyBufferToImage: loader(c"vkCmdCopyBufferToImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdCopyImage: loader(c"vkCmdCopyImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdCopyImageToBuffer: loader(c"vkCmdCopyImageToBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdCopyQueryPoolResults: loader(c"vkCmdCopyQueryPoolResults".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdEndQuery: loader(c"vkCmdEndQuery".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdExecuteCommands: loader(c"vkCmdExecuteCommands".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdFillBuffer: loader(c"vkCmdFillBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdPipelineBarrier: loader(c"vkCmdPipelineBarrier".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdResetQueryPool: loader(c"vkCmdResetQueryPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdUpdateBuffer: loader(c"vkCmdUpdateBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkCmdWriteTimestamp: loader(c"vkCmdWriteTimestamp".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkEndCommandBuffer: loader(c"vkEndCommandBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkResetCommandBuffer: loader(c"vkResetCommandBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkCmdSetDeviceMask: loader(c"vkCmdSetDeviceMask".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkCmdCopyBuffer2: loader(c"vkCmdCopyBuffer2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkCmdCopyBufferToImage2: loader(c"vkCmdCopyBufferToImage2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkCmdCopyImage2: loader(c"vkCmdCopyImage2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkCmdCopyImageToBuffer2: loader(c"vkCmdCopyImageToBuffer2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkCmdPipelineBarrier2: loader(c"vkCmdPipelineBarrier2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_3")]
+            vkCmdWriteTimestamp2: loader(c"vkCmdWriteTimestamp2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdBindDescriptorSets: loader(c"vkCmdBindDescriptorSets".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdBindPipeline: loader(c"vkCmdBindPipeline".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdClearColorImage: loader(c"vkCmdClearColorImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdDispatch: loader(c"vkCmdDispatch".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdDispatchIndirect: loader(c"vkCmdDispatchIndirect".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdPushConstants: loader(c"vkCmdPushConstants".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdResetEvent: loader(c"vkCmdResetEvent".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdSetEvent: loader(c"vkCmdSetEvent".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkCmdWaitEvents: loader(c"vkCmdWaitEvents".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+            vkCmdDispatchBase: loader(c"vkCmdDispatchBase".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+            vkCmdResetEvent2: loader(c"vkCmdResetEvent2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+            vkCmdSetEvent2: loader(c"vkCmdSetEvent2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+            vkCmdWaitEvents2: loader(c"vkCmdWaitEvents2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+            vkCmdBindDescriptorSets2: loader(c"vkCmdBindDescriptorSets2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+            vkCmdPushConstants2: loader(c"vkCmdPushConstants2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+            vkCmdPushDescriptorSet: loader(c"vkCmdPushDescriptorSet".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+            vkCmdPushDescriptorSet2: loader(c"vkCmdPushDescriptorSet2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+            vkCmdPushDescriptorSetWithTemplate: loader(
+                c"vkCmdPushDescriptorSetWithTemplate".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+            vkCmdPushDescriptorSetWithTemplate2: loader(
+                c"vkCmdPushDescriptorSetWithTemplate2".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
+            vkCmdSetAttachmentFeedbackLoopEnableEXT: loader(
+                c"vkCmdSetAttachmentFeedbackLoopEnableEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_color_write_enable")]
+            vkCmdSetColorWriteEnableEXT: loader(c"vkCmdSetColorWriteEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_conditional_rendering")]
+            vkCmdBeginConditionalRenderingEXT: loader(
+                c"vkCmdBeginConditionalRenderingEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_conditional_rendering")]
+            vkCmdEndConditionalRenderingEXT: loader(c"vkCmdEndConditionalRenderingEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_custom_resolve")]
+            vkCmdBeginCustomResolveEXT: loader(c"vkCmdBeginCustomResolveEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_marker")]
+            vkCmdDebugMarkerBeginEXT: loader(c"vkCmdDebugMarkerBeginEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_marker")]
+            vkCmdDebugMarkerEndEXT: loader(c"vkCmdDebugMarkerEndEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_marker")]
+            vkCmdDebugMarkerInsertEXT: loader(c"vkCmdDebugMarkerInsertEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkCmdBeginDebugUtilsLabelEXT: loader(c"vkCmdBeginDebugUtilsLabelEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkCmdEndDebugUtilsLabelEXT: loader(c"vkCmdEndDebugUtilsLabelEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_debug_utils")]
+            vkCmdInsertDebugUtilsLabelEXT: loader(c"vkCmdInsertDebugUtilsLabelEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_depth_bias_control")]
+            vkCmdSetDepthBias2EXT: loader(c"vkCmdSetDepthBias2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_depth_clamp_control",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthClampRangeEXT: loader(c"vkCmdSetDepthClampRangeEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkCmdBindDescriptorBufferEmbeddedSamplersEXT: loader(
+                c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkCmdBindDescriptorBuffersEXT: loader(c"vkCmdBindDescriptorBuffersEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_buffer")]
+            vkCmdSetDescriptorBufferOffsetsEXT: loader(
+                c"vkCmdSetDescriptorBufferOffsetsEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkCmdBindResourceHeapEXT: loader(c"vkCmdBindResourceHeapEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkCmdBindSamplerHeapEXT: loader(c"vkCmdBindSamplerHeapEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_descriptor_heap")]
+            vkCmdPushDataEXT: loader(c"vkCmdPushDataEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkCmdExecuteGeneratedCommandsEXT: loader(c"vkCmdExecuteGeneratedCommandsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkCmdPreprocessGeneratedCommandsEXT: loader(
+                c"vkCmdPreprocessGeneratedCommandsEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_discard_rectangles")]
+            vkCmdSetDiscardRectangleEXT: loader(c"vkCmdSetDiscardRectangleEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_discard_rectangles")]
+            vkCmdSetDiscardRectangleEnableEXT: loader(
+                c"vkCmdSetDiscardRectangleEnableEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_discard_rectangles")]
+            vkCmdSetDiscardRectangleModeEXT: loader(c"vkCmdSetDiscardRectangleModeEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdBindVertexBuffers2EXT: loader(c"vkCmdBindVertexBuffers2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetCullModeEXT: loader(c"vkCmdSetCullModeEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthBoundsTestEnableEXT: loader(c"vkCmdSetDepthBoundsTestEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthCompareOpEXT: loader(c"vkCmdSetDepthCompareOpEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthTestEnableEXT: loader(c"vkCmdSetDepthTestEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthWriteEnableEXT: loader(c"vkCmdSetDepthWriteEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetFrontFaceEXT: loader(c"vkCmdSetFrontFaceEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetPrimitiveTopologyEXT: loader(c"vkCmdSetPrimitiveTopologyEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetScissorWithCountEXT: loader(c"vkCmdSetScissorWithCountEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetStencilOpEXT: loader(c"vkCmdSetStencilOpEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetStencilTestEnableEXT: loader(c"vkCmdSetStencilTestEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetViewportWithCountEXT: loader(c"vkCmdSetViewportWithCountEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state2",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthBiasEnableEXT: loader(c"vkCmdSetDepthBiasEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state2",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetLogicOpEXT: loader(c"vkCmdSetLogicOpEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state2",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetPatchControlPointsEXT: loader(c"vkCmdSetPatchControlPointsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state2",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetPrimitiveRestartEnableEXT: loader(
+                c"vkCmdSetPrimitiveRestartEnableEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state2",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetRasterizerDiscardEnableEXT: loader(
+                c"vkCmdSetRasterizerDiscardEnableEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetAlphaToCoverageEnableEXT: loader(c"vkCmdSetAlphaToCoverageEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetAlphaToOneEnableEXT: loader(c"vkCmdSetAlphaToOneEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetColorBlendAdvancedEXT: loader(c"vkCmdSetColorBlendAdvancedEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetColorBlendEnableEXT: loader(c"vkCmdSetColorBlendEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetColorBlendEquationEXT: loader(c"vkCmdSetColorBlendEquationEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetColorWriteMaskEXT: loader(c"vkCmdSetColorWriteMaskEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetConservativeRasterizationModeEXT: loader(
+                c"vkCmdSetConservativeRasterizationModeEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetCoverageModulationModeNV: loader(c"vkCmdSetCoverageModulationModeNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetCoverageModulationTableEnableNV: loader(
+                c"vkCmdSetCoverageModulationTableEnableNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetCoverageModulationTableNV: loader(
+                c"vkCmdSetCoverageModulationTableNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetCoverageReductionModeNV: loader(c"vkCmdSetCoverageReductionModeNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetCoverageToColorEnableNV: loader(c"vkCmdSetCoverageToColorEnableNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetCoverageToColorLocationNV: loader(
+                c"vkCmdSetCoverageToColorLocationNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthClampEnableEXT: loader(c"vkCmdSetDepthClampEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthClipEnableEXT: loader(c"vkCmdSetDepthClipEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetDepthClipNegativeOneToOneEXT: loader(
+                c"vkCmdSetDepthClipNegativeOneToOneEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetExtraPrimitiveOverestimationSizeEXT: loader(
+                c"vkCmdSetExtraPrimitiveOverestimationSizeEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetLineRasterizationModeEXT: loader(c"vkCmdSetLineRasterizationModeEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetLineStippleEnableEXT: loader(c"vkCmdSetLineStippleEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetLogicOpEnableEXT: loader(c"vkCmdSetLogicOpEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetPolygonModeEXT: loader(c"vkCmdSetPolygonModeEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetProvokingVertexModeEXT: loader(c"vkCmdSetProvokingVertexModeEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetRasterizationSamplesEXT: loader(c"vkCmdSetRasterizationSamplesEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetRasterizationStreamEXT: loader(c"vkCmdSetRasterizationStreamEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetRepresentativeFragmentTestEnableNV: loader(
+                c"vkCmdSetRepresentativeFragmentTestEnableNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetSampleLocationsEnableEXT: loader(c"vkCmdSetSampleLocationsEnableEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetSampleMaskEXT: loader(c"vkCmdSetSampleMaskEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetShadingRateImageEnableNV: loader(c"vkCmdSetShadingRateImageEnableNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetTessellationDomainOriginEXT: loader(
+                c"vkCmdSetTessellationDomainOriginEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetViewportSwizzleNV: loader(c"vkCmdSetViewportSwizzleNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_extended_dynamic_state3",
+                feature = "VK_EXT_shader_object"
+            ))]
+            vkCmdSetViewportWScalingEnableNV: loader(c"vkCmdSetViewportWScalingEnableNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+            vkCmdEndRendering2EXT: loader(c"vkCmdEndRendering2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_line_rasterization")]
+            vkCmdSetLineStippleEXT: loader(c"vkCmdSetLineStippleEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_memory_decompression")]
+            vkCmdDecompressMemoryEXT: loader(c"vkCmdDecompressMemoryEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_memory_decompression")]
+            vkCmdDecompressMemoryIndirectCountEXT: loader(
+                c"vkCmdDecompressMemoryIndirectCountEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_mesh_shader")]
+            vkCmdDrawMeshTasksEXT: loader(c"vkCmdDrawMeshTasksEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_mesh_shader")]
+            vkCmdDrawMeshTasksIndirectCountEXT: loader(
+                c"vkCmdDrawMeshTasksIndirectCountEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_mesh_shader")]
+            vkCmdDrawMeshTasksIndirectEXT: loader(c"vkCmdDrawMeshTasksIndirectEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_multi_draw")]
+            vkCmdDrawMultiEXT: loader(c"vkCmdDrawMultiEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_multi_draw")]
+            vkCmdDrawMultiIndexedEXT: loader(c"vkCmdDrawMultiIndexedEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCmdBuildMicromapsEXT: loader(c"vkCmdBuildMicromapsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCmdCopyMemoryToMicromapEXT: loader(c"vkCmdCopyMemoryToMicromapEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCmdCopyMicromapEXT: loader(c"vkCmdCopyMicromapEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCmdCopyMicromapToMemoryEXT: loader(c"vkCmdCopyMicromapToMemoryEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_opacity_micromap")]
+            vkCmdWriteMicromapsPropertiesEXT: loader(c"vkCmdWriteMicromapsPropertiesEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_primitive_restart_index")]
+            vkCmdSetPrimitiveRestartIndexEXT: loader(c"vkCmdSetPrimitiveRestartIndexEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_sample_locations")]
+            vkCmdSetSampleLocationsEXT: loader(c"vkCmdSetSampleLocationsEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_shader_object")]
+            vkCmdBindShadersEXT: loader(c"vkCmdBindShadersEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_shader_object",
+                feature = "VK_EXT_vertex_input_dynamic_state"
+            ))]
+            vkCmdSetVertexInputEXT: loader(c"vkCmdSetVertexInputEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_transform_feedback")]
+            vkCmdBeginQueryIndexedEXT: loader(c"vkCmdBeginQueryIndexedEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_transform_feedback")]
+            vkCmdBeginTransformFeedbackEXT: loader(c"vkCmdBeginTransformFeedbackEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_transform_feedback")]
+            vkCmdBindTransformFeedbackBuffersEXT: loader(
+                c"vkCmdBindTransformFeedbackBuffersEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_transform_feedback")]
+            vkCmdDrawIndirectByteCountEXT: loader(c"vkCmdDrawIndirectByteCountEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_transform_feedback")]
+            vkCmdEndQueryIndexedEXT: loader(c"vkCmdEndQueryIndexedEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_transform_feedback")]
+            vkCmdEndTransformFeedbackEXT: loader(c"vkCmdEndTransformFeedbackEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdBeginRenderPass: loader(c"vkCmdBeginRenderPass".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdBindIndexBuffer: loader(c"vkCmdBindIndexBuffer".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdBindVertexBuffers: loader(c"vkCmdBindVertexBuffers".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdBlitImage: loader(c"vkCmdBlitImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdClearAttachments: loader(c"vkCmdClearAttachments".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdClearDepthStencilImage: loader(c"vkCmdClearDepthStencilImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdDraw: loader(c"vkCmdDraw".as_ptr()).map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdDrawIndexed: loader(c"vkCmdDrawIndexed".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdDrawIndexedIndirect: loader(c"vkCmdDrawIndexedIndirect".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdDrawIndirect: loader(c"vkCmdDrawIndirect".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdEndRenderPass: loader(c"vkCmdEndRenderPass".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdNextSubpass: loader(c"vkCmdNextSubpass".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdResolveImage: loader(c"vkCmdResolveImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetBlendConstants: loader(c"vkCmdSetBlendConstants".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetDepthBias: loader(c"vkCmdSetDepthBias".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetDepthBounds: loader(c"vkCmdSetDepthBounds".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetLineWidth: loader(c"vkCmdSetLineWidth".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetScissor: loader(c"vkCmdSetScissor".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetStencilCompareMask: loader(c"vkCmdSetStencilCompareMask".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetStencilReference: loader(c"vkCmdSetStencilReference".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetStencilWriteMask: loader(c"vkCmdSetStencilWriteMask".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+            vkCmdSetViewport: loader(c"vkCmdSetViewport".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+            vkCmdBeginRenderPass2: loader(c"vkCmdBeginRenderPass2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+            vkCmdDrawIndexedIndirectCount: loader(c"vkCmdDrawIndexedIndirectCount".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+            vkCmdDrawIndirectCount: loader(c"vkCmdDrawIndirectCount".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+            vkCmdEndRenderPass2: loader(c"vkCmdEndRenderPass2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+            vkCmdNextSubpass2: loader(c"vkCmdNextSubpass2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdBeginRendering: loader(c"vkCmdBeginRendering".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdBindVertexBuffers2: loader(c"vkCmdBindVertexBuffers2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdBlitImage2: loader(c"vkCmdBlitImage2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdEndRendering: loader(c"vkCmdEndRendering".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdResolveImage2: loader(c"vkCmdResolveImage2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetCullMode: loader(c"vkCmdSetCullMode".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetDepthBiasEnable: loader(c"vkCmdSetDepthBiasEnable".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetDepthBoundsTestEnable: loader(c"vkCmdSetDepthBoundsTestEnable".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetDepthCompareOp: loader(c"vkCmdSetDepthCompareOp".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetDepthTestEnable: loader(c"vkCmdSetDepthTestEnable".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetDepthWriteEnable: loader(c"vkCmdSetDepthWriteEnable".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetFrontFace: loader(c"vkCmdSetFrontFace".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetPrimitiveRestartEnable: loader(c"vkCmdSetPrimitiveRestartEnable".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetPrimitiveTopology: loader(c"vkCmdSetPrimitiveTopology".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetRasterizerDiscardEnable: loader(c"vkCmdSetRasterizerDiscardEnable".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetScissorWithCount: loader(c"vkCmdSetScissorWithCount".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetStencilOp: loader(c"vkCmdSetStencilOp".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetStencilTestEnable: loader(c"vkCmdSetStencilTestEnable".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+            vkCmdSetViewportWithCount: loader(c"vkCmdSetViewportWithCount".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+            vkCmdBindIndexBuffer2: loader(c"vkCmdBindIndexBuffer2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+            vkCmdSetLineStipple: loader(c"vkCmdSetLineStipple".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+            vkCmdSetRenderingAttachmentLocations: loader(
+                c"vkCmdSetRenderingAttachmentLocations".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+            vkCmdSetRenderingInputAttachmentIndices: loader(
+                c"vkCmdSetRenderingInputAttachmentIndices".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+            vkCmdDrawClusterHUAWEI: loader(c"vkCmdDrawClusterHUAWEI".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+            vkCmdDrawClusterIndirectHUAWEI: loader(c"vkCmdDrawClusterIndirectHUAWEI".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_HUAWEI_invocation_mask")]
+            vkCmdBindInvocationMaskHUAWEI: loader(c"vkCmdBindInvocationMaskHUAWEI".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_HUAWEI_subpass_shading")]
+            vkCmdSubpassShadingHUAWEI: loader(c"vkCmdSubpassShadingHUAWEI".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkCmdSetPerformanceMarkerINTEL: loader(c"vkCmdSetPerformanceMarkerINTEL".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkCmdSetPerformanceOverrideINTEL: loader(c"vkCmdSetPerformanceOverrideINTEL".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_INTEL_performance_query")]
+            vkCmdSetPerformanceStreamMarkerINTEL: loader(
+                c"vkCmdSetPerformanceStreamMarkerINTEL".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCmdBuildAccelerationStructuresIndirectKHR: loader(
+                c"vkCmdBuildAccelerationStructuresIndirectKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCmdBuildAccelerationStructuresKHR: loader(
+                c"vkCmdBuildAccelerationStructuresKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCmdCopyAccelerationStructureKHR: loader(
+                c"vkCmdCopyAccelerationStructureKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCmdCopyAccelerationStructureToMemoryKHR: loader(
+                c"vkCmdCopyAccelerationStructureToMemoryKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCmdCopyMemoryToAccelerationStructureKHR: loader(
+                c"vkCmdCopyMemoryToAccelerationStructureKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_acceleration_structure")]
+            vkCmdWriteAccelerationStructuresPropertiesKHR: loader(
+                c"vkCmdWriteAccelerationStructuresPropertiesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_commands2")]
+            vkCmdBlitImage2KHR: loader(c"vkCmdBlitImage2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_commands2")]
+            vkCmdCopyBuffer2KHR: loader(c"vkCmdCopyBuffer2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_commands2")]
+            vkCmdCopyBufferToImage2KHR: loader(c"vkCmdCopyBufferToImage2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_commands2")]
+            vkCmdCopyImage2KHR: loader(c"vkCmdCopyImage2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_commands2")]
+            vkCmdCopyImageToBuffer2KHR: loader(c"vkCmdCopyImageToBuffer2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_commands2")]
+            vkCmdResolveImage2KHR: loader(c"vkCmdResolveImage2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_memory_indirect")]
+            vkCmdCopyMemoryIndirectKHR: loader(c"vkCmdCopyMemoryIndirectKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_copy_memory_indirect")]
+            vkCmdCopyMemoryToImageIndirectKHR: loader(
+                c"vkCmdCopyMemoryToImageIndirectKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_create_renderpass2")]
+            vkCmdBeginRenderPass2KHR: loader(c"vkCmdBeginRenderPass2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_create_renderpass2")]
+            vkCmdEndRenderPass2KHR: loader(c"vkCmdEndRenderPass2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_create_renderpass2")]
+            vkCmdNextSubpass2KHR: loader(c"vkCmdNextSubpass2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_KHR_descriptor_update_template",
+                feature = "VK_KHR_push_descriptor"
+            ))]
+            vkCmdPushDescriptorSetWithTemplateKHR: loader(
+                c"vkCmdPushDescriptorSetWithTemplateKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdBeginConditionalRendering2EXT: loader(
+                c"vkCmdBeginConditionalRendering2EXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdBeginTransformFeedback2EXT: loader(c"vkCmdBeginTransformFeedback2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdBindIndexBuffer3KHR: loader(c"vkCmdBindIndexBuffer3KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdBindTransformFeedbackBuffers2EXT: loader(
+                c"vkCmdBindTransformFeedbackBuffers2EXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdBindVertexBuffers3KHR: loader(c"vkCmdBindVertexBuffers3KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdCopyImageToMemoryKHR: loader(c"vkCmdCopyImageToMemoryKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdCopyMemoryKHR: loader(c"vkCmdCopyMemoryKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdCopyMemoryToImageKHR: loader(c"vkCmdCopyMemoryToImageKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdCopyQueryPoolResultsToMemoryKHR: loader(
+                c"vkCmdCopyQueryPoolResultsToMemoryKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDispatchIndirect2KHR: loader(c"vkCmdDispatchIndirect2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDrawIndexedIndirect2KHR: loader(c"vkCmdDrawIndexedIndirect2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDrawIndexedIndirectCount2KHR: loader(
+                c"vkCmdDrawIndexedIndirectCount2KHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDrawIndirect2KHR: loader(c"vkCmdDrawIndirect2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDrawIndirectByteCount2EXT: loader(c"vkCmdDrawIndirectByteCount2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDrawIndirectCount2KHR: loader(c"vkCmdDrawIndirectCount2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDrawMeshTasksIndirect2EXT: loader(c"vkCmdDrawMeshTasksIndirect2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdDrawMeshTasksIndirectCount2EXT: loader(
+                c"vkCmdDrawMeshTasksIndirectCount2EXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdEndTransformFeedback2EXT: loader(c"vkCmdEndTransformFeedback2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdFillMemoryKHR: loader(c"vkCmdFillMemoryKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdUpdateMemoryKHR: loader(c"vkCmdUpdateMemoryKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_address_commands")]
+            vkCmdWriteMarkerToMemoryAMD: loader(c"vkCmdWriteMarkerToMemoryAMD".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_group")]
+            vkCmdDispatchBaseKHR: loader(c"vkCmdDispatchBaseKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_device_group")]
+            vkCmdSetDeviceMaskKHR: loader(c"vkCmdSetDeviceMaskKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_draw_indirect_count")]
+            vkCmdDrawIndexedIndirectCountKHR: loader(c"vkCmdDrawIndexedIndirectCountKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_draw_indirect_count")]
+            vkCmdDrawIndirectCountKHR: loader(c"vkCmdDrawIndirectCountKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_dynamic_rendering")]
+            vkCmdBeginRenderingKHR: loader(c"vkCmdBeginRenderingKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_dynamic_rendering")]
+            vkCmdEndRenderingKHR: loader(c"vkCmdEndRenderingKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
+            vkCmdSetRenderingAttachmentLocationsKHR: loader(
+                c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
+            vkCmdSetRenderingInputAttachmentIndicesKHR: loader(
+                c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+            vkCmdSetFragmentShadingRateKHR: loader(c"vkCmdSetFragmentShadingRateKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_line_rasterization")]
+            vkCmdSetLineStippleKHR: loader(c"vkCmdSetLineStippleKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance10")]
+            vkCmdEndRendering2KHR: loader(c"vkCmdEndRendering2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance5")]
+            vkCmdBindIndexBuffer2KHR: loader(c"vkCmdBindIndexBuffer2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance6")]
+            vkCmdBindDescriptorBufferEmbeddedSamplers2EXT: loader(
+                c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance6")]
+            vkCmdBindDescriptorSets2KHR: loader(c"vkCmdBindDescriptorSets2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance6")]
+            vkCmdPushConstants2KHR: loader(c"vkCmdPushConstants2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance6")]
+            vkCmdPushDescriptorSet2KHR: loader(c"vkCmdPushDescriptorSet2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance6")]
+            vkCmdPushDescriptorSetWithTemplate2KHR: loader(
+                c"vkCmdPushDescriptorSetWithTemplate2KHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance6")]
+            vkCmdSetDescriptorBufferOffsets2EXT: loader(
+                c"vkCmdSetDescriptorBufferOffsets2EXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_object_refresh")]
+            vkCmdRefreshObjectsKHR: loader(c"vkCmdRefreshObjectsKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_push_descriptor")]
+            vkCmdPushDescriptorSetKHR: loader(c"vkCmdPushDescriptorSetKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+            vkCmdTraceRaysIndirect2KHR: loader(c"vkCmdTraceRaysIndirect2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+            vkCmdSetRayTracingPipelineStackSizeKHR: loader(
+                c"vkCmdSetRayTracingPipelineStackSizeKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+            vkCmdTraceRaysIndirectKHR: loader(c"vkCmdTraceRaysIndirectKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+            vkCmdTraceRaysKHR: loader(c"vkCmdTraceRaysKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_synchronization2")]
+            vkCmdPipelineBarrier2KHR: loader(c"vkCmdPipelineBarrier2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_synchronization2")]
+            vkCmdResetEvent2KHR: loader(c"vkCmdResetEvent2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_synchronization2")]
+            vkCmdSetEvent2KHR: loader(c"vkCmdSetEvent2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_synchronization2")]
+            vkCmdWaitEvents2KHR: loader(c"vkCmdWaitEvents2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_synchronization2")]
+            vkCmdWriteTimestamp2KHR: loader(c"vkCmdWriteTimestamp2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_decode_queue")]
+            vkCmdDecodeVideoKHR: loader(c"vkCmdDecodeVideoKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_encode_queue")]
+            vkCmdEncodeVideoKHR: loader(c"vkCmdEncodeVideoKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkCmdBeginVideoCodingKHR: loader(c"vkCmdBeginVideoCodingKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkCmdControlVideoCodingKHR: loader(c"vkCmdControlVideoCodingKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkCmdEndVideoCodingKHR: loader(c"vkCmdEndVideoCodingKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NVX_binary_import")]
+            vkCmdCuLaunchKernelNVX: loader(c"vkCmdCuLaunchKernelNVX".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_clip_space_w_scaling")]
+            vkCmdSetViewportWScalingNV: loader(c"vkCmdSetViewportWScalingNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+            vkCmdBuildClusterAccelerationStructureIndirectNV: loader(
+                c"vkCmdBuildClusterAccelerationStructureIndirectNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_compute_occupancy_priority")]
+            vkCmdSetComputeOccupancyPriorityNV: loader(
+                c"vkCmdSetComputeOccupancyPriorityNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cooperative_vector")]
+            vkCmdConvertCooperativeVectorMatrixNV: loader(
+                c"vkCmdConvertCooperativeVectorMatrixNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_copy_memory_indirect")]
+            vkCmdCopyMemoryIndirectNV: loader(c"vkCmdCopyMemoryIndirectNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_copy_memory_indirect")]
+            vkCmdCopyMemoryToImageIndirectNV: loader(c"vkCmdCopyMemoryToImageIndirectNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+            vkCmdCudaLaunchKernelNV: loader(c"vkCmdCudaLaunchKernelNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+            vkCmdSetCheckpointNV: loader(c"vkCmdSetCheckpointNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands")]
+            vkCmdBindPipelineShaderGroupNV: loader(c"vkCmdBindPipelineShaderGroupNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands")]
+            vkCmdExecuteGeneratedCommandsNV: loader(c"vkCmdExecuteGeneratedCommandsNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands")]
+            vkCmdPreprocessGeneratedCommandsNV: loader(
+                c"vkCmdPreprocessGeneratedCommandsNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_device_generated_commands_compute")]
+            vkCmdUpdatePipelineIndirectBufferNV: loader(
+                c"vkCmdUpdatePipelineIndirectBufferNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+            vkCmdSetFragmentShadingRateEnumNV: loader(
+                c"vkCmdSetFragmentShadingRateEnumNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_memory_decompression")]
+            vkCmdDecompressMemoryIndirectCountNV: loader(
+                c"vkCmdDecompressMemoryIndirectCountNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_memory_decompression")]
+            vkCmdDecompressMemoryNV: loader(c"vkCmdDecompressMemoryNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_mesh_shader")]
+            vkCmdDrawMeshTasksIndirectCountNV: loader(
+                c"vkCmdDrawMeshTasksIndirectCountNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_mesh_shader")]
+            vkCmdDrawMeshTasksIndirectNV: loader(c"vkCmdDrawMeshTasksIndirectNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_mesh_shader")]
+            vkCmdDrawMeshTasksNV: loader(c"vkCmdDrawMeshTasksNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_optical_flow")]
+            vkCmdOpticalFlowExecuteNV: loader(c"vkCmdOpticalFlowExecuteNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+            vkCmdBuildPartitionedAccelerationStructuresNV: loader(
+                c"vkCmdBuildPartitionedAccelerationStructuresNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkCmdBuildAccelerationStructureNV: loader(
+                c"vkCmdBuildAccelerationStructureNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkCmdCopyAccelerationStructureNV: loader(c"vkCmdCopyAccelerationStructureNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkCmdTraceRaysNV: loader(c"vkCmdTraceRaysNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkCmdWriteAccelerationStructuresPropertiesNV: loader(
+                c"vkCmdWriteAccelerationStructuresPropertiesNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_scissor_exclusive")]
+            vkCmdSetExclusiveScissorEnableNV: loader(c"vkCmdSetExclusiveScissorEnableNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_scissor_exclusive")]
+            vkCmdSetExclusiveScissorNV: loader(c"vkCmdSetExclusiveScissorNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_shading_rate_image")]
+            vkCmdBindShadingRateImageNV: loader(c"vkCmdBindShadingRateImageNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_shading_rate_image")]
+            vkCmdSetCoarseSampleOrderNV: loader(c"vkCmdSetCoarseSampleOrderNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_shading_rate_image")]
+            vkCmdSetViewportShadingRatePaletteNV: loader(
+                c"vkCmdSetViewportShadingRatePaletteNV".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QCOM_tile_memory_heap")]
+            vkCmdBindTileMemoryQCOM: loader(c"vkCmdBindTileMemoryQCOM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QCOM_tile_shading")]
+            vkCmdBeginPerTileExecutionQCOM: loader(c"vkCmdBeginPerTileExecutionQCOM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QCOM_tile_shading")]
+            vkCmdDispatchTileQCOM: loader(c"vkCmdDispatchTileQCOM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_QCOM_tile_shading")]
+            vkCmdEndPerTileExecutionQCOM: loader(c"vkCmdEndPerTileExecutionQCOM".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_AMDX_shader_enqueue")]
-        {
-            table.vkCmdDispatchGraphIndirectAMDX =
-                loader(c"vkCmdDispatchGraphIndirectAMDX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMDX_shader_enqueue")]
-        {
-            table.vkCmdDispatchGraphIndirectCountAMDX =
-                loader(c"vkCmdDispatchGraphIndirectCountAMDX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMDX_shader_enqueue")]
-        {
-            table.vkCmdInitializeGraphScratchMemoryAMDX =
-                loader(c"vkCmdInitializeGraphScratchMemoryAMDX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMD_buffer_marker")]
-        {
-            table.vkCmdWriteBufferMarker2AMD = loader(c"vkCmdWriteBufferMarker2AMD".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMD_buffer_marker")]
-        {
-            table.vkCmdWriteBufferMarkerAMD = loader(c"vkCmdWriteBufferMarkerAMD".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMD_draw_indirect_count")]
-        {
-            table.vkCmdDrawIndexedIndirectCountAMD =
-                loader(c"vkCmdDrawIndexedIndirectCountAMD".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_AMD_draw_indirect_count")]
-        {
-            table.vkCmdDrawIndirectCountAMD = loader(c"vkCmdDrawIndirectCountAMD".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_data_graph")]
-        {
-            table.vkCmdDispatchDataGraphARM = loader(c"vkCmdDispatchDataGraphARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_scheduling_controls")]
-        {
-            table.vkCmdSetDispatchParametersARM = loader(c"vkCmdSetDispatchParametersARM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        {
-            table.vkCmdBeginShaderInstrumentationARM =
-                loader(c"vkCmdBeginShaderInstrumentationARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        {
-            table.vkCmdEndShaderInstrumentationARM =
-                loader(c"vkCmdEndShaderInstrumentationARM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_ARM_tensors")]
-        {
-            table.vkCmdCopyTensorARM =
-                loader(c"vkCmdCopyTensorARM".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkBeginCommandBuffer = loader(c"vkBeginCommandBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdBeginQuery =
-                loader(c"vkCmdBeginQuery".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdCopyBuffer =
-                loader(c"vkCmdCopyBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdCopyBufferToImage = loader(c"vkCmdCopyBufferToImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdCopyImage =
-                loader(c"vkCmdCopyImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdCopyImageToBuffer = loader(c"vkCmdCopyImageToBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdCopyQueryPoolResults = loader(c"vkCmdCopyQueryPoolResults".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdEndQuery =
-                loader(c"vkCmdEndQuery".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdExecuteCommands = loader(c"vkCmdExecuteCommands".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdFillBuffer =
-                loader(c"vkCmdFillBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdPipelineBarrier = loader(c"vkCmdPipelineBarrier".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdResetQueryPool =
-                loader(c"vkCmdResetQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdUpdateBuffer =
-                loader(c"vkCmdUpdateBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkCmdWriteTimestamp =
-                loader(c"vkCmdWriteTimestamp".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkEndCommandBuffer =
-                loader(c"vkEndCommandBuffer".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkResetCommandBuffer = loader(c"vkResetCommandBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkCmdSetDeviceMask =
-                loader(c"vkCmdSetDeviceMask".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkCmdCopyBuffer2 =
-                loader(c"vkCmdCopyBuffer2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkCmdCopyBufferToImage2 = loader(c"vkCmdCopyBufferToImage2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkCmdCopyImage2 =
-                loader(c"vkCmdCopyImage2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkCmdCopyImageToBuffer2 = loader(c"vkCmdCopyImageToBuffer2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkCmdPipelineBarrier2 = loader(c"vkCmdPipelineBarrier2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        {
-            table.vkCmdWriteTimestamp2 = loader(c"vkCmdWriteTimestamp2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdBindDescriptorSets = loader(c"vkCmdBindDescriptorSets".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdBindPipeline =
-                loader(c"vkCmdBindPipeline".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdClearColorImage = loader(c"vkCmdClearColorImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdDispatch =
-                loader(c"vkCmdDispatch".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdDispatchIndirect = loader(c"vkCmdDispatchIndirect".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdPushConstants =
-                loader(c"vkCmdPushConstants".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdResetEvent =
-                loader(c"vkCmdResetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdSetEvent =
-                loader(c"vkCmdSetEvent".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkCmdWaitEvents =
-                loader(c"vkCmdWaitEvents".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        {
-            table.vkCmdDispatchBase =
-                loader(c"vkCmdDispatchBase".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
-        {
-            table.vkCmdResetEvent2 =
-                loader(c"vkCmdResetEvent2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
-        {
-            table.vkCmdSetEvent2 =
-                loader(c"vkCmdSetEvent2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
-        {
-            table.vkCmdWaitEvents2 =
-                loader(c"vkCmdWaitEvents2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-        {
-            table.vkCmdBindDescriptorSets2 = loader(c"vkCmdBindDescriptorSets2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-        {
-            table.vkCmdPushConstants2 =
-                loader(c"vkCmdPushConstants2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-        {
-            table.vkCmdPushDescriptorSet = loader(c"vkCmdPushDescriptorSet".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-        {
-            table.vkCmdPushDescriptorSet2 = loader(c"vkCmdPushDescriptorSet2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-        {
-            table.vkCmdPushDescriptorSetWithTemplate =
-                loader(c"vkCmdPushDescriptorSetWithTemplate".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
-        {
-            table.vkCmdPushDescriptorSetWithTemplate2 =
-                loader(c"vkCmdPushDescriptorSetWithTemplate2".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
-        {
-            table.vkCmdSetAttachmentFeedbackLoopEnableEXT =
-                loader(c"vkCmdSetAttachmentFeedbackLoopEnableEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_color_write_enable")]
-        {
-            table.vkCmdSetColorWriteEnableEXT = loader(c"vkCmdSetColorWriteEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_conditional_rendering")]
-        {
-            table.vkCmdBeginConditionalRenderingEXT =
-                loader(c"vkCmdBeginConditionalRenderingEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_conditional_rendering")]
-        {
-            table.vkCmdEndConditionalRenderingEXT =
-                loader(c"vkCmdEndConditionalRenderingEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_custom_resolve")]
-        {
-            table.vkCmdBeginCustomResolveEXT = loader(c"vkCmdBeginCustomResolveEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_marker")]
-        {
-            table.vkCmdDebugMarkerBeginEXT = loader(c"vkCmdDebugMarkerBeginEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_marker")]
-        {
-            table.vkCmdDebugMarkerEndEXT = loader(c"vkCmdDebugMarkerEndEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_marker")]
-        {
-            table.vkCmdDebugMarkerInsertEXT = loader(c"vkCmdDebugMarkerInsertEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkCmdBeginDebugUtilsLabelEXT = loader(c"vkCmdBeginDebugUtilsLabelEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkCmdEndDebugUtilsLabelEXT = loader(c"vkCmdEndDebugUtilsLabelEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        {
-            table.vkCmdInsertDebugUtilsLabelEXT = loader(c"vkCmdInsertDebugUtilsLabelEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_depth_bias_control")]
-        {
-            table.vkCmdSetDepthBias2EXT = loader(c"vkCmdSetDepthBias2EXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_depth_clamp_control",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthClampRangeEXT = loader(c"vkCmdSetDepthClampRangeEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkCmdBindDescriptorBufferEmbeddedSamplersEXT =
-                loader(c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkCmdBindDescriptorBuffersEXT = loader(c"vkCmdBindDescriptorBuffersEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_buffer")]
-        {
-            table.vkCmdSetDescriptorBufferOffsetsEXT =
-                loader(c"vkCmdSetDescriptorBufferOffsetsEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkCmdBindResourceHeapEXT = loader(c"vkCmdBindResourceHeapEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkCmdBindSamplerHeapEXT = loader(c"vkCmdBindSamplerHeapEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_descriptor_heap")]
-        {
-            table.vkCmdPushDataEXT =
-                loader(c"vkCmdPushDataEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkCmdExecuteGeneratedCommandsEXT =
-                loader(c"vkCmdExecuteGeneratedCommandsEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkCmdPreprocessGeneratedCommandsEXT =
-                loader(c"vkCmdPreprocessGeneratedCommandsEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_discard_rectangles")]
-        {
-            table.vkCmdSetDiscardRectangleEXT = loader(c"vkCmdSetDiscardRectangleEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_discard_rectangles")]
-        {
-            table.vkCmdSetDiscardRectangleEnableEXT =
-                loader(c"vkCmdSetDiscardRectangleEnableEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_discard_rectangles")]
-        {
-            table.vkCmdSetDiscardRectangleModeEXT =
-                loader(c"vkCmdSetDiscardRectangleModeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdBindVertexBuffers2EXT = loader(c"vkCmdBindVertexBuffers2EXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetCullModeEXT =
-                loader(c"vkCmdSetCullModeEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthBoundsTestEnableEXT =
-                loader(c"vkCmdSetDepthBoundsTestEnableEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthCompareOpEXT = loader(c"vkCmdSetDepthCompareOpEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthTestEnableEXT = loader(c"vkCmdSetDepthTestEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthWriteEnableEXT = loader(c"vkCmdSetDepthWriteEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetFrontFaceEXT = loader(c"vkCmdSetFrontFaceEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetPrimitiveTopologyEXT = loader(c"vkCmdSetPrimitiveTopologyEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetScissorWithCountEXT = loader(c"vkCmdSetScissorWithCountEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetStencilOpEXT = loader(c"vkCmdSetStencilOpEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetStencilTestEnableEXT = loader(c"vkCmdSetStencilTestEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetViewportWithCountEXT = loader(c"vkCmdSetViewportWithCountEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state2",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthBiasEnableEXT = loader(c"vkCmdSetDepthBiasEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state2",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetLogicOpEXT =
-                loader(c"vkCmdSetLogicOpEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state2",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetPatchControlPointsEXT = loader(c"vkCmdSetPatchControlPointsEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state2",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetPrimitiveRestartEnableEXT =
-                loader(c"vkCmdSetPrimitiveRestartEnableEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state2",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetRasterizerDiscardEnableEXT =
-                loader(c"vkCmdSetRasterizerDiscardEnableEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetAlphaToCoverageEnableEXT =
-                loader(c"vkCmdSetAlphaToCoverageEnableEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetAlphaToOneEnableEXT = loader(c"vkCmdSetAlphaToOneEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetColorBlendAdvancedEXT = loader(c"vkCmdSetColorBlendAdvancedEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetColorBlendEnableEXT = loader(c"vkCmdSetColorBlendEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetColorBlendEquationEXT = loader(c"vkCmdSetColorBlendEquationEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetColorWriteMaskEXT = loader(c"vkCmdSetColorWriteMaskEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetConservativeRasterizationModeEXT =
-                loader(c"vkCmdSetConservativeRasterizationModeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetCoverageModulationModeNV =
-                loader(c"vkCmdSetCoverageModulationModeNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetCoverageModulationTableEnableNV =
-                loader(c"vkCmdSetCoverageModulationTableEnableNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetCoverageModulationTableNV =
-                loader(c"vkCmdSetCoverageModulationTableNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetCoverageReductionModeNV =
-                loader(c"vkCmdSetCoverageReductionModeNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetCoverageToColorEnableNV =
-                loader(c"vkCmdSetCoverageToColorEnableNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetCoverageToColorLocationNV =
-                loader(c"vkCmdSetCoverageToColorLocationNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthClampEnableEXT = loader(c"vkCmdSetDepthClampEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthClipEnableEXT = loader(c"vkCmdSetDepthClipEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetDepthClipNegativeOneToOneEXT =
-                loader(c"vkCmdSetDepthClipNegativeOneToOneEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetExtraPrimitiveOverestimationSizeEXT =
-                loader(c"vkCmdSetExtraPrimitiveOverestimationSizeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetLineRasterizationModeEXT =
-                loader(c"vkCmdSetLineRasterizationModeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetLineStippleEnableEXT = loader(c"vkCmdSetLineStippleEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetLogicOpEnableEXT = loader(c"vkCmdSetLogicOpEnableEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetPolygonModeEXT = loader(c"vkCmdSetPolygonModeEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetProvokingVertexModeEXT =
-                loader(c"vkCmdSetProvokingVertexModeEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetRasterizationSamplesEXT =
-                loader(c"vkCmdSetRasterizationSamplesEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetRasterizationStreamEXT =
-                loader(c"vkCmdSetRasterizationStreamEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetRepresentativeFragmentTestEnableNV =
-                loader(c"vkCmdSetRepresentativeFragmentTestEnableNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetSampleLocationsEnableEXT =
-                loader(c"vkCmdSetSampleLocationsEnableEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetSampleMaskEXT = loader(c"vkCmdSetSampleMaskEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetShadingRateImageEnableNV =
-                loader(c"vkCmdSetShadingRateImageEnableNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetTessellationDomainOriginEXT =
-                loader(c"vkCmdSetTessellationDomainOriginEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetViewportSwizzleNV = loader(c"vkCmdSetViewportSwizzleNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_extended_dynamic_state3",
-            feature = "VK_EXT_shader_object"
-        ))]
-        {
-            table.vkCmdSetViewportWScalingEnableNV =
-                loader(c"vkCmdSetViewportWScalingEnableNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
-        {
-            table.vkCmdEndRendering2EXT = loader(c"vkCmdEndRendering2EXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_line_rasterization")]
-        {
-            table.vkCmdSetLineStippleEXT = loader(c"vkCmdSetLineStippleEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_memory_decompression")]
-        {
-            table.vkCmdDecompressMemoryEXT = loader(c"vkCmdDecompressMemoryEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_memory_decompression")]
-        {
-            table.vkCmdDecompressMemoryIndirectCountEXT =
-                loader(c"vkCmdDecompressMemoryIndirectCountEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_mesh_shader")]
-        {
-            table.vkCmdDrawMeshTasksEXT = loader(c"vkCmdDrawMeshTasksEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_mesh_shader")]
-        {
-            table.vkCmdDrawMeshTasksIndirectCountEXT =
-                loader(c"vkCmdDrawMeshTasksIndirectCountEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_mesh_shader")]
-        {
-            table.vkCmdDrawMeshTasksIndirectEXT = loader(c"vkCmdDrawMeshTasksIndirectEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_multi_draw")]
-        {
-            table.vkCmdDrawMultiEXT =
-                loader(c"vkCmdDrawMultiEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_multi_draw")]
-        {
-            table.vkCmdDrawMultiIndexedEXT = loader(c"vkCmdDrawMultiIndexedEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCmdBuildMicromapsEXT = loader(c"vkCmdBuildMicromapsEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCmdCopyMemoryToMicromapEXT = loader(c"vkCmdCopyMemoryToMicromapEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCmdCopyMicromapEXT = loader(c"vkCmdCopyMicromapEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCmdCopyMicromapToMemoryEXT = loader(c"vkCmdCopyMicromapToMemoryEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        {
-            table.vkCmdWriteMicromapsPropertiesEXT =
-                loader(c"vkCmdWriteMicromapsPropertiesEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_primitive_restart_index")]
-        {
-            table.vkCmdSetPrimitiveRestartIndexEXT =
-                loader(c"vkCmdSetPrimitiveRestartIndexEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_sample_locations")]
-        {
-            table.vkCmdSetSampleLocationsEXT = loader(c"vkCmdSetSampleLocationsEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_shader_object")]
-        {
-            table.vkCmdBindShadersEXT =
-                loader(c"vkCmdBindShadersEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_shader_object",
-            feature = "VK_EXT_vertex_input_dynamic_state"
-        ))]
-        {
-            table.vkCmdSetVertexInputEXT = loader(c"vkCmdSetVertexInputEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_transform_feedback")]
-        {
-            table.vkCmdBeginQueryIndexedEXT = loader(c"vkCmdBeginQueryIndexedEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_transform_feedback")]
-        {
-            table.vkCmdBeginTransformFeedbackEXT =
-                loader(c"vkCmdBeginTransformFeedbackEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_transform_feedback")]
-        {
-            table.vkCmdBindTransformFeedbackBuffersEXT =
-                loader(c"vkCmdBindTransformFeedbackBuffersEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_transform_feedback")]
-        {
-            table.vkCmdDrawIndirectByteCountEXT = loader(c"vkCmdDrawIndirectByteCountEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_transform_feedback")]
-        {
-            table.vkCmdEndQueryIndexedEXT = loader(c"vkCmdEndQueryIndexedEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_transform_feedback")]
-        {
-            table.vkCmdEndTransformFeedbackEXT = loader(c"vkCmdEndTransformFeedbackEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdBeginRenderPass = loader(c"vkCmdBeginRenderPass".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdBindIndexBuffer = loader(c"vkCmdBindIndexBuffer".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdBindVertexBuffers = loader(c"vkCmdBindVertexBuffers".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdBlitImage =
-                loader(c"vkCmdBlitImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdClearAttachments = loader(c"vkCmdClearAttachments".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdClearDepthStencilImage = loader(c"vkCmdClearDepthStencilImage".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdDraw =
-                loader(c"vkCmdDraw".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdDrawIndexed =
-                loader(c"vkCmdDrawIndexed".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdDrawIndexedIndirect = loader(c"vkCmdDrawIndexedIndirect".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdDrawIndirect =
-                loader(c"vkCmdDrawIndirect".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdEndRenderPass =
-                loader(c"vkCmdEndRenderPass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdNextSubpass =
-                loader(c"vkCmdNextSubpass".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdResolveImage =
-                loader(c"vkCmdResolveImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetBlendConstants = loader(c"vkCmdSetBlendConstants".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetDepthBias =
-                loader(c"vkCmdSetDepthBias".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetDepthBounds =
-                loader(c"vkCmdSetDepthBounds".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetLineWidth =
-                loader(c"vkCmdSetLineWidth".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetScissor =
-                loader(c"vkCmdSetScissor".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetStencilCompareMask = loader(c"vkCmdSetStencilCompareMask".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetStencilReference = loader(c"vkCmdSetStencilReference".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetStencilWriteMask = loader(c"vkCmdSetStencilWriteMask".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        {
-            table.vkCmdSetViewport =
-                loader(c"vkCmdSetViewport".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
-        {
-            table.vkCmdBeginRenderPass2 = loader(c"vkCmdBeginRenderPass2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
-        {
-            table.vkCmdDrawIndexedIndirectCount = loader(c"vkCmdDrawIndexedIndirectCount".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
-        {
-            table.vkCmdDrawIndirectCount = loader(c"vkCmdDrawIndirectCount".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
-        {
-            table.vkCmdEndRenderPass2 =
-                loader(c"vkCmdEndRenderPass2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
-        {
-            table.vkCmdNextSubpass2 =
-                loader(c"vkCmdNextSubpass2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdBeginRendering =
-                loader(c"vkCmdBeginRendering".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdBindVertexBuffers2 = loader(c"vkCmdBindVertexBuffers2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdBlitImage2 =
-                loader(c"vkCmdBlitImage2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdEndRendering =
-                loader(c"vkCmdEndRendering".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdResolveImage2 =
-                loader(c"vkCmdResolveImage2".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetCullMode =
-                loader(c"vkCmdSetCullMode".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetDepthBiasEnable = loader(c"vkCmdSetDepthBiasEnable".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetDepthBoundsTestEnable = loader(c"vkCmdSetDepthBoundsTestEnable".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetDepthCompareOp = loader(c"vkCmdSetDepthCompareOp".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetDepthTestEnable = loader(c"vkCmdSetDepthTestEnable".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetDepthWriteEnable = loader(c"vkCmdSetDepthWriteEnable".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetFrontFace =
-                loader(c"vkCmdSetFrontFace".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetPrimitiveRestartEnable =
-                loader(c"vkCmdSetPrimitiveRestartEnable".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetPrimitiveTopology = loader(c"vkCmdSetPrimitiveTopology".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetRasterizerDiscardEnable =
-                loader(c"vkCmdSetRasterizerDiscardEnable".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetScissorWithCount = loader(c"vkCmdSetScissorWithCount".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetStencilOp =
-                loader(c"vkCmdSetStencilOp".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetStencilTestEnable = loader(c"vkCmdSetStencilTestEnable".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-        {
-            table.vkCmdSetViewportWithCount = loader(c"vkCmdSetViewportWithCount".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
-        {
-            table.vkCmdBindIndexBuffer2 = loader(c"vkCmdBindIndexBuffer2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
-        {
-            table.vkCmdSetLineStipple =
-                loader(c"vkCmdSetLineStipple".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
-        {
-            table.vkCmdSetRenderingAttachmentLocations =
-                loader(c"vkCmdSetRenderingAttachmentLocations".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
-        {
-            table.vkCmdSetRenderingInputAttachmentIndices =
-                loader(c"vkCmdSetRenderingInputAttachmentIndices".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
-        {
-            table.vkCmdDrawClusterHUAWEI = loader(c"vkCmdDrawClusterHUAWEI".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
-        {
-            table.vkCmdDrawClusterIndirectHUAWEI =
-                loader(c"vkCmdDrawClusterIndirectHUAWEI".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_HUAWEI_invocation_mask")]
-        {
-            table.vkCmdBindInvocationMaskHUAWEI = loader(c"vkCmdBindInvocationMaskHUAWEI".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_HUAWEI_subpass_shading")]
-        {
-            table.vkCmdSubpassShadingHUAWEI = loader(c"vkCmdSubpassShadingHUAWEI".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkCmdSetPerformanceMarkerINTEL =
-                loader(c"vkCmdSetPerformanceMarkerINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkCmdSetPerformanceOverrideINTEL =
-                loader(c"vkCmdSetPerformanceOverrideINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        {
-            table.vkCmdSetPerformanceStreamMarkerINTEL =
-                loader(c"vkCmdSetPerformanceStreamMarkerINTEL".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCmdBuildAccelerationStructuresIndirectKHR =
-                loader(c"vkCmdBuildAccelerationStructuresIndirectKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCmdBuildAccelerationStructuresKHR =
-                loader(c"vkCmdBuildAccelerationStructuresKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCmdCopyAccelerationStructureKHR =
-                loader(c"vkCmdCopyAccelerationStructureKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCmdCopyAccelerationStructureToMemoryKHR =
-                loader(c"vkCmdCopyAccelerationStructureToMemoryKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCmdCopyMemoryToAccelerationStructureKHR =
-                loader(c"vkCmdCopyMemoryToAccelerationStructureKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        {
-            table.vkCmdWriteAccelerationStructuresPropertiesKHR =
-                loader(c"vkCmdWriteAccelerationStructuresPropertiesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdBlitImage2KHR =
-                loader(c"vkCmdBlitImage2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdCopyBuffer2KHR =
-                loader(c"vkCmdCopyBuffer2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdCopyBufferToImage2KHR = loader(c"vkCmdCopyBufferToImage2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdCopyImage2KHR =
-                loader(c"vkCmdCopyImage2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdCopyImageToBuffer2KHR = loader(c"vkCmdCopyImageToBuffer2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_commands2")]
-        {
-            table.vkCmdResolveImage2KHR = loader(c"vkCmdResolveImage2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_memory_indirect")]
-        {
-            table.vkCmdCopyMemoryIndirectKHR = loader(c"vkCmdCopyMemoryIndirectKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_copy_memory_indirect")]
-        {
-            table.vkCmdCopyMemoryToImageIndirectKHR =
-                loader(c"vkCmdCopyMemoryToImageIndirectKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_create_renderpass2")]
-        {
-            table.vkCmdBeginRenderPass2KHR = loader(c"vkCmdBeginRenderPass2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_create_renderpass2")]
-        {
-            table.vkCmdEndRenderPass2KHR = loader(c"vkCmdEndRenderPass2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_create_renderpass2")]
-        {
-            table.vkCmdNextSubpass2KHR = loader(c"vkCmdNextSubpass2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_KHR_descriptor_update_template",
-            feature = "VK_KHR_push_descriptor"
-        ))]
-        {
-            table.vkCmdPushDescriptorSetWithTemplateKHR =
-                loader(c"vkCmdPushDescriptorSetWithTemplateKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdBeginConditionalRendering2EXT =
-                loader(c"vkCmdBeginConditionalRendering2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdBeginTransformFeedback2EXT =
-                loader(c"vkCmdBeginTransformFeedback2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdBindIndexBuffer3KHR = loader(c"vkCmdBindIndexBuffer3KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdBindTransformFeedbackBuffers2EXT =
-                loader(c"vkCmdBindTransformFeedbackBuffers2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdBindVertexBuffers3KHR = loader(c"vkCmdBindVertexBuffers3KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdCopyImageToMemoryKHR = loader(c"vkCmdCopyImageToMemoryKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdCopyMemoryKHR =
-                loader(c"vkCmdCopyMemoryKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdCopyMemoryToImageKHR = loader(c"vkCmdCopyMemoryToImageKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdCopyQueryPoolResultsToMemoryKHR =
-                loader(c"vkCmdCopyQueryPoolResultsToMemoryKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDispatchIndirect2KHR = loader(c"vkCmdDispatchIndirect2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawIndexedIndirect2KHR = loader(c"vkCmdDrawIndexedIndirect2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawIndexedIndirectCount2KHR =
-                loader(c"vkCmdDrawIndexedIndirectCount2KHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawIndirect2KHR = loader(c"vkCmdDrawIndirect2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawIndirectByteCount2EXT =
-                loader(c"vkCmdDrawIndirectByteCount2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawIndirectCount2KHR = loader(c"vkCmdDrawIndirectCount2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawMeshTasksIndirect2EXT =
-                loader(c"vkCmdDrawMeshTasksIndirect2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdDrawMeshTasksIndirectCount2EXT =
-                loader(c"vkCmdDrawMeshTasksIndirectCount2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdEndTransformFeedback2EXT = loader(c"vkCmdEndTransformFeedback2EXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdFillMemoryKHR =
-                loader(c"vkCmdFillMemoryKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdUpdateMemoryKHR = loader(c"vkCmdUpdateMemoryKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_address_commands")]
-        {
-            table.vkCmdWriteMarkerToMemoryAMD = loader(c"vkCmdWriteMarkerToMemoryAMD".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_group")]
-        {
-            table.vkCmdDispatchBaseKHR = loader(c"vkCmdDispatchBaseKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_device_group")]
-        {
-            table.vkCmdSetDeviceMaskKHR = loader(c"vkCmdSetDeviceMaskKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_draw_indirect_count")]
-        {
-            table.vkCmdDrawIndexedIndirectCountKHR =
-                loader(c"vkCmdDrawIndexedIndirectCountKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_draw_indirect_count")]
-        {
-            table.vkCmdDrawIndirectCountKHR = loader(c"vkCmdDrawIndirectCountKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_dynamic_rendering")]
-        {
-            table.vkCmdBeginRenderingKHR = loader(c"vkCmdBeginRenderingKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_dynamic_rendering")]
-        {
-            table.vkCmdEndRenderingKHR = loader(c"vkCmdEndRenderingKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
-        {
-            table.vkCmdSetRenderingAttachmentLocationsKHR =
-                loader(c"vkCmdSetRenderingAttachmentLocationsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
-        {
-            table.vkCmdSetRenderingInputAttachmentIndicesKHR =
-                loader(c"vkCmdSetRenderingInputAttachmentIndicesKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_fragment_shading_rate")]
-        {
-            table.vkCmdSetFragmentShadingRateKHR =
-                loader(c"vkCmdSetFragmentShadingRateKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_line_rasterization")]
-        {
-            table.vkCmdSetLineStippleKHR = loader(c"vkCmdSetLineStippleKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance10")]
-        {
-            table.vkCmdEndRendering2KHR = loader(c"vkCmdEndRendering2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance5")]
-        {
-            table.vkCmdBindIndexBuffer2KHR = loader(c"vkCmdBindIndexBuffer2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance6")]
-        {
-            table.vkCmdBindDescriptorBufferEmbeddedSamplers2EXT =
-                loader(c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance6")]
-        {
-            table.vkCmdBindDescriptorSets2KHR = loader(c"vkCmdBindDescriptorSets2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance6")]
-        {
-            table.vkCmdPushConstants2KHR = loader(c"vkCmdPushConstants2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance6")]
-        {
-            table.vkCmdPushDescriptorSet2KHR = loader(c"vkCmdPushDescriptorSet2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance6")]
-        {
-            table.vkCmdPushDescriptorSetWithTemplate2KHR =
-                loader(c"vkCmdPushDescriptorSetWithTemplate2KHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance6")]
-        {
-            table.vkCmdSetDescriptorBufferOffsets2EXT =
-                loader(c"vkCmdSetDescriptorBufferOffsets2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_object_refresh")]
-        {
-            table.vkCmdRefreshObjectsKHR = loader(c"vkCmdRefreshObjectsKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_push_descriptor")]
-        {
-            table.vkCmdPushDescriptorSetKHR = loader(c"vkCmdPushDescriptorSetKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
-        {
-            table.vkCmdTraceRaysIndirect2KHR = loader(c"vkCmdTraceRaysIndirect2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkCmdSetRayTracingPipelineStackSizeKHR =
-                loader(c"vkCmdSetRayTracingPipelineStackSizeKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkCmdTraceRaysIndirectKHR = loader(c"vkCmdTraceRaysIndirectKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
-        {
-            table.vkCmdTraceRaysKHR =
-                loader(c"vkCmdTraceRaysKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_synchronization2")]
-        {
-            table.vkCmdPipelineBarrier2KHR = loader(c"vkCmdPipelineBarrier2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_synchronization2")]
-        {
-            table.vkCmdResetEvent2KHR =
-                loader(c"vkCmdResetEvent2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_synchronization2")]
-        {
-            table.vkCmdSetEvent2KHR =
-                loader(c"vkCmdSetEvent2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_synchronization2")]
-        {
-            table.vkCmdWaitEvents2KHR =
-                loader(c"vkCmdWaitEvents2KHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_synchronization2")]
-        {
-            table.vkCmdWriteTimestamp2KHR = loader(c"vkCmdWriteTimestamp2KHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_decode_queue")]
-        {
-            table.vkCmdDecodeVideoKHR =
-                loader(c"vkCmdDecodeVideoKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_encode_queue")]
-        {
-            table.vkCmdEncodeVideoKHR =
-                loader(c"vkCmdEncodeVideoKHR".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkCmdBeginVideoCodingKHR = loader(c"vkCmdBeginVideoCodingKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkCmdControlVideoCodingKHR = loader(c"vkCmdControlVideoCodingKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkCmdEndVideoCodingKHR = loader(c"vkCmdEndVideoCodingKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NVX_binary_import")]
-        {
-            table.vkCmdCuLaunchKernelNVX = loader(c"vkCmdCuLaunchKernelNVX".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_clip_space_w_scaling")]
-        {
-            table.vkCmdSetViewportWScalingNV = loader(c"vkCmdSetViewportWScalingNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-        {
-            table.vkCmdBuildClusterAccelerationStructureIndirectNV =
-                loader(c"vkCmdBuildClusterAccelerationStructureIndirectNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_compute_occupancy_priority")]
-        {
-            table.vkCmdSetComputeOccupancyPriorityNV =
-                loader(c"vkCmdSetComputeOccupancyPriorityNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_cooperative_vector")]
-        {
-            table.vkCmdConvertCooperativeVectorMatrixNV =
-                loader(c"vkCmdConvertCooperativeVectorMatrixNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_copy_memory_indirect")]
-        {
-            table.vkCmdCopyMemoryIndirectNV = loader(c"vkCmdCopyMemoryIndirectNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_copy_memory_indirect")]
-        {
-            table.vkCmdCopyMemoryToImageIndirectNV =
-                loader(c"vkCmdCopyMemoryToImageIndirectNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        {
-            table.vkCmdCudaLaunchKernelNV = loader(c"vkCmdCudaLaunchKernelNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
-        {
-            table.vkCmdSetCheckpointNV = loader(c"vkCmdSetCheckpointNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands")]
-        {
-            table.vkCmdBindPipelineShaderGroupNV =
-                loader(c"vkCmdBindPipelineShaderGroupNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands")]
-        {
-            table.vkCmdExecuteGeneratedCommandsNV =
-                loader(c"vkCmdExecuteGeneratedCommandsNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands")]
-        {
-            table.vkCmdPreprocessGeneratedCommandsNV =
-                loader(c"vkCmdPreprocessGeneratedCommandsNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_device_generated_commands_compute")]
-        {
-            table.vkCmdUpdatePipelineIndirectBufferNV =
-                loader(c"vkCmdUpdatePipelineIndirectBufferNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
-        {
-            table.vkCmdSetFragmentShadingRateEnumNV =
-                loader(c"vkCmdSetFragmentShadingRateEnumNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_memory_decompression")]
-        {
-            table.vkCmdDecompressMemoryIndirectCountNV =
-                loader(c"vkCmdDecompressMemoryIndirectCountNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_memory_decompression")]
-        {
-            table.vkCmdDecompressMemoryNV = loader(c"vkCmdDecompressMemoryNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_mesh_shader")]
-        {
-            table.vkCmdDrawMeshTasksIndirectCountNV =
-                loader(c"vkCmdDrawMeshTasksIndirectCountNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_mesh_shader")]
-        {
-            table.vkCmdDrawMeshTasksIndirectNV = loader(c"vkCmdDrawMeshTasksIndirectNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_mesh_shader")]
-        {
-            table.vkCmdDrawMeshTasksNV = loader(c"vkCmdDrawMeshTasksNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_optical_flow")]
-        {
-            table.vkCmdOpticalFlowExecuteNV = loader(c"vkCmdOpticalFlowExecuteNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
-        {
-            table.vkCmdBuildPartitionedAccelerationStructuresNV =
-                loader(c"vkCmdBuildPartitionedAccelerationStructuresNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkCmdBuildAccelerationStructureNV =
-                loader(c"vkCmdBuildAccelerationStructureNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkCmdCopyAccelerationStructureNV =
-                loader(c"vkCmdCopyAccelerationStructureNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkCmdTraceRaysNV =
-                loader(c"vkCmdTraceRaysNV".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkCmdWriteAccelerationStructuresPropertiesNV =
-                loader(c"vkCmdWriteAccelerationStructuresPropertiesNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_scissor_exclusive")]
-        {
-            table.vkCmdSetExclusiveScissorEnableNV =
-                loader(c"vkCmdSetExclusiveScissorEnableNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_scissor_exclusive")]
-        {
-            table.vkCmdSetExclusiveScissorNV = loader(c"vkCmdSetExclusiveScissorNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_shading_rate_image")]
-        {
-            table.vkCmdBindShadingRateImageNV = loader(c"vkCmdBindShadingRateImageNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_shading_rate_image")]
-        {
-            table.vkCmdSetCoarseSampleOrderNV = loader(c"vkCmdSetCoarseSampleOrderNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_shading_rate_image")]
-        {
-            table.vkCmdSetViewportShadingRatePaletteNV =
-                loader(c"vkCmdSetViewportShadingRatePaletteNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QCOM_tile_memory_heap")]
-        {
-            table.vkCmdBindTileMemoryQCOM = loader(c"vkCmdBindTileMemoryQCOM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QCOM_tile_shading")]
-        {
-            table.vkCmdBeginPerTileExecutionQCOM =
-                loader(c"vkCmdBeginPerTileExecutionQCOM".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QCOM_tile_shading")]
-        {
-            table.vkCmdDispatchTileQCOM = loader(c"vkCmdDispatchTileQCOM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_QCOM_tile_shading")]
-        {
-            table.vkCmdEndPerTileExecutionQCOM = loader(c"vkCmdEndPerTileExecutionQCOM".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

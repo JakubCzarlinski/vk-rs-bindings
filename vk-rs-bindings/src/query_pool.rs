@@ -32,33 +32,24 @@ impl QueryPoolDispatchTable {
         #[cfg(feature = "VK_EXT_host_query_reset")]
         vkResetQueryPoolEXT: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDestroyQueryPool =
-                loader(c"vkDestroyQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDestroyQueryPool: loader(c"vkDestroyQueryPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetQueryPoolResults: loader(c"vkGetQueryPoolResults".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_2")]
+            vkResetQueryPool: loader(c"vkResetQueryPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_host_query_reset")]
+            vkResetQueryPoolEXT: loader(c"vkResetQueryPoolEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetQueryPoolResults = loader(c"vkGetQueryPoolResults".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_2")]
-        {
-            table.vkResetQueryPool =
-                loader(c"vkResetQueryPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_host_query_reset")]
-        {
-            table.vkResetQueryPoolEXT =
-                loader(c"vkResetQueryPoolEXT".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

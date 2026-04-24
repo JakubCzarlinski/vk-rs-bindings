@@ -40,43 +40,30 @@ impl DeviceMemoryDispatchTable {
         #[cfg(feature = "VK_NV_external_memory_win32")]
         vkGetMemoryWin32HandleNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkFreeMemory =
-                loader(c"vkFreeMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkFreeMemory: loader(c"vkFreeMemory".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetDeviceMemoryCommitment: loader(c"vkGetDeviceMemoryCommitment".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkMapMemory: loader(c"vkMapMemory".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkUnmapMemory: loader(c"vkUnmapMemory".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_pageable_device_local_memory")]
+            vkSetDeviceMemoryPriorityEXT: loader(c"vkSetDeviceMemoryPriorityEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_external_memory_win32")]
+            vkGetMemoryWin32HandleNV: loader(c"vkGetMemoryWin32HandleNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetDeviceMemoryCommitment = loader(c"vkGetDeviceMemoryCommitment".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkMapMemory =
-                loader(c"vkMapMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkUnmapMemory =
-                loader(c"vkUnmapMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_pageable_device_local_memory")]
-        {
-            table.vkSetDeviceMemoryPriorityEXT = loader(c"vkSetDeviceMemoryPriorityEXT".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_external_memory_win32")]
-        {
-            table.vkGetMemoryWin32HandleNV = loader(c"vkGetMemoryWin32HandleNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

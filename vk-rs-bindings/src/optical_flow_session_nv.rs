@@ -24,24 +24,18 @@ impl OpticalFlowSessionNVDispatchTable {
         #[cfg(feature = "VK_NV_optical_flow")]
         vkDestroyOpticalFlowSessionNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_NV_optical_flow")]
-        {
-            table.vkBindOpticalFlowSessionImageNV =
-                loader(c"vkBindOpticalFlowSessionImageNV".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_NV_optical_flow")]
+            vkBindOpticalFlowSessionImageNV: loader(c"vkBindOpticalFlowSessionImageNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_optical_flow")]
+            vkDestroyOpticalFlowSessionNV: loader(c"vkDestroyOpticalFlowSessionNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_NV_optical_flow")]
-        {
-            table.vkDestroyOpticalFlowSessionNV = loader(c"vkDestroyOpticalFlowSessionNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_NV_optical_flow")]

@@ -251,7 +251,8 @@ fn gen_handle_module(
             fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
             empty_ts.extend(quote! { #cfg #fname: None, });
             load_ts.extend(quote! {
-                #cfg { table.#fname = loader(#clit.as_ptr()).map(|f| unsafe { core::mem::transmute(f) }); }
+                #cfg
+                #fname:  loader(#clit.as_ptr()).map(|f| unsafe { core::mem::transmute(f) }),
             });
 
             if cmd_name == "vkAllocateCommandBuffers" {
@@ -358,11 +359,11 @@ fn gen_handle_module(
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl #table_name {
             pub const EMPTY: Self = Self { #empty_ts };
-            #[allow(unused_mut, unused_variables)]
+
             pub fn load<F>(mut loader: F) -> Self where F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()> {
-                let mut table = Self::EMPTY;
-                #load_ts
-                table
+                Self {
+                    #load_ts
+                }
             }
         }
 

@@ -36,39 +36,29 @@ impl PipelineCacheDispatchTable {
         #[cfg(feature = "VK_NV_ray_tracing")]
         vkCreateRayTracingPipelinesNV: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_AMDX_shader_enqueue")]
-        {
-            table.vkCreateExecutionGraphPipelinesAMDX =
-                loader(c"vkCreateExecutionGraphPipelinesAMDX".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_AMDX_shader_enqueue")]
+            vkCreateExecutionGraphPipelinesAMDX: loader(
+                c"vkCreateExecutionGraphPipelinesAMDX".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkDestroyPipelineCache: loader(c"vkDestroyPipelineCache".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkGetPipelineCacheData: loader(c"vkGetPipelineCacheData".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+            vkMergePipelineCaches: loader(c"vkMergePipelineCaches".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_NV_ray_tracing")]
+            vkCreateRayTracingPipelinesNV: loader(c"vkCreateRayTracingPipelinesNV".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkDestroyPipelineCache = loader(c"vkDestroyPipelineCache".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkGetPipelineCacheData = loader(c"vkGetPipelineCacheData".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        {
-            table.vkMergePipelineCaches = loader(c"vkMergePipelineCaches".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        {
-            table.vkCreateRayTracingPipelinesNV = loader(c"vkCreateRayTracingPipelinesNV".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

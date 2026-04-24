@@ -44,49 +44,35 @@ impl CommandPoolDispatchTable {
         #[cfg(feature = "VK_KHR_maintenance1")]
         vkTrimCommandPoolKHR: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VKSC_VERSION_1_0")]
-        {
-            table.vkGetCommandPoolMemoryConsumption =
-                loader(c"vkGetCommandPoolMemoryConsumption".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VKSC_VERSION_1_0")]
+            vkGetCommandPoolMemoryConsumption: loader(
+                c"vkGetCommandPoolMemoryConsumption".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkAllocateCommandBuffers: loader(c"vkAllocateCommandBuffers".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDestroyCommandPool: loader(c"vkDestroyCommandPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkFreeCommandBuffers: loader(c"vkFreeCommandBuffers".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkResetCommandPool: loader(c"vkResetCommandPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_1")]
+            vkTrimCommandPool: loader(c"vkTrimCommandPool".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance1")]
+            vkTrimCommandPoolKHR: loader(c"vkTrimCommandPoolKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkAllocateCommandBuffers = loader(c"vkAllocateCommandBuffers".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDestroyCommandPool = loader(c"vkDestroyCommandPool".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkFreeCommandBuffers = loader(c"vkFreeCommandBuffers".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkResetCommandPool =
-                loader(c"vkResetCommandPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-            table.vkTrimCommandPool =
-                loader(c"vkTrimCommandPool".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance1")]
-        {
-            table.vkTrimCommandPoolKHR = loader(c"vkTrimCommandPoolKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

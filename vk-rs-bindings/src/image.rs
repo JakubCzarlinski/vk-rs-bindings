@@ -59,65 +59,46 @@ impl ImageDispatchTable {
         #[cfg(feature = "VK_KHR_maintenance5")]
         vkGetImageSubresourceLayout2KHR: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkBindImageMemory =
-                loader(c"vkBindImageMemory".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkBindImageMemory: loader(c"vkBindImageMemory".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkDestroyImage: loader(c"vkDestroyImage".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetImageMemoryRequirements: loader(c"vkGetImageMemoryRequirements".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetImageSparseMemoryRequirements: loader(
+                c"vkGetImageSparseMemoryRequirements".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_0")]
+            vkGetImageSubresourceLayout: loader(c"vkGetImageSubresourceLayout".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_BASE_VERSION_1_4")]
+            vkGetImageSubresourceLayout2: loader(c"vkGetImageSubresourceLayout2".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(any(
+                feature = "VK_EXT_host_image_copy",
+                feature = "VK_EXT_image_compression_control"
+            ))]
+            vkGetImageSubresourceLayout2EXT: loader(c"vkGetImageSubresourceLayout2EXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+            vkGetImageDrmFormatModifierPropertiesEXT: loader(
+                c"vkGetImageDrmFormatModifierPropertiesEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_maintenance5")]
+            vkGetImageSubresourceLayout2KHR: loader(c"vkGetImageSubresourceLayout2KHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkDestroyImage =
-                loader(c"vkDestroyImage".as_ptr()).map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetImageMemoryRequirements = loader(c"vkGetImageMemoryRequirements".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetImageSparseMemoryRequirements =
-                loader(c"vkGetImageSparseMemoryRequirements".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        {
-            table.vkGetImageSubresourceLayout = loader(c"vkGetImageSubresourceLayout".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_BASE_VERSION_1_4")]
-        {
-            table.vkGetImageSubresourceLayout2 = loader(c"vkGetImageSubresourceLayout2".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(any(
-            feature = "VK_EXT_host_image_copy",
-            feature = "VK_EXT_image_compression_control"
-        ))]
-        {
-            table.vkGetImageSubresourceLayout2EXT =
-                loader(c"vkGetImageSubresourceLayout2EXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
-        {
-            table.vkGetImageDrmFormatModifierPropertiesEXT =
-                loader(c"vkGetImageDrmFormatModifierPropertiesEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_maintenance5")]
-        {
-            table.vkGetImageSubresourceLayout2KHR =
-                loader(c"vkGetImageSubresourceLayout2KHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

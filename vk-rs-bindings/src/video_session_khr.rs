@@ -28,29 +28,23 @@ impl VideoSessionKHRDispatchTable {
         #[cfg(feature = "VK_KHR_video_queue")]
         vkGetVideoSessionMemoryRequirementsKHR: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkBindVideoSessionMemoryKHR = loader(c"vkBindVideoSessionMemoryKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkBindVideoSessionMemoryKHR: loader(c"vkBindVideoSessionMemoryKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkDestroyVideoSessionKHR: loader(c"vkDestroyVideoSessionKHR".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_KHR_video_queue")]
+            vkGetVideoSessionMemoryRequirementsKHR: loader(
+                c"vkGetVideoSessionMemoryRequirementsKHR".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkDestroyVideoSessionKHR = loader(c"vkDestroyVideoSessionKHR".as_ptr())
-                .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_KHR_video_queue")]
-        {
-            table.vkGetVideoSessionMemoryRequirementsKHR =
-                loader(c"vkGetVideoSessionMemoryRequirementsKHR".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_KHR_video_queue")]

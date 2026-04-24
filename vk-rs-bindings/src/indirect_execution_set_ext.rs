@@ -29,31 +29,25 @@ impl IndirectExecutionSetEXTDispatchTable {
         #[cfg(feature = "VK_EXT_device_generated_commands")]
         vkUpdateIndirectExecutionSetShaderEXT: None,
     };
-    #[allow(unused_mut, unused_variables)]
     pub fn load<F>(mut loader: F) -> Self
     where
         F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
     {
-        let mut table = Self::EMPTY;
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkDestroyIndirectExecutionSetEXT =
-                loader(c"vkDestroyIndirectExecutionSetEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
+        Self {
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkDestroyIndirectExecutionSetEXT: loader(c"vkDestroyIndirectExecutionSetEXT".as_ptr())
+                .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkUpdateIndirectExecutionSetPipelineEXT: loader(
+                c"vkUpdateIndirectExecutionSetPipelineEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
+            #[cfg(feature = "VK_EXT_device_generated_commands")]
+            vkUpdateIndirectExecutionSetShaderEXT: loader(
+                c"vkUpdateIndirectExecutionSetShaderEXT".as_ptr(),
+            )
+            .map(|f| unsafe { core::mem::transmute(f) }),
         }
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkUpdateIndirectExecutionSetPipelineEXT =
-                loader(c"vkUpdateIndirectExecutionSetPipelineEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        {
-            table.vkUpdateIndirectExecutionSetShaderEXT =
-                loader(c"vkUpdateIndirectExecutionSetShaderEXT".as_ptr())
-                    .map(|f| unsafe { core::mem::transmute(f) });
-        }
-        table
     }
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]

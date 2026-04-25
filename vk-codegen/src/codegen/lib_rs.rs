@@ -16,20 +16,20 @@ pub fn gen_lib_rs(handles: &[String]) -> String {
 
         extern crate alloc;
 
-        pub mod commands;
-        pub mod consts;
-        pub mod entry;
-        pub mod enums;
-        pub mod device;
-        pub mod physical_device;
-        pub mod instance;
-        pub mod types;
-        pub mod validation;
+        mod commands;
+        mod consts;
+        mod entry;
+        mod enums;
+        mod device;
+        mod physical_device;
+        mod instance;
+        mod types;
+        mod validation;
     };
 
     for h in handles {
         let ident = quote::format_ident!("{}", h);
-        ts.extend(quote! { pub mod #ident; });
+        ts.extend(quote! { mod #ident; });
     }
 
     ts.extend(quote! {

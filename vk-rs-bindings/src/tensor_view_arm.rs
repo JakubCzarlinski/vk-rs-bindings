@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_ARM_tensors")]
 #[derive(Debug, Clone)]
 pub struct TensorViewARMDispatchTable {
     #[cfg(feature = "VK_ARM_tensors")]
     pub vkDestroyTensorViewARM: Option<PFN_vkDestroyTensorViewARM>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_ARM_tensors")]
 impl TensorViewARMDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_ARM_tensors")]
@@ -54,23 +54,23 @@ impl<'dev> Drop for TensorViewARM<'dev> {
 }
 #[cfg(feature = "VK_ARM_tensors")]
 impl<'dev> TensorViewARM<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkTensorViewARM {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &TensorViewARMDispatchTable {
         self.table
     }

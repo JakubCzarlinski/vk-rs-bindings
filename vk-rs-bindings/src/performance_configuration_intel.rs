@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_INTEL_performance_query")]
 #[derive(Debug, Clone)]
 pub struct PerformanceConfigurationINTELDispatchTable {
     #[cfg(feature = "VK_INTEL_performance_query")]
     pub vkReleasePerformanceConfigurationINTEL: Option<PFN_vkReleasePerformanceConfigurationINTEL>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_INTEL_performance_query")]
 impl PerformanceConfigurationINTELDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_INTEL_performance_query")]
@@ -53,23 +53,23 @@ impl<'dev> Drop for PerformanceConfigurationINTEL<'dev> {
 }
 #[cfg(feature = "VK_INTEL_performance_query")]
 impl<'dev> PerformanceConfigurationINTEL<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkPerformanceConfigurationINTEL {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &PerformanceConfigurationINTELDispatchTable {
         self.table
     }

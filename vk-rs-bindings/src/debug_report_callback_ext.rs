@@ -8,10 +8,10 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_EXT_debug_report")]
 #[derive(Debug, Clone)]
 pub struct DebugReportCallbackEXTDispatchTable {}
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_EXT_debug_report")]
 impl DebugReportCallbackEXTDispatchTable {
     pub const EMPTY: Self = Self {};
     pub fn load<F>(_loader: F) -> Self
@@ -44,19 +44,19 @@ impl<'dev> Drop for DebugReportCallbackEXT<'dev> {
 }
 #[cfg(feature = "VK_EXT_debug_report")]
 impl<'dev> DebugReportCallbackEXT<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkDebugReportCallbackEXT {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &DebugReportCallbackEXTDispatchTable {
         self.table
     }

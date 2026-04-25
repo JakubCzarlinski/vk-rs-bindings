@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct PipelineLayoutDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pub vkDestroyPipelineLayout: Option<PFN_vkDestroyPipelineLayout>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl PipelineLayoutDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -54,23 +54,23 @@ impl<'dev> Drop for PipelineLayout<'dev> {
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl<'dev> PipelineLayout<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkPipelineLayout {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &PipelineLayoutDispatchTable {
         self.table
     }

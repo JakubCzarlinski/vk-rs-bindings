@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 #[derive(Debug, Clone)]
 pub struct DescriptorUpdateTemplateDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
@@ -16,7 +16,7 @@ pub struct DescriptorUpdateTemplateDispatchTable {
     #[cfg(feature = "VK_KHR_descriptor_update_template")]
     pub vkDestroyDescriptorUpdateTemplateKHR: Option<PFN_vkDestroyDescriptorUpdateTemplateKHR>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl DescriptorUpdateTemplateDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
@@ -65,23 +65,23 @@ impl<'dev> Drop for DescriptorUpdateTemplate<'dev> {
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl<'dev> DescriptorUpdateTemplate<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkDescriptorUpdateTemplate {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &DescriptorUpdateTemplateDispatchTable {
         self.table
     }

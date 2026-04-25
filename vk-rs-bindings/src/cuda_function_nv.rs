@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
 #[derive(Debug, Clone)]
 pub struct CudaFunctionNVDispatchTable {
     #[cfg(feature = "VK_NV_cuda_kernel_launch")]
     pub vkDestroyCudaFunctionNV: Option<PFN_vkDestroyCudaFunctionNV>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl CudaFunctionNVDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_NV_cuda_kernel_launch")]
@@ -54,23 +54,23 @@ impl<'dev> Drop for CudaFunctionNV<'dev> {
 }
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 impl<'dev> CudaFunctionNV<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkCudaFunctionNV {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &CudaFunctionNVDispatchTable {
         self.table
     }

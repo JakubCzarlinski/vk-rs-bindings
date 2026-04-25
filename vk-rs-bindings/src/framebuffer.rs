@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct FramebufferDispatchTable {
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -16,7 +16,7 @@ pub struct FramebufferDispatchTable {
     #[cfg(feature = "VK_QCOM_tile_properties")]
     pub vkGetFramebufferTilePropertiesQCOM: Option<PFN_vkGetFramebufferTilePropertiesQCOM>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl FramebufferDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -63,23 +63,23 @@ impl<'dev> Drop for Framebuffer<'dev> {
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl<'dev> Framebuffer<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkFramebuffer {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &FramebufferDispatchTable {
         self.table
     }

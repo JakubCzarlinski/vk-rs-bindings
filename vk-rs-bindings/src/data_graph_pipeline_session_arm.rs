@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_ARM_data_graph")]
 #[derive(Debug, Clone)]
 pub struct DataGraphPipelineSessionARMDispatchTable {
     #[cfg(feature = "VK_ARM_data_graph")]
     pub vkDestroyDataGraphPipelineSessionARM: Option<PFN_vkDestroyDataGraphPipelineSessionARM>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_ARM_data_graph")]
 impl DataGraphPipelineSessionARMDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_ARM_data_graph")]
@@ -56,23 +56,23 @@ impl<'dev> Drop for DataGraphPipelineSessionARM<'dev> {
 }
 #[cfg(feature = "VK_ARM_data_graph")]
 impl<'dev> DataGraphPipelineSessionARM<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkDataGraphPipelineSessionARM {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &DataGraphPipelineSessionARMDispatchTable {
         self.table
     }

@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[derive(Debug, Clone)]
 pub struct RenderPassDispatchTable {
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -19,7 +19,7 @@ pub struct RenderPassDispatchTable {
     pub vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI:
         Option<PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl RenderPassDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
@@ -71,23 +71,23 @@ impl<'dev> Drop for RenderPass<'dev> {
 }
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl<'dev> RenderPass<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkRenderPass {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &RenderPassDispatchTable {
         self.table
     }

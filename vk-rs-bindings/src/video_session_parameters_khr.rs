@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_video_queue")]
 #[derive(Debug, Clone)]
 pub struct VideoSessionParametersKHRDispatchTable {
     #[cfg(feature = "VK_KHR_video_queue")]
@@ -16,7 +16,7 @@ pub struct VideoSessionParametersKHRDispatchTable {
     #[cfg(feature = "VK_KHR_video_queue")]
     pub vkUpdateVideoSessionParametersKHR: Option<PFN_vkUpdateVideoSessionParametersKHR>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_video_queue")]
 impl VideoSessionParametersKHRDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_KHR_video_queue")]
@@ -65,23 +65,23 @@ impl<'dev> Drop for VideoSessionParametersKHR<'dev> {
 }
 #[cfg(feature = "VK_KHR_video_queue")]
 impl<'dev> VideoSessionParametersKHR<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkVideoSessionParametersKHR {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &VideoSessionParametersKHRDispatchTable {
         self.table
     }

@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_EXT_validation_cache")]
 #[derive(Debug, Clone)]
 pub struct ValidationCacheEXTDispatchTable {
     #[cfg(feature = "VK_EXT_validation_cache")]
@@ -18,7 +18,7 @@ pub struct ValidationCacheEXTDispatchTable {
     #[cfg(feature = "VK_EXT_validation_cache")]
     pub vkMergeValidationCachesEXT: Option<PFN_vkMergeValidationCachesEXT>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_EXT_validation_cache")]
 impl ValidationCacheEXTDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_EXT_validation_cache")]
@@ -68,23 +68,23 @@ impl<'dev> Drop for ValidationCacheEXT<'dev> {
 }
 #[cfg(feature = "VK_EXT_validation_cache")]
 impl<'dev> ValidationCacheEXT<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkValidationCacheEXT {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &ValidationCacheEXTDispatchTable {
         self.table
     }

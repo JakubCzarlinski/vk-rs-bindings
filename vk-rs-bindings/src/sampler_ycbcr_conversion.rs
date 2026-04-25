@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 #[derive(Debug, Clone)]
 pub struct SamplerYcbcrConversionDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
@@ -16,7 +16,7 @@ pub struct SamplerYcbcrConversionDispatchTable {
     #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
     pub vkDestroySamplerYcbcrConversionKHR: Option<PFN_vkDestroySamplerYcbcrConversionKHR>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl SamplerYcbcrConversionDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
@@ -63,23 +63,23 @@ impl<'dev> Drop for SamplerYcbcrConversion<'dev> {
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl<'dev> SamplerYcbcrConversion<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkSamplerYcbcrConversion {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &SamplerYcbcrConversionDispatchTable {
         self.table
     }

@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 #[derive(Debug, Clone)]
 pub struct IndirectCommandsLayoutEXTDispatchTable {
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     pub vkDestroyIndirectCommandsLayoutEXT: Option<PFN_vkDestroyIndirectCommandsLayoutEXT>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl IndirectCommandsLayoutEXTDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_EXT_device_generated_commands")]
@@ -56,23 +56,23 @@ impl<'dev> Drop for IndirectCommandsLayoutEXT<'dev> {
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 impl<'dev> IndirectCommandsLayoutEXT<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkIndirectCommandsLayoutEXT {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &IndirectCommandsLayoutEXTDispatchTable {
         self.table
     }

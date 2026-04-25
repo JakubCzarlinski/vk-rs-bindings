@@ -89,23 +89,23 @@ impl<'dev> Drop for DeviceMemory<'dev> {
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl<'dev> DeviceMemory<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkDeviceMemory {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &DeviceMemoryDispatchTable {
         self.table
     }

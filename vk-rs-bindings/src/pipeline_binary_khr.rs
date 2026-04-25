@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 #[derive(Debug, Clone)]
 pub struct PipelineBinaryKHRDispatchTable {
     #[cfg(feature = "VK_KHR_pipeline_binary")]
     pub vkDestroyPipelineBinaryKHR: Option<PFN_vkDestroyPipelineBinaryKHR>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_pipeline_binary")]
 impl PipelineBinaryKHRDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_KHR_pipeline_binary")]
@@ -54,23 +54,23 @@ impl<'dev> Drop for PipelineBinaryKHR<'dev> {
 }
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 impl<'dev> PipelineBinaryKHR<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkPipelineBinaryKHR {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &PipelineBinaryKHRDispatchTable {
         self.table
     }

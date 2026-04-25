@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 #[derive(Debug, Clone)]
 pub struct BufferCollectionFUCHSIADispatchTable {
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
@@ -22,7 +22,7 @@ pub struct BufferCollectionFUCHSIADispatchTable {
     pub vkSetBufferCollectionImageConstraintsFUCHSIA:
         Option<PFN_vkSetBufferCollectionImageConstraintsFUCHSIA>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl BufferCollectionFUCHSIADispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
@@ -83,23 +83,23 @@ impl<'dev> Drop for BufferCollectionFUCHSIA<'dev> {
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 impl<'dev> BufferCollectionFUCHSIA<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkBufferCollectionFUCHSIA {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &BufferCollectionFUCHSIADispatchTable {
         self.table
     }

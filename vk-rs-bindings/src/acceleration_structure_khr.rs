@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 #[derive(Debug, Clone)]
 pub struct AccelerationStructureKHRDispatchTable {
     #[cfg(feature = "VK_KHR_acceleration_structure")]
     pub vkDestroyAccelerationStructureKHR: Option<PFN_vkDestroyAccelerationStructureKHR>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_acceleration_structure")]
 impl AccelerationStructureKHRDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_KHR_acceleration_structure")]
@@ -56,23 +56,23 @@ impl<'dev> Drop for AccelerationStructureKHR<'dev> {
 }
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 impl<'dev> AccelerationStructureKHR<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkAccelerationStructureKHR {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &AccelerationStructureKHRDispatchTable {
         self.table
     }

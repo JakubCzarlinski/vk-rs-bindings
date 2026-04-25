@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NV_external_compute_queue")]
 #[derive(Debug, Clone)]
 pub struct ExternalComputeQueueNVDispatchTable {
     #[cfg(feature = "VK_NV_external_compute_queue")]
@@ -16,7 +16,7 @@ pub struct ExternalComputeQueueNVDispatchTable {
     #[cfg(feature = "VK_NV_external_compute_queue")]
     pub vkGetExternalComputeQueueDataNV: Option<PFN_vkGetExternalComputeQueueDataNV>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NV_external_compute_queue")]
 impl ExternalComputeQueueNVDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_NV_external_compute_queue")]
@@ -61,23 +61,23 @@ impl<'dev> Drop for ExternalComputeQueueNV<'dev> {
 }
 #[cfg(feature = "VK_NV_external_compute_queue")]
 impl<'dev> ExternalComputeQueueNV<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkExternalComputeQueueNV {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &ExternalComputeQueueNVDispatchTable {
         self.table
     }

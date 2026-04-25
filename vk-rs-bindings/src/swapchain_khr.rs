@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_swapchain")]
 #[derive(Debug, Clone)]
 pub struct SwapchainKHRDispatchTable {
     #[cfg(feature = "VK_AMD_display_native_hdr")]
@@ -51,7 +51,7 @@ pub struct SwapchainKHRDispatchTable {
     #[cfg(feature = "VK_NV_low_latency2")]
     pub vkSetLatencySleepModeNV: Option<PFN_vkSetLatencySleepModeNV>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_swapchain")]
 impl SwapchainKHRDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_AMD_display_native_hdr")]
@@ -193,23 +193,23 @@ impl<'dev> Drop for SwapchainKHR<'dev> {
 }
 #[cfg(feature = "VK_KHR_swapchain")]
 impl<'dev> SwapchainKHR<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkSwapchainKHR {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &SwapchainKHRDispatchTable {
         self.table
     }

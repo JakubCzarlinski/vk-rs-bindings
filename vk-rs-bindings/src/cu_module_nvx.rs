@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NVX_binary_import")]
 #[derive(Debug, Clone)]
 pub struct CuModuleNVXDispatchTable {
     #[cfg(feature = "VK_NVX_binary_import")]
     pub vkDestroyCuModuleNVX: Option<PFN_vkDestroyCuModuleNVX>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NVX_binary_import")]
 impl CuModuleNVXDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_NVX_binary_import")]
@@ -54,23 +54,23 @@ impl<'dev> Drop for CuModuleNVX<'dev> {
 }
 #[cfg(feature = "VK_NVX_binary_import")]
 impl<'dev> CuModuleNVX<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkCuModuleNVX {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &CuModuleNVXDispatchTable {
         self.table
     }

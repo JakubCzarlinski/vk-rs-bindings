@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
 #[derive(Debug, Clone)]
 pub struct ShaderInstrumentationARMDispatchTable {
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
@@ -18,7 +18,7 @@ pub struct ShaderInstrumentationARMDispatchTable {
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     pub vkGetShaderInstrumentationValuesARM: Option<PFN_vkGetShaderInstrumentationValuesARM>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl ShaderInstrumentationARMDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_ARM_shader_instrumentation")]
@@ -74,23 +74,23 @@ impl<'dev> Drop for ShaderInstrumentationARM<'dev> {
 }
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 impl<'dev> ShaderInstrumentationARM<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkShaderInstrumentationARM {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &ShaderInstrumentationARMDispatchTable {
         self.table
     }

@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NV_external_sci_sync2")]
 #[derive(Debug, Clone)]
 pub struct SemaphoreSciSyncPoolNVDispatchTable {
     #[cfg(feature = "VK_NV_external_sci_sync2")]
     pub vkDestroySemaphoreSciSyncPoolNV: Option<PFN_vkDestroySemaphoreSciSyncPoolNV>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_NV_external_sci_sync2")]
 impl SemaphoreSciSyncPoolNVDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_NV_external_sci_sync2")]
@@ -54,23 +54,23 @@ impl<'dev> Drop for SemaphoreSciSyncPoolNV<'dev> {
 }
 #[cfg(feature = "VK_NV_external_sci_sync2")]
 impl<'dev> SemaphoreSciSyncPoolNV<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkSemaphoreSciSyncPoolNV {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &SemaphoreSciSyncPoolNVDispatchTable {
         self.table
     }

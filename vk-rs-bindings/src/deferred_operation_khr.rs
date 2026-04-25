@@ -8,7 +8,7 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
 #[derive(Debug, Clone)]
 pub struct DeferredOperationKHRDispatchTable {
     #[cfg(feature = "VK_ARM_data_graph")]
@@ -41,7 +41,7 @@ pub struct DeferredOperationKHRDispatchTable {
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
     pub vkCreateRayTracingPipelinesKHR: Option<PFN_vkCreateRayTracingPipelinesKHR>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
 impl DeferredOperationKHRDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_ARM_data_graph")]
@@ -152,23 +152,23 @@ impl<'dev> Drop for DeferredOperationKHR<'dev> {
 }
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
 impl<'dev> DeferredOperationKHR<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkDeferredOperationKHR {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &DeferredOperationKHRDispatchTable {
         self.table
     }

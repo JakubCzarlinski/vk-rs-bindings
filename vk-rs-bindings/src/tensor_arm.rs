@@ -8,13 +8,13 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
 #[derive(Debug, Clone)]
 pub struct TensorARMDispatchTable {
     #[cfg(feature = "VK_ARM_tensors")]
     pub vkDestroyTensorARM: Option<PFN_vkDestroyTensorARM>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
 impl TensorARMDispatchTable {
     pub const EMPTY: Self = Self {
         #[cfg(feature = "VK_ARM_tensors")]
@@ -54,23 +54,23 @@ impl<'dev> Drop for TensorARM<'dev> {
 }
 #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
 impl<'dev> TensorARM<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkTensorARM {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn device(&self) -> &'dev crate::device::Device<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent.instance()
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &TensorARMDispatchTable {
         self.table
     }

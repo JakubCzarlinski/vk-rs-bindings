@@ -8,10 +8,10 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_surface")]
 #[derive(Debug, Clone)]
 pub struct SurfaceKHRDispatchTable {}
-#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[cfg(feature = "VK_KHR_surface")]
 impl SurfaceKHRDispatchTable {
     pub const EMPTY: Self = Self {};
     pub fn load<F>(_loader: F) -> Self
@@ -44,19 +44,19 @@ impl<'dev> Drop for SurfaceKHR<'dev> {
 }
 #[cfg(feature = "VK_KHR_surface")]
 impl<'dev> SurfaceKHR<'dev> {
-    #[inline]
+    #[inline(always)]
     pub const fn raw(&self) -> VkSurfaceKHR {
         self.raw
     }
-    #[inline]
+    #[inline(always)]
     pub const fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
         self.parent
     }
-    #[inline]
+    #[inline(always)]
     pub const fn table(&self) -> &SurfaceKHRDispatchTable {
         self.table
     }

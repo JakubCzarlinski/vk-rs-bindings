@@ -1,8 +1,8 @@
 #![allow(
-    non_snake_case,
-    unused_imports,
-    clippy::too_many_arguments,
-    clippy::missing_safety_doc
+  non_snake_case,
+  unused_imports,
+  clippy::too_many_arguments,
+  clippy::missing_safety_doc
 )]
 use crate::commands::*;
 use crate::enums::*;
@@ -13,19 +13,19 @@ use core::ffi::{c_char, c_void};
 pub struct DebugReportCallbackEXTDispatchTable {}
 #[cfg(feature = "VK_EXT_debug_report")]
 impl DebugReportCallbackEXTDispatchTable {
-    pub const EMPTY: Self = Self {};
-    pub fn load<F>(_loader: F) -> Self
-    where
-        F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
-    {
-        Self {}
-    }
+  pub const EMPTY: Self = Self {};
+  pub fn load<F>(_loader: F) -> Self
+  where
+    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+  {
+    Self {}
+  }
 }
 #[cfg(feature = "VK_EXT_debug_report")]
 pub struct DebugReportCallbackEXT<'dev> {
-    pub(crate) raw: VkDebugReportCallbackEXT,
-    pub(crate) parent: &'dev crate::instance::Instance<'dev>,
-    pub(crate) table: &'dev DebugReportCallbackEXTDispatchTable,
+  pub(crate) raw: VkDebugReportCallbackEXT,
+  pub(crate) parent: &'dev crate::instance::Instance<'dev>,
+  pub(crate) table: &'dev DebugReportCallbackEXTDispatchTable,
 }
 #[cfg(feature = "VK_EXT_debug_report")]
 unsafe impl<'dev> Send for DebugReportCallbackEXT<'dev> {}
@@ -33,31 +33,31 @@ unsafe impl<'dev> Send for DebugReportCallbackEXT<'dev> {}
 unsafe impl<'dev> Sync for DebugReportCallbackEXT<'dev> {}
 #[cfg(feature = "VK_EXT_debug_report")]
 impl<'dev> Drop for DebugReportCallbackEXT<'dev> {
-    fn drop(&mut self) {
-        if self.raw.0.is_null() {
-            return;
-        }
-        if let Some(destroy_fn) = self.parent.table.vkDestroyDebugReportCallbackEXT {
-            unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-        }
+  fn drop(&mut self) {
+    if self.raw.0.is_null() {
+      return;
     }
+    if let Some(destroy_fn) = self.parent.table.vkDestroyDebugReportCallbackEXT {
+      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
+    }
+  }
 }
 #[cfg(feature = "VK_EXT_debug_report")]
 impl<'dev> DebugReportCallbackEXT<'dev> {
-    #[inline(always)]
-    pub const fn raw(&self) -> VkDebugReportCallbackEXT {
-        self.raw
-    }
-    #[inline(always)]
-    pub const fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
-        self.parent
-    }
-    #[inline(always)]
-    pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
-        self.parent
-    }
-    #[inline(always)]
-    pub const fn table(&self) -> &DebugReportCallbackEXTDispatchTable {
-        self.table
-    }
+  #[inline(always)]
+  pub const fn raw(&self) -> VkDebugReportCallbackEXT {
+    self.raw
+  }
+  #[inline(always)]
+  pub const fn parent(&self) -> &'dev crate::instance::Instance<'dev> {
+    self.parent
+  }
+  #[inline(always)]
+  pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> {
+    self.parent
+  }
+  #[inline(always)]
+  pub const fn table(&self) -> &DebugReportCallbackEXTDispatchTable {
+    self.table
+  }
 }

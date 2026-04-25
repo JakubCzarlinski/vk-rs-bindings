@@ -312,7 +312,7 @@ fn gen_handle_module(
             quote! { crate::device::Device<'dev> },
             quote! { self.parent },
             quote! {
-                #[inline]
+                #[inline(always)]
                 pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
             },
         )
@@ -321,7 +321,7 @@ fn gen_handle_module(
             quote! { crate::instance::Instance<'dev> },
             quote! {},
             quote! {
-                #[inline]
+                #[inline(always)]
                 pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent }
             },
         )
@@ -330,14 +330,14 @@ fn gen_handle_module(
             quote! { crate::#parent_mod::#parent_type<'dev> },
             quote! { self.parent.device() },
             quote! {
-                #[inline]
+                #[inline(always)]
                 pub const fn instance(&self) -> &'dev crate::instance::Instance<'dev> { self.parent.instance() }
             },
         )
     };
     let device_method = if meta.root_vk_name == "VkDevice" {
         quote! {
-            #[inline]
+            #[inline(always)]
             pub const fn device(&self) -> &'dev crate::device::Device<'dev> { #device_accessor }
         }
     } else {
@@ -352,11 +352,11 @@ fn gen_handle_module(
         use crate::types::*;
         use crate::enums::*;
 
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #wrapper_cfg
         #[derive(Debug, Clone)]
         pub struct #table_name { #fields_ts }
 
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
+        #wrapper_cfg
         impl #table_name {
             pub const EMPTY: Self = Self { #empty_ts };
 
@@ -392,11 +392,11 @@ fn gen_handle_module(
 
         #wrapper_cfg
         impl<'dev> #struct_name<'dev> {
-            #[inline] pub const fn raw(&self) -> #vk_ident { self.raw }
-            #[inline] pub const fn parent(&self) -> &'dev #parent_ty_decl { self.parent }
+            #[inline(always)] pub const fn raw(&self) -> #vk_ident { self.raw }
+            #[inline(always)] pub const fn parent(&self) -> &'dev #parent_ty_decl { self.parent }
             #device_method
             #instance_method
-            #[inline] pub const fn table(&self) -> &#table_name { self.table }
+            #[inline(always)] pub const fn table(&self) -> &#table_name { self.table }
             #methods_ts
         }
     }

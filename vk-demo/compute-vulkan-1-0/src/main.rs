@@ -46,21 +46,33 @@ fn main() {
     let library = VulkanLib::load().expect("Failed to load Vulkan library");
     let instance: Instance = create_instance(&library);
 
-    let (mut device, physical_device, queue_family_index) = create_device(&instance);
+    let (device, physical_device, queue_family_index) = create_device(&instance);
+
+    let memory_type_index = find_host_visible_memory_type(
+        &physical_device,
+        u32::MAX,
+        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
+            | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
+    )
+    .expect("Failed to find suitable memory type");
+
+    const INPUT_BUFFER_SIZE: u64 = 2 * mem::size_of::<u32>() as u64;
+    let input_buffer = HostVisibleBuffer::new(&device, INPUT_BUFFER_SIZE, memory_type_index)
+        .expect("Failed to create input buffer");
+    const OUTPUT_BUFFER_SIZE: u64 = mem::size_of::<u32>() as u64; // size of a single u32 result
+    let output_buffer = HostVisibleBuffer::new(&device, OUTPUT_BUFFER_SIZE, memory_type_index)
+        .expect("Failed to create output buffer");
 
     {
         let queue = device.vkGetDeviceQueue(queue_family_index, 0);
 
-        let (descriptor_set_layout, pipeline_layout, pipeline) =
-            create_compute_pipeline(&device).expect("Failed to create pipeline");
+        let descriptor_set_layout = device
+            .vkCreateDescriptorSetLayout(&DSL_INFO, null())
+            .expect("Failed to create descriptor set layout");
+        let (pipeline_layout, pipeline) = create_compute_pipeline(&device, &descriptor_set_layout)
+            .expect("Failed to create pipeline");
 
-        let buffer_size = 2 * mem::size_of::<u32>() as u64;
-        let input_buffer = create_storage_buffer(&physical_device, &device, buffer_size)
-            .expect("Failed to create input buffer");
-        let output_buffer = create_storage_buffer(&physical_device, &device, 4)
-            .expect("Failed to create output buffer");
-
-        write_to_buffer(&input_buffer, &[3u32, 2u32]).expect("Failed to upload data");
+        write_to_buffer(&input_buffer.memory, &[3u32, 2u32]).expect("Failed to upload data");
 
         let descriptor_pool =
             create_descriptor_pool(&device).expect("Failed to create descriptor pool");
@@ -71,7 +83,8 @@ fn main() {
             &descriptor_set_layout,
             &input_buffer.buffer,
             &output_buffer.buffer,
-            buffer_size,
+            INPUT_BUFFER_SIZE,
+            OUTPUT_BUFFER_SIZE,
         )
         .expect("Failed to setup descriptor set");
 
@@ -90,7 +103,7 @@ fn main() {
         )
         .expect("Failed to run compute");
 
-        let result = read_from_buffer::<u32>(&output_buffer).expect("Failed to read result");
+        let result = read_from_buffer::<u32>(&output_buffer.memory).expect("Failed to read result");
 
         if result == 5 {
             println!("Success! 3 + 2 = {result}");
@@ -98,7 +111,6 @@ fn main() {
             println!("Error: expected 5, got {result}");
         }
     }
-    device.vkDestroyDevice(null());
 
     println!("Compute shader execution complete!");
 }
@@ -164,29 +176,18 @@ fn create_device<'inst>(instance: &'inst Instance) -> (Device<'inst>, PhysicalDe
 
 fn create_compute_pipeline<'a>(
     device: &'a Device<'a>,
-) -> Result<
-    (
-        DescriptorSetLayout<'a>,
-        PipelineLayout<'a>,
-        Box<[Pipeline<'a>]>,
-    ),
-    String,
-> {
-    let ds_layout = device
-        .vkCreateDescriptorSetLayout(&DSL_INFO, null())
-        .map_err(|e| format!("DSLayout: {e:?}"))?;
+    descriptor_set_layout: &DescriptorSetLayout<'a>,
+) -> Result<(PipelineLayout<'a>, Box<[Pipeline<'a>]>), VkResult> {
+    let pipeline_layout: PipelineLayout<'_>;
+    {
+        let layouts = [descriptor_set_layout.raw()];
+        let pll_info = VkPipelineLayoutCreateInfo::DEFAULT
+            .with_setLayoutCount(1)
+            .with_pSetLayouts(layouts.as_ptr());
+        pipeline_layout = device.vkCreatePipelineLayout(&raw const pll_info, null())?;
+    }
+    let shader_module = device.vkCreateShaderModule(&SHADER_MODULE_INFO, null())?;
 
-    let layouts = [ds_layout.raw()];
-    let pll_info = VkPipelineLayoutCreateInfo::DEFAULT
-        .with_setLayoutCount(1)
-        .with_pSetLayouts(layouts.as_ptr());
-    let pipeline_layout = device
-        .vkCreatePipelineLayout(&raw const pll_info, null())
-        .map_err(|e| format!("PLLayout: {e:?}"))?;
-
-    let shader_module = device
-        .vkCreateShaderModule(&SHADER_MODULE_INFO, null())
-        .map_err(|e| format!("ShaderModule: {e:?}"))?;
     let stage = VkPipelineShaderStageCreateInfo::DEFAULT
         .with_stage(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT)
         .with_pName(c"main".as_ptr())
@@ -194,55 +195,47 @@ fn create_compute_pipeline<'a>(
     let pipe_info = VkComputePipelineCreateInfo::DEFAULT
         .with_stage(stage)
         .with_layout(pipeline_layout.raw());
+    let pipelines =
+        device.vkCreateComputePipelines(VkPipelineCache::NULL, 1, &raw const pipe_info, null())?;
 
-    let pipelines = device
-        .vkCreateComputePipelines(VkPipelineCache::NULL, 1, &raw const pipe_info, null())
-        .map_err(|e| format!("Pipeline: {e:?}"))?;
-
-    Ok((ds_layout, pipeline_layout, pipelines))
-}
-
-fn create_storage_buffer<'a>(
-    physical_device: &PhysicalDevice<'a>,
-    device: &'a Device<'a>,
-    size: u64,
-) -> Result<HostVisibleBuffer<'a>, String> {
-    #[allow(deprecated)]
-    let buffer_info = VkBufferCreateInfo::DEFAULT
-        .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
-        .with_usage(VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT.0)
-        .with_size(size);
-    let buffer = device
-        .vkCreateBuffer(&raw const buffer_info, null())
-        .map_err(|e| format!("CreateBuffer: {e:?}"))?;
-
-    let mut requirements = VkMemoryRequirements::DEFAULT;
-    buffer.vkGetBufferMemoryRequirements(&raw mut requirements);
-
-    let memory_type_index = find_host_visible_memory_type(
-        physical_device,
-        requirements.memoryTypeBits,
-        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
-            | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
-    )?;
-
-    let allocate_info = VkMemoryAllocateInfo::DEFAULT
-        .with_allocationSize(requirements.size)
-        .with_memoryTypeIndex(memory_type_index);
-    let memory = device
-        .vkAllocateMemory(&raw const allocate_info, null())
-        .map_err(|e| format!("AllocateMemory: {e:?}"))?;
-
-    buffer
-        .vkBindBufferMemory(memory.raw(), 0)
-        .map_err(|e| format!("BindBufferMemory: {e:?}"))?;
-
-    Ok(HostVisibleBuffer { buffer, memory })
+    Ok((pipeline_layout, pipelines))
 }
 
 struct HostVisibleBuffer<'a> {
-    buffer: Buffer<'a>,
     memory: DeviceMemory<'a>,
+    buffer: Buffer<'a>,
+}
+
+impl HostVisibleBuffer<'_> {
+    fn new<'a>(
+        device: &'a Device<'a>,
+        size: u64,
+        memory_type_index: u32,
+    ) -> Result<HostVisibleBuffer<'a>, VkResult> {
+        let buffer: Buffer<'_>;
+        {
+            #[allow(deprecated)]
+            let buffer_info = VkBufferCreateInfo::DEFAULT
+                .with_usage(VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT.0)
+                .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
+                .with_size(size);
+            buffer = device.vkCreateBuffer(&raw const buffer_info, null())?;
+        }
+
+        let memory: DeviceMemory<'_>;
+        {
+            let mut requirements = VkMemoryRequirements::DEFAULT;
+            buffer.vkGetBufferMemoryRequirements(&raw mut requirements);
+
+            let allocate_info = VkMemoryAllocateInfo::DEFAULT
+                .with_allocationSize(requirements.size)
+                .with_memoryTypeIndex(memory_type_index);
+            memory = device.vkAllocateMemory(&raw const allocate_info, null())?;
+        }
+        buffer.vkBindBufferMemory(memory.raw(), 0)?;
+
+        Ok(HostVisibleBuffer { memory, buffer })
+    }
 }
 
 #[allow(deprecated)]
@@ -269,13 +262,10 @@ fn find_host_visible_memory_type(
     Err("No compatible host-visible memory type found".into())
 }
 
-fn write_to_buffer<T: Copy>(buffer: &HostVisibleBuffer<'_>, data: &[T]) -> Result<(), String> {
+fn write_to_buffer<T: Copy>(memory: &DeviceMemory<'_>, data: &[T]) -> Result<(), VkResult> {
     let mut mapped = null_mut();
     let bytes = mem::size_of_val(data) as u64;
-    buffer
-        .memory
-        .vkMapMemory(0, bytes, 0, &raw mut mapped)
-        .map_err(|e| format!("MapMemory(write): {e:?}"))?;
+    memory.vkMapMemory(0, bytes, 0, &raw mut mapped)?;
     unsafe {
         ptr::copy_nonoverlapping(
             data.as_ptr().cast::<u8>(),
@@ -283,23 +273,24 @@ fn write_to_buffer<T: Copy>(buffer: &HostVisibleBuffer<'_>, data: &[T]) -> Resul
             bytes as usize,
         );
     }
-    buffer.memory.vkUnmapMemory();
+    memory.vkUnmapMemory();
     Ok(())
 }
 
-fn read_from_buffer<T: Copy>(buffer: &HostVisibleBuffer<'_>) -> Result<T, String> {
+fn read_from_buffer<T: Copy>(memory: &DeviceMemory<'_>) -> Result<T, String> {
     let mut mapped = null_mut();
-    let bytes = mem::size_of::<T>() as u64;
-    buffer
-        .memory
-        .vkMapMemory(0, bytes, 0, &raw mut mapped)
-        .map_err(|e| format!("MapMemory(read): {e:?}"))?;
+    {
+        let bytes = mem::size_of::<T>() as u64;
+        memory
+            .vkMapMemory(0, bytes, 0, &raw mut mapped)
+            .map_err(|e| format!("MapMemory(read): {e:?}"))?;
+    }
     let value = unsafe { mapped.cast::<T>().read() };
-    buffer.memory.vkUnmapMemory();
+    memory.vkUnmapMemory();
     Ok(value)
 }
 
-fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'a>, String> {
+fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'a>, VkResult> {
     const POOL_SIZE: VkDescriptorPoolSize = VkDescriptorPoolSize::DEFAULT
         .with_type(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
         .with_descriptorCount(2);
@@ -310,9 +301,7 @@ fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'
         )
         .with_poolSizeCount(1)
         .with_pPoolSizes(&POOL_SIZE);
-    device
-        .vkCreateDescriptorPool(&POOL_INFO, null())
-        .map_err(|e| format!("Pool: {e:?}"))
+    device.vkCreateDescriptorPool(&POOL_INFO, null())
 }
 
 fn create_descriptor_set<'a>(
@@ -322,16 +311,19 @@ fn create_descriptor_set<'a>(
     input: &Buffer<'a>,
     output: &Buffer<'a>,
     input_size: u64,
+    output_size: u64,
 ) -> Result<Box<[DescriptorSet<'a>]>, String> {
-    let layouts = [layout.raw()];
-    let alloc_info = VkDescriptorSetAllocateInfo::DEFAULT
-        .with_descriptorSetCount(1)
-        .with_descriptorPool(descriptor_pool.raw())
-        .with_pSetLayouts(layouts.as_ptr());
-    let ds = descriptor_pool
-        .vkAllocateDescriptorSets(&raw const alloc_info)
-        .map_err(|e| format!("DSAlloc: {e:?}"))?;
-
+    let ds: Box<[DescriptorSet<'_>]>;
+    {
+        let layouts = [layout.raw()];
+        let alloc_info = VkDescriptorSetAllocateInfo::DEFAULT
+            .with_descriptorSetCount(1)
+            .with_descriptorPool(descriptor_pool.raw())
+            .with_pSetLayouts(layouts.as_ptr());
+        ds = descriptor_pool
+            .vkAllocateDescriptorSets(&raw const alloc_info)
+            .map_err(|e| format!("DSAlloc: {e:?}"))?;
+    }
     let first_ds = &ds.first().ok_or("No descriptor sets allocated")?;
 
     let b_infos = [
@@ -342,7 +334,7 @@ fn create_descriptor_set<'a>(
         VkDescriptorBufferInfo::DEFAULT
             .with_buffer(output.raw())
             .with_offset(0)
-            .with_range(4),
+            .with_range(output_size),
     ];
     let writes = [
         VkWriteDescriptorSet::DEFAULT

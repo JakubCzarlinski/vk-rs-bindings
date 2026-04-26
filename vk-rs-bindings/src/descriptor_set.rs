@@ -63,9 +63,14 @@ impl<'dev> Drop for DescriptorSet<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(free_fn) = self.parent.table.vkFreeDescriptorSets {
-      unsafe { free_fn(self.device().raw, self.parent.raw, 1, &self.raw) };
-    }
+    unsafe {
+      (self.parent.table.vkFreeDescriptorSets).unwrap_unchecked()(
+        self.device().raw,
+        self.parent.raw,
+        1,
+        &self.raw,
+      )
+    };
   }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

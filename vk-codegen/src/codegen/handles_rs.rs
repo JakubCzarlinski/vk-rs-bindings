@@ -204,37 +204,27 @@ fn gen_handle_module(
         let fp = format_ident!("{}", destroy_name);
         destroy_stmt = if meta.parent_vk_name == "VkInstance" {
             quote! {
-                if let Some(destroy_fn) = self.parent.table.#fp {
-                    unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-                }
+                unsafe { (self.parent.table.#fp).unwrap_unchecked()(self.parent.raw(), self.raw, core::ptr::null()) };
             }
         } else {
             quote! {
-                if let Some(destroy_fn) = self.table.#fp {
-                    unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-                }
+                unsafe { (self.table.#fp).unwrap_unchecked()(self.parent.raw(), self.raw, core::ptr::null()) };
             }
         };
     } else if reg.commands.contains_key(&free_group_name) {
         let fp = format_ident!("{}", free_group_name);
         destroy_stmt = quote! {
-            if let Some(free_fn) = self.parent.table.#fp {
-                unsafe { free_fn(self.device().raw, self.parent.raw, 1, &self.raw) };
-            }
+            unsafe { (self.parent.table.#fp).unwrap_unchecked()(self.device().raw, self.parent.raw, 1, &self.raw) };
         };
     } else if reg.commands.contains_key(&free_name) {
         let fp = format_ident!("{}", free_name);
         destroy_stmt = quote! {
-            if let Some(free_fn) = self.table.#fp {
-                unsafe { free_fn(self.device().raw, self.raw, core::ptr::null()) };
-            }
+            unsafe { (self.table.#fp).unwrap_unchecked()(self.device().raw, self.raw, core::ptr::null()) };
         };
     } else if !custom_free_name.is_empty() && reg.commands.contains_key(&custom_free_name) {
         let fp = format_ident!("{}", custom_free_name);
         destroy_stmt = quote! {
-            if let Some(free_fn) = self.table.#fp {
-                unsafe { free_fn(self.device().raw, self.raw, core::ptr::null()) };
-            }
+            unsafe { (self.table.#fp).unwrap_unchecked()(self.device().raw, self.raw, core::ptr::null()) };
         };
     }
 

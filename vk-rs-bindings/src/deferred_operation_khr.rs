@@ -144,9 +144,13 @@ impl<'dev> Drop for DeferredOperationKHR<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroyDeferredOperationKHR {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroyDeferredOperationKHR).unwrap_unchecked()(
+        self.parent.raw(),
+        self.raw,
+        core::ptr::null(),
+      )
+    };
   }
 }
 #[cfg(feature = "VK_KHR_deferred_host_operations")]

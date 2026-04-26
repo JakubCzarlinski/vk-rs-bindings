@@ -79,9 +79,9 @@ impl<'dev> Drop for DeviceMemory<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(free_fn) = self.table.vkFreeMemory {
-      unsafe { free_fn(self.device().raw, self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkFreeMemory).unwrap_unchecked()(self.device().raw, self.raw, core::ptr::null())
+    };
   }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

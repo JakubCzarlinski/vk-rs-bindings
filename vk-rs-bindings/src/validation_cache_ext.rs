@@ -61,9 +61,13 @@ impl<'dev> Drop for ValidationCacheEXT<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroyValidationCacheEXT {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroyValidationCacheEXT).unwrap_unchecked()(
+        self.parent.raw(),
+        self.raw,
+        core::ptr::null(),
+      )
+    };
   }
 }
 #[cfg(feature = "VK_EXT_validation_cache")]

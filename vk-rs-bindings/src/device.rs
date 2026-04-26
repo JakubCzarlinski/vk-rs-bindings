@@ -10647,8 +10647,7 @@ impl<'inst> Drop for Device<'inst> {
   fn drop(&mut self) {
     if self.raw.0.is_null() {
       return;
-    } else if let Some(destroy) = self.table.vkDestroyDevice {
-      unsafe { destroy(self.raw, core::ptr::null()) };
     }
+    unsafe { self.table.vkDestroyDevice.unwrap_unchecked()(self.raw, core::ptr::null()) };
   }
 }

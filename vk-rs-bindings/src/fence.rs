@@ -54,9 +54,9 @@ impl<'dev> Drop for Fence<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroyFence {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroyFence).unwrap_unchecked()(self.parent.raw(), self.raw, core::ptr::null())
+    };
   }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

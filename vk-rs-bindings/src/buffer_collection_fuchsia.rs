@@ -76,9 +76,13 @@ impl<'dev> Drop for BufferCollectionFUCHSIA<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroyBufferCollectionFUCHSIA {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroyBufferCollectionFUCHSIA).unwrap_unchecked()(
+        self.parent.raw(),
+        self.raw,
+        core::ptr::null(),
+      )
+    };
   }
 }
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]

@@ -47,9 +47,13 @@ impl<'dev> Drop for TensorARM<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroyTensorARM {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroyTensorARM).unwrap_unchecked()(
+        self.parent.raw(),
+        self.raw,
+        core::ptr::null(),
+      )
+    };
   }
 }
 #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]

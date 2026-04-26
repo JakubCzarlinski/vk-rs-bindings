@@ -54,9 +54,13 @@ impl<'dev> Drop for ShaderModule<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroyShaderModule {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroyShaderModule).unwrap_unchecked()(
+        self.parent.raw(),
+        self.raw,
+        core::ptr::null(),
+      )
+    };
   }
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]

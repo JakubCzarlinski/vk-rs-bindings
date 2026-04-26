@@ -1525,8 +1525,7 @@ impl<'lib> Drop for Instance<'lib> {
   fn drop(&mut self) {
     if self.raw.0.is_null() {
       return;
-    } else if let Some(destroy) = self.table.vkDestroyInstance {
-      unsafe { destroy(self.raw, core::ptr::null()) };
     }
+    unsafe { self.table.vkDestroyInstance.unwrap_unchecked()(self.raw, core::ptr::null()) };
   }
 }

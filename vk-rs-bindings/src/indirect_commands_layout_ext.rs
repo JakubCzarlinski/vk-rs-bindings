@@ -47,9 +47,13 @@ impl<'dev> Drop for IndirectCommandsLayoutEXT<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroyIndirectCommandsLayoutEXT {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroyIndirectCommandsLayoutEXT).unwrap_unchecked()(
+        self.parent.raw(),
+        self.raw,
+        core::ptr::null(),
+      )
+    };
   }
 }
 #[cfg(feature = "VK_EXT_device_generated_commands")]

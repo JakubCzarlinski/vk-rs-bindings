@@ -47,9 +47,13 @@ impl<'dev> Drop for SemaphoreSciSyncPoolNV<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(destroy_fn) = self.table.vkDestroySemaphoreSciSyncPoolNV {
-      unsafe { destroy_fn(self.parent.raw(), self.raw, core::ptr::null()) };
-    }
+    unsafe {
+      (self.table.vkDestroySemaphoreSciSyncPoolNV).unwrap_unchecked()(
+        self.parent.raw(),
+        self.raw,
+        core::ptr::null(),
+      )
+    };
   }
 }
 #[cfg(feature = "VK_NV_external_sci_sync2")]

@@ -2775,9 +2775,14 @@ impl<'dev> Drop for CommandBuffer<'dev> {
     if self.raw.0.is_null() {
       return;
     }
-    if let Some(free_fn) = self.parent.table.vkFreeCommandBuffers {
-      unsafe { free_fn(self.device().raw, self.parent.raw, 1, &self.raw) };
-    }
+    unsafe {
+      (self.parent.table.vkFreeCommandBuffers).unwrap_unchecked()(
+        self.device().raw,
+        self.parent.raw,
+        1,
+        &self.raw,
+      )
+    };
   }
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]

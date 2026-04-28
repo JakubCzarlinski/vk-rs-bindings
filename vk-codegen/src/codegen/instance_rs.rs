@@ -99,16 +99,16 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
             pub const EMPTY: Self = Self { #empty_ts };
 
             /// Resolve all instance commands from the given loader closure.
-            pub fn load<F>(mut loader: F) -> Self
-            where F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()> {
+            pub fn load<F>(loader: F) -> Self
+            where F: Fn(*const c_char) -> Option<unsafe extern "system" fn()> {
                 Self {
                     #init_ts
                 }
             }
 
             /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, …)`.
-            pub fn load_for_instance<F>(instance: VkInstance, mut get_proc: F) -> Self
-            where F: FnMut(VkInstance, *const c_char) -> Option<unsafe extern "system" fn()> {
+            pub fn load_for_instance<F>(instance: VkInstance, get_proc: F) -> Self
+            where F: Fn(VkInstance, *const c_char) -> Option<unsafe extern "system" fn()> {
                 Self::load(|name| get_proc(instance, name))
             }
         }

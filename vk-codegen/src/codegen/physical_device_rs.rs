@@ -63,7 +63,7 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl PhysicalDeviceDispatchTable {
             pub const EMPTY: Self = Self { #empty_ts };
-            pub fn load<F>(mut loader: F) -> Self where F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()> {
+            pub fn load<F>(loader: F) -> Self where F: Fn(*const c_char) -> Option<unsafe extern "system" fn()> {
                 Self {
                     #init_ts
                 }

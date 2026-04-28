@@ -201,8 +201,8 @@ fn gen_entry_dispatch_table(reg: &Registry) -> TokenStream {
             pub const EMPTY: Self = Self { #empty_ts };
 
             /// Resolve all pre-instance commands from the given loader closure.
-            pub fn load<F>(mut loader: F) -> Self
-            where F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()> {
+            pub fn load<F>(loader: F) -> Self
+            where F: Fn(*const c_char) -> Option<unsafe extern "system" fn()> {
                 Self {
                     #init_ts
                 }

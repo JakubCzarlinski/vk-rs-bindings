@@ -3,8 +3,8 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, ctype_to_tokens, enabled_set, is_cmd_buf_cmd, kw_escape,
-    safe_method, safe_method_unit_with_overrides, strip_first_param,
+    Tier, c_str_lit, collect_groups, enabled_set, is_cmd_buf_cmd, params_to_tokens, safe_method,
+    safe_method_unit_with_overrides, strip_first_param,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -282,7 +282,7 @@ fn gen_create_command_pool(providers: &[String]) -> TokenStream {
         #[inline]
         pub fn vkCreateCommandPool<'dev>(
             &'dev self,
-            pCreateInfo: *const VkCommandPoolCreateInfo,
+            pCreateInfo: &VkCommandPoolCreateInfo,
             pAllocator: *const VkAllocationCallbacks,
         ) -> Result<crate::command_pool::CommandPool<'dev>, VkResult> {
             let mut raw = VkCommandPool::NULL;
@@ -305,14 +305,7 @@ fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
         .filter(|m| m.ty.base != "VkPipeline")
         .cloned()
         .collect();
-    let (p_defs, p_fwd): (Vec<_>, Vec<_>) = sig_params
-        .iter()
-        .map(|m| {
-            let n = format_ident!("{}", kw_escape(&m.name));
-            let t = ctype_to_tokens(&m.ty);
-            (quote! { #n: #t }, quote! { #n })
-        })
-        .unzip();
+    let (p_defs, p_fwd) = params_to_tokens(&sig_params);
 
     quote! {
         #cfg

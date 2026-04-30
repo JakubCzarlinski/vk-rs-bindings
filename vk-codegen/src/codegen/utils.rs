@@ -345,10 +345,33 @@ pub fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream
         .iter()
         .map(|m| {
             let n = format_ident!("{}", kw_escape(&m.name));
-            let t = ctype_to_tokens(&m.ty);
+            let t = param_sig_type(m);
             (quote! { #n: #t }, quote! { #n })
         })
         .unzip()
+}
+
+#[must_use]
+pub fn param_sig_type(m: &Member) -> TokenStream {
+    // In safe wrappers, prefer references for required single-pointer Vulkan
+    // params that are not array-like (for example `pCreateInfo: &Vk*CreateInfo`).
+    // Keep optional and array/len-linked pointers raw so null and pointer
+    // semantics remain explicit in the signature.
+    if m.ty.pointer_depth == 1
+        && m.optional == Optional::False
+        && m.len.is_none()
+        && m.ty.base.starts_with("Vk")
+        && m.ty.base != "void"
+    {
+        let base = base_type_tokens(&m.ty.base);
+        if m.ty.is_const {
+            quote! { &#base }
+        } else {
+            quote! { &mut #base }
+        }
+    } else {
+        ctype_to_tokens(&m.ty)
+    }
 }
 
 #[must_use]

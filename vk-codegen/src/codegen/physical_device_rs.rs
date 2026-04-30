@@ -3,7 +3,7 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, ctype_to_tokens, enabled_set, kw_escape, safe_method,
+    Tier, c_str_lit, collect_groups, enabled_set, params_to_tokens, safe_method,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -135,14 +135,8 @@ fn gen_create_device(
         .iter()
         .filter(|m| !(m.ty.pointer_depth == 1 && !m.ty.is_const && m.ty.base == "VkDevice"))
         .collect();
-    let (p_defs, p_fwd): (Vec<_>, Vec<_>) = sig_params
-        .iter()
-        .map(|m| {
-            let n = format_ident!("{}", kw_escape(&m.name));
-            let t = ctype_to_tokens(&m.ty);
-            (quote! { #n: #t }, quote! { #n })
-        })
-        .unzip();
+    let sig_params_owned: Vec<_> = sig_params.into_iter().cloned().collect();
+    let (p_defs, p_fwd) = params_to_tokens(&sig_params_owned);
 
     let mut tb_load = TokenStream::new();
     let mut tb_args = TokenStream::new();

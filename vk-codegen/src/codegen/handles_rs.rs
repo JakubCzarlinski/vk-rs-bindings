@@ -2,7 +2,8 @@ use crate::cfggen::cfg_any;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    c_str_lit, collect_groups, enabled_set, safe_method, safe_method_unit_with_overrides,
+    c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
+    safe_method_unit_with_overrides,
 };
 use crate::ir::{Command, Registry, TypedefKind};
 use proc_macro2::TokenStream;
@@ -246,11 +247,11 @@ fn gen_handle_module(
             });
 
             if cmd_name == "vkAllocateCommandBuffers" {
-                methods_ts.extend(gen_allocate_command_buffers(providers));
+                methods_ts.extend(gen_allocate_command_buffers(cmd, providers));
             } else if cmd_name == "vkFreeCommandBuffers" {
-                methods_ts.extend(gen_free_command_buffers(providers));
+                methods_ts.extend(gen_free_command_buffers(cmd, providers));
             } else if cmd_name == "vkAllocateDescriptorSets" {
-                methods_ts.extend(gen_allocate_descriptor_sets(providers));
+                methods_ts.extend(gen_allocate_descriptor_sets(cmd, providers));
             } else if cmd_name == "vkFreeDescriptorSets" {
                 methods_ts.extend(gen_free_descriptor_sets(cmd, providers));
             } else if is_self_destructor_command(cmd_name, cmd, meta) {
@@ -392,17 +393,22 @@ fn gen_handle_module(
     }
 }
 
-fn gen_allocate_command_buffers(providers: &[String]) -> TokenStream {
+fn gen_allocate_command_buffers(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
 
-    quote! {
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkAllocateCommandBuffers<'pool>(
             &'pool self,
-            pAllocateInfo: *const VkCommandBufferAllocateInfo,
+            pAllocateInfo: &VkCommandBufferAllocateInfo,
         ) -> Result<alloc::boxed::Box<[crate::command_buffer::CommandBuffer<'pool>]>, VkResult> {
-            let count = unsafe { (*pAllocateInfo).commandBufferCount };
+            let count = pAllocateInfo.commandBufferCount;
             let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
             let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr().cast()) };
@@ -415,12 +421,18 @@ fn gen_allocate_command_buffers(providers: &[String]) -> TokenStream {
                 table: &self.device().command_buffer_table
             }).collect())
         }
-    }
+    });
+    token_stream
 }
 
-fn gen_free_command_buffers(providers: &[String]) -> TokenStream {
+fn gen_free_command_buffers(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    quote! {
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkFreeCommandBuffers(
@@ -431,20 +443,26 @@ fn gen_free_command_buffers(providers: &[String]) -> TokenStream {
             let fp = unsafe { self.table.vkFreeCommandBuffers.unwrap_unchecked() };
             unsafe { fp(self.device().raw, self.raw, commandBufferCount, pCommandBuffers) }
         }
-    }
+    });
+    token_stream
 }
 
-fn gen_allocate_descriptor_sets(providers: &[String]) -> TokenStream {
+fn gen_allocate_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
 
-    quote! {
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkAllocateDescriptorSets<'pool>(
             &'pool self,
-            pAllocateInfo: *const VkDescriptorSetAllocateInfo,
+            pAllocateInfo: &VkDescriptorSetAllocateInfo,
         ) -> Result<alloc::boxed::Box<[crate::descriptor_set::DescriptorSet<'pool>]>, VkResult> {
-            let count = unsafe { (*pAllocateInfo).descriptorSetCount };
+            let count = pAllocateInfo.descriptorSetCount;
             let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(count as usize);
             let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
             let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr().cast()) };
@@ -457,12 +475,18 @@ fn gen_allocate_descriptor_sets(providers: &[String]) -> TokenStream {
                 table: &self.device().descriptor_set_table
             }).collect())
         }
-    }
+    });
+    token_stream
 }
 
-fn gen_free_descriptor_sets(_cmd: &Command, providers: &[String]) -> TokenStream {
+fn gen_free_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    quote! {
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkFreeDescriptorSets(
@@ -474,5 +498,6 @@ fn gen_free_descriptor_sets(_cmd: &Command, providers: &[String]) -> TokenStream
             let r = unsafe { fp(self.device().raw, self.raw, descriptorSetCount, pDescriptorSets) };
             if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
         }
-    }
+    });
+    token_stream
 }

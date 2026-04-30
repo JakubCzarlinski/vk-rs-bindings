@@ -1,6 +1,6 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::pretty;
-use crate::codegen::utils::{c_str_lit, ctype_to_tokens, kw_escape, safe_method};
+use crate::codegen::utils::{c_str_lit, params_to_tokens, safe_method};
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
@@ -307,14 +307,8 @@ fn gen_create_instance(
         .iter()
         .filter(|m| !(m.ty.pointer_depth == 1 && !m.ty.is_const && m.ty.base == "VkInstance"))
         .collect();
-    let (p_defs, p_fwd): (Vec<_>, Vec<_>) = sig_params
-        .iter()
-        .map(|m| {
-            let n = format_ident!("{}", kw_escape(&m.name));
-            let t = ctype_to_tokens(&m.ty);
-            (quote! { #n: #t }, quote! { #n })
-        })
-        .unzip();
+    let sig_params_owned: Vec<_> = sig_params.into_iter().cloned().collect();
+    let (p_defs, p_fwd) = params_to_tokens(&sig_params_owned);
 
     let mut handle_load = TokenStream::new();
     let mut handle_args = TokenStream::new();

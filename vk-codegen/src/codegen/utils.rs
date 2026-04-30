@@ -353,14 +353,13 @@ pub fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream
 
 #[must_use]
 pub fn param_sig_type(m: &Member) -> TokenStream {
-    // In safe wrappers, prefer references for required single-pointer Vulkan
+    // In safe wrappers, prefer references for required single-pointer
     // params that are not array-like (for example `pCreateInfo: &Vk*CreateInfo`).
     // Keep optional and array/len-linked pointers raw so null and pointer
     // semantics remain explicit in the signature.
     if m.ty.pointer_depth == 1
         && m.optional == Optional::False
         && m.len.is_none()
-        && m.ty.base.starts_with("Vk")
         && m.ty.base != "void"
     {
         let base = base_type_tokens(&m.ty.base);
@@ -372,6 +371,74 @@ pub fn param_sig_type(m: &Member) -> TokenStream {
     } else {
         ctype_to_tokens(&m.ty)
     }
+}
+
+#[derive(Clone, Copy, Debug)]
+struct SliceParamPair {
+    count_full_idx: usize,
+    ptr_full_idx: usize,
+}
+
+#[must_use]
+fn collect_required_slice_pairs(cmd: &Command, strip_count: usize) -> Vec<SliceParamPair> {
+    let mut pairs = Vec::new();
+    for (ptr_idx, ptr) in cmd.params.iter().enumerate().skip(strip_count) {
+        // Required pointer + count pairs become slices in safe wrappers.
+        if ptr.ty.pointer_depth != 1 || ptr.optional != Optional::False || ptr.ty.base == "void" {
+            continue;
+        }
+        let Some(len_name) = ptr.len.as_deref() else {
+            continue;
+        };
+        let Some((count_idx, count)) = cmd
+            .params
+            .iter()
+            .enumerate()
+            .skip(strip_count)
+            .find(|(_, m)| m.name == len_name)
+        else {
+            continue;
+        };
+        if count.ty.pointer_depth != 0 || count.ty.is_array.is_some() {
+            continue;
+        }
+        pairs.push(SliceParamPair {
+            count_full_idx: count_idx,
+            ptr_full_idx: ptr_idx,
+        });
+    }
+    pairs
+}
+
+#[must_use]
+fn params_to_tokens_with_required_slices(
+    cmd: &Command,
+    sig_params: &[Member],
+    strip_count: usize,
+) -> Vec<TokenStream> {
+    let pairs = collect_required_slice_pairs(cmd, strip_count);
+    let mut defs = Vec::new();
+    for (i, m) in sig_params.iter().enumerate() {
+        let full_idx = i + strip_count;
+        if pairs.iter().any(|p| p.count_full_idx == full_idx) {
+            continue;
+        }
+
+        let n = format_ident!("{}", kw_escape(&m.name));
+        if pairs.iter().any(|p| p.ptr_full_idx == full_idx) {
+            let elem = base_type_tokens(&m.ty.base);
+            let t = if m.ty.is_const {
+                quote! { &[#elem] }
+            } else {
+                quote! { &mut [#elem] }
+            };
+            defs.push(quote! { #n: #t });
+        } else {
+            let t = param_sig_type(m);
+            defs.push(quote! { #n: #t });
+        }
+    }
+    defs
 }
 
 #[must_use]
@@ -541,8 +608,19 @@ pub fn safe_method(
         }
         fwd[1] = quote! { #self_handle };
     }
+    for pair in collect_required_slice_pairs(cmd, strip_count) {
+        let ptr_param = &cmd.params[pair.ptr_full_idx];
+        let ptr_name = format_ident!("{}", kw_escape(&ptr_param.name));
+        let count_ty = ctype_to_tokens(&cmd.params[pair.count_full_idx].ty);
+        fwd[pair.count_full_idx] = quote! { #ptr_name.len() as #count_ty };
+        fwd[pair.ptr_full_idx] = if ptr_param.ty.is_const {
+            quote! { #ptr_name.as_ptr() }
+        } else {
+            quote! { #ptr_name.as_mut_ptr() }
+        };
+    }
 
-    let (p_defs, _) = params_to_tokens(sig_params);
+    let p_defs = params_to_tokens_with_required_slices(cmd, sig_params, strip_count);
 
     let depr = deprecate_attr(&cmd.depr);
     let doc = create_doc(cmd, providers);
@@ -790,8 +868,19 @@ pub fn safe_method_unit_with_overrides(
         }
         fwd[1] = quote! { #self_handle };
     }
+    for pair in collect_required_slice_pairs(cmd, strip_count) {
+        let ptr_param = &cmd.params[pair.ptr_full_idx];
+        let ptr_name = format_ident!("{}", kw_escape(&ptr_param.name));
+        let count_ty = ctype_to_tokens(&cmd.params[pair.count_full_idx].ty);
+        fwd[pair.count_full_idx] = quote! { #ptr_name.len() as #count_ty };
+        fwd[pair.ptr_full_idx] = if ptr_param.ty.is_const {
+            quote! { #ptr_name.as_ptr() }
+        } else {
+            quote! { #ptr_name.as_mut_ptr() }
+        };
+    }
 
-    let (p_defs, _) = params_to_tokens(sig_params);
+    let p_defs = params_to_tokens_with_required_slices(cmd, sig_params, strip_count);
     let depr = deprecate_attr(&cmd.depr);
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();

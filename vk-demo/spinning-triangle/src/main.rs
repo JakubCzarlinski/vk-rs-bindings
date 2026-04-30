@@ -408,14 +408,13 @@ fn create_device<'a>(
     const PRIORITIES: [f32; 1] = [1.0];
     let queue_info = VkDeviceQueueCreateInfo::DEFAULT
         .with_queueFamilyIndex(queue_family_index)
-        .with_queueCount(1)
-        .with_pQueuePriorities(PRIORITIES.as_ptr());
+        .with_pQueuePriorities(&PRIORITIES);
+    let queue_infos = [queue_info];
 
     let enabled_extensions = [VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
 
     let device_info = VkDeviceCreateInfo::DEFAULT
-        .with_queueCreateInfoCount(1)
-        .with_pQueueCreateInfos(&queue_info)
+        .with_pQueueCreateInfos(&queue_infos)
         .with_enabledExtensionCount(enabled_extensions.len() as u32)
         .with_ppEnabledExtensionNames(enabled_extensions.as_ptr());
 
@@ -605,11 +604,11 @@ fn create_render_pass<'a>(device: &'a Device<'a>, color_format: VkFormat) -> Ren
     let color_ref = VkAttachmentReference2::DEFAULT
         .with_attachment(0)
         .with_layout(VkImageLayout::VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+    let color_attachments = [color_ref];
 
     let subpass = VkSubpassDescription2::DEFAULT
         .with_pipelineBindPoint(VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS)
-        .with_colorAttachmentCount(1)
-        .with_pColorAttachments(&color_ref);
+        .with_pColorAttachments(&color_attachments);
 
     let dependency = VkSubpassDependency2::DEFAULT
         .with_srcSubpass(VK_SUBPASS_EXTERNAL)
@@ -622,14 +621,14 @@ fn create_render_pass<'a>(device: &'a Device<'a>, color_format: VkFormat) -> Ren
         )
         .with_srcAccessMask(0)
         .with_dstAccessMask(VkAccessFlagBits2::VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT.0 as u32);
+    let attachments = [color_attachment];
+    let subpasses = [subpass];
+    let dependencies = [dependency];
 
     let info = VkRenderPassCreateInfo2::DEFAULT
-        .with_attachmentCount(1)
-        .with_pAttachments(&color_attachment)
-        .with_subpassCount(1)
-        .with_pSubpasses(&subpass)
-        .with_dependencyCount(1)
-        .with_pDependencies(&dependency);
+        .with_pAttachments(&attachments)
+        .with_pSubpasses(&subpasses)
+        .with_pDependencies(&dependencies);
 
     device
         .vkCreateRenderPass2(&info, null())
@@ -695,15 +694,16 @@ fn create_graphics_pipeline<'a>(
     ];
     let dynamic = VkPipelineDynamicStateCreateInfo::DEFAULT
         .with_dynamicStateCount(dynamic_states.len() as u32)
-        .with_pDynamicStates(dynamic_states.as_ptr());
+        .with_pDynamicStates(&dynamic_states);
 
     let push_constant_range = VkPushConstantRange::DEFAULT
         .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT.0)
         .with_offset(0)
         .with_size(std::mem::size_of::<f32>() as u32);
+    let push_constant_ranges = [push_constant_range];
     let layout_info = VkPipelineLayoutCreateInfo::DEFAULT
         .with_pushConstantRangeCount(1)
-        .with_pPushConstantRanges(&push_constant_range);
+        .with_pPushConstantRanges(&push_constant_ranges);
     let pipeline_layout = device
         .vkCreatePipelineLayout(&layout_info, null())
         .expect("vkCreatePipelineLayout failed");
@@ -753,8 +753,7 @@ fn create_framebuffers<'a>(
             let attachments = [view.raw()];
             let info = VkFramebufferCreateInfo::DEFAULT
                 .with_renderPass(render_pass)
-                .with_attachmentCount(1)
-                .with_pAttachments(attachments.as_ptr())
+                .with_pAttachments(&attachments)
                 .with_width(extent.width)
                 .with_height(extent.height)
                 .with_layers(1);
@@ -912,13 +911,13 @@ fn draw_frame(
     let cmd_info = VkCommandBufferSubmitInfo::DEFAULT
         .with_commandBuffer(command_buffer.raw())
         .with_deviceMask(0);
+    let wait_infos = [wait_semaphore];
+    let cmd_infos = [cmd_info];
+    let signal_infos = [signal_semaphore];
     let submit_info = VkSubmitInfo2::DEFAULT
-        .with_waitSemaphoreInfoCount(1)
-        .with_pWaitSemaphoreInfos(&wait_semaphore)
-        .with_commandBufferInfoCount(1)
-        .with_pCommandBufferInfos(&cmd_info)
-        .with_signalSemaphoreInfoCount(1)
-        .with_pSignalSemaphoreInfos(&signal_semaphore);
+        .with_pWaitSemaphoreInfos(&wait_infos)
+        .with_pCommandBufferInfos(&cmd_infos)
+        .with_pSignalSemaphoreInfos(&signal_infos);
 
     queue
         .vkQueueSubmit2(&[submit_info], sync.in_flight_fence.raw())
@@ -928,11 +927,9 @@ fn draw_frame(
     let swapchains = [swapchain_state.swapchain.raw()];
     let image_indices = [image_index];
     let present_info = VkPresentInfoKHR::DEFAULT
-        .with_waitSemaphoreCount(1)
-        .with_pWaitSemaphores(wait_semaphores.as_ptr())
-        .with_swapchainCount(1)
-        .with_pSwapchains(swapchains.as_ptr())
-        .with_pImageIndices(image_indices.as_ptr());
+        .with_pWaitSemaphores(&wait_semaphores)
+        .with_pSwapchains(&swapchains)
+        .with_pImageIndices(&image_indices);
 
     window.pre_present_notify();
 
@@ -983,8 +980,7 @@ fn record_command_buffer(
                 .with_offset(VkOffset2D::DEFAULT.with_x(0).with_y(0))
                 .with_extent(extent),
         )
-        .with_clearValueCount(1)
-        .with_pClearValues(clear_values.as_ptr());
+        .with_pClearValues(&clear_values);
 
     let subpass_begin =
         VkSubpassBeginInfo::DEFAULT.with_contents(VkSubpassContents::VK_SUBPASS_CONTENTS_INLINE);

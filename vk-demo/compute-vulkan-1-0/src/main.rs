@@ -34,9 +34,8 @@ const BINDINGS: [VkDescriptorSetLayoutBinding; 2] = [
         .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
 ];
 
-const DSL_INFO: VkDescriptorSetLayoutCreateInfo = VkDescriptorSetLayoutCreateInfo::DEFAULT
-    .with_bindingCount(2)
-    .with_pBindings(BINDINGS.as_ptr());
+const DSL_INFO: VkDescriptorSetLayoutCreateInfo =
+    VkDescriptorSetLayoutCreateInfo::DEFAULT.with_pBindings(&BINDINGS);
 
 const SHADER_MODULE_INFO: VkShaderModuleCreateInfo = VkShaderModuleCreateInfo::DEFAULT
     .with_codeSize(COMPUTE_SHADER_SPV.len())
@@ -158,15 +157,13 @@ fn create_device<'inst>(instance: &'inst Instance) -> (Device<'inst>, PhysicalDe
 
     const PRIORITIES: [f32; 1] = [1.0f32];
     let queue_info = VkDeviceQueueCreateInfo::DEFAULT
-        .with_queueCount(1)
-        .with_pQueuePriorities(PRIORITIES.as_ptr())
+        .with_pQueuePriorities(&PRIORITIES)
         .with_queueFamilyIndex(queue_family_index);
+    let queue_infos = [queue_info];
 
     let device = physical_device
         .vkCreateDevice(
-            &DEVICE_CREATE_INFO
-                .with_queueCreateInfoCount(1)
-                .with_pQueueCreateInfos(&raw const queue_info),
+            &DEVICE_CREATE_INFO.with_pQueueCreateInfos(&queue_infos),
             null(),
         )
         .expect("Failed to create logical device");
@@ -294,14 +291,14 @@ fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'
     const POOL_SIZE: VkDescriptorPoolSize = VkDescriptorPoolSize::DEFAULT
         .with_type(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
         .with_descriptorCount(2);
-    const POOL_INFO: VkDescriptorPoolCreateInfo = VkDescriptorPoolCreateInfo::DEFAULT
+    let pool_sizes = [POOL_SIZE];
+    let pool_info: VkDescriptorPoolCreateInfo = VkDescriptorPoolCreateInfo::DEFAULT
         .with_maxSets(1)
         .with_flags(
             vk::VkDescriptorPoolCreateFlagBits::VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT.0,
         )
-        .with_poolSizeCount(1)
-        .with_pPoolSizes(&POOL_SIZE);
-    device.vkCreateDescriptorPool(&POOL_INFO, null())
+        .with_pPoolSizes(&pool_sizes);
+    device.vkCreateDescriptorPool(&pool_info, null())
 }
 
 fn create_descriptor_set<'a>(
@@ -317,9 +314,8 @@ fn create_descriptor_set<'a>(
     {
         let layouts = [layout.raw()];
         let alloc_info = VkDescriptorSetAllocateInfo::DEFAULT
-            .with_descriptorSetCount(1)
             .with_descriptorPool(descriptor_pool.raw())
-            .with_pSetLayouts(layouts.as_ptr());
+            .with_pSetLayouts(&layouts);
         ds = descriptor_pool
             .vkAllocateDescriptorSets(&alloc_info)
             .map_err(|e| format!("DSAlloc: {e:?}"))?;
@@ -339,15 +335,13 @@ fn create_descriptor_set<'a>(
     let writes = [
         VkWriteDescriptorSet::DEFAULT
             .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
             .with_dstBinding(0)
-            .with_pBufferInfo(&raw const b_infos[0])
+            .with_pBufferInfo(&b_infos[0..1])
             .with_dstSet(first_ds.raw()),
         VkWriteDescriptorSet::DEFAULT
             .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
             .with_dstBinding(1)
-            .with_pBufferInfo(&raw const b_infos[1])
+            .with_pBufferInfo(&b_infos[1..2])
             .with_dstSet(first_ds.raw()),
     ];
     device.vkUpdateDescriptorSets(&writes, &[]);
@@ -401,10 +395,8 @@ fn run_compute<'a>(
         .vkEndCommandBuffer()
         .map_err(|e| format!("EndCB: {e:?}"))?;
     println!("Submitting compute command buffer...");
-    let command_buffer = cmd_buffer.raw();
-    let submit = VkSubmitInfo::DEFAULT
-        .with_commandBufferCount(1)
-        .with_pCommandBuffers(&raw const command_buffer);
+    let command_buffers = [cmd_buffer.raw()];
+    let submit = VkSubmitInfo::DEFAULT.with_pCommandBuffers(&command_buffers);
     queue
         .vkQueueSubmit(&[submit], VkFence::NULL)
         .map_err(|e| format!("Submit: {e:?}"))?;

@@ -22,9 +22,8 @@ pub(crate) fn bind_buffer<'vk>(
             return Err(AllocatorError::GroupModeUnsupported);
         }
     };
-    let group_info = vk::VkBindBufferMemoryDeviceGroupInfo::DEFAULT
-        .with_deviceIndexCount(device_indices.len() as u32)
-        .with_pDeviceIndices(device_indices.as_ptr());
+    let group_info =
+        vk::VkBindBufferMemoryDeviceGroupInfo::DEFAULT.with_pDeviceIndices(&device_indices);
     let bind = vk::VkBindBufferMemoryInfo::DEFAULT
         .with_pNext((&raw const group_info).cast())
         .with_buffer(buffer.raw())
@@ -51,10 +50,8 @@ pub(crate) fn bind_image<'vk>(
         }
     };
     let group_info = vk::VkBindImageMemoryDeviceGroupInfo::DEFAULT
-        .with_deviceIndexCount(device_indices.len() as u32)
-        .with_pDeviceIndices(device_indices.as_ptr())
-        .with_splitInstanceBindRegionCount(split_regions.len() as u32)
-        .with_pSplitInstanceBindRegions(split_regions.as_ptr());
+        .with_pDeviceIndices(&device_indices)
+        .with_pSplitInstanceBindRegions(split_regions);
     let bind = vk::VkBindImageMemoryInfo::DEFAULT
         .with_pNext((&raw const group_info).cast())
         .with_image(image.raw())

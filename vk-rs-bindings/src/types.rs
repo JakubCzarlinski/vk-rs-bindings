@@ -725,11 +725,9 @@ impl VkDeviceObjectReservationCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPipelineCacheCreateInfos(
-    mut self,
-    val: *const VkPipelineCacheCreateInfo,
-  ) -> Self {
-    self.pPipelineCacheCreateInfos = val;
+  pub const fn with_pPipelineCacheCreateInfos(mut self, val: &[VkPipelineCacheCreateInfo]) -> Self {
+    self.pipelineCacheCreateInfoCount = val.len() as u32;
+    self.pPipelineCacheCreateInfos = val.as_ptr();
     self
   }
   #[inline]
@@ -740,8 +738,9 @@ impl VkDeviceObjectReservationCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPipelinePoolSizes(mut self, val: *const VkPipelinePoolSize) -> Self {
-    self.pPipelinePoolSizes = val;
+  pub const fn with_pPipelinePoolSizes(mut self, val: &[VkPipelinePoolSize]) -> Self {
+    self.pipelinePoolSizeCount = val.len() as u32;
+    self.pPipelinePoolSizes = val.as_ptr();
     self
   }
   #[inline]
@@ -2022,8 +2021,9 @@ impl VkAttachmentSampleCountInfoAMD {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachmentSamples(mut self, val: *const VkSampleCountFlagBits) -> Self {
-    self.pColorAttachmentSamples = val;
+  pub const fn with_pColorAttachmentSamples(mut self, val: &[VkSampleCountFlagBits]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachmentSamples = val.as_ptr();
     self
   }
   #[inline]
@@ -3452,11 +3452,9 @@ impl VkDataGraphPipelineCreateInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pResourceInfos(
-    mut self,
-    val: *const VkDataGraphPipelineResourceInfoARM,
-  ) -> Self {
-    self.pResourceInfos = val;
+  pub const fn with_pResourceInfos(mut self, val: &[VkDataGraphPipelineResourceInfoARM]) -> Self {
+    self.resourceInfoCount = val.len() as u32;
+    self.pResourceInfos = val.as_ptr();
     self
   }
 }
@@ -3955,8 +3953,9 @@ impl VkDataGraphPipelineIdentifierCreateInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pIdentifier(mut self, val: *const u8) -> Self {
-    self.pIdentifier = val;
+  pub const fn with_pIdentifier(mut self, val: &[u8]) -> Self {
+    self.identifierSize = val.len() as u32;
+    self.pIdentifier = val.as_ptr();
     self
   }
 }
@@ -4284,9 +4283,10 @@ impl VkDataGraphProcessingEngineCreateInfoARM {
   #[inline]
   pub const fn with_pProcessingEngines(
     mut self,
-    val: *mut VkPhysicalDeviceDataGraphProcessingEngineARM,
+    val: &mut [VkPhysicalDeviceDataGraphProcessingEngineARM],
   ) -> Self {
-    self.pProcessingEngines = val;
+    self.processingEngineCount = val.len() as u32;
+    self.pProcessingEngines = val.as_mut_ptr();
     self
   }
 }
@@ -4385,8 +4385,9 @@ impl VkQueueFamilyDataGraphTOSAPropertiesARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pProfiles(mut self, val: *const VkDataGraphTOSANameQualityARM) -> Self {
-    self.pProfiles = val;
+  pub const fn with_pProfiles(mut self, val: &[VkDataGraphTOSANameQualityARM]) -> Self {
+    self.profileCount = val.len() as u32;
+    self.pProfiles = val.as_ptr();
     self
   }
   #[inline]
@@ -4397,8 +4398,9 @@ impl VkQueueFamilyDataGraphTOSAPropertiesARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pExtensions(mut self, val: *const VkDataGraphTOSANameQualityARM) -> Self {
-    self.pExtensions = val;
+  pub const fn with_pExtensions(mut self, val: &[VkDataGraphTOSANameQualityARM]) -> Self {
+    self.extensionCount = val.len() as u32;
+    self.pExtensions = val.as_ptr();
     self
   }
   #[inline]
@@ -4797,9 +4799,10 @@ impl VkDataGraphPipelineSingleNodeCreateInfoARM {
   #[inline]
   pub const fn with_pConnections(
     mut self,
-    val: *const VkDataGraphPipelineSingleNodeConnectionARM,
+    val: &[VkDataGraphPipelineSingleNodeConnectionARM],
   ) -> Self {
-    self.pConnections = val;
+    self.connectionCount = val.len() as u32;
+    self.pConnections = val.as_ptr();
     self
   }
 }
@@ -5270,8 +5273,9 @@ impl VkRenderPassPerformanceCountersByRegionBeginInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCounterAddresses(mut self, val: *const VkDeviceAddress) -> Self {
-    self.pCounterAddresses = val;
+  pub const fn with_pCounterAddresses(mut self, val: &[VkDeviceAddress]) -> Self {
+    self.counterAddressCount = val.len() as u32;
+    self.pCounterAddresses = val.as_ptr();
     self
   }
   #[inline]
@@ -5287,8 +5291,9 @@ impl VkRenderPassPerformanceCountersByRegionBeginInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCounterIndices(mut self, val: *mut u32) -> Self {
-    self.pCounterIndices = val;
+  pub const fn with_pCounterIndices(mut self, val: &mut [u32]) -> Self {
+    self.counterIndexCount = val.len() as u32;
+    self.pCounterIndices = val.as_mut_ptr();
     self
   }
 }
@@ -5517,8 +5522,9 @@ impl VkRenderPassStripeBeginInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStripeInfos(mut self, val: *const VkRenderPassStripeInfoARM) -> Self {
-    self.pStripeInfos = val;
+  pub const fn with_pStripeInfos(mut self, val: &[VkRenderPassStripeInfoARM]) -> Self {
+    self.stripeInfoCount = val.len() as u32;
+    self.pStripeInfos = val.as_ptr();
     self
   }
 }
@@ -5568,8 +5574,9 @@ impl VkRenderPassStripeSubmitInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStripeSemaphoreInfos(mut self, val: *const VkSemaphoreSubmitInfo) -> Self {
-    self.pStripeSemaphoreInfos = val;
+  pub const fn with_pStripeSemaphoreInfos(mut self, val: &[VkSemaphoreSubmitInfo]) -> Self {
+    self.stripeSemaphoreInfoCount = val.len() as u32;
+    self.pStripeSemaphoreInfos = val.as_ptr();
     self
   }
 }
@@ -6332,8 +6339,9 @@ impl VkTensorDescriptionARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDimensions(mut self, val: *const i64) -> Self {
-    self.pDimensions = val;
+  pub const fn with_pDimensions(mut self, val: &[i64]) -> Self {
+    self.dimensionCount = val.len() as u32;
+    self.pDimensions = val.as_ptr();
     self
   }
   /** # Safety
@@ -6401,8 +6409,8 @@ impl VkTensorCreateInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDescription(mut self, val: *const VkTensorDescriptionARM) -> Self {
-    self.pDescription = val;
+  pub const fn with_pDescription(mut self, val: &VkTensorDescriptionARM) -> Self {
+    self.pDescription = val as *const VkTensorDescriptionARM;
     self
   }
   #[inline]
@@ -6418,8 +6426,9 @@ impl VkTensorCreateInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueueFamilyIndices(mut self, val: *const u32) -> Self {
-    self.pQueueFamilyIndices = val;
+  pub const fn with_pQueueFamilyIndices(mut self, val: &[u32]) -> Self {
+    self.queueFamilyIndexCount = val.len() as u32;
+    self.pQueueFamilyIndices = val.as_ptr();
     self
   }
 }
@@ -6898,8 +6907,9 @@ impl VkTensorDependencyInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTensorMemoryBarriers(mut self, val: *const VkTensorMemoryBarrierARM) -> Self {
-    self.pTensorMemoryBarriers = val;
+  pub const fn with_pTensorMemoryBarriers(mut self, val: &[VkTensorMemoryBarrierARM]) -> Self {
+    self.tensorMemoryBarrierCount = val.len() as u32;
+    self.pTensorMemoryBarriers = val.as_ptr();
     self
   }
 }
@@ -7015,8 +7025,8 @@ impl VkDeviceTensorMemoryRequirementsARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCreateInfo(mut self, val: *const VkTensorCreateInfoARM) -> Self {
-    self.pCreateInfo = val;
+  pub const fn with_pCreateInfo(mut self, val: &VkTensorCreateInfoARM) -> Self {
+    self.pCreateInfo = val as *const VkTensorCreateInfoARM;
     self
   }
 }
@@ -7078,8 +7088,9 @@ impl VkCopyTensorInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkTensorCopyARM) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkTensorCopyARM]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -7462,8 +7473,9 @@ impl VkFrameBoundaryTensorsARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTensors(mut self, val: *const VkTensorARM) -> Self {
-    self.pTensors = val;
+  pub const fn with_pTensors(mut self, val: &[VkTensorARM]) -> Self {
+    self.tensorCount = val.len() as u32;
+    self.pTensors = val.as_ptr();
     self
   }
 }
@@ -7513,8 +7525,8 @@ impl VkPhysicalDeviceExternalTensorInfoARM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDescription(mut self, val: *const VkTensorDescriptionARM) -> Self {
-    self.pDescription = val;
+  pub const fn with_pDescription(mut self, val: &VkTensorDescriptionARM) -> Self {
+    self.pDescription = val as *const VkTensorDescriptionARM;
     self
   }
   #[inline]
@@ -8774,8 +8786,9 @@ impl VkDeviceQueueCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueuePriorities(mut self, val: *const f32) -> Self {
-    self.pQueuePriorities = val;
+  pub const fn with_pQueuePriorities(mut self, val: &[f32]) -> Self {
+    self.queueCount = val.len() as u32;
+    self.pQueuePriorities = val.as_ptr();
     self
   }
 }
@@ -8849,8 +8862,9 @@ impl VkDeviceCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueueCreateInfos(mut self, val: *const VkDeviceQueueCreateInfo) -> Self {
-    self.pQueueCreateInfos = val;
+  pub const fn with_pQueueCreateInfos(mut self, val: &[VkDeviceQueueCreateInfo]) -> Self {
+    self.queueCreateInfoCount = val.len() as u32;
+    self.pQueueCreateInfos = val.as_ptr();
     self
   }
   #[deprecated(note = "unused")]
@@ -9583,8 +9597,9 @@ impl VkBufferCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueueFamilyIndices(mut self, val: *const u32) -> Self {
-    self.pQueueFamilyIndices = val;
+  pub const fn with_pQueueFamilyIndices(mut self, val: &[u32]) -> Self {
+    self.queueFamilyIndexCount = val.len() as u32;
+    self.pQueueFamilyIndices = val.as_ptr();
     self
   }
 }
@@ -10071,8 +10086,9 @@ impl VkImageCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueueFamilyIndices(mut self, val: *const u32) -> Self {
-    self.pQueueFamilyIndices = val;
+  pub const fn with_pQueueFamilyIndices(mut self, val: &[u32]) -> Self {
+    self.queueFamilyIndexCount = val.len() as u32;
+    self.pQueueFamilyIndices = val.as_ptr();
     self
   }
   #[inline]
@@ -10408,8 +10424,9 @@ impl VkSparseBufferMemoryBindInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBinds(mut self, val: *const VkSparseMemoryBind) -> Self {
-    self.pBinds = val;
+  pub const fn with_pBinds(mut self, val: &[VkSparseMemoryBind]) -> Self {
+    self.bindCount = val.len() as u32;
+    self.pBinds = val.as_ptr();
     self
   }
 }
@@ -10451,8 +10468,9 @@ impl VkSparseImageOpaqueMemoryBindInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBinds(mut self, val: *const VkSparseMemoryBind) -> Self {
-    self.pBinds = val;
+  pub const fn with_pBinds(mut self, val: &[VkSparseMemoryBind]) -> Self {
+    self.bindCount = val.len() as u32;
+    self.pBinds = val.as_ptr();
     self
   }
 }
@@ -10494,8 +10512,9 @@ impl VkSparseImageMemoryBindInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBinds(mut self, val: *const VkSparseImageMemoryBind) -> Self {
-    self.pBinds = val;
+  pub const fn with_pBinds(mut self, val: &[VkSparseImageMemoryBind]) -> Self {
+    self.bindCount = val.len() as u32;
+    self.pBinds = val.as_ptr();
     self
   }
 }
@@ -10568,8 +10587,9 @@ impl VkBindSparseInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pWaitSemaphores(mut self, val: *const VkSemaphore) -> Self {
-    self.pWaitSemaphores = val;
+  pub const fn with_pWaitSemaphores(mut self, val: &[VkSemaphore]) -> Self {
+    self.waitSemaphoreCount = val.len() as u32;
+    self.pWaitSemaphores = val.as_ptr();
     self
   }
   #[inline]
@@ -10580,8 +10600,9 @@ impl VkBindSparseInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBufferBinds(mut self, val: *const VkSparseBufferMemoryBindInfo) -> Self {
-    self.pBufferBinds = val;
+  pub const fn with_pBufferBinds(mut self, val: &[VkSparseBufferMemoryBindInfo]) -> Self {
+    self.bufferBindCount = val.len() as u32;
+    self.pBufferBinds = val.as_ptr();
     self
   }
   #[inline]
@@ -10592,11 +10613,9 @@ impl VkBindSparseInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pImageOpaqueBinds(
-    mut self,
-    val: *const VkSparseImageOpaqueMemoryBindInfo,
-  ) -> Self {
-    self.pImageOpaqueBinds = val;
+  pub const fn with_pImageOpaqueBinds(mut self, val: &[VkSparseImageOpaqueMemoryBindInfo]) -> Self {
+    self.imageOpaqueBindCount = val.len() as u32;
+    self.pImageOpaqueBinds = val.as_ptr();
     self
   }
   #[inline]
@@ -10607,8 +10626,9 @@ impl VkBindSparseInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pImageBinds(mut self, val: *const VkSparseImageMemoryBindInfo) -> Self {
-    self.pImageBinds = val;
+  pub const fn with_pImageBinds(mut self, val: &[VkSparseImageMemoryBindInfo]) -> Self {
+    self.imageBindCount = val.len() as u32;
+    self.pImageBinds = val.as_ptr();
     self
   }
   #[inline]
@@ -10619,8 +10639,9 @@ impl VkBindSparseInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSignalSemaphores(mut self, val: *const VkSemaphore) -> Self {
-    self.pSignalSemaphores = val;
+  pub const fn with_pSignalSemaphores(mut self, val: &[VkSemaphore]) -> Self {
+    self.signalSemaphoreCount = val.len() as u32;
+    self.pSignalSemaphores = val.as_ptr();
     self
   }
 }
@@ -12511,8 +12532,9 @@ impl VkSubmitInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pWaitSemaphores(mut self, val: *const VkSemaphore) -> Self {
-    self.pWaitSemaphores = val;
+  pub const fn with_pWaitSemaphores(mut self, val: &[VkSemaphore]) -> Self {
+    self.waitSemaphoreCount = val.len() as u32;
+    self.pWaitSemaphores = val.as_ptr();
     self
   }
   /** # Safety
@@ -12530,8 +12552,9 @@ impl VkSubmitInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCommandBuffers(mut self, val: *const VkCommandBuffer) -> Self {
-    self.pCommandBuffers = val;
+  pub const fn with_pCommandBuffers(mut self, val: &[VkCommandBuffer]) -> Self {
+    self.commandBufferCount = val.len() as u32;
+    self.pCommandBuffers = val.as_ptr();
     self
   }
   #[inline]
@@ -12542,8 +12565,9 @@ impl VkSubmitInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSignalSemaphores(mut self, val: *const VkSemaphore) -> Self {
-    self.pSignalSemaphores = val;
+  pub const fn with_pSignalSemaphores(mut self, val: &[VkSemaphore]) -> Self {
+    self.signalSemaphoreCount = val.len() as u32;
+    self.pSignalSemaphores = val.as_ptr();
     self
   }
 }
@@ -13942,8 +13966,9 @@ impl VkBindBufferMemoryDeviceGroupInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDeviceIndices(mut self, val: *const u32) -> Self {
-    self.pDeviceIndices = val;
+  pub const fn with_pDeviceIndices(mut self, val: &[u32]) -> Self {
+    self.deviceIndexCount = val.len() as u32;
+    self.pDeviceIndices = val.as_ptr();
     self
   }
 }
@@ -14054,8 +14079,9 @@ impl VkBindImageMemoryDeviceGroupInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDeviceIndices(mut self, val: *const u32) -> Self {
-    self.pDeviceIndices = val;
+  pub const fn with_pDeviceIndices(mut self, val: &[u32]) -> Self {
+    self.deviceIndexCount = val.len() as u32;
+    self.pDeviceIndices = val.as_ptr();
     self
   }
   #[inline]
@@ -14066,8 +14092,9 @@ impl VkBindImageMemoryDeviceGroupInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSplitInstanceBindRegions(mut self, val: *const VkRect2D) -> Self {
-    self.pSplitInstanceBindRegions = val;
+  pub const fn with_pSplitInstanceBindRegions(mut self, val: &[VkRect2D]) -> Self {
+    self.splitInstanceBindRegionCount = val.len() as u32;
+    self.pSplitInstanceBindRegions = val.as_ptr();
     self
   }
 }
@@ -14171,8 +14198,9 @@ impl VkDeviceGroupSubmitInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pWaitSemaphoreDeviceIndices(mut self, val: *const u32) -> Self {
-    self.pWaitSemaphoreDeviceIndices = val;
+  pub const fn with_pWaitSemaphoreDeviceIndices(mut self, val: &[u32]) -> Self {
+    self.waitSemaphoreCount = val.len() as u32;
+    self.pWaitSemaphoreDeviceIndices = val.as_ptr();
     self
   }
   #[inline]
@@ -14183,8 +14211,9 @@ impl VkDeviceGroupSubmitInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCommandBufferDeviceMasks(mut self, val: *const u32) -> Self {
-    self.pCommandBufferDeviceMasks = val;
+  pub const fn with_pCommandBufferDeviceMasks(mut self, val: &[u32]) -> Self {
+    self.commandBufferCount = val.len() as u32;
+    self.pCommandBufferDeviceMasks = val.as_ptr();
     self
   }
   #[inline]
@@ -14195,8 +14224,9 @@ impl VkDeviceGroupSubmitInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSignalSemaphoreDeviceIndices(mut self, val: *const u32) -> Self {
-    self.pSignalSemaphoreDeviceIndices = val;
+  pub const fn with_pSignalSemaphoreDeviceIndices(mut self, val: &[u32]) -> Self {
+    self.signalSemaphoreCount = val.len() as u32;
+    self.pSignalSemaphoreDeviceIndices = val.as_ptr();
     self
   }
 }
@@ -14295,8 +14325,9 @@ impl VkDeviceGroupDeviceCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPhysicalDevices(mut self, val: *const VkPhysicalDevice) -> Self {
-    self.pPhysicalDevices = val;
+  pub const fn with_pPhysicalDevices(mut self, val: &[VkPhysicalDevice]) -> Self {
+    self.physicalDeviceCount = val.len() as u32;
+    self.pPhysicalDevices = val.as_ptr();
     self
   }
 }
@@ -15080,8 +15111,9 @@ impl VkImageFormatListCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pViewFormats(mut self, val: *const VkFormat) -> Self {
-    self.pViewFormats = val;
+  pub const fn with_pViewFormats(mut self, val: &[VkFormat]) -> Self {
+    self.viewFormatCount = val.len() as u32;
+    self.pViewFormats = val.as_ptr();
     self
   }
 }
@@ -15386,15 +15418,17 @@ impl VkSemaphoreWaitInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSemaphores(mut self, val: *const VkSemaphore) -> Self {
-    self.pSemaphores = val;
+  pub const fn with_pSemaphores(mut self, val: &[VkSemaphore]) -> Self {
+    self.semaphoreCount = val.len() as u32;
+    self.pSemaphores = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pValues(mut self, val: *const u64) -> Self {
-    self.pValues = val;
+  pub const fn with_pValues(mut self, val: &[u64]) -> Self {
+    self.semaphoreCount = val.len() as u32;
+    self.pValues = val.as_ptr();
     self
   }
 }
@@ -17050,8 +17084,8 @@ impl VkDeviceBufferMemoryRequirements {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCreateInfo(mut self, val: *const VkBufferCreateInfo) -> Self {
-    self.pCreateInfo = val;
+  pub const fn with_pCreateInfo(mut self, val: &VkBufferCreateInfo) -> Self {
+    self.pCreateInfo = val as *const VkBufferCreateInfo;
     self
   }
 }
@@ -17094,8 +17128,8 @@ impl VkDeviceImageMemoryRequirements {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCreateInfo(mut self, val: *const VkImageCreateInfo) -> Self {
-    self.pCreateInfo = val;
+  pub const fn with_pCreateInfo(mut self, val: &VkImageCreateInfo) -> Self {
+    self.pCreateInfo = val as *const VkImageCreateInfo;
     self
   }
   #[inline]
@@ -18182,8 +18216,9 @@ impl VkCopyBufferInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkBufferCopy2) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkBufferCopy2]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -18259,8 +18294,9 @@ impl VkCopyImageInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkImageCopy2) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkImageCopy2]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -18330,8 +18366,9 @@ impl VkCopyBufferToImageInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkBufferImageCopy2) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkBufferImageCopy2]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -18401,8 +18438,9 @@ impl VkCopyImageToBufferInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkBufferImageCopy2) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkBufferImageCopy2]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -18743,8 +18781,9 @@ impl VkDependencyInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pMemoryBarriers(mut self, val: *const VkMemoryBarrier2) -> Self {
-    self.pMemoryBarriers = val;
+  pub const fn with_pMemoryBarriers(mut self, val: &[VkMemoryBarrier2]) -> Self {
+    self.memoryBarrierCount = val.len() as u32;
+    self.pMemoryBarriers = val.as_ptr();
     self
   }
   #[inline]
@@ -18755,8 +18794,9 @@ impl VkDependencyInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBufferMemoryBarriers(mut self, val: *const VkBufferMemoryBarrier2) -> Self {
-    self.pBufferMemoryBarriers = val;
+  pub const fn with_pBufferMemoryBarriers(mut self, val: &[VkBufferMemoryBarrier2]) -> Self {
+    self.bufferMemoryBarrierCount = val.len() as u32;
+    self.pBufferMemoryBarriers = val.as_ptr();
     self
   }
   #[inline]
@@ -18767,8 +18807,9 @@ impl VkDependencyInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pImageMemoryBarriers(mut self, val: *const VkImageMemoryBarrier2) -> Self {
-    self.pImageMemoryBarriers = val;
+  pub const fn with_pImageMemoryBarriers(mut self, val: &[VkImageMemoryBarrier2]) -> Self {
+    self.imageMemoryBarrierCount = val.len() as u32;
+    self.pImageMemoryBarriers = val.as_ptr();
     self
   }
 }
@@ -18944,8 +18985,9 @@ impl VkSubmitInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pWaitSemaphoreInfos(mut self, val: *const VkSemaphoreSubmitInfo) -> Self {
-    self.pWaitSemaphoreInfos = val;
+  pub const fn with_pWaitSemaphoreInfos(mut self, val: &[VkSemaphoreSubmitInfo]) -> Self {
+    self.waitSemaphoreInfoCount = val.len() as u32;
+    self.pWaitSemaphoreInfos = val.as_ptr();
     self
   }
   #[inline]
@@ -18956,8 +18998,9 @@ impl VkSubmitInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCommandBufferInfos(mut self, val: *const VkCommandBufferSubmitInfo) -> Self {
-    self.pCommandBufferInfos = val;
+  pub const fn with_pCommandBufferInfos(mut self, val: &[VkCommandBufferSubmitInfo]) -> Self {
+    self.commandBufferInfoCount = val.len() as u32;
+    self.pCommandBufferInfos = val.as_ptr();
     self
   }
   #[inline]
@@ -18968,8 +19011,9 @@ impl VkSubmitInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSignalSemaphoreInfos(mut self, val: *const VkSemaphoreSubmitInfo) -> Self {
-    self.pSignalSemaphoreInfos = val;
+  pub const fn with_pSignalSemaphoreInfos(mut self, val: &[VkSemaphoreSubmitInfo]) -> Self {
+    self.signalSemaphoreInfoCount = val.len() as u32;
+    self.pSignalSemaphoreInfos = val.as_ptr();
     self
   }
 }
@@ -20339,8 +20383,9 @@ impl VkCopyMemoryToImageInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkMemoryToImageCopy) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkMemoryToImageCopy]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -20410,8 +20455,9 @@ impl VkCopyImageToMemoryInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkImageToMemoryCopy) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkImageToMemoryCopy]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -20495,8 +20541,9 @@ impl VkCopyImageToImageInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkImageCopy2) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkImageCopy2]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -20771,15 +20818,15 @@ impl VkDeviceImageSubresourceInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCreateInfo(mut self, val: *const VkImageCreateInfo) -> Self {
-    self.pCreateInfo = val;
+  pub const fn with_pCreateInfo(mut self, val: &VkImageCreateInfo) -> Self {
+    self.pCreateInfo = val as *const VkImageCreateInfo;
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSubresource(mut self, val: *const VkImageSubresource2) -> Self {
-    self.pSubresource = val;
+  pub const fn with_pSubresource(mut self, val: &VkImageSubresource2) -> Self {
+    self.pSubresource = val as *const VkImageSubresource2;
     self
   }
 }
@@ -20929,8 +20976,8 @@ impl VkBindMemoryStatus {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pResult(mut self, val: *mut VkResult) -> Self {
-    self.pResult = val;
+  pub const fn with_pResult(mut self, val: &mut VkResult) -> Self {
+    self.pResult = val as *mut VkResult;
     self
   }
 }
@@ -21330,22 +21377,25 @@ impl VkWriteDescriptorSet {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pImageInfo(mut self, val: *const VkDescriptorImageInfo) -> Self {
-    self.pImageInfo = val;
+  pub const fn with_pImageInfo(mut self, val: &[VkDescriptorImageInfo]) -> Self {
+    self.descriptorCount = val.len() as u32;
+    self.pImageInfo = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBufferInfo(mut self, val: *const VkDescriptorBufferInfo) -> Self {
-    self.pBufferInfo = val;
+  pub const fn with_pBufferInfo(mut self, val: &[VkDescriptorBufferInfo]) -> Self {
+    self.descriptorCount = val.len() as u32;
+    self.pBufferInfo = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTexelBufferView(mut self, val: *const VkBufferView) -> Self {
-    self.pTexelBufferView = val;
+  pub const fn with_pTexelBufferView(mut self, val: &[VkBufferView]) -> Self {
+    self.descriptorCount = val.len() as u32;
+    self.pTexelBufferView = val.as_ptr();
     self
   }
 }
@@ -21669,8 +21719,9 @@ impl VkDescriptorSetLayoutCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBindings(mut self, val: *const VkDescriptorSetLayoutBinding) -> Self {
-    self.pBindings = val;
+  pub const fn with_pBindings(mut self, val: &[VkDescriptorSetLayoutBinding]) -> Self {
+    self.bindingCount = val.len() as u32;
+    self.pBindings = val.as_ptr();
     self
   }
 }
@@ -21767,8 +21818,9 @@ impl VkDescriptorPoolCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPoolSizes(mut self, val: *const VkDescriptorPoolSize) -> Self {
-    self.pPoolSizes = val;
+  pub const fn with_pPoolSizes(mut self, val: &[VkDescriptorPoolSize]) -> Self {
+    self.poolSizeCount = val.len() as u32;
+    self.pPoolSizes = val.as_ptr();
     self
   }
 }
@@ -21823,8 +21875,9 @@ impl VkDescriptorSetAllocateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSetLayouts(mut self, val: *const VkDescriptorSetLayout) -> Self {
-    self.pSetLayouts = val;
+  pub const fn with_pSetLayouts(mut self, val: &[VkDescriptorSetLayout]) -> Self {
+    self.descriptorSetCount = val.len() as u32;
+    self.pSetLayouts = val.as_ptr();
     self
   }
 }
@@ -21907,8 +21960,9 @@ impl VkSpecializationInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pMapEntries(mut self, val: *const VkSpecializationMapEntry) -> Self {
-    self.pMapEntries = val;
+  pub const fn with_pMapEntries(mut self, val: &[VkSpecializationMapEntry]) -> Self {
+    self.mapEntryCount = val.len() as u32;
+    self.pMapEntries = val.as_ptr();
     self
   }
   #[inline]
@@ -22323,8 +22377,9 @@ impl VkPipelineLayoutCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPushConstantRanges(mut self, val: *const VkPushConstantRange) -> Self {
-    self.pPushConstantRanges = val;
+  pub const fn with_pPushConstantRanges(mut self, val: &[VkPushConstantRange]) -> Self {
+    self.pushConstantRangeCount = val.len() as u32;
+    self.pPushConstantRanges = val.as_ptr();
     self
   }
 }
@@ -22811,9 +22866,10 @@ impl VkDescriptorUpdateTemplateCreateInfo {
   #[inline]
   pub const fn with_pDescriptorUpdateEntries(
     mut self,
-    val: *const VkDescriptorUpdateTemplateEntry,
+    val: &[VkDescriptorUpdateTemplateEntry],
   ) -> Self {
-    self.pDescriptorUpdateEntries = val;
+    self.descriptorUpdateEntryCount = val.len() as u32;
+    self.pDescriptorUpdateEntries = val.as_ptr();
     self
   }
   #[inline]
@@ -24183,8 +24239,9 @@ impl VkDescriptorSetVariableDescriptorCountAllocateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDescriptorCounts(mut self, val: *const u32) -> Self {
-    self.pDescriptorCounts = val;
+  pub const fn with_pDescriptorCounts(mut self, val: &[u32]) -> Self {
+    self.descriptorSetCount = val.len() as u32;
+    self.pDescriptorCounts = val.as_ptr();
     self
   }
 }
@@ -24726,9 +24783,9 @@ impl VkPipelineCreationFeedbackCreateInfo {
   #[inline]
   pub const fn with_pPipelineCreationFeedback(
     mut self,
-    val: *mut VkPipelineCreationFeedback,
+    val: &mut VkPipelineCreationFeedback,
   ) -> Self {
-    self.pPipelineCreationFeedback = val;
+    self.pPipelineCreationFeedback = val as *mut VkPipelineCreationFeedback;
     self
   }
   #[inline]
@@ -24741,9 +24798,10 @@ impl VkPipelineCreationFeedbackCreateInfo {
   #[inline]
   pub const fn with_pPipelineStageCreationFeedbacks(
     mut self,
-    val: *mut VkPipelineCreationFeedback,
+    val: &mut [VkPipelineCreationFeedback],
   ) -> Self {
-    self.pPipelineStageCreationFeedbacks = val;
+    self.pipelineStageCreationFeedbackCount = val.len() as u32;
+    self.pPipelineStageCreationFeedbacks = val.as_mut_ptr();
     self
   }
 }
@@ -25960,8 +26018,9 @@ impl VkBindDescriptorSetsInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDescriptorSets(mut self, val: *const VkDescriptorSet) -> Self {
-    self.pDescriptorSets = val;
+  pub const fn with_pDescriptorSets(mut self, val: &[VkDescriptorSet]) -> Self {
+    self.descriptorSetCount = val.len() as u32;
+    self.pDescriptorSets = val.as_ptr();
     self
   }
   #[inline]
@@ -26116,8 +26175,9 @@ impl VkPushDescriptorSetInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDescriptorWrites(mut self, val: *const VkWriteDescriptorSet) -> Self {
-    self.pDescriptorWrites = val;
+  pub const fn with_pDescriptorWrites(mut self, val: &[VkWriteDescriptorSet]) -> Self {
+    self.descriptorWriteCount = val.len() as u32;
+    self.pDescriptorWrites = val.as_ptr();
     self
   }
 }
@@ -26380,27 +26440,27 @@ unsafe impl Sync for RROutput {}
 /// [Display](https://docs.vulkan.org/refpages/latest/refpages/source/Display.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_xlib_surface",
-  feature = "VK_EXT_acquire_xlib_display"
+  feature = "VK_EXT_acquire_xlib_display",
+  feature = "VK_KHR_xlib_surface"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Display(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_xlib_surface",
-  feature = "VK_EXT_acquire_xlib_display"
+  feature = "VK_EXT_acquire_xlib_display",
+  feature = "VK_KHR_xlib_surface"
 ))]
 impl Display {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_xlib_surface",
-  feature = "VK_EXT_acquire_xlib_display"
+  feature = "VK_EXT_acquire_xlib_display",
+  feature = "VK_KHR_xlib_surface"
 ))]
 unsafe impl Send for Display {}
 #[cfg(any(
-  feature = "VK_KHR_xlib_surface",
-  feature = "VK_EXT_acquire_xlib_display"
+  feature = "VK_EXT_acquire_xlib_display",
+  feature = "VK_KHR_xlib_surface"
 ))]
 unsafe impl Sync for Display {}
 /// [VkApplicationParametersEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkApplicationParametersEXT.html)
@@ -27101,8 +27161,9 @@ impl VkPipelineColorWriteCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorWriteEnables(mut self, val: *const VkBool32) -> Self {
-    self.pColorWriteEnables = val;
+  pub const fn with_pColorWriteEnables(mut self, val: &[VkBool32]) -> Self {
+    self.attachmentCount = val.len() as u32;
+    self.pColorWriteEnables = val.as_ptr();
     self
   }
 }
@@ -27707,8 +27768,9 @@ impl VkCustomResolveCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachmentFormats(mut self, val: *const VkFormat) -> Self {
-    self.pColorAttachmentFormats = val;
+  pub const fn with_pColorAttachmentFormats(mut self, val: &[VkFormat]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachmentFormats = val.as_ptr();
     self
   }
   #[inline]
@@ -28381,8 +28443,9 @@ impl VkDebugUtilsMessengerCallbackDataEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueueLabels(mut self, val: *const VkDebugUtilsLabelEXT) -> Self {
-    self.pQueueLabels = val;
+  pub const fn with_pQueueLabels(mut self, val: &[VkDebugUtilsLabelEXT]) -> Self {
+    self.queueLabelCount = val.len() as u32;
+    self.pQueueLabels = val.as_ptr();
     self
   }
   #[inline]
@@ -28393,8 +28456,9 @@ impl VkDebugUtilsMessengerCallbackDataEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCmdBufLabels(mut self, val: *const VkDebugUtilsLabelEXT) -> Self {
-    self.pCmdBufLabels = val;
+  pub const fn with_pCmdBufLabels(mut self, val: &[VkDebugUtilsLabelEXT]) -> Self {
+    self.cmdBufLabelCount = val.len() as u32;
+    self.pCmdBufLabels = val.as_ptr();
     self
   }
   #[inline]
@@ -28405,8 +28469,9 @@ impl VkDebugUtilsMessengerCallbackDataEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pObjects(mut self, val: *const VkDebugUtilsObjectNameInfoEXT) -> Self {
-    self.pObjects = val;
+  pub const fn with_pObjects(mut self, val: &[VkDebugUtilsObjectNameInfoEXT]) -> Self {
+    self.objectCount = val.len() as u32;
+    self.pObjects = val.as_ptr();
     self
   }
 }
@@ -29939,8 +30004,8 @@ impl VkImageDescriptorInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pView(mut self, val: *const VkImageViewCreateInfo) -> Self {
-    self.pView = val;
+  pub const fn with_pView(mut self, val: &VkImageViewCreateInfo) -> Self {
+    self.pView = val as *const VkImageViewCreateInfo;
     self
   }
   #[inline]
@@ -30799,8 +30864,9 @@ impl VkShaderDescriptorSetAndBindingMappingInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pMappings(mut self, val: *const VkDescriptorSetAndBindingMappingEXT) -> Self {
-    self.pMappings = val;
+  pub const fn with_pMappings(mut self, val: &[VkDescriptorSetAndBindingMappingEXT]) -> Self {
+    self.mappingCount = val.len() as u32;
+    self.pMappings = val.as_ptr();
     self
   }
 }
@@ -31972,8 +32038,9 @@ impl VkGeneratedCommandsShaderInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pShaders(mut self, val: *const VkShaderEXT) -> Self {
-    self.pShaders = val;
+  pub const fn with_pShaders(mut self, val: &[VkShaderEXT]) -> Self {
+    self.shaderCount = val.len() as u32;
+    self.pShaders = val.as_ptr();
     self
   }
 }
@@ -32189,8 +32256,9 @@ impl VkIndirectExecutionSetShaderInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pInitialShaders(mut self, val: *const VkShaderEXT) -> Self {
-    self.pInitialShaders = val;
+  pub const fn with_pInitialShaders(mut self, val: &[VkShaderEXT]) -> Self {
+    self.shaderCount = val.len() as u32;
+    self.pInitialShaders = val.as_ptr();
     self
   }
   /** # Safety
@@ -32216,8 +32284,9 @@ impl VkIndirectExecutionSetShaderInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPushConstantRanges(mut self, val: *const VkPushConstantRange) -> Self {
-    self.pPushConstantRanges = val;
+  pub const fn with_pPushConstantRanges(mut self, val: &[VkPushConstantRange]) -> Self {
+    self.pushConstantRangeCount = val.len() as u32;
+    self.pPushConstantRanges = val.as_ptr();
     self
   }
 }
@@ -32571,8 +32640,9 @@ impl VkIndirectCommandsLayoutCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTokens(mut self, val: *const VkIndirectCommandsLayoutTokenEXT) -> Self {
-    self.pTokens = val;
+  pub const fn with_pTokens(mut self, val: &[VkIndirectCommandsLayoutTokenEXT]) -> Self {
+    self.tokenCount = val.len() as u32;
+    self.pTokens = val.as_ptr();
     self
   }
 }
@@ -33291,8 +33361,9 @@ impl VkPipelineDiscardRectangleStateCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDiscardRectangles(mut self, val: *const VkRect2D) -> Self {
-    self.pDiscardRectangles = val;
+  pub const fn with_pDiscardRectangles(mut self, val: &[VkRect2D]) -> Self {
+    self.discardRectangleCount = val.len() as u32;
+    self.pDiscardRectangles = val.as_ptr();
     self
   }
 }
@@ -35020,8 +35091,9 @@ impl VkRenderPassFragmentDensityMapOffsetEndInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pFragmentDensityOffsets(mut self, val: *const VkOffset2D) -> Self {
-    self.pFragmentDensityOffsets = val;
+  pub const fn with_pFragmentDensityOffsets(mut self, val: &[VkOffset2D]) -> Self {
+    self.fragmentDensityOffsetCount = val.len() as u32;
+    self.pFragmentDensityOffsets = val.as_ptr();
     self
   }
 }
@@ -35847,9 +35919,10 @@ impl VkImageCompressionControlEXT {
   #[inline]
   pub const fn with_pFixedRateFlags(
     mut self,
-    val: *mut VkImageCompressionFixedRateFlagsEXT,
+    val: &mut [VkImageCompressionFixedRateFlagsEXT],
   ) -> Self {
-    self.pFixedRateFlags = val;
+    self.compressionControlPlaneCount = val.len() as u32;
+    self.pFixedRateFlags = val.as_mut_ptr();
     self
   }
 }
@@ -36156,8 +36229,9 @@ impl VkPhysicalDeviceImageDrmFormatModifierInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueueFamilyIndices(mut self, val: *const u32) -> Self {
-    self.pQueueFamilyIndices = val;
+  pub const fn with_pQueueFamilyIndices(mut self, val: &[u32]) -> Self {
+    self.queueFamilyIndexCount = val.len() as u32;
+    self.pQueueFamilyIndices = val.as_ptr();
     self
   }
 }
@@ -36207,8 +36281,9 @@ impl VkImageDrmFormatModifierListCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDrmFormatModifiers(mut self, val: *const u64) -> Self {
-    self.pDrmFormatModifiers = val;
+  pub const fn with_pDrmFormatModifiers(mut self, val: &[u64]) -> Self {
+    self.drmFormatModifierCount = val.len() as u32;
+    self.pDrmFormatModifiers = val.as_ptr();
     self
   }
 }
@@ -36265,8 +36340,9 @@ impl VkImageDrmFormatModifierExplicitCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPlaneLayouts(mut self, val: *const VkSubresourceLayout) -> Self {
-    self.pPlaneLayouts = val;
+  pub const fn with_pPlaneLayouts(mut self, val: &[VkSubresourceLayout]) -> Self {
+    self.drmFormatModifierPlaneCount = val.len() as u32;
+    self.pPlaneLayouts = val.as_ptr();
     self
   }
 }
@@ -36649,8 +36725,9 @@ impl VkLayerSettingsCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSettings(mut self, val: *const VkLayerSettingEXT) -> Self {
-    self.pSettings = val;
+  pub const fn with_pSettings(mut self, val: &[VkLayerSettingEXT]) -> Self {
+    self.settingCount = val.len() as u32;
+    self.pSettings = val.as_ptr();
     self
   }
 }
@@ -37254,8 +37331,9 @@ impl VkDecompressMemoryInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkDecompressMemoryRegionEXT) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkDecompressMemoryRegionEXT]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -38797,8 +38875,9 @@ impl VkMutableDescriptorTypeListEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDescriptorTypes(mut self, val: *const VkDescriptorType) -> Self {
-    self.pDescriptorTypes = val;
+  pub const fn with_pDescriptorTypes(mut self, val: &[VkDescriptorType]) -> Self {
+    self.descriptorTypeCount = val.len() as u32;
+    self.pDescriptorTypes = val.as_ptr();
     self
   }
 }
@@ -38851,9 +38930,10 @@ impl VkMutableDescriptorTypeCreateInfoEXT {
   #[inline]
   pub const fn with_pMutableDescriptorTypeLists(
     mut self,
-    val: *const VkMutableDescriptorTypeListEXT,
+    val: &[VkMutableDescriptorTypeListEXT],
   ) -> Self {
-    self.pMutableDescriptorTypeLists = val;
+    self.mutableDescriptorTypeListCount = val.len() as u32;
+    self.pMutableDescriptorTypeLists = val.as_ptr();
     self
   }
 }
@@ -40489,8 +40569,12 @@ impl VkPastPresentationTimingPropertiesEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPresentationTimings(mut self, val: *mut VkPastPresentationTimingEXT) -> Self {
-    self.pPresentationTimings = val;
+  pub const fn with_pPresentationTimings(
+    mut self,
+    val: &mut [VkPastPresentationTimingEXT],
+  ) -> Self {
+    self.presentationTimingCount = val.len() as u32;
+    self.pPresentationTimings = val.as_mut_ptr();
     self
   }
 }
@@ -40560,8 +40644,9 @@ impl VkPastPresentationTimingEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPresentStages(mut self, val: *mut VkPresentStageTimeEXT) -> Self {
-    self.pPresentStages = val;
+  pub const fn with_pPresentStages(mut self, val: &mut [VkPresentStageTimeEXT]) -> Self {
+    self.presentStageCount = val.len() as u32;
+    self.pPresentStages = val.as_mut_ptr();
     self
   }
   #[inline]
@@ -41354,8 +41439,9 @@ impl VkSampleLocationsInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSampleLocations(mut self, val: *const VkSampleLocationEXT) -> Self {
-    self.pSampleLocations = val;
+  pub const fn with_pSampleLocations(mut self, val: &[VkSampleLocationEXT]) -> Self {
+    self.sampleLocationsCount = val.len() as u32;
+    self.pSampleLocations = val.as_ptr();
     self
   }
 }
@@ -41480,9 +41566,10 @@ impl VkRenderPassSampleLocationsBeginInfoEXT {
   #[inline]
   pub const fn with_pAttachmentInitialSampleLocations(
     mut self,
-    val: *const VkAttachmentSampleLocationsEXT,
+    val: &[VkAttachmentSampleLocationsEXT],
   ) -> Self {
-    self.pAttachmentInitialSampleLocations = val;
+    self.attachmentInitialSampleLocationsCount = val.len() as u32;
+    self.pAttachmentInitialSampleLocations = val.as_ptr();
     self
   }
   #[inline]
@@ -41495,9 +41582,10 @@ impl VkRenderPassSampleLocationsBeginInfoEXT {
   #[inline]
   pub const fn with_pPostSubpassSampleLocations(
     mut self,
-    val: *const VkSubpassSampleLocationsEXT,
+    val: &[VkSubpassSampleLocationsEXT],
   ) -> Self {
-    self.pPostSubpassSampleLocations = val;
+    self.postSubpassSampleLocationsCount = val.len() as u32;
+    self.pPostSubpassSampleLocations = val.as_ptr();
     self
   }
 }
@@ -42280,8 +42368,9 @@ impl VkPipelineShaderStageModuleIdentifierCreateInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pIdentifier(mut self, val: *const u8) -> Self {
-    self.pIdentifier = val;
+  pub const fn with_pIdentifier(mut self, val: &[u8]) -> Self {
+    self.identifierSize = val.len() as u32;
+    self.pIdentifier = val.as_ptr();
     self
   }
 }
@@ -43101,9 +43190,9 @@ impl VkRenderPassCreationFeedbackCreateInfoEXT {
   #[inline]
   pub const fn with_pRenderPassFeedback(
     mut self,
-    val: *mut VkRenderPassCreationFeedbackInfoEXT,
+    val: &mut VkRenderPassCreationFeedbackInfoEXT,
   ) -> Self {
-    self.pRenderPassFeedback = val;
+    self.pRenderPassFeedback = val as *mut VkRenderPassCreationFeedbackInfoEXT;
     self
   }
 }
@@ -43193,9 +43282,9 @@ impl VkRenderPassSubpassFeedbackCreateInfoEXT {
   #[inline]
   pub const fn with_pSubpassFeedback(
     mut self,
-    val: *mut VkRenderPassSubpassFeedbackInfoEXT,
+    val: &mut VkRenderPassSubpassFeedbackInfoEXT,
   ) -> Self {
-    self.pSubpassFeedback = val;
+    self.pSubpassFeedback = val as *mut VkRenderPassSubpassFeedbackInfoEXT;
     self
   }
 }
@@ -43751,9 +43840,10 @@ impl VkValidationFeaturesEXT {
   #[inline]
   pub const fn with_pEnabledValidationFeatures(
     mut self,
-    val: *const VkValidationFeatureEnableEXT,
+    val: &[VkValidationFeatureEnableEXT],
   ) -> Self {
-    self.pEnabledValidationFeatures = val;
+    self.enabledValidationFeatureCount = val.len() as u32;
+    self.pEnabledValidationFeatures = val.as_ptr();
     self
   }
   #[inline]
@@ -43766,9 +43856,10 @@ impl VkValidationFeaturesEXT {
   #[inline]
   pub const fn with_pDisabledValidationFeatures(
     mut self,
-    val: *const VkValidationFeatureDisableEXT,
+    val: &[VkValidationFeatureDisableEXT],
   ) -> Self {
-    self.pDisabledValidationFeatures = val;
+    self.disabledValidationFeatureCount = val.len() as u32;
+    self.pDisabledValidationFeatures = val.as_ptr();
     self
   }
 }
@@ -43818,8 +43909,9 @@ impl VkValidationFlagsEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDisabledValidationChecks(mut self, val: *const VkValidationCheckEXT) -> Self {
-    self.pDisabledValidationChecks = val;
+  pub const fn with_pDisabledValidationChecks(mut self, val: &[VkValidationCheckEXT]) -> Self {
+    self.disabledValidationCheckCount = val.len() as u32;
+    self.pDisabledValidationChecks = val.as_ptr();
     self
   }
 }
@@ -44577,8 +44669,9 @@ impl VkImageFormatConstraintsInfoFUCHSIA {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorSpaces(mut self, val: *const VkSysmemColorSpaceFUCHSIA) -> Self {
-    self.pColorSpaces = val;
+  pub const fn with_pColorSpaces(mut self, val: &[VkSysmemColorSpaceFUCHSIA]) -> Self {
+    self.colorSpaceCount = val.len() as u32;
+    self.pColorSpaces = val.as_ptr();
     self
   }
 }
@@ -44633,9 +44726,10 @@ impl VkImageConstraintsInfoFUCHSIA {
   #[inline]
   pub const fn with_pFormatConstraints(
     mut self,
-    val: *const VkImageFormatConstraintsInfoFUCHSIA,
+    val: &[VkImageFormatConstraintsInfoFUCHSIA],
   ) -> Self {
-    self.pFormatConstraints = val;
+    self.formatConstraintsCount = val.len() as u32;
+    self.pFormatConstraints = val.as_ptr();
     self
   }
   #[inline]
@@ -44859,31 +44953,31 @@ impl VkMemoryGetZirconHandleInfoFUCHSIA {
 /// [zx_handle_t](https://docs.vulkan.org/refpages/latest/refpages/source/zx_handle_t.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
+  feature = "VK_FUCHSIA_imagepipe_surface",
   feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory",
-  feature = "VK_FUCHSIA_imagepipe_surface"
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct zx_handle_t(pub *mut core::ffi::c_void);
 #[cfg(any(
+  feature = "VK_FUCHSIA_imagepipe_surface",
   feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory",
-  feature = "VK_FUCHSIA_imagepipe_surface"
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 impl zx_handle_t {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
+  feature = "VK_FUCHSIA_imagepipe_surface",
   feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory",
-  feature = "VK_FUCHSIA_imagepipe_surface"
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 unsafe impl Send for zx_handle_t {}
 #[cfg(any(
+  feature = "VK_FUCHSIA_imagepipe_surface",
   feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory",
-  feature = "VK_FUCHSIA_imagepipe_surface"
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 unsafe impl Sync for zx_handle_t {}
 /// [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreZirconHandleInfoFUCHSIA.html)
@@ -45773,9 +45867,10 @@ impl VkPipelineVertexInputStateCreateInfo {
   #[inline]
   pub const fn with_pVertexBindingDescriptions(
     mut self,
-    val: *const VkVertexInputBindingDescription,
+    val: &[VkVertexInputBindingDescription],
   ) -> Self {
-    self.pVertexBindingDescriptions = val;
+    self.vertexBindingDescriptionCount = val.len() as u32;
+    self.pVertexBindingDescriptions = val.as_ptr();
     self
   }
   #[inline]
@@ -45788,9 +45883,10 @@ impl VkPipelineVertexInputStateCreateInfo {
   #[inline]
   pub const fn with_pVertexAttributeDescriptions(
     mut self,
-    val: *const VkVertexInputAttributeDescription,
+    val: &[VkVertexInputAttributeDescription],
   ) -> Self {
-    self.pVertexAttributeDescriptions = val;
+    self.vertexAttributeDescriptionCount = val.len() as u32;
+    self.pVertexAttributeDescriptions = val.as_ptr();
     self
   }
 }
@@ -46379,8 +46475,9 @@ impl VkPipelineDynamicStateCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDynamicStates(mut self, val: *const VkDynamicState) -> Self {
-    self.pDynamicStates = val;
+  pub const fn with_pDynamicStates(mut self, val: &[VkDynamicState]) -> Self {
+    self.dynamicStateCount = val.len() as u32;
+    self.pDynamicStates = val.as_ptr();
     self
   }
 }
@@ -46665,8 +46762,9 @@ impl VkGraphicsPipelineCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStages(mut self, val: *const VkPipelineShaderStageCreateInfo) -> Self {
-    self.pStages = val;
+  pub const fn with_pStages(mut self, val: &[VkPipelineShaderStageCreateInfo]) -> Self {
+    self.stageCount = val.len() as u32;
+    self.pStages = val.as_ptr();
     self
   }
   /** # Safety
@@ -46848,8 +46946,9 @@ impl VkRenderPassBeginInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pClearValues(mut self, val: *const VkClearValue) -> Self {
-    self.pClearValues = val;
+  pub const fn with_pClearValues(mut self, val: &[VkClearValue]) -> Self {
+    self.clearValueCount = val.len() as u32;
+    self.pClearValues = val.as_ptr();
     self
   }
 }
@@ -47146,8 +47245,9 @@ impl VkSubpassDescription {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pInputAttachments(mut self, val: *const VkAttachmentReference) -> Self {
-    self.pInputAttachments = val;
+  pub const fn with_pInputAttachments(mut self, val: &[VkAttachmentReference]) -> Self {
+    self.inputAttachmentCount = val.len() as u32;
+    self.pInputAttachments = val.as_ptr();
     self
   }
   #[inline]
@@ -47158,8 +47258,9 @@ impl VkSubpassDescription {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachments(mut self, val: *const VkAttachmentReference) -> Self {
-    self.pColorAttachments = val;
+  pub const fn with_pColorAttachments(mut self, val: &[VkAttachmentReference]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachments = val.as_ptr();
     self
   }
   /** # Safety
@@ -47184,8 +47285,9 @@ impl VkSubpassDescription {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPreserveAttachments(mut self, val: *const u32) -> Self {
-    self.pPreserveAttachments = val;
+  pub const fn with_pPreserveAttachments(mut self, val: &[u32]) -> Self {
+    self.preserveAttachmentCount = val.len() as u32;
+    self.pPreserveAttachments = val.as_ptr();
     self
   }
 }
@@ -47328,8 +47430,9 @@ impl VkRenderPassCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAttachments(mut self, val: *const VkAttachmentDescription) -> Self {
-    self.pAttachments = val;
+  pub const fn with_pAttachments(mut self, val: &[VkAttachmentDescription]) -> Self {
+    self.attachmentCount = val.len() as u32;
+    self.pAttachments = val.as_ptr();
     self
   }
   #[inline]
@@ -47340,8 +47443,9 @@ impl VkRenderPassCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSubpasses(mut self, val: *const VkSubpassDescription) -> Self {
-    self.pSubpasses = val;
+  pub const fn with_pSubpasses(mut self, val: &[VkSubpassDescription]) -> Self {
+    self.subpassCount = val.len() as u32;
+    self.pSubpasses = val.as_ptr();
     self
   }
   #[inline]
@@ -47352,8 +47456,9 @@ impl VkRenderPassCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDependencies(mut self, val: *const VkSubpassDependency) -> Self {
-    self.pDependencies = val;
+  pub const fn with_pDependencies(mut self, val: &[VkSubpassDependency]) -> Self {
+    self.dependencyCount = val.len() as u32;
+    self.pDependencies = val.as_ptr();
     self
   }
 }
@@ -47423,8 +47528,9 @@ impl VkFramebufferCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAttachments(mut self, val: *const VkImageView) -> Self {
-    self.pAttachments = val;
+  pub const fn with_pAttachments(mut self, val: &[VkImageView]) -> Self {
+    self.attachmentCount = val.len() as u32;
+    self.pAttachments = val.as_ptr();
     self
   }
   #[inline]
@@ -47714,8 +47820,9 @@ impl VkRenderPassMultiviewCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pViewMasks(mut self, val: *const u32) -> Self {
-    self.pViewMasks = val;
+  pub const fn with_pViewMasks(mut self, val: &[u32]) -> Self {
+    self.subpassCount = val.len() as u32;
+    self.pViewMasks = val.as_ptr();
     self
   }
   #[inline]
@@ -47726,8 +47833,9 @@ impl VkRenderPassMultiviewCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pViewOffsets(mut self, val: *const i32) -> Self {
-    self.pViewOffsets = val;
+  pub const fn with_pViewOffsets(mut self, val: &[i32]) -> Self {
+    self.dependencyCount = val.len() as u32;
+    self.pViewOffsets = val.as_ptr();
     self
   }
   #[inline]
@@ -47738,8 +47846,9 @@ impl VkRenderPassMultiviewCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCorrelationMasks(mut self, val: *const u32) -> Self {
-    self.pCorrelationMasks = val;
+  pub const fn with_pCorrelationMasks(mut self, val: &[u32]) -> Self {
+    self.correlationMaskCount = val.len() as u32;
+    self.pCorrelationMasks = val.as_ptr();
     self
   }
 }
@@ -47797,8 +47906,9 @@ impl VkDeviceGroupRenderPassBeginInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDeviceRenderAreas(mut self, val: *const VkRect2D) -> Self {
-    self.pDeviceRenderAreas = val;
+  pub const fn with_pDeviceRenderAreas(mut self, val: &[VkRect2D]) -> Self {
+    self.deviceRenderAreaCount = val.len() as u32;
+    self.pDeviceRenderAreas = val.as_ptr();
     self
   }
 }
@@ -47888,11 +47998,9 @@ impl VkRenderPassInputAttachmentAspectCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAspectReferences(
-    mut self,
-    val: *const VkInputAttachmentAspectReference,
-  ) -> Self {
-    self.pAspectReferences = val;
+  pub const fn with_pAspectReferences(mut self, val: &[VkInputAttachmentAspectReference]) -> Self {
+    self.aspectReferenceCount = val.len() as u32;
+    self.pAspectReferences = val.as_ptr();
     self
   }
 }
@@ -48261,8 +48369,9 @@ impl VkSubpassDescription2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pInputAttachments(mut self, val: *const VkAttachmentReference2) -> Self {
-    self.pInputAttachments = val;
+  pub const fn with_pInputAttachments(mut self, val: &[VkAttachmentReference2]) -> Self {
+    self.inputAttachmentCount = val.len() as u32;
+    self.pInputAttachments = val.as_ptr();
     self
   }
   #[inline]
@@ -48273,8 +48382,9 @@ impl VkSubpassDescription2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachments(mut self, val: *const VkAttachmentReference2) -> Self {
-    self.pColorAttachments = val;
+  pub const fn with_pColorAttachments(mut self, val: &[VkAttachmentReference2]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachments = val.as_ptr();
     self
   }
   /** # Safety
@@ -48299,8 +48409,9 @@ impl VkSubpassDescription2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPreserveAttachments(mut self, val: *const u32) -> Self {
-    self.pPreserveAttachments = val;
+  pub const fn with_pPreserveAttachments(mut self, val: &[u32]) -> Self {
+    self.preserveAttachmentCount = val.len() as u32;
+    self.pPreserveAttachments = val.as_ptr();
     self
   }
 }
@@ -48467,8 +48578,9 @@ impl VkRenderPassCreateInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAttachments(mut self, val: *const VkAttachmentDescription2) -> Self {
-    self.pAttachments = val;
+  pub const fn with_pAttachments(mut self, val: &[VkAttachmentDescription2]) -> Self {
+    self.attachmentCount = val.len() as u32;
+    self.pAttachments = val.as_ptr();
     self
   }
   #[inline]
@@ -48479,8 +48591,9 @@ impl VkRenderPassCreateInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSubpasses(mut self, val: *const VkSubpassDescription2) -> Self {
-    self.pSubpasses = val;
+  pub const fn with_pSubpasses(mut self, val: &[VkSubpassDescription2]) -> Self {
+    self.subpassCount = val.len() as u32;
+    self.pSubpasses = val.as_ptr();
     self
   }
   #[inline]
@@ -48491,8 +48604,9 @@ impl VkRenderPassCreateInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDependencies(mut self, val: *const VkSubpassDependency2) -> Self {
-    self.pDependencies = val;
+  pub const fn with_pDependencies(mut self, val: &[VkSubpassDependency2]) -> Self {
+    self.dependencyCount = val.len() as u32;
+    self.pDependencies = val.as_ptr();
     self
   }
   #[inline]
@@ -48503,8 +48617,9 @@ impl VkRenderPassCreateInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCorrelatedViewMasks(mut self, val: *const u32) -> Self {
-    self.pCorrelatedViewMasks = val;
+  pub const fn with_pCorrelatedViewMasks(mut self, val: &[u32]) -> Self {
+    self.correlatedViewMaskCount = val.len() as u32;
+    self.pCorrelatedViewMasks = val.as_ptr();
     self
   }
 }
@@ -48843,9 +48958,10 @@ impl VkFramebufferAttachmentsCreateInfo {
   #[inline]
   pub const fn with_pAttachmentImageInfos(
     mut self,
-    val: *const VkFramebufferAttachmentImageInfo,
+    val: &[VkFramebufferAttachmentImageInfo],
   ) -> Self {
-    self.pAttachmentImageInfos = val;
+    self.attachmentImageInfoCount = val.len() as u32;
+    self.pAttachmentImageInfos = val.as_ptr();
     self
   }
 }
@@ -48930,8 +49046,9 @@ impl VkFramebufferAttachmentImageInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pViewFormats(mut self, val: *const VkFormat) -> Self {
-    self.pViewFormats = val;
+  pub const fn with_pViewFormats(mut self, val: &[VkFormat]) -> Self {
+    self.viewFormatCount = val.len() as u32;
+    self.pViewFormats = val.as_ptr();
     self
   }
 }
@@ -48982,8 +49099,9 @@ impl VkRenderPassAttachmentBeginInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAttachments(mut self, val: *const VkImageView) -> Self {
-    self.pAttachments = val;
+  pub const fn with_pAttachments(mut self, val: &[VkImageView]) -> Self {
+    self.attachmentCount = val.len() as u32;
+    self.pAttachments = val.as_ptr();
     self
   }
 }
@@ -49322,8 +49440,9 @@ impl VkBlitImageInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkImageBlit2) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkImageBlit2]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
   #[inline]
@@ -49404,8 +49523,9 @@ impl VkResolveImageInfo2 {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkImageResolve2) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkImageResolve2]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -49469,8 +49589,9 @@ impl VkPipelineRenderingCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachmentFormats(mut self, val: *const VkFormat) -> Self {
-    self.pColorAttachmentFormats = val;
+  pub const fn with_pColorAttachmentFormats(mut self, val: &[VkFormat]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachmentFormats = val.as_ptr();
     self
   }
   #[inline]
@@ -49564,8 +49685,9 @@ impl VkRenderingInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachments(mut self, val: *const VkRenderingAttachmentInfo) -> Self {
-    self.pColorAttachments = val;
+  pub const fn with_pColorAttachments(mut self, val: &[VkRenderingAttachmentInfo]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachments = val.as_ptr();
     self
   }
   /** # Safety
@@ -49797,8 +49919,9 @@ impl VkCommandBufferInheritanceRenderingInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachmentFormats(mut self, val: *const VkFormat) -> Self {
-    self.pColorAttachmentFormats = val;
+  pub const fn with_pColorAttachmentFormats(mut self, val: &[VkFormat]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachmentFormats = val.as_ptr();
     self
   }
   #[inline]
@@ -49875,8 +49998,9 @@ impl VkRenderingAreaInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachmentFormats(mut self, val: *const VkFormat) -> Self {
-    self.pColorAttachmentFormats = val;
+  pub const fn with_pColorAttachmentFormats(mut self, val: &[VkFormat]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachmentFormats = val.as_ptr();
     self
   }
   #[inline]
@@ -49971,9 +50095,10 @@ impl VkPipelineVertexInputDivisorStateCreateInfo {
   #[inline]
   pub const fn with_pVertexBindingDivisors(
     mut self,
-    val: *const VkVertexInputBindingDivisorDescription,
+    val: &[VkVertexInputBindingDivisorDescription],
   ) -> Self {
-    self.pVertexBindingDivisors = val;
+    self.vertexBindingDivisorCount = val.len() as u32;
+    self.pVertexBindingDivisors = val.as_ptr();
     self
   }
 }
@@ -50351,8 +50476,9 @@ impl VkRenderingAttachmentLocationInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorAttachmentLocations(mut self, val: *const u32) -> Self {
-    self.pColorAttachmentLocations = val;
+  pub const fn with_pColorAttachmentLocations(mut self, val: &[u32]) -> Self {
+    self.colorAttachmentCount = val.len() as u32;
+    self.pColorAttachmentLocations = val.as_ptr();
     self
   }
 }
@@ -53274,8 +53400,9 @@ impl VkCopyMemoryToImageIndirectInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pImageSubresources(mut self, val: *const VkImageSubresourceLayers) -> Self {
-    self.pImageSubresources = val;
+  pub const fn with_pImageSubresources(mut self, val: &[VkImageSubresourceLayers]) -> Self {
+    self.copyCount = val.len() as u32;
+    self.pImageSubresources = val.as_ptr();
     self
   }
 }
@@ -53663,8 +53790,9 @@ impl VkCopyDeviceMemoryInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkDeviceMemoryCopyKHR) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkDeviceMemoryCopyKHR]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -53808,8 +53936,9 @@ impl VkCopyDeviceMemoryImageInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkDeviceMemoryImageCopyKHR) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkDeviceMemoryImageCopyKHR]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -53860,8 +53989,9 @@ impl VkMemoryRangeBarriersInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pMemoryRangeBarriers(mut self, val: *const VkMemoryRangeBarrierKHR) -> Self {
-    self.pMemoryRangeBarriers = val;
+  pub const fn with_pMemoryRangeBarriers(mut self, val: &[VkMemoryRangeBarrierKHR]) -> Self {
+    self.memoryRangeBarrierCount = val.len() as u32;
+    self.pMemoryRangeBarriers = val.as_ptr();
     self
   }
 }
@@ -55211,8 +55341,9 @@ impl VkDeviceGroupPresentInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDeviceMasks(mut self, val: *const u32) -> Self {
-    self.pDeviceMasks = val;
+  pub const fn with_pDeviceMasks(mut self, val: &[u32]) -> Self {
+    self.swapchainCount = val.len() as u32;
+    self.pDeviceMasks = val.as_ptr();
     self
   }
   #[inline]
@@ -56128,102 +56259,102 @@ unsafe impl Sync for LPCWSTR {}
 /// [HANDLE](https://docs.vulkan.org/refpages/latest/refpages/source/HANDLE.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HANDLE(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_memory_win32"
 ))]
 impl HANDLE {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Send for HANDLE {}
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Sync for HANDLE {}
 /// [SECURITY_ATTRIBUTES](https://docs.vulkan.org/refpages/latest/refpages/source/SECURITY_ATTRIBUTES.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 impl SECURITY_ATTRIBUTES {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 unsafe impl Send for SECURITY_ATTRIBUTES {}
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 unsafe impl Sync for SECURITY_ATTRIBUTES {}
 /// [DWORD](https://docs.vulkan.org/refpages/latest/refpages/source/DWORD.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DWORD(pub *mut core::ffi::c_void);
 #[cfg(any(
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 impl DWORD {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for DWORD {}
 #[cfg(any(
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for DWORD {}
@@ -58432,15 +58563,17 @@ impl VkSetDescriptorBufferOffsetsInfoEXT {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pBufferIndices(mut self, val: *const u32) -> Self {
-    self.pBufferIndices = val;
+  pub const fn with_pBufferIndices(mut self, val: &[u32]) -> Self {
+    self.setCount = val.len() as u32;
+    self.pBufferIndices = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pOffsets(mut self, val: *const VkDeviceSize) -> Self {
-    self.pOffsets = val;
+  pub const fn with_pOffsets(mut self, val: &[VkDeviceSize]) -> Self {
+    self.setCount = val.len() as u32;
+    self.pOffsets = val.as_ptr();
     self
   }
 }
@@ -59161,8 +59294,9 @@ impl VkRefreshObjectListKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pObjects(mut self, val: *const VkRefreshObjectKHR) -> Self {
-    self.pObjects = val;
+  pub const fn with_pObjects(mut self, val: &[VkRefreshObjectKHR]) -> Self {
+    self.objectCount = val.len() as u32;
+    self.pObjects = val.as_ptr();
     self
   }
 }
@@ -59456,8 +59590,9 @@ impl VkQueryPoolPerformanceCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCounterIndices(mut self, val: *const u32) -> Self {
-    self.pCounterIndices = val;
+  pub const fn with_pCounterIndices(mut self, val: &[u32]) -> Self {
+    self.counterIndexCount = val.len() as u32;
+    self.pCounterIndices = val.as_ptr();
     self
   }
 }
@@ -59828,15 +59963,17 @@ impl VkPipelineBinaryKeysAndDataKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPipelineBinaryKeys(mut self, val: *const VkPipelineBinaryKeyKHR) -> Self {
-    self.pPipelineBinaryKeys = val;
+  pub const fn with_pPipelineBinaryKeys(mut self, val: &[VkPipelineBinaryKeyKHR]) -> Self {
+    self.binaryCount = val.len() as u32;
+    self.pPipelineBinaryKeys = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPipelineBinaryData(mut self, val: *const VkPipelineBinaryDataKHR) -> Self {
-    self.pPipelineBinaryData = val;
+  pub const fn with_pPipelineBinaryData(mut self, val: &[VkPipelineBinaryDataKHR]) -> Self {
+    self.binaryCount = val.len() as u32;
+    self.pPipelineBinaryData = val.as_ptr();
     self
   }
 }
@@ -59934,8 +60071,9 @@ impl VkPipelineBinaryInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPipelineBinaries(mut self, val: *const VkPipelineBinaryKHR) -> Self {
-    self.pPipelineBinaries = val;
+  pub const fn with_pPipelineBinaries(mut self, val: &[VkPipelineBinaryKHR]) -> Self {
+    self.binaryCount = val.len() as u32;
+    self.pPipelineBinaries = val.as_ptr();
     self
   }
 }
@@ -60640,8 +60778,9 @@ impl VkPipelineLibraryCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pLibraries(mut self, val: *const VkPipeline) -> Self {
-    self.pLibraries = val;
+  pub const fn with_pLibraries(mut self, val: &[VkPipeline]) -> Self {
+    self.libraryCount = val.len() as u32;
+    self.pLibraries = val.as_ptr();
     self
   }
 }
@@ -61633,8 +61772,9 @@ impl VkRayTracingPipelineCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStages(mut self, val: *const VkPipelineShaderStageCreateInfo) -> Self {
-    self.pStages = val;
+  pub const fn with_pStages(mut self, val: &[VkPipelineShaderStageCreateInfo]) -> Self {
+    self.stageCount = val.len() as u32;
+    self.pStages = val.as_ptr();
     self
   }
   #[inline]
@@ -61645,8 +61785,9 @@ impl VkRayTracingPipelineCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pGroups(mut self, val: *const VkRayTracingShaderGroupCreateInfoKHR) -> Self {
-    self.pGroups = val;
+  pub const fn with_pGroups(mut self, val: &[VkRayTracingShaderGroupCreateInfoKHR]) -> Self {
+    self.groupCount = val.len() as u32;
+    self.pGroups = val.as_ptr();
     self
   }
   #[inline]
@@ -63306,8 +63447,9 @@ impl VkSwapchainCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQueueFamilyIndices(mut self, val: *const u32) -> Self {
-    self.pQueueFamilyIndices = val;
+  pub const fn with_pQueueFamilyIndices(mut self, val: &[u32]) -> Self {
+    self.queueFamilyIndexCount = val.len() as u32;
+    self.pQueueFamilyIndices = val.as_ptr();
     self
   }
   #[inline]
@@ -63399,8 +63541,9 @@ impl VkPresentInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pWaitSemaphores(mut self, val: *const VkSemaphore) -> Self {
-    self.pWaitSemaphores = val;
+  pub const fn with_pWaitSemaphores(mut self, val: &[VkSemaphore]) -> Self {
+    self.waitSemaphoreCount = val.len() as u32;
+    self.pWaitSemaphores = val.as_ptr();
     self
   }
   #[inline]
@@ -63411,15 +63554,17 @@ impl VkPresentInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSwapchains(mut self, val: *const VkSwapchainKHR) -> Self {
-    self.pSwapchains = val;
+  pub const fn with_pSwapchains(mut self, val: &[VkSwapchainKHR]) -> Self {
+    self.swapchainCount = val.len() as u32;
+    self.pSwapchains = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pImageIndices(mut self, val: *const u32) -> Self {
-    self.pImageIndices = val;
+  pub const fn with_pImageIndices(mut self, val: &[u32]) -> Self {
+    self.swapchainCount = val.len() as u32;
+    self.pImageIndices = val.as_ptr();
     self
   }
   /** # Safety
@@ -63568,8 +63713,9 @@ impl VkSwapchainPresentModesCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPresentModes(mut self, val: *const VkPresentModeKHR) -> Self {
-    self.pPresentModes = val;
+  pub const fn with_pPresentModes(mut self, val: &[VkPresentModeKHR]) -> Self {
+    self.presentModeCount = val.len() as u32;
+    self.pPresentModes = val.as_ptr();
     self
   }
 }
@@ -63619,8 +63765,9 @@ impl VkSwapchainPresentModeInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPresentModes(mut self, val: *const VkPresentModeKHR) -> Self {
-    self.pPresentModes = val;
+  pub const fn with_pPresentModes(mut self, val: &[VkPresentModeKHR]) -> Self {
+    self.swapchainCount = val.len() as u32;
+    self.pPresentModes = val.as_ptr();
     self
   }
 }
@@ -63733,8 +63880,9 @@ impl VkReleaseSwapchainImagesInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pImageIndices(mut self, val: *const u32) -> Self {
-    self.pImageIndices = val;
+  pub const fn with_pImageIndices(mut self, val: &[u32]) -> Self {
+    self.imageIndexCount = val.len() as u32;
+    self.pImageIndices = val.as_ptr();
     self
   }
 }
@@ -64014,8 +64162,8 @@ impl VkVideoDecodeAV1SessionParametersCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdSequenceHeader(mut self, val: *const StdVideoAV1SequenceHeader) -> Self {
-    self.pStdSequenceHeader = val;
+  pub const fn with_pStdSequenceHeader(mut self, val: &StdVideoAV1SequenceHeader) -> Self {
+    self.pStdSequenceHeader = val as *const StdVideoAV1SequenceHeader;
     self
   }
 }
@@ -64069,8 +64217,8 @@ impl VkVideoDecodeAV1PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPictureInfo(mut self, val: *const StdVideoDecodeAV1PictureInfo) -> Self {
-    self.pStdPictureInfo = val;
+  pub const fn with_pStdPictureInfo(mut self, val: &StdVideoDecodeAV1PictureInfo) -> Self {
+    self.pStdPictureInfo = val as *const StdVideoDecodeAV1PictureInfo;
     self
   }
   #[inline]
@@ -64094,15 +64242,17 @@ impl VkVideoDecodeAV1PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTileOffsets(mut self, val: *const u32) -> Self {
-    self.pTileOffsets = val;
+  pub const fn with_pTileOffsets(mut self, val: &[u32]) -> Self {
+    self.tileCount = val.len() as u32;
+    self.pTileOffsets = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTileSizes(mut self, val: *const u32) -> Self {
-    self.pTileSizes = val;
+  pub const fn with_pTileSizes(mut self, val: &[u32]) -> Self {
+    self.tileCount = val.len() as u32;
+    self.pTileSizes = val.as_ptr();
     self
   }
 }
@@ -64144,11 +64294,8 @@ impl VkVideoDecodeAV1DpbSlotInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdReferenceInfo(
-    mut self,
-    val: *const StdVideoDecodeAV1ReferenceInfo,
-  ) -> Self {
-    self.pStdReferenceInfo = val;
+  pub const fn with_pStdReferenceInfo(mut self, val: &StdVideoDecodeAV1ReferenceInfo) -> Self {
+    self.pStdReferenceInfo = val as *const StdVideoDecodeAV1ReferenceInfo;
     self
   }
 }
@@ -64540,15 +64687,15 @@ impl StdVideoDecodeAV1PictureInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTileInfo(mut self, val: *const StdVideoAV1TileInfo) -> Self {
-    self.pTileInfo = val;
+  pub const fn with_pTileInfo(mut self, val: &StdVideoAV1TileInfo) -> Self {
+    self.pTileInfo = val as *const StdVideoAV1TileInfo;
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQuantization(mut self, val: *const StdVideoAV1Quantization) -> Self {
-    self.pQuantization = val;
+  pub const fn with_pQuantization(mut self, val: &StdVideoAV1Quantization) -> Self {
+    self.pQuantization = val as *const StdVideoAV1Quantization;
     self
   }
   /** # Safety
@@ -64561,8 +64708,8 @@ impl StdVideoDecodeAV1PictureInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pLoopFilter(mut self, val: *const StdVideoAV1LoopFilter) -> Self {
-    self.pLoopFilter = val;
+  pub const fn with_pLoopFilter(mut self, val: &StdVideoAV1LoopFilter) -> Self {
+    self.pLoopFilter = val as *const StdVideoAV1LoopFilter;
     self
   }
   /** # Safety
@@ -64582,8 +64729,8 @@ impl StdVideoDecodeAV1PictureInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pGlobalMotion(mut self, val: *const StdVideoAV1GlobalMotion) -> Self {
-    self.pGlobalMotion = val;
+  pub const fn with_pGlobalMotion(mut self, val: &StdVideoAV1GlobalMotion) -> Self {
+    self.pGlobalMotion = val as *const StdVideoAV1GlobalMotion;
     self
   }
   /** # Safety
@@ -64853,8 +65000,9 @@ impl VkVideoDecodeH264SessionParametersAddInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdSPSs(mut self, val: *const StdVideoH264SequenceParameterSet) -> Self {
-    self.pStdSPSs = val;
+  pub const fn with_pStdSPSs(mut self, val: &[StdVideoH264SequenceParameterSet]) -> Self {
+    self.stdSPSCount = val.len() as u32;
+    self.pStdSPSs = val.as_ptr();
     self
   }
   #[inline]
@@ -64865,8 +65013,9 @@ impl VkVideoDecodeH264SessionParametersAddInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPPSs(mut self, val: *const StdVideoH264PictureParameterSet) -> Self {
-    self.pStdPPSs = val;
+  pub const fn with_pStdPPSs(mut self, val: &[StdVideoH264PictureParameterSet]) -> Self {
+    self.stdPPSCount = val.len() as u32;
+    self.pStdPPSs = val.as_ptr();
     self
   }
 }
@@ -64974,8 +65123,8 @@ impl VkVideoDecodeH264PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPictureInfo(mut self, val: *const StdVideoDecodeH264PictureInfo) -> Self {
-    self.pStdPictureInfo = val;
+  pub const fn with_pStdPictureInfo(mut self, val: &StdVideoDecodeH264PictureInfo) -> Self {
+    self.pStdPictureInfo = val as *const StdVideoDecodeH264PictureInfo;
     self
   }
   #[inline]
@@ -64986,8 +65135,9 @@ impl VkVideoDecodeH264PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSliceOffsets(mut self, val: *const u32) -> Self {
-    self.pSliceOffsets = val;
+  pub const fn with_pSliceOffsets(mut self, val: &[u32]) -> Self {
+    self.sliceCount = val.len() as u32;
+    self.pSliceOffsets = val.as_ptr();
     self
   }
 }
@@ -65029,11 +65179,8 @@ impl VkVideoDecodeH264DpbSlotInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdReferenceInfo(
-    mut self,
-    val: *const StdVideoDecodeH264ReferenceInfo,
-  ) -> Self {
-    self.pStdReferenceInfo = val;
+  pub const fn with_pStdReferenceInfo(mut self, val: &StdVideoDecodeH264ReferenceInfo) -> Self {
+    self.pStdReferenceInfo = val as *const StdVideoDecodeH264ReferenceInfo;
     self
   }
 }
@@ -65421,8 +65568,9 @@ impl VkVideoDecodeH265SessionParametersAddInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdVPSs(mut self, val: *const StdVideoH265VideoParameterSet) -> Self {
-    self.pStdVPSs = val;
+  pub const fn with_pStdVPSs(mut self, val: &[StdVideoH265VideoParameterSet]) -> Self {
+    self.stdVPSCount = val.len() as u32;
+    self.pStdVPSs = val.as_ptr();
     self
   }
   #[inline]
@@ -65433,8 +65581,9 @@ impl VkVideoDecodeH265SessionParametersAddInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdSPSs(mut self, val: *const StdVideoH265SequenceParameterSet) -> Self {
-    self.pStdSPSs = val;
+  pub const fn with_pStdSPSs(mut self, val: &[StdVideoH265SequenceParameterSet]) -> Self {
+    self.stdSPSCount = val.len() as u32;
+    self.pStdSPSs = val.as_ptr();
     self
   }
   #[inline]
@@ -65445,8 +65594,9 @@ impl VkVideoDecodeH265SessionParametersAddInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPPSs(mut self, val: *const StdVideoH265PictureParameterSet) -> Self {
-    self.pStdPPSs = val;
+  pub const fn with_pStdPPSs(mut self, val: &[StdVideoH265PictureParameterSet]) -> Self {
+    self.stdPPSCount = val.len() as u32;
+    self.pStdPPSs = val.as_ptr();
     self
   }
 }
@@ -65561,8 +65711,8 @@ impl VkVideoDecodeH265PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPictureInfo(mut self, val: *const StdVideoDecodeH265PictureInfo) -> Self {
-    self.pStdPictureInfo = val;
+  pub const fn with_pStdPictureInfo(mut self, val: &StdVideoDecodeH265PictureInfo) -> Self {
+    self.pStdPictureInfo = val as *const StdVideoDecodeH265PictureInfo;
     self
   }
   #[inline]
@@ -65573,8 +65723,9 @@ impl VkVideoDecodeH265PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSliceSegmentOffsets(mut self, val: *const u32) -> Self {
-    self.pSliceSegmentOffsets = val;
+  pub const fn with_pSliceSegmentOffsets(mut self, val: &[u32]) -> Self {
+    self.sliceSegmentCount = val.len() as u32;
+    self.pSliceSegmentOffsets = val.as_ptr();
     self
   }
 }
@@ -65616,11 +65767,8 @@ impl VkVideoDecodeH265DpbSlotInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdReferenceInfo(
-    mut self,
-    val: *const StdVideoDecodeH265ReferenceInfo,
-  ) -> Self {
-    self.pStdReferenceInfo = val;
+  pub const fn with_pStdReferenceInfo(mut self, val: &StdVideoDecodeH265ReferenceInfo) -> Self {
+    self.pStdReferenceInfo = val as *const StdVideoDecodeH265ReferenceInfo;
     self
   }
 }
@@ -66030,8 +66178,9 @@ impl VkVideoDecodeInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pReferenceSlots(mut self, val: *const VkVideoReferenceSlotInfoKHR) -> Self {
-    self.pReferenceSlots = val;
+  pub const fn with_pReferenceSlots(mut self, val: &[VkVideoReferenceSlotInfoKHR]) -> Self {
+    self.referenceSlotCount = val.len() as u32;
+    self.pReferenceSlots = val.as_ptr();
     self
   }
 }
@@ -66209,8 +66358,8 @@ impl VkVideoDecodeVP9PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPictureInfo(mut self, val: *const StdVideoDecodeVP9PictureInfo) -> Self {
-    self.pStdPictureInfo = val;
+  pub const fn with_pStdPictureInfo(mut self, val: &StdVideoDecodeVP9PictureInfo) -> Self {
+    self.pStdPictureInfo = val as *const StdVideoDecodeVP9PictureInfo;
     self
   }
   #[inline]
@@ -66452,15 +66601,15 @@ impl StdVideoDecodeVP9PictureInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorConfig(mut self, val: *const StdVideoVP9ColorConfig) -> Self {
-    self.pColorConfig = val;
+  pub const fn with_pColorConfig(mut self, val: &StdVideoVP9ColorConfig) -> Self {
+    self.pColorConfig = val as *const StdVideoVP9ColorConfig;
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pLoopFilter(mut self, val: *const StdVideoVP9LoopFilter) -> Self {
-    self.pLoopFilter = val;
+  pub const fn with_pLoopFilter(mut self, val: &StdVideoVP9LoopFilter) -> Self {
+    self.pLoopFilter = val as *const StdVideoVP9LoopFilter;
     self
   }
   /** # Safety
@@ -67002,8 +67151,8 @@ impl VkVideoEncodeAV1SessionParametersCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdSequenceHeader(mut self, val: *const StdVideoAV1SequenceHeader) -> Self {
-    self.pStdSequenceHeader = val;
+  pub const fn with_pStdSequenceHeader(mut self, val: &StdVideoAV1SequenceHeader) -> Self {
+    self.pStdSequenceHeader = val as *const StdVideoAV1SequenceHeader;
     self
   }
   /** # Safety
@@ -67070,11 +67219,8 @@ impl VkVideoEncodeAV1DpbSlotInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdReferenceInfo(
-    mut self,
-    val: *const StdVideoEncodeAV1ReferenceInfo,
-  ) -> Self {
-    self.pStdReferenceInfo = val;
+  pub const fn with_pStdReferenceInfo(mut self, val: &StdVideoEncodeAV1ReferenceInfo) -> Self {
+    self.pStdReferenceInfo = val as *const StdVideoEncodeAV1ReferenceInfo;
     self
   }
 }
@@ -67143,8 +67289,8 @@ impl VkVideoEncodeAV1PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPictureInfo(mut self, val: *const StdVideoEncodeAV1PictureInfo) -> Self {
-    self.pStdPictureInfo = val;
+  pub const fn with_pStdPictureInfo(mut self, val: &StdVideoEncodeAV1PictureInfo) -> Self {
+    self.pStdPictureInfo = val as *const StdVideoEncodeAV1PictureInfo;
     self
   }
   #[inline]
@@ -68119,8 +68265,8 @@ impl StdVideoEncodeAV1PictureInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pQuantization(mut self, val: *const StdVideoAV1Quantization) -> Self {
-    self.pQuantization = val;
+  pub const fn with_pQuantization(mut self, val: &StdVideoAV1Quantization) -> Self {
+    self.pQuantization = val as *const StdVideoAV1Quantization;
     self
   }
   /** # Safety
@@ -68133,8 +68279,8 @@ impl StdVideoEncodeAV1PictureInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pLoopFilter(mut self, val: *const StdVideoAV1LoopFilter) -> Self {
-    self.pLoopFilter = val;
+  pub const fn with_pLoopFilter(mut self, val: &StdVideoAV1LoopFilter) -> Self {
+    self.pLoopFilter = val as *const StdVideoAV1LoopFilter;
     self
   }
   /** # Safety
@@ -68154,8 +68300,8 @@ impl StdVideoEncodeAV1PictureInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pGlobalMotion(mut self, val: *const StdVideoAV1GlobalMotion) -> Self {
-    self.pGlobalMotion = val;
+  pub const fn with_pGlobalMotion(mut self, val: &StdVideoAV1GlobalMotion) -> Self {
+    self.pGlobalMotion = val as *const StdVideoAV1GlobalMotion;
     self
   }
   /** # Safety
@@ -68866,11 +69012,8 @@ impl VkVideoEncodeH264DpbSlotInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdReferenceInfo(
-    mut self,
-    val: *const StdVideoEncodeH264ReferenceInfo,
-  ) -> Self {
-    self.pStdReferenceInfo = val;
+  pub const fn with_pStdReferenceInfo(mut self, val: &StdVideoEncodeH264ReferenceInfo) -> Self {
+    self.pStdReferenceInfo = val as *const StdVideoEncodeH264ReferenceInfo;
     self
   }
 }
@@ -68924,18 +69067,16 @@ impl VkVideoEncodeH264PictureInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pNaluSliceEntries(
-    mut self,
-    val: *const VkVideoEncodeH264NaluSliceInfoKHR,
-  ) -> Self {
-    self.pNaluSliceEntries = val;
+  pub const fn with_pNaluSliceEntries(mut self, val: &[VkVideoEncodeH264NaluSliceInfoKHR]) -> Self {
+    self.naluSliceEntryCount = val.len() as u32;
+    self.pNaluSliceEntries = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPictureInfo(mut self, val: *const StdVideoEncodeH264PictureInfo) -> Self {
-    self.pStdPictureInfo = val;
+  pub const fn with_pStdPictureInfo(mut self, val: &StdVideoEncodeH264PictureInfo) -> Self {
+    self.pStdPictureInfo = val as *const StdVideoEncodeH264PictureInfo;
     self
   }
   #[inline]
@@ -69028,8 +69169,8 @@ impl VkVideoEncodeH264NaluSliceInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdSliceHeader(mut self, val: *const StdVideoEncodeH264SliceHeader) -> Self {
-    self.pStdSliceHeader = val;
+  pub const fn with_pStdSliceHeader(mut self, val: &StdVideoEncodeH264SliceHeader) -> Self {
+    self.pStdSliceHeader = val as *const StdVideoEncodeH264SliceHeader;
     self
   }
 }
@@ -69869,9 +70010,10 @@ impl StdVideoEncodeH264ReferenceListsInfo {
   #[inline]
   pub const fn with_pRefList0ModOperations(
     mut self,
-    val: *const StdVideoEncodeH264RefListModEntry,
+    val: &[StdVideoEncodeH264RefListModEntry],
   ) -> Self {
-    self.pRefList0ModOperations = val;
+    self.refList0ModOpCount = val.len() as u8;
+    self.pRefList0ModOperations = val.as_ptr();
     self
   }
   /** # Safety
@@ -69879,9 +70021,10 @@ impl StdVideoEncodeH264ReferenceListsInfo {
   #[inline]
   pub const fn with_pRefList1ModOperations(
     mut self,
-    val: *const StdVideoEncodeH264RefListModEntry,
+    val: &[StdVideoEncodeH264RefListModEntry],
   ) -> Self {
-    self.pRefList1ModOperations = val;
+    self.refList1ModOpCount = val.len() as u8;
+    self.pRefList1ModOperations = val.as_ptr();
     self
   }
   /** # Safety
@@ -69889,9 +70032,10 @@ impl StdVideoEncodeH264ReferenceListsInfo {
   #[inline]
   pub const fn with_pRefPicMarkingOperations(
     mut self,
-    val: *const StdVideoEncodeH264RefPicMarkingEntry,
+    val: &[StdVideoEncodeH264RefPicMarkingEntry],
   ) -> Self {
-    self.pRefPicMarkingOperations = val;
+    self.refPicMarkingOpCount = val.len() as u8;
+    self.pRefPicMarkingOperations = val.as_ptr();
     self
   }
 }
@@ -70817,16 +70961,17 @@ impl VkVideoEncodeH265PictureInfoKHR {
   #[inline]
   pub const fn with_pNaluSliceSegmentEntries(
     mut self,
-    val: *const VkVideoEncodeH265NaluSliceSegmentInfoKHR,
+    val: &[VkVideoEncodeH265NaluSliceSegmentInfoKHR],
   ) -> Self {
-    self.pNaluSliceSegmentEntries = val;
+    self.naluSliceSegmentEntryCount = val.len() as u32;
+    self.pNaluSliceSegmentEntries = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdPictureInfo(mut self, val: *const StdVideoEncodeH265PictureInfo) -> Self {
-    self.pStdPictureInfo = val;
+  pub const fn with_pStdPictureInfo(mut self, val: &StdVideoEncodeH265PictureInfo) -> Self {
+    self.pStdPictureInfo = val as *const StdVideoEncodeH265PictureInfo;
     self
   }
 }
@@ -70875,9 +71020,9 @@ impl VkVideoEncodeH265NaluSliceSegmentInfoKHR {
   #[inline]
   pub const fn with_pStdSliceSegmentHeader(
     mut self,
-    val: *const StdVideoEncodeH265SliceSegmentHeader,
+    val: &StdVideoEncodeH265SliceSegmentHeader,
   ) -> Self {
-    self.pStdSliceSegmentHeader = val;
+    self.pStdSliceSegmentHeader = val as *const StdVideoEncodeH265SliceSegmentHeader;
     self
   }
 }
@@ -71254,11 +71399,8 @@ impl VkVideoEncodeH265DpbSlotInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdReferenceInfo(
-    mut self,
-    val: *const StdVideoEncodeH265ReferenceInfo,
-  ) -> Self {
-    self.pStdReferenceInfo = val;
+  pub const fn with_pStdReferenceInfo(mut self, val: &StdVideoEncodeH265ReferenceInfo) -> Self {
+    self.pStdReferenceInfo = val as *const StdVideoEncodeH265ReferenceInfo;
     self
   }
 }
@@ -73153,8 +73295,9 @@ impl VkVideoEncodeInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pReferenceSlots(mut self, val: *const VkVideoReferenceSlotInfoKHR) -> Self {
-    self.pReferenceSlots = val;
+  pub const fn with_pReferenceSlots(mut self, val: &[VkVideoReferenceSlotInfoKHR]) -> Self {
+    self.referenceSlotCount = val.len() as u32;
+    self.pReferenceSlots = val.as_ptr();
     self
   }
   #[inline]
@@ -73283,8 +73426,8 @@ impl VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pVideoProfile(mut self, val: *const VkVideoProfileInfoKHR) -> Self {
-    self.pVideoProfile = val;
+  pub const fn with_pVideoProfile(mut self, val: &VkVideoProfileInfoKHR) -> Self {
+    self.pVideoProfile = val as *const VkVideoProfileInfoKHR;
     self
   }
   #[inline]
@@ -73414,8 +73557,9 @@ impl VkVideoEncodeRateControlInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pLayers(mut self, val: *const VkVideoEncodeRateControlLayerInfoKHR) -> Self {
-    self.pLayers = val;
+  pub const fn with_pLayers(mut self, val: &[VkVideoEncodeRateControlLayerInfoKHR]) -> Self {
+    self.layerCount = val.len() as u32;
+    self.pLayers = val.as_ptr();
     self
   }
   #[inline]
@@ -74092,8 +74236,9 @@ impl VkVideoProfileListInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pProfiles(mut self, val: *const VkVideoProfileInfoKHR) -> Self {
-    self.pProfiles = val;
+  pub const fn with_pProfiles(mut self, val: &[VkVideoProfileInfoKHR]) -> Self {
+    self.profileCount = val.len() as u32;
+    self.pProfiles = val.as_ptr();
     self
   }
 }
@@ -74671,8 +74816,8 @@ impl VkVideoSessionCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pVideoProfile(mut self, val: *const VkVideoProfileInfoKHR) -> Self {
-    self.pVideoProfile = val;
+  pub const fn with_pVideoProfile(mut self, val: &VkVideoProfileInfoKHR) -> Self {
+    self.pVideoProfile = val as *const VkVideoProfileInfoKHR;
     self
   }
   #[inline]
@@ -74703,8 +74848,8 @@ impl VkVideoSessionCreateInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStdHeaderVersion(mut self, val: *const VkExtensionProperties) -> Self {
-    self.pStdHeaderVersion = val;
+  pub const fn with_pStdHeaderVersion(mut self, val: &VkExtensionProperties) -> Self {
+    self.pStdHeaderVersion = val as *const VkExtensionProperties;
     self
   }
 }
@@ -74873,8 +75018,9 @@ impl VkVideoBeginCodingInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pReferenceSlots(mut self, val: *const VkVideoReferenceSlotInfoKHR) -> Self {
-    self.pReferenceSlots = val;
+  pub const fn with_pReferenceSlots(mut self, val: &[VkVideoReferenceSlotInfoKHR]) -> Self {
+    self.referenceSlotCount = val.len() as u32;
+    self.pReferenceSlots = val.as_ptr();
     self
   }
 }
@@ -75669,8 +75815,9 @@ impl StdVideoH264SequenceParameterSet {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pOffsetForRefFrame(mut self, val: *const i32) -> Self {
-    self.pOffsetForRefFrame = val;
+  pub const fn with_pOffsetForRefFrame(mut self, val: &[i32]) -> Self {
+    self.num_ref_frames_in_pic_order_cnt_cycle = val.len() as u8;
+    self.pOffsetForRefFrame = val.as_ptr();
     self
   }
   /** # Safety
@@ -77616,11 +77763,9 @@ impl StdVideoH265SequenceParameterSet {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pShortTermRefPicSet(
-    mut self,
-    val: *const StdVideoH265ShortTermRefPicSet,
-  ) -> Self {
-    self.pShortTermRefPicSet = val;
+  pub const fn with_pShortTermRefPicSet(mut self, val: &[StdVideoH265ShortTermRefPicSet]) -> Self {
+    self.num_short_term_ref_pic_sets = val.len() as u8;
+    self.pShortTermRefPicSet = val.as_ptr();
     self
   }
   /** # Safety
@@ -78995,8 +79140,8 @@ impl StdVideoAV1SequenceHeader {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pColorConfig(mut self, val: *const StdVideoAV1ColorConfig) -> Self {
-    self.pColorConfig = val;
+  pub const fn with_pColorConfig(mut self, val: &StdVideoAV1ColorConfig) -> Self {
+    self.pColorConfig = val as *const StdVideoAV1ColorConfig;
     self
   }
   /** # Safety
@@ -79397,29 +79542,33 @@ impl StdVideoAV1TileInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pMiColStarts(mut self, val: *const u16) -> Self {
-    self.pMiColStarts = val;
+  pub const fn with_pMiColStarts(mut self, val: &[u16]) -> Self {
+    self.TileCols = val.len() as u8;
+    self.pMiColStarts = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pMiRowStarts(mut self, val: *const u16) -> Self {
-    self.pMiRowStarts = val;
+  pub const fn with_pMiRowStarts(mut self, val: &[u16]) -> Self {
+    self.TileRows = val.len() as u8;
+    self.pMiRowStarts = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pWidthInSbsMinus1(mut self, val: *const u16) -> Self {
-    self.pWidthInSbsMinus1 = val;
+  pub const fn with_pWidthInSbsMinus1(mut self, val: &[u16]) -> Self {
+    self.TileCols = val.len() as u8;
+    self.pWidthInSbsMinus1 = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pHeightInSbsMinus1(mut self, val: *const u16) -> Self {
-    self.pHeightInSbsMinus1 = val;
+  pub const fn with_pHeightInSbsMinus1(mut self, val: &[u16]) -> Self {
+    self.TileRows = val.len() as u8;
+    self.pHeightInSbsMinus1 = val.as_ptr();
     self
   }
 }
@@ -80003,22 +80152,25 @@ impl VkWin32KeyedMutexAcquireReleaseInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAcquireSyncs(mut self, val: *const VkDeviceMemory) -> Self {
-    self.pAcquireSyncs = val;
+  pub const fn with_pAcquireSyncs(mut self, val: &[VkDeviceMemory]) -> Self {
+    self.acquireCount = val.len() as u32;
+    self.pAcquireSyncs = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAcquireKeys(mut self, val: *const u64) -> Self {
-    self.pAcquireKeys = val;
+  pub const fn with_pAcquireKeys(mut self, val: &[u64]) -> Self {
+    self.acquireCount = val.len() as u32;
+    self.pAcquireKeys = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAcquireTimeouts(mut self, val: *const u32) -> Self {
-    self.pAcquireTimeouts = val;
+  pub const fn with_pAcquireTimeouts(mut self, val: &[u32]) -> Self {
+    self.acquireCount = val.len() as u32;
+    self.pAcquireTimeouts = val.as_ptr();
     self
   }
   #[inline]
@@ -80029,15 +80181,17 @@ impl VkWin32KeyedMutexAcquireReleaseInfoKHR {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pReleaseSyncs(mut self, val: *const VkDeviceMemory) -> Self {
-    self.pReleaseSyncs = val;
+  pub const fn with_pReleaseSyncs(mut self, val: &[VkDeviceMemory]) -> Self {
+    self.releaseCount = val.len() as u32;
+    self.pReleaseSyncs = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pReleaseKeys(mut self, val: *const u64) -> Self {
-    self.pReleaseKeys = val;
+  pub const fn with_pReleaseKeys(mut self, val: &[u64]) -> Self {
+    self.releaseCount = val.len() as u32;
+    self.pReleaseKeys = val.as_ptr();
     self
   }
 }
@@ -80495,8 +80649,9 @@ impl VkDirectDriverLoadingListLUNARG {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDrivers(mut self, val: *const VkDirectDriverLoadingInfoLUNARG) -> Self {
-    self.pDrivers = val;
+  pub const fn with_pDrivers(mut self, val: &[VkDirectDriverLoadingInfoLUNARG]) -> Self {
+    self.driverCount = val.len() as u32;
+    self.pDrivers = val.as_ptr();
     self
   }
 }
@@ -84741,8 +84896,9 @@ impl VkGraphicsShaderGroupCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStages(mut self, val: *const VkPipelineShaderStageCreateInfo) -> Self {
-    self.pStages = val;
+  pub const fn with_pStages(mut self, val: &[VkPipelineShaderStageCreateInfo]) -> Self {
+    self.stageCount = val.len() as u32;
+    self.pStages = val.as_ptr();
     self
   }
   /** # Safety
@@ -84819,8 +84975,9 @@ impl VkGraphicsPipelineShaderGroupsCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pGroups(mut self, val: *const VkGraphicsShaderGroupCreateInfoNV) -> Self {
-    self.pGroups = val;
+  pub const fn with_pGroups(mut self, val: &[VkGraphicsShaderGroupCreateInfoNV]) -> Self {
+    self.groupCount = val.len() as u32;
+    self.pGroups = val.as_ptr();
     self
   }
   #[inline]
@@ -84831,8 +84988,9 @@ impl VkGraphicsPipelineShaderGroupsCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPipelines(mut self, val: *const VkPipeline) -> Self {
-    self.pPipelines = val;
+  pub const fn with_pPipelines(mut self, val: &[VkPipeline]) -> Self {
+    self.pipelineCount = val.len() as u32;
+    self.pPipelines = val.as_ptr();
     self
   }
 }
@@ -85118,15 +85276,17 @@ impl VkIndirectCommandsLayoutTokenNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pIndexTypes(mut self, val: *const VkIndexType) -> Self {
-    self.pIndexTypes = val;
+  pub const fn with_pIndexTypes(mut self, val: &[VkIndexType]) -> Self {
+    self.indexTypeCount = val.len() as u32;
+    self.pIndexTypes = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pIndexTypeValues(mut self, val: *const u32) -> Self {
-    self.pIndexTypeValues = val;
+  pub const fn with_pIndexTypeValues(mut self, val: &[u32]) -> Self {
+    self.indexTypeCount = val.len() as u32;
+    self.pIndexTypeValues = val.as_ptr();
     self
   }
 }
@@ -85194,8 +85354,9 @@ impl VkIndirectCommandsLayoutCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pTokens(mut self, val: *const VkIndirectCommandsLayoutTokenNV) -> Self {
-    self.pTokens = val;
+  pub const fn with_pTokens(mut self, val: &[VkIndirectCommandsLayoutTokenNV]) -> Self {
+    self.tokenCount = val.len() as u32;
+    self.pTokens = val.as_ptr();
     self
   }
   #[inline]
@@ -85206,8 +85367,9 @@ impl VkIndirectCommandsLayoutCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStreamStrides(mut self, val: *const u32) -> Self {
-    self.pStreamStrides = val;
+  pub const fn with_pStreamStrides(mut self, val: &[u32]) -> Self {
+    self.streamCount = val.len() as u32;
+    self.pStreamStrides = val.as_ptr();
     self
   }
 }
@@ -85295,8 +85457,9 @@ impl VkGeneratedCommandsInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStreams(mut self, val: *const VkIndirectCommandsStreamNV) -> Self {
-    self.pStreams = val;
+  pub const fn with_pStreams(mut self, val: &[VkIndirectCommandsStreamNV]) -> Self {
+    self.streamCount = val.len() as u32;
+    self.pStreams = val.as_ptr();
     self
   }
   #[inline]
@@ -87917,8 +88080,8 @@ impl VkCommandBufferInheritanceViewportScissorInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pViewportDepths(mut self, val: *const VkViewport) -> Self {
-    self.pViewportDepths = val;
+  pub const fn with_pViewportDepths(mut self, val: &VkViewport) -> Self {
+    self.pViewportDepths = val as *const VkViewport;
     self
   }
 }
@@ -89285,8 +89448,9 @@ impl VkOpticalFlowExecuteInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pRegions(mut self, val: *const VkRect2D) -> Self {
-    self.pRegions = val;
+  pub const fn with_pRegions(mut self, val: &[VkRect2D]) -> Self {
+    self.regionCount = val.len() as u32;
+    self.pRegions = val.as_ptr();
     self
   }
 }
@@ -90434,8 +90598,9 @@ impl VkRayTracingPipelineCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStages(mut self, val: *const VkPipelineShaderStageCreateInfo) -> Self {
-    self.pStages = val;
+  pub const fn with_pStages(mut self, val: &[VkPipelineShaderStageCreateInfo]) -> Self {
+    self.stageCount = val.len() as u32;
+    self.pStages = val.as_ptr();
     self
   }
   #[inline]
@@ -90446,8 +90611,9 @@ impl VkRayTracingPipelineCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pGroups(mut self, val: *const VkRayTracingShaderGroupCreateInfoNV) -> Self {
-    self.pGroups = val;
+  pub const fn with_pGroups(mut self, val: &[VkRayTracingShaderGroupCreateInfoNV]) -> Self {
+    self.groupCount = val.len() as u32;
+    self.pGroups = val.as_ptr();
     self
   }
   #[inline]
@@ -90799,8 +90965,9 @@ impl VkAccelerationStructureInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pGeometries(mut self, val: *const VkGeometryNV) -> Self {
-    self.pGeometries = val;
+  pub const fn with_pGeometries(mut self, val: &[VkGeometryNV]) -> Self {
+    self.geometryCount = val.len() as u32;
+    self.pGeometries = val.as_ptr();
     self
   }
 }
@@ -90916,8 +91083,9 @@ impl VkBindAccelerationStructureMemoryInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pDeviceIndices(mut self, val: *const u32) -> Self {
-    self.pDeviceIndices = val;
+  pub const fn with_pDeviceIndices(mut self, val: &[u32]) -> Self {
+    self.deviceIndexCount = val.len() as u32;
+    self.pDeviceIndices = val.as_ptr();
     self
   }
 }
@@ -92181,8 +92349,9 @@ impl VkPipelineViewportExclusiveScissorStateCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pExclusiveScissors(mut self, val: *const VkRect2D) -> Self {
-    self.pExclusiveScissors = val;
+  pub const fn with_pExclusiveScissors(mut self, val: &[VkRect2D]) -> Self {
+    self.exclusiveScissorCount = val.len() as u32;
+    self.pExclusiveScissors = val.as_ptr();
     self
   }
 }
@@ -92397,9 +92566,10 @@ impl VkShadingRatePaletteNV {
   #[inline]
   pub const fn with_pShadingRatePaletteEntries(
     mut self,
-    val: *const VkShadingRatePaletteEntryNV,
+    val: &[VkShadingRatePaletteEntryNV],
   ) -> Self {
-    self.pShadingRatePaletteEntries = val;
+    self.shadingRatePaletteEntryCount = val.len() as u32;
+    self.pShadingRatePaletteEntries = val.as_ptr();
     self
   }
 }
@@ -92458,8 +92628,9 @@ impl VkPipelineViewportShadingRateImageStateCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pShadingRatePalettes(mut self, val: *const VkShadingRatePaletteNV) -> Self {
-    self.pShadingRatePalettes = val;
+  pub const fn with_pShadingRatePalettes(mut self, val: &[VkShadingRatePaletteNV]) -> Self {
+    self.viewportCount = val.len() as u32;
+    self.pShadingRatePalettes = val.as_ptr();
     self
   }
 }
@@ -92658,8 +92829,9 @@ impl VkCoarseSampleOrderCustomNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pSampleLocations(mut self, val: *const VkCoarseSampleLocationNV) -> Self {
-    self.pSampleLocations = val;
+  pub const fn with_pSampleLocations(mut self, val: &[VkCoarseSampleLocationNV]) -> Self {
+    self.sampleLocationCount = val.len() as u32;
+    self.pSampleLocations = val.as_ptr();
     self
   }
 }
@@ -92718,8 +92890,9 @@ impl VkPipelineViewportCoarseSampleOrderStateCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pCustomSampleOrders(mut self, val: *const VkCoarseSampleOrderCustomNV) -> Self {
-    self.pCustomSampleOrders = val;
+  pub const fn with_pCustomSampleOrders(mut self, val: &[VkCoarseSampleOrderCustomNV]) -> Self {
+    self.customSampleOrderCount = val.len() as u32;
+    self.pCustomSampleOrders = val.as_ptr();
     self
   }
 }
@@ -92827,8 +93000,9 @@ impl VkPipelineViewportSwizzleStateCreateInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pViewportSwizzles(mut self, val: *const VkViewportSwizzleNV) -> Self {
-    self.pViewportSwizzles = val;
+  pub const fn with_pViewportSwizzles(mut self, val: &[VkViewportSwizzleNV]) -> Self {
+    self.viewportCount = val.len() as u32;
+    self.pViewportSwizzles = val.as_ptr();
     self
   }
 }
@@ -92894,22 +93068,25 @@ impl VkWin32KeyedMutexAcquireReleaseInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAcquireSyncs(mut self, val: *const VkDeviceMemory) -> Self {
-    self.pAcquireSyncs = val;
+  pub const fn with_pAcquireSyncs(mut self, val: &[VkDeviceMemory]) -> Self {
+    self.acquireCount = val.len() as u32;
+    self.pAcquireSyncs = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAcquireKeys(mut self, val: *const u64) -> Self {
-    self.pAcquireKeys = val;
+  pub const fn with_pAcquireKeys(mut self, val: &[u64]) -> Self {
+    self.acquireCount = val.len() as u32;
+    self.pAcquireKeys = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pAcquireTimeoutMilliseconds(mut self, val: *const u32) -> Self {
-    self.pAcquireTimeoutMilliseconds = val;
+  pub const fn with_pAcquireTimeoutMilliseconds(mut self, val: &[u32]) -> Self {
+    self.acquireCount = val.len() as u32;
+    self.pAcquireTimeoutMilliseconds = val.as_ptr();
     self
   }
   #[inline]
@@ -92920,15 +93097,17 @@ impl VkWin32KeyedMutexAcquireReleaseInfoNV {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pReleaseSyncs(mut self, val: *const VkDeviceMemory) -> Self {
-    self.pReleaseSyncs = val;
+  pub const fn with_pReleaseSyncs(mut self, val: &[VkDeviceMemory]) -> Self {
+    self.releaseCount = val.len() as u32;
+    self.pReleaseSyncs = val.as_ptr();
     self
   }
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pReleaseKeys(mut self, val: *const u64) -> Self {
-    self.pReleaseKeys = val;
+  pub const fn with_pReleaseKeys(mut self, val: &[u64]) -> Self {
+    self.releaseCount = val.len() as u32;
+    self.pReleaseKeys = val.as_ptr();
     self
   }
 }
@@ -93458,9 +93637,9 @@ impl VkDataGraphPipelineBuiltinModelCreateInfoQCOM {
   #[inline]
   pub const fn with_pOperation(
     mut self,
-    val: *const VkPhysicalDeviceDataGraphOperationSupportARM,
+    val: &VkPhysicalDeviceDataGraphOperationSupportARM,
   ) -> Self {
-    self.pOperation = val;
+    self.pOperation = val as *const VkPhysicalDeviceDataGraphOperationSupportARM;
     self
   }
 }
@@ -94082,8 +94261,9 @@ impl VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pPerViewRenderAreas(mut self, val: *const VkRect2D) -> Self {
-    self.pPerViewRenderAreas = val;
+  pub const fn with_pPerViewRenderAreas(mut self, val: &[VkRect2D]) -> Self {
+    self.perViewRenderAreaCount = val.len() as u32;
+    self.pPerViewRenderAreas = val.as_ptr();
     self
   }
 }

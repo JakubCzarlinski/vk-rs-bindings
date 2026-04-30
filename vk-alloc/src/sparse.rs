@@ -285,13 +285,10 @@ impl<'vk> SparseBufferAllocation<'vk> {
         let buffer_infos = vec![
             vk::VkSparseBufferMemoryBindInfo::DEFAULT
                 .with_buffer(self.buffer.raw())
-                .with_bindCount(buffer_binds.len() as u32)
-                .with_pBinds(buffer_binds.as_ptr()),
+                .with_pBinds(&buffer_binds),
         ]
         .into_boxed_slice();
-        let info = vk::VkBindSparseInfo::DEFAULT
-            .with_bufferBindCount(buffer_infos.len() as u32)
-            .with_pBufferBinds(buffer_infos.as_ptr());
+        let info = vk::VkBindSparseInfo::DEFAULT.with_pBufferBinds(&buffer_infos);
         PreparedBindSparseInfo {
             buffer_binds,
             buffer_infos,
@@ -402,13 +399,10 @@ impl<'vk> SparseImageAllocation<'vk> {
         let image_infos = vec![
             vk::VkSparseImageMemoryBindInfo::DEFAULT
                 .with_image(self.image.raw())
-                .with_bindCount(image_binds.len() as u32)
-                .with_pBinds(image_binds.as_ptr()),
+                .with_pBinds(&image_binds),
         ]
         .into_boxed_slice();
-        let info = vk::VkBindSparseInfo::DEFAULT
-            .with_imageBindCount(image_infos.len() as u32)
-            .with_pImageBinds(image_infos.as_ptr());
+        let info = vk::VkBindSparseInfo::DEFAULT.with_pImageBinds(&image_infos);
         PreparedBindSparseInfo {
             buffer_binds: empty_box(),
             buffer_infos: empty_box(),

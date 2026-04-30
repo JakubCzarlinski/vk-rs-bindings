@@ -30,11 +30,9 @@ pub(crate) fn create_device<'inst>(
     let priorities = [1.0f32];
     let queue_info = vk::VkDeviceQueueCreateInfo::DEFAULT
         .with_queueFamilyIndex(queue_family_index)
-        .with_queueCount(1)
-        .with_pQueuePriorities(priorities.as_ptr());
-    let create_info = vk::VkDeviceCreateInfo::DEFAULT
-        .with_queueCreateInfoCount(1)
-        .with_pQueueCreateInfos(&raw const queue_info);
+        .with_pQueuePriorities(&priorities);
+    let queue_infos = [queue_info];
+    let create_info = vk::VkDeviceCreateInfo::DEFAULT.with_pQueueCreateInfos(&queue_infos);
     physical_device
         .vkCreateDevice(&create_info, null())
         .map_err(|err| format!("vkCreateDevice failed: {err:?}"))
@@ -48,15 +46,12 @@ pub(crate) fn create_group_device<'inst>(
     let priorities = [1.0f32];
     let queue_info = vk::VkDeviceQueueCreateInfo::DEFAULT
         .with_queueFamilyIndex(queue_family_index)
-        .with_queueCount(1)
-        .with_pQueuePriorities(priorities.as_ptr());
-    let group_info = vk::VkDeviceGroupDeviceCreateInfo::DEFAULT
-        .with_physicalDeviceCount(raw_devices.len() as u32)
-        .with_pPhysicalDevices(raw_devices.as_ptr());
+        .with_pQueuePriorities(&priorities);
+    let queue_infos = [queue_info];
+    let group_info = vk::VkDeviceGroupDeviceCreateInfo::DEFAULT.with_pPhysicalDevices(raw_devices);
     let create_info = vk::VkDeviceCreateInfo::DEFAULT
         .with_pNext((&raw const group_info).cast())
-        .with_queueCreateInfoCount(1)
-        .with_pQueueCreateInfos(&raw const queue_info);
+        .with_pQueueCreateInfos(&queue_infos);
     physical_device
         .vkCreateDevice(&create_info, null())
         .map_err(|err| format!("vkCreateDevice for device group failed: {err:?}"))

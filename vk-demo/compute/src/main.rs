@@ -36,9 +36,8 @@ const BINDINGS: [VkDescriptorSetLayoutBinding; 2] = [
         .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
 ];
 
-const DSL_INFO: VkDescriptorSetLayoutCreateInfo = VkDescriptorSetLayoutCreateInfo::DEFAULT
-    .with_bindingCount(2)
-    .with_pBindings(BINDINGS.as_ptr());
+const DSL_INFO: VkDescriptorSetLayoutCreateInfo =
+    VkDescriptorSetLayoutCreateInfo::DEFAULT.with_pBindings(&BINDINGS);
 
 const SHADER_MODULE_INFO: VkShaderModuleCreateInfo = VkShaderModuleCreateInfo::DEFAULT
     .with_codeSize(COMPUTE_SHADER_SPV.len())
@@ -148,14 +147,13 @@ fn create_device<'inst>(instance: &'inst Instance) -> (Device<'inst>, PhysicalDe
 
     const PRIORITIES: [f32; 1] = [1.0f32];
     let queue_info = VkDeviceQueueCreateInfo::DEFAULT
-        .with_queueCount(1)
-        .with_pQueuePriorities(PRIORITIES.as_ptr())
+        .with_pQueuePriorities(&PRIORITIES)
         .with_queueFamilyIndex(queue_family_index);
+    let queue_infos = [queue_info];
     let vulkan13_features =
         VkPhysicalDeviceVulkan13Features::DEFAULT.with_synchronization2(VK_TRUE);
     let device_info = DEVICE_CREATE_INFO
-        .with_queueCreateInfoCount(1)
-        .with_pQueueCreateInfos(&raw const queue_info)
+        .with_pQueueCreateInfos(&queue_infos)
         .with_pNext((&raw const vulkan13_features).cast::<c_void>());
 
     let device = physical_device
@@ -252,15 +250,15 @@ fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'
     const POOL_SIZE: VkDescriptorPoolSize = VkDescriptorPoolSize::DEFAULT
         .with_type(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
         .with_descriptorCount(2);
-    const POOL_INFO: VkDescriptorPoolCreateInfo = VkDescriptorPoolCreateInfo::DEFAULT
+    let pool_sizes = [POOL_SIZE];
+    let pool_info: VkDescriptorPoolCreateInfo = VkDescriptorPoolCreateInfo::DEFAULT
         .with_maxSets(1)
         .with_flags(
             vk::VkDescriptorPoolCreateFlagBits::VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT.0,
         )
-        .with_poolSizeCount(1)
-        .with_pPoolSizes(&POOL_SIZE);
+        .with_pPoolSizes(&pool_sizes);
     device
-        .vkCreateDescriptorPool(&POOL_INFO, null())
+        .vkCreateDescriptorPool(&pool_info, null())
         .map_err(|e| format!("Pool: {e:?}"))
 }
 
@@ -274,9 +272,8 @@ fn create_descriptor_set<'a>(
 ) -> Result<Box<[DescriptorSet<'a>]>, String> {
     let layouts = [layout.raw()];
     let alloc_info = VkDescriptorSetAllocateInfo::DEFAULT
-        .with_descriptorSetCount(1)
         .with_descriptorPool(descriptor_pool.raw())
-        .with_pSetLayouts(layouts.as_ptr());
+        .with_pSetLayouts(&layouts);
     let ds = descriptor_pool
         .vkAllocateDescriptorSets(&alloc_info)
         .map_err(|e| format!("DSAlloc: {e:?}"))?;
@@ -296,15 +293,13 @@ fn create_descriptor_set<'a>(
     let writes = [
         VkWriteDescriptorSet::DEFAULT
             .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
             .with_dstBinding(0)
-            .with_pBufferInfo(&raw const b_infos[0])
+            .with_pBufferInfo(&b_infos[0..1])
             .with_dstSet(first_ds.raw()),
         VkWriteDescriptorSet::DEFAULT
             .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
-            .with_descriptorCount(1)
             .with_dstBinding(1)
-            .with_pBufferInfo(&raw const b_infos[1])
+            .with_pBufferInfo(&b_infos[1..2])
             .with_dstSet(first_ds.raw()),
     ];
     device.vkUpdateDescriptorSets(&writes, &[]);
@@ -346,8 +341,7 @@ fn run_compute<'a>(
     let raw_ds = [descriptor_set.raw()];
     let bind_descriptor_sets_info = VkBindDescriptorSetsInfo::DEFAULT
         .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0)
-        .with_descriptorSetCount(1)
-        .with_pDescriptorSets(raw_ds.as_ptr())
+        .with_pDescriptorSets(&raw_ds)
         .with_layout(layout.raw());
 
     cmd_buffer.vkCmdBindDescriptorSets2(&bind_descriptor_sets_info);
@@ -357,9 +351,7 @@ fn run_compute<'a>(
         .map_err(|e| format!("EndCB: {e:?}"))?;
     let commna_buffer_infos =
         [VkCommandBufferSubmitInfo::DEFAULT.with_commandBuffer(cmd_buffer.raw())];
-    let submit = VkSubmitInfo2::DEFAULT
-        .with_commandBufferInfoCount(1)
-        .with_pCommandBufferInfos(commna_buffer_infos.as_ptr());
+    let submit = VkSubmitInfo2::DEFAULT.with_pCommandBufferInfos(&commna_buffer_infos);
     println!("Submitting compute command buffer...");
     queue
         .vkQueueSubmit2(&[submit], VkFence::NULL)

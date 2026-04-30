@@ -1,6 +1,6 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::pretty;
-use crate::codegen::utils::{c_str_lit, params_to_tokens, safe_method};
+use crate::codegen::utils::{c_str_lit, create_doc, params_to_tokens, safe_method};
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
@@ -300,6 +300,7 @@ fn gen_create_instance(
     handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
+    let doc = create_doc(cmd, providers);
 
     // All params except the output *mut VkInstance (returned as Instance).
     let sig_params: Vec<_> = cmd
@@ -332,16 +333,12 @@ fn gen_create_instance(
         });
     }
 
-    quote! {
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
         #cfg
-        /// Create a Vulkan instance.
-        ///
-        /// On success returns an [`Instance`] whose lifetime is tied to this
-        /// `Entry` (and therefore to the underlying [`VulkanLib`]).
-        ///
-        /// # Safety
-        /// `pCreateInfo` must point to a valid, fully-initialized
-        /// `VkInstanceCreateInfo`.
         #[inline]
         pub fn vkCreateInstance(
             &self,
@@ -361,5 +358,6 @@ fn gen_create_instance(
             #handle_load
             Ok(unsafe { Instance::from_raw(raw, table, pd_table, #handle_args) })
         }
-    }
+    });
+    token_stream
 }

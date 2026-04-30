@@ -3,8 +3,8 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, enabled_set, safe_method, safe_method_unit_with_overrides,
-    vk_result_is_err,
+    Tier, c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
+    safe_method_unit_with_overrides, vk_result_is_err,
 };
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
@@ -136,7 +136,7 @@ fn gen_instance(
                 continue;
             }
             if name == "vkEnumeratePhysicalDevices" {
-                methods_ts.extend(gen_enumerate_physical_devices(providers));
+                methods_ts.extend(gen_enumerate_physical_devices(cmd, providers));
             } else if name == "vkDestroyInstance" {
                 methods_ts.extend(safe_method_unit_with_overrides(
                     cmd,
@@ -272,11 +272,16 @@ fn gen_instance(
     }
 }
 
-fn gen_enumerate_physical_devices(providers: &[String]) -> TokenStream {
+fn gen_enumerate_physical_devices(cmd: &crate::ir::Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
     let is_err = vk_result_is_err();
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
 
-    quote! {
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkEnumeratePhysicalDevices<'inst>(
@@ -299,5 +304,6 @@ fn gen_enumerate_physical_devices(providers: &[String]) -> TokenStream {
                 table: &self.physical_device_table,
             }).collect())
         }
-    }
+    });
+    token_stream
 }

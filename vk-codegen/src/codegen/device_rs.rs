@@ -3,8 +3,8 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, enabled_set, is_cmd_buf_cmd, params_to_tokens, safe_method,
-    safe_method_unit_with_overrides, strip_first_param,
+    Tier, c_str_lit, collect_groups, create_doc, enabled_set, is_cmd_buf_cmd, params_to_tokens,
+    safe_method, safe_method_unit_with_overrides, strip_first_param,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -144,7 +144,7 @@ fn gen_device(
                     },
                 ));
             } else if name == "vkCreateCommandPool" {
-                methods_ts.extend(gen_create_command_pool(providers));
+                methods_ts.extend(gen_create_command_pool(cmd, providers));
             } else if name.starts_with("vkCreate") && name.ends_with("Pipelines") {
                 methods_ts.extend(gen_create_pipelines(cmd, providers));
             } else {
@@ -259,7 +259,12 @@ fn gen_device(
 
 fn gen_get_device_queue(_cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    quote! {
+    let doc = create_doc(_cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkGetDeviceQueue<'dev>(
@@ -272,12 +277,18 @@ fn gen_get_device_queue(_cmd: &Command, providers: &[String]) -> TokenStream {
             unsafe { fp(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
             crate::queue::Queue { raw, parent: self, table: &self.queue_table }
         }
-    }
+    });
+    token_stream
 }
 
-fn gen_create_command_pool(providers: &[String]) -> TokenStream {
+fn gen_create_command_pool(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
-    quote! {
+    let doc = create_doc(cmd, providers);
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkCreateCommandPool<'dev>(
@@ -294,12 +305,14 @@ fn gen_create_command_pool(providers: &[String]) -> TokenStream {
                 Err(r)
             }
         }
-    }
+    });
+    token_stream
 }
 
 fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
     let fname = format_ident!("{}", cmd.name);
+    let doc = create_doc(cmd, providers);
     let sig_params: Vec<_> = strip_first_param(&cmd.params)
         .iter()
         .filter(|m| m.ty.base != "VkPipeline")
@@ -307,7 +320,11 @@ fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
         .collect();
     let (p_defs, p_fwd) = params_to_tokens(&sig_params);
 
-    quote! {
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn #fname<'dev>(
@@ -327,5 +344,6 @@ fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
                 table: &self.pipeline_table
             }).collect())
         }
-    }
+    });
+    token_stream
 }

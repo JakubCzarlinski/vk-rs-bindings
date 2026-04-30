@@ -3,7 +3,7 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, enabled_set, params_to_tokens, safe_method,
+    Tier, c_str_lit, collect_groups, create_doc, enabled_set, params_to_tokens, safe_method,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -130,6 +130,7 @@ fn gen_create_device(
     handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> TokenStream {
     let cfg = cfg_any(providers);
+    let doc = create_doc(cmd, providers);
     // remove parameter [0] since it gets replaced by `self.raw`
     let sig_params: Vec<_> = crate::codegen::utils::strip_first_param(&cmd.params)
         .iter()
@@ -155,7 +156,11 @@ fn gen_create_device(
         });
     }
 
-    quote! {
+    let mut token_stream = TokenStream::new();
+    for doc_lines in doc.lines() {
+        token_stream.extend(quote! { #[doc = #doc_lines] });
+    }
+    token_stream.extend(quote! {
         #cfg
         #[inline]
         pub fn vkCreateDevice(
@@ -172,5 +177,6 @@ fn gen_create_device(
             #tb_load
             Ok(unsafe { Device::from_raw(raw, self.instance, table, #tb_args) })
         }
-    }
+    });
+    token_stream
 }

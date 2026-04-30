@@ -129,6 +129,20 @@ pub fn snake_case(s: &str) -> String {
         .replace("n_v", "_nv")
 }
 
+#[must_use]
+fn split_instance_handle_target(cmd_name: &str) -> Option<&'static str> {
+    match cmd_name {
+        "vkDebugReportMessageEXT" | "vkDestroyDebugReportCallbackEXT" => {
+            Some("VkDebugReportCallbackEXT")
+        }
+        "vkSubmitDebugUtilsMessageEXT" | "vkDestroyDebugUtilsMessengerEXT" => {
+            Some("VkDebugUtilsMessengerEXT")
+        }
+        "vkDestroySurfaceKHR" => Some("VkSurfaceKHR"),
+        _ => None,
+    }
+}
+
 fn is_self_destructor_command(cmd_name: &str, cmd: &Command, meta: &HandleMeta) -> bool {
     let destroy_name = format!("vkDestroy{}", meta.struct_name);
     let free_group_name = format!("vkFree{}s", meta.struct_name);
@@ -150,6 +164,19 @@ fn is_self_destructor_command(cmd_name: &str, cmd: &Command, meta: &HandleMeta) 
 }
 
 fn is_supported_handle_method(cmd: &Command, meta: &HandleMeta) -> bool {
+    // Special cases routed into handle-tier by cmd_tier() even though the
+    // handle is carried in an info struct rather than explicit params.
+    if meta.vk_name == "VkCommandPool"
+        && (cmd.name == "vkAllocateCommandBuffers" || cmd.name == "vkFreeCommandBuffers")
+    {
+        return true;
+    }
+    if meta.vk_name == "VkDescriptorPool"
+        && (cmd.name == "vkAllocateDescriptorSets" || cmd.name == "vkFreeDescriptorSets")
+    {
+        return true;
+    }
+
     let Some(first) = cmd.params.first() else {
         return true;
     };
@@ -158,15 +185,14 @@ fn is_supported_handle_method(cmd: &Command, meta: &HandleMeta) -> bool {
     }
 
     let Some(second) = cmd.params.get(1) else {
-        return true;
+        return false;
     };
-    if second.ty.base != meta.vk_name {
-        return true;
+    if second.ty.base == meta.vk_name {
+        let dispatch_root = first.ty.base.as_str();
+        return dispatch_root == meta.parent_vk_name
+            || (meta.root_vk_name == "VkDevice" && dispatch_root == "VkDevice");
     }
-
-    let dispatch_root = first.ty.base.as_str();
-    dispatch_root == meta.parent_vk_name
-        || (meta.root_vk_name == "VkDevice" && dispatch_root == "VkDevice")
+    false
 }
 
 fn gen_handle_module(
@@ -182,6 +208,11 @@ fn gen_handle_module(
 
     let skip_set = skip.clone();
     let groups = collect_groups(reg, Tier::Handle(meta.vk_name.clone()), &skip_set, enabled);
+    let inst_groups = if meta.root_vk_name == "VkInstance" {
+        Some(collect_groups(reg, Tier::Instance, &skip_set, enabled))
+    } else {
+        None
+    };
     let _mod_name = format_ident!("{}", meta.mod_name);
     let struct_name = format_ident!("{}", meta.struct_name);
     let table_name = format_ident!("{}", meta.table_name);
@@ -203,14 +234,8 @@ fn gen_handle_module(
 
     if reg.commands.contains_key(&destroy_name) {
         let fp = format_ident!("{}", destroy_name);
-        destroy_stmt = if meta.parent_vk_name == "VkInstance" {
-            quote! {
-                unsafe { (self.parent.table.#fp).unwrap_unchecked()(self.parent.raw(), self.raw, core::ptr::null()) };
-            }
-        } else {
-            quote! {
-                unsafe { (self.table.#fp).unwrap_unchecked()(self.parent.raw(), self.raw, core::ptr::null()) };
-            }
+        destroy_stmt = quote! {
+            unsafe { (self.table.#fp).unwrap_unchecked()(self.parent.raw(), self.raw, core::ptr::null()) };
         };
     } else if reg.commands.contains_key(&free_group_name) {
         let fp = format_ident!("{}", free_group_name);
@@ -291,6 +316,88 @@ fn gen_handle_module(
                     device_acc,
                     quote! { self.instance() },
                 ));
+            }
+        }
+    }
+
+    // Some instance-root commands are owned by specific instance-child handle
+    // tables (SurfaceKHR / debug handles) and should be emitted as methods on
+    // those handle wrappers.
+    if let Some(inst_groups) = inst_groups.as_ref() {
+        for cmds in inst_groups.values() {
+            for (cmd_name, providers, cmd) in cmds {
+                if split_instance_handle_target(cmd_name.as_str()) != Some(meta.vk_name.as_str()) {
+                    continue;
+                }
+                let cfg = cfg_any(providers);
+                let fname = format_ident!("{}", cmd_name);
+                let pfn = format_ident!("PFN_{}", cmd_name);
+                let clit = c_str_lit(cmd_name);
+                fields_ts.extend(quote! { #cfg pub #fname: Option<#pfn>, });
+                empty_ts.extend(quote! { #cfg #fname: None, });
+                load_ts.extend(quote! {
+                    #cfg
+                    #fname:  loader(#clit.as_ptr()).map(|f| unsafe { core::mem::transmute(f) }),
+                });
+
+                let handle_is_param_0 = cmd
+                    .params
+                    .first()
+                    .is_some_and(|p| p.ty.base == meta.vk_name);
+                let handle_is_param_1 =
+                    cmd.params.get(1).is_some_and(|p| p.ty.base == meta.vk_name);
+                let cmd_uses_self_handle = handle_is_param_0 || handle_is_param_1;
+                let (handle_base, self_handle_expr) = if cmd_uses_self_handle {
+                    (meta.vk_name.as_str(), quote! { self.raw })
+                } else {
+                    ("VkInstance", quote! { self.instance().raw() })
+                };
+
+                if is_self_destructor_command(cmd_name, cmd, meta) {
+                    let handle_ty = format_ident!("{}", meta.vk_name);
+                    methods_ts.extend(safe_method_unit_with_overrides(
+                        cmd,
+                        cmd_name,
+                        providers,
+                        handle_base,
+                        self_handle_expr,
+                        quote! { self.table },
+                        handle_types,
+                        Some(meta_map),
+                        quote! {},
+                        quote! { self.instance() },
+                        quote! { &mut self },
+                        if cmd_uses_self_handle {
+                            quote! {
+                                if self.raw.0.is_null() {
+                                    return;
+                                }
+                            }
+                        } else {
+                            quote! {}
+                        },
+                        if cmd_uses_self_handle {
+                            quote! {
+                                self.raw = #handle_ty::NULL;
+                            }
+                        } else {
+                            quote! {}
+                        },
+                    ));
+                } else {
+                    methods_ts.extend(safe_method(
+                        cmd,
+                        cmd_name,
+                        providers,
+                        handle_base,
+                        self_handle_expr,
+                        quote! { self.table },
+                        handle_types,
+                        Some(meta_map),
+                        quote! {},
+                        quote! { self.instance() },
+                    ));
+                }
             }
         }
     }

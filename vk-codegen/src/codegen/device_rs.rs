@@ -167,7 +167,10 @@ fn gen_device(
     let mut handle_fields = TokenStream::new();
     let mut handle_args = TokenStream::new();
     let mut handle_init = TokenStream::new();
-    for m in handle_meta.values() {
+    for m in handle_meta
+        .values()
+        .filter(|m| m.root_vk_name == "VkDevice")
+    {
         let field_name = format_ident!("{}", m.table_field);
         let md = format_ident!("{}", m.mod_name);
         let tb = format_ident!("{}", m.table_name);

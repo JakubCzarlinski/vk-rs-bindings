@@ -11,6 +11,20 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::{BTreeMap, HashSet};
 
+#[must_use]
+fn split_instance_handle_target(cmd_name: &str) -> Option<&'static str> {
+    match cmd_name {
+        "vkDebugReportMessageEXT" | "vkDestroyDebugReportCallbackEXT" => {
+            Some("debug_report_callback_ext_table")
+        }
+        "vkSubmitDebugUtilsMessageEXT" | "vkDestroyDebugUtilsMessengerEXT" => {
+            Some("debug_utils_messenger_ext_table")
+        }
+        "vkDestroySurfaceKHR" => Some("surface_khr_table"),
+        _ => None,
+    }
+}
+
 pub fn gen_instance_rs(
     reg: &Registry,
     handle_types: &HashSet<String>,
@@ -69,6 +83,9 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
     for cmds in groups.values() {
         for (name, providers, _cmd) in cmds {
             if name == "vkGetInstanceProcAddr" {
+                continue;
+            }
+            if split_instance_handle_target(name).is_some() {
                 continue;
             }
             let cfg = cfg_any(providers);
@@ -133,6 +150,9 @@ fn gen_instance(
     for cmds in groups.values() {
         for (name, providers, cmd) in cmds {
             if name == "vkGetInstanceProcAddr" {
+                continue;
+            }
+            if split_instance_handle_target(name).is_some() {
                 continue;
             }
             if name == "vkEnumeratePhysicalDevices" {

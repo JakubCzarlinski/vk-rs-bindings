@@ -1,6 +1,6 @@
 use crate::cfggen::cfg_any;
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url, sanitize_ident};
-use crate::ir::{Member, Registry, Struct, Typedef, TypedefKind};
+use crate::ir::{Member, Optional, Registry, Struct, Typedef, TypedefKind};
 use crate::types::{c_type_to_rust, ctype_to_rust_str};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
@@ -256,6 +256,45 @@ fn member_cfg(m: &Member) -> TokenStream {
     quote! {}
 }
 
+#[derive(Clone, Copy, Debug)]
+struct RequiredSliceMemberPair {
+    count_idx: usize,
+    ptr_idx: usize,
+}
+
+/// Required pointer + count struct members that can be exposed as builder slice setters.
+fn collect_required_slice_member_pairs(s: &Struct) -> Vec<RequiredSliceMemberPair> {
+    let mut pairs = Vec::new();
+    for (ptr_idx, ptr) in s.members.iter().enumerate() {
+        if ptr.ty.pointer_depth != 1 || ptr.optional != Optional::False || ptr.ty.base == "void" {
+            continue;
+        }
+        let Some(len_name) = ptr.len.as_deref() else {
+            continue;
+        };
+        let Some((count_idx, count)) = s
+            .members
+            .iter()
+            .enumerate()
+            .find(|(_, m)| m.name == len_name)
+        else {
+            continue;
+        };
+        if count.ty.pointer_depth != 0 || count.ty.is_array.is_some() {
+            continue;
+        }
+        pairs.push(RequiredSliceMemberPair { count_idx, ptr_idx });
+    }
+    pairs
+}
+
+fn member_uses_opaque_extern_pointee(m: &Member, reg: &Registry) -> bool {
+    reg.typedefs
+        .get(&m.ty.base)
+        .and_then(|variants| variants.last())
+        .is_some_and(|td| matches!(td.kind, TypedefKind::OpaqueExtern))
+}
+
 /// Generate builder setter methods for all struct members except `sType`.
 ///
 /// - Non-pointer fields  -> `pub const fn with_<name>(mut self, val: T) -> Self`
@@ -264,10 +303,16 @@ fn member_cfg(m: &Member) -> TokenStream {
 ///   their lifetime obligations.
 ///
 /// Each setter carries the same `#[cfg(...)]` guard as its corresponding field.
-fn gen_builder_setters(s: &Struct) -> TokenStream {
+fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
     let mut ts = TokenStream::new();
+    let required_slice_pairs = collect_required_slice_member_pairs(s);
+    let safety_doc = " # Safety\n \
+         The caller must ensure `val` remains valid and outlives \
+         any use of this struct instance. The pointer is stored as-is \
+         without any lifetime tracking."
+        .to_string();
 
-    for m in &s.members {
+    for (member_idx, m) in s.members.iter().enumerate() {
         // sType is always fixed by the spec - no setter.
         if m.name == "sType" {
             continue;
@@ -280,14 +325,75 @@ fn gen_builder_setters(s: &Struct) -> TokenStream {
         let fcfg = member_cfg(m);
         let fdepr = deprecate_attr(&m.depr);
 
-        if member_is_pointer(m) {
-            // Raw pointer setter: safe fn (caller asserts lifetime), not const fn
-            // (ptr-to-int casts are not stable in const context).
-            let safety_doc = " # Safety\n \
-                 The caller must ensure `val` remains valid and outlives \
-                 any use of this struct instance. The pointer is stored as-is \
-                 without any lifetime tracking."
-                .to_string();
+        if let Some(pair) = required_slice_pairs
+            .iter()
+            .find(|p| p.ptr_idx == member_idx)
+        {
+            let count_member = &s.members[pair.count_idx];
+            let count_fname = format_ident!("{}", sanitize_ident(&count_member.name));
+            let count_ty = parse_ty(&ctype_to_rust_str(&count_member.ty));
+            let mapped = c_type_to_rust(&m.ty.base);
+            let elem_ty = parse_ty(if mapped.is_empty() {
+                &m.ty.base
+            } else {
+                mapped
+            });
+            let val_ty = if m.ty.is_const {
+                quote! { &[#elem_ty] }
+            } else {
+                quote! { &mut [#elem_ty] }
+            };
+            let ptr_expr = if m.ty.is_const {
+                quote! { val.as_ptr() }
+            } else {
+                quote! { val.as_mut_ptr() }
+            };
+            ts.extend(quote! {
+                #fcfg
+                #fdepr
+                #[doc = #safety_doc]
+                #[inline]
+                pub const fn #method_name(mut self, val: #val_ty) -> Self {
+                    self.#count_fname = val.len() as #count_ty;
+                    self.#fname = #ptr_expr;
+                    self
+                }
+            });
+        } else if m.ty.pointer_depth == 1
+            && m.optional == Optional::False
+            && m.len.is_none()
+            && m.ty.base != "void"
+            && c_type_to_rust(&m.ty.base) != "core::ffi::c_char"
+            && !member_uses_opaque_extern_pointee(m, reg)
+        {
+            let mapped = c_type_to_rust(&m.ty.base);
+            let elem_ty = parse_ty(if mapped.is_empty() {
+                &m.ty.base
+            } else {
+                mapped
+            });
+            let val_ty = if m.ty.is_const {
+                quote! { &#elem_ty }
+            } else {
+                quote! { &mut #elem_ty }
+            };
+            let ptr_ty = if m.ty.is_const {
+                quote! { *const #elem_ty }
+            } else {
+                quote! { *mut #elem_ty }
+            };
+            ts.extend(quote! {
+                #fcfg
+                #fdepr
+                #[doc = #safety_doc]
+                #[inline]
+                pub const fn #method_name(mut self, val: #val_ty) -> Self {
+                    self.#fname = val as #ptr_ty;
+                    self
+                }
+            });
+        } else if member_is_pointer(m) {
+            // Raw pointer setter fallback for optional/void/complex pointer fields.
             ts.extend(quote! {
                 #fcfg
                 #fdepr
@@ -499,7 +605,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         doc
     } else {
         // Struct: Debug+Clone+Copy derive
-        let builder_setters = gen_builder_setters(s);
+        let builder_setters = gen_builder_setters(s, reg);
         let impl_body: TokenStream = if let Some(ref sv) = stype_default {
             if needs_unsafe {
                 quote! {

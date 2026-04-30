@@ -92,9 +92,9 @@ impl SwapchainKHRDispatchTable {
     #[cfg(feature = "VK_NV_low_latency2")]
     vkSetLatencySleepModeNV: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_AMD_display_native_hdr")]
@@ -258,7 +258,7 @@ impl<'dev> SwapchainKHR<'dev> {
   pub fn vkGetSwapchainCounterEXT(
     &self,
     counter: VkSurfaceCounterFlagBitsEXT,
-    pCounterValue: *mut u64,
+    pCounterValue: &mut u64,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetSwapchainCounterEXT.unwrap_unchecked()(
@@ -373,7 +373,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkGetSwapchainTimeDomainPropertiesEXT(
     &self,
-    pSwapchainTimeDomainProperties: *mut VkSwapchainTimeDomainPropertiesEXT,
+    pSwapchainTimeDomainProperties: &mut VkSwapchainTimeDomainPropertiesEXT,
     pTimeDomainsCounter: *mut u64,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -420,7 +420,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkGetSwapchainTimingPropertiesEXT(
     &self,
-    pSwapchainTimingProperties: *mut VkSwapchainTimingPropertiesEXT,
+    pSwapchainTimingProperties: &mut VkSwapchainTimingPropertiesEXT,
     pSwapchainTimingPropertiesCounter: *mut u64,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -549,7 +549,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkGetRefreshCycleDurationGOOGLE(
     &self,
-    pDisplayTimingProperties: *mut VkRefreshCycleDurationGOOGLE,
+    pDisplayTimingProperties: &mut VkRefreshCycleDurationGOOGLE,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -638,7 +638,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkWaitForPresent2KHR(
     &self,
-    pPresentWait2Info: *const VkPresentWait2InfoKHR,
+    pPresentWait2Info: &VkPresentWait2InfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkWaitForPresent2KHR.unwrap_unchecked()(
@@ -728,7 +728,7 @@ impl<'dev> SwapchainKHR<'dev> {
     timeout: u64,
     semaphore: VkSemaphore,
     fence: VkFence,
-    pImageIndex: *mut u32,
+    pImageIndex: &mut u32,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkAcquireNextImageKHR.unwrap_unchecked()(
@@ -828,7 +828,7 @@ impl<'dev> SwapchainKHR<'dev> {
   /// - `pLatencyMarkerInfo`
   #[cfg(feature = "VK_NV_low_latency2")]
   #[inline(always)]
-  pub fn vkGetLatencyTimingsNV(&self, pLatencyMarkerInfo: *mut VkGetLatencyMarkerInfoNV) {
+  pub fn vkGetLatencyTimingsNV(&self, pLatencyMarkerInfo: &mut VkGetLatencyMarkerInfoNV) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetLatencyTimingsNV.unwrap_unchecked()(
@@ -859,10 +859,7 @@ impl<'dev> SwapchainKHR<'dev> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_NV_low_latency2")]
   #[inline(always)]
-  pub fn vkLatencySleepNV(
-    &self,
-    pSleepInfo: *const VkLatencySleepInfoNV,
-  ) -> Result<VkResult, VkResult> {
+  pub fn vkLatencySleepNV(&self, pSleepInfo: &VkLatencySleepInfoNV) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkLatencySleepNV.unwrap_unchecked()(self.device().raw(), self.raw, pSleepInfo)
     };
@@ -884,7 +881,7 @@ impl<'dev> SwapchainKHR<'dev> {
   /// - `pLatencyMarkerInfo`
   #[cfg(feature = "VK_NV_low_latency2")]
   #[inline(always)]
-  pub fn vkSetLatencyMarkerNV(&self, pLatencyMarkerInfo: *const VkSetLatencyMarkerInfoNV) {
+  pub fn vkSetLatencyMarkerNV(&self, pLatencyMarkerInfo: &VkSetLatencyMarkerInfoNV) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkSetLatencyMarkerNV.unwrap_unchecked()(
@@ -918,7 +915,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkSetLatencySleepModeNV(
     &self,
-    pSleepModeInfo: *const VkLatencySleepModeInfoNV,
+    pSleepModeInfo: &VkLatencySleepModeInfoNV,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkSetLatencySleepModeNV.unwrap_unchecked()(

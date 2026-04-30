@@ -1,4 +1,4 @@
-cargo run -p vk-codegen --release -- \
+cargo run -p vk-codegen -- \
   --vk ./vk-codegen/tests/fixtures/vk.xml \
   --video ./vk-codegen/tests/fixtures/video.xml \
   --out ./vk-rs-bindings

@@ -40,9 +40,9 @@ impl DeviceMemoryDispatchTable {
     #[cfg(feature = "VK_NV_external_memory_win32")]
     vkGetMemoryWin32HandleNV: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -142,7 +142,7 @@ impl<'dev> DeviceMemory<'dev> {
   /// - `pCommittedMemoryInBytes`
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkGetDeviceMemoryCommitment(&self, pCommittedMemoryInBytes: *mut VkDeviceSize) {
+  pub fn vkGetDeviceMemoryCommitment(&self, pCommittedMemoryInBytes: &mut VkDeviceSize) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetDeviceMemoryCommitment.unwrap_unchecked()(
@@ -270,7 +270,7 @@ impl<'dev> DeviceMemory<'dev> {
   pub fn vkGetMemoryWin32HandleNV(
     &self,
     handleType: VkExternalMemoryHandleTypeFlagsNV,
-    pHandle: *mut HANDLE,
+    pHandle: &mut HANDLE,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetMemoryWin32HandleNV.unwrap_unchecked()(

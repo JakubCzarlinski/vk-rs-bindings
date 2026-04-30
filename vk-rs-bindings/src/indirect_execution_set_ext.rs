@@ -28,9 +28,9 @@ impl IndirectExecutionSetEXTDispatchTable {
     #[cfg(feature = "VK_EXT_device_generated_commands")]
     vkUpdateIndirectExecutionSetShaderEXT: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_EXT_device_generated_commands")]
@@ -135,8 +135,7 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
   #[inline(always)]
   pub fn vkUpdateIndirectExecutionSetPipelineEXT(
     &self,
-    executionSetWriteCount: u32,
-    pExecutionSetWrites: *const VkWriteIndirectExecutionSetPipelineEXT,
+    pExecutionSetWrites: &[VkWriteIndirectExecutionSetPipelineEXT],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -145,8 +144,8 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
         .unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        executionSetWriteCount,
-        pExecutionSetWrites,
+        pExecutionSetWrites.len() as u32,
+        pExecutionSetWrites.as_ptr(),
       )
     }
   }
@@ -165,8 +164,7 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
   #[inline(always)]
   pub fn vkUpdateIndirectExecutionSetShaderEXT(
     &self,
-    executionSetWriteCount: u32,
-    pExecutionSetWrites: *const VkWriteIndirectExecutionSetShaderEXT,
+    pExecutionSetWrites: &[VkWriteIndirectExecutionSetShaderEXT],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -175,8 +173,8 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
         .unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        executionSetWriteCount,
-        pExecutionSetWrites,
+        pExecutionSetWrites.len() as u32,
+        pExecutionSetWrites.as_ptr(),
       )
     }
   }

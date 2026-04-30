@@ -10,15 +10,32 @@ use crate::types::*;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_EXT_debug_utils")]
 #[derive(Debug, Clone)]
-pub struct DebugUtilsMessengerEXTDispatchTable {}
+pub struct DebugUtilsMessengerEXTDispatchTable {
+  #[cfg(feature = "VK_EXT_debug_utils")]
+  pub vkDestroyDebugUtilsMessengerEXT: Option<PFN_vkDestroyDebugUtilsMessengerEXT>,
+  #[cfg(feature = "VK_EXT_debug_utils")]
+  pub vkSubmitDebugUtilsMessageEXT: Option<PFN_vkSubmitDebugUtilsMessageEXT>,
+}
 #[cfg(feature = "VK_EXT_debug_utils")]
 impl DebugUtilsMessengerEXTDispatchTable {
-  pub const EMPTY: Self = Self {};
-  pub fn load<F>(_loader: F) -> Self
+  pub const EMPTY: Self = Self {
+    #[cfg(feature = "VK_EXT_debug_utils")]
+    vkDestroyDebugUtilsMessengerEXT: None,
+    #[cfg(feature = "VK_EXT_debug_utils")]
+    vkSubmitDebugUtilsMessageEXT: None,
+  };
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
-    Self {}
+    Self {
+      #[cfg(feature = "VK_EXT_debug_utils")]
+      vkDestroyDebugUtilsMessengerEXT: loader(c"vkDestroyDebugUtilsMessengerEXT".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_EXT_debug_utils")]
+      vkSubmitDebugUtilsMessageEXT: loader(c"vkSubmitDebugUtilsMessageEXT".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+    }
   }
 }
 #[cfg(feature = "VK_EXT_debug_utils")]
@@ -38,7 +55,7 @@ impl<'dev> Drop for DebugUtilsMessengerEXT<'dev> {
       return;
     }
     unsafe {
-      (self.parent.table.vkDestroyDebugUtilsMessengerEXT).unwrap_unchecked()(
+      (self.table.vkDestroyDebugUtilsMessengerEXT).unwrap_unchecked()(
         self.parent.raw(),
         self.raw,
         core::ptr::null(),
@@ -63,5 +80,58 @@ impl<'dev> DebugUtilsMessengerEXT<'dev> {
   #[inline(always)]
   pub const fn table(&self) -> &DebugUtilsMessengerEXTDispatchTable {
     self.table
+  }
+  /// [`vkDestroyDebugUtilsMessengerEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugUtilsMessengerEXT.html)
+  ///
+  /// Provided by:
+  /// - `VK_EXT_debug_utils`
+  ///
+  ///
+  /// # Parameters
+  /// - `instance`
+  /// - `messenger`: optional: true
+  /// - `pAllocator`: optional: true
+  #[cfg(feature = "VK_EXT_debug_utils")]
+  #[inline(always)]
+  pub fn vkDestroyDebugUtilsMessengerEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+    if self.raw.0.is_null() {
+      return;
+    }
+    unsafe {
+      // SAFETY: table is fully loaded at creation.
+      (self.table)
+        .vkDestroyDebugUtilsMessengerEXT
+        .unwrap_unchecked()(self.parent().raw(), self.raw, pAllocator)
+    }
+    self.raw = VkDebugUtilsMessengerEXT::NULL;
+  }
+  /// [`vkSubmitDebugUtilsMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSubmitDebugUtilsMessageEXT.html)
+  ///
+  /// Provided by:
+  /// - `VK_EXT_debug_utils`
+  ///
+  ///
+  /// # Parameters
+  /// - `instance`
+  /// - `messageSeverity`
+  /// - `messageTypes`
+  /// - `pCallbackData`
+  #[cfg(feature = "VK_EXT_debug_utils")]
+  #[inline(always)]
+  pub fn vkSubmitDebugUtilsMessageEXT(
+    &self,
+    messageSeverity: VkDebugUtilsMessageSeverityFlagBitsEXT,
+    messageTypes: VkDebugUtilsMessageTypeFlagsEXT,
+    pCallbackData: &VkDebugUtilsMessengerCallbackDataEXT,
+  ) {
+    unsafe {
+      // SAFETY: table is fully loaded at creation.
+      (self.table).vkSubmitDebugUtilsMessageEXT.unwrap_unchecked()(
+        self.instance().raw(),
+        messageSeverity,
+        messageTypes,
+        pCallbackData,
+      )
+    }
   }
 }

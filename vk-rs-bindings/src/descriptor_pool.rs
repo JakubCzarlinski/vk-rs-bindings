@@ -32,9 +32,9 @@ impl DescriptorPoolDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     vkResetDescriptorPool: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -99,13 +99,37 @@ impl<'dev> DescriptorPool<'dev> {
   pub const fn table(&self) -> &DescriptorPoolDispatchTable {
     self.table
   }
+  /// [`vkAllocateDescriptorSets`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateDescriptorSets.html)
+  ///
+  /// Provided by:
+  /// - `VK_COMPUTE_VERSION_1_0`
+  ///
+  /// - **Export Scopes:** Vulkan, VulkanSC
+  ///
+  /// # Parameters
+  /// - `device`
+  /// - `pAllocateInfo`
+  /// - `pDescriptorSets`: len: pAllocateInfo->descriptorSetCount
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_FRAGMENTED_POOL`
+  ///   - `VK_ERROR_OUT_OF_POOL_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline]
   pub fn vkAllocateDescriptorSets<'pool>(
     &'pool self,
-    pAllocateInfo: *const VkDescriptorSetAllocateInfo,
+    pAllocateInfo: &VkDescriptorSetAllocateInfo,
   ) -> Result<alloc::boxed::Box<[crate::descriptor_set::DescriptorSet<'pool>]>, VkResult> {
-    let count = unsafe { (*pAllocateInfo).descriptorSetCount };
+    let count = pAllocateInfo.descriptorSetCount;
     let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(count as usize);
     let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
     let r = unsafe {
@@ -157,6 +181,27 @@ impl<'dev> DescriptorPool<'dev> {
     }
     self.raw = VkDescriptorPool::NULL;
   }
+  /// [`vkFreeDescriptorSets`](https://docs.vulkan.org/refpages/latest/refpages/source/vkFreeDescriptorSets.html)
+  ///
+  /// Provided by:
+  /// - `VK_COMPUTE_VERSION_1_0`
+  ///
+  /// - **Export Scopes:** Vulkan, VulkanSC
+  ///
+  /// # Parameters
+  /// - `device`
+  /// - `descriptorPool`
+  /// - `descriptorSetCount`
+  /// - `pDescriptorSets`: len: descriptorSetCount
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline]
   pub fn vkFreeDescriptorSets(

@@ -42,7 +42,7 @@ pub(crate) fn find_compute_queue_family(physical_device: &vk::PhysicalDevice<'_>
 
 pub(crate) fn device_name(physical_device: &vk::PhysicalDevice<'_>) -> String {
     let mut properties = vk::VkPhysicalDeviceProperties2::DEFAULT;
-    physical_device.vkGetPhysicalDeviceProperties2(&raw mut properties);
+    physical_device.vkGetPhysicalDeviceProperties2(&mut properties);
     let name = unsafe { CStr::from_ptr(properties.properties.deviceName.as_ptr()) };
     name.to_string_lossy().into_owned()
 }

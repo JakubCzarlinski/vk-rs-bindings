@@ -36,9 +36,9 @@ impl PipelineCacheDispatchTable {
     #[cfg(feature = "VK_NV_ray_tracing")]
     vkCreateRayTracingPipelinesNV: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_AMDX_shader_enqueue")]
@@ -136,10 +136,9 @@ impl<'dev> PipelineCache<'dev> {
   #[inline(always)]
   pub fn vkCreateExecutionGraphPipelinesAMDX(
     &self,
-    createInfoCount: u32,
-    pCreateInfos: *const VkExecutionGraphPipelineCreateInfoAMDX,
+    pCreateInfos: &[VkExecutionGraphPipelineCreateInfoAMDX],
     pAllocator: *const VkAllocationCallbacks,
-    pPipelines: *mut VkPipeline,
+    pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -147,10 +146,10 @@ impl<'dev> PipelineCache<'dev> {
         .unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        createInfoCount,
-        pCreateInfos,
+        pPipelines.len() as u32,
+        pCreateInfos.as_ptr(),
         pAllocator,
-        pPipelines,
+        pPipelines.as_mut_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {
@@ -258,15 +257,14 @@ impl<'dev> PipelineCache<'dev> {
   #[inline(always)]
   pub fn vkMergePipelineCaches(
     &self,
-    srcCacheCount: u32,
-    pSrcCaches: *const VkPipelineCache,
+    pSrcCaches: &[VkPipelineCache],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkMergePipelineCaches.unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        srcCacheCount,
-        pSrcCaches,
+        pSrcCaches.len() as u32,
+        pSrcCaches.as_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {
@@ -307,10 +305,9 @@ impl<'dev> PipelineCache<'dev> {
   #[inline(always)]
   pub fn vkCreateRayTracingPipelinesNV(
     &self,
-    createInfoCount: u32,
-    pCreateInfos: *const VkRayTracingPipelineCreateInfoNV,
+    pCreateInfos: &[VkRayTracingPipelineCreateInfoNV],
     pAllocator: *const VkAllocationCallbacks,
-    pPipelines: *mut VkPipeline,
+    pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -318,10 +315,10 @@ impl<'dev> PipelineCache<'dev> {
         .unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        createInfoCount,
-        pCreateInfos,
+        pPipelines.len() as u32,
+        pCreateInfos.as_ptr(),
         pAllocator,
-        pPipelines,
+        pPipelines.as_mut_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {

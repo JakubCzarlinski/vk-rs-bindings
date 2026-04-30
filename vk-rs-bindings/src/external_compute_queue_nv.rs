@@ -24,9 +24,9 @@ impl ExternalComputeQueueNVDispatchTable {
     #[cfg(feature = "VK_NV_external_compute_queue")]
     vkGetExternalComputeQueueDataNV: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_NV_external_compute_queue")]
@@ -123,7 +123,7 @@ impl<'dev> ExternalComputeQueueNV<'dev> {
   #[inline(always)]
   pub fn vkGetExternalComputeQueueDataNV(
     &self,
-    params: *mut VkExternalComputeQueueDataParamsNV,
+    params: &mut VkExternalComputeQueueDataParamsNV,
     pData: *mut core::ffi::c_void,
   ) {
     unsafe {

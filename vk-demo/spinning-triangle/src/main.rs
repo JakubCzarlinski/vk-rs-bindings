@@ -850,7 +850,7 @@ fn draw_frame(
     let command_buffer = &mut command_buffers[*current_frame];
 
     device
-        .vkWaitForFences(1, &sync.in_flight_fence.raw(), 1, u64::MAX)
+        .vkWaitForFences(&[sync.in_flight_fence.raw()], 1, u64::MAX)
         .expect("vkWaitForFences(frame fence) failed");
 
     let mut image_index = 0u32;
@@ -875,13 +875,13 @@ fn draw_frame(
     let image_index_usize = image_index as usize;
     if images_in_flight[image_index_usize] != VkFence::NULL {
         device
-            .vkWaitForFences(1, &images_in_flight[image_index_usize], 1, u64::MAX)
+            .vkWaitForFences(&[images_in_flight[image_index_usize]], 1, u64::MAX)
             .expect("vkWaitForFences(image fence) failed");
     }
     images_in_flight[image_index_usize] = sync.in_flight_fence.raw();
 
     device
-        .vkResetFences(1, &sync.in_flight_fence.raw())
+        .vkResetFences(&[sync.in_flight_fence.raw()])
         .expect("vkResetFences failed");
     command_buffer
         .vkResetCommandBuffer(
@@ -921,7 +921,7 @@ fn draw_frame(
         .with_pSignalSemaphoreInfos(&signal_semaphore);
 
     queue
-        .vkQueueSubmit2(1, &submit_info, sync.in_flight_fence.raw())
+        .vkQueueSubmit2(&[submit_info], sync.in_flight_fence.raw())
         .expect("vkQueueSubmit2 failed");
 
     let wait_semaphores = [sync.render_finished.raw()];
@@ -1003,11 +1003,11 @@ fn record_command_buffer(
         .with_height(extent.height as f32)
         .with_minDepth(0.0)
         .with_maxDepth(1.0);
-    command_buffer.vkCmdSetViewport(0, 1, &viewport);
+    command_buffer.vkCmdSetViewport(0, &[viewport]);
     let scissor = VkRect2D::DEFAULT
         .with_offset(VkOffset2D::DEFAULT.with_x(0).with_y(0))
         .with_extent(extent);
-    command_buffer.vkCmdSetScissor(0, 1, &scissor);
+    command_buffer.vkCmdSetScissor(0, &[scissor]);
 
     command_buffer.vkCmdPushConstants(
         pipeline_layout,

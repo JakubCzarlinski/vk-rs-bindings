@@ -10,15 +10,32 @@ use crate::types::*;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_EXT_debug_report")]
 #[derive(Debug, Clone)]
-pub struct DebugReportCallbackEXTDispatchTable {}
+pub struct DebugReportCallbackEXTDispatchTable {
+  #[cfg(feature = "VK_EXT_debug_report")]
+  pub vkDebugReportMessageEXT: Option<PFN_vkDebugReportMessageEXT>,
+  #[cfg(feature = "VK_EXT_debug_report")]
+  pub vkDestroyDebugReportCallbackEXT: Option<PFN_vkDestroyDebugReportCallbackEXT>,
+}
 #[cfg(feature = "VK_EXT_debug_report")]
 impl DebugReportCallbackEXTDispatchTable {
-  pub const EMPTY: Self = Self {};
-  pub fn load<F>(_loader: F) -> Self
+  pub const EMPTY: Self = Self {
+    #[cfg(feature = "VK_EXT_debug_report")]
+    vkDebugReportMessageEXT: None,
+    #[cfg(feature = "VK_EXT_debug_report")]
+    vkDestroyDebugReportCallbackEXT: None,
+  };
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
-    Self {}
+    Self {
+      #[cfg(feature = "VK_EXT_debug_report")]
+      vkDebugReportMessageEXT: loader(c"vkDebugReportMessageEXT".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_EXT_debug_report")]
+      vkDestroyDebugReportCallbackEXT: loader(c"vkDestroyDebugReportCallbackEXT".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+    }
   }
 }
 #[cfg(feature = "VK_EXT_debug_report")]
@@ -38,7 +55,7 @@ impl<'dev> Drop for DebugReportCallbackEXT<'dev> {
       return;
     }
     unsafe {
-      (self.parent.table.vkDestroyDebugReportCallbackEXT).unwrap_unchecked()(
+      (self.table.vkDestroyDebugReportCallbackEXT).unwrap_unchecked()(
         self.parent.raw(),
         self.raw,
         core::ptr::null(),
@@ -63,5 +80,70 @@ impl<'dev> DebugReportCallbackEXT<'dev> {
   #[inline(always)]
   pub const fn table(&self) -> &DebugReportCallbackEXTDispatchTable {
     self.table
+  }
+  /// [`vkDebugReportMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugReportMessageEXT.html)
+  ///
+  /// Provided by:
+  /// - `VK_EXT_debug_report`
+  ///
+  ///
+  /// # Parameters
+  /// - `instance`
+  /// - `flags`
+  /// - `objectType`
+  /// - `object`: object_type: objectType
+  /// - `location`
+  /// - `messageCode`
+  /// - `pLayerPrefix`: len: null-terminated
+  /// - `pMessage`: len: null-terminated
+  #[cfg(feature = "VK_EXT_debug_report")]
+  #[inline(always)]
+  pub fn vkDebugReportMessageEXT(
+    &self,
+    flags: VkDebugReportFlagsEXT,
+    objectType: VkDebugReportObjectTypeEXT,
+    object: u64,
+    location: usize,
+    messageCode: i32,
+    pLayerPrefix: *const core::ffi::c_char,
+    pMessage: *const core::ffi::c_char,
+  ) {
+    unsafe {
+      // SAFETY: table is fully loaded at creation.
+      (self.table).vkDebugReportMessageEXT.unwrap_unchecked()(
+        self.instance().raw(),
+        flags,
+        objectType,
+        object,
+        location,
+        messageCode,
+        pLayerPrefix,
+        pMessage,
+      )
+    }
+  }
+  /// [`vkDestroyDebugReportCallbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugReportCallbackEXT.html)
+  ///
+  /// Provided by:
+  /// - `VK_EXT_debug_report`
+  ///
+  ///
+  /// # Parameters
+  /// - `instance`
+  /// - `callback`: optional: true
+  /// - `pAllocator`: optional: true
+  #[cfg(feature = "VK_EXT_debug_report")]
+  #[inline(always)]
+  pub fn vkDestroyDebugReportCallbackEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+    if self.raw.0.is_null() {
+      return;
+    }
+    unsafe {
+      // SAFETY: table is fully loaded at creation.
+      (self.table)
+        .vkDestroyDebugReportCallbackEXT
+        .unwrap_unchecked()(self.parent().raw(), self.raw, pAllocator)
+    }
+    self.raw = VkDebugReportCallbackEXT::NULL;
   }
 }

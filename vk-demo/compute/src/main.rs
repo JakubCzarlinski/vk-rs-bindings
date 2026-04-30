@@ -159,7 +159,7 @@ fn create_device<'inst>(instance: &'inst Instance) -> (Device<'inst>, PhysicalDe
         .with_pNext((&raw const vulkan13_features).cast::<c_void>());
 
     let device = physical_device
-        .vkCreateDevice(&raw const device_info, null())
+        .vkCreateDevice(&device_info, null())
         .expect("Failed to create logical device");
 
     (device, physical_device, queue_family_index)
@@ -184,7 +184,7 @@ fn create_compute_pipeline<'a>(
         .with_setLayoutCount(1)
         .with_pSetLayouts(layouts.as_ptr());
     let pipeline_layout = device
-        .vkCreatePipelineLayout(&raw const pll_info, null())
+        .vkCreatePipelineLayout(&pll_info, null())
         .map_err(|e| format!("PLLayout: {e:?}"))?;
 
     let shader_module = device
@@ -278,7 +278,7 @@ fn create_descriptor_set<'a>(
         .with_descriptorPool(descriptor_pool.raw())
         .with_pSetLayouts(layouts.as_ptr());
     let ds = descriptor_pool
-        .vkAllocateDescriptorSets(&raw const alloc_info)
+        .vkAllocateDescriptorSets(&alloc_info)
         .map_err(|e| format!("DSAlloc: {e:?}"))?;
 
     let first_ds = &ds.first().ok_or("No descriptor sets allocated")?;
@@ -307,7 +307,7 @@ fn create_descriptor_set<'a>(
             .with_pBufferInfo(&raw const b_infos[1])
             .with_dstSet(first_ds.raw()),
     ];
-    device.vkUpdateDescriptorSets(2, writes.as_ptr(), 0, null());
+    device.vkUpdateDescriptorSets(&writes, &[]);
 
     Ok(ds)
 }
@@ -324,7 +324,7 @@ fn run_compute<'a>(
         .with_flags(VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT.0)
         .with_queueFamilyIndex(queue_familiy_index);
     let cmd_pool: CommandPool = device
-        .vkCreateCommandPool(&raw const pool_info, null())
+        .vkCreateCommandPool(&pool_info, null())
         .map_err(|e| format!("CommandPool: {e:?}"))?;
 
     let cmd_buffer_info = VkCommandBufferAllocateInfo::DEFAULT
@@ -332,7 +332,7 @@ fn run_compute<'a>(
         .with_commandBufferCount(1)
         .with_commandPool(cmd_pool.raw());
     let cmd_buffers = cmd_pool
-        .vkAllocateCommandBuffers(&raw const cmd_buffer_info)
+        .vkAllocateCommandBuffers(&cmd_buffer_info)
         .map_err(|e| format!("CBAlloc: {e:?}"))?;
     let cmd_buffer: &CommandBuffer<'_> = &cmd_buffers[0];
 
@@ -350,7 +350,7 @@ fn run_compute<'a>(
         .with_pDescriptorSets(raw_ds.as_ptr())
         .with_layout(layout.raw());
 
-    cmd_buffer.vkCmdBindDescriptorSets2(&raw const bind_descriptor_sets_info);
+    cmd_buffer.vkCmdBindDescriptorSets2(&bind_descriptor_sets_info);
     cmd_buffer.vkCmdDispatch(1, 1, 1);
     cmd_buffer
         .vkEndCommandBuffer()
@@ -362,7 +362,7 @@ fn run_compute<'a>(
         .with_pCommandBufferInfos(commna_buffer_infos.as_ptr());
     println!("Submitting compute command buffer...");
     queue
-        .vkQueueSubmit2(1, &raw const submit, VkFence::NULL)
+        .vkQueueSubmit2(&[submit], VkFence::NULL)
         .map_err(|e| format!("Submit: {e:?}"))?;
     queue
         .vkQueueWaitIdle()

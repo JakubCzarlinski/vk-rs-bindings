@@ -31,7 +31,7 @@ pub(crate) fn bind_buffer<'vk>(
         .with_memory(allocation.memory())
         .with_memoryOffset(allocation.offset());
     device
-        .vkBindBufferMemory2(1, &raw const bind)
+        .vkBindBufferMemory2(&[bind])
         .map_err(AllocatorError::Vulkan)?;
     Ok(())
 }
@@ -61,7 +61,7 @@ pub(crate) fn bind_image<'vk>(
         .with_memory(allocation.memory())
         .with_memoryOffset(allocation.offset());
     device
-        .vkBindImageMemory2(1, &raw const bind)
+        .vkBindImageMemory2(&[bind])
         .map_err(AllocatorError::Vulkan)?;
     Ok(())
 }

@@ -28,16 +28,8 @@ pub struct InstanceDispatchTable {
   pub vkEnumeratePhysicalDeviceGroups: Option<PFN_vkEnumeratePhysicalDeviceGroups>,
   #[cfg(feature = "VK_EXT_debug_report")]
   pub vkCreateDebugReportCallbackEXT: Option<PFN_vkCreateDebugReportCallbackEXT>,
-  #[cfg(feature = "VK_EXT_debug_report")]
-  pub vkDebugReportMessageEXT: Option<PFN_vkDebugReportMessageEXT>,
-  #[cfg(feature = "VK_EXT_debug_report")]
-  pub vkDestroyDebugReportCallbackEXT: Option<PFN_vkDestroyDebugReportCallbackEXT>,
   #[cfg(feature = "VK_EXT_debug_utils")]
   pub vkCreateDebugUtilsMessengerEXT: Option<PFN_vkCreateDebugUtilsMessengerEXT>,
-  #[cfg(feature = "VK_EXT_debug_utils")]
-  pub vkDestroyDebugUtilsMessengerEXT: Option<PFN_vkDestroyDebugUtilsMessengerEXT>,
-  #[cfg(feature = "VK_EXT_debug_utils")]
-  pub vkSubmitDebugUtilsMessageEXT: Option<PFN_vkSubmitDebugUtilsMessageEXT>,
   #[cfg(feature = "VK_EXT_directfb_surface")]
   pub vkCreateDirectFBSurfaceEXT: Option<PFN_vkCreateDirectFBSurfaceEXT>,
   #[cfg(feature = "VK_EXT_headless_surface")]
@@ -54,8 +46,6 @@ pub struct InstanceDispatchTable {
   pub vkEnumeratePhysicalDeviceGroupsKHR: Option<PFN_vkEnumeratePhysicalDeviceGroupsKHR>,
   #[cfg(feature = "VK_KHR_display")]
   pub vkCreateDisplayPlaneSurfaceKHR: Option<PFN_vkCreateDisplayPlaneSurfaceKHR>,
-  #[cfg(feature = "VK_KHR_surface")]
-  pub vkDestroySurfaceKHR: Option<PFN_vkDestroySurfaceKHR>,
   #[cfg(feature = "VK_KHR_wayland_surface")]
   pub vkCreateWaylandSurfaceKHR: Option<PFN_vkCreateWaylandSurfaceKHR>,
   #[cfg(feature = "VK_KHR_win32_surface")]
@@ -90,16 +80,8 @@ impl InstanceDispatchTable {
     vkEnumeratePhysicalDeviceGroups: None,
     #[cfg(feature = "VK_EXT_debug_report")]
     vkCreateDebugReportCallbackEXT: None,
-    #[cfg(feature = "VK_EXT_debug_report")]
-    vkDebugReportMessageEXT: None,
-    #[cfg(feature = "VK_EXT_debug_report")]
-    vkDestroyDebugReportCallbackEXT: None,
     #[cfg(feature = "VK_EXT_debug_utils")]
     vkCreateDebugUtilsMessengerEXT: None,
-    #[cfg(feature = "VK_EXT_debug_utils")]
-    vkDestroyDebugUtilsMessengerEXT: None,
-    #[cfg(feature = "VK_EXT_debug_utils")]
-    vkSubmitDebugUtilsMessageEXT: None,
     #[cfg(feature = "VK_EXT_directfb_surface")]
     vkCreateDirectFBSurfaceEXT: None,
     #[cfg(feature = "VK_EXT_headless_surface")]
@@ -116,8 +98,6 @@ impl InstanceDispatchTable {
     vkEnumeratePhysicalDeviceGroupsKHR: None,
     #[cfg(feature = "VK_KHR_display")]
     vkCreateDisplayPlaneSurfaceKHR: None,
-    #[cfg(feature = "VK_KHR_surface")]
-    vkDestroySurfaceKHR: None,
     #[cfg(feature = "VK_KHR_wayland_surface")]
     vkCreateWaylandSurfaceKHR: None,
     #[cfg(feature = "VK_KHR_win32_surface")]
@@ -140,9 +120,9 @@ impl InstanceDispatchTable {
     vkCreateUbmSurfaceSEC: None,
   };
   /// Resolve all instance commands from the given loader closure.
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -160,20 +140,8 @@ impl InstanceDispatchTable {
       #[cfg(feature = "VK_EXT_debug_report")]
       vkCreateDebugReportCallbackEXT: loader(c"vkCreateDebugReportCallbackEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_debug_report")]
-      vkDebugReportMessageEXT: loader(c"vkDebugReportMessageEXT".as_ptr())
-        .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_debug_report")]
-      vkDestroyDebugReportCallbackEXT: loader(c"vkDestroyDebugReportCallbackEXT".as_ptr())
-        .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_EXT_debug_utils")]
       vkCreateDebugUtilsMessengerEXT: loader(c"vkCreateDebugUtilsMessengerEXT".as_ptr())
-        .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_debug_utils")]
-      vkDestroyDebugUtilsMessengerEXT: loader(c"vkDestroyDebugUtilsMessengerEXT".as_ptr())
-        .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_debug_utils")]
-      vkSubmitDebugUtilsMessageEXT: loader(c"vkSubmitDebugUtilsMessageEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_EXT_directfb_surface")]
       vkCreateDirectFBSurfaceEXT: loader(c"vkCreateDirectFBSurfaceEXT".as_ptr())
@@ -198,9 +166,6 @@ impl InstanceDispatchTable {
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_display")]
       vkCreateDisplayPlaneSurfaceKHR: loader(c"vkCreateDisplayPlaneSurfaceKHR".as_ptr())
-        .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_surface")]
-      vkDestroySurfaceKHR: loader(c"vkDestroySurfaceKHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_wayland_surface")]
       vkCreateWaylandSurfaceKHR: loader(c"vkCreateWaylandSurfaceKHR".as_ptr())
@@ -235,9 +200,9 @@ impl InstanceDispatchTable {
     }
   }
   /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, …)`.
-  pub fn load_for_instance<F>(instance: VkInstance, mut get_proc: F) -> Self
+  pub fn load_for_instance<F>(instance: VkInstance, get_proc: F) -> Self
   where
-    F: FnMut(VkInstance, *const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(VkInstance, *const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self::load(|name| get_proc(instance, name))
   }
@@ -334,6 +299,30 @@ impl<'lib> Instance<'lib> {
     }
     self.raw = VkInstance::NULL;
   }
+  /// [`vkEnumeratePhysicalDevices`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDevices.html)
+  ///
+  /// Provided by:
+  /// - `VK_BASE_VERSION_1_0`
+  ///
+  /// - **Export Scopes:** Vulkan, VulkanSC
+  ///
+  /// # Parameters
+  /// - `instance`
+  /// - `pPhysicalDeviceCount`: optional: pointer required, values optional if pointer not null
+  /// - `pPhysicalDevices`: optional: true, len: pPhysicalDeviceCount
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///   - `VK_INCOMPLETE`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_INITIALIZATION_FAILED`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub fn vkEnumeratePhysicalDevices<'inst>(
@@ -459,7 +448,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDebugReportCallbackEXT<'ret>(
     &'ret self,
-    pCreateInfo: *const VkDebugReportCallbackCreateInfoEXT,
+    pCreateInfo: &VkDebugReportCallbackCreateInfoEXT,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::debug_report_callback_ext::DebugReportCallbackEXT<'ret>, VkResult> {
     let mut handle = VkDebugReportCallbackEXT::NULL;
@@ -476,71 +465,6 @@ impl<'lib> Instance<'lib> {
       })
     } else {
       Err(r)
-    }
-  }
-  /// [`vkDebugReportMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugReportMessageEXT.html)
-  ///
-  /// Provided by:
-  /// - `VK_EXT_debug_report`
-  ///
-  ///
-  /// # Parameters
-  /// - `instance`
-  /// - `flags`
-  /// - `objectType`
-  /// - `object`: object_type: objectType
-  /// - `location`
-  /// - `messageCode`
-  /// - `pLayerPrefix`: len: null-terminated
-  /// - `pMessage`: len: null-terminated
-  #[cfg(feature = "VK_EXT_debug_report")]
-  #[inline(always)]
-  pub fn vkDebugReportMessageEXT(
-    &self,
-    flags: VkDebugReportFlagsEXT,
-    objectType: VkDebugReportObjectTypeEXT,
-    object: u64,
-    location: usize,
-    messageCode: i32,
-    pLayerPrefix: *const core::ffi::c_char,
-    pMessage: *const core::ffi::c_char,
-  ) {
-    unsafe {
-      // SAFETY: table is fully loaded at creation.
-      (&self.table).vkDebugReportMessageEXT.unwrap_unchecked()(
-        self.raw,
-        flags,
-        objectType,
-        object,
-        location,
-        messageCode,
-        pLayerPrefix,
-        pMessage,
-      )
-    }
-  }
-  /// [`vkDestroyDebugReportCallbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugReportCallbackEXT.html)
-  ///
-  /// Provided by:
-  /// - `VK_EXT_debug_report`
-  ///
-  ///
-  /// # Parameters
-  /// - `instance`
-  /// - `callback`: optional: true
-  /// - `pAllocator`: optional: true
-  #[cfg(feature = "VK_EXT_debug_report")]
-  #[inline(always)]
-  pub fn vkDestroyDebugReportCallbackEXT(
-    &self,
-    callback: VkDebugReportCallbackEXT,
-    pAllocator: *const VkAllocationCallbacks,
-  ) {
-    unsafe {
-      // SAFETY: table is fully loaded at creation.
-      (&self.table)
-        .vkDestroyDebugReportCallbackEXT
-        .unwrap_unchecked()(self.raw, callback, pAllocator)
     }
   }
   /// [`vkCreateDebugUtilsMessengerEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDebugUtilsMessengerEXT.html)
@@ -568,7 +492,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDebugUtilsMessengerEXT<'ret>(
     &'ret self,
-    pCreateInfo: *const VkDebugUtilsMessengerCreateInfoEXT,
+    pCreateInfo: &VkDebugUtilsMessengerCreateInfoEXT,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::debug_utils_messenger_ext::DebugUtilsMessengerEXT<'ret>, VkResult> {
     let mut handle = VkDebugUtilsMessengerEXT::NULL;
@@ -585,56 +509,6 @@ impl<'lib> Instance<'lib> {
       })
     } else {
       Err(r)
-    }
-  }
-  /// [`vkDestroyDebugUtilsMessengerEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugUtilsMessengerEXT.html)
-  ///
-  /// Provided by:
-  /// - `VK_EXT_debug_utils`
-  ///
-  ///
-  /// # Parameters
-  /// - `instance`
-  /// - `messenger`: optional: true
-  /// - `pAllocator`: optional: true
-  #[cfg(feature = "VK_EXT_debug_utils")]
-  #[inline(always)]
-  pub fn vkDestroyDebugUtilsMessengerEXT(
-    &self,
-    messenger: VkDebugUtilsMessengerEXT,
-    pAllocator: *const VkAllocationCallbacks,
-  ) {
-    unsafe {
-      // SAFETY: table is fully loaded at creation.
-      (&self.table)
-        .vkDestroyDebugUtilsMessengerEXT
-        .unwrap_unchecked()(self.raw, messenger, pAllocator)
-    }
-  }
-  /// [`vkSubmitDebugUtilsMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSubmitDebugUtilsMessageEXT.html)
-  ///
-  /// Provided by:
-  /// - `VK_EXT_debug_utils`
-  ///
-  ///
-  /// # Parameters
-  /// - `instance`
-  /// - `messageSeverity`
-  /// - `messageTypes`
-  /// - `pCallbackData`
-  #[cfg(feature = "VK_EXT_debug_utils")]
-  #[inline(always)]
-  pub fn vkSubmitDebugUtilsMessageEXT(
-    &self,
-    messageSeverity: VkDebugUtilsMessageSeverityFlagBitsEXT,
-    messageTypes: VkDebugUtilsMessageTypeFlagsEXT,
-    pCallbackData: *const VkDebugUtilsMessengerCallbackDataEXT,
-  ) {
-    unsafe {
-      // SAFETY: table is fully loaded at creation.
-      (&self.table)
-        .vkSubmitDebugUtilsMessageEXT
-        .unwrap_unchecked()(self.raw, messageSeverity, messageTypes, pCallbackData)
     }
   }
   /// [`vkCreateDirectFBSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDirectFBSurfaceEXT.html)
@@ -663,7 +537,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDirectFBSurfaceEXT<'ret>(
     &'ret self,
-    pCreateInfo: *const VkDirectFBSurfaceCreateInfoEXT,
+    pCreateInfo: &VkDirectFBSurfaceCreateInfoEXT,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -711,7 +585,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateHeadlessSurfaceEXT<'ret>(
     &'ret self,
-    pCreateInfo: *const VkHeadlessSurfaceCreateInfoEXT,
+    pCreateInfo: &VkHeadlessSurfaceCreateInfoEXT,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -760,7 +634,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateMetalSurfaceEXT<'ret>(
     &'ret self,
-    pCreateInfo: *const VkMetalSurfaceCreateInfoEXT,
+    pCreateInfo: &VkMetalSurfaceCreateInfoEXT,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -808,7 +682,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateImagePipeSurfaceFUCHSIA<'ret>(
     &'ret self,
-    pCreateInfo: *const VkImagePipeSurfaceCreateInfoFUCHSIA,
+    pCreateInfo: &VkImagePipeSurfaceCreateInfoFUCHSIA,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -854,7 +728,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateStreamDescriptorSurfaceGGP<'ret>(
     &'ret self,
-    pCreateInfo: *const VkStreamDescriptorSurfaceCreateInfoGGP,
+    pCreateInfo: &VkStreamDescriptorSurfaceCreateInfoGGP,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -900,7 +774,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateAndroidSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: *const VkAndroidSurfaceCreateInfoKHR,
+    pCreateInfo: &VkAndroidSurfaceCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -994,7 +868,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDisplayPlaneSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: *const VkDisplaySurfaceCreateInfoKHR,
+    pCreateInfo: &VkDisplaySurfaceCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1011,28 +885,6 @@ impl<'lib> Instance<'lib> {
       })
     } else {
       Err(r)
-    }
-  }
-  /// [`vkDestroySurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySurfaceKHR.html)
-  ///
-  /// Provided by:
-  /// - `VK_KHR_surface`
-  ///
-  ///
-  /// # Parameters
-  /// - `instance`
-  /// - `surface`: optional: true
-  /// - `pAllocator`: optional: true
-  #[cfg(feature = "VK_KHR_surface")]
-  #[inline(always)]
-  pub fn vkDestroySurfaceKHR(
-    &self,
-    surface: VkSurfaceKHR,
-    pAllocator: *const VkAllocationCallbacks,
-  ) {
-    unsafe {
-      // SAFETY: table is fully loaded at creation.
-      (&self.table).vkDestroySurfaceKHR.unwrap_unchecked()(self.raw, surface, pAllocator)
     }
   }
   /// [`vkCreateWaylandSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWaylandSurfaceKHR.html)
@@ -1061,7 +913,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateWaylandSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: *const VkWaylandSurfaceCreateInfoKHR,
+    pCreateInfo: &VkWaylandSurfaceCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1109,7 +961,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateWin32SurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: *const VkWin32SurfaceCreateInfoKHR,
+    pCreateInfo: &VkWin32SurfaceCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1157,7 +1009,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateXcbSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: *const VkXcbSurfaceCreateInfoKHR,
+    pCreateInfo: &VkXcbSurfaceCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1205,7 +1057,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateXlibSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: *const VkXlibSurfaceCreateInfoKHR,
+    pCreateInfo: &VkXlibSurfaceCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1254,7 +1106,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateIOSSurfaceMVK<'ret>(
     &'ret self,
-    pCreateInfo: *const VkIOSSurfaceCreateInfoMVK,
+    pCreateInfo: &VkIOSSurfaceCreateInfoMVK,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1303,7 +1155,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateMacOSSurfaceMVK<'ret>(
     &'ret self,
-    pCreateInfo: *const VkMacOSSurfaceCreateInfoMVK,
+    pCreateInfo: &VkMacOSSurfaceCreateInfoMVK,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1352,7 +1204,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateViSurfaceNN<'ret>(
     &'ret self,
-    pCreateInfo: *const VkViSurfaceCreateInfoNN,
+    pCreateInfo: &VkViSurfaceCreateInfoNN,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1400,7 +1252,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateSurfaceOHOS<'ret>(
     &'ret self,
-    pCreateInfo: *const VkSurfaceCreateInfoOHOS,
+    pCreateInfo: &VkSurfaceCreateInfoOHOS,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1448,7 +1300,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateScreenSurfaceQNX<'ret>(
     &'ret self,
-    pCreateInfo: *const VkScreenSurfaceCreateInfoQNX,
+    pCreateInfo: &VkScreenSurfaceCreateInfoQNX,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
@@ -1496,7 +1348,7 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateUbmSurfaceSEC<'ret>(
     &'ret self,
-    pCreateInfo: *const VkUbmSurfaceCreateInfoSEC,
+    pCreateInfo: &VkUbmSurfaceCreateInfoSEC,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;

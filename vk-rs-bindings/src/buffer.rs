@@ -28,9 +28,9 @@ impl BufferDispatchTable {
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     vkGetBufferMemoryRequirements: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -173,7 +173,7 @@ impl<'dev> Buffer<'dev> {
   /// - `pMemoryRequirements`
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkGetBufferMemoryRequirements(&self, pMemoryRequirements: *mut VkMemoryRequirements) {
+  pub fn vkGetBufferMemoryRequirements(&self, pMemoryRequirements: &mut VkMemoryRequirements) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)

@@ -31,7 +31,7 @@ pub(crate) fn import_host_buffer<'vk>(
         vk::VkExternalMemoryBufferCreateInfo::DEFAULT.with_handleTypes(import_info.handle_type.0);
     let buffer_info = (*buffer_info).with_pNext((&raw const external_memory_info).cast());
     let buffer = device
-        .vkCreateBuffer(&raw const buffer_info, vk::null())
+        .vkCreateBuffer(&buffer_info, vk::null())
         .map_err(AllocatorError::Vulkan)?;
     let requirement = buffer_requirements(device, &buffer);
     let mut host_props = vk::VkMemoryHostPointerPropertiesEXT::DEFAULT;
@@ -39,7 +39,7 @@ pub(crate) fn import_host_buffer<'vk>(
         .vkGetMemoryHostPointerPropertiesEXT(
             import_info.handle_type,
             import_info.host_ptr.cast(),
-            &raw mut host_props,
+            &mut host_props,
         )
         .map_err(AllocatorError::Vulkan)?;
     let memory_type_index = choose_memory_type(
@@ -55,7 +55,7 @@ pub(crate) fn import_host_buffer<'vk>(
         .with_allocationSize(requirement.requirements.size)
         .with_memoryTypeIndex(memory_type_index);
     let memory = device
-        .vkAllocateMemory(&raw const allocate_info, vk::null())
+        .vkAllocateMemory(&allocate_info, vk::null())
         .map_err(AllocatorError::Vulkan)?;
     buffer
         .vkBindBufferMemory(memory.raw(), 0)

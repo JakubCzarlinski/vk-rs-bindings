@@ -124,9 +124,9 @@ impl EntryDispatchTable {
     vkEnumerateInstanceVersion: None,
   };
   /// Resolve all pre-instance commands from the given loader closure.
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -172,19 +172,37 @@ impl<'lib> Entry<'lib> {
     });
     Self { table, lib }
   }
+  /// [`vkCreateInstance`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateInstance.html)
+  ///
+  /// Provided by:
+  /// - `VK_BASE_VERSION_1_0`
+  ///
+  /// - **Export Scopes:** Vulkan, VulkanSC
+  ///
+  /// # Parameters
+  /// - `pCreateInfo`
+  /// - `pAllocator`: optional: true
+  /// - `pInstance`
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_INITIALIZATION_FAILED`
+  ///   - `VK_ERROR_LAYER_NOT_PRESENT`
+  ///   - `VK_ERROR_EXTENSION_NOT_PRESENT`
+  ///   - `VK_ERROR_INCOMPATIBLE_DRIVER`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
-  /// Create a Vulkan instance.
-  ///
-  /// On success returns an [`Instance`] whose lifetime is tied to this
-  /// `Entry` (and therefore to the underlying [`VulkanLib`]).
-  ///
-  /// # Safety
-  /// `pCreateInfo` must point to a valid, fully-initialized
-  /// `VkInstanceCreateInfo`.
   #[inline]
   pub fn vkCreateInstance(
     &self,
-    pCreateInfo: *const VkInstanceCreateInfo,
+    pCreateInfo: &VkInstanceCreateInfo,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::instance::Instance<'lib>, VkResult> {
     use crate::instance::{Instance, InstanceDispatchTable};
@@ -331,7 +349,7 @@ impl<'lib> Entry<'lib> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_BASE_VERSION_1_1")]
   #[inline(always)]
-  pub fn vkEnumerateInstanceVersion(&self, pApiVersion: *mut u32) -> Result<VkResult, VkResult> {
+  pub fn vkEnumerateInstanceVersion(&self, pApiVersion: &mut u32) -> Result<VkResult, VkResult> {
     let r = unsafe { (&self.table).vkEnumerateInstanceVersion.unwrap_unchecked()(pApiVersion) };
     if r >= VkResult::VK_SUCCESS {
       Ok(r)

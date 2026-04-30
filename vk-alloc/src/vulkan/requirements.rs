@@ -15,7 +15,7 @@ pub(crate) fn buffer_requirements(
     let mut dedicated = vk::VkMemoryDedicatedRequirements::DEFAULT;
     let mut req = vk::VkMemoryRequirements2::DEFAULT
         .with_pNext((&raw mut dedicated).cast::<core::ffi::c_void>());
-    device.vkGetBufferMemoryRequirements2(&raw const info, &raw mut req);
+    device.vkGetBufferMemoryRequirements2(&info, &mut req);
     RequirementInfo {
         requirements: req.memoryRequirements,
         dedicated_required: dedicated.requiresDedicatedAllocation == vk::VK_TRUE,
@@ -31,7 +31,7 @@ pub(crate) fn image_requirements(
     let mut dedicated = vk::VkMemoryDedicatedRequirements::DEFAULT;
     let mut req = vk::VkMemoryRequirements2::DEFAULT
         .with_pNext((&raw mut dedicated).cast::<core::ffi::c_void>());
-    device.vkGetImageMemoryRequirements2(&raw const info, &raw mut req);
+    device.vkGetImageMemoryRequirements2(&info, &mut req);
     RequirementInfo {
         requirements: req.memoryRequirements,
         dedicated_required: dedicated.requiresDedicatedAllocation == vk::VK_TRUE,

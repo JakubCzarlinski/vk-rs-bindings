@@ -44,9 +44,9 @@ impl CommandPoolDispatchTable {
     #[cfg(feature = "VK_KHR_maintenance1")]
     vkTrimCommandPoolKHR: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VKSC_VERSION_1_0")]
@@ -137,7 +137,7 @@ impl<'dev> CommandPool<'dev> {
   pub fn vkGetCommandPoolMemoryConsumption(
     &self,
     commandBuffer: VkCommandBuffer,
-    pConsumption: *mut VkCommandPoolMemoryConsumption,
+    pConsumption: &mut VkCommandPoolMemoryConsumption,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -146,13 +146,35 @@ impl<'dev> CommandPool<'dev> {
         .unwrap_unchecked()(self.device().raw(), self.raw, commandBuffer, pConsumption)
     }
   }
+  /// [`vkAllocateCommandBuffers`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateCommandBuffers.html)
+  ///
+  /// Provided by:
+  /// - `VK_BASE_VERSION_1_0`
+  ///
+  /// - **Export Scopes:** Vulkan, VulkanSC
+  ///
+  /// # Parameters
+  /// - `device`
+  /// - `pAllocateInfo`
+  /// - `pCommandBuffers`: len: pAllocateInfo->commandBufferCount
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub fn vkAllocateCommandBuffers<'pool>(
     &'pool self,
-    pAllocateInfo: *const VkCommandBufferAllocateInfo,
+    pAllocateInfo: &VkCommandBufferAllocateInfo,
   ) -> Result<alloc::boxed::Box<[crate::command_buffer::CommandBuffer<'pool>]>, VkResult> {
-    let count = unsafe { (*pAllocateInfo).commandBufferCount };
+    let count = pAllocateInfo.commandBufferCount;
     let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(count as usize);
     let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
     let r = unsafe {
@@ -204,6 +226,18 @@ impl<'dev> CommandPool<'dev> {
     }
     self.raw = VkCommandPool::NULL;
   }
+  /// [`vkFreeCommandBuffers`](https://docs.vulkan.org/refpages/latest/refpages/source/vkFreeCommandBuffers.html)
+  ///
+  /// Provided by:
+  /// - `VK_BASE_VERSION_1_0`
+  ///
+  /// - **Export Scopes:** Vulkan, VulkanSC
+  ///
+  /// # Parameters
+  /// - `device`
+  /// - `commandPool`
+  /// - `commandBufferCount`
+  /// - `pCommandBuffers`: len: commandBufferCount
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub fn vkFreeCommandBuffers(

@@ -55,9 +55,9 @@ impl PipelineDispatchTable {
     #[cfg(feature = "VK_NV_ray_tracing")]
     vkGetRayTracingShaderGroupHandlesNV: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_AMDX_shader_enqueue")]
@@ -172,8 +172,8 @@ impl<'dev> Pipeline<'dev> {
   #[inline(always)]
   pub fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     &self,
-    pNodeInfo: *const VkPipelineShaderStageNodeCreateInfoAMDX,
-    pNodeIndex: *mut u32,
+    pNodeInfo: &VkPipelineShaderStageNodeCreateInfoAMDX,
+    pNodeIndex: &mut u32,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -210,7 +210,7 @@ impl<'dev> Pipeline<'dev> {
   #[inline(always)]
   pub fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     &self,
-    pSizeInfo: *mut VkExecutionGraphPipelineScratchSizeAMDX,
+    pSizeInfo: &mut VkExecutionGraphPipelineScratchSizeAMDX,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

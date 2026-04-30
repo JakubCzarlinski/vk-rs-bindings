@@ -28,9 +28,9 @@ impl VideoSessionKHRDispatchTable {
     #[cfg(feature = "VK_KHR_video_queue")]
     vkGetVideoSessionMemoryRequirementsKHR: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_KHR_video_queue")]
@@ -120,15 +120,14 @@ impl<'dev> VideoSessionKHR<'dev> {
   #[inline(always)]
   pub fn vkBindVideoSessionMemoryKHR(
     &self,
-    bindSessionMemoryInfoCount: u32,
-    pBindSessionMemoryInfos: *const VkBindVideoSessionMemoryInfoKHR,
+    pBindSessionMemoryInfos: &[VkBindVideoSessionMemoryInfoKHR],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBindVideoSessionMemoryKHR.unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        bindSessionMemoryInfoCount,
-        pBindSessionMemoryInfos,
+        pBindSessionMemoryInfos.len() as u32,
+        pBindSessionMemoryInfos.as_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {

@@ -24,9 +24,9 @@ impl ImageViewDispatchTable {
     #[cfg(feature = "VK_NVX_image_view_handle")]
     vkGetImageViewAddressNVX: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -132,7 +132,7 @@ impl<'dev> ImageView<'dev> {
   #[inline(always)]
   pub fn vkGetImageViewAddressNVX(
     &self,
-    pProperties: *mut VkImageViewAddressPropertiesNVX,
+    pProperties: &mut VkImageViewAddressPropertiesNVX,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetImageViewAddressNVX.unwrap_unchecked()(

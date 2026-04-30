@@ -28,9 +28,9 @@ impl SemaphoreDispatchTable {
     #[cfg(feature = "VK_KHR_timeline_semaphore")]
     vkGetSemaphoreCounterValueKHR: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -140,7 +140,7 @@ impl<'dev> Semaphore<'dev> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_BASE_VERSION_1_2")]
   #[inline(always)]
-  pub fn vkGetSemaphoreCounterValue(&self, pValue: *mut u64) -> Result<VkResult, VkResult> {
+  pub fn vkGetSemaphoreCounterValue(&self, pValue: &mut u64) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetSemaphoreCounterValue.unwrap_unchecked()(
         self.device().raw(),
@@ -179,7 +179,7 @@ impl<'dev> Semaphore<'dev> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_KHR_timeline_semaphore")]
   #[inline(always)]
-  pub fn vkGetSemaphoreCounterValueKHR(&self, pValue: *mut u64) -> Result<VkResult, VkResult> {
+  pub fn vkGetSemaphoreCounterValueKHR(&self, pValue: &mut u64) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
         .vkGetSemaphoreCounterValueKHR

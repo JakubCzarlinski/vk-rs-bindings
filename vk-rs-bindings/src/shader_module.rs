@@ -24,9 +24,9 @@ impl ShaderModuleDispatchTable {
     #[cfg(feature = "VK_EXT_shader_module_identifier")]
     vkGetShaderModuleIdentifierEXT: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -124,7 +124,7 @@ impl<'dev> ShaderModule<'dev> {
   /// - `pIdentifier`
   #[cfg(feature = "VK_EXT_shader_module_identifier")]
   #[inline(always)]
-  pub fn vkGetShaderModuleIdentifierEXT(&self, pIdentifier: *mut VkShaderModuleIdentifierEXT) {
+  pub fn vkGetShaderModuleIdentifierEXT(&self, pIdentifier: &mut VkShaderModuleIdentifierEXT) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)

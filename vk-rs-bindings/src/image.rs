@@ -59,9 +59,9 @@ impl ImageDispatchTable {
     #[cfg(feature = "VK_KHR_maintenance5")]
     vkGetImageSubresourceLayout2KHR: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -222,7 +222,7 @@ impl<'dev> Image<'dev> {
   /// - `pMemoryRequirements`
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkGetImageMemoryRequirements(&self, pMemoryRequirements: *mut VkMemoryRequirements) {
+  pub fn vkGetImageMemoryRequirements(&self, pMemoryRequirements: &mut VkMemoryRequirements) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetImageMemoryRequirements.unwrap_unchecked()(
@@ -279,8 +279,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout(
     &self,
-    pSubresource: *const VkImageSubresource,
-    pLayout: *mut VkSubresourceLayout,
+    pSubresource: &VkImageSubresource,
+    pLayout: &mut VkSubresourceLayout,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -308,8 +308,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2(
     &self,
-    pSubresource: *const VkImageSubresource2,
-    pLayout: *mut VkSubresourceLayout2,
+    pSubresource: &VkImageSubresource2,
+    pLayout: &mut VkSubresourceLayout2,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -341,8 +341,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2EXT(
     &self,
-    pSubresource: *const VkImageSubresource2,
-    pLayout: *mut VkSubresourceLayout2,
+    pSubresource: &VkImageSubresource2,
+    pLayout: &mut VkSubresourceLayout2,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -375,7 +375,7 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageDrmFormatModifierPropertiesEXT(
     &self,
-    pProperties: *mut VkImageDrmFormatModifierPropertiesEXT,
+    pProperties: &mut VkImageDrmFormatModifierPropertiesEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -404,8 +404,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2KHR(
     &self,
-    pSubresource: *const VkImageSubresource2,
-    pLayout: *mut VkSubresourceLayout2,
+    pSubresource: &VkImageSubresource2,
+    pLayout: &mut VkSubresourceLayout2,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.

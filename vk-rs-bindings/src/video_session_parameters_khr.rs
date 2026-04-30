@@ -24,9 +24,9 @@ impl VideoSessionParametersKHRDispatchTable {
     #[cfg(feature = "VK_KHR_video_queue")]
     vkUpdateVideoSessionParametersKHR: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_KHR_video_queue")]
@@ -135,7 +135,7 @@ impl<'dev> VideoSessionParametersKHR<'dev> {
   #[inline(always)]
   pub fn vkUpdateVideoSessionParametersKHR(
     &self,
-    pUpdateInfo: *const VkVideoSessionParametersUpdateInfoKHR,
+    pUpdateInfo: &VkVideoSessionParametersUpdateInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

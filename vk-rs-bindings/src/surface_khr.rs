@@ -10,15 +10,25 @@ use crate::types::*;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_KHR_surface")]
 #[derive(Debug, Clone)]
-pub struct SurfaceKHRDispatchTable {}
+pub struct SurfaceKHRDispatchTable {
+  #[cfg(feature = "VK_KHR_surface")]
+  pub vkDestroySurfaceKHR: Option<PFN_vkDestroySurfaceKHR>,
+}
 #[cfg(feature = "VK_KHR_surface")]
 impl SurfaceKHRDispatchTable {
-  pub const EMPTY: Self = Self {};
-  pub fn load<F>(_loader: F) -> Self
+  pub const EMPTY: Self = Self {
+    #[cfg(feature = "VK_KHR_surface")]
+    vkDestroySurfaceKHR: None,
+  };
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
-    Self {}
+    Self {
+      #[cfg(feature = "VK_KHR_surface")]
+      vkDestroySurfaceKHR: loader(c"vkDestroySurfaceKHR".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+    }
   }
 }
 #[cfg(feature = "VK_KHR_surface")]
@@ -38,7 +48,7 @@ impl<'dev> Drop for SurfaceKHR<'dev> {
       return;
     }
     unsafe {
-      (self.parent.table.vkDestroySurfaceKHR).unwrap_unchecked()(
+      (self.table.vkDestroySurfaceKHR).unwrap_unchecked()(
         self.parent.raw(),
         self.raw,
         core::ptr::null(),
@@ -63,5 +73,27 @@ impl<'dev> SurfaceKHR<'dev> {
   #[inline(always)]
   pub const fn table(&self) -> &SurfaceKHRDispatchTable {
     self.table
+  }
+  /// [`vkDestroySurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySurfaceKHR.html)
+  ///
+  /// Provided by:
+  /// - `VK_KHR_surface`
+  ///
+  ///
+  /// # Parameters
+  /// - `instance`
+  /// - `surface`: optional: true
+  /// - `pAllocator`: optional: true
+  #[cfg(feature = "VK_KHR_surface")]
+  #[inline(always)]
+  pub fn vkDestroySurfaceKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+    if self.raw.0.is_null() {
+      return;
+    }
+    unsafe {
+      // SAFETY: table is fully loaded at creation.
+      (self.table).vkDestroySurfaceKHR.unwrap_unchecked()(self.parent().raw(), self.raw, pAllocator)
+    }
+    self.raw = VkSurfaceKHR::NULL;
   }
 }

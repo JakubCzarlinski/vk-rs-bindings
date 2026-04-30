@@ -13,7 +13,7 @@ pub(crate) fn memory_properties(
     physical_device: &vk::PhysicalDevice<'_>,
 ) -> vk::VkPhysicalDeviceMemoryProperties {
     let mut props = vk::VkPhysicalDeviceMemoryProperties2::DEFAULT;
-    physical_device.vkGetPhysicalDeviceMemoryProperties2(&raw mut props);
+    physical_device.vkGetPhysicalDeviceMemoryProperties2(&mut props);
     props.memoryProperties
 }
 
@@ -23,7 +23,7 @@ pub(crate) fn device_limits(physical_device: &vk::PhysicalDevice<'_>) -> DeviceL
         .with_pNext((&raw mut host).cast::<c_void>());
     let mut props = vk::VkPhysicalDeviceProperties2::DEFAULT
         .with_pNext((&raw mut maintenance3).cast::<c_void>());
-    physical_device.vkGetPhysicalDeviceProperties2(&raw mut props);
+    physical_device.vkGetPhysicalDeviceProperties2(&mut props);
     DeviceLimits {
         max_memory_allocation_size: maintenance3.maxMemoryAllocationSize,
         max_storage_buffer_range: props.properties.limits.maxStorageBufferRange,

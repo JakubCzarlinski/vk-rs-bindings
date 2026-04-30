@@ -19,7 +19,7 @@ pub(crate) fn create_instance<'lib>(
         .with_enabledLayerCount(layer_names.len() as u32)
         .with_ppEnabledLayerNames(layer_names.as_ptr());
     entry
-        .vkCreateInstance(&raw const create_info, null())
+        .vkCreateInstance(&create_info, null())
         .map_err(|err| format!("vkCreateInstance failed: {err:?}"))
 }
 
@@ -36,7 +36,7 @@ pub(crate) fn create_device<'inst>(
         .with_queueCreateInfoCount(1)
         .with_pQueueCreateInfos(&raw const queue_info);
     physical_device
-        .vkCreateDevice(&raw const create_info, null())
+        .vkCreateDevice(&create_info, null())
         .map_err(|err| format!("vkCreateDevice failed: {err:?}"))
 }
 
@@ -58,6 +58,6 @@ pub(crate) fn create_group_device<'inst>(
         .with_queueCreateInfoCount(1)
         .with_pQueueCreateInfos(&raw const queue_info);
     physical_device
-        .vkCreateDevice(&raw const create_info, null())
+        .vkCreateDevice(&create_info, null())
         .map_err(|err| format!("vkCreateDevice for device group failed: {err:?}"))
 }

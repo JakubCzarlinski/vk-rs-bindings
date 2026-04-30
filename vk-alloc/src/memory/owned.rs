@@ -128,7 +128,7 @@ pub(crate) fn allocate_owned_memory(
     }
 
     let memory = device
-        .vkAllocateMemory(&raw const allocate_info, null())
+        .vkAllocateMemory(&allocate_info, null())
         .map_err(AllocatorError::Vulkan)?;
     let free_memory = memory.table().vkFreeMemory.ok_or(AllocatorError::Vulkan(
         vk::VkResult::VK_ERROR_INITIALIZATION_FAILED,

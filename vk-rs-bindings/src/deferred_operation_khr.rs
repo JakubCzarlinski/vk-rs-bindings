@@ -72,9 +72,9 @@ impl DeferredOperationKHRDispatchTable {
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
     vkCreateRayTracingPipelinesKHR: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_ARM_data_graph")]
@@ -206,10 +206,9 @@ impl<'dev> DeferredOperationKHR<'dev> {
   pub fn vkCreateDataGraphPipelinesARM(
     &self,
     pipelineCache: VkPipelineCache,
-    createInfoCount: u32,
-    pCreateInfos: *const VkDataGraphPipelineCreateInfoARM,
+    pCreateInfos: &[VkDataGraphPipelineCreateInfoARM],
     pAllocator: *const VkAllocationCallbacks,
-    pPipelines: *mut VkPipeline,
+    pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -218,10 +217,10 @@ impl<'dev> DeferredOperationKHR<'dev> {
         self.device().raw(),
         self.raw,
         pipelineCache,
-        createInfoCount,
-        pCreateInfos,
+        pPipelines.len() as u32,
+        pCreateInfos.as_ptr(),
         pAllocator,
-        pPipelines,
+        pPipelines.as_mut_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {
@@ -258,15 +257,14 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkBuildMicromapsEXT(
     &self,
-    infoCount: u32,
-    pInfos: *const VkMicromapBuildInfoEXT,
+    pInfos: &[VkMicromapBuildInfoEXT],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBuildMicromapsEXT.unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        infoCount,
-        pInfos,
+        pInfos.len() as u32,
+        pInfos.as_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {
@@ -302,7 +300,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyMemoryToMicromapEXT(
     &self,
-    pInfo: *const VkCopyMemoryToMicromapInfoEXT,
+    pInfo: &VkCopyMemoryToMicromapInfoEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMemoryToMicromapEXT.unwrap_unchecked()(
@@ -342,10 +340,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[inline(always)]
-  pub fn vkCopyMicromapEXT(
-    &self,
-    pInfo: *const VkCopyMicromapInfoEXT,
-  ) -> Result<VkResult, VkResult> {
+  pub fn vkCopyMicromapEXT(&self, pInfo: &VkCopyMicromapInfoEXT) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMicromapEXT.unwrap_unchecked()(self.device().raw(), self.raw, pInfo)
     };
@@ -382,7 +377,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyMicromapToMemoryEXT(
     &self,
-    pInfo: *const VkCopyMicromapToMemoryInfoEXT,
+    pInfo: &VkCopyMicromapToMemoryInfoEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMicromapToMemoryEXT.unwrap_unchecked()(
@@ -426,8 +421,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkBuildAccelerationStructuresKHR(
     &self,
-    infoCount: u32,
-    pInfos: *const VkAccelerationStructureBuildGeometryInfoKHR,
+    pInfos: &[VkAccelerationStructureBuildGeometryInfoKHR],
     ppBuildRangeInfos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -436,8 +430,8 @@ impl<'dev> DeferredOperationKHR<'dev> {
         .unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        infoCount,
-        pInfos,
+        pInfos.len() as u32,
+        pInfos.as_ptr(),
         ppBuildRangeInfos,
       )
     };
@@ -474,7 +468,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyAccelerationStructureKHR(
     &self,
-    pInfo: *const VkCopyAccelerationStructureInfoKHR,
+    pInfo: &VkCopyAccelerationStructureInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -514,7 +508,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyAccelerationStructureToMemoryKHR(
     &self,
-    pInfo: *const VkCopyAccelerationStructureToMemoryInfoKHR,
+    pInfo: &VkCopyAccelerationStructureToMemoryInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -554,7 +548,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyMemoryToAccelerationStructureKHR(
     &self,
-    pInfo: *const VkCopyMemoryToAccelerationStructureInfoKHR,
+    pInfo: &VkCopyMemoryToAccelerationStructureInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -714,10 +708,9 @@ impl<'dev> DeferredOperationKHR<'dev> {
   pub fn vkCreateRayTracingPipelinesKHR(
     &self,
     pipelineCache: VkPipelineCache,
-    createInfoCount: u32,
-    pCreateInfos: *const VkRayTracingPipelineCreateInfoKHR,
+    pCreateInfos: &[VkRayTracingPipelineCreateInfoKHR],
     pAllocator: *const VkAllocationCallbacks,
-    pPipelines: *mut VkPipeline,
+    pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -726,10 +719,10 @@ impl<'dev> DeferredOperationKHR<'dev> {
         self.device().raw(),
         self.raw,
         pipelineCache,
-        createInfoCount,
-        pCreateInfos,
+        pPipelines.len() as u32,
+        pCreateInfos.as_ptr(),
         pAllocator,
-        pPipelines,
+        pPipelines.as_mut_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {

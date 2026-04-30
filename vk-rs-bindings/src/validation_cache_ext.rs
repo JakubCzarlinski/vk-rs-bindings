@@ -28,9 +28,9 @@ impl ValidationCacheEXTDispatchTable {
     #[cfg(feature = "VK_EXT_validation_cache")]
     vkMergeValidationCachesEXT: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_EXT_validation_cache")]
@@ -188,15 +188,14 @@ impl<'dev> ValidationCacheEXT<'dev> {
   #[inline(always)]
   pub fn vkMergeValidationCachesEXT(
     &self,
-    srcCacheCount: u32,
-    pSrcCaches: *const VkValidationCacheEXT,
+    pSrcCaches: &[VkValidationCacheEXT],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkMergeValidationCachesEXT.unwrap_unchecked()(
         self.device().raw(),
         self.raw,
-        srcCacheCount,
-        pSrcCaches,
+        pSrcCaches.len() as u32,
+        pSrcCaches.as_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {

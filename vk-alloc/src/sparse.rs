@@ -140,7 +140,7 @@ fn sparse_buffer_base<'vk>(
         .vkCreateBuffer(buffer_info, vk::null())
         .map_err(AllocatorError::Vulkan)?;
     let mut requirements = vk::VkMemoryRequirements::DEFAULT;
-    buffer.vkGetBufferMemoryRequirements(&raw mut requirements);
+    buffer.vkGetBufferMemoryRequirements(&mut requirements);
     Ok((
         buffer,
         SparseBase {

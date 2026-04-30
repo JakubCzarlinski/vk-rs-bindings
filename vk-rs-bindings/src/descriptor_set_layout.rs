@@ -29,9 +29,9 @@ impl DescriptorSetLayoutDispatchTable {
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     vkGetDescriptorSetLayoutSizeEXT: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -135,7 +135,7 @@ impl<'dev> DescriptorSetLayout<'dev> {
   /// - `pOffset`
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
   #[inline(always)]
-  pub fn vkGetDescriptorSetLayoutBindingOffsetEXT(&self, binding: u32, pOffset: *mut VkDeviceSize) {
+  pub fn vkGetDescriptorSetLayoutBindingOffsetEXT(&self, binding: u32, pOffset: &mut VkDeviceSize) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -155,7 +155,7 @@ impl<'dev> DescriptorSetLayout<'dev> {
   /// - `pLayoutSizeInBytes`
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
   #[inline(always)]
-  pub fn vkGetDescriptorSetLayoutSizeEXT(&self, pLayoutSizeInBytes: *mut VkDeviceSize) {
+  pub fn vkGetDescriptorSetLayoutSizeEXT(&self, pLayoutSizeInBytes: &mut VkDeviceSize) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)

@@ -34,9 +34,9 @@ impl BufferCollectionFUCHSIADispatchTable {
     #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
     vkSetBufferCollectionImageConstraintsFUCHSIA: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
@@ -156,7 +156,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
   #[inline(always)]
   pub fn vkGetBufferCollectionPropertiesFUCHSIA(
     &self,
-    pProperties: *mut VkBufferCollectionPropertiesFUCHSIA,
+    pProperties: &mut VkBufferCollectionPropertiesFUCHSIA,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -195,7 +195,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
   #[inline(always)]
   pub fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
     &self,
-    pBufferConstraintsInfo: *const VkBufferConstraintsInfoFUCHSIA,
+    pBufferConstraintsInfo: &VkBufferConstraintsInfoFUCHSIA,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -234,7 +234,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
   #[inline(always)]
   pub fn vkSetBufferCollectionImageConstraintsFUCHSIA(
     &self,
-    pImageConstraintsInfo: *const VkImageConstraintsInfoFUCHSIA,
+    pImageConstraintsInfo: &VkImageConstraintsInfoFUCHSIA,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

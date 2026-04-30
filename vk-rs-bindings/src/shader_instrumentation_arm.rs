@@ -28,9 +28,9 @@ impl ShaderInstrumentationARMDispatchTable {
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     vkGetShaderInstrumentationValuesARM: None,
   };
-  pub fn load<F>(mut loader: F) -> Self
+  pub fn load<F>(loader: F) -> Self
   where
-    F: FnMut(*const c_char) -> Option<unsafe extern "system" fn()>,
+    F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
       #[cfg(feature = "VK_ARM_shader_instrumentation")]
@@ -165,7 +165,7 @@ impl<'dev> ShaderInstrumentationARM<'dev> {
   #[inline(always)]
   pub fn vkGetShaderInstrumentationValuesARM(
     &self,
-    pMetricBlockCount: *mut u32,
+    pMetricBlockCount: &mut u32,
     pMetricValues: *mut core::ffi::c_void,
     flags: VkShaderInstrumentationValuesFlagsARM,
   ) -> Result<VkResult, VkResult> {

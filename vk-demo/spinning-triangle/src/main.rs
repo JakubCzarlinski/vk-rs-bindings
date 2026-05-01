@@ -710,7 +710,7 @@ fn create_graphics_pipeline<'a>(
 
     let pipeline_info = VkGraphicsPipelineCreateInfo::DEFAULT
         .with_stageCount(shader_stages.len() as u32)
-        .with_pStages(shader_stages.as_ptr())
+        .with_pStages(&shader_stages)
         .with_pVertexInputState(&vertex_input)
         .with_pInputAssemblyState(&input_assembly)
         .with_pViewportState(&viewport_state)

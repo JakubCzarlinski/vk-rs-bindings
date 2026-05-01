@@ -46754,8 +46754,9 @@ impl VkGraphicsPipelineCreateInfo {
   /** # Safety
   The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
   #[inline]
-  pub const fn with_pStages(mut self, val: *const VkPipelineShaderStageCreateInfo) -> Self {
-    self.pStages = val;
+  pub const fn with_pStages(mut self, val: &[VkPipelineShaderStageCreateInfo]) -> Self {
+    self.stageCount = val.len() as u32;
+    self.pStages = val.as_ptr();
     self
   }
   #[cfg(feature = "VKSC_VERSION_1_0")]

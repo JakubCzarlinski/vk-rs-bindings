@@ -266,7 +266,7 @@ struct RequiredSliceMemberPair {
 fn collect_required_slice_member_pairs(s: &Struct) -> Vec<RequiredSliceMemberPair> {
     let mut pairs = Vec::new();
     for (ptr_idx, ptr) in s.members.iter().enumerate() {
-        if ptr.ty.pointer_depth != 1 || ptr.optional != Optional::False || ptr.ty.base == "void" {
+        if ptr.ty.pointer_depth != 1 || ptr.ty.base == "void" {
             continue;
         }
         let Some(len_name) = ptr.len.as_deref() else {
@@ -281,6 +281,18 @@ fn collect_required_slice_member_pairs(s: &Struct) -> Vec<RequiredSliceMemberPai
             continue;
         };
         if count.ty.pointer_depth != 0 || count.ty.is_array.is_some() {
+            continue;
+        }
+        let has_required_variant = ptr.optional == Optional::False
+            || s.members.iter().any(|other| {
+                other.name == ptr.name
+                    && other.ty.pointer_depth == ptr.ty.pointer_depth
+                    && other.ty.is_const == ptr.ty.is_const
+                    && other.ty.base == ptr.ty.base
+                    && other.len == ptr.len
+                    && other.optional == Optional::False
+            });
+        if !has_required_variant {
             continue;
         }
         pairs.push(RequiredSliceMemberPair { count_idx, ptr_idx });

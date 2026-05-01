@@ -407,6 +407,17 @@ pub const VK_ARM_DATA_GRAPH_INSTRUCTION_SET_TOSA_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
 pub const VK_ARM_DATA_GRAPH_INSTRUCTION_SET_TOSA_EXTENSION_NAME: &'static core::ffi::CStr =
   c"VK_ARM_data_graph_instruction_set_tosa";
+/// [VK_ARM_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_neural_accelerator_statistics.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+pub const VK_ARM_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_SPEC_VERSION: u32 = 1;
+/// [VK_ARM_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_neural_accelerator_statistics.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+pub const VK_ARM_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_EXTENSION_NAME: &'static core::ffi::CStr =
+  c"VK_ARM_data_graph_neural_accelerator_statistics";
 /// [VK_ARM_DATA_GRAPH_OPTICAL_FLOW_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_ARM_data_graph_optical_flow.html)
 ///
 /// Extension type: device extension.
@@ -588,7 +599,7 @@ pub const VK_API_VERSION: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
 pub const VK_API_VERSION_1_0: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
 /// [VK_HEADER_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION.html)
 #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
-pub const VK_HEADER_VERSION: u32 = 349u32;
+pub const VK_HEADER_VERSION: u32 = 350u32;
 /// [VK_HEADER_VERSION_COMPLETE](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION_COMPLETE.html)
 #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
 pub const VK_HEADER_VERSION_COMPLETE: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 4u32, 0u32);
@@ -1745,7 +1756,7 @@ pub const VK_EXT_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXTENSION_NAME: &'static 
 ///
 /// Extension type: device extension.
 #[cfg(feature = "VK_EXT_ray_tracing_invocation_reorder")]
-pub const VK_EXT_RAY_TRACING_INVOCATION_REORDER_SPEC_VERSION: u32 = 1;
+pub const VK_EXT_RAY_TRACING_INVOCATION_REORDER_SPEC_VERSION: u32 = 2;
 /// [VK_EXT_RAY_TRACING_INVOCATION_REORDER_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_ray_tracing_invocation_reorder.html)
 ///
 /// Extension type: device extension.
@@ -3032,6 +3043,16 @@ pub const VK_KHR_MAINTENANCE_10_SPEC_VERSION: u32 = 1;
 /// Extension type: device extension.
 #[cfg(feature = "VK_KHR_maintenance10")]
 pub const VK_KHR_MAINTENANCE_10_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_KHR_maintenance10";
+/// [VK_KHR_MAINTENANCE_11_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_maintenance11.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_maintenance11")]
+pub const VK_KHR_MAINTENANCE_11_SPEC_VERSION: u32 = 1;
+/// [VK_KHR_MAINTENANCE_11_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_maintenance11.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_maintenance11")]
+pub const VK_KHR_MAINTENANCE_11_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_KHR_maintenance11";
 /// [VK_KHR_MAINTENANCE_2_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_maintenance2.html)
 ///
 /// Extension type: device extension.
@@ -5358,6 +5379,16 @@ pub const VK_SEC_PIPELINE_CACHE_INCREMENTAL_MODE_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_SEC_pipeline_cache_incremental_mode")]
 pub const VK_SEC_PIPELINE_CACHE_INCREMENTAL_MODE_EXTENSION_NAME: &'static core::ffi::CStr =
   c"VK_SEC_pipeline_cache_incremental_mode";
+/// [VK_SEC_THROTTLE_HINT_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_SEC_throttle_hint.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_SEC_throttle_hint")]
+pub const VK_SEC_THROTTLE_HINT_SPEC_VERSION: u32 = 1;
+/// [VK_SEC_THROTTLE_HINT_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_SEC_throttle_hint.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_SEC_throttle_hint")]
+pub const VK_SEC_THROTTLE_HINT_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_SEC_throttle_hint";
 /// [VK_SEC_UBM_SURFACE_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_SEC_ubm_surface.html)
 ///
 /// Extension type: instance extension.

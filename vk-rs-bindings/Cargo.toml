@@ -1,6 +1,6 @@
 [package]
 name = "vk-rs-bindings"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/JakubCzarlinski/vk-rs-bindings"
@@ -534,7 +534,7 @@ VK_KHR_shader_constant_data = []
 # type: device
 VK_KHR_dynamic_rendering_local_read = []
 # type: device
-VK_KHR_shader_abort = ["VK_KHR_get_physical_device_properties2", "VK_KHR_device_fault", "VK_KHR_shader_constant_data"]
+VK_KHR_shader_abort = ["VK_KHR_device_fault", "VK_KHR_shader_constant_data"]
 # type: device
 VK_EXT_shader_image_atomic_int64 = []
 # type: device
@@ -1046,7 +1046,7 @@ VK_NV_partitioned_acceleration_structure = ["VK_KHR_acceleration_structure"]
 # type: device
 VK_EXT_device_generated_commands = []
 # type: device
-VK_KHR_device_fault = ["VK_KHR_get_physical_device_properties2"]
+VK_KHR_device_fault = []
 # type: device
 VK_KHR_maintenance8 = ["VK_VERSION_1_1"]
 # type: device
@@ -1116,10 +1116,16 @@ VK_EXT_shader_uniform_buffer_unsized_array = []
 # type: device
 VK_NV_compute_occupancy_priority = []
 # type: device
+VK_KHR_maintenance11 = []
+# type: device
 VK_EXT_shader_subgroup_partitioned = []
 # type: instance
 VK_SEC_ubm_surface = ["VK_KHR_surface"]
 # type: device
 VK_VALVE_shader_mixed_float_dot_product = []
+# type: device
+VK_SEC_throttle_hint = []
+# type: device
+VK_ARM_data_graph_neural_accelerator_statistics = []
 # type: device
 VK_EXT_primitive_restart_index = []

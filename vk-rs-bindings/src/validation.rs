@@ -1196,6 +1196,16 @@ compile_error!(
   "Feature `VK_AMD_device_coherent_memory` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_AMD_device_coherent_memory.html"
 );
 #[cfg(all(
+  feature = "VK_KHR_shader_constant_data",
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
+))]
+compile_error!(
+  "Feature `VK_KHR_shader_constant_data` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_constant_data.html"
+);
+#[cfg(all(
   feature = "VK_KHR_dynamic_rendering_local_read",
   not(any(feature = "VK_KHR_dynamic_rendering", feature = "VK_VERSION_1_3"))
 ))]
@@ -1205,13 +1215,12 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_shader_abort",
   not(all(
-    feature = "VK_KHR_get_physical_device_properties2",
     feature = "VK_KHR_device_fault",
     feature = "VK_KHR_shader_constant_data"
   ))
 ))]
 compile_error!(
-  "Feature `VK_KHR_shader_abort` requires `VK_KHR_get_physical_device_properties2 + VK_KHR_device_fault + VK_KHR_shader_constant_data`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_abort.html"
+  "Feature `VK_KHR_shader_abort` requires `VK_KHR_device_fault + VK_KHR_shader_constant_data`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_abort.html"
 );
 #[cfg(all(
   feature = "VK_EXT_shader_image_atomic_int64",
@@ -3302,10 +3311,13 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_KHR_device_fault",
-  not(feature = "VK_KHR_get_physical_device_properties2")
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
 ))]
 compile_error!(
-  "Feature `VK_KHR_device_fault` requires `VK_KHR_get_physical_device_properties2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_device_fault.html"
+  "Feature `VK_KHR_device_fault` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_device_fault.html"
 );
 #[cfg(all(feature = "VK_KHR_maintenance8", not(feature = "VK_VERSION_1_1")))]
 compile_error!(
@@ -3641,6 +3653,16 @@ compile_error!(
 ))]
 compile_error!(
   "Feature `VK_NV_compute_occupancy_priority` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_NV_compute_occupancy_priority.html"
+);
+#[cfg(all(
+  feature = "VK_KHR_maintenance11",
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
+))]
+compile_error!(
+  "Feature `VK_KHR_maintenance11` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_maintenance11.html"
 );
 #[cfg(all(
   feature = "VK_EXT_shader_subgroup_partitioned",

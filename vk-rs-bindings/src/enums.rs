@@ -1219,9 +1219,12 @@ impl VkPipelineCacheValidationVersion {
   feature = "VK_SEC_pipeline_cache_incremental_mode",
   feature = "VK_EXT_shader_uniform_buffer_unsized_array",
   feature = "VK_NV_compute_occupancy_priority",
+  feature = "VK_KHR_maintenance11",
   feature = "VK_EXT_shader_subgroup_partitioned",
   feature = "VK_SEC_ubm_surface",
   feature = "VK_VALVE_shader_mixed_float_dot_product",
+  feature = "VK_SEC_throttle_hint",
+  feature = "VK_ARM_data_graph_neural_accelerator_statistics",
   feature = "VK_EXT_primitive_restart_index"
 ))]
 #[repr(transparent)]
@@ -1645,9 +1648,12 @@ pub struct VkStructureType(pub i32);
   feature = "VK_SEC_pipeline_cache_incremental_mode",
   feature = "VK_EXT_shader_uniform_buffer_unsized_array",
   feature = "VK_NV_compute_occupancy_priority",
+  feature = "VK_KHR_maintenance11",
   feature = "VK_EXT_shader_subgroup_partitioned",
   feature = "VK_SEC_ubm_surface",
   feature = "VK_VALVE_shader_mixed_float_dot_product",
+  feature = "VK_SEC_throttle_hint",
+  feature = "VK_ARM_data_graph_neural_accelerator_statistics",
   feature = "VK_EXT_primitive_restart_index"
 ))]
 impl VkStructureType {
@@ -5124,6 +5130,11 @@ impl VkStructureType {
   #[cfg(feature = "VK_NV_compute_occupancy_priority")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV: Self =
     Self(1000645001);
+  #[cfg(feature = "VK_KHR_maintenance11")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR: Self = Self(1000657000);
+  #[cfg(feature = "VK_KHR_maintenance11")]
+  pub const VK_STRUCTURE_TYPE_QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR: Self =
+    Self(1000657001);
   #[cfg(feature = "VK_EXT_shader_subgroup_partitioned")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT: Self =
     Self(1000662000);
@@ -5132,6 +5143,20 @@ impl VkStructureType {
   #[cfg(feature = "VK_VALVE_shader_mixed_float_dot_product")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE: Self =
     Self(1000673000);
+  #[cfg(feature = "VK_SEC_throttle_hint")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC: Self = Self(1000674000);
+  #[cfg(feature = "VK_SEC_throttle_hint")]
+  pub const VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC: Self = Self(1000674001);
+  #[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+  pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM: Self =
+    Self(1000676000);
+  #[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+  pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM: Self =
+    Self(1000676001);
+  #[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM: Self = Self(
+        1000676002,
+    );
   #[cfg(feature = "VK_EXT_primitive_restart_index")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT: Self =
     Self(1000678000);
@@ -8176,16 +8201,6 @@ impl core::ops::BitXorAssign<u32> for VkExternalMemoryHandleTypeFlagBits {
     self.0 ^= r;
   }
 }
-/// [VkDataGraphPipelinePropertyARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelinePropertyARM.html)
-#[cfg(feature = "VK_ARM_data_graph")]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkDataGraphPipelinePropertyARM(pub i32);
-#[cfg(feature = "VK_ARM_data_graph")]
-impl VkDataGraphPipelinePropertyARM {
-  pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_CREATION_LOG_ARM: Self = Self(0);
-  pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_IDENTIFIER_ARM: Self = Self(1);
-}
 /// [VkDataGraphPipelineSessionBindPointTypeARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointTypeARM.html)
 #[cfg(feature = "VK_ARM_data_graph")]
 #[repr(transparent)]
@@ -8313,6 +8328,51 @@ impl core::ops::BitXorAssign<u64> for VkDataGraphPipelineDispatchFlagBitsARM {
   fn bitxor_assign(&mut self, r: u64) {
     self.0 ^= r;
   }
+}
+/// [VkDataGraphPipelinePropertyARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelinePropertyARM.html)
+#[cfg(any(
+  feature = "VK_ARM_data_graph",
+  feature = "VK_ARM_data_graph_neural_accelerator_statistics"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDataGraphPipelinePropertyARM(pub i32);
+#[cfg(any(
+  feature = "VK_ARM_data_graph",
+  feature = "VK_ARM_data_graph_neural_accelerator_statistics"
+))]
+impl VkDataGraphPipelinePropertyARM {
+  pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_CREATION_LOG_ARM: Self = Self(0);
+  pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_IDENTIFIER_ARM: Self = Self(1);
+  #[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+  pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_NEURAL_ACCELERATOR_DEBUG_DATABASE_ARM: Self =
+    Self(1000676000);
+  #[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+  pub const VK_DATA_GRAPH_PIPELINE_PROPERTY_NEURAL_ACCELERATOR_STATISTICS_INFO_ARM: Self =
+    Self(1000676001);
+}
+/// [VkDataGraphPipelineSessionBindPointARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointARM.html)
+#[cfg(any(
+  feature = "VK_ARM_data_graph",
+  feature = "VK_ARM_data_graph_optical_flow",
+  feature = "VK_ARM_data_graph_neural_accelerator_statistics"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDataGraphPipelineSessionBindPointARM(pub i32);
+#[cfg(any(
+  feature = "VK_ARM_data_graph",
+  feature = "VK_ARM_data_graph_optical_flow",
+  feature = "VK_ARM_data_graph_neural_accelerator_statistics"
+))]
+impl VkDataGraphPipelineSessionBindPointARM {
+  pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_TRANSIENT_ARM: Self = Self(0);
+  #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
+  pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_OPTICAL_FLOW_CACHE_ARM: Self =
+    Self(1000631001);
+  #[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+  pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_NEURAL_ACCELERATOR_STATISTICS_ARM: Self =
+    Self(1000676000);
 }
 /// [VkDataGraphPipelineSessionCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionCreateFlagsARM.html)
 #[cfg(any(
@@ -8481,24 +8541,6 @@ impl core::ops::BitXorAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsAR
   fn bitxor_assign(&mut self, r: u64) {
     self.0 ^= r;
   }
-}
-/// [VkDataGraphPipelineSessionBindPointARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionBindPointARM.html)
-#[cfg(any(
-  feature = "VK_ARM_data_graph",
-  feature = "VK_ARM_data_graph_optical_flow"
-))]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkDataGraphPipelineSessionBindPointARM(pub i32);
-#[cfg(any(
-  feature = "VK_ARM_data_graph",
-  feature = "VK_ARM_data_graph_optical_flow"
-))]
-impl VkDataGraphPipelineSessionBindPointARM {
-  pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_TRANSIENT_ARM: Self = Self(0);
-  #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
-  pub const VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_OPTICAL_FLOW_CACHE_ARM: Self =
-    Self(1000631001);
 }
 /// [VkFormatFeatureFlagBits2](https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlags2.html)
 #[cfg(any(
@@ -10748,6 +10790,17 @@ pub struct VkDataGraphTOSALevelARM(pub i32);
 impl VkDataGraphTOSALevelARM {
   pub const VK_DATA_GRAPH_TOSA_LEVEL_NONE_ARM: Self = Self(0);
   pub const VK_DATA_GRAPH_TOSA_LEVEL_8K_ARM: Self = Self(1);
+}
+/// [VkNeuralAcceleratorStatisticsModeARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkNeuralAcceleratorStatisticsModeARM.html)
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkNeuralAcceleratorStatisticsModeARM(pub i32);
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+impl VkNeuralAcceleratorStatisticsModeARM {
+  pub const VK_NEURAL_ACCELERATOR_STATISTICS_MODE_DISABLED_ARM: Self = Self(0);
+  pub const VK_NEURAL_ACCELERATOR_STATISTICS_MODE_STATISTICS0_ARM: Self = Self(1);
+  pub const VK_NEURAL_ACCELERATOR_STATISTICS_MODE_STATISTICS1_ARM: Self = Self(2);
 }
 /// [VkDataGraphOpticalFlowGridSizeFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowGridSizeFlagsARM.html)
 #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
@@ -15971,7 +16024,8 @@ impl core::ops::BitXorAssign<u32> for VkDependencyFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -15993,7 +16047,8 @@ pub struct VkImageCreateFlagBits(pub u32);
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl VkImageCreateFlagBits {
   pub const EMPTY: Self = Self(0);
@@ -16057,6 +16112,8 @@ impl VkImageCreateFlagBits {
   pub const VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR: Self = Self(1 << 20u64);
   #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
   pub const VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_EXT: Self = Self(1 << 15u64);
+  #[cfg(feature = "VK_KHR_maintenance11")]
+  pub const VK_IMAGE_CREATE_ALIAS_SINGLE_LAYER_DESCRIPTOR_BIT_KHR: Self = Self(1 << 22u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
     (self.0 & o.0) == o.0
@@ -16087,7 +16144,8 @@ impl VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOr for VkImageCreateFlagBits {
   type Output = Self;
@@ -16113,7 +16171,8 @@ impl core::ops::BitOr for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOrAssign for VkImageCreateFlagBits {
   #[inline]
@@ -16138,7 +16197,8 @@ impl core::ops::BitOrAssign for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAnd for VkImageCreateFlagBits {
   type Output = Self;
@@ -16164,7 +16224,8 @@ impl core::ops::BitAnd for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAndAssign for VkImageCreateFlagBits {
   #[inline]
@@ -16189,7 +16250,8 @@ impl core::ops::BitAndAssign for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXor for VkImageCreateFlagBits {
   type Output = Self;
@@ -16215,7 +16277,8 @@ impl core::ops::BitXor for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXorAssign for VkImageCreateFlagBits {
   #[inline]
@@ -16240,7 +16303,8 @@ impl core::ops::BitXorAssign for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::Not for VkImageCreateFlagBits {
   type Output = Self;
@@ -16266,7 +16330,8 @@ impl core::ops::Not for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOr<u32> for VkImageCreateFlagBits {
   type Output = Self;
@@ -16292,7 +16357,8 @@ impl core::ops::BitOr<u32> for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOrAssign<u32> for VkImageCreateFlagBits {
   #[inline]
@@ -16317,7 +16383,8 @@ impl core::ops::BitOrAssign<u32> for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAnd<u32> for VkImageCreateFlagBits {
   type Output = Self;
@@ -16343,7 +16410,8 @@ impl core::ops::BitAnd<u32> for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAndAssign<u32> for VkImageCreateFlagBits {
   #[inline]
@@ -16368,7 +16436,8 @@ impl core::ops::BitAndAssign<u32> for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXor<u32> for VkImageCreateFlagBits {
   type Output = Self;
@@ -16394,7 +16463,8 @@ impl core::ops::BitXor<u32> for VkImageCreateFlagBits {
   feature = "VK_EXT_image_2d_view_of_3d",
   feature = "VK_QCOM_fragment_density_map_offset",
   feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset"
+  feature = "VK_EXT_fragment_density_map_offset",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXorAssign<u32> for VkImageCreateFlagBits {
   #[inline]
@@ -23147,19 +23217,23 @@ impl VkFilter {
 /// [VkPipelineLayoutCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayoutCreateFlags.html)
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkPipelineLayoutCreateFlagBits(pub u32);
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl VkPipelineLayoutCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   #[cfg(feature = "VK_EXT_graphics_pipeline_library")]
   pub const VK_PIPELINE_LAYOUT_CREATE_INDEPENDENT_SETS_BIT_EXT: Self = Self(1 << 1u64);
+  #[cfg(feature = "VK_KHR_maintenance11")]
+  pub const VK_PIPELINE_LAYOUT_CREATE_NO_TASK_SHADER_BIT_KHR: Self = Self(1 << 2u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
     (self.0 & o.0) == o.0
@@ -23175,7 +23249,8 @@ impl VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOr for VkPipelineLayoutCreateFlagBits {
   type Output = Self;
@@ -23186,7 +23261,8 @@ impl core::ops::BitOr for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOrAssign for VkPipelineLayoutCreateFlagBits {
   #[inline]
@@ -23196,7 +23272,8 @@ impl core::ops::BitOrAssign for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAnd for VkPipelineLayoutCreateFlagBits {
   type Output = Self;
@@ -23207,7 +23284,8 @@ impl core::ops::BitAnd for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAndAssign for VkPipelineLayoutCreateFlagBits {
   #[inline]
@@ -23217,7 +23295,8 @@ impl core::ops::BitAndAssign for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXor for VkPipelineLayoutCreateFlagBits {
   type Output = Self;
@@ -23228,7 +23307,8 @@ impl core::ops::BitXor for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXorAssign for VkPipelineLayoutCreateFlagBits {
   #[inline]
@@ -23238,7 +23318,8 @@ impl core::ops::BitXorAssign for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::Not for VkPipelineLayoutCreateFlagBits {
   type Output = Self;
@@ -23249,7 +23330,8 @@ impl core::ops::Not for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOr<u32> for VkPipelineLayoutCreateFlagBits {
   type Output = Self;
@@ -23260,7 +23342,8 @@ impl core::ops::BitOr<u32> for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOrAssign<u32> for VkPipelineLayoutCreateFlagBits {
   #[inline]
@@ -23270,7 +23353,8 @@ impl core::ops::BitOrAssign<u32> for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAnd<u32> for VkPipelineLayoutCreateFlagBits {
   type Output = Self;
@@ -23281,7 +23365,8 @@ impl core::ops::BitAnd<u32> for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAndAssign<u32> for VkPipelineLayoutCreateFlagBits {
   #[inline]
@@ -23291,7 +23376,8 @@ impl core::ops::BitAndAssign<u32> for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXor<u32> for VkPipelineLayoutCreateFlagBits {
   type Output = Self;
@@ -23302,7 +23388,8 @@ impl core::ops::BitXor<u32> for VkPipelineLayoutCreateFlagBits {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_0",
-  feature = "VK_EXT_graphics_pipeline_library"
+  feature = "VK_EXT_graphics_pipeline_library",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXorAssign<u32> for VkPipelineLayoutCreateFlagBits {
   #[inline]
@@ -25483,7 +25570,8 @@ impl VkIndirectCommandsTokenTypeEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -25493,7 +25581,8 @@ pub struct VkShaderCreateFlagBitsEXT(pub u32);
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl VkShaderCreateFlagBitsEXT {
   pub const EMPTY: Self = Self(0);
@@ -25518,6 +25607,8 @@ impl VkShaderCreateFlagBitsEXT {
   pub const VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT: Self = Self(1 << 7u64);
   #[cfg(feature = "VK_EXT_shader_64bit_indexing")]
   pub const VK_SHADER_CREATE_64_BIT_INDEXING_BIT_EXT: Self = Self(1 << 15u64);
+  #[cfg(feature = "VK_KHR_maintenance11")]
+  pub const VK_SHADER_CREATE_INDEPENDENT_SETS_BIT_KHR: Self = Self(1 << 18u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
     (self.0 & o.0) == o.0
@@ -25536,7 +25627,8 @@ impl VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOr for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -25550,7 +25642,8 @@ impl core::ops::BitOr for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOrAssign for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -25563,7 +25656,8 @@ impl core::ops::BitOrAssign for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAnd for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -25577,7 +25671,8 @@ impl core::ops::BitAnd for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAndAssign for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -25590,7 +25685,8 @@ impl core::ops::BitAndAssign for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXor for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -25604,7 +25700,8 @@ impl core::ops::BitXor for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXorAssign for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -25617,7 +25714,8 @@ impl core::ops::BitXorAssign for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::Not for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -25631,7 +25729,8 @@ impl core::ops::Not for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOr<u32> for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -25645,7 +25744,8 @@ impl core::ops::BitOr<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitOrAssign<u32> for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -25658,7 +25758,8 @@ impl core::ops::BitOrAssign<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAnd<u32> for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -25672,7 +25773,8 @@ impl core::ops::BitAnd<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitAndAssign<u32> for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -25685,7 +25787,8 @@ impl core::ops::BitAndAssign<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXor<u32> for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -25699,7 +25802,8 @@ impl core::ops::BitXor<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
-  feature = "VK_EXT_shader_64bit_indexing"
+  feature = "VK_EXT_shader_64bit_indexing",
+  feature = "VK_KHR_maintenance11"
 ))]
 impl core::ops::BitXorAssign<u32> for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -39482,6 +39586,17 @@ impl core::ops::BitXorAssign<u32> for VkTileShadingRenderPassFlagBitsQCOM {
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
+}
+/// [VkThrottleHintTypeSEC](https://docs.vulkan.org/refpages/latest/refpages/source/VkThrottleHintTypeSEC.html)
+#[cfg(feature = "VK_SEC_throttle_hint")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkThrottleHintTypeSEC(pub i32);
+#[cfg(feature = "VK_SEC_throttle_hint")]
+impl VkThrottleHintTypeSEC {
+  pub const VK_THROTTLE_HINT_TYPE_DEFAULT_SEC: Self = Self(0);
+  pub const VK_THROTTLE_HINT_TYPE_LOW_SEC: Self = Self(1);
+  pub const VK_THROTTLE_HINT_TYPE_HIGH_SEC: Self = Self(2);
 }
 /// [VkVideoEncodeRgbModelConversionFlagBitsVALVE](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbModelConversionFlagsVALVE.html)
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]

@@ -4409,6 +4409,129 @@ impl VkQueueFamilyDataGraphTOSAPropertiesARM {
     self
   }
 }
+/// [VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  pub dataGraphNeuralAcceleratorStatistics: VkBool32,
+}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+unsafe impl Send for VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM {}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+unsafe impl Sync for VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM {}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+impl VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM {
+  pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM,
+        pNext: core::ptr::null_mut(),
+        dataGraphNeuralAcceleratorStatistics: 0,
+    };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_dataGraphNeuralAcceleratorStatistics(mut self, val: VkBool32) -> Self {
+    self.dataGraphNeuralAcceleratorStatistics = val;
+    self
+  }
+}
+/// [VkDataGraphPipelineNeuralStatisticsCreateInfoARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineNeuralStatisticsCreateInfoARM.html)
+///
+/// **Extends:** VkDataGraphPipelineCreateInfoARM.
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphPipelineNeuralStatisticsCreateInfoARM {
+  /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *const core::ffi::c_void,
+  pub allowNeuralStatistics: VkBool32,
+}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+unsafe impl Send for VkDataGraphPipelineNeuralStatisticsCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+unsafe impl Sync for VkDataGraphPipelineNeuralStatisticsCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+impl VkDataGraphPipelineNeuralStatisticsCreateInfoARM {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM,
+    pNext: core::ptr::null(),
+    allowNeuralStatistics: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_allowNeuralStatistics(mut self, val: VkBool32) -> Self {
+    self.allowNeuralStatistics = val;
+    self
+  }
+}
+/// [VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM.html)
+///
+/// **Extends:** VkDataGraphPipelineSessionCreateInfoARM.
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM {
+  /// Values: VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *const core::ffi::c_void,
+  pub mode: VkNeuralAcceleratorStatisticsModeARM,
+}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+unsafe impl Send for VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+unsafe impl Sync for VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM {}
+#[cfg(feature = "VK_ARM_data_graph_neural_accelerator_statistics")]
+impl VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM {
+  pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM,
+        pNext: core::ptr::null(),
+        mode: VkNeuralAcceleratorStatisticsModeARM(0),
+    };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_mode(mut self, val: VkNeuralAcceleratorStatisticsModeARM) -> Self {
+    self.mode = val;
+    self
+  }
+}
 /// [VkDataGraphOpticalFlowGridSizeFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowGridSizeFlagsARM.html)
 #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
 pub type VkDataGraphOpticalFlowGridSizeFlagsARM = VkFlags;
@@ -8807,10 +8930,10 @@ pub struct VkDeviceCreateInfo {
   pub queueCreateInfoCount: u32,
   /// Length: queueCreateInfoCount
   pub pQueueCreateInfos: *const VkDeviceQueueCreateInfo,
-  /// No Auto-Validity
+  /// Optional: true,  No Auto-Validity
   #[deprecated(note = "unused")]
   pub enabledLayerCount: u32,
-  /// No Auto-Validity
+  /// Length: enabledLayerCount,null-terminated,  No Auto-Validity
   #[deprecated(note = "unused")]
   pub ppEnabledLayerNames: *const *const core::ffi::c_char,
   /// Optional: true
@@ -42570,7 +42693,7 @@ pub struct VkShaderCreateInfoEXT {
   pub pName: *const core::ffi::c_char,
   /// Optional: true
   pub setLayoutCount: u32,
-  /// Optional: true,  Length: setLayoutCount
+  /// Optional: true,  Length: setLayoutCount,  No Auto-Validity
   pub pSetLayouts: *const VkDescriptorSetLayout,
   /// Optional: true
   pub pushConstantRangeCount: u32,
@@ -56296,6 +56419,7 @@ unsafe impl Sync for HANDLE {}
 #[cfg(any(
   feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32"
 ))]
@@ -56305,6 +56429,7 @@ pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
   feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32"
 ))]
@@ -58433,6 +58558,93 @@ impl VkResolveImageModeInfoKHR {
   #[inline]
   pub const fn with_stencilResolveMode(mut self, val: VkResolveModeFlagBits) -> Self {
     self.stencilResolveMode = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceMaintenance11FeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance11FeaturesKHR.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_KHR_maintenance11")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceMaintenance11FeaturesKHR {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  pub maintenance11: VkBool32,
+}
+#[cfg(feature = "VK_KHR_maintenance11")]
+unsafe impl Send for VkPhysicalDeviceMaintenance11FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance11")]
+unsafe impl Sync for VkPhysicalDeviceMaintenance11FeaturesKHR {}
+#[cfg(feature = "VK_KHR_maintenance11")]
+impl VkPhysicalDeviceMaintenance11FeaturesKHR {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR,
+    pNext: core::ptr::null_mut(),
+    maintenance11: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maintenance11(mut self, val: VkBool32) -> Self {
+    self.maintenance11 = val;
+    self
+  }
+}
+/// [VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkQueueFamilyProperties2.
+#[cfg(feature = "VK_KHR_maintenance11")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR {
+  /// Values: VK_STRUCTURE_TYPE_QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  /// Limit Type: [Min, Mul]
+  pub optimalImageTransferGranularity: VkExtent3D,
+}
+#[cfg(feature = "VK_KHR_maintenance11")]
+unsafe impl Send for VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance11")]
+unsafe impl Sync for VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR {}
+#[cfg(feature = "VK_KHR_maintenance11")]
+impl VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR {
+  pub const DEFAULT: Self = Self {
+        sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR,
+        pNext: core::ptr::null_mut(),
+        optimalImageTransferGranularity: VkExtent3D::DEFAULT,
+    };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_optimalImageTransferGranularity(mut self, val: VkExtent3D) -> Self {
+    self.optimalImageTransferGranularity = val;
     self
   }
 }
@@ -95841,6 +96053,88 @@ impl VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC {
   #[inline]
   pub const fn with_pipelineCacheIncrementalMode(mut self, val: VkBool32) -> Self {
     self.pipelineCacheIncrementalMode = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceThrottleHintFeaturesSEC](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceThrottleHintFeaturesSEC.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_SEC_throttle_hint")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceThrottleHintFeaturesSEC {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  pub throttleHint: VkBool32,
+}
+#[cfg(feature = "VK_SEC_throttle_hint")]
+unsafe impl Send for VkPhysicalDeviceThrottleHintFeaturesSEC {}
+#[cfg(feature = "VK_SEC_throttle_hint")]
+unsafe impl Sync for VkPhysicalDeviceThrottleHintFeaturesSEC {}
+#[cfg(feature = "VK_SEC_throttle_hint")]
+impl VkPhysicalDeviceThrottleHintFeaturesSEC {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC,
+    pNext: core::ptr::null_mut(),
+    throttleHint: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_throttleHint(mut self, val: VkBool32) -> Self {
+    self.throttleHint = val;
+    self
+  }
+}
+/// [VkThrottleHintSubmitInfoSEC](https://docs.vulkan.org/refpages/latest/refpages/source/VkThrottleHintSubmitInfoSEC.html)
+///
+/// **Extends:** VkSubmitInfo.
+#[cfg(feature = "VK_SEC_throttle_hint")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkThrottleHintSubmitInfoSEC {
+  /// Values: VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *const core::ffi::c_void,
+  pub throttleHint: VkThrottleHintTypeSEC,
+}
+#[cfg(feature = "VK_SEC_throttle_hint")]
+unsafe impl Send for VkThrottleHintSubmitInfoSEC {}
+#[cfg(feature = "VK_SEC_throttle_hint")]
+unsafe impl Sync for VkThrottleHintSubmitInfoSEC {}
+#[cfg(feature = "VK_SEC_throttle_hint")]
+impl VkThrottleHintSubmitInfoSEC {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC,
+    pNext: core::ptr::null(),
+    throttleHint: VkThrottleHintTypeSEC(0),
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_throttleHint(mut self, val: VkThrottleHintTypeSEC) -> Self {
+    self.throttleHint = val;
     self
   }
 }

@@ -383,8 +383,10 @@ struct SliceParamPair {
 fn collect_required_slice_pairs(cmd: &Command, strip_count: usize) -> Vec<SliceParamPair> {
     let mut pairs = Vec::new();
     for (ptr_idx, ptr) in cmd.params.iter().enumerate().skip(strip_count) {
-        // Required pointer + count pairs become slices in safe wrappers.
-        if ptr.ty.pointer_depth != 1 || ptr.optional != Optional::False || ptr.ty.base == "void" {
+        if ptr.ty.pointer_depth != 1
+            || !matches!(ptr.optional, Optional::False | Optional::FalseTrue)
+            || ptr.ty.base == "void"
+        {
             continue;
         }
         let Some(len_name) = ptr.len.as_deref() else {

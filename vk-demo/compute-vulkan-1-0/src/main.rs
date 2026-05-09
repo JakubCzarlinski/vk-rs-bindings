@@ -368,8 +368,7 @@ fn run_compute<'a>(
             VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_COMPUTE,
             layout.raw(),
             0,
-            1,
-            raw_ds.as_ptr(),
+            &raw_ds,
             &[],
         );
     }

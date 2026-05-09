@@ -3907,8 +3907,7 @@ impl<'dev> CommandBuffer<'dev> {
     pipelineBindPoint: VkPipelineBindPoint,
     layout: VkPipelineLayout,
     firstSet: u32,
-    descriptorSetCount: u32,
-    pDescriptorSets: *const VkDescriptorSet,
+    pDescriptorSets: &[VkDescriptorSet],
     pDynamicOffsets: &[u32],
   ) {
     unsafe {
@@ -3918,8 +3917,8 @@ impl<'dev> CommandBuffer<'dev> {
         pipelineBindPoint,
         layout,
         firstSet,
-        descriptorSetCount,
-        pDescriptorSets,
+        pDescriptorSets.len() as u32,
+        pDescriptorSets.as_ptr(),
         pDynamicOffsets.len() as u32,
         pDynamicOffsets.as_ptr(),
       )
@@ -5040,7 +5039,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdBindVertexBuffers2EXT(
     &self,
     firstBinding: u32,
-    pBuffers: *const VkBuffer,
+    pBuffers: &[VkBuffer],
     pOffsets: &[VkDeviceSize],
     pSizes: *const VkDeviceSize,
     pStrides: *const VkDeviceSize,
@@ -5051,7 +5050,7 @@ impl<'dev> CommandBuffer<'dev> {
         self.raw,
         firstBinding,
         pOffsets.len() as u32,
-        pBuffers,
+        pBuffers.as_ptr(),
         pOffsets.as_ptr(),
         pSizes,
         pStrides,
@@ -5670,16 +5669,15 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdSetColorWriteMaskEXT(
     &self,
     firstAttachment: u32,
-    attachmentCount: u32,
-    pColorWriteMasks: *const VkColorComponentFlags,
+    pColorWriteMasks: &[VkColorComponentFlags],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdSetColorWriteMaskEXT.unwrap_unchecked()(
         self.raw,
         firstAttachment,
-        attachmentCount,
-        pColorWriteMasks,
+        pColorWriteMasks.len() as u32,
+        pColorWriteMasks.as_ptr(),
       )
     }
   }
@@ -7163,7 +7161,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdBindVertexBuffers(
     &self,
     firstBinding: u32,
-    pBuffers: *const VkBuffer,
+    pBuffers: &[VkBuffer],
     pOffsets: &[VkDeviceSize],
   ) {
     unsafe {
@@ -7172,7 +7170,7 @@ impl<'dev> CommandBuffer<'dev> {
         self.raw,
         firstBinding,
         pOffsets.len() as u32,
-        pBuffers,
+        pBuffers.as_ptr(),
         pOffsets.as_ptr(),
       )
     }
@@ -7951,7 +7949,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdBindVertexBuffers2(
     &self,
     firstBinding: u32,
-    pBuffers: *const VkBuffer,
+    pBuffers: &[VkBuffer],
     pOffsets: &[VkDeviceSize],
     pSizes: *const VkDeviceSize,
     pStrides: *const VkDeviceSize,
@@ -7962,7 +7960,7 @@ impl<'dev> CommandBuffer<'dev> {
         self.raw,
         firstBinding,
         pOffsets.len() as u32,
-        pBuffers,
+        pBuffers.as_ptr(),
         pOffsets.as_ptr(),
         pSizes,
         pStrides,

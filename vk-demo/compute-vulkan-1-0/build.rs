@@ -13,6 +13,10 @@ fn main() {
         .arg("src/shader.glsl")
         .arg("-o")
         .arg(&out_path)
+        .arg("--lto")
+        .arg("--target-env")
+        .arg("vulkan1.0")
+        .arg("-g0")
         .status()
         .expect("failed to execute glslangValidator");
 

@@ -1,7 +1,7 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::cfg_availability;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::{deprecate_attr, refpage_url};
-use crate::ir::{CType, Command, Member, Optional, Registry, TypedefKind};
+use crate::ir::{Availability, CType, Command, Member, Optional, Registry, TypedefKind};
 use crate::types::c_type_to_rust;
 use proc_macro2::TokenStream;
 use quote::{ToTokens, format_ident, quote};
@@ -218,23 +218,11 @@ pub fn collect_groups(
             continue;
         }
 
-        let cmd_raw = variants.last().unwrap();
-        let owned_resolved = if name != "vkCreateDevice" && name != "vkGetDeviceProcAddr" {
-            Some(resolve_alias(cmd_raw, reg))
-        } else {
-            None
-        };
-        let resolved = owned_resolved.as_ref().unwrap_or(cmd_raw);
-
-        let t = cmd_tier(resolved, name, reg);
-        if t != tier {
-            continue;
-        }
-
         if !variants.iter().any(|c| c.api.vulkan || c.api.vulkanbase) {
             continue;
         }
-        let cmd = if name == "vkCreateDevice" || name == "vkGetDeviceProcAddr" {
+        let cmd_raw = variants.last().unwrap();
+        let mut cmd = if name == "vkCreateDevice" || name == "vkGetDeviceProcAddr" {
             resolve_pinned(name, reg)
         } else {
             resolve_alias(cmd_raw, reg)
@@ -248,6 +236,21 @@ pub fn collect_groups(
         if providers.is_empty() {
             continue;
         }
+        let dep = variants.iter().find_map(|c| c.dep.clone());
+        let availability = variants
+            .iter()
+            .flat_map(|c| c.availability.clone())
+            .collect();
+        cmd.provided_by = providers.clone();
+        cmd.dep = dep;
+        cmd.availability = availability;
+        if cmd_raw.alias.is_some() {
+            rewrite_command_types_for_providers(&mut cmd, reg, &providers);
+        }
+        let t = cmd_tier(&cmd, name, reg);
+        if t != tier {
+            continue;
+        }
         let primary = pick_primary(&providers, enabled);
         groups
             .entry(primary)
@@ -259,6 +262,122 @@ pub fn collect_groups(
         cmds.sort_by(|a, b| a.0.cmp(&b.0));
     }
     groups
+}
+
+pub fn rewrite_command_types_for_providers(
+    cmd: &mut Command,
+    reg: &Registry,
+    providers: &[String],
+) {
+    rewrite_ctype_for_item(&mut cmd.return_type, reg, providers, &cmd.availability);
+    for param in &mut cmd.params {
+        rewrite_ctype_for_item(&mut param.ty, reg, providers, &cmd.availability);
+    }
+}
+
+pub fn rewrite_member_types_for_providers(
+    members: &mut [Member],
+    reg: &Registry,
+    providers: &[String],
+    availability: &[Availability],
+) {
+    for member in members {
+        rewrite_ctype_for_item(&mut member.ty, reg, providers, availability);
+    }
+}
+
+pub fn alias_type_for_providers(
+    reg: &Registry,
+    target: &str,
+    providers: &[String],
+    availability: &[Availability],
+) -> Option<String> {
+    let aliases = reg
+        .typedefs
+        .values()
+        .flatten()
+        .filter_map(|item| {
+            item.alias
+                .as_ref()
+                .map(|alias| (alias, &item.name, &item.provided_by, &item.availability))
+        })
+        .chain(reg.structs.values().flatten().filter_map(|item| {
+            item.alias
+                .as_ref()
+                .map(|alias| (alias, &item.name, &item.provided_by, &item.availability))
+        }))
+        .chain(reg.enums.values().flatten().filter_map(|item| {
+            item.alias
+                .as_ref()
+                .map(|alias| (alias, &item.name, &item.provided_by, &item.availability))
+        }));
+
+    aliases
+        .filter(|(alias, name, _, _)| alias.as_str() == target && name.as_str() != target)
+        .filter(|(_, _, provided_by, alias_availability)| {
+            alias_is_available_for_item(provided_by, alias_availability, providers, availability)
+        })
+        .map(|(_, name, _, _)| name.clone())
+        .next()
+}
+
+fn rewrite_ctype_for_item(
+    ty: &mut CType,
+    reg: &Registry,
+    providers: &[String],
+    availability: &[Availability],
+) {
+    if let Some(alias) = alias_type_for_providers(reg, &ty.base, providers, availability) {
+        ty.base = alias;
+    }
+}
+
+fn availability_clauses(providers: &[String], availability: &[Availability]) -> Vec<Vec<String>> {
+    if availability.is_empty() {
+        return providers
+            .iter()
+            .map(|provider| vec![provider.clone()])
+            .collect();
+    }
+
+    let mut clauses = Vec::new();
+    for item in availability {
+        let dep_clauses = item
+            .dep
+            .as_ref()
+            .map(|dep| dep.to_dnf_clauses())
+            .unwrap_or_else(|| vec![vec![]]);
+        for mut clause in dep_clauses {
+            if !clause.contains(&item.provider) {
+                clause.insert(0, item.provider.clone());
+            }
+            clause.sort();
+            if !clauses.contains(&clause) {
+                clauses.push(clause);
+            }
+        }
+    }
+    clauses
+}
+
+fn alias_is_available_for_item(
+    alias_providers: &[String],
+    alias_availability: &[Availability],
+    item_providers: &[String],
+    item_availability: &[Availability],
+) -> bool {
+    let item_clauses = availability_clauses(item_providers, item_availability);
+    let alias_clauses = availability_clauses(alias_providers, alias_availability);
+
+    !item_clauses.is_empty()
+        && !alias_clauses.is_empty()
+        && item_clauses.iter().all(|item_clause| {
+            alias_clauses.iter().any(|alias_clause| {
+                alias_clause
+                    .iter()
+                    .all(|feature| item_clause.contains(feature))
+            })
+        })
 }
 
 /// For pinned commands: find the first variant with non-empty params rather
@@ -552,7 +671,7 @@ pub fn safe_method(
     device_accessor: TokenStream,
     instance_accessor: TokenStream,
 ) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let fname = format_ident!("{}", name);
     let safety_comment = " SAFETY: table is fully loaded at creation.";
     let fp = quote! {
@@ -825,7 +944,7 @@ pub fn safe_method_unit_with_overrides(
         );
     }
 
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let fname = format_ident!("{}", name);
     let safety_comment = " SAFETY: table is fully loaded at creation.";
     let fp = quote! {

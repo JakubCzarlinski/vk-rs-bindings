@@ -3,6 +3,8 @@
 use proc_macro2::TokenStream;
 use quote::quote;
 
+use crate::ir::{Availability, DepExpr};
+
 /// `#[cfg(feature = "A")]`  or  `#[cfg(any(feature="A", feature="B", ...))]`
 #[must_use]
 pub fn cfg_any(features: &[String]) -> TokenStream {
@@ -24,6 +26,91 @@ pub fn cfg_any(features: &[String]) -> TokenStream {
 #[must_use]
 pub fn cfg_expr_from_dnf(clauses: &[Vec<String>]) -> TokenStream {
     clauses_to_ts(clauses)
+}
+
+#[must_use]
+pub fn cfg_providers_with_dep(features: &[String], dep: Option<&DepExpr>) -> TokenStream {
+    let Some(dep) = dep else {
+        return cfg_any(features);
+    };
+
+    let mut clauses = Vec::<Vec<String>>::new();
+    let dep_clauses = dep.to_dnf_clauses();
+
+    if features.is_empty() {
+        clauses = dep_clauses;
+    } else {
+        for provider in features {
+            for dep_clause in &dep_clauses {
+                let mut clause = dep_clause.clone();
+                if !clause.contains(provider) {
+                    clause.insert(0, provider.clone());
+                }
+                clause.sort();
+                if !clauses.contains(&clause) {
+                    clauses.push(clause);
+                }
+            }
+        }
+    }
+
+    let expr = cfg_expr_from_dnf(&clauses);
+    quote! { #[cfg(#expr)] }
+}
+
+#[must_use]
+pub fn cfg_availability(
+    availability: &[Availability],
+    fallback_features: &[String],
+    fallback_dep: Option<&DepExpr>,
+) -> TokenStream {
+    if availability.is_empty() {
+        return cfg_providers_with_dep(fallback_features, fallback_dep);
+    }
+
+    let mut clauses = Vec::<Vec<String>>::new();
+    for item in availability {
+        let dep_clauses = item
+            .dep
+            .as_ref()
+            .map(DepExpr::to_dnf_clauses)
+            .unwrap_or_else(|| vec![vec![]]);
+        for dep_clause in dep_clauses {
+            let mut clause = dep_clause;
+            if !clause.contains(&item.provider) {
+                clause.insert(0, item.provider.clone());
+            }
+            clause.sort();
+            if !clauses.contains(&clause) {
+                clauses.push(clause);
+            }
+        }
+    }
+
+    let expr = cfg_expr_from_dnf(&clauses);
+    quote! { #[cfg(#expr)] }
+}
+
+pub fn push_availability(
+    availability: &mut Vec<Availability>,
+    provider: &str,
+    dep: &Option<DepExpr>,
+) {
+    if provider.is_empty() {
+        return;
+    }
+    let item = Availability::new(provider.to_owned(), dep.clone());
+    if !availability.contains(&item) {
+        availability.push(item);
+    }
+}
+
+pub fn set_dep_if_unset(dst: &mut Option<DepExpr>, dep: &Option<DepExpr>) {
+    if dep.is_none() {
+        *dst = None;
+    } else if dst.is_none() {
+        *dst = dep.clone();
+    }
 }
 
 fn clauses_to_ts(clauses: &[Vec<String>]) -> TokenStream {

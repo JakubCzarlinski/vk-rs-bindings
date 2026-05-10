@@ -1,4 +1,4 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::cfg_availability;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
@@ -81,14 +81,14 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
     let mut init_ts = TokenStream::new();
 
     for cmds in groups.values() {
-        for (name, providers, _cmd) in cmds {
+        for (name, providers, cmd) in cmds {
             if name == "vkGetInstanceProcAddr" {
                 continue;
             }
             if split_instance_handle_target(name).is_some() {
                 continue;
             }
-            let cfg = cfg_any(providers);
+            let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
             let fname = format_ident!("{}", name);
             let pfn = format_ident!("PFN_{}", name);
             let clit = c_str_lit(name);
@@ -208,7 +208,7 @@ fn gen_instance(
         let field_name = format_ident!("{}", m.table_field);
         let md = format_ident!("{}", m.mod_name);
         let tb = format_ident!("{}", m.table_name);
-        let cfg = cfg_any(&m.providers);
+        let cfg = cfg_availability(&m.availability, &m.providers, None);
         handle_fields.extend(quote! {
             #cfg
             pub(crate) #field_name: crate::#md::#tb,
@@ -295,7 +295,7 @@ fn gen_instance(
 }
 
 fn gen_enumerate_physical_devices(cmd: &crate::ir::Command, providers: &[String]) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let is_err = vk_result_is_err();
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();

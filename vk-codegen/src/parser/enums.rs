@@ -43,6 +43,8 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
                     ty,
                     alias,
                     comment: attr(en, "comment").map(str::to_owned),
+                    dep: None,
+                    availability: vec![],
                     provided_by: vec![],
                     depr,
                 });
@@ -61,6 +63,7 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
             api: ApiSet::all(),
             comment: comment.clone(),
             dep: None,
+            availability: vec![],
             provided_by: vec![],
             depr: DeprecationInfo::default(),
         });
@@ -88,6 +91,7 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
             comment: attr(en, "comment").map(str::to_owned),
             api: attr(en, "api").map(ApiSet::parse),
             dep: None,
+            availability: vec![],
             depr: depr_info(en),
             provided_by: vec![],
         });

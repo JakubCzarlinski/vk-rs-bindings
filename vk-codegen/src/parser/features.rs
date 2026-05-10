@@ -1,5 +1,6 @@
 //! Parser for Vulkan features and extensions.
 
+use crate::cfggen::{push_availability, set_dep_if_unset};
 use crate::ir::{
     ApiSet, Constant, EnumValue, EnumVariant, Extension, Feature, Registry, Require, RequireEnum,
     TypedefKind, parse_dep_expr,
@@ -194,6 +195,8 @@ pub fn mark_provided_with_depr(
                         if !fname.is_empty() {
                             s.provided_by.push(fname.clone());
                         }
+                        push_availability(&mut s.availability, &fname, &req.depends);
+                        set_dep_if_unset(&mut s.dep, &req.depends);
                         if item_depr.superseded_by.is_some() && s.depr.superseded_by.is_none() {
                             s.depr.superseded_by = item_depr.superseded_by.clone();
                         }
@@ -210,6 +213,8 @@ pub fn mark_provided_with_depr(
                         if !fname.is_empty() {
                             t.provided_by.push(fname.clone());
                         }
+                        push_availability(&mut t.availability, &fname, &req.depends);
+                        set_dep_if_unset(&mut t.dep, &req.depends);
                         if item_depr.superseded_by.is_some() && t.depr.superseded_by.is_none() {
                             t.depr.superseded_by = item_depr.superseded_by.clone();
                         }
@@ -226,6 +231,8 @@ pub fn mark_provided_with_depr(
                         if !fname.is_empty() {
                             e.provided_by.push(fname.clone());
                         }
+                        push_availability(&mut e.availability, &fname, &req.depends);
+                        set_dep_if_unset(&mut e.dep, &req.depends);
                         if item_depr.superseded_by.is_some() && e.depr.superseded_by.is_none() {
                             e.depr.superseded_by = item_depr.superseded_by.clone();
                         }
@@ -245,6 +252,8 @@ pub fn mark_provided_with_depr(
                         if !fname.is_empty() {
                             c.provided_by.push(fname.clone());
                         }
+                        push_availability(&mut c.availability, &fname, &req.depends);
+                        set_dep_if_unset(&mut c.dep, &req.depends);
                         if item_depr.superseded_by.is_some() && c.depr.superseded_by.is_none() {
                             c.depr.superseded_by = item_depr.superseded_by.clone();
                         }
@@ -269,6 +278,8 @@ pub fn mark_provided_with_depr(
                 if !s.provided_by.contains(&feature_name.to_owned()) {
                     s.provided_by.push(feature_name.to_owned());
                 }
+                push_availability(&mut s.availability, feature_name, &req.depends);
+                set_dep_if_unset(&mut s.dep, &req.depends);
             }
         }
         if let Some(tt) = reg.typedefs.get_mut(tname) {
@@ -279,6 +290,8 @@ pub fn mark_provided_with_depr(
                 if !t.provided_by.contains(&feature_name.to_owned()) {
                     t.provided_by.push(feature_name.to_owned());
                 }
+                push_availability(&mut t.availability, feature_name, &req.depends);
+                set_dep_if_unset(&mut t.dep, &req.depends);
             }
         }
         if let Some(ee) = reg.enums.get_mut(tname) {
@@ -289,6 +302,8 @@ pub fn mark_provided_with_depr(
                 if !e.provided_by.contains(&feature_name.to_owned()) {
                     e.provided_by.push(feature_name.to_owned());
                 }
+                push_availability(&mut e.availability, feature_name, &req.depends);
+                set_dep_if_unset(&mut e.dep, &req.depends);
             }
         }
     }
@@ -301,6 +316,8 @@ pub fn mark_provided_with_depr(
                 if !c.provided_by.contains(&feature_name.to_owned()) {
                     c.provided_by.push(feature_name.to_owned());
                 }
+                push_availability(&mut c.availability, feature_name, &req.depends);
+                set_dep_if_unset(&mut c.dep, &req.depends);
             }
         }
     }
@@ -345,11 +362,16 @@ pub fn apply_require_extensions(reg: &mut Registry) {
     for (source, constant) in ext_consts {
         let entries = reg.constants.entry(constant.name.clone()).or_default();
         if entries.is_empty() {
-            entries.push(constant);
+            entries.push(constant.clone());
         }
         for entry in entries {
             if !entry.provided_by.contains(&source) {
                 entry.provided_by.push(source.clone());
+            }
+            for item in &constant.availability {
+                if !entry.availability.contains(item) {
+                    entry.availability.push(item.clone());
+                }
             }
         }
     }
@@ -357,35 +379,51 @@ pub fn apply_require_extensions(reg: &mut Registry) {
     let scrub = |v: &mut Vec<String>| {
         v.retain(|f| !disabled.contains(f));
     };
+    let scrub_availability = |v: &mut Vec<crate::ir::Availability>| {
+        v.retain(|item| !disabled.contains(&item.provider));
+    };
     for td in reg.typedefs.values_mut().flatten() {
         scrub(&mut td.provided_by);
+        scrub_availability(&mut td.availability);
     }
     for s in reg.structs.values_mut().flatten() {
         scrub(&mut s.provided_by);
+        scrub_availability(&mut s.availability);
     }
     for e in reg.enums.values_mut().flatten() {
         scrub(&mut e.provided_by);
+        scrub_availability(&mut e.availability);
         for v in &mut e.variants {
             scrub(&mut v.provided_by);
+            scrub_availability(&mut v.availability);
         }
     }
     for c in reg.commands.values_mut().flatten() {
         scrub(&mut c.provided_by);
+        scrub_availability(&mut c.availability);
     }
     for c in reg.constants.values_mut().flatten() {
         scrub(&mut c.provided_by);
+        scrub_availability(&mut c.availability);
     }
     for e in reg.enums.values_mut().flatten() {
         if e.provided_by.is_empty() {
             let mut inferred: Vec<String> = Vec::new();
+            let mut inferred_availability = Vec::new();
             for v in &e.variants {
                 for f in &v.provided_by {
                     if !inferred.contains(f) {
                         inferred.push(f.clone());
                     }
                 }
+                for item in &v.availability {
+                    if !inferred_availability.contains(item) {
+                        inferred_availability.push(item.clone());
+                    }
+                }
             }
             e.provided_by = inferred;
+            e.availability = inferred_availability;
         }
     }
     let opaque_names: Vec<String> = reg
@@ -420,6 +458,10 @@ pub fn apply_require_extensions(reg: &mut Registry) {
         if let Some(tt) = reg.typedefs.get_mut(tname) {
             for td in tt {
                 td.provided_by = providers.clone();
+                td.availability = providers
+                    .iter()
+                    .map(|provider| crate::ir::Availability::new(provider.clone(), None))
+                    .collect();
             }
         }
     }
@@ -475,6 +517,10 @@ fn collect_extend_enums(
                     comment: re.comment.clone(),
                     api: re.api.clone(),
                     dep: req.depends.clone(),
+                    availability: vec![crate::ir::Availability::new(
+                        source.to_owned(),
+                        req.depends.clone(),
+                    )],
                     depr: re.depr.clone(),
                     alias: re.alias.clone(),
                     provided_by: vec![source.to_owned()],
@@ -519,6 +565,11 @@ fn collect_extension_consts(requires: &[Require], source: &str, out: &mut Vec<(S
                     ty: rust_ty,
                     alias: None,
                     comment: re.comment.clone(),
+                    dep: req.depends.clone(),
+                    availability: vec![crate::ir::Availability::new(
+                        source.to_owned(),
+                        req.depends.clone(),
+                    )],
                     provided_by: vec![source.to_owned()],
                     depr: re.depr.clone(),
                 },

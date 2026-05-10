@@ -38,6 +38,7 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
                     api: aset,
                     comment,
                     dep,
+                    availability: vec![],
                     provided_by: vec![],
                     depr,
                     success_codes: vec![],
@@ -94,6 +95,7 @@ pub fn parse_commands_block(node: Node, reg: &mut Registry) {
             api: aset,
             comment,
             dep,
+            availability: vec![],
             provided_by: vec![],
             depr,
             success_codes: attr(cn, "successcodes")

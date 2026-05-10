@@ -1,4 +1,4 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::cfg_availability;
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
@@ -42,8 +42,8 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
     let mut empty_ts = TokenStream::new();
     let mut init_ts = TokenStream::new();
     for cmds in groups.values() {
-        for (name, providers, _cmd) in cmds {
-            let cfg = cfg_any(providers);
+        for (name, providers, cmd) in cmds {
+            let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
             let fname = format_ident!("{}", name);
             let pfn = format_ident!("PFN_{}", name);
             let clit = c_str_lit(name);
@@ -131,7 +131,7 @@ fn gen_create_device(
     providers: &[String],
     handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let doc = create_doc(cmd, providers);
     // remove parameter [0] since it gets replaced by `self.raw`
     let sig_params: Vec<_> = crate::codegen::utils::strip_first_param(&cmd.params)
@@ -149,7 +149,7 @@ fn gen_create_device(
         let field_name = format_ident!("{}", m.table_field);
         let tb = format_ident!("{}", m.table_name);
         let md = format_ident!("{}", m.mod_name);
-        let cfg = cfg_any(&m.providers);
+        let cfg = cfg_availability(&m.availability, &m.providers, None);
         tb_load.extend(quote! {
             #cfg
             #field_name: crate::#md::#tb::load(load_lambda),

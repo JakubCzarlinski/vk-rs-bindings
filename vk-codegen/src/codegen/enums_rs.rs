@@ -1,4 +1,4 @@
-use crate::cfggen::{cfg_any, cfg_expr_from_dnf};
+use crate::cfggen::{cfg_any, cfg_availability, cfg_expr_from_dnf};
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url};
 use crate::ir::{Enum, EnumValue, EnumVariant, Registry};
 use proc_macro2::{Literal, TokenStream};
@@ -17,7 +17,7 @@ pub fn gen_enums_rs(reg: &Registry) -> String {
 
     let mut seen_features = HashSet::new();
     for e in reg.enums.values().flatten() {
-        let token_stream = gen_enum(e, &disabled);
+        let token_stream = gen_enum(e, reg, &disabled);
         if token_stream.is_empty() {
             continue;
         }
@@ -55,7 +55,7 @@ pub fn gen_enums_rs(reg: &Registry) -> String {
     pretty(&ts)
 }
 
-fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
+fn gen_enum(e: &Enum, reg: &Registry, disabled: &HashSet<String>) -> TokenStream {
     // Filter variants to those that are enabled or core.
     let variants: Vec<_> = e
         .variants
@@ -90,7 +90,11 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
         return quote! {};
     }
 
-    let cfg = cfg_any(&all_feats);
+    let mut availability = e.availability.clone();
+    for variant in &variants {
+        availability.extend(variant.availability.clone());
+    }
+    let cfg = cfg_availability(&availability, &all_feats, e.dep.as_ref());
     let name = format_ident!("{}", &e.name);
     let url_str = format!(" [{}]({})", &e.name, refpage_url(&e.name));
     let mut doc = quote! { #[doc = #url_str] };
@@ -112,6 +116,17 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
     let depr = deprecate_attr(&e.depr);
 
     if let Some(ref alias) = e.alias {
+        if let Some(target) = reg.enums.get(alias).and_then(|items| items.first()) {
+            let mut resolved = target.clone();
+            resolved.name = e.name.clone();
+            resolved.alias = None;
+            resolved.comment = e.comment.clone().or(resolved.comment);
+            resolved.dep = e.dep.clone();
+            resolved.availability = e.availability.clone();
+            resolved.depr = e.depr.clone();
+            resolved.provided_by = e.provided_by.clone();
+            return gen_enum(&resolved, reg, disabled);
+        }
         let a = format_ident!("{}", alias);
         return quote! { #cfg pub type #name = #a; };
     }
@@ -274,7 +289,7 @@ fn variant_cfg(
         .cloned()
         .collect();
 
-    if variant.dep.is_none() {
+    if variant.dep.is_none() && variant.availability.is_empty() {
         return if v_feats.is_empty() || v_feats == all_feats {
             quote! {}
         } else {
@@ -282,22 +297,46 @@ fn variant_cfg(
         };
     }
 
-    let Some(dep) = &variant.dep else {
-        return quote! {};
-    };
-
     let mut clauses = Vec::<Vec<String>>::new();
-    for provider in v_feats {
-        for mut clause in dep.to_dnf_clauses() {
-            if !clause.contains(&provider) {
-                clause.insert(0, provider.clone());
+    if variant.availability.is_empty() {
+        let Some(dep) = &variant.dep else {
+            return quote! {};
+        };
+        for provider in v_feats {
+            for mut clause in dep.to_dnf_clauses() {
+                if !clause.contains(&provider) {
+                    clause.insert(0, provider.clone());
+                }
+                if clause.iter().any(|feature| disabled.contains(feature)) {
+                    continue;
+                }
+                clause.sort();
+                if !clauses.contains(&clause) {
+                    clauses.push(clause);
+                }
             }
-            if clause.iter().any(|feature| disabled.contains(feature)) {
+        }
+    } else {
+        for availability in &variant.availability {
+            if disabled.contains(&availability.provider) {
                 continue;
             }
-            clause.sort();
-            if !clauses.contains(&clause) {
-                clauses.push(clause);
+            let dep_clauses = availability
+                .dep
+                .as_ref()
+                .map(|dep| dep.to_dnf_clauses())
+                .unwrap_or_else(|| vec![vec![]]);
+            for mut clause in dep_clauses {
+                if !clause.contains(&availability.provider) {
+                    clause.insert(0, availability.provider.clone());
+                }
+                if clause.iter().any(|feature| disabled.contains(feature)) {
+                    continue;
+                }
+                clause.sort();
+                if !clauses.contains(&clause) {
+                    clauses.push(clause);
+                }
             }
         }
     }

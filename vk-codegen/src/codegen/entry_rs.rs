@@ -1,4 +1,4 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::cfg_availability;
 use crate::codegen::pretty;
 use crate::codegen::utils::{c_str_lit, create_doc, params_to_tokens, safe_method};
 use crate::ir::Registry;
@@ -171,11 +171,19 @@ fn gen_entry_dispatch_table(reg: &Registry) -> TokenStream {
             .collect();
         providers.sort();
         providers.dedup();
+        let availability: Vec<_> = variants
+            .iter()
+            .flat_map(|c| c.availability.clone())
+            .collect();
 
         let cfg = if providers.is_empty() {
             quote! {}
         } else {
-            cfg_any(&providers)
+            cfg_availability(
+                &availability,
+                &providers,
+                variants.iter().find_map(|c| c.dep.as_ref()),
+            )
         };
         let fname = format_ident!("{}", name);
         let pfn = format_ident!("PFN_{}", name);
@@ -300,7 +308,7 @@ fn gen_create_instance(
     providers: &[String],
     handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let doc = create_doc(cmd, providers);
 
     // All params except the output *mut VkInstance (returned as Instance).
@@ -320,7 +328,7 @@ fn gen_create_instance(
         let field_name = format_ident!("{}", m.table_field);
         let tb = format_ident!("{}", m.table_name);
         let md = format_ident!("{}", m.mod_name);
-        let cfg = cfg_any(&m.providers);
+        let cfg = cfg_availability(&m.availability, &m.providers, None);
         handle_load.extend(quote! {
             #cfg
             #field_name: crate::#md::#tb::load(load_lambda),

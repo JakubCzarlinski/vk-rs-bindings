@@ -1,4 +1,4 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::cfg_availability;
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url};
 use crate::ir::{Constant, Registry, TypedefKind};
 use crate::types::const_rust_type;
@@ -110,7 +110,11 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 quote! { #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))] }
             }
         } else {
-            cfg_any(&typedef.provided_by)
+            cfg_availability(
+                &typedef.availability,
+                &typedef.provided_by,
+                typedef.dep.as_ref(),
+            )
         };
 
         let item_ts: Option<TokenStream> = if let Some(rest) = ty.strip_prefix("fn:") {
@@ -221,7 +225,7 @@ pub fn gen_consts_rs(reg: &Registry) -> String {
                 quote! { #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))] }
             }
         } else {
-            cfg_any(&c.provided_by)
+            cfg_availability(&c.availability, &c.provided_by, c.dep.as_ref())
         };
 
         let token_stream: TokenStream = if let Some(ref alias) = c.alias {

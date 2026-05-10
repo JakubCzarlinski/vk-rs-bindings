@@ -83,6 +83,19 @@ impl DepExpr {
     }
 }
 
+#[derive(Debug, Clone, PartialEq)]
+pub struct Availability {
+    pub provider: String,
+    pub dep: Option<DepExpr>,
+}
+
+impl Availability {
+    #[must_use]
+    pub fn new(provider: String, dep: Option<DepExpr>) -> Self {
+        Self { provider, dep }
+    }
+}
+
 /// Parse a `depends=` attribute string into a `DepExpr`.
 /// Supports full nesting with parentheses.
 #[must_use]
@@ -384,6 +397,7 @@ pub struct Typedef {
     pub api: ApiSet,
     pub comment: Option<String>,
     pub dep: Option<DepExpr>,
+    pub availability: Vec<Availability>,
     pub depr: DeprecationInfo,
     pub provided_by: Vec<String>,
 }
@@ -416,6 +430,7 @@ pub struct Struct {
     pub api: ApiSet,
     pub comment: Option<String>,
     pub dep: Option<DepExpr>,
+    pub availability: Vec<Availability>,
     pub provided_by: Vec<String>,
     pub depr: DeprecationInfo,
 }
@@ -427,6 +442,7 @@ pub struct EnumVariant {
     pub comment: Option<String>,
     pub api: Option<ApiSet>,
     pub dep: Option<DepExpr>,
+    pub availability: Vec<Availability>,
     pub depr: DeprecationInfo,
     pub alias: Option<String>,
     pub provided_by: Vec<String>,
@@ -456,6 +472,7 @@ pub struct Enum {
     pub api: ApiSet,
     pub comment: Option<String>,
     pub dep: Option<DepExpr>,
+    pub availability: Vec<Availability>,
     pub provided_by: Vec<String>,
     pub depr: DeprecationInfo,
 }
@@ -580,6 +597,7 @@ pub struct Command {
     pub api: ApiSet,
     pub comment: Option<String>,
     pub dep: Option<DepExpr>,
+    pub availability: Vec<Availability>,
     pub provided_by: Vec<String>,
     pub depr: DeprecationInfo,
     pub success_codes: Vec<String>,
@@ -613,6 +631,8 @@ pub struct Constant {
     pub value: String,
     pub ty: String,
     pub comment: Option<String>,
+    pub dep: Option<DepExpr>,
+    pub availability: Vec<Availability>,
     pub provided_by: Vec<String>,
     pub depr: DeprecationInfo,
     pub alias: Option<String>,
@@ -800,59 +820,105 @@ impl Registry {
 
         for list in self.typedefs.values_mut().flatten() {
             simplify(&mut list.provided_by);
+            list.availability
+                .retain(|item| list.provided_by.contains(&item.provider));
         }
         for list in self.structs.values_mut().flatten() {
             simplify(&mut list.provided_by);
+            list.availability
+                .retain(|item| list.provided_by.contains(&item.provider));
         }
         for list in self.enums.values_mut().flatten() {
             simplify(&mut list.provided_by);
+            list.availability
+                .retain(|item| list.provided_by.contains(&item.provider));
             for var in &mut list.variants {
                 simplify(&mut var.provided_by);
+                var.availability
+                    .retain(|item| var.provided_by.contains(&item.provider));
             }
         }
         for list in self.commands.values_mut().flatten() {
             simplify(&mut list.provided_by);
+            list.availability
+                .retain(|item| list.provided_by.contains(&item.provider));
         }
         for list in self.constants.values_mut().flatten() {
             simplify(&mut list.provided_by);
+            list.availability
+                .retain(|item| list.provided_by.contains(&item.provider));
         }
 
         // Special fixups
-        let fix_pb = |name: &str, api: &ApiSet, pb: &mut Vec<String>| {
-            if name == "VK_MAKE_VIDEO_STD_VERSION" {
-                pb.clear();
-            }
-            if api.vulkansc && !api.vulkan && !api.vulkanbase {
-                for p in pb.iter_mut() {
-                    if p.starts_with("VK_BASE_VERSION_") {
-                        *p = p.replace("VK_BASE_VERSION_", "VKSC_VERSION_");
+        let fix_pb =
+            |name: &str, api: &ApiSet, pb: &mut Vec<String>, av: &mut Vec<Availability>| {
+                if name == "VK_MAKE_VIDEO_STD_VERSION" {
+                    pb.clear();
+                    av.clear();
+                }
+                if api.vulkansc && !api.vulkan && !api.vulkanbase {
+                    for p in pb.iter_mut() {
+                        if p.starts_with("VK_BASE_VERSION_") {
+                            *p = p.replace("VK_BASE_VERSION_", "VKSC_VERSION_");
+                        }
+                    }
+                    for item in av {
+                        if item.provider.starts_with("VK_BASE_VERSION_") {
+                            item.provider =
+                                item.provider.replace("VK_BASE_VERSION_", "VKSC_VERSION_");
+                        }
                     }
                 }
-            }
-        };
+            };
 
         for list in self.typedefs.values_mut().flatten() {
-            fix_pb(&list.name, &list.api, &mut list.provided_by);
+            fix_pb(
+                &list.name,
+                &list.api,
+                &mut list.provided_by,
+                &mut list.availability,
+            );
         }
         for list in self.structs.values_mut().flatten() {
-            fix_pb(&list.name, &list.api, &mut list.provided_by);
+            fix_pb(
+                &list.name,
+                &list.api,
+                &mut list.provided_by,
+                &mut list.availability,
+            );
         }
         for list in self.enums.values_mut().flatten() {
-            fix_pb(&list.name, &list.api, &mut list.provided_by);
+            fix_pb(
+                &list.name,
+                &list.api,
+                &mut list.provided_by,
+                &mut list.availability,
+            );
             for var in &mut list.variants {
                 let name = var.name.clone();
                 // Variant might not have full ApiSet, fallback to enum's api
                 // Actually, let's just use the enum's API for the variant.
-                fix_pb(&name, &list.api, &mut var.provided_by);
+                fix_pb(
+                    &name,
+                    &list.api,
+                    &mut var.provided_by,
+                    &mut var.availability,
+                );
             }
         }
         for list in self.commands.values_mut().flatten() {
-            fix_pb(&list.name, &list.api, &mut list.provided_by);
+            fix_pb(
+                &list.name,
+                &list.api,
+                &mut list.provided_by,
+                &mut list.availability,
+            );
         }
         for list in self.constants.values_mut().flatten() {
             // Constants don't have api field today, but that's fine
             if list.name == "VK_MAKE_VIDEO_STD_VERSION" {
                 list.provided_by.clear();
+                list.availability.clear();
             }
         }
     }
@@ -881,30 +947,60 @@ impl Registry {
         for tds in self.typedefs.values_mut() {
             for td in tds {
                 fix(&mut td.provided_by);
+                for item in &mut td.availability {
+                    if let Some(&r) = remap.get(item.provider.as_str()) {
+                        item.provider = r.to_owned();
+                    }
+                }
             }
         }
         for ss in self.structs.values_mut() {
             for s in ss {
                 fix(&mut s.provided_by);
+                for item in &mut s.availability {
+                    if let Some(&r) = remap.get(item.provider.as_str()) {
+                        item.provider = r.to_owned();
+                    }
+                }
             }
         }
         for es in self.enums.values_mut() {
             for e in es {
                 fix(&mut e.provided_by);
+                for item in &mut e.availability {
+                    if let Some(&r) = remap.get(item.provider.as_str()) {
+                        item.provider = r.to_owned();
+                    }
+                }
                 for v in &mut e.variants {
                     fix(&mut v.provided_by);
+                    for item in &mut v.availability {
+                        if let Some(&r) = remap.get(item.provider.as_str()) {
+                            item.provider = r.to_owned();
+                        }
+                    }
                 }
             }
         }
         for cs in self.commands.values_mut() {
             for c in cs {
                 fix(&mut c.provided_by);
+                for item in &mut c.availability {
+                    if let Some(&r) = remap.get(item.provider.as_str()) {
+                        item.provider = r.to_owned();
+                    }
+                }
             }
         }
         // Constants include SPEC_VERSION / EXTENSION_NAME from video headers
         for cs in self.constants.values_mut() {
             for c in cs {
                 fix(&mut c.provided_by);
+                for item in &mut c.availability {
+                    if let Some(&r) = remap.get(item.provider.as_str()) {
+                        item.provider = r.to_owned();
+                    }
+                }
             }
         }
     }

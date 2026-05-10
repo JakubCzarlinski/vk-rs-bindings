@@ -70,6 +70,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
                         api: aset,
                         comment,
                         dep,
+                        availability: vec![],
                         depr,
                         provided_by: vec![],
                     });
@@ -101,6 +102,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
                         api: aset,
                         comment,
                         dep,
+                        availability: vec![],
                         depr,
                         provided_by: vec![],
                     });
@@ -141,6 +143,7 @@ fn parse_struct_union(
         api: aset,
         comment,
         dep,
+        availability: vec![],
         provided_by: vec![],
         depr: depr_info(node),
     });
@@ -177,6 +180,7 @@ fn parse_handle(
         api: aset,
         comment,
         dep,
+        availability: vec![],
         depr,
         provided_by: vec![],
     });
@@ -202,6 +206,7 @@ fn parse_enum(
             api: aset,
             comment,
             dep,
+            availability: vec![],
             provided_by: vec![],
             depr,
         });
@@ -229,6 +234,7 @@ fn parse_bitmask(
         api: aset,
         comment,
         dep,
+        availability: vec![],
         depr,
         provided_by: vec![],
     });
@@ -273,6 +279,7 @@ fn parse_basetype(
         api: aset,
         comment,
         dep,
+        availability: vec![],
         depr,
         provided_by: vec![],
     });
@@ -316,6 +323,7 @@ fn parse_funcpointer(
         api: aset,
         comment,
         dep,
+        availability: vec![],
         depr,
         provided_by: vec![],
     });
@@ -410,6 +418,7 @@ fn parse_define(
         api: aset,
         comment,
         dep,
+        availability: vec![],
         depr,
         provided_by: vec![],
     });

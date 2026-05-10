@@ -1,11 +1,11 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::{cfg_any, cfg_availability};
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
     c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
     safe_method_unit_with_overrides,
 };
-use crate::ir::{Command, Registry, TypedefKind};
+use crate::ir::{Availability, Command, Registry, TypedefKind};
 use proc_macro2::TokenStream;
 use quote::quote;
 use std::collections::{BTreeMap, HashMap, HashSet};
@@ -20,20 +20,36 @@ pub struct HandleMeta {
     pub parent_vk_name: String,
     pub root_vk_name: String,
     pub providers: Vec<String>,
+    pub availability: Vec<Availability>,
 }
 
 pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
     let mut parents: HashMap<String, String> = HashMap::new();
     let mut typedef_providers: HashMap<String, Vec<String>> = HashMap::new();
+    let mut typedef_availability: HashMap<String, Vec<Availability>> = HashMap::new();
+    let mut aliases: HashMap<String, String> = HashMap::new();
     for (name, tds) in &reg.typedefs {
         for td in tds {
+            if matches!(td.kind, TypedefKind::Handle { .. }) {
+                typedef_providers.insert(name.clone(), td.provided_by.clone());
+                typedef_availability.insert(name.clone(), td.availability.clone());
+                if let Some(alias) = &td.alias {
+                    aliases.insert(name.clone(), alias.clone());
+                }
+            }
             if let TypedefKind::Handle {
                 parent: Some(p), ..
             } = &td.kind
             {
                 parents.insert(name.clone(), p.clone());
-                typedef_providers.insert(name.clone(), td.provided_by.clone());
             }
+        }
+    }
+    for (name, target) in &aliases {
+        if !parents.contains_key(name)
+            && let Some(parent) = resolve_alias_parent(target, &parents, &aliases)
+        {
+            parents.insert(name.clone(), parent);
         }
     }
 
@@ -67,6 +83,7 @@ pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
             .unwrap_or_else(|| "VkDevice".into());
         let root = root_owner(&name, &parents);
         let providers = typedef_providers.get(&name).cloned().unwrap_or_default();
+        let availability = typedef_availability.get(&name).cloned().unwrap_or_default();
 
         map.insert(
             name.clone(),
@@ -79,10 +96,24 @@ pub fn get_handle_metadata(reg: &Registry) -> BTreeMap<String, HandleMeta> {
                 parent_vk_name: parent,
                 root_vk_name: root,
                 providers,
+                availability,
             },
         );
     }
     map
+}
+
+fn resolve_alias_parent(
+    target: &str,
+    parents: &HashMap<String, String>,
+    aliases: &HashMap<String, String>,
+) -> Option<String> {
+    if let Some(parent) = parents.get(target) {
+        return Some(parent.clone());
+    }
+    aliases
+        .get(target)
+        .and_then(|next| resolve_alias_parent(next, parents, aliases))
 }
 
 fn root_owner(name: &str, parents: &HashMap<String, String>) -> String {
@@ -259,7 +290,7 @@ fn gen_handle_module(
             if !is_supported_handle_method(cmd, meta) {
                 continue;
             }
-            let cfg = cfg_any(providers);
+            let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
             let fname = format_ident!("{}", cmd_name);
             let pfn = format_ident!("PFN_{}", cmd_name);
             let clit = c_str_lit(cmd_name);
@@ -329,7 +360,7 @@ fn gen_handle_module(
                 if split_instance_handle_target(cmd_name.as_str()) != Some(meta.vk_name.as_str()) {
                     continue;
                 }
-                let cfg = cfg_any(providers);
+                let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
                 let fname = format_ident!("{}", cmd_name);
                 let pfn = format_ident!("PFN_{}", cmd_name);
                 let clit = c_str_lit(cmd_name);
@@ -502,7 +533,7 @@ fn gen_handle_module(
 }
 
 fn gen_allocate_command_buffers(cmd: &Command, providers: &[String]) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();
     for doc_lines in doc.lines() {
@@ -534,7 +565,7 @@ fn gen_allocate_command_buffers(cmd: &Command, providers: &[String]) -> TokenStr
 }
 
 fn gen_free_command_buffers(cmd: &Command, providers: &[String]) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();
     for doc_lines in doc.lines() {
@@ -554,7 +585,7 @@ fn gen_free_command_buffers(cmd: &Command, providers: &[String]) -> TokenStream 
 }
 
 fn gen_allocate_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();
     for doc_lines in doc.lines() {
@@ -586,7 +617,7 @@ fn gen_allocate_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStr
 }
 
 fn gen_free_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStream {
-    let cfg = cfg_any(providers);
+    let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();
     for doc_lines in doc.lines() {

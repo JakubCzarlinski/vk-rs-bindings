@@ -1,4 +1,5 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::cfg_availability;
+use crate::codegen::utils::rewrite_member_types_for_providers;
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url, sanitize_ident};
 use crate::ir::{Member, Optional, Registry, Struct, Typedef, TypedefKind};
 use crate::types::{c_type_to_rust, ctype_to_rust_str};
@@ -29,7 +30,7 @@ pub fn gen_types_rs(reg: &Registry) -> String {
             continue;
         }
         seen.insert(td.name.clone());
-        let ts = gen_typedef_ts(td);
+        let ts = gen_typedef_ts(td, reg);
         if !ts.is_empty() {
             groups
                 .entry(feature_key(&td.provided_by))
@@ -65,12 +66,12 @@ pub fn gen_types_rs(reg: &Registry) -> String {
 }
 
 /// Generate typedef tokens using quote!.
-fn gen_typedef_ts(td: &Typedef) -> TokenStream {
+fn gen_typedef_ts(td: &Typedef, reg: &Registry) -> TokenStream {
     if td.provided_by.is_empty() {
         return quote! {};
     }
 
-    let cfg = cfg_any(&td.provided_by);
+    let cfg = cfg_availability(&td.availability, &td.provided_by, td.dep.as_ref());
     let depr = deprecate_attr(&td.depr);
     let name = format_ident!("{}", &td.name);
 
@@ -89,6 +90,20 @@ fn gen_typedef_ts(td: &Typedef) -> TokenStream {
         let depends_on = dep.atoms().join("`, `");
         let comment = format!(" **Availability:** depends on `{depends_on}`.");
         doc.extend(quote! { #[doc = #comment] });
+    }
+
+    if let Some(ref alias) = td.alias
+        && let Some(target) = reg.typedefs.get(alias).and_then(|items| items.first())
+    {
+        let mut resolved = target.clone();
+        resolved.name = td.name.clone();
+        resolved.alias = None;
+        resolved.comment = td.comment.clone().or(resolved.comment);
+        resolved.dep = td.dep.clone();
+        resolved.availability = td.availability.clone();
+        resolved.depr = td.depr.clone();
+        resolved.provided_by = td.provided_by.clone();
+        return gen_typedef_ts(&resolved, reg);
     }
 
     match td.kind {
@@ -439,7 +454,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         return quote! {};
     }
 
-    let cfg = cfg_any(&s.provided_by);
+    let cfg = cfg_availability(&s.availability, &s.provided_by, s.dep.as_ref());
     let name_str = &s.name;
     let url_str = format!(" [{}]({})", name_str, refpage_url(name_str));
     let mut doc = quote! { #[doc = #url_str] };
@@ -484,6 +499,23 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     let name = format_ident!("{}", &s.name);
 
     if let Some(ref alias) = s.alias {
+        if let Some(target) = reg.structs.get(alias).and_then(|items| items.first()) {
+            let mut resolved = target.clone();
+            resolved.name = s.name.clone();
+            resolved.alias = None;
+            resolved.comment = s.comment.clone().or(resolved.comment);
+            resolved.dep = s.dep.clone();
+            resolved.availability = s.availability.clone();
+            resolved.depr = s.depr.clone();
+            resolved.provided_by = s.provided_by.clone();
+            rewrite_member_types_for_providers(
+                &mut resolved.members,
+                reg,
+                &s.provided_by,
+                &s.availability,
+            );
+            return gen_struct_ts(&resolved, reg);
+        }
         let a = parse_ty(alias);
         return quote! { #cfg #depr pub type #name = #a; };
     }
@@ -497,7 +529,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         .map(|vals| vals.split(',').next().unwrap_or("").trim().to_owned())
         .filter(|v| !v.is_empty())
         .map(|v| {
-            let const_name = format_ident!("{}", v);
+            let stype = structure_type_value_for_providers(reg, &v, &s.provided_by);
+            let const_name = format_ident!("{}", stype);
             quote! { VkStructureType::#const_name }
         });
 
@@ -670,6 +703,50 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     }
 }
 
+fn structure_type_value_for_providers(
+    reg: &Registry,
+    target_name: &str,
+    providers: &[String],
+) -> String {
+    let Some(enums) = reg.enums.get("VkStructureType") else {
+        return target_name.to_owned();
+    };
+    for e in enums {
+        for variant in &e.variants {
+            if variant.name == target_name
+                && let Some(alias) = &variant.alias
+            {
+                return alias.clone();
+            }
+        }
+    }
+    for e in enums {
+        for variant in &e.variants {
+            if variant.name == target_name
+                && variant
+                    .provided_by
+                    .iter()
+                    .any(|provider| providers.contains(provider))
+            {
+                return target_name.to_owned();
+            }
+        }
+    }
+    for e in enums {
+        for variant in &e.variants {
+            if variant.alias.as_deref() == Some(target_name)
+                && variant
+                    .provided_by
+                    .iter()
+                    .any(|provider| providers.contains(provider))
+            {
+                return variant.name.clone();
+            }
+        }
+    }
+    target_name.to_owned()
+}
+
 /// Classify a base type name against the registry to determine how to zero-initialize it.
 /// Returns `(TypeClass, canonical_name)` - the canonical name is the resolved type
 /// name to use in default expressions (follows aliases to the defining type).
@@ -731,18 +808,7 @@ fn classify_type_inner(base: &str, reg: &Registry, depth: u8) -> (TypeClass, Str
         };
     }
 
-    if let Some(e) = reg.enums.get(base).and_then(|v| v.last()) {
-        // If this enum is itself an alias (e.g. VkScopeNV = VkScopeKHR),
-        // follow the alias to the canonical defining enum so we emit Foo(0)
-        // with the real newtype constructor, not a type-alias name.
-        if let Some(ref target) = e.alias {
-            // Only recurse if the target is different to avoid infinite loops
-            if target != base {
-                let (cls, canonical) = classify_type_inner(target, reg, depth + 1);
-                // Return the canonical name regardless of what we found
-                return (cls, canonical);
-            }
-        }
+    if reg.enums.contains_key(base) {
         return (TypeClass::EnumNewtype, base.to_owned());
     }
 

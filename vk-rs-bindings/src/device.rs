@@ -2967,8 +2967,14 @@ impl<'inst> Device<'inst> {
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::command_pool::CommandPool<'dev>, VkResult> {
     let mut raw = VkCommandPool::NULL;
-    let fp = unsafe { self.table.vkCreateCommandPool.unwrap_unchecked() };
-    let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
+    let r = unsafe {
+      (self.table.vkCreateCommandPool.unwrap_unchecked())(
+        self.raw,
+        pCreateInfo,
+        pAllocator,
+        &mut raw,
+      )
+    };
     if r >= VkResult::VK_SUCCESS {
       Ok(crate::command_pool::CommandPool {
         raw,
@@ -3331,8 +3337,14 @@ impl<'inst> Device<'inst> {
     queueIndex: u32,
   ) -> crate::queue::Queue<'dev> {
     let mut raw = VkQueue::NULL;
-    let fp = unsafe { self.table.vkGetDeviceQueue.unwrap_unchecked() };
-    unsafe { fp(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
+    unsafe {
+      (self.table.vkGetDeviceQueue.unwrap_unchecked())(
+        self.raw,
+        queueFamilyIndex,
+        queueIndex,
+        &mut raw,
+      )
+    };
     crate::queue::Queue {
       raw,
       parent: self,
@@ -4360,25 +4372,25 @@ impl<'inst> Device<'inst> {
   pub fn vkCreateComputePipelines<'dev>(
     &'dev self,
     pipelineCache: VkPipelineCache,
-    createInfoCount: u32,
-    pCreateInfos: *const VkComputePipelineCreateInfo,
+    pCreateInfos: &[VkComputePipelineCreateInfo],
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<alloc::boxed::Box<[crate::pipeline::Pipeline<'dev>]>, VkResult> {
-    let count = createInfoCount;
-    let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(count as usize);
-    let fp = unsafe { self.table.vkCreateComputePipelines.unwrap_unchecked() };
-    let r = unsafe {
-      fp(
-        self.raw,
-        pipelineCache,
-        createInfoCount,
-        pCreateInfos,
-        pAllocator,
-        raw_pipelines.as_mut_ptr().cast(),
-      )
-    };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    let mut raw_pipelines =
+      alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(pCreateInfos.len() as usize);
+    {
+      let r = unsafe {
+        (self.table.vkCreateComputePipelines.unwrap_unchecked())(
+          self.raw,
+          pipelineCache,
+          pCreateInfos.len() as u32,
+          pCreateInfos.as_ptr(),
+          pAllocator,
+          raw_pipelines.as_mut_ptr().cast(),
+        )
+      };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     let raw_pipelines = unsafe { raw_pipelines.assume_init() };
     Ok(
@@ -6945,25 +6957,25 @@ impl<'inst> Device<'inst> {
   pub fn vkCreateGraphicsPipelines<'dev>(
     &'dev self,
     pipelineCache: VkPipelineCache,
-    createInfoCount: u32,
-    pCreateInfos: *const VkGraphicsPipelineCreateInfo,
+    pCreateInfos: &[VkGraphicsPipelineCreateInfo],
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<alloc::boxed::Box<[crate::pipeline::Pipeline<'dev>]>, VkResult> {
-    let count = createInfoCount;
-    let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(count as usize);
-    let fp = unsafe { self.table.vkCreateGraphicsPipelines.unwrap_unchecked() };
-    let r = unsafe {
-      fp(
-        self.raw,
-        pipelineCache,
-        createInfoCount,
-        pCreateInfos,
-        pAllocator,
-        raw_pipelines.as_mut_ptr().cast(),
-      )
-    };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    let mut raw_pipelines =
+      alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(pCreateInfos.len() as usize);
+    {
+      let r = unsafe {
+        (self.table.vkCreateGraphicsPipelines.unwrap_unchecked())(
+          self.raw,
+          pipelineCache,
+          pCreateInfos.len() as u32,
+          pCreateInfos.as_ptr(),
+          pAllocator,
+          raw_pipelines.as_mut_ptr().cast(),
+        )
+      };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     let raw_pipelines = unsafe { raw_pipelines.assume_init() };
     Ok(

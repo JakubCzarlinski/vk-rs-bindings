@@ -723,7 +723,7 @@ fn create_graphics_pipeline<'a>(
         .with_subpass(0);
 
     let pipeline = device
-        .vkCreateGraphicsPipelines(VkPipelineCache::NULL, 1, &pipeline_info, null())
+        .vkCreateGraphicsPipelines(VkPipelineCache::NULL, &[pipeline_info], null())
         .expect("vkCreateGraphicsPipelines failed")
         .into_iter()
         .next()

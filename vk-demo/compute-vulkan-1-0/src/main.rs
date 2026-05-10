@@ -184,8 +184,7 @@ fn create_compute_pipeline<'a>(
     let pipe_info = VkComputePipelineCreateInfo::DEFAULT
         .with_stage(stage)
         .with_layout(pipeline_layout.raw());
-    let pipelines =
-        device.vkCreateComputePipelines(VkPipelineCache::NULL, 1, &raw const pipe_info, null())?;
+    let pipelines = device.vkCreateComputePipelines(VkPipelineCache::NULL, &[pipe_info], null())?;
 
     Ok((pipeline_layout, pipelines))
 }

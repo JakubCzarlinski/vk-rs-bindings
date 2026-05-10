@@ -174,18 +174,20 @@ impl<'dev> CommandPool<'dev> {
     &'pool self,
     pAllocateInfo: &VkCommandBufferAllocateInfo,
   ) -> Result<alloc::boxed::Box<[crate::command_buffer::CommandBuffer<'pool>]>, VkResult> {
-    let count = pAllocateInfo.commandBufferCount;
-    let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(count as usize);
-    let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
-    let r = unsafe {
-      fp(
-        self.device().raw,
-        pAllocateInfo,
-        raw_buffers.as_mut_ptr().cast(),
-      )
-    };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(
+      pAllocateInfo.commandBufferCount as usize,
+    );
+    {
+      let r = unsafe {
+        (self.table.vkAllocateCommandBuffers.unwrap_unchecked())(
+          self.device().raw,
+          pAllocateInfo,
+          raw_buffers.as_mut_ptr().cast(),
+        )
+      };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     let raw_buffers = unsafe { raw_buffers.assume_init() };
     Ok(
@@ -240,18 +242,13 @@ impl<'dev> CommandPool<'dev> {
   /// - `pCommandBuffers`: len: commandBufferCount
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
-  pub fn vkFreeCommandBuffers(
-    &self,
-    commandBufferCount: u32,
-    pCommandBuffers: *const VkCommandBuffer,
-  ) {
-    let fp = unsafe { self.table.vkFreeCommandBuffers.unwrap_unchecked() };
+  pub fn vkFreeCommandBuffers(&self, pCommandBuffers: &[VkCommandBuffer]) {
     unsafe {
-      fp(
+      (self.table.vkFreeCommandBuffers.unwrap_unchecked())(
         self.device().raw,
         self.raw,
-        commandBufferCount,
-        pCommandBuffers,
+        pCommandBuffers.len() as u32,
+        pCommandBuffers.as_ptr(),
       )
     }
   }

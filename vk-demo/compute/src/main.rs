@@ -197,7 +197,7 @@ fn create_compute_pipeline<'a>(
         .with_layout(pipeline_layout.raw());
 
     let pipelines = device
-        .vkCreateComputePipelines(VkPipelineCache::NULL, 1, &raw const pipe_info, null())
+        .vkCreateComputePipelines(VkPipelineCache::NULL, &[pipe_info], null())
         .map_err(|e| format!("Pipeline: {e:?}"))?;
 
     Ok((ds_layout, pipeline_layout, pipelines))

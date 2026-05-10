@@ -206,11 +206,14 @@ impl<'lib> Entry<'lib> {
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::instance::Instance<'lib>, VkResult> {
     use crate::instance::{Instance, InstanceDispatchTable};
-    let fp = unsafe { self.table.vkCreateInstance.unwrap_unchecked() };
     let mut raw = VkInstance::NULL;
-    let r = unsafe { fp(pCreateInfo, pAllocator, &mut raw) };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    {
+      let r = unsafe {
+        (self.table.vkCreateInstance.unwrap_unchecked())(pCreateInfo, pAllocator, &mut raw)
+      };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     let table =
       InstanceDispatchTable::load(|name| unsafe { (self.lib.get_instance_proc_addr)(raw, name) });

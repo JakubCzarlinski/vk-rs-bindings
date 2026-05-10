@@ -129,18 +129,20 @@ impl<'dev> DescriptorPool<'dev> {
     &'pool self,
     pAllocateInfo: &VkDescriptorSetAllocateInfo,
   ) -> Result<alloc::boxed::Box<[crate::descriptor_set::DescriptorSet<'pool>]>, VkResult> {
-    let count = pAllocateInfo.descriptorSetCount;
-    let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(count as usize);
-    let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
-    let r = unsafe {
-      fp(
-        self.device().raw,
-        pAllocateInfo,
-        raw_sets.as_mut_ptr().cast(),
-      )
-    };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(
+      pAllocateInfo.descriptorSetCount as usize,
+    );
+    {
+      let r = unsafe {
+        self.table.vkAllocateDescriptorSets.unwrap_unchecked()(
+          self.device().raw,
+          pAllocateInfo,
+          raw_sets.as_mut_ptr().cast(),
+        )
+      };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     let raw_sets = unsafe { raw_sets.assume_init() };
     Ok(
@@ -206,16 +208,14 @@ impl<'dev> DescriptorPool<'dev> {
   #[inline]
   pub fn vkFreeDescriptorSets(
     &self,
-    descriptorSetCount: u32,
-    pDescriptorSets: *const VkDescriptorSet,
+    pDescriptorSets: &[VkDescriptorSet],
   ) -> Result<VkResult, VkResult> {
-    let fp = unsafe { self.table.vkFreeDescriptorSets.unwrap_unchecked() };
     let r = unsafe {
-      fp(
+      (self.table.vkFreeDescriptorSets.unwrap_unchecked())(
         self.device().raw,
         self.raw,
-        descriptorSetCount,
-        pDescriptorSets,
+        pDescriptorSets.len() as u32,
+        pDescriptorSets.as_ptr(),
       )
     };
     if r >= VkResult::VK_SUCCESS {

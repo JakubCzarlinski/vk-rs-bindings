@@ -3,8 +3,8 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, create_doc, enabled_set, is_cmd_buf_cmd, params_to_tokens,
-    safe_method, safe_method_unit_with_overrides, strip_first_param,
+    Tier, base_type_tokens, c_str_lit, collect_groups, create_doc, enabled_set, is_cmd_buf_cmd,
+    kw_escape, param_sig_type, safe_method, safe_method_unit_with_overrides, strip_first_param,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -276,8 +276,7 @@ fn gen_get_device_queue(_cmd: &Command, providers: &[String]) -> TokenStream {
             queueIndex: u32,
         ) -> crate::queue::Queue<'dev> {
             let mut raw = VkQueue::NULL;
-            let fp = unsafe { self.table.vkGetDeviceQueue.unwrap_unchecked() };
-            unsafe { fp(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
+            unsafe { (self.table.vkGetDeviceQueue.unwrap_unchecked())(self.raw, queueFamilyIndex, queueIndex, &mut raw) };
             crate::queue::Queue { raw, parent: self, table: &self.queue_table }
         }
     });
@@ -300,8 +299,7 @@ fn gen_create_command_pool(cmd: &Command, providers: &[String]) -> TokenStream {
             pAllocator: *const VkAllocationCallbacks,
         ) -> Result<crate::command_pool::CommandPool<'dev>, VkResult> {
             let mut raw = VkCommandPool::NULL;
-            let fp = unsafe { self.table.vkCreateCommandPool.unwrap_unchecked() };
-            let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
+            let r = unsafe { (self.table.vkCreateCommandPool.unwrap_unchecked())(self.raw, pCreateInfo, pAllocator, &mut raw) };
             if r >= VkResult::VK_SUCCESS {
                 Ok(crate::command_pool::CommandPool { raw, parent: self, table: &self.command_pool_table })
             } else {
@@ -316,12 +314,28 @@ fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_any(providers);
     let fname = format_ident!("{}", cmd.name);
     let doc = create_doc(cmd, providers);
-    let sig_params: Vec<_> = strip_first_param(&cmd.params)
-        .iter()
-        .filter(|m| m.ty.base != "VkPipeline")
-        .cloned()
-        .collect();
-    let (p_defs, p_fwd) = params_to_tokens(&sig_params);
+    let params = strip_first_param(&cmd.params);
+    let mut p_defs = Vec::new();
+    let mut p_fwd = Vec::new();
+    for param in params {
+        if param.name == "createInfoCount" {
+            p_fwd.push(quote! { pCreateInfos.len() as u32 });
+            continue;
+        }
+        if param.name == "pPipelines" {
+            continue;
+        }
+        let name = format_ident!("{}", kw_escape(&param.name));
+        if param.name == "pCreateInfos" {
+            let create_info_ty = base_type_tokens(&param.ty.base);
+            p_defs.push(quote! { #name: &[#create_info_ty] });
+            p_fwd.push(quote! { #name.as_ptr() });
+        } else {
+            let ty = param_sig_type(param);
+            p_defs.push(quote! { #name: #ty });
+            p_fwd.push(quote! { #name });
+        }
+    }
 
     let mut token_stream = TokenStream::new();
     for doc_lines in doc.lines() {
@@ -334,11 +348,13 @@ fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
             &'dev self,
             #(#p_defs,)*
         ) -> Result<alloc::boxed::Box<[crate::pipeline::Pipeline<'dev>]>, VkResult> {
-            let count = createInfoCount;
-            let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(count as usize);
-            let fp = unsafe { self.table.#fname.unwrap_unchecked() };
-            let r = unsafe { fp(self.raw, #(#p_fwd,)* raw_pipelines.as_mut_ptr().cast()) };
-            if r < VkResult::VK_SUCCESS { return Err(r); }
+            let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(pCreateInfos.len() as usize);
+            {
+                let r = unsafe { (self.table.#fname.unwrap_unchecked())(self.raw, #(#p_fwd,)* raw_pipelines.as_mut_ptr().cast()) };
+                if r < VkResult::VK_SUCCESS {
+                  return Err(r);
+                }
+            }
             let raw_pipelines = unsafe { raw_pipelines.assume_init() };
 
             Ok(raw_pipelines.into_iter().map(|raw| crate::pipeline::Pipeline {

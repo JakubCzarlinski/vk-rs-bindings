@@ -345,10 +345,11 @@ fn gen_create_instance(
             #(#p_defs,)*
         ) -> Result<crate::instance::Instance<'lib>, VkResult> {
             use crate::instance::{Instance, InstanceDispatchTable};
-            let fp  = unsafe { self.table.vkCreateInstance.unwrap_unchecked() };
             let mut raw = VkInstance::NULL;
-            let r = unsafe { fp(#(#p_fwd,)* &mut raw) };
-            if r < VkResult::VK_SUCCESS { return Err(r); }
+            {
+                let r = unsafe { (self.table.vkCreateInstance.unwrap_unchecked())(#(#p_fwd,)* &mut raw) };
+                if r < VkResult::VK_SUCCESS { return Err(r); }
+            }
             let table = InstanceDispatchTable::load(|name| unsafe {
                 (self.lib.get_instance_proc_addr)(raw, name)
             });

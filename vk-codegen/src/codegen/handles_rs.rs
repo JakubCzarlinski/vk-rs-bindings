@@ -515,11 +515,11 @@ fn gen_allocate_command_buffers(cmd: &Command, providers: &[String]) -> TokenStr
             &'pool self,
             pAllocateInfo: &VkCommandBufferAllocateInfo,
         ) -> Result<alloc::boxed::Box<[crate::command_buffer::CommandBuffer<'pool>]>, VkResult> {
-            let count = pAllocateInfo.commandBufferCount;
-            let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(count as usize);
-            let fp = unsafe { self.table.vkAllocateCommandBuffers.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr().cast()) };
-            if r < VkResult::VK_SUCCESS { return Err(r); }
+            let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(pAllocateInfo.commandBufferCount as usize);
+            {
+                let r = unsafe { (self.table.vkAllocateCommandBuffers.unwrap_unchecked())(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr().cast()) };
+                if r < VkResult::VK_SUCCESS { return Err(r); }
+            }
             let raw_buffers = unsafe { raw_buffers.assume_init() };
 
             Ok(raw_buffers.into_iter().map(|raw| crate::command_buffer::CommandBuffer {
@@ -544,11 +544,9 @@ fn gen_free_command_buffers(cmd: &Command, providers: &[String]) -> TokenStream 
         #[inline]
         pub fn vkFreeCommandBuffers(
             &self,
-            commandBufferCount: u32,
-            pCommandBuffers: *const VkCommandBuffer,
+            pCommandBuffers: &[VkCommandBuffer],
         ) {
-            let fp = unsafe { self.table.vkFreeCommandBuffers.unwrap_unchecked() };
-            unsafe { fp(self.device().raw, self.raw, commandBufferCount, pCommandBuffers) }
+            unsafe { (self.table.vkFreeCommandBuffers.unwrap_unchecked())(self.device().raw, self.raw, pCommandBuffers.len() as u32, pCommandBuffers.as_ptr()) }
         }
     });
     token_stream
@@ -569,11 +567,11 @@ fn gen_allocate_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStr
             &'pool self,
             pAllocateInfo: &VkDescriptorSetAllocateInfo,
         ) -> Result<alloc::boxed::Box<[crate::descriptor_set::DescriptorSet<'pool>]>, VkResult> {
-            let count = pAllocateInfo.descriptorSetCount;
-            let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(count as usize);
-            let fp = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr().cast()) };
-            if r < VkResult::VK_SUCCESS { return Err(r); }
+            let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(pAllocateInfo.descriptorSetCount as usize);
+            {
+                let r = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked()(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr().cast()) };
+                if r < VkResult::VK_SUCCESS { return Err(r); }
+            }
             let raw_sets = unsafe { raw_sets.assume_init() };
 
             Ok(raw_sets.into_iter().map(|raw| crate::descriptor_set::DescriptorSet {
@@ -598,11 +596,9 @@ fn gen_free_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStream 
         #[inline]
         pub fn vkFreeDescriptorSets(
             &self,
-            descriptorSetCount: u32,
-            pDescriptorSets: *const VkDescriptorSet,
+            pDescriptorSets: &[VkDescriptorSet],
         ) -> Result<VkResult, VkResult> {
-            let fp = unsafe { self.table.vkFreeDescriptorSets.unwrap_unchecked() };
-            let r = unsafe { fp(self.device().raw, self.raw, descriptorSetCount, pDescriptorSets) };
+            let r = unsafe { (self.table.vkFreeDescriptorSets.unwrap_unchecked())(self.device().raw, self.raw, pDescriptorSets.len() as u32, pDescriptorSets.as_ptr()) };
             if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
         }
     });

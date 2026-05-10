@@ -6,8 +6,8 @@ demos.
 ## Versioning
 
 I plan to move versioning to be pinned to Vulkan. This will happen when I am
-happy with the API in this repo. As of May 1st 2026, bindings are generated from
-Vulkan 1.4.350.
+happy with the API in this repo. As of May 10th 2026, bindings are generated
+from the Vulkan 1.4.351 registry.
 
 ## Installation
 
@@ -18,7 +18,7 @@ number of features exposed.
 cargo add vk-rs-bindings \
   --git https://github.com/JakubCzarlinski/vk-rs-bindings \
   --rename vk \
-  --tag v0.1.3
+  --tag v0.1.4
 ```
 
 See [https://blog.rust-lang.org/2023/10/26/broken-badges-and-23k-keywords.html](https://blog.rust-lang.org/2023/10/26/broken-badges-and-23k-keywords.html)
@@ -105,7 +105,26 @@ web-search and grepping outweighs aesthetics.
 
 ### Feature Gating
 
-TODO(czarlinski): document this.
+Note that unlike the C headers, and as already mentioned, this repository uses
+very extensive use of feature flags. These include Vulkan versions, extensions,
+but also internal APIs.
+
+Imagine a case where you have an application for hardware with support for
+Vulkan 1.2 + `VK_KHR_dynamic_rendering`. In your `Cargo.toml` you can specify:
+
+```toml
+features = [
+  "VK_VERSION_1_2",
+  "VK_KHR_dynamic_rendering",
+]
+```
+
+In effect this prevents you from using features from later versions of Vulkan or
+other extensions at compile time (as opposed to validation layers).
+An added benefit is the instance and device dispatch tables will change to only
+load/store functions relevant to the enabled features. You should not, however,
+depend on these tables maintaining a stable ABI across feature flags being
+changed.
 
 ### Hierarchy of Vulkan Objects and Lifetimes
 

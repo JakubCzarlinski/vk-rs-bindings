@@ -8,17 +8,17 @@ use crate::commands::*;
 use crate::enums::*;
 use crate::types::*;
 use core::ffi::{c_char, c_void};
-#[cfg(feature = "VK_BASE_VERSION_1_3")]
+#[cfg(feature = "VK_EXT_private_data")]
 #[derive(Debug, Clone)]
-pub struct PrivateDataSlotDispatchTable {
-  #[cfg(feature = "VK_BASE_VERSION_1_3")]
-  pub vkDestroyPrivateDataSlot: Option<PFN_vkDestroyPrivateDataSlot>,
+pub struct PrivateDataSlotEXTDispatchTable {
+  #[cfg(feature = "VK_EXT_private_data")]
+  pub vkDestroyPrivateDataSlotEXT: Option<PFN_vkDestroyPrivateDataSlotEXT>,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_3")]
-impl PrivateDataSlotDispatchTable {
+#[cfg(feature = "VK_EXT_private_data")]
+impl PrivateDataSlotEXTDispatchTable {
   pub const EMPTY: Self = Self {
-    #[cfg(feature = "VK_BASE_VERSION_1_3")]
-    vkDestroyPrivateDataSlot: None,
+    #[cfg(feature = "VK_EXT_private_data")]
+    vkDestroyPrivateDataSlotEXT: None,
   };
   #[inline]
   pub fn load<F>(loader: F) -> Self
@@ -26,30 +26,30 @@ impl PrivateDataSlotDispatchTable {
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
   {
     Self {
-      #[cfg(feature = "VK_BASE_VERSION_1_3")]
-      vkDestroyPrivateDataSlot: loader(c"vkDestroyPrivateDataSlot".as_ptr())
+      #[cfg(feature = "VK_EXT_private_data")]
+      vkDestroyPrivateDataSlotEXT: loader(c"vkDestroyPrivateDataSlotEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
     }
   }
 }
-#[cfg(feature = "VK_BASE_VERSION_1_3")]
-pub struct PrivateDataSlot<'dev> {
-  pub(crate) raw: VkPrivateDataSlot,
+#[cfg(feature = "VK_EXT_private_data")]
+pub struct PrivateDataSlotEXT<'dev> {
+  pub(crate) raw: VkPrivateDataSlotEXT,
   pub(crate) parent: &'dev crate::device::Device<'dev>,
-  pub(crate) table: &'dev PrivateDataSlotDispatchTable,
+  pub(crate) table: &'dev PrivateDataSlotEXTDispatchTable,
 }
-#[cfg(feature = "VK_BASE_VERSION_1_3")]
-unsafe impl<'dev> Send for PrivateDataSlot<'dev> {}
-#[cfg(feature = "VK_BASE_VERSION_1_3")]
-unsafe impl<'dev> Sync for PrivateDataSlot<'dev> {}
-#[cfg(feature = "VK_BASE_VERSION_1_3")]
-impl<'dev> Drop for PrivateDataSlot<'dev> {
+#[cfg(feature = "VK_EXT_private_data")]
+unsafe impl<'dev> Send for PrivateDataSlotEXT<'dev> {}
+#[cfg(feature = "VK_EXT_private_data")]
+unsafe impl<'dev> Sync for PrivateDataSlotEXT<'dev> {}
+#[cfg(feature = "VK_EXT_private_data")]
+impl<'dev> Drop for PrivateDataSlotEXT<'dev> {
   fn drop(&mut self) {
     if self.raw.0.is_null() {
       return;
     }
     unsafe {
-      (self.table.vkDestroyPrivateDataSlot).unwrap_unchecked()(
+      (self.table.vkDestroyPrivateDataSlotEXT).unwrap_unchecked()(
         self.parent.raw(),
         self.raw,
         core::ptr::null(),
@@ -57,10 +57,10 @@ impl<'dev> Drop for PrivateDataSlot<'dev> {
     };
   }
 }
-#[cfg(feature = "VK_BASE_VERSION_1_3")]
-impl<'dev> PrivateDataSlot<'dev> {
+#[cfg(feature = "VK_EXT_private_data")]
+impl<'dev> PrivateDataSlotEXT<'dev> {
   #[inline(always)]
-  pub const fn raw(&self) -> VkPrivateDataSlot {
+  pub const fn raw(&self) -> VkPrivateDataSlotEXT {
     self.raw
   }
   #[inline(always)]
@@ -76,13 +76,13 @@ impl<'dev> PrivateDataSlot<'dev> {
     self.parent.instance()
   }
   #[inline(always)]
-  pub const fn table(&self) -> &PrivateDataSlotDispatchTable {
+  pub const fn table(&self) -> &PrivateDataSlotEXTDispatchTable {
     self.table
   }
   /// [`vkDestroyPrivateDataSlot`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPrivateDataSlot.html)
   ///
   /// Provided by:
-  /// - `VK_BASE_VERSION_1_3`
+  /// - `VK_EXT_private_data`
   ///
   /// - **Export Scopes:** Vulkan
   ///
@@ -90,20 +90,20 @@ impl<'dev> PrivateDataSlot<'dev> {
   /// - `device`
   /// - `privateDataSlot`: optional: true
   /// - `pAllocator`: optional: true
-  #[cfg(feature = "VK_BASE_VERSION_1_3")]
+  #[cfg(feature = "VK_EXT_private_data")]
   #[inline(always)]
-  pub fn vkDestroyPrivateDataSlot(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyPrivateDataSlotEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
     if self.raw.0.is_null() {
       return;
     }
     unsafe {
       // SAFETY: table is fully loaded at creation.
-      (self.table).vkDestroyPrivateDataSlot.unwrap_unchecked()(
+      (self.table).vkDestroyPrivateDataSlotEXT.unwrap_unchecked()(
         self.device().raw(),
         self.raw,
         pAllocator,
       )
     }
-    self.raw = VkPrivateDataSlot::NULL;
+    self.raw = VkPrivateDataSlotEXT::NULL;
   }
 }

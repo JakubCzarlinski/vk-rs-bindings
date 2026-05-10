@@ -37,11 +37,11 @@ pub struct PhysicalDeviceDispatchTable {
   #[cfg(feature = "VK_ARM_tensors")]
   pub vkGetPhysicalDeviceExternalTensorPropertiesARM:
     Option<PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM>,
-  #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+  #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
   pub vkCreateDevice: Option<PFN_vkCreateDevice>,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub vkEnumerateDeviceExtensionProperties: Option<PFN_vkEnumerateDeviceExtensionProperties>,
-  #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+  #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
   pub vkEnumerateDeviceLayerProperties: Option<PFN_vkEnumerateDeviceLayerProperties>,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub vkGetPhysicalDeviceFeatures: Option<PFN_vkGetPhysicalDeviceFeatures>,
@@ -123,7 +123,10 @@ pub struct PhysicalDeviceDispatchTable {
   #[cfg(feature = "VK_KHR_cooperative_matrix")]
   pub vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR:
     Option<PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR>,
-  #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+  #[cfg(any(
+    all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+    all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+  ))]
   pub vkGetPhysicalDevicePresentRectanglesKHR: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
   #[cfg(feature = "VK_KHR_display")]
   pub vkCreateDisplayModeKHR: Option<PFN_vkCreateDisplayModeKHR>,
@@ -280,11 +283,11 @@ impl PhysicalDeviceDispatchTable {
     vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM: None,
     #[cfg(feature = "VK_ARM_tensors")]
     vkGetPhysicalDeviceExternalTensorPropertiesARM: None,
-    #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+    #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
     vkCreateDevice: None,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     vkEnumerateDeviceExtensionProperties: None,
-    #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+    #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
     vkEnumerateDeviceLayerProperties: None,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     vkGetPhysicalDeviceFeatures: None,
@@ -350,7 +353,10 @@ impl PhysicalDeviceDispatchTable {
     vkGetPhysicalDeviceCalibrateableTimeDomainsKHR: None,
     #[cfg(feature = "VK_KHR_cooperative_matrix")]
     vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR: None,
-    #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+    #[cfg(any(
+      all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+      all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+    ))]
     vkGetPhysicalDevicePresentRectanglesKHR: None,
     #[cfg(feature = "VK_KHR_display")]
     vkCreateDisplayModeKHR: None,
@@ -500,7 +506,7 @@ impl PhysicalDeviceDispatchTable {
         c"vkGetPhysicalDeviceExternalTensorPropertiesARM".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+      #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
       vkCreateDevice: loader(c"vkCreateDevice".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -508,7 +514,7 @@ impl PhysicalDeviceDispatchTable {
         c"vkEnumerateDeviceExtensionProperties".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+      #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
       vkEnumerateDeviceLayerProperties: loader(c"vkEnumerateDeviceLayerProperties".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -647,7 +653,10 @@ impl PhysicalDeviceDispatchTable {
         c"vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+      #[cfg(any(
+        all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+        all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+      ))]
       vkGetPhysicalDevicePresentRectanglesKHR: loader(
         c"vkGetPhysicalDevicePresentRectanglesKHR".as_ptr(),
       )
@@ -1234,7 +1243,7 @@ impl<'inst> PhysicalDevice<'inst> {
   ///   - `VK_ERROR_DEVICE_LOST`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+  #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
   #[inline]
   pub fn vkCreateDevice(
     &self,
@@ -1302,6 +1311,11 @@ impl<'inst> PhysicalDevice<'inst> {
       #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
       descriptor_update_template_table:
         crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_KHR_descriptor_update_template")]
+      descriptor_update_template_khr_table:
+        crate::descriptor_update_template_khr::DescriptorUpdateTemplateKHRDispatchTable::load(
+          load_lambda,
+        ),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       device_memory_table: crate::device_memory::DeviceMemoryDispatchTable::load(load_lambda),
       #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -1354,6 +1368,9 @@ impl<'inst> PhysicalDevice<'inst> {
       private_data_slot_table: crate::private_data_slot::PrivateDataSlotDispatchTable::load(
         load_lambda,
       ),
+      #[cfg(feature = "VK_EXT_private_data")]
+      private_data_slot_ext_table:
+        crate::private_data_slot_ext::PrivateDataSlotEXTDispatchTable::load(load_lambda),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       query_pool_table: crate::query_pool::QueryPoolDispatchTable::load(load_lambda),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -1365,6 +1382,11 @@ impl<'inst> PhysicalDevice<'inst> {
       #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
       sampler_ycbcr_conversion_table:
         crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+      sampler_ycbcr_conversion_khr_table:
+        crate::sampler_ycbcr_conversion_khr::SamplerYcbcrConversionKHRDispatchTable::load(
+          load_lambda,
+        ),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       semaphore_table: crate::semaphore::SemaphoreDispatchTable::load(load_lambda),
       #[cfg(feature = "VK_NV_external_sci_sync2")]
@@ -1462,7 +1484,7 @@ impl<'inst> PhysicalDevice<'inst> {
   /// **Error Codes:**
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(any(feature = "VKSC_VERSION_1_0", feature = "VK_BASE_VERSION_1_0"))]
+  #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
   #[inline(always)]
   pub fn vkEnumerateDeviceLayerProperties(
     &self,
@@ -2178,7 +2200,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
     &self,
     pTimeDomainCount: *mut u32,
-    pTimeDomains: *mut VkTimeDomainKHR,
+    pTimeDomains: *mut VkTimeDomainEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2399,7 +2421,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceToolPropertiesEXT(
     &self,
     pToolCount: *mut u32,
-    pToolProperties: *mut VkPhysicalDeviceToolProperties,
+    pToolProperties: *mut VkPhysicalDeviceToolPropertiesEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2498,6 +2520,7 @@ impl<'inst> PhysicalDevice<'inst> {
   /// - `VK_KHR_device_group`
   /// - `VK_KHR_swapchain`
   ///
+  /// - **Availability:** depends on `VK_VERSION_1_1`
   ///
   /// # Parameters
   /// - `physicalDevice`
@@ -2516,7 +2539,10 @@ impl<'inst> PhysicalDevice<'inst> {
   ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+  #[cfg(any(
+    all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+    all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+  ))]
   #[inline(always)]
   pub fn vkGetPhysicalDevicePresentRectanglesKHR(
     &self,
@@ -2803,8 +2829,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalFencePropertiesKHR(
     &self,
-    pExternalFenceInfo: &VkPhysicalDeviceExternalFenceInfo,
-    pExternalFenceProperties: &mut VkExternalFenceProperties,
+    pExternalFenceInfo: &VkPhysicalDeviceExternalFenceInfoKHR,
+    pExternalFenceProperties: &mut VkExternalFencePropertiesKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2828,8 +2854,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalBufferPropertiesKHR(
     &self,
-    pExternalBufferInfo: &VkPhysicalDeviceExternalBufferInfo,
-    pExternalBufferProperties: &mut VkExternalBufferProperties,
+    pExternalBufferInfo: &VkPhysicalDeviceExternalBufferInfoKHR,
+    pExternalBufferProperties: &mut VkExternalBufferPropertiesKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2853,8 +2879,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(
     &self,
-    pExternalSemaphoreInfo: &VkPhysicalDeviceExternalSemaphoreInfo,
-    pExternalSemaphoreProperties: &mut VkExternalSemaphoreProperties,
+    pExternalSemaphoreInfo: &VkPhysicalDeviceExternalSemaphoreInfoKHR,
+    pExternalSemaphoreProperties: &mut VkExternalSemaphorePropertiesKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3079,7 +3105,7 @@ impl<'inst> PhysicalDevice<'inst> {
   /// - `pFeatures`
   #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
   #[inline(always)]
-  pub fn vkGetPhysicalDeviceFeatures2KHR(&self, pFeatures: &mut VkPhysicalDeviceFeatures2) {
+  pub fn vkGetPhysicalDeviceFeatures2KHR(&self, pFeatures: &mut VkPhysicalDeviceFeatures2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -3103,7 +3129,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceFormatProperties2KHR(
     &self,
     format: VkFormat,
-    pFormatProperties: &mut VkFormatProperties2,
+    pFormatProperties: &mut VkFormatProperties2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3144,8 +3170,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceImageFormatProperties2KHR(
     &self,
-    pImageFormatInfo: &VkPhysicalDeviceImageFormatInfo2,
-    pImageFormatProperties: &mut VkImageFormatProperties2,
+    pImageFormatInfo: &VkPhysicalDeviceImageFormatInfo2KHR,
+    pImageFormatProperties: &mut VkImageFormatProperties2KHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3172,7 +3198,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceMemoryProperties2KHR(
     &self,
-    pMemoryProperties: &mut VkPhysicalDeviceMemoryProperties2,
+    pMemoryProperties: &mut VkPhysicalDeviceMemoryProperties2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3193,7 +3219,10 @@ impl<'inst> PhysicalDevice<'inst> {
   /// - `pProperties`
   #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
   #[inline(always)]
-  pub fn vkGetPhysicalDeviceProperties2KHR(&self, pProperties: &mut VkPhysicalDeviceProperties2) {
+  pub fn vkGetPhysicalDeviceProperties2KHR(
+    &self,
+    pProperties: &mut VkPhysicalDeviceProperties2KHR,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -3217,7 +3246,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceQueueFamilyProperties2KHR(
     &self,
     pQueueFamilyPropertyCount: *mut u32,
-    pQueueFamilyProperties: *mut VkQueueFamilyProperties2,
+    pQueueFamilyProperties: *mut VkQueueFamilyProperties2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3242,9 +3271,9 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSparseImageFormatProperties2KHR(
     &self,
-    pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2,
+    pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2KHR,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkSparseImageFormatProperties2,
+    pProperties: *mut VkSparseImageFormatProperties2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.

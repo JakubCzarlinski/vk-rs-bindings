@@ -342,8 +342,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2EXT(
     &self,
-    pSubresource: &VkImageSubresource2,
-    pLayout: &mut VkSubresourceLayout2,
+    pSubresource: &VkImageSubresource2EXT,
+    pLayout: &mut VkSubresourceLayout2EXT,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -405,8 +405,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2KHR(
     &self,
-    pSubresource: &VkImageSubresource2,
-    pLayout: &mut VkSubresourceLayout2,
+    pSubresource: &VkImageSubresource2KHR,
+    pLayout: &mut VkSubresourceLayout2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.

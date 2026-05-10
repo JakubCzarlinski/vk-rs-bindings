@@ -59,10 +59,10 @@ pub struct DeviceDispatchTable {
   pub vkGetDeviceTensorMemoryRequirementsARM: Option<PFN_vkGetDeviceTensorMemoryRequirementsARM>,
   #[cfg(feature = "VK_ARM_tensors")]
   pub vkGetTensorMemoryRequirementsARM: Option<PFN_vkGetTensorMemoryRequirementsARM>,
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub vkGetTensorOpaqueCaptureDescriptorDataARM:
     Option<PFN_vkGetTensorOpaqueCaptureDescriptorDataARM>,
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub vkGetTensorViewOpaqueCaptureDescriptorDataARM:
     Option<PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM>,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -184,7 +184,13 @@ pub struct DeviceDispatchTable {
   pub vkSetDebugUtilsObjectNameEXT: Option<PFN_vkSetDebugUtilsObjectNameEXT>,
   #[cfg(feature = "VK_EXT_debug_utils")]
   pub vkSetDebugUtilsObjectTagEXT: Option<PFN_vkSetDebugUtilsObjectTagEXT>,
-  #[cfg(feature = "VK_EXT_descriptor_buffer")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_descriptor_buffer",
+      feature = "VK_KHR_acceleration_structure"
+    ),
+    all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing")
+  ))]
   pub vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT:
     Option<PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT>,
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
@@ -203,11 +209,17 @@ pub struct DeviceDispatchTable {
     Option<PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT>,
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   pub vkGetImageOpaqueCaptureDataEXT: Option<PFN_vkGetImageOpaqueCaptureDataEXT>,
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
   pub vkGetTensorOpaqueCaptureDataARM: Option<PFN_vkGetTensorOpaqueCaptureDataARM>,
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_custom_border_color",
+    feature = "VK_EXT_descriptor_heap"
+  ))]
   pub vkRegisterCustomBorderColorEXT: Option<PFN_vkRegisterCustomBorderColorEXT>,
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_custom_border_color",
+    feature = "VK_EXT_descriptor_heap"
+  ))]
   pub vkUnregisterCustomBorderColorEXT: Option<PFN_vkUnregisterCustomBorderColorEXT>,
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   pub vkWriteResourceDescriptorsEXT: Option<PFN_vkWriteResourceDescriptorsEXT>,
@@ -230,7 +242,13 @@ pub struct DeviceDispatchTable {
   pub vkGetMemoryMetalHandleEXT: Option<PFN_vkGetMemoryMetalHandleEXT>,
   #[cfg(feature = "VK_EXT_external_memory_metal")]
   pub vkGetMemoryMetalHandlePropertiesEXT: Option<PFN_vkGetMemoryMetalHandlePropertiesEXT>,
-  #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_full_screen_exclusive",
+      feature = "VK_KHR_device_group"
+    ),
+    all(feature = "VK_EXT_full_screen_exclusive", feature = "VK_VERSION_1_1")
+  ))]
   pub vkGetDeviceGroupSurfacePresentModes2EXT: Option<PFN_vkGetDeviceGroupSurfacePresentModes2EXT>,
   #[cfg(feature = "VK_EXT_hdr_metadata")]
   pub vkSetHdrMetadataEXT: Option<PFN_vkSetHdrMetadataEXT>,
@@ -332,17 +350,26 @@ pub struct DeviceDispatchTable {
   pub vkCreateDeferredOperationKHR: Option<PFN_vkCreateDeferredOperationKHR>,
   #[cfg(feature = "VK_KHR_descriptor_update_template")]
   pub vkCreateDescriptorUpdateTemplateKHR: Option<PFN_vkCreateDescriptorUpdateTemplateKHR>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCreateAccelerationStructure2KHR: Option<PFN_vkCreateAccelerationStructure2KHR>,
   #[cfg(feature = "VK_KHR_device_fault")]
   pub vkGetDeviceFaultDebugInfoKHR: Option<PFN_vkGetDeviceFaultDebugInfoKHR>,
   #[cfg(feature = "VK_KHR_device_fault")]
   pub vkGetDeviceFaultReportsKHR: Option<PFN_vkGetDeviceFaultReportsKHR>,
-  #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+  #[cfg(any(
+    all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+    all(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain")
+  ))]
   pub vkAcquireNextImage2KHR: Option<PFN_vkAcquireNextImage2KHR>,
   #[cfg(feature = "VK_KHR_device_group")]
   pub vkGetDeviceGroupPeerMemoryFeaturesKHR: Option<PFN_vkGetDeviceGroupPeerMemoryFeaturesKHR>,
-  #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+  #[cfg(any(
+    all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+    all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+  ))]
   pub vkGetDeviceGroupPresentCapabilitiesKHR: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
   #[cfg(feature = "VK_KHR_display_swapchain")]
   pub vkCreateSharedSwapchainsKHR: Option<PFN_vkCreateSharedSwapchainsKHR>,
@@ -554,9 +581,9 @@ impl DeviceDispatchTable {
     vkGetDeviceTensorMemoryRequirementsARM: None,
     #[cfg(feature = "VK_ARM_tensors")]
     vkGetTensorMemoryRequirementsARM: None,
-    #[cfg(feature = "VK_ARM_tensors")]
+    #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
     vkGetTensorOpaqueCaptureDescriptorDataARM: None,
-    #[cfg(feature = "VK_ARM_tensors")]
+    #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
     vkGetTensorViewOpaqueCaptureDescriptorDataARM: None,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     vkAllocateMemory: None,
@@ -676,7 +703,13 @@ impl DeviceDispatchTable {
     vkSetDebugUtilsObjectNameEXT: None,
     #[cfg(feature = "VK_EXT_debug_utils")]
     vkSetDebugUtilsObjectTagEXT: None,
-    #[cfg(feature = "VK_EXT_descriptor_buffer")]
+    #[cfg(any(
+      all(
+        feature = "VK_EXT_descriptor_buffer",
+        feature = "VK_KHR_acceleration_structure"
+      ),
+      all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing")
+    ))]
     vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT: None,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     vkGetBufferOpaqueCaptureDescriptorDataEXT: None,
@@ -690,11 +723,17 @@ impl DeviceDispatchTable {
     vkGetSamplerOpaqueCaptureDescriptorDataEXT: None,
     #[cfg(feature = "VK_EXT_descriptor_heap")]
     vkGetImageOpaqueCaptureDataEXT: None,
-    #[cfg(feature = "VK_EXT_descriptor_heap")]
+    #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
     vkGetTensorOpaqueCaptureDataARM: None,
-    #[cfg(feature = "VK_EXT_descriptor_heap")]
+    #[cfg(all(
+      feature = "VK_EXT_custom_border_color",
+      feature = "VK_EXT_descriptor_heap"
+    ))]
     vkRegisterCustomBorderColorEXT: None,
-    #[cfg(feature = "VK_EXT_descriptor_heap")]
+    #[cfg(all(
+      feature = "VK_EXT_custom_border_color",
+      feature = "VK_EXT_descriptor_heap"
+    ))]
     vkUnregisterCustomBorderColorEXT: None,
     #[cfg(feature = "VK_EXT_descriptor_heap")]
     vkWriteResourceDescriptorsEXT: None,
@@ -716,7 +755,13 @@ impl DeviceDispatchTable {
     vkGetMemoryMetalHandleEXT: None,
     #[cfg(feature = "VK_EXT_external_memory_metal")]
     vkGetMemoryMetalHandlePropertiesEXT: None,
-    #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+    #[cfg(any(
+      all(
+        feature = "VK_EXT_full_screen_exclusive",
+        feature = "VK_KHR_device_group"
+      ),
+      all(feature = "VK_EXT_full_screen_exclusive", feature = "VK_VERSION_1_1")
+    ))]
     vkGetDeviceGroupSurfacePresentModes2EXT: None,
     #[cfg(feature = "VK_EXT_hdr_metadata")]
     vkSetHdrMetadataEXT: None,
@@ -812,17 +857,26 @@ impl DeviceDispatchTable {
     vkCreateDeferredOperationKHR: None,
     #[cfg(feature = "VK_KHR_descriptor_update_template")]
     vkCreateDescriptorUpdateTemplateKHR: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_KHR_acceleration_structure",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCreateAccelerationStructure2KHR: None,
     #[cfg(feature = "VK_KHR_device_fault")]
     vkGetDeviceFaultDebugInfoKHR: None,
     #[cfg(feature = "VK_KHR_device_fault")]
     vkGetDeviceFaultReportsKHR: None,
-    #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+    #[cfg(any(
+      all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+      all(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain")
+    ))]
     vkAcquireNextImage2KHR: None,
     #[cfg(feature = "VK_KHR_device_group")]
     vkGetDeviceGroupPeerMemoryFeaturesKHR: None,
-    #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+    #[cfg(any(
+      all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+      all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+    ))]
     vkGetDeviceGroupPresentCapabilitiesKHR: None,
     #[cfg(feature = "VK_KHR_display_swapchain")]
     vkCreateSharedSwapchainsKHR: None,
@@ -1063,12 +1117,12 @@ impl DeviceDispatchTable {
       #[cfg(feature = "VK_ARM_tensors")]
       vkGetTensorMemoryRequirementsARM: loader(c"vkGetTensorMemoryRequirementsARM".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_ARM_tensors")]
+      #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
       vkGetTensorOpaqueCaptureDescriptorDataARM: loader(
         c"vkGetTensorOpaqueCaptureDescriptorDataARM".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_ARM_tensors")]
+      #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
       vkGetTensorViewOpaqueCaptureDescriptorDataARM: loader(
         c"vkGetTensorViewOpaqueCaptureDescriptorDataARM".as_ptr(),
       )
@@ -1249,7 +1303,13 @@ impl DeviceDispatchTable {
       #[cfg(feature = "VK_EXT_debug_utils")]
       vkSetDebugUtilsObjectTagEXT: loader(c"vkSetDebugUtilsObjectTagEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_descriptor_buffer")]
+      #[cfg(any(
+        all(
+          feature = "VK_EXT_descriptor_buffer",
+          feature = "VK_KHR_acceleration_structure"
+        ),
+        all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing")
+      ))]
       vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT: loader(
         c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT".as_ptr(),
       )
@@ -1280,13 +1340,19 @@ impl DeviceDispatchTable {
       #[cfg(feature = "VK_EXT_descriptor_heap")]
       vkGetImageOpaqueCaptureDataEXT: loader(c"vkGetImageOpaqueCaptureDataEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_descriptor_heap")]
+      #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
       vkGetTensorOpaqueCaptureDataARM: loader(c"vkGetTensorOpaqueCaptureDataARM".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_descriptor_heap")]
+      #[cfg(all(
+        feature = "VK_EXT_custom_border_color",
+        feature = "VK_EXT_descriptor_heap"
+      ))]
       vkRegisterCustomBorderColorEXT: loader(c"vkRegisterCustomBorderColorEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_descriptor_heap")]
+      #[cfg(all(
+        feature = "VK_EXT_custom_border_color",
+        feature = "VK_EXT_descriptor_heap"
+      ))]
       vkUnregisterCustomBorderColorEXT: loader(c"vkUnregisterCustomBorderColorEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_EXT_descriptor_heap")]
@@ -1321,7 +1387,13 @@ impl DeviceDispatchTable {
       #[cfg(feature = "VK_EXT_external_memory_metal")]
       vkGetMemoryMetalHandlePropertiesEXT: loader(c"vkGetMemoryMetalHandlePropertiesEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+      #[cfg(any(
+        all(
+          feature = "VK_EXT_full_screen_exclusive",
+          feature = "VK_KHR_device_group"
+        ),
+        all(feature = "VK_EXT_full_screen_exclusive", feature = "VK_VERSION_1_1")
+      ))]
       vkGetDeviceGroupSurfacePresentModes2EXT: loader(
         c"vkGetDeviceGroupSurfacePresentModes2EXT".as_ptr(),
       )
@@ -1485,7 +1557,10 @@ impl DeviceDispatchTable {
       #[cfg(feature = "VK_KHR_descriptor_update_template")]
       vkCreateDescriptorUpdateTemplateKHR: loader(c"vkCreateDescriptorUpdateTemplateKHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_KHR_acceleration_structure",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCreateAccelerationStructure2KHR: loader(c"vkCreateAccelerationStructure2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_device_fault")]
@@ -1494,7 +1569,10 @@ impl DeviceDispatchTable {
       #[cfg(feature = "VK_KHR_device_fault")]
       vkGetDeviceFaultReportsKHR: loader(c"vkGetDeviceFaultReportsKHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+      #[cfg(any(
+        all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+        all(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain")
+      ))]
       vkAcquireNextImage2KHR: loader(c"vkAcquireNextImage2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_device_group")]
@@ -1502,7 +1580,10 @@ impl DeviceDispatchTable {
         c"vkGetDeviceGroupPeerMemoryFeaturesKHR".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+      #[cfg(any(
+        all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+        all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+      ))]
       vkGetDeviceGroupPresentCapabilitiesKHR: loader(
         c"vkGetDeviceGroupPresentCapabilitiesKHR".as_ptr(),
       )
@@ -1845,6 +1926,9 @@ pub struct Device<'inst> {
   #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
   pub(crate) descriptor_update_template_table:
     crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable,
+  #[cfg(feature = "VK_KHR_descriptor_update_template")]
+  pub(crate) descriptor_update_template_khr_table:
+    crate::descriptor_update_template_khr::DescriptorUpdateTemplateKHRDispatchTable,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub(crate) device_memory_table: crate::device_memory::DeviceMemoryDispatchTable,
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -1889,6 +1973,9 @@ pub struct Device<'inst> {
   pub(crate) pipeline_layout_table: crate::pipeline_layout::PipelineLayoutDispatchTable,
   #[cfg(feature = "VK_BASE_VERSION_1_3")]
   pub(crate) private_data_slot_table: crate::private_data_slot::PrivateDataSlotDispatchTable,
+  #[cfg(feature = "VK_EXT_private_data")]
+  pub(crate) private_data_slot_ext_table:
+    crate::private_data_slot_ext::PrivateDataSlotEXTDispatchTable,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub(crate) query_pool_table: crate::query_pool::QueryPoolDispatchTable,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -1900,6 +1987,9 @@ pub struct Device<'inst> {
   #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
   pub(crate) sampler_ycbcr_conversion_table:
     crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable,
+  #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+  pub(crate) sampler_ycbcr_conversion_khr_table:
+    crate::sampler_ycbcr_conversion_khr::SamplerYcbcrConversionKHRDispatchTable,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub(crate) semaphore_table: crate::semaphore::SemaphoreDispatchTable,
   #[cfg(feature = "VK_NV_external_sci_sync2")]
@@ -1975,6 +2065,8 @@ impl<'inst> Device<'inst> {
     descriptor_set_layout_table: crate::descriptor_set_layout::DescriptorSetLayoutDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         descriptor_update_template_table: crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable,
+    #[cfg(feature = "VK_KHR_descriptor_update_template")]
+        descriptor_update_template_khr_table: crate::descriptor_update_template_khr::DescriptorUpdateTemplateKHRDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     device_memory_table: crate::device_memory::DeviceMemoryDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")] event_table: crate::event::EventDispatchTable,
@@ -2010,6 +2102,8 @@ impl<'inst> Device<'inst> {
     pipeline_layout_table: crate::pipeline_layout::PipelineLayoutDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_3")]
     private_data_slot_table: crate::private_data_slot::PrivateDataSlotDispatchTable,
+    #[cfg(feature = "VK_EXT_private_data")]
+    private_data_slot_ext_table: crate::private_data_slot_ext::PrivateDataSlotEXTDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     query_pool_table: crate::query_pool::QueryPoolDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")] queue_table: crate::queue::QueueDispatchTable,
@@ -2018,6 +2112,8 @@ impl<'inst> Device<'inst> {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")] sampler_table: crate::sampler::SamplerDispatchTable,
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
         sampler_ycbcr_conversion_table: crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable,
+    #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+        sampler_ycbcr_conversion_khr_table: crate::sampler_ycbcr_conversion_khr::SamplerYcbcrConversionKHRDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     semaphore_table: crate::semaphore::SemaphoreDispatchTable,
     #[cfg(feature = "VK_NV_external_sci_sync2")]
@@ -2079,6 +2175,8 @@ impl<'inst> Device<'inst> {
       descriptor_set_layout_table,
       #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
       descriptor_update_template_table,
+      #[cfg(feature = "VK_KHR_descriptor_update_template")]
+      descriptor_update_template_khr_table,
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       device_memory_table,
       #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
@@ -2117,6 +2215,8 @@ impl<'inst> Device<'inst> {
       pipeline_layout_table,
       #[cfg(feature = "VK_BASE_VERSION_1_3")]
       private_data_slot_table,
+      #[cfg(feature = "VK_EXT_private_data")]
+      private_data_slot_ext_table,
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       query_pool_table,
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -2127,6 +2227,8 @@ impl<'inst> Device<'inst> {
       sampler_table,
       #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
       sampler_ycbcr_conversion_table,
+      #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+      sampler_ycbcr_conversion_khr_table,
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       semaphore_table,
       #[cfg(feature = "VK_NV_external_sci_sync2")]
@@ -2905,6 +3007,7 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_ARM_tensors`
   ///
+  /// - **Availability:** depends on `VK_EXT_descriptor_buffer`
   ///
   /// # Parameters
   /// - `device`
@@ -2921,7 +3024,7 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   #[inline(always)]
   pub fn vkGetTensorOpaqueCaptureDescriptorDataARM(
     &self,
@@ -2944,6 +3047,7 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_ARM_tensors`
   ///
+  /// - **Availability:** depends on `VK_EXT_descriptor_buffer`
   ///
   /// # Parameters
   /// - `device`
@@ -2960,7 +3064,7 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   #[inline(always)]
   pub fn vkGetTensorViewOpaqueCaptureDescriptorDataARM(
     &self,
@@ -5057,7 +5161,10 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_EXT_buffer_device_address")]
   #[inline(always)]
-  pub fn vkGetBufferDeviceAddressEXT(&self, pInfo: &VkBufferDeviceAddressInfo) -> VkDeviceAddress {
+  pub fn vkGetBufferDeviceAddressEXT(
+    &self,
+    pInfo: &VkBufferDeviceAddressInfoEXT,
+  ) -> VkDeviceAddress {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (&self.table).vkGetBufferDeviceAddressEXT.unwrap_unchecked()(self.raw, pInfo)
@@ -5090,7 +5197,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetCalibratedTimestampsEXT(
     &self,
-    pTimestampInfos: &[VkCalibratedTimestampInfoKHR],
+    pTimestampInfos: &[VkCalibratedTimestampInfoEXT],
     pTimestamps: &mut [u64],
     pMaxDeviation: &mut u64,
   ) -> Result<VkResult, VkResult> {
@@ -5261,6 +5368,7 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_EXT_descriptor_buffer`
   ///
+  /// - **Availability:** depends on `VK_KHR_acceleration_structure + VK_NV_ray_tracing`
   ///
   /// # Parameters
   /// - `device`
@@ -5277,7 +5385,13 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(feature = "VK_EXT_descriptor_buffer")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_descriptor_buffer",
+      feature = "VK_KHR_acceleration_structure"
+    ),
+    all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing")
+  ))]
   #[inline(always)]
   pub fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
     &self,
@@ -5530,6 +5644,7 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_EXT_descriptor_heap`
   ///
+  /// - **Availability:** depends on `VK_ARM_tensors`
   ///
   /// # Parameters
   /// - `device`
@@ -5547,7 +5662,7 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
   #[inline(always)]
   pub fn vkGetTensorOpaqueCaptureDataARM(
     &self,
@@ -5575,6 +5690,7 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_EXT_descriptor_heap`
   ///
+  /// - **Availability:** depends on `VK_EXT_custom_border_color`
   ///
   /// # Parameters
   /// - `device`
@@ -5594,7 +5710,10 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_custom_border_color",
+    feature = "VK_EXT_descriptor_heap"
+  ))]
   #[inline(always)]
   pub fn vkRegisterCustomBorderColorEXT(
     &self,
@@ -5618,11 +5737,15 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_EXT_descriptor_heap`
   ///
+  /// - **Availability:** depends on `VK_EXT_custom_border_color`
   ///
   /// # Parameters
   /// - `device`
   /// - `index`
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_custom_border_color",
+    feature = "VK_EXT_descriptor_heap"
+  ))]
   #[inline(always)]
   pub fn vkUnregisterCustomBorderColorEXT(&self, index: u32) {
     unsafe {
@@ -6055,6 +6178,7 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_EXT_full_screen_exclusive`
   ///
+  /// - **Availability:** depends on `VK_KHR_device_group + VK_VERSION_1_1`
   ///
   /// # Parameters
   /// - `device`
@@ -6072,7 +6196,13 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_SURFACE_LOST_KHR`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_full_screen_exclusive",
+      feature = "VK_KHR_device_group"
+    ),
+    all(feature = "VK_EXT_full_screen_exclusive", feature = "VK_VERSION_1_1")
+  ))]
   #[inline(always)]
   pub fn vkGetDeviceGroupSurfacePresentModes2EXT(
     &self,
@@ -6145,7 +6275,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyImageToImageEXT(
     &self,
-    pCopyImageToImageInfo: &VkCopyImageToImageInfo,
+    pCopyImageToImageInfo: &VkCopyImageToImageInfoEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table).vkCopyImageToImageEXT.unwrap_unchecked()(self.raw, pCopyImageToImageInfo)
@@ -6183,7 +6313,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyImageToMemoryEXT(
     &self,
-    pCopyImageToMemoryInfo: &VkCopyImageToMemoryInfo,
+    pCopyImageToMemoryInfo: &VkCopyImageToMemoryInfoEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table).vkCopyImageToMemoryEXT.unwrap_unchecked()(self.raw, pCopyImageToMemoryInfo)
@@ -6221,7 +6351,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyMemoryToImageEXT(
     &self,
-    pCopyMemoryToImageInfo: &VkCopyMemoryToImageInfo,
+    pCopyMemoryToImageInfo: &VkCopyMemoryToImageInfoEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table).vkCopyMemoryToImageEXT.unwrap_unchecked()(self.raw, pCopyMemoryToImageInfo)
@@ -6260,7 +6390,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkTransitionImageLayoutEXT(
     &self,
-    pTransitions: &[VkHostImageLayoutTransitionInfo],
+    pTransitions: &[VkHostImageLayoutTransitionInfoEXT],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table).vkTransitionImageLayoutEXT.unwrap_unchecked()(
@@ -6555,10 +6685,10 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreatePrivateDataSlotEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkPrivateDataSlotCreateInfo,
+    pCreateInfo: &VkPrivateDataSlotCreateInfoEXT,
     pAllocator: *const VkAllocationCallbacks,
-  ) -> Result<crate::private_data_slot::PrivateDataSlot<'ret>, VkResult> {
-    let mut handle = VkPrivateDataSlot::NULL;
+  ) -> Result<crate::private_data_slot_ext::PrivateDataSlotEXT<'ret>, VkResult> {
+    let mut handle = VkPrivateDataSlotEXT::NULL;
     let r = unsafe {
       (&self.table).vkCreatePrivateDataSlotEXT.unwrap_unchecked()(
         self.raw,
@@ -6568,10 +6698,10 @@ impl<'inst> Device<'inst> {
       )
     };
     if r >= VkResult::VK_SUCCESS {
-      Ok(crate::private_data_slot::PrivateDataSlot {
+      Ok(crate::private_data_slot_ext::PrivateDataSlotEXT {
         raw: handle,
         parent: self,
-        table: &self.private_data_slot_table,
+        table: &self.private_data_slot_ext_table,
       })
     } else {
       Err(r)
@@ -6596,7 +6726,7 @@ impl<'inst> Device<'inst> {
     &self,
     objectType: VkObjectType,
     objectHandle: u64,
-    privateDataSlot: VkPrivateDataSlot,
+    privateDataSlot: VkPrivateDataSlotEXT,
     pData: &mut u64,
   ) {
     unsafe {
@@ -6639,7 +6769,7 @@ impl<'inst> Device<'inst> {
     &self,
     objectType: VkObjectType,
     objectHandle: u64,
-    privateDataSlot: VkPrivateDataSlot,
+    privateDataSlot: VkPrivateDataSlotEXT,
     data: u64,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -6753,7 +6883,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkReleaseSwapchainImagesEXT(
     &self,
-    pReleaseInfo: &VkReleaseSwapchainImagesInfoKHR,
+    pReleaseInfo: &VkReleaseSwapchainImagesInfoEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table).vkReleaseSwapchainImagesEXT.unwrap_unchecked()(self.raw, pReleaseInfo)
@@ -7607,7 +7737,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindBufferMemory2KHR(
     &self,
-    pBindInfos: &[VkBindBufferMemoryInfo],
+    pBindInfos: &[VkBindBufferMemoryInfoKHR],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table).vkBindBufferMemory2KHR.unwrap_unchecked()(
@@ -7648,7 +7778,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindImageMemory2KHR(
     &self,
-    pBindInfos: &[VkBindImageMemoryInfo],
+    pBindInfos: &[VkBindImageMemoryInfoKHR],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table).vkBindImageMemory2KHR.unwrap_unchecked()(
@@ -7675,7 +7805,10 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_buffer_device_address")]
   #[inline(always)]
-  pub fn vkGetBufferDeviceAddressKHR(&self, pInfo: &VkBufferDeviceAddressInfo) -> VkDeviceAddress {
+  pub fn vkGetBufferDeviceAddressKHR(
+    &self,
+    pInfo: &VkBufferDeviceAddressInfoKHR,
+  ) -> VkDeviceAddress {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (&self.table).vkGetBufferDeviceAddressKHR.unwrap_unchecked()(self.raw, pInfo)
@@ -7693,7 +7826,7 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_buffer_device_address")]
   #[inline(always)]
-  pub fn vkGetBufferOpaqueCaptureAddressKHR(&self, pInfo: &VkBufferDeviceAddressInfo) -> u64 {
+  pub fn vkGetBufferOpaqueCaptureAddressKHR(&self, pInfo: &VkBufferDeviceAddressInfoKHR) -> u64 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (&self.table)
@@ -7715,7 +7848,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceMemoryOpaqueCaptureAddressKHR(
     &self,
-    pInfo: &VkDeviceMemoryOpaqueCaptureAddressInfo,
+    pInfo: &VkDeviceMemoryOpaqueCaptureAddressInfoKHR,
   ) -> u64 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -7800,7 +7933,7 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateRenderPass2KHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkRenderPassCreateInfo2,
+    pCreateInfo: &VkRenderPassCreateInfo2KHR,
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::render_pass::RenderPass<'ret>, VkResult> {
     let mut handle = VkRenderPass::NULL;
@@ -7891,10 +8024,11 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateDescriptorUpdateTemplateKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkDescriptorUpdateTemplateCreateInfo,
+    pCreateInfo: &VkDescriptorUpdateTemplateCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
-  ) -> Result<crate::descriptor_update_template::DescriptorUpdateTemplate<'ret>, VkResult> {
-    let mut handle = VkDescriptorUpdateTemplate::NULL;
+  ) -> Result<crate::descriptor_update_template_khr::DescriptorUpdateTemplateKHR<'ret>, VkResult>
+  {
+    let mut handle = VkDescriptorUpdateTemplateKHR::NULL;
     let r = unsafe {
       (&self.table)
         .vkCreateDescriptorUpdateTemplateKHR
@@ -7902,10 +8036,10 @@ impl<'inst> Device<'inst> {
     };
     if r >= VkResult::VK_SUCCESS {
       Ok(
-        crate::descriptor_update_template::DescriptorUpdateTemplate {
+        crate::descriptor_update_template_khr::DescriptorUpdateTemplateKHR {
           raw: handle,
           parent: self,
-          table: &self.descriptor_update_template_table,
+          table: &self.descriptor_update_template_khr_table,
         },
       )
     } else {
@@ -7917,6 +8051,7 @@ impl<'inst> Device<'inst> {
   /// Provided by:
   /// - `VK_KHR_device_address_commands`
   ///
+  /// - **Availability:** depends on `VK_KHR_acceleration_structure`
   ///
   /// # Parameters
   /// - `device`
@@ -7934,7 +8069,10 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
   ///   - `VK_ERROR_VALIDATION_FAILED`
   ///   - `VK_ERROR_UNKNOWN`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline]
   pub fn vkCreateAccelerationStructure2KHR<'ret>(
     &'ret self,
@@ -8048,6 +8186,7 @@ impl<'inst> Device<'inst> {
   /// - `VK_KHR_device_group`
   /// - `VK_KHR_swapchain`
   ///
+  /// - **Availability:** depends on `VK_VERSION_1_1`
   ///
   /// # Parameters
   /// - `device`
@@ -8071,7 +8210,10 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+  #[cfg(any(
+    all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+    all(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain")
+  ))]
   #[inline(always)]
   pub fn vkAcquireNextImage2KHR(
     &self,
@@ -8107,7 +8249,7 @@ impl<'inst> Device<'inst> {
     heapIndex: u32,
     localDeviceIndex: u32,
     remoteDeviceIndex: u32,
-    pPeerMemoryFeatures: &mut VkPeerMemoryFeatureFlags,
+    pPeerMemoryFeatures: &mut VkPeerMemoryFeatureFlagsKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8128,6 +8270,7 @@ impl<'inst> Device<'inst> {
   /// - `VK_KHR_device_group`
   /// - `VK_KHR_swapchain`
   ///
+  /// - **Availability:** depends on `VK_VERSION_1_1`
   ///
   /// # Parameters
   /// - `device`
@@ -8143,7 +8286,10 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
   ///   - `VK_ERROR_UNKNOWN`
   ///   - `VK_ERROR_VALIDATION_FAILED`
-  #[cfg(any(feature = "VK_KHR_device_group", feature = "VK_KHR_swapchain"))]
+  #[cfg(any(
+    all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
+    all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
+  ))]
   #[inline(always)]
   pub fn vkGetDeviceGroupPresentCapabilitiesKHR(
     &self,
@@ -8680,8 +8826,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetBufferMemoryRequirements2KHR(
     &self,
-    pInfo: &VkBufferMemoryRequirementsInfo2,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkBufferMemoryRequirementsInfo2KHR,
+    pMemoryRequirements: &mut VkMemoryRequirements2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8705,8 +8851,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageMemoryRequirements2KHR(
     &self,
-    pInfo: &VkImageMemoryRequirementsInfo2,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkImageMemoryRequirementsInfo2KHR,
+    pMemoryRequirements: &mut VkMemoryRequirements2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8731,9 +8877,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageSparseMemoryRequirements2KHR(
     &self,
-    pInfo: &VkImageSparseMemoryRequirementsInfo2,
+    pInfo: &VkImageSparseMemoryRequirementsInfo2KHR,
     pSparseMemoryRequirementCount: *mut u32,
-    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
+    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8763,7 +8909,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetDescriptorSetLayoutSupportKHR(
     &self,
     pCreateInfo: &VkDescriptorSetLayoutCreateInfo,
-    pSupport: &mut VkDescriptorSetLayoutSupport,
+    pSupport: &mut VkDescriptorSetLayoutSupportKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8787,7 +8933,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceBufferMemoryRequirementsKHR(
     &self,
-    pInfo: &VkDeviceBufferMemoryRequirements,
+    pInfo: &VkDeviceBufferMemoryRequirementsKHR,
     pMemoryRequirements: &mut VkMemoryRequirements2,
   ) {
     unsafe {
@@ -8812,7 +8958,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageMemoryRequirementsKHR(
     &self,
-    pInfo: &VkDeviceImageMemoryRequirements,
+    pInfo: &VkDeviceImageMemoryRequirementsKHR,
     pMemoryRequirements: &mut VkMemoryRequirements2,
   ) {
     unsafe {
@@ -8838,7 +8984,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageSparseMemoryRequirementsKHR(
     &self,
-    pInfo: &VkDeviceImageMemoryRequirements,
+    pInfo: &VkDeviceImageMemoryRequirementsKHR,
     pSparseMemoryRequirementCount: *mut u32,
     pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
   ) {
@@ -8869,8 +9015,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageSubresourceLayoutKHR(
     &self,
-    pInfo: &VkDeviceImageSubresourceInfo,
-    pLayout: &mut VkSubresourceLayout2,
+    pInfo: &VkDeviceImageSubresourceInfoKHR,
+    pLayout: &mut VkSubresourceLayout2KHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8894,7 +9040,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetRenderingAreaGranularityKHR(
     &self,
-    pRenderingAreaInfo: &VkRenderingAreaInfo,
+    pRenderingAreaInfo: &VkRenderingAreaInfoKHR,
     pGranularity: &mut VkExtent2D,
   ) {
     unsafe {
@@ -8931,7 +9077,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkMapMemory2KHR(
     &self,
-    pMemoryMapInfo: &VkMemoryMapInfo,
+    pMemoryMapInfo: &VkMemoryMapInfoKHR,
     ppData: *mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r =
@@ -8966,7 +9112,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkUnmapMemory2KHR(
     &self,
-    pMemoryUnmapInfo: &VkMemoryUnmapInfo,
+    pMemoryUnmapInfo: &VkMemoryUnmapInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (&self.table).vkUnmapMemory2KHR.unwrap_unchecked()(self.raw, pMemoryUnmapInfo) };
@@ -9358,21 +9504,23 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateSamplerYcbcrConversionKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkSamplerYcbcrConversionCreateInfo,
+    pCreateInfo: &VkSamplerYcbcrConversionCreateInfoKHR,
     pAllocator: *const VkAllocationCallbacks,
-  ) -> Result<crate::sampler_ycbcr_conversion::SamplerYcbcrConversion<'ret>, VkResult> {
-    let mut handle = VkSamplerYcbcrConversion::NULL;
+  ) -> Result<crate::sampler_ycbcr_conversion_khr::SamplerYcbcrConversionKHR<'ret>, VkResult> {
+    let mut handle = VkSamplerYcbcrConversionKHR::NULL;
     let r = unsafe {
       (&self.table)
         .vkCreateSamplerYcbcrConversionKHR
         .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
     };
     if r >= VkResult::VK_SUCCESS {
-      Ok(crate::sampler_ycbcr_conversion::SamplerYcbcrConversion {
-        raw: handle,
-        parent: self,
-        table: &self.sampler_ycbcr_conversion_table,
-      })
+      Ok(
+        crate::sampler_ycbcr_conversion_khr::SamplerYcbcrConversionKHR {
+          raw: handle,
+          parent: self,
+          table: &self.sampler_ycbcr_conversion_khr_table,
+        },
+      )
     } else {
       Err(r)
     }
@@ -9489,7 +9637,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkSignalSemaphoreKHR(
     &self,
-    pSignalInfo: &VkSemaphoreSignalInfo,
+    pSignalInfo: &VkSemaphoreSignalInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (&self.table).vkSignalSemaphoreKHR.unwrap_unchecked()(self.raw, pSignalInfo) };
     if r >= VkResult::VK_SUCCESS {
@@ -9526,7 +9674,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkWaitSemaphoresKHR(
     &self,
-    pWaitInfo: &VkSemaphoreWaitInfo,
+    pWaitInfo: &VkSemaphoreWaitInfoKHR,
     timeout: u64,
   ) -> Result<VkResult, VkResult> {
     let r =

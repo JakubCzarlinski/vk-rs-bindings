@@ -31,7 +31,16 @@ pub struct QueueDispatchTable {
   pub vkQueuePresentKHR: Option<PFN_vkQueuePresentKHR>,
   #[cfg(feature = "VK_KHR_synchronization2")]
   pub vkQueueSubmit2KHR: Option<PFN_vkQueueSubmit2KHR>,
-  #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+  #[cfg(any(
+    all(
+      feature = "VK_NV_device_diagnostic_checkpoints",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_synchronization2",
+      feature = "VK_NV_device_diagnostic_checkpoints"
+    )
+  ))]
   pub vkGetQueueCheckpointData2NV: Option<PFN_vkGetQueueCheckpointData2NV>,
   #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
   pub vkGetQueueCheckpointDataNV: Option<PFN_vkGetQueueCheckpointDataNV>,
@@ -63,7 +72,16 @@ impl QueueDispatchTable {
     vkQueuePresentKHR: None,
     #[cfg(feature = "VK_KHR_synchronization2")]
     vkQueueSubmit2KHR: None,
-    #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+    #[cfg(any(
+      all(
+        feature = "VK_NV_device_diagnostic_checkpoints",
+        feature = "VK_VERSION_1_3"
+      ),
+      all(
+        feature = "VK_KHR_synchronization2",
+        feature = "VK_NV_device_diagnostic_checkpoints"
+      )
+    ))]
     vkGetQueueCheckpointData2NV: None,
     #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
     vkGetQueueCheckpointDataNV: None,
@@ -109,7 +127,16 @@ impl QueueDispatchTable {
       #[cfg(feature = "VK_KHR_synchronization2")]
       vkQueueSubmit2KHR: loader(c"vkQueueSubmit2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+      #[cfg(any(
+        all(
+          feature = "VK_NV_device_diagnostic_checkpoints",
+          feature = "VK_VERSION_1_3"
+        ),
+        all(
+          feature = "VK_KHR_synchronization2",
+          feature = "VK_NV_device_diagnostic_checkpoints"
+        )
+      ))]
       vkGetQueueCheckpointData2NV: loader(c"vkGetQueueCheckpointData2NV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
@@ -487,7 +514,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkQueueSubmit2KHR(
     &self,
-    pSubmits: &[VkSubmitInfo2],
+    pSubmits: &[VkSubmitInfo2KHR],
     fence: VkFence,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -509,12 +536,22 @@ impl<'dev> Queue<'dev> {
   /// Provided by:
   /// - `VK_NV_device_diagnostic_checkpoints`
   ///
+  /// - **Availability:** depends on `VK_VERSION_1_3 + VK_KHR_synchronization2`
   ///
   /// # Parameters
   /// - `queue`
   /// - `pCheckpointDataCount`: optional: pointer required, values optional if pointer not null
   /// - `pCheckpointData`: optional: true, len: pCheckpointDataCount
-  #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+  #[cfg(any(
+    all(
+      feature = "VK_NV_device_diagnostic_checkpoints",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_synchronization2",
+      feature = "VK_NV_device_diagnostic_checkpoints"
+    )
+  ))]
   #[inline(always)]
   pub fn vkGetQueueCheckpointData2NV(
     &self,

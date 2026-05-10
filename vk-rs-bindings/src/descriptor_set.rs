@@ -143,7 +143,7 @@ impl<'dev> DescriptorSet<'dev> {
   #[inline(always)]
   pub fn vkUpdateDescriptorSetWithTemplateKHR(
     &self,
-    descriptorUpdateTemplate: VkDescriptorUpdateTemplate,
+    descriptorUpdateTemplate: VkDescriptorUpdateTemplateKHR,
     pData: *const core::ffi::c_void,
   ) {
     unsafe {

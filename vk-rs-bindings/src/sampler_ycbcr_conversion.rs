@@ -13,16 +13,12 @@ use core::ffi::{c_char, c_void};
 pub struct SamplerYcbcrConversionDispatchTable {
   #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
   pub vkDestroySamplerYcbcrConversion: Option<PFN_vkDestroySamplerYcbcrConversion>,
-  #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-  pub vkDestroySamplerYcbcrConversionKHR: Option<PFN_vkDestroySamplerYcbcrConversionKHR>,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl SamplerYcbcrConversionDispatchTable {
   pub const EMPTY: Self = Self {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
     vkDestroySamplerYcbcrConversion: None,
-    #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-    vkDestroySamplerYcbcrConversionKHR: None,
   };
   #[inline]
   pub fn load<F>(loader: F) -> Self
@@ -32,9 +28,6 @@ impl SamplerYcbcrConversionDispatchTable {
     Self {
       #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
       vkDestroySamplerYcbcrConversion: loader(c"vkDestroySamplerYcbcrConversion".as_ptr())
-        .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-      vkDestroySamplerYcbcrConversionKHR: loader(c"vkDestroySamplerYcbcrConversionKHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
     }
   }
@@ -110,26 +103,5 @@ impl<'dev> SamplerYcbcrConversion<'dev> {
         .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
     }
     self.raw = VkSamplerYcbcrConversion::NULL;
-  }
-  /// [`vkDestroySamplerYcbcrConversion`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySamplerYcbcrConversion.html)
-  ///
-  /// Provided by:
-  /// - `VK_KHR_sampler_ycbcr_conversion`
-  ///
-  /// - **Export Scopes:** Vulkan, VulkanSC
-  ///
-  /// # Parameters
-  /// - `device`
-  /// - `ycbcrConversion`: optional: true
-  /// - `pAllocator`: optional: true
-  #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-  #[inline(always)]
-  pub fn vkDestroySamplerYcbcrConversionKHR(&self, pAllocator: *const VkAllocationCallbacks) {
-    unsafe {
-      // SAFETY: table is fully loaded at creation.
-      (self.table)
-        .vkDestroySamplerYcbcrConversionKHR
-        .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
-    }
   }
 }

@@ -831,7 +831,7 @@ impl<'lib> Instance<'lib> {
   pub fn vkEnumeratePhysicalDeviceGroupsKHR(
     &self,
     pPhysicalDeviceGroupCount: *mut u32,
-    pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupProperties,
+    pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupPropertiesKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (&self.table)

@@ -13,16 +13,12 @@ use core::ffi::{c_char, c_void};
 pub struct DescriptorUpdateTemplateDispatchTable {
   #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
   pub vkDestroyDescriptorUpdateTemplate: Option<PFN_vkDestroyDescriptorUpdateTemplate>,
-  #[cfg(feature = "VK_KHR_descriptor_update_template")]
-  pub vkDestroyDescriptorUpdateTemplateKHR: Option<PFN_vkDestroyDescriptorUpdateTemplateKHR>,
 }
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 impl DescriptorUpdateTemplateDispatchTable {
   pub const EMPTY: Self = Self {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
     vkDestroyDescriptorUpdateTemplate: None,
-    #[cfg(feature = "VK_KHR_descriptor_update_template")]
-    vkDestroyDescriptorUpdateTemplateKHR: None,
   };
   #[inline]
   pub fn load<F>(loader: F) -> Self
@@ -33,11 +29,6 @@ impl DescriptorUpdateTemplateDispatchTable {
       #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
       vkDestroyDescriptorUpdateTemplate: loader(c"vkDestroyDescriptorUpdateTemplate".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_descriptor_update_template")]
-      vkDestroyDescriptorUpdateTemplateKHR: loader(
-        c"vkDestroyDescriptorUpdateTemplateKHR".as_ptr(),
-      )
-      .map(|f| unsafe { core::mem::transmute(f) }),
     }
   }
 }
@@ -112,26 +103,5 @@ impl<'dev> DescriptorUpdateTemplate<'dev> {
         .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
     }
     self.raw = VkDescriptorUpdateTemplate::NULL;
-  }
-  /// [`vkDestroyDescriptorUpdateTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorUpdateTemplate.html)
-  ///
-  /// Provided by:
-  /// - `VK_KHR_descriptor_update_template`
-  ///
-  /// - **Export Scopes:** Vulkan
-  ///
-  /// # Parameters
-  /// - `device`
-  /// - `descriptorUpdateTemplate`: optional: true
-  /// - `pAllocator`: optional: true
-  #[cfg(feature = "VK_KHR_descriptor_update_template")]
-  #[inline(always)]
-  pub fn vkDestroyDescriptorUpdateTemplateKHR(&self, pAllocator: *const VkAllocationCallbacks) {
-    unsafe {
-      // SAFETY: table is fully loaded at creation.
-      (self.table)
-        .vkDestroyDescriptorUpdateTemplateKHR
-        .unwrap_unchecked()(self.device().raw(), self.raw, pAllocator)
-    }
   }
 }

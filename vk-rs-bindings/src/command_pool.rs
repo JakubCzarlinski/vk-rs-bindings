@@ -318,7 +318,7 @@ impl<'dev> CommandPool<'dev> {
   /// - `flags`: optional: true
   #[cfg(feature = "VK_KHR_maintenance1")]
   #[inline(always)]
-  pub fn vkTrimCommandPoolKHR(&self, flags: VkCommandPoolTrimFlags) {
+  pub fn vkTrimCommandPoolKHR(&self, flags: VkCommandPoolTrimFlagsKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkTrimCommandPoolKHR.unwrap_unchecked()(self.device().raw(), self.raw, flags)

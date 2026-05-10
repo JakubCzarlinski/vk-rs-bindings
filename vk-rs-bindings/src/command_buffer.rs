@@ -19,7 +19,10 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdDispatchGraphIndirectCountAMDX: Option<PFN_vkCmdDispatchGraphIndirectCountAMDX>,
   #[cfg(feature = "VK_AMDX_shader_enqueue")]
   pub vkCmdInitializeGraphScratchMemoryAMDX: Option<PFN_vkCmdInitializeGraphScratchMemoryAMDX>,
-  #[cfg(feature = "VK_AMD_buffer_marker")]
+  #[cfg(any(
+    all(feature = "VK_AMD_buffer_marker", feature = "VK_VERSION_1_3"),
+    all(feature = "VK_AMD_buffer_marker", feature = "VK_KHR_synchronization2")
+  ))]
   pub vkCmdWriteBufferMarker2AMD: Option<PFN_vkCmdWriteBufferMarker2AMD>,
   #[cfg(feature = "VK_AMD_buffer_marker")]
   pub vkCmdWriteBufferMarkerAMD: Option<PFN_vkCmdWriteBufferMarkerAMD>,
@@ -139,7 +142,13 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdBeginConditionalRenderingEXT: Option<PFN_vkCmdBeginConditionalRenderingEXT>,
   #[cfg(feature = "VK_EXT_conditional_rendering")]
   pub vkCmdEndConditionalRenderingEXT: Option<PFN_vkCmdEndConditionalRenderingEXT>,
-  #[cfg(feature = "VK_EXT_custom_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_custom_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+  ))]
   pub vkCmdBeginCustomResolveEXT: Option<PFN_vkCmdBeginCustomResolveEXT>,
   #[cfg(feature = "VK_EXT_debug_marker")]
   pub vkCmdDebugMarkerBeginEXT: Option<PFN_vkCmdDebugMarkerBeginEXT>,
@@ -156,8 +165,11 @@ pub struct CommandBufferDispatchTable {
   #[cfg(feature = "VK_EXT_depth_bias_control")]
   pub vkCmdSetDepthBias2EXT: Option<PFN_vkCmdSetDepthBias2EXT>,
   #[cfg(any(
-    feature = "VK_EXT_depth_clamp_control",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_depth_clamp_control",
+      feature = "VK_EXT_shader_object"
+    ),
+    feature = "VK_EXT_depth_clamp_control"
   ))]
   pub vkCmdSetDepthClampRangeEXT: Option<PFN_vkCmdSetDepthClampRangeEXT>,
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
@@ -279,8 +291,14 @@ pub struct CommandBufferDispatchTable {
   ))]
   pub vkCmdSetAlphaToOneEnableEXT: Option<PFN_vkCmdSetAlphaToOneEnableEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_blend_operation_advanced",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_blend_operation_advanced",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   pub vkCmdSetColorBlendAdvancedEXT: Option<PFN_vkCmdSetColorBlendAdvancedEXT>,
   #[cfg(any(
@@ -299,39 +317,81 @@ pub struct CommandBufferDispatchTable {
   ))]
   pub vkCmdSetColorWriteMaskEXT: Option<PFN_vkCmdSetColorWriteMaskEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   pub vkCmdSetConservativeRasterizationModeEXT:
     Option<PFN_vkCmdSetConservativeRasterizationModeEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    )
   ))]
   pub vkCmdSetCoverageModulationModeNV: Option<PFN_vkCmdSetCoverageModulationModeNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    )
   ))]
   pub vkCmdSetCoverageModulationTableEnableNV: Option<PFN_vkCmdSetCoverageModulationTableEnableNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    )
   ))]
   pub vkCmdSetCoverageModulationTableNV: Option<PFN_vkCmdSetCoverageModulationTableNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_coverage_reduction_mode"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_coverage_reduction_mode"
+    )
   ))]
   pub vkCmdSetCoverageReductionModeNV: Option<PFN_vkCmdSetCoverageReductionModeNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_fragment_coverage_to_color"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_fragment_coverage_to_color"
+    )
   ))]
   pub vkCmdSetCoverageToColorEnableNV: Option<PFN_vkCmdSetCoverageToColorEnableNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_fragment_coverage_to_color"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_fragment_coverage_to_color"
+    )
   ))]
   pub vkCmdSetCoverageToColorLocationNV: Option<PFN_vkCmdSetCoverageToColorLocationNV>,
   #[cfg(any(
@@ -340,29 +400,56 @@ pub struct CommandBufferDispatchTable {
   ))]
   pub vkCmdSetDepthClampEnableEXT: Option<PFN_vkCmdSetDepthClampEnableEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_depth_clip_enable",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(feature = "VK_EXT_depth_clip_enable", feature = "VK_EXT_shader_object")
   ))]
   pub vkCmdSetDepthClipEnableEXT: Option<PFN_vkCmdSetDepthClipEnableEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_depth_clip_control",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_depth_clip_control",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   pub vkCmdSetDepthClipNegativeOneToOneEXT: Option<PFN_vkCmdSetDepthClipNegativeOneToOneEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   pub vkCmdSetExtraPrimitiveOverestimationSizeEXT:
     Option<PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_line_rasterization"
+    ),
+    all(
+      feature = "VK_EXT_line_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   pub vkCmdSetLineRasterizationModeEXT: Option<PFN_vkCmdSetLineRasterizationModeEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_line_rasterization"
+    ),
+    all(
+      feature = "VK_EXT_line_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   pub vkCmdSetLineStippleEnableEXT: Option<PFN_vkCmdSetLineStippleEnableEXT>,
   #[cfg(any(
@@ -376,8 +463,11 @@ pub struct CommandBufferDispatchTable {
   ))]
   pub vkCmdSetPolygonModeEXT: Option<PFN_vkCmdSetPolygonModeEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_provoking_vertex"
+    ),
+    all(feature = "VK_EXT_provoking_vertex", feature = "VK_EXT_shader_object")
   ))]
   pub vkCmdSetProvokingVertexModeEXT: Option<PFN_vkCmdSetProvokingVertexModeEXT>,
   #[cfg(any(
@@ -386,19 +476,34 @@ pub struct CommandBufferDispatchTable {
   ))]
   pub vkCmdSetRasterizationSamplesEXT: Option<PFN_vkCmdSetRasterizationSamplesEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_transform_feedback"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_EXT_transform_feedback"
+    )
   ))]
   pub vkCmdSetRasterizationStreamEXT: Option<PFN_vkCmdSetRasterizationStreamEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_representative_fragment_test"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_representative_fragment_test"
+    )
   ))]
   pub vkCmdSetRepresentativeFragmentTestEnableNV:
     Option<PFN_vkCmdSetRepresentativeFragmentTestEnableNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_sample_locations"
+    ),
+    all(feature = "VK_EXT_sample_locations", feature = "VK_EXT_shader_object")
   ))]
   pub vkCmdSetSampleLocationsEnableEXT: Option<PFN_vkCmdSetSampleLocationsEnableEXT>,
   #[cfg(any(
@@ -407,23 +512,39 @@ pub struct CommandBufferDispatchTable {
   ))]
   pub vkCmdSetSampleMaskEXT: Option<PFN_vkCmdSetSampleMaskEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_shading_rate_image"
+    ),
+    all(feature = "VK_EXT_shader_object", feature = "VK_NV_shading_rate_image")
   ))]
   pub vkCmdSetShadingRateImageEnableNV: Option<PFN_vkCmdSetShadingRateImageEnableNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_KHR_maintenance2"
+    ),
+    all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
     feature = "VK_EXT_shader_object"
   ))]
   pub vkCmdSetTessellationDomainOriginEXT: Option<PFN_vkCmdSetTessellationDomainOriginEXT>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_viewport_swizzle"
+    ),
+    all(feature = "VK_EXT_shader_object", feature = "VK_NV_viewport_swizzle")
   ))]
   pub vkCmdSetViewportSwizzleNV: Option<PFN_vkCmdSetViewportSwizzleNV>,
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_clip_space_w_scaling"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_clip_space_w_scaling"
+    )
   ))]
   pub vkCmdSetViewportWScalingEnableNV: Option<PFN_vkCmdSetViewportWScalingEnableNV>,
   #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
@@ -436,7 +557,11 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdDecompressMemoryIndirectCountEXT: Option<PFN_vkCmdDecompressMemoryIndirectCountEXT>,
   #[cfg(feature = "VK_EXT_mesh_shader")]
   pub vkCmdDrawMeshTasksEXT: Option<PFN_vkCmdDrawMeshTasksEXT>,
-  #[cfg(feature = "VK_EXT_mesh_shader")]
+  #[cfg(any(
+    all(feature = "VK_EXT_mesh_shader", feature = "VK_VERSION_1_2"),
+    all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_draw_indirect_count"),
+    all(feature = "VK_AMD_draw_indirect_count", feature = "VK_EXT_mesh_shader")
+  ))]
   pub vkCmdDrawMeshTasksIndirectCountEXT: Option<PFN_vkCmdDrawMeshTasksIndirectCountEXT>,
   #[cfg(feature = "VK_EXT_mesh_shader")]
   pub vkCmdDrawMeshTasksIndirectEXT: Option<PFN_vkCmdDrawMeshTasksIndirectEXT>,
@@ -461,8 +586,8 @@ pub struct CommandBufferDispatchTable {
   #[cfg(feature = "VK_EXT_shader_object")]
   pub vkCmdBindShadersEXT: Option<PFN_vkCmdBindShadersEXT>,
   #[cfg(any(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_vertex_input_dynamic_state"
+    feature = "VK_EXT_vertex_input_dynamic_state",
+    feature = "VK_EXT_shader_object"
   ))]
   pub vkCmdSetVertexInputEXT: Option<PFN_vkCmdSetVertexInputEXT>,
   #[cfg(feature = "VK_EXT_transform_feedback")]
@@ -630,17 +755,29 @@ pub struct CommandBufferDispatchTable {
   #[cfg(feature = "VK_KHR_create_renderpass2")]
   pub vkCmdNextSubpass2KHR: Option<PFN_vkCmdNextSubpass2KHR>,
   #[cfg(any(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
+    all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
+    all(
+      feature = "VK_KHR_descriptor_update_template",
+      feature = "VK_KHR_push_descriptor"
+    )
   ))]
   pub vkCmdPushDescriptorSetWithTemplateKHR: Option<PFN_vkCmdPushDescriptorSetWithTemplateKHR>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_conditional_rendering",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCmdBeginConditionalRendering2EXT: Option<PFN_vkCmdBeginConditionalRendering2EXT>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCmdBeginTransformFeedback2EXT: Option<PFN_vkCmdBeginTransformFeedback2EXT>,
   #[cfg(feature = "VK_KHR_device_address_commands")]
   pub vkCmdBindIndexBuffer3KHR: Option<PFN_vkCmdBindIndexBuffer3KHR>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCmdBindTransformFeedbackBuffers2EXT: Option<PFN_vkCmdBindTransformFeedbackBuffers2EXT>,
   #[cfg(feature = "VK_KHR_device_address_commands")]
   pub vkCmdBindVertexBuffers3KHR: Option<PFN_vkCmdBindVertexBuffers3KHR>,
@@ -656,25 +793,60 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdDispatchIndirect2KHR: Option<PFN_vkCmdDispatchIndirect2KHR>,
   #[cfg(feature = "VK_KHR_device_address_commands")]
   pub vkCmdDrawIndexedIndirect2KHR: Option<PFN_vkCmdDrawIndexedIndirect2KHR>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_KHR_draw_indirect_count"
+    ),
+    all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+  ))]
   pub vkCmdDrawIndexedIndirectCount2KHR: Option<PFN_vkCmdDrawIndexedIndirectCount2KHR>,
   #[cfg(feature = "VK_KHR_device_address_commands")]
   pub vkCmdDrawIndirect2KHR: Option<PFN_vkCmdDrawIndirect2KHR>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCmdDrawIndirectByteCount2EXT: Option<PFN_vkCmdDrawIndirectByteCount2EXT>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_KHR_draw_indirect_count"
+    ),
+    all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+  ))]
   pub vkCmdDrawIndirectCount2KHR: Option<PFN_vkCmdDrawIndirectCount2KHR>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_mesh_shader",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCmdDrawMeshTasksIndirect2EXT: Option<PFN_vkCmdDrawMeshTasksIndirect2EXT>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_mesh_shader",
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_KHR_draw_indirect_count"
+    ),
+    all(
+      feature = "VK_EXT_mesh_shader",
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_VERSION_1_2"
+    )
+  ))]
   pub vkCmdDrawMeshTasksIndirectCount2EXT: Option<PFN_vkCmdDrawMeshTasksIndirectCount2EXT>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCmdEndTransformFeedback2EXT: Option<PFN_vkCmdEndTransformFeedback2EXT>,
   #[cfg(feature = "VK_KHR_device_address_commands")]
   pub vkCmdFillMemoryKHR: Option<PFN_vkCmdFillMemoryKHR>,
   #[cfg(feature = "VK_KHR_device_address_commands")]
   pub vkCmdUpdateMemoryKHR: Option<PFN_vkCmdUpdateMemoryKHR>,
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_AMD_buffer_marker",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub vkCmdWriteMarkerToMemoryAMD: Option<PFN_vkCmdWriteMarkerToMemoryAMD>,
   #[cfg(feature = "VK_KHR_device_group")]
   pub vkCmdDispatchBaseKHR: Option<PFN_vkCmdDispatchBaseKHR>,
@@ -701,24 +873,27 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdEndRendering2KHR: Option<PFN_vkCmdEndRendering2KHR>,
   #[cfg(feature = "VK_KHR_maintenance5")]
   pub vkCmdBindIndexBuffer2KHR: Option<PFN_vkCmdBindIndexBuffer2KHR>,
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
   pub vkCmdBindDescriptorBufferEmbeddedSamplers2EXT:
     Option<PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT>,
   #[cfg(feature = "VK_KHR_maintenance6")]
   pub vkCmdBindDescriptorSets2KHR: Option<PFN_vkCmdBindDescriptorSets2KHR>,
   #[cfg(feature = "VK_KHR_maintenance6")]
   pub vkCmdPushConstants2KHR: Option<PFN_vkCmdPushConstants2KHR>,
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
   pub vkCmdPushDescriptorSet2KHR: Option<PFN_vkCmdPushDescriptorSet2KHR>,
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
   pub vkCmdPushDescriptorSetWithTemplate2KHR: Option<PFN_vkCmdPushDescriptorSetWithTemplate2KHR>,
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
   pub vkCmdSetDescriptorBufferOffsets2EXT: Option<PFN_vkCmdSetDescriptorBufferOffsets2EXT>,
   #[cfg(feature = "VK_KHR_object_refresh")]
   pub vkCmdRefreshObjectsKHR: Option<PFN_vkCmdRefreshObjectsKHR>,
   #[cfg(feature = "VK_KHR_push_descriptor")]
   pub vkCmdPushDescriptorSetKHR: Option<PFN_vkCmdPushDescriptorSetKHR>,
-  #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+  #[cfg(all(
+    feature = "VK_KHR_ray_tracing_maintenance1",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub vkCmdTraceRaysIndirect2KHR: Option<PFN_vkCmdTraceRaysIndirect2KHR>,
   #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
   pub vkCmdSetRayTracingPipelineStackSizeKHR: Option<PFN_vkCmdSetRayTracingPipelineStackSizeKHR>,
@@ -779,7 +954,11 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdDecompressMemoryIndirectCountNV: Option<PFN_vkCmdDecompressMemoryIndirectCountNV>,
   #[cfg(feature = "VK_NV_memory_decompression")]
   pub vkCmdDecompressMemoryNV: Option<PFN_vkCmdDecompressMemoryNV>,
-  #[cfg(feature = "VK_NV_mesh_shader")]
+  #[cfg(any(
+    all(feature = "VK_NV_mesh_shader", feature = "VK_VERSION_1_2"),
+    all(feature = "VK_KHR_draw_indirect_count", feature = "VK_NV_mesh_shader"),
+    all(feature = "VK_AMD_draw_indirect_count", feature = "VK_NV_mesh_shader")
+  ))]
   pub vkCmdDrawMeshTasksIndirectCountNV: Option<PFN_vkCmdDrawMeshTasksIndirectCountNV>,
   #[cfg(feature = "VK_NV_mesh_shader")]
   pub vkCmdDrawMeshTasksIndirectNV: Option<PFN_vkCmdDrawMeshTasksIndirectNV>,
@@ -829,7 +1008,10 @@ impl CommandBufferDispatchTable {
     vkCmdDispatchGraphIndirectCountAMDX: None,
     #[cfg(feature = "VK_AMDX_shader_enqueue")]
     vkCmdInitializeGraphScratchMemoryAMDX: None,
-    #[cfg(feature = "VK_AMD_buffer_marker")]
+    #[cfg(any(
+      all(feature = "VK_AMD_buffer_marker", feature = "VK_VERSION_1_3"),
+      all(feature = "VK_AMD_buffer_marker", feature = "VK_KHR_synchronization2")
+    ))]
     vkCmdWriteBufferMarker2AMD: None,
     #[cfg(feature = "VK_AMD_buffer_marker")]
     vkCmdWriteBufferMarkerAMD: None,
@@ -949,7 +1131,13 @@ impl CommandBufferDispatchTable {
     vkCmdBeginConditionalRenderingEXT: None,
     #[cfg(feature = "VK_EXT_conditional_rendering")]
     vkCmdEndConditionalRenderingEXT: None,
-    #[cfg(feature = "VK_EXT_custom_resolve")]
+    #[cfg(any(
+      all(
+        feature = "VK_EXT_custom_resolve",
+        feature = "VK_KHR_dynamic_rendering"
+      ),
+      all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+    ))]
     vkCmdBeginCustomResolveEXT: None,
     #[cfg(feature = "VK_EXT_debug_marker")]
     vkCmdDebugMarkerBeginEXT: None,
@@ -966,8 +1154,11 @@ impl CommandBufferDispatchTable {
     #[cfg(feature = "VK_EXT_depth_bias_control")]
     vkCmdSetDepthBias2EXT: None,
     #[cfg(any(
-      feature = "VK_EXT_depth_clamp_control",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_depth_clamp_control",
+        feature = "VK_EXT_shader_object"
+      ),
+      feature = "VK_EXT_depth_clamp_control"
     ))]
     vkCmdSetDepthClampRangeEXT: None,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
@@ -1088,8 +1279,14 @@ impl CommandBufferDispatchTable {
     ))]
     vkCmdSetAlphaToOneEnableEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_blend_operation_advanced",
+        feature = "VK_EXT_extended_dynamic_state3"
+      ),
+      all(
+        feature = "VK_EXT_blend_operation_advanced",
+        feature = "VK_EXT_shader_object"
+      )
     ))]
     vkCmdSetColorBlendAdvancedEXT: None,
     #[cfg(any(
@@ -1108,38 +1305,80 @@ impl CommandBufferDispatchTable {
     ))]
     vkCmdSetColorWriteMaskEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_conservative_rasterization",
+        feature = "VK_EXT_extended_dynamic_state3"
+      ),
+      all(
+        feature = "VK_EXT_conservative_rasterization",
+        feature = "VK_EXT_shader_object"
+      )
     ))]
     vkCmdSetConservativeRasterizationModeEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_framebuffer_mixed_samples"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_framebuffer_mixed_samples"
+      )
     ))]
     vkCmdSetCoverageModulationModeNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_framebuffer_mixed_samples"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_framebuffer_mixed_samples"
+      )
     ))]
     vkCmdSetCoverageModulationTableEnableNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_framebuffer_mixed_samples"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_framebuffer_mixed_samples"
+      )
     ))]
     vkCmdSetCoverageModulationTableNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_coverage_reduction_mode"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_coverage_reduction_mode"
+      )
     ))]
     vkCmdSetCoverageReductionModeNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_fragment_coverage_to_color"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_fragment_coverage_to_color"
+      )
     ))]
     vkCmdSetCoverageToColorEnableNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_fragment_coverage_to_color"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_fragment_coverage_to_color"
+      )
     ))]
     vkCmdSetCoverageToColorLocationNV: None,
     #[cfg(any(
@@ -1148,28 +1387,55 @@ impl CommandBufferDispatchTable {
     ))]
     vkCmdSetDepthClampEnableEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_depth_clip_enable",
+        feature = "VK_EXT_extended_dynamic_state3"
+      ),
+      all(feature = "VK_EXT_depth_clip_enable", feature = "VK_EXT_shader_object")
     ))]
     vkCmdSetDepthClipEnableEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_depth_clip_control",
+        feature = "VK_EXT_extended_dynamic_state3"
+      ),
+      all(
+        feature = "VK_EXT_depth_clip_control",
+        feature = "VK_EXT_shader_object"
+      )
     ))]
     vkCmdSetDepthClipNegativeOneToOneEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_conservative_rasterization",
+        feature = "VK_EXT_extended_dynamic_state3"
+      ),
+      all(
+        feature = "VK_EXT_conservative_rasterization",
+        feature = "VK_EXT_shader_object"
+      )
     ))]
     vkCmdSetExtraPrimitiveOverestimationSizeEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_line_rasterization"
+      ),
+      all(
+        feature = "VK_EXT_line_rasterization",
+        feature = "VK_EXT_shader_object"
+      )
     ))]
     vkCmdSetLineRasterizationModeEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_line_rasterization"
+      ),
+      all(
+        feature = "VK_EXT_line_rasterization",
+        feature = "VK_EXT_shader_object"
+      )
     ))]
     vkCmdSetLineStippleEnableEXT: None,
     #[cfg(any(
@@ -1183,8 +1449,11 @@ impl CommandBufferDispatchTable {
     ))]
     vkCmdSetPolygonModeEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_provoking_vertex"
+      ),
+      all(feature = "VK_EXT_provoking_vertex", feature = "VK_EXT_shader_object")
     ))]
     vkCmdSetProvokingVertexModeEXT: None,
     #[cfg(any(
@@ -1193,18 +1462,33 @@ impl CommandBufferDispatchTable {
     ))]
     vkCmdSetRasterizationSamplesEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_transform_feedback"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_EXT_transform_feedback"
+      )
     ))]
     vkCmdSetRasterizationStreamEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_representative_fragment_test"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_representative_fragment_test"
+      )
     ))]
     vkCmdSetRepresentativeFragmentTestEnableNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_EXT_sample_locations"
+      ),
+      all(feature = "VK_EXT_sample_locations", feature = "VK_EXT_shader_object")
     ))]
     vkCmdSetSampleLocationsEnableEXT: None,
     #[cfg(any(
@@ -1213,23 +1497,39 @@ impl CommandBufferDispatchTable {
     ))]
     vkCmdSetSampleMaskEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_shading_rate_image"
+      ),
+      all(feature = "VK_EXT_shader_object", feature = "VK_NV_shading_rate_image")
     ))]
     vkCmdSetShadingRateImageEnableNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_KHR_maintenance2"
+      ),
+      all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
       feature = "VK_EXT_shader_object"
     ))]
     vkCmdSetTessellationDomainOriginEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_viewport_swizzle"
+      ),
+      all(feature = "VK_EXT_shader_object", feature = "VK_NV_viewport_swizzle")
     ))]
     vkCmdSetViewportSwizzleNV: None,
     #[cfg(any(
-      feature = "VK_EXT_extended_dynamic_state3",
-      feature = "VK_EXT_shader_object"
+      all(
+        feature = "VK_EXT_extended_dynamic_state3",
+        feature = "VK_NV_clip_space_w_scaling"
+      ),
+      all(
+        feature = "VK_EXT_shader_object",
+        feature = "VK_NV_clip_space_w_scaling"
+      )
     ))]
     vkCmdSetViewportWScalingEnableNV: None,
     #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
@@ -1242,7 +1542,11 @@ impl CommandBufferDispatchTable {
     vkCmdDecompressMemoryIndirectCountEXT: None,
     #[cfg(feature = "VK_EXT_mesh_shader")]
     vkCmdDrawMeshTasksEXT: None,
-    #[cfg(feature = "VK_EXT_mesh_shader")]
+    #[cfg(any(
+      all(feature = "VK_EXT_mesh_shader", feature = "VK_VERSION_1_2"),
+      all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_draw_indirect_count"),
+      all(feature = "VK_AMD_draw_indirect_count", feature = "VK_EXT_mesh_shader")
+    ))]
     vkCmdDrawMeshTasksIndirectCountEXT: None,
     #[cfg(feature = "VK_EXT_mesh_shader")]
     vkCmdDrawMeshTasksIndirectEXT: None,
@@ -1267,8 +1571,8 @@ impl CommandBufferDispatchTable {
     #[cfg(feature = "VK_EXT_shader_object")]
     vkCmdBindShadersEXT: None,
     #[cfg(any(
-      feature = "VK_EXT_shader_object",
-      feature = "VK_EXT_vertex_input_dynamic_state"
+      feature = "VK_EXT_vertex_input_dynamic_state",
+      feature = "VK_EXT_shader_object"
     ))]
     vkCmdSetVertexInputEXT: None,
     #[cfg(feature = "VK_EXT_transform_feedback")]
@@ -1432,17 +1736,29 @@ impl CommandBufferDispatchTable {
     #[cfg(feature = "VK_KHR_create_renderpass2")]
     vkCmdNextSubpass2KHR: None,
     #[cfg(any(
-      feature = "VK_KHR_descriptor_update_template",
-      feature = "VK_KHR_push_descriptor"
+      all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
+      all(
+        feature = "VK_KHR_descriptor_update_template",
+        feature = "VK_KHR_push_descriptor"
+      )
     ))]
     vkCmdPushDescriptorSetWithTemplateKHR: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_EXT_conditional_rendering",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCmdBeginConditionalRendering2EXT: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_EXT_transform_feedback",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCmdBeginTransformFeedback2EXT: None,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     vkCmdBindIndexBuffer3KHR: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_EXT_transform_feedback",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCmdBindTransformFeedbackBuffers2EXT: None,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     vkCmdBindVertexBuffers3KHR: None,
@@ -1458,25 +1774,60 @@ impl CommandBufferDispatchTable {
     vkCmdDispatchIndirect2KHR: None,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     vkCmdDrawIndexedIndirect2KHR: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(any(
+      all(
+        feature = "VK_KHR_device_address_commands",
+        feature = "VK_KHR_draw_indirect_count"
+      ),
+      all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+    ))]
     vkCmdDrawIndexedIndirectCount2KHR: None,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     vkCmdDrawIndirect2KHR: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_EXT_transform_feedback",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCmdDrawIndirectByteCount2EXT: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(any(
+      all(
+        feature = "VK_KHR_device_address_commands",
+        feature = "VK_KHR_draw_indirect_count"
+      ),
+      all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+    ))]
     vkCmdDrawIndirectCount2KHR: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_EXT_mesh_shader",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCmdDrawMeshTasksIndirect2EXT: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(any(
+      all(
+        feature = "VK_EXT_mesh_shader",
+        feature = "VK_KHR_device_address_commands",
+        feature = "VK_KHR_draw_indirect_count"
+      ),
+      all(
+        feature = "VK_EXT_mesh_shader",
+        feature = "VK_KHR_device_address_commands",
+        feature = "VK_VERSION_1_2"
+      )
+    ))]
     vkCmdDrawMeshTasksIndirectCount2EXT: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_EXT_transform_feedback",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCmdEndTransformFeedback2EXT: None,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     vkCmdFillMemoryKHR: None,
     #[cfg(feature = "VK_KHR_device_address_commands")]
     vkCmdUpdateMemoryKHR: None,
-    #[cfg(feature = "VK_KHR_device_address_commands")]
+    #[cfg(all(
+      feature = "VK_AMD_buffer_marker",
+      feature = "VK_KHR_device_address_commands"
+    ))]
     vkCmdWriteMarkerToMemoryAMD: None,
     #[cfg(feature = "VK_KHR_device_group")]
     vkCmdDispatchBaseKHR: None,
@@ -1502,23 +1853,26 @@ impl CommandBufferDispatchTable {
     vkCmdEndRendering2KHR: None,
     #[cfg(feature = "VK_KHR_maintenance5")]
     vkCmdBindIndexBuffer2KHR: None,
-    #[cfg(feature = "VK_KHR_maintenance6")]
+    #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
     vkCmdBindDescriptorBufferEmbeddedSamplers2EXT: None,
     #[cfg(feature = "VK_KHR_maintenance6")]
     vkCmdBindDescriptorSets2KHR: None,
     #[cfg(feature = "VK_KHR_maintenance6")]
     vkCmdPushConstants2KHR: None,
-    #[cfg(feature = "VK_KHR_maintenance6")]
+    #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
     vkCmdPushDescriptorSet2KHR: None,
-    #[cfg(feature = "VK_KHR_maintenance6")]
+    #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
     vkCmdPushDescriptorSetWithTemplate2KHR: None,
-    #[cfg(feature = "VK_KHR_maintenance6")]
+    #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
     vkCmdSetDescriptorBufferOffsets2EXT: None,
     #[cfg(feature = "VK_KHR_object_refresh")]
     vkCmdRefreshObjectsKHR: None,
     #[cfg(feature = "VK_KHR_push_descriptor")]
     vkCmdPushDescriptorSetKHR: None,
-    #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+    #[cfg(all(
+      feature = "VK_KHR_ray_tracing_maintenance1",
+      feature = "VK_KHR_ray_tracing_pipeline"
+    ))]
     vkCmdTraceRaysIndirect2KHR: None,
     #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
     vkCmdSetRayTracingPipelineStackSizeKHR: None,
@@ -1578,7 +1932,11 @@ impl CommandBufferDispatchTable {
     vkCmdDecompressMemoryIndirectCountNV: None,
     #[cfg(feature = "VK_NV_memory_decompression")]
     vkCmdDecompressMemoryNV: None,
-    #[cfg(feature = "VK_NV_mesh_shader")]
+    #[cfg(any(
+      all(feature = "VK_NV_mesh_shader", feature = "VK_VERSION_1_2"),
+      all(feature = "VK_KHR_draw_indirect_count", feature = "VK_NV_mesh_shader"),
+      all(feature = "VK_AMD_draw_indirect_count", feature = "VK_NV_mesh_shader")
+    ))]
     vkCmdDrawMeshTasksIndirectCountNV: None,
     #[cfg(feature = "VK_NV_mesh_shader")]
     vkCmdDrawMeshTasksIndirectNV: None,
@@ -1635,7 +1993,10 @@ impl CommandBufferDispatchTable {
         c"vkCmdInitializeGraphScratchMemoryAMDX".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_AMD_buffer_marker")]
+      #[cfg(any(
+        all(feature = "VK_AMD_buffer_marker", feature = "VK_VERSION_1_3"),
+        all(feature = "VK_AMD_buffer_marker", feature = "VK_KHR_synchronization2")
+      ))]
       vkCmdWriteBufferMarker2AMD: loader(c"vkCmdWriteBufferMarker2AMD".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_AMD_buffer_marker")]
@@ -1814,7 +2175,13 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_EXT_conditional_rendering")]
       vkCmdEndConditionalRenderingEXT: loader(c"vkCmdEndConditionalRenderingEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_custom_resolve")]
+      #[cfg(any(
+        all(
+          feature = "VK_EXT_custom_resolve",
+          feature = "VK_KHR_dynamic_rendering"
+        ),
+        all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+      ))]
       vkCmdBeginCustomResolveEXT: loader(c"vkCmdBeginCustomResolveEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_EXT_debug_marker")]
@@ -1839,8 +2206,11 @@ impl CommandBufferDispatchTable {
       vkCmdSetDepthBias2EXT: loader(c"vkCmdSetDepthBias2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_depth_clamp_control",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_depth_clamp_control",
+          feature = "VK_EXT_shader_object"
+        ),
+        feature = "VK_EXT_depth_clamp_control"
       ))]
       vkCmdSetDepthClampRangeEXT: loader(c"vkCmdSetDepthClampRangeEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -1994,8 +2364,14 @@ impl CommandBufferDispatchTable {
       vkCmdSetAlphaToOneEnableEXT: loader(c"vkCmdSetAlphaToOneEnableEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_blend_operation_advanced",
+          feature = "VK_EXT_extended_dynamic_state3"
+        ),
+        all(
+          feature = "VK_EXT_blend_operation_advanced",
+          feature = "VK_EXT_shader_object"
+        )
       ))]
       vkCmdSetColorBlendAdvancedEXT: loader(c"vkCmdSetColorBlendAdvancedEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -2018,48 +2394,90 @@ impl CommandBufferDispatchTable {
       vkCmdSetColorWriteMaskEXT: loader(c"vkCmdSetColorWriteMaskEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_conservative_rasterization",
+          feature = "VK_EXT_extended_dynamic_state3"
+        ),
+        all(
+          feature = "VK_EXT_conservative_rasterization",
+          feature = "VK_EXT_shader_object"
+        )
       ))]
       vkCmdSetConservativeRasterizationModeEXT: loader(
         c"vkCmdSetConservativeRasterizationModeEXT".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_framebuffer_mixed_samples"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_framebuffer_mixed_samples"
+        )
       ))]
       vkCmdSetCoverageModulationModeNV: loader(c"vkCmdSetCoverageModulationModeNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_framebuffer_mixed_samples"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_framebuffer_mixed_samples"
+        )
       ))]
       vkCmdSetCoverageModulationTableEnableNV: loader(
         c"vkCmdSetCoverageModulationTableEnableNV".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_framebuffer_mixed_samples"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_framebuffer_mixed_samples"
+        )
       ))]
       vkCmdSetCoverageModulationTableNV: loader(c"vkCmdSetCoverageModulationTableNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_coverage_reduction_mode"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_coverage_reduction_mode"
+        )
       ))]
       vkCmdSetCoverageReductionModeNV: loader(c"vkCmdSetCoverageReductionModeNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_fragment_coverage_to_color"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_fragment_coverage_to_color"
+        )
       ))]
       vkCmdSetCoverageToColorEnableNV: loader(c"vkCmdSetCoverageToColorEnableNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_fragment_coverage_to_color"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_fragment_coverage_to_color"
+        )
       ))]
       vkCmdSetCoverageToColorLocationNV: loader(c"vkCmdSetCoverageToColorLocationNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -2070,36 +2488,63 @@ impl CommandBufferDispatchTable {
       vkCmdSetDepthClampEnableEXT: loader(c"vkCmdSetDepthClampEnableEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_depth_clip_enable",
+          feature = "VK_EXT_extended_dynamic_state3"
+        ),
+        all(feature = "VK_EXT_depth_clip_enable", feature = "VK_EXT_shader_object")
       ))]
       vkCmdSetDepthClipEnableEXT: loader(c"vkCmdSetDepthClipEnableEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_depth_clip_control",
+          feature = "VK_EXT_extended_dynamic_state3"
+        ),
+        all(
+          feature = "VK_EXT_depth_clip_control",
+          feature = "VK_EXT_shader_object"
+        )
       ))]
       vkCmdSetDepthClipNegativeOneToOneEXT: loader(
         c"vkCmdSetDepthClipNegativeOneToOneEXT".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_conservative_rasterization",
+          feature = "VK_EXT_extended_dynamic_state3"
+        ),
+        all(
+          feature = "VK_EXT_conservative_rasterization",
+          feature = "VK_EXT_shader_object"
+        )
       ))]
       vkCmdSetExtraPrimitiveOverestimationSizeEXT: loader(
         c"vkCmdSetExtraPrimitiveOverestimationSizeEXT".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_EXT_line_rasterization"
+        ),
+        all(
+          feature = "VK_EXT_line_rasterization",
+          feature = "VK_EXT_shader_object"
+        )
       ))]
       vkCmdSetLineRasterizationModeEXT: loader(c"vkCmdSetLineRasterizationModeEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_EXT_line_rasterization"
+        ),
+        all(
+          feature = "VK_EXT_line_rasterization",
+          feature = "VK_EXT_shader_object"
+        )
       ))]
       vkCmdSetLineStippleEnableEXT: loader(c"vkCmdSetLineStippleEnableEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -2116,8 +2561,11 @@ impl CommandBufferDispatchTable {
       vkCmdSetPolygonModeEXT: loader(c"vkCmdSetPolygonModeEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_EXT_provoking_vertex"
+        ),
+        all(feature = "VK_EXT_provoking_vertex", feature = "VK_EXT_shader_object")
       ))]
       vkCmdSetProvokingVertexModeEXT: loader(c"vkCmdSetProvokingVertexModeEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -2128,22 +2576,37 @@ impl CommandBufferDispatchTable {
       vkCmdSetRasterizationSamplesEXT: loader(c"vkCmdSetRasterizationSamplesEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_EXT_transform_feedback"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_EXT_transform_feedback"
+        )
       ))]
       vkCmdSetRasterizationStreamEXT: loader(c"vkCmdSetRasterizationStreamEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_representative_fragment_test"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_representative_fragment_test"
+        )
       ))]
       vkCmdSetRepresentativeFragmentTestEnableNV: loader(
         c"vkCmdSetRepresentativeFragmentTestEnableNV".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_EXT_sample_locations"
+        ),
+        all(feature = "VK_EXT_sample_locations", feature = "VK_EXT_shader_object")
       ))]
       vkCmdSetSampleLocationsEnableEXT: loader(c"vkCmdSetSampleLocationsEnableEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -2154,26 +2617,42 @@ impl CommandBufferDispatchTable {
       vkCmdSetSampleMaskEXT: loader(c"vkCmdSetSampleMaskEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_shading_rate_image"
+        ),
+        all(feature = "VK_EXT_shader_object", feature = "VK_NV_shading_rate_image")
       ))]
       vkCmdSetShadingRateImageEnableNV: loader(c"vkCmdSetShadingRateImageEnableNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_KHR_maintenance2"
+        ),
+        all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
         feature = "VK_EXT_shader_object"
       ))]
       vkCmdSetTessellationDomainOriginEXT: loader(c"vkCmdSetTessellationDomainOriginEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_viewport_swizzle"
+        ),
+        all(feature = "VK_EXT_shader_object", feature = "VK_NV_viewport_swizzle")
       ))]
       vkCmdSetViewportSwizzleNV: loader(c"vkCmdSetViewportSwizzleNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_extended_dynamic_state3",
-        feature = "VK_EXT_shader_object"
+        all(
+          feature = "VK_EXT_extended_dynamic_state3",
+          feature = "VK_NV_clip_space_w_scaling"
+        ),
+        all(
+          feature = "VK_EXT_shader_object",
+          feature = "VK_NV_clip_space_w_scaling"
+        )
       ))]
       vkCmdSetViewportWScalingEnableNV: loader(c"vkCmdSetViewportWScalingEnableNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -2194,7 +2673,11 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_EXT_mesh_shader")]
       vkCmdDrawMeshTasksEXT: loader(c"vkCmdDrawMeshTasksEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_EXT_mesh_shader")]
+      #[cfg(any(
+        all(feature = "VK_EXT_mesh_shader", feature = "VK_VERSION_1_2"),
+        all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_draw_indirect_count"),
+        all(feature = "VK_AMD_draw_indirect_count", feature = "VK_EXT_mesh_shader")
+      ))]
       vkCmdDrawMeshTasksIndirectCountEXT: loader(c"vkCmdDrawMeshTasksIndirectCountEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_EXT_mesh_shader")]
@@ -2231,8 +2714,8 @@ impl CommandBufferDispatchTable {
       vkCmdBindShadersEXT: loader(c"vkCmdBindShadersEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_EXT_shader_object",
-        feature = "VK_EXT_vertex_input_dynamic_state"
+        feature = "VK_EXT_vertex_input_dynamic_state",
+        feature = "VK_EXT_shader_object"
       ))]
       vkCmdSetVertexInputEXT: loader(c"vkCmdSetVertexInputEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
@@ -2492,23 +2975,35 @@ impl CommandBufferDispatchTable {
       vkCmdNextSubpass2KHR: loader(c"vkCmdNextSubpass2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(any(
-        feature = "VK_KHR_descriptor_update_template",
-        feature = "VK_KHR_push_descriptor"
+        all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
+        all(
+          feature = "VK_KHR_descriptor_update_template",
+          feature = "VK_KHR_push_descriptor"
+        )
       ))]
       vkCmdPushDescriptorSetWithTemplateKHR: loader(
         c"vkCmdPushDescriptorSetWithTemplateKHR".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_EXT_conditional_rendering",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCmdBeginConditionalRendering2EXT: loader(c"vkCmdBeginConditionalRendering2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_EXT_transform_feedback",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCmdBeginTransformFeedback2EXT: loader(c"vkCmdBeginTransformFeedback2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_device_address_commands")]
       vkCmdBindIndexBuffer3KHR: loader(c"vkCmdBindIndexBuffer3KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_EXT_transform_feedback",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCmdBindTransformFeedbackBuffers2EXT: loader(
         c"vkCmdBindTransformFeedbackBuffers2EXT".as_ptr(),
       )
@@ -2536,25 +3031,57 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_KHR_device_address_commands")]
       vkCmdDrawIndexedIndirect2KHR: loader(c"vkCmdDrawIndexedIndirect2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(any(
+        all(
+          feature = "VK_KHR_device_address_commands",
+          feature = "VK_KHR_draw_indirect_count"
+        ),
+        all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+      ))]
       vkCmdDrawIndexedIndirectCount2KHR: loader(c"vkCmdDrawIndexedIndirectCount2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_device_address_commands")]
       vkCmdDrawIndirect2KHR: loader(c"vkCmdDrawIndirect2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_EXT_transform_feedback",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCmdDrawIndirectByteCount2EXT: loader(c"vkCmdDrawIndirectByteCount2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(any(
+        all(
+          feature = "VK_KHR_device_address_commands",
+          feature = "VK_KHR_draw_indirect_count"
+        ),
+        all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+      ))]
       vkCmdDrawIndirectCount2KHR: loader(c"vkCmdDrawIndirectCount2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_EXT_mesh_shader",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCmdDrawMeshTasksIndirect2EXT: loader(c"vkCmdDrawMeshTasksIndirect2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(any(
+        all(
+          feature = "VK_EXT_mesh_shader",
+          feature = "VK_KHR_device_address_commands",
+          feature = "VK_KHR_draw_indirect_count"
+        ),
+        all(
+          feature = "VK_EXT_mesh_shader",
+          feature = "VK_KHR_device_address_commands",
+          feature = "VK_VERSION_1_2"
+        )
+      ))]
       vkCmdDrawMeshTasksIndirectCount2EXT: loader(c"vkCmdDrawMeshTasksIndirectCount2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_EXT_transform_feedback",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCmdEndTransformFeedback2EXT: loader(c"vkCmdEndTransformFeedback2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_device_address_commands")]
@@ -2563,7 +3090,10 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_KHR_device_address_commands")]
       vkCmdUpdateMemoryKHR: loader(c"vkCmdUpdateMemoryKHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_device_address_commands")]
+      #[cfg(all(
+        feature = "VK_AMD_buffer_marker",
+        feature = "VK_KHR_device_address_commands"
+      ))]
       vkCmdWriteMarkerToMemoryAMD: loader(c"vkCmdWriteMarkerToMemoryAMD".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_device_group")]
@@ -2606,7 +3136,7 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_KHR_maintenance5")]
       vkCmdBindIndexBuffer2KHR: loader(c"vkCmdBindIndexBuffer2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_maintenance6")]
+      #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
       vkCmdBindDescriptorBufferEmbeddedSamplers2EXT: loader(
         c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT".as_ptr(),
       )
@@ -2617,15 +3147,15 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_KHR_maintenance6")]
       vkCmdPushConstants2KHR: loader(c"vkCmdPushConstants2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_maintenance6")]
+      #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
       vkCmdPushDescriptorSet2KHR: loader(c"vkCmdPushDescriptorSet2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_maintenance6")]
+      #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
       vkCmdPushDescriptorSetWithTemplate2KHR: loader(
         c"vkCmdPushDescriptorSetWithTemplate2KHR".as_ptr(),
       )
       .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_maintenance6")]
+      #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
       vkCmdSetDescriptorBufferOffsets2EXT: loader(c"vkCmdSetDescriptorBufferOffsets2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_object_refresh")]
@@ -2634,7 +3164,10 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_KHR_push_descriptor")]
       vkCmdPushDescriptorSetKHR: loader(c"vkCmdPushDescriptorSetKHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+      #[cfg(all(
+        feature = "VK_KHR_ray_tracing_maintenance1",
+        feature = "VK_KHR_ray_tracing_pipeline"
+      ))]
       vkCmdTraceRaysIndirect2KHR: loader(c"vkCmdTraceRaysIndirect2KHR".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
@@ -2732,7 +3265,11 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_NV_memory_decompression")]
       vkCmdDecompressMemoryNV: loader(c"vkCmdDecompressMemoryNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(feature = "VK_NV_mesh_shader")]
+      #[cfg(any(
+        all(feature = "VK_NV_mesh_shader", feature = "VK_VERSION_1_2"),
+        all(feature = "VK_KHR_draw_indirect_count", feature = "VK_NV_mesh_shader"),
+        all(feature = "VK_AMD_draw_indirect_count", feature = "VK_NV_mesh_shader")
+      ))]
       vkCmdDrawMeshTasksIndirectCountNV: loader(c"vkCmdDrawMeshTasksIndirectCountNV".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_NV_mesh_shader")]
@@ -2980,7 +3517,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `dstBuffer`
   /// - `dstOffset`
   /// - `marker`
-  #[cfg(feature = "VK_AMD_buffer_marker")]
+  #[cfg(any(
+    all(feature = "VK_AMD_buffer_marker", feature = "VK_VERSION_1_3"),
+    all(feature = "VK_AMD_buffer_marker", feature = "VK_KHR_synchronization2")
+  ))]
   #[deprecated(note = "superseded by `vkCmdWriteMarkerToMemoryAMD`")]
   #[inline(always)]
   pub fn vkCmdWriteBufferMarker2AMD(
@@ -4733,11 +5273,18 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_KHR_dynamic_rendering + VK_VERSION_1_3`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pBeginCustomResolveInfo`: optional: true
-  #[cfg(feature = "VK_EXT_custom_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_custom_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+  ))]
   #[inline(always)]
   pub fn vkCmdBeginCustomResolveEXT(
     &self,
@@ -4903,8 +5450,11 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `depthClampMode`
   /// - `pDepthClampRange`: optional: true
   #[cfg(any(
-    feature = "VK_EXT_depth_clamp_control",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_depth_clamp_control",
+      feature = "VK_EXT_shader_object"
+    ),
+    feature = "VK_EXT_depth_clamp_control"
   ))]
   #[inline(always)]
   pub fn vkCmdSetDepthClampRangeEXT(
@@ -5743,6 +6293,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_blend_operation_advanced`
   ///
   /// # Parameters
   /// - `commandBuffer`
@@ -5750,8 +6301,14 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `attachmentCount`
   /// - `pColorBlendAdvanced`: len: attachmentCount
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_blend_operation_advanced",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_blend_operation_advanced",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetColorBlendAdvancedEXT(
@@ -5883,13 +6440,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_conservative_rasterization`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `conservativeRasterizationMode`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetConservativeRasterizationModeEXT(
@@ -5912,13 +6476,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_framebuffer_mixed_samples`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `coverageModulationMode`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetCoverageModulationModeNV(
@@ -5941,13 +6512,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_framebuffer_mixed_samples`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `coverageModulationTableEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetCoverageModulationTableEnableNV(&self, coverageModulationTableEnable: VkBool32) {
@@ -5967,14 +6545,21 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_framebuffer_mixed_samples`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `coverageModulationTableCount`
   /// - `pCoverageModulationTable`: len: coverageModulationTableCount
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetCoverageModulationTableNV(&self, pCoverageModulationTable: &[f32]) {
@@ -5998,13 +6583,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_coverage_reduction_mode`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `coverageReductionMode`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_coverage_reduction_mode"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_coverage_reduction_mode"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetCoverageReductionModeNV(&self, coverageReductionMode: VkCoverageReductionModeNV) {
@@ -6024,13 +6616,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_fragment_coverage_to_color`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `coverageToColorEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_fragment_coverage_to_color"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_fragment_coverage_to_color"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetCoverageToColorEnableNV(&self, coverageToColorEnable: VkBool32) {
@@ -6050,13 +6649,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_fragment_coverage_to_color`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `coverageToColorLocation`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_fragment_coverage_to_color"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_fragment_coverage_to_color"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetCoverageToColorLocationNV(&self, coverageToColorLocation: u32) {
@@ -6100,13 +6706,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_depth_clip_enable`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `depthClipEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_depth_clip_enable",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(feature = "VK_EXT_depth_clip_enable", feature = "VK_EXT_shader_object")
   ))]
   #[inline(always)]
   pub fn vkCmdSetDepthClipEnableEXT(&self, depthClipEnable: VkBool32) {
@@ -6124,13 +6734,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_depth_clip_control`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `negativeOneToOne`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_depth_clip_control",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_depth_clip_control",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetDepthClipNegativeOneToOneEXT(&self, negativeOneToOne: VkBool32) {
@@ -6150,13 +6767,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_conservative_rasterization`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `extraPrimitiveOverestimationSize`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_extended_dynamic_state3"
+    ),
+    all(
+      feature = "VK_EXT_conservative_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(&self, extraPrimitiveOverestimationSize: f32) {
@@ -6176,13 +6800,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_line_rasterization`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `lineRasterizationMode`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_line_rasterization"
+    ),
+    all(
+      feature = "VK_EXT_line_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetLineRasterizationModeEXT(
@@ -6205,13 +6836,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_line_rasterization`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `stippledLineEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_line_rasterization"
+    ),
+    all(
+      feature = "VK_EXT_line_rasterization",
+      feature = "VK_EXT_shader_object"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetLineStippleEnableEXT(&self, stippledLineEnable: VkBool32) {
@@ -6277,13 +6915,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_provoking_vertex`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `provokingVertexMode`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_provoking_vertex"
+    ),
+    all(feature = "VK_EXT_provoking_vertex", feature = "VK_EXT_shader_object")
   ))]
   #[inline(always)]
   pub fn vkCmdSetProvokingVertexModeEXT(&self, provokingVertexMode: VkProvokingVertexModeEXT) {
@@ -6329,13 +6971,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_transform_feedback`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `rasterizationStream`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_transform_feedback"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_EXT_transform_feedback"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetRasterizationStreamEXT(&self, rasterizationStream: u32) {
@@ -6355,13 +7004,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_representative_fragment_test`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `representativeFragmentTestEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_representative_fragment_test"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_representative_fragment_test"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetRepresentativeFragmentTestEnableNV(
@@ -6384,13 +7040,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_sample_locations`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `sampleLocationsEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_EXT_sample_locations"
+    ),
+    all(feature = "VK_EXT_sample_locations", feature = "VK_EXT_shader_object")
   ))]
   #[inline(always)]
   pub fn vkCmdSetSampleLocationsEnableEXT(&self, sampleLocationsEnable: VkBool32) {
@@ -6439,13 +7099,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_shading_rate_image`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `shadingRateImageEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_shading_rate_image"
+    ),
+    all(feature = "VK_EXT_shader_object", feature = "VK_NV_shading_rate_image")
   ))]
   #[inline(always)]
   pub fn vkCmdSetShadingRateImageEnableNV(&self, shadingRateImageEnable: VkBool32) {
@@ -6470,7 +7134,11 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `commandBuffer`
   /// - `domainOrigin`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_KHR_maintenance2"
+    ),
+    all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
     feature = "VK_EXT_shader_object"
   ))]
   #[inline(always)]
@@ -6491,6 +7159,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_viewport_swizzle`
   ///
   /// # Parameters
   /// - `commandBuffer`
@@ -6498,8 +7167,11 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `viewportCount`
   /// - `pViewportSwizzles`: len: viewportCount
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_viewport_swizzle"
+    ),
+    all(feature = "VK_EXT_shader_object", feature = "VK_NV_viewport_swizzle")
   ))]
   #[inline(always)]
   pub fn vkCmdSetViewportSwizzleNV(
@@ -6526,13 +7198,20 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_NV_clip_space_w_scaling`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `viewportWScalingEnable`
   #[cfg(any(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_shader_object"
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_NV_clip_space_w_scaling"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_NV_clip_space_w_scaling"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdSetViewportWScalingEnableNV(&self, viewportWScalingEnable: VkBool32) {
@@ -6557,7 +7236,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pRenderingEndInfo`: optional: true
   #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
   #[inline(always)]
-  pub fn vkCmdEndRendering2EXT(&self, pRenderingEndInfo: *const VkRenderingEndInfoKHR) {
+  pub fn vkCmdEndRendering2EXT(&self, pRenderingEndInfo: *const VkRenderingEndInfoEXT) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndRendering2EXT.unwrap_unchecked()(self.raw, pRenderingEndInfo)
@@ -6686,6 +7365,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_VERSION_1_2 + VK_KHR_draw_indirect_count + VK_AMD_draw_indirect_count`
   ///
   /// # Parameters
   /// - `commandBuffer`
@@ -6695,7 +7375,11 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `countBufferOffset`
   /// - `maxDrawCount`
   /// - `stride`
-  #[cfg(feature = "VK_EXT_mesh_shader")]
+  #[cfg(any(
+    all(feature = "VK_EXT_mesh_shader", feature = "VK_VERSION_1_2"),
+    all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_draw_indirect_count"),
+    all(feature = "VK_AMD_draw_indirect_count", feature = "VK_EXT_mesh_shader")
+  ))]
   #[deprecated(note = "superseded by `vkCmdDrawMeshTasksIndirectCount2EXT`")]
   #[inline(always)]
   pub fn vkCmdDrawMeshTasksIndirectCountEXT(
@@ -7048,8 +7732,8 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `vertexAttributeDescriptionCount`: optional: true
   /// - `pVertexAttributeDescriptions`: len: vertexAttributeDescriptionCount
   #[cfg(any(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_vertex_input_dynamic_state"
+    feature = "VK_EXT_vertex_input_dynamic_state",
+    feature = "VK_EXT_shader_object"
   ))]
   #[inline(always)]
   pub fn vkCmdSetVertexInputEXT(
@@ -9073,7 +9757,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBlitImageInfo`
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[inline(always)]
-  pub fn vkCmdBlitImage2KHR(&self, pBlitImageInfo: &VkBlitImageInfo2) {
+  pub fn vkCmdBlitImage2KHR(&self, pBlitImageInfo: &VkBlitImageInfo2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBlitImage2KHR.unwrap_unchecked()(self.raw, pBlitImageInfo)
@@ -9095,7 +9779,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[deprecated(note = "superseded by `vkCmdCopyMemoryKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyBuffer2KHR(&self, pCopyBufferInfo: &VkCopyBufferInfo2) {
+  pub fn vkCmdCopyBuffer2KHR(&self, pCopyBufferInfo: &VkCopyBufferInfo2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyBuffer2KHR.unwrap_unchecked()(self.raw, pCopyBufferInfo)
@@ -9117,7 +9801,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[deprecated(note = "superseded by `vkCmdCopyMemoryToImageKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyBufferToImage2KHR(&self, pCopyBufferToImageInfo: &VkCopyBufferToImageInfo2) {
+  pub fn vkCmdCopyBufferToImage2KHR(&self, pCopyBufferToImageInfo: &VkCopyBufferToImageInfo2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyBufferToImage2KHR.unwrap_unchecked()(self.raw, pCopyBufferToImageInfo)
@@ -9138,7 +9822,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyImageInfo`
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[inline(always)]
-  pub fn vkCmdCopyImage2KHR(&self, pCopyImageInfo: &VkCopyImageInfo2) {
+  pub fn vkCmdCopyImage2KHR(&self, pCopyImageInfo: &VkCopyImageInfo2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyImage2KHR.unwrap_unchecked()(self.raw, pCopyImageInfo)
@@ -9160,7 +9844,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[deprecated(note = "superseded by `vkCmdCopyImageToMemoryKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyImageToBuffer2KHR(&self, pCopyImageToBufferInfo: &VkCopyImageToBufferInfo2) {
+  pub fn vkCmdCopyImageToBuffer2KHR(&self, pCopyImageToBufferInfo: &VkCopyImageToBufferInfo2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyImageToBuffer2KHR.unwrap_unchecked()(self.raw, pCopyImageToBufferInfo)
@@ -9181,7 +9865,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pResolveImageInfo`
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[inline(always)]
-  pub fn vkCmdResolveImage2KHR(&self, pResolveImageInfo: &VkResolveImageInfo2) {
+  pub fn vkCmdResolveImage2KHR(&self, pResolveImageInfo: &VkResolveImageInfo2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdResolveImage2KHR.unwrap_unchecked()(self.raw, pResolveImageInfo)
@@ -9251,7 +9935,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdBeginRenderPass2KHR(
     &self,
     pRenderPassBegin: &VkRenderPassBeginInfo,
-    pSubpassBeginInfo: &VkSubpassBeginInfo,
+    pSubpassBeginInfo: &VkSubpassBeginInfoKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9277,7 +9961,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pSubpassEndInfo`
   #[cfg(feature = "VK_KHR_create_renderpass2")]
   #[inline(always)]
-  pub fn vkCmdEndRenderPass2KHR(&self, pSubpassEndInfo: &VkSubpassEndInfo) {
+  pub fn vkCmdEndRenderPass2KHR(&self, pSubpassEndInfo: &VkSubpassEndInfoKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndRenderPass2KHR.unwrap_unchecked()(self.raw, pSubpassEndInfo)
@@ -9301,8 +9985,8 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdNextSubpass2KHR(
     &self,
-    pSubpassBeginInfo: &VkSubpassBeginInfo,
-    pSubpassEndInfo: &VkSubpassEndInfo,
+    pSubpassBeginInfo: &VkSubpassBeginInfoKHR,
+    pSubpassEndInfo: &VkSubpassEndInfoKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9322,6 +10006,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics, Compute
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_VERSION_1_1 + VK_KHR_descriptor_update_template`
   /// - **Export Scopes:** Vulkan
   ///
   /// # Parameters
@@ -9331,8 +10016,11 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `set`
   /// - `pData`
   #[cfg(any(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
+    all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
+    all(
+      feature = "VK_KHR_descriptor_update_template",
+      feature = "VK_KHR_push_descriptor"
+    )
   ))]
   #[inline(always)]
   pub fn vkCmdPushDescriptorSetWithTemplateKHR(
@@ -9357,11 +10045,15 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics, Compute
   /// - **Render Pass:** Both
   /// - **Tasks:** Action, State
+  /// - **Availability:** depends on `VK_EXT_conditional_rendering`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pConditionalRenderingBegin`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_conditional_rendering",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline(always)]
   pub fn vkCmdBeginConditionalRendering2EXT(
     &self,
@@ -9382,13 +10074,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Inside
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_transform_feedback`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `firstCounterRange`
   /// - `counterRangeCount`: optional: true
   /// - `pCounterInfos`: optional: true, len: counterRangeCount
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline(always)]
   pub fn vkCmdBeginTransformFeedback2EXT(
     &self,
@@ -9436,13 +10132,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_transform_feedback`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `firstBinding`
   /// - `bindingCount`
   /// - `pBindingInfos`: optional: true, len: bindingCount
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline(always)]
   pub fn vkCmdBindTransformFeedbackBuffers2EXT(
     &self,
@@ -9642,11 +10342,18 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_KHR_draw_indirect_count + VK_VERSION_1_2`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pInfo`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_KHR_draw_indirect_count"
+    ),
+    all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+  ))]
   #[inline(always)]
   pub fn vkCmdDrawIndexedIndirectCount2KHR(&self, pInfo: &VkDrawIndirectCount2InfoKHR) {
     unsafe {
@@ -9686,6 +10393,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_EXT_transform_feedback`
   ///
   /// # Parameters
   /// - `commandBuffer`
@@ -9694,7 +10402,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCounterInfo`
   /// - `counterOffset`
   /// - `vertexStride`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline(always)]
   pub fn vkCmdDrawIndirectByteCount2EXT(
     &self,
@@ -9727,11 +10438,18 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_KHR_draw_indirect_count + VK_VERSION_1_2`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pInfo`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_KHR_draw_indirect_count"
+    ),
+    all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+  ))]
   #[inline(always)]
   pub fn vkCmdDrawIndirectCount2KHR(&self, pInfo: &VkDrawIndirectCount2InfoKHR) {
     unsafe {
@@ -9748,11 +10466,15 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_EXT_mesh_shader`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pInfo`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_mesh_shader",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline(always)]
   pub fn vkCmdDrawMeshTasksIndirect2EXT(&self, pInfo: &VkDrawIndirect2InfoKHR) {
     unsafe {
@@ -9771,11 +10493,23 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_KHR_draw_indirect_count + VK_VERSION_1_2 + VK_EXT_mesh_shader`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pInfo`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_mesh_shader",
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_KHR_draw_indirect_count"
+    ),
+    all(
+      feature = "VK_EXT_mesh_shader",
+      feature = "VK_KHR_device_address_commands",
+      feature = "VK_VERSION_1_2"
+    )
+  ))]
   #[inline(always)]
   pub fn vkCmdDrawMeshTasksIndirectCount2EXT(&self, pInfo: &VkDrawIndirectCount2InfoKHR) {
     unsafe {
@@ -9793,13 +10527,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics
   /// - **Render Pass:** Inside
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_transform_feedback`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `firstCounterRange`
   /// - `counterRangeCount`: optional: true
   /// - `pCounterInfos`: optional: true, len: counterRangeCount
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline(always)]
   pub fn vkCmdEndTransformFeedback2EXT(
     &self,
@@ -9885,11 +10623,15 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics, Compute, Transfer
   /// - **Render Pass:** Both
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_AMD_buffer_marker`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pInfo`
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_AMD_buffer_marker",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   #[inline(always)]
   pub fn vkCmdWriteMarkerToMemoryAMD(&self, pInfo: &VkMemoryMarkerInfoAMD) {
     unsafe {
@@ -10066,7 +10808,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pRenderingInfo`
   #[cfg(feature = "VK_KHR_dynamic_rendering")]
   #[inline(always)]
-  pub fn vkCmdBeginRenderingKHR(&self, pRenderingInfo: &VkRenderingInfo) {
+  pub fn vkCmdBeginRenderingKHR(&self, pRenderingInfo: &VkRenderingInfoKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBeginRenderingKHR.unwrap_unchecked()(self.raw, pRenderingInfo)
@@ -10109,7 +10851,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetRenderingAttachmentLocationsKHR(
     &self,
-    pLocationInfo: &VkRenderingAttachmentLocationInfo,
+    pLocationInfo: &VkRenderingAttachmentLocationInfoKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10135,7 +10877,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetRenderingInputAttachmentIndicesKHR(
     &self,
-    pInputAttachmentIndexInfo: &VkRenderingInputAttachmentIndexInfo,
+    pInputAttachmentIndexInfo: &VkRenderingInputAttachmentIndexInfoKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10258,11 +11000,12 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics, Compute
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_descriptor_buffer`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pBindDescriptorBufferEmbeddedSamplersInfo`
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
   #[inline(always)]
   pub fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
     &self,
@@ -10290,7 +11033,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBindDescriptorSetsInfo`
   #[cfg(feature = "VK_KHR_maintenance6")]
   #[inline(always)]
-  pub fn vkCmdBindDescriptorSets2KHR(&self, pBindDescriptorSetsInfo: &VkBindDescriptorSetsInfo) {
+  pub fn vkCmdBindDescriptorSets2KHR(&self, pBindDescriptorSetsInfo: &VkBindDescriptorSetsInfoKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBindDescriptorSets2KHR.unwrap_unchecked()(self.raw, pBindDescriptorSetsInfo)
@@ -10311,7 +11054,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPushConstantsInfo`
   #[cfg(feature = "VK_KHR_maintenance6")]
   #[inline(always)]
-  pub fn vkCmdPushConstants2KHR(&self, pPushConstantsInfo: &VkPushConstantsInfo) {
+  pub fn vkCmdPushConstants2KHR(&self, pPushConstantsInfo: &VkPushConstantsInfoKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushConstants2KHR.unwrap_unchecked()(self.raw, pPushConstantsInfo)
@@ -10325,14 +11068,15 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics, Compute
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_KHR_push_descriptor`
   /// - **Export Scopes:** Vulkan
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pPushDescriptorSetInfo`
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
   #[inline(always)]
-  pub fn vkCmdPushDescriptorSet2KHR(&self, pPushDescriptorSetInfo: &VkPushDescriptorSetInfo) {
+  pub fn vkCmdPushDescriptorSet2KHR(&self, pPushDescriptorSetInfo: &VkPushDescriptorSetInfoKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushDescriptorSet2KHR.unwrap_unchecked()(self.raw, pPushDescriptorSetInfo)
@@ -10346,16 +11090,17 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics, Compute
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_KHR_push_descriptor`
   /// - **Export Scopes:** Vulkan
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pPushDescriptorSetWithTemplateInfo`
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
   #[inline(always)]
   pub fn vkCmdPushDescriptorSetWithTemplate2KHR(
     &self,
-    pPushDescriptorSetWithTemplateInfo: &VkPushDescriptorSetWithTemplateInfo,
+    pPushDescriptorSetWithTemplateInfo: &VkPushDescriptorSetWithTemplateInfoKHR,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10372,11 +11117,12 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Graphics, Compute, DataGraphArm
   /// - **Render Pass:** Both
   /// - **Tasks:** State
+  /// - **Availability:** depends on `VK_EXT_descriptor_buffer`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `pSetDescriptorBufferOffsetsInfo`
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
   #[inline(always)]
   pub fn vkCmdSetDescriptorBufferOffsets2EXT(
     &self,
@@ -10455,11 +11201,15 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Queues:** Compute
   /// - **Render Pass:** Outside
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_KHR_ray_tracing_pipeline`
   ///
   /// # Parameters
   /// - `commandBuffer`
   /// - `indirectDeviceAddress`
-  #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+  #[cfg(all(
+    feature = "VK_KHR_ray_tracing_maintenance1",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   #[inline(always)]
   pub fn vkCmdTraceRaysIndirect2KHR(&self, indirectDeviceAddress: VkDeviceAddress) {
     unsafe {
@@ -10586,7 +11336,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfo`
   #[cfg(feature = "VK_KHR_synchronization2")]
   #[inline(always)]
-  pub fn vkCmdPipelineBarrier2KHR(&self, pDependencyInfo: &VkDependencyInfo) {
+  pub fn vkCmdPipelineBarrier2KHR(&self, pDependencyInfo: &VkDependencyInfoKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPipelineBarrier2KHR.unwrap_unchecked()(self.raw, pDependencyInfo)
@@ -10608,7 +11358,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `stageMask`: optional: true
   #[cfg(feature = "VK_KHR_synchronization2")]
   #[inline(always)]
-  pub fn vkCmdResetEvent2KHR(&self, event: VkEvent, stageMask: VkPipelineStageFlags2) {
+  pub fn vkCmdResetEvent2KHR(&self, event: VkEvent, stageMask: VkPipelineStageFlags2KHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdResetEvent2KHR.unwrap_unchecked()(self.raw, event, stageMask)
@@ -10630,7 +11380,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfo`
   #[cfg(feature = "VK_KHR_synchronization2")]
   #[inline(always)]
-  pub fn vkCmdSetEvent2KHR(&self, event: VkEvent, pDependencyInfo: &VkDependencyInfo) {
+  pub fn vkCmdSetEvent2KHR(&self, event: VkEvent, pDependencyInfo: &VkDependencyInfoKHR) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdSetEvent2KHR.unwrap_unchecked()(self.raw, event, pDependencyInfo)
@@ -10653,7 +11403,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfos`: len: eventCount
   #[cfg(feature = "VK_KHR_synchronization2")]
   #[inline(always)]
-  pub fn vkCmdWaitEvents2KHR(&self, pEvents: &[VkEvent], pDependencyInfos: &[VkDependencyInfo]) {
+  pub fn vkCmdWaitEvents2KHR(&self, pEvents: &[VkEvent], pDependencyInfos: &[VkDependencyInfoKHR]) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdWaitEvents2KHR.unwrap_unchecked()(
@@ -10683,7 +11433,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdWriteTimestamp2KHR(
     &self,
-    stage: VkPipelineStageFlags2,
+    stage: VkPipelineStageFlags2KHR,
     queryPool: VkQueryPool,
     query: u32,
   ) {
@@ -11237,6 +11987,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - **Render Pass:** Inside
   /// - **Conditional Rendering:** Affected
   /// - **Tasks:** Action
+  /// - **Availability:** depends on `VK_VERSION_1_2 + VK_KHR_draw_indirect_count + VK_AMD_draw_indirect_count`
   ///
   /// # Parameters
   /// - `commandBuffer`
@@ -11246,7 +11997,11 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `countBufferOffset`
   /// - `maxDrawCount`
   /// - `stride`
-  #[cfg(feature = "VK_NV_mesh_shader")]
+  #[cfg(any(
+    all(feature = "VK_NV_mesh_shader", feature = "VK_VERSION_1_2"),
+    all(feature = "VK_KHR_draw_indirect_count", feature = "VK_NV_mesh_shader"),
+    all(feature = "VK_AMD_draw_indirect_count", feature = "VK_NV_mesh_shader")
+  ))]
   #[inline(always)]
   pub fn vkCmdDrawMeshTasksIndirectCountNV(
     &self,

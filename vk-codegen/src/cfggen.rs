@@ -68,27 +68,20 @@ pub fn cfg_availability(
         return cfg_providers_with_dep(fallback_features, fallback_dep);
     }
 
-    let mut clauses = Vec::<Vec<String>>::new();
-    for item in availability {
-        let dep_clauses = item
-            .dep
-            .as_ref()
-            .map(DepExpr::to_dnf_clauses)
-            .unwrap_or_else(|| vec![vec![]]);
-        for dep_clause in dep_clauses {
-            let mut clause = dep_clause;
-            if !clause.contains(&item.provider) {
-                clause.insert(0, item.provider.clone());
-            }
-            clause.sort();
-            if !clauses.contains(&clause) {
-                clauses.push(clause);
-            }
-        }
-    }
-
+    let clauses = availability_clauses(availability, fallback_features, fallback_dep);
     let expr = cfg_expr_from_dnf(&clauses);
     quote! { #[cfg(#expr)] }
+}
+
+#[must_use]
+pub fn cfg_not_availability(
+    availability: &[Availability],
+    fallback_features: &[String],
+    fallback_dep: Option<&DepExpr>,
+) -> TokenStream {
+    let clauses = availability_clauses(availability, fallback_features, fallback_dep);
+    let expr = cfg_expr_from_dnf(&clauses);
+    quote! { #[cfg(not(#expr))] }
 }
 
 pub fn push_availability(
@@ -111,6 +104,60 @@ pub fn set_dep_if_unset(dst: &mut Option<DepExpr>, dep: &Option<DepExpr>) {
     } else if dst.is_none() {
         *dst = dep.clone();
     }
+}
+
+fn availability_clauses(
+    availability: &[Availability],
+    fallback_features: &[String],
+    fallback_dep: Option<&DepExpr>,
+) -> Vec<Vec<String>> {
+    if availability.is_empty() {
+        let Some(dep) = fallback_dep else {
+            return fallback_features
+                .iter()
+                .map(|provider| vec![provider.clone()])
+                .collect();
+        };
+
+        let dep_clauses = dep.to_dnf_clauses();
+        if fallback_features.is_empty() {
+            return dep_clauses;
+        }
+
+        let mut clauses = Vec::<Vec<String>>::new();
+        for provider in fallback_features {
+            for dep_clause in &dep_clauses {
+                let mut clause = dep_clause.clone();
+                if !clause.contains(provider) {
+                    clause.insert(0, provider.clone());
+                }
+                clause.sort();
+                if !clauses.contains(&clause) {
+                    clauses.push(clause);
+                }
+            }
+        }
+        return clauses;
+    }
+
+    let mut clauses = Vec::<Vec<String>>::new();
+    for item in availability {
+        let dep_clauses = item
+            .dep
+            .as_ref()
+            .map(DepExpr::to_dnf_clauses)
+            .unwrap_or_else(|| vec![vec![]]);
+        for mut clause in dep_clauses {
+            if !clause.contains(&item.provider) {
+                clause.insert(0, item.provider.clone());
+            }
+            clause.sort();
+            if !clauses.contains(&clause) {
+                clauses.push(clause);
+            }
+        }
+    }
+    clauses
 }
 
 fn clauses_to_ts(clauses: &[Vec<String>]) -> TokenStream {

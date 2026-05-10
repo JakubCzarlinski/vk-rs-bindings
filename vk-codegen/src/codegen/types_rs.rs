@@ -1,4 +1,4 @@
-use crate::cfggen::cfg_availability;
+use crate::cfggen::{cfg_availability, cfg_not_availability};
 use crate::codegen::utils::rewrite_member_types_for_providers;
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url, sanitize_ident};
 use crate::ir::{Member, Optional, Registry, Struct, Typedef, TypedefKind};
@@ -271,6 +271,63 @@ fn member_cfg(m: &Member) -> TokenStream {
     quote! {}
 }
 
+struct HandleFallbackMember {
+    typed_cfg: TokenStream,
+    raw_cfg: TokenStream,
+    raw_ty: TokenStream,
+    raw_default: TokenStream,
+    typed_ty: TokenStream,
+}
+
+fn handle_fallback_member(
+    m: &Member,
+    owner: &Struct,
+    reg: &Registry,
+) -> Option<HandleFallbackMember> {
+    if m.ty.pointer_depth != 0 || m.ty.is_array.is_some() {
+        return None;
+    }
+
+    let td = reg.typedefs.get(&m.ty.base)?.first()?;
+    let TypedefKind::Handle { dispatchable, .. } = td.kind else {
+        return None;
+    };
+    if td.provided_by.is_empty() {
+        return None;
+    }
+
+    let deps = reg.transitive_deps();
+    let handle_available_with_owner = owner.provided_by.iter().any(|owner_provider| {
+        td.provided_by.contains(owner_provider)
+            || deps
+                .get(owner_provider)
+                .is_some_and(|owner_deps| td.provided_by.iter().any(|p| owner_deps.contains(p)))
+    });
+    if handle_available_with_owner {
+        return None;
+    }
+
+    let typed_cfg = cfg_availability(&td.availability, &td.provided_by, td.dep.as_ref());
+    let raw_cfg = cfg_not_availability(&td.availability, &td.provided_by, td.dep.as_ref());
+    let typed_ty = parse_ty(&ctype_to_rust_str(&m.ty));
+    let (raw_ty, raw_default) = if dispatchable {
+        (
+            quote! { *mut core::ffi::c_void },
+            quote! { core::ptr::null_mut() },
+        )
+    } else {
+        (quote! { u64 }, quote! { 0 })
+    };
+
+    Some(HandleFallbackMember {
+        typed_cfg,
+        raw_cfg,
+        raw_ty,
+        raw_default,
+        typed_ty,
+    })
+}
+
 #[derive(Clone, Copy, Debug)]
 struct RequiredSliceMemberPair {
     count_idx: usize,
@@ -348,9 +405,25 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
         let fname = format_ident!("{}", sanitize_ident(&m.name));
         // Builder method keeps original Vulkan casing: with_pNext, with_stageIndexOffset, etc.
         let method_name = format_ident!("with_{}", &m.name);
-        let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
         let fcfg = member_cfg(m);
         let fdepr = deprecate_attr(&m.depr);
+
+        if let Some(fallback) = handle_fallback_member(m, s, reg) {
+            let ftype = fallback.typed_ty;
+            let typed_cfg = fallback.typed_cfg;
+            ts.extend(quote! {
+                #typed_cfg
+                #fdepr
+                #[inline]
+                pub const fn #method_name(mut self, val: #ftype) -> Self {
+                    self.#fname = val;
+                    self
+                }
+            });
+            continue;
+        }
+
+        let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
 
         if let Some(pair) = required_slice_pairs
             .iter()
@@ -540,7 +613,6 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         .iter()
         .map(|m| {
             let fname = format_ident!("{}", sanitize_ident(&m.name));
-            let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
             let fdoc = m.comment.as_deref().unwrap_or("");
             let fdepr = deprecate_attr(&m.depr);
 
@@ -574,6 +646,24 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
                 format!("{} ({})", fdoc, extra.join(", "))
             };
 
+            if let Some(fallback) = handle_fallback_member(m, s, reg) {
+                let typed_cfg = fallback.typed_cfg;
+                let raw_cfg = fallback.raw_cfg;
+                let typed_ty = fallback.typed_ty;
+                let raw_ty = fallback.raw_ty;
+                if full_doc.is_empty() {
+                    return quote! {
+                        #typed_cfg #fdepr pub #fname: #typed_ty,
+                        #raw_cfg #fdepr pub #fname: #raw_ty,
+                    };
+                }
+                return quote! {
+                    #typed_cfg #[doc = #full_doc] #fdepr pub #fname: #typed_ty,
+                    #raw_cfg #[doc = #full_doc] #fdepr pub #fname: #raw_ty,
+                };
+            }
+
+            let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
             if full_doc.is_empty() {
                 quote! { #fcfg #fdepr pub #fname: #ftype, }
             } else {
@@ -590,6 +680,17 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
         .filter(|m| !(m.name == "sType" && stype_default.is_some()))
         .map(|m| {
             let fname = format_ident!("{}", sanitize_ident(&m.name));
+            if let Some(fallback) = handle_fallback_member(m, s, reg) {
+                let typed_cfg = fallback.typed_cfg;
+                let raw_cfg = fallback.raw_cfg;
+                let typed_default = parse_expr(&format!("{}::DEFAULT", m.ty.base));
+                let raw_default = fallback.raw_default;
+                return quote! {
+                    #typed_cfg #fname: #typed_default,
+                    #raw_cfg #fname: #raw_default,
+                };
+            }
+
             let (def_str, safe) = member_default_const(m, reg);
             if !safe {
                 needs_unsafe = true;

@@ -11747,11 +11747,19 @@ pub struct VkCommandBufferInheritanceInfo {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
   /// Optional: true,  No Auto-Validity
   pub renderPass: VkRenderPass,
+  #[cfg(not(feature = "VK_GRAPHICS_VERSION_1_0"))]
+  /// Optional: true,  No Auto-Validity
+  pub renderPass: *mut core::ffi::c_void,
   pub subpass: u32,
+  #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
   /// Optional: true,  No Auto-Validity
   pub framebuffer: VkFramebuffer,
+  #[cfg(not(feature = "VK_GRAPHICS_VERSION_1_0"))]
+  /// Optional: true,  No Auto-Validity
+  pub framebuffer: *mut core::ffi::c_void,
   pub occlusionQueryEnable: VkBool32,
   /// Optional: true,  No Auto-Validity
   pub queryFlags: VkQueryControlFlags,
@@ -11767,9 +11775,15 @@ impl VkCommandBufferInheritanceInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     renderPass: VkRenderPass::DEFAULT,
+    #[cfg(not(feature = "VK_GRAPHICS_VERSION_1_0"))]
+    renderPass: core::ptr::null_mut(),
     subpass: 0,
+    #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     framebuffer: VkFramebuffer::DEFAULT,
+    #[cfg(not(feature = "VK_GRAPHICS_VERSION_1_0"))]
+    framebuffer: core::ptr::null_mut(),
     occlusionQueryEnable: 0,
     queryFlags: 0,
     pipelineStatistics: 0,
@@ -11785,6 +11799,7 @@ impl VkCommandBufferInheritanceInfo {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
   #[inline]
   pub const fn with_renderPass(mut self, val: VkRenderPass) -> Self {
     self.renderPass = val;
@@ -11795,6 +11810,7 @@ impl VkCommandBufferInheritanceInfo {
     self.subpass = val;
     self
   }
+  #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
   #[inline]
   pub const fn with_framebuffer(mut self, val: VkFramebuffer) -> Self {
     self.framebuffer = val;
@@ -30925,10 +30941,18 @@ pub struct VkAccelerationStructureCaptureDescriptorDataInfoEXT {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_KHR_acceleration_structure")]
   /// Optional: true
   pub accelerationStructure: VkAccelerationStructureKHR,
+  #[cfg(not(feature = "VK_KHR_acceleration_structure"))]
+  /// Optional: true
+  pub accelerationStructure: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_NV_ray_tracing")]
   /// Optional: true
   pub accelerationStructureNV: VkAccelerationStructureNV,
+  #[cfg(not(feature = "VK_NV_ray_tracing"))]
+  /// Optional: true
+  pub accelerationStructureNV: *mut core::ffi::c_void,
 }
 #[cfg(any(
   all(
@@ -30958,8 +30982,14 @@ impl VkAccelerationStructureCaptureDescriptorDataInfoEXT {
     sType:
       VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_KHR_acceleration_structure")]
     accelerationStructure: VkAccelerationStructureKHR::DEFAULT,
+    #[cfg(not(feature = "VK_KHR_acceleration_structure"))]
+    accelerationStructure: core::ptr::null_mut(),
+    #[cfg(feature = "VK_NV_ray_tracing")]
     accelerationStructureNV: VkAccelerationStructureNV::DEFAULT,
+    #[cfg(not(feature = "VK_NV_ray_tracing"))]
+    accelerationStructureNV: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -30972,11 +31002,13 @@ impl VkAccelerationStructureCaptureDescriptorDataInfoEXT {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_KHR_acceleration_structure")]
   #[inline]
   pub const fn with_accelerationStructure(mut self, val: VkAccelerationStructureKHR) -> Self {
     self.accelerationStructure = val;
     self
   }
+  #[cfg(feature = "VK_NV_ray_tracing")]
   #[inline]
   pub const fn with_accelerationStructureNV(mut self, val: VkAccelerationStructureNV) -> Self {
     self.accelerationStructureNV = val;
@@ -34541,7 +34573,10 @@ pub struct VkWriteIndirectExecutionSetShaderEXT {
   /// Optional: true,  No Auto-Validity
   pub pNext: *const core::ffi::c_void,
   pub index: u32,
+  #[cfg(feature = "VK_EXT_shader_object")]
   pub shader: VkShaderEXT,
+  #[cfg(not(feature = "VK_EXT_shader_object"))]
+  pub shader: *mut core::ffi::c_void,
 }
 #[cfg(all(
   feature = "VK_EXT_device_generated_commands",
@@ -34562,7 +34597,10 @@ impl VkWriteIndirectExecutionSetShaderEXT {
     sType: VkStructureType::VK_STRUCTURE_TYPE_WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT,
     pNext: core::ptr::null(),
     index: 0,
+    #[cfg(feature = "VK_EXT_shader_object")]
     shader: VkShaderEXT::DEFAULT,
+    #[cfg(not(feature = "VK_EXT_shader_object"))]
+    shader: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -34580,6 +34618,7 @@ impl VkWriteIndirectExecutionSetShaderEXT {
     self.index = val;
     self
   }
+  #[cfg(feature = "VK_EXT_shader_object")]
   #[inline]
   pub const fn with_shader(mut self, val: VkShaderEXT) -> Self {
     self.shader = val;
@@ -41551,7 +41590,10 @@ pub struct VkExportMetalCommandQueueInfoEXT {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub queue: VkQueue,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub queue: *mut core::ffi::c_void,
   pub mtlCommandQueue: MTLCommandQueue_id,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -41563,7 +41605,10 @@ impl VkExportMetalCommandQueueInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     queue: VkQueue::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    queue: core::ptr::null_mut(),
     mtlCommandQueue: MTLCommandQueue_id::NULL,
   };
   #[inline]
@@ -41577,6 +41622,7 @@ impl VkExportMetalCommandQueueInfoEXT {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_queue(mut self, val: VkQueue) -> Self {
     self.queue = val;
@@ -41599,7 +41645,10 @@ pub struct VkExportMetalBufferInfoEXT {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub memory: VkDeviceMemory,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub memory: *mut core::ffi::c_void,
   pub mtlBuffer: MTLBuffer_id,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -41611,7 +41660,10 @@ impl VkExportMetalBufferInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_BUFFER_INFO_EXT,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     memory: VkDeviceMemory::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    memory: core::ptr::null_mut(),
     mtlBuffer: MTLBuffer_id::NULL,
   };
   #[inline]
@@ -41625,6 +41677,7 @@ impl VkExportMetalBufferInfoEXT {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_memory(mut self, val: VkDeviceMemory) -> Self {
     self.memory = val;
@@ -41688,12 +41741,24 @@ pub struct VkExportMetalTextureInfoEXT {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// Optional: true
   pub image: VkImage,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// Optional: true
+  pub image: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// Optional: true
   pub imageView: VkImageView,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// Optional: true
+  pub imageView: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   /// Optional: true
   pub bufferView: VkBufferView,
+  #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+  /// Optional: true
+  pub bufferView: *mut core::ffi::c_void,
   pub plane: VkImageAspectFlagBits,
   pub mtlTexture: MTLTexture_id,
 }
@@ -41706,9 +41771,18 @@ impl VkExportMetalTextureInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     image: VkImage::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    image: core::ptr::null_mut(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     imageView: VkImageView::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    imageView: core::ptr::null_mut(),
+    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     bufferView: VkBufferView::DEFAULT,
+    #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+    bufferView: core::ptr::null_mut(),
     plane: VkImageAspectFlagBits(0),
     mtlTexture: MTLTexture_id::NULL,
   };
@@ -41723,16 +41797,19 @@ impl VkExportMetalTextureInfoEXT {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_image(mut self, val: VkImage) -> Self {
     self.image = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_imageView(mut self, val: VkImageView) -> Self {
     self.imageView = val;
     self
   }
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline]
   pub const fn with_bufferView(mut self, val: VkBufferView) -> Self {
     self.bufferView = val;
@@ -41808,7 +41885,10 @@ pub struct VkExportMetalIOSurfaceInfoEXT {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub image: VkImage,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub image: *mut core::ffi::c_void,
   pub ioSurface: IOSurfaceRef,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -41820,7 +41900,10 @@ impl VkExportMetalIOSurfaceInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_IO_SURFACE_INFO_EXT,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     image: VkImage::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    image: core::ptr::null_mut(),
     ioSurface: IOSurfaceRef::NULL,
   };
   #[inline]
@@ -41834,6 +41917,7 @@ impl VkExportMetalIOSurfaceInfoEXT {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_image(mut self, val: VkImage) -> Self {
     self.image = val;
@@ -41898,10 +41982,18 @@ pub struct VkExportMetalSharedEventInfoEXT {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// Optional: true
   pub semaphore: VkSemaphore,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// Optional: true
+  pub semaphore: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   /// Optional: true
   pub event: VkEvent,
+  #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+  /// Optional: true
+  pub event: *mut core::ffi::c_void,
   pub mtlSharedEvent: MTLSharedEvent_id,
 }
 #[cfg(feature = "VK_EXT_metal_objects")]
@@ -41913,8 +42005,14 @@ impl VkExportMetalSharedEventInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_SHARED_EVENT_INFO_EXT,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     semaphore: VkSemaphore::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    semaphore: core::ptr::null_mut(),
+    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     event: VkEvent::DEFAULT,
+    #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+    event: core::ptr::null_mut(),
     mtlSharedEvent: MTLSharedEvent_id::NULL,
   };
   #[inline]
@@ -41928,11 +42026,13 @@ impl VkExportMetalSharedEventInfoEXT {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_semaphore(mut self, val: VkSemaphore) -> Self {
     self.semaphore = val;
     self
   }
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline]
   pub const fn with_event(mut self, val: VkEvent) -> Self {
     self.event = val;
@@ -58478,8 +58578,14 @@ pub struct VkBindBufferMemoryInfoKHR {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub buffer: VkBuffer,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub buffer: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub memory: VkDeviceMemory,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub memory: *mut core::ffi::c_void,
   pub memoryOffset: VkDeviceSize,
 }
 #[cfg(feature = "VK_KHR_bind_memory2")]
@@ -58491,8 +58597,14 @@ impl VkBindBufferMemoryInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO_KHR,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     buffer: VkBuffer::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    buffer: core::ptr::null_mut(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     memory: VkDeviceMemory::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    memory: core::ptr::null_mut(),
     memoryOffset: 0,
   };
   #[inline]
@@ -58506,11 +58618,13 @@ impl VkBindBufferMemoryInfoKHR {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_buffer(mut self, val: VkBuffer) -> Self {
     self.buffer = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_memory(mut self, val: VkDeviceMemory) -> Self {
     self.memory = val;
@@ -58531,9 +58645,16 @@ pub struct VkBindImageMemoryInfoKHR {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub image: VkImage,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub image: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// No Auto-Validity
   pub memory: VkDeviceMemory,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// No Auto-Validity
+  pub memory: *mut core::ffi::c_void,
   pub memoryOffset: VkDeviceSize,
 }
 #[cfg(feature = "VK_KHR_bind_memory2")]
@@ -58545,8 +58666,14 @@ impl VkBindImageMemoryInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO_KHR,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     image: VkImage::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    image: core::ptr::null_mut(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     memory: VkDeviceMemory::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    memory: core::ptr::null_mut(),
     memoryOffset: 0,
   };
   #[inline]
@@ -58560,11 +58687,13 @@ impl VkBindImageMemoryInfoKHR {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_image(mut self, val: VkImage) -> Self {
     self.image = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_memory(mut self, val: VkDeviceMemory) -> Self {
     self.memory = val;
@@ -61237,12 +61366,20 @@ pub struct VkDescriptorUpdateTemplateCreateInfoKHR {
   /// Length: descriptorUpdateEntryCount
   pub pDescriptorUpdateEntries: *const VkDescriptorUpdateTemplateEntryKHR,
   pub templateType: VkDescriptorUpdateTemplateTypeKHR,
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   /// No Auto-Validity
   pub descriptorSetLayout: VkDescriptorSetLayout,
+  #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+  /// No Auto-Validity
+  pub descriptorSetLayout: *mut core::ffi::c_void,
   /// No Auto-Validity
   pub pipelineBindPoint: VkPipelineBindPoint,
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   /// No Auto-Validity
   pub pipelineLayout: VkPipelineLayout,
+  #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+  /// No Auto-Validity
+  pub pipelineLayout: *mut core::ffi::c_void,
   /// No Auto-Validity
   pub set: u32,
 }
@@ -61259,9 +61396,15 @@ impl VkDescriptorUpdateTemplateCreateInfoKHR {
     descriptorUpdateEntryCount: 0,
     pDescriptorUpdateEntries: core::ptr::null(),
     templateType: VkDescriptorUpdateTemplateTypeKHR(0),
+    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     descriptorSetLayout: VkDescriptorSetLayout::DEFAULT,
+    #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+    descriptorSetLayout: core::ptr::null_mut(),
     pipelineBindPoint: VkPipelineBindPoint(0),
+    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     pipelineLayout: VkPipelineLayout::DEFAULT,
+    #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+    pipelineLayout: core::ptr::null_mut(),
     set: 0,
   };
   #[inline]
@@ -61301,6 +61444,7 @@ impl VkDescriptorUpdateTemplateCreateInfoKHR {
     self.templateType = val;
     self
   }
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline]
   pub const fn with_descriptorSetLayout(mut self, val: VkDescriptorSetLayout) -> Self {
     self.descriptorSetLayout = val;
@@ -61311,6 +61455,7 @@ impl VkDescriptorUpdateTemplateCreateInfoKHR {
     self.pipelineBindPoint = val;
     self
   }
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline]
   pub const fn with_pipelineLayout(mut self, val: VkPipelineLayout) -> Self {
     self.pipelineLayout = val;
@@ -63423,10 +63568,18 @@ pub struct VkAcquireNextImageInfoKHR {
   pub pNext: *const core::ffi::c_void,
   pub swapchain: VkSwapchainKHR,
   pub timeout: u64,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// Optional: true
   pub semaphore: VkSemaphore,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// Optional: true
+  pub semaphore: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// Optional: true
   pub fence: VkFence,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// Optional: true
+  pub fence: *mut core::ffi::c_void,
   pub deviceMask: u32,
 }
 #[cfg(any(
@@ -63449,8 +63602,14 @@ impl VkAcquireNextImageInfoKHR {
     pNext: core::ptr::null(),
     swapchain: VkSwapchainKHR::DEFAULT,
     timeout: 0,
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     semaphore: VkSemaphore::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    semaphore: core::ptr::null_mut(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     fence: VkFence::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    fence: core::ptr::null_mut(),
     deviceMask: 0,
   };
   #[inline]
@@ -63474,11 +63633,13 @@ impl VkAcquireNextImageInfoKHR {
     self.timeout = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_semaphore(mut self, val: VkSemaphore) -> Self {
     self.semaphore = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_fence(mut self, val: VkFence) -> Self {
     self.fence = val;
@@ -67692,7 +67853,10 @@ pub struct VkBufferMemoryRequirementsInfo2KHR {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub buffer: VkBuffer,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub buffer: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_KHR_get_memory_requirements2")]
 unsafe impl Send for VkBufferMemoryRequirementsInfo2KHR {}
@@ -67703,7 +67867,10 @@ impl VkBufferMemoryRequirementsInfo2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2_KHR,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     buffer: VkBuffer::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    buffer: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -67716,6 +67883,7 @@ impl VkBufferMemoryRequirementsInfo2KHR {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_buffer(mut self, val: VkBuffer) -> Self {
     self.buffer = val;
@@ -67731,7 +67899,10 @@ pub struct VkImageMemoryRequirementsInfo2KHR {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub image: VkImage,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub image: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_KHR_get_memory_requirements2")]
 unsafe impl Send for VkImageMemoryRequirementsInfo2KHR {}
@@ -67742,7 +67913,10 @@ impl VkImageMemoryRequirementsInfo2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_MEMORY_REQUIREMENTS_INFO_2_KHR,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     image: VkImage::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    image: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -67755,6 +67929,7 @@ impl VkImageMemoryRequirementsInfo2KHR {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_image(mut self, val: VkImage) -> Self {
     self.image = val;
@@ -67770,7 +67945,10 @@ pub struct VkImageSparseMemoryRequirementsInfo2KHR {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub image: VkImage,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub image: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_KHR_get_memory_requirements2")]
 unsafe impl Send for VkImageSparseMemoryRequirementsInfo2KHR {}
@@ -67781,7 +67959,10 @@ impl VkImageSparseMemoryRequirementsInfo2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2_KHR,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     image: VkImage::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    image: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -67794,6 +67975,7 @@ impl VkImageSparseMemoryRequirementsInfo2KHR {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_image(mut self, val: VkImage) -> Self {
     self.image = val;
@@ -71689,7 +71871,10 @@ pub struct VkMemoryMapInfoKHR {
   pub pNext: *const core::ffi::c_void,
   /// Optional: true
   pub flags: VkMemoryMapFlags,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub memory: VkDeviceMemory,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub memory: *mut core::ffi::c_void,
   pub offset: VkDeviceSize,
   pub size: VkDeviceSize,
 }
@@ -71703,7 +71888,10 @@ impl VkMemoryMapInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_MAP_INFO_KHR,
     pNext: core::ptr::null(),
     flags: 0,
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     memory: VkDeviceMemory::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    memory: core::ptr::null_mut(),
     offset: 0,
     size: 0,
   };
@@ -71723,6 +71911,7 @@ impl VkMemoryMapInfoKHR {
     self.flags = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_memory(mut self, val: VkDeviceMemory) -> Self {
     self.memory = val;
@@ -71750,7 +71939,10 @@ pub struct VkMemoryUnmapInfoKHR {
   pub pNext: *const core::ffi::c_void,
   /// Optional: true
   pub flags: VkMemoryUnmapFlagsKHR,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub memory: VkDeviceMemory,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub memory: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_KHR_map_memory2")]
 unsafe impl Send for VkMemoryUnmapInfoKHR {}
@@ -71762,7 +71954,10 @@ impl VkMemoryUnmapInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO_KHR,
     pNext: core::ptr::null(),
     flags: 0,
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     memory: VkDeviceMemory::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    memory: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -71780,6 +71975,7 @@ impl VkMemoryUnmapInfoKHR {
     self.flags = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_memory(mut self, val: VkDeviceMemory) -> Self {
     self.memory = val;
@@ -97279,10 +97475,17 @@ pub struct VkImageViewHandleInfoNVX {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub imageView: VkImageView,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub imageView: *mut core::ffi::c_void,
   pub descriptorType: VkDescriptorType,
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   /// Optional: true
   pub sampler: VkSampler,
+  #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+  /// Optional: true
+  pub sampler: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_NVX_image_view_handle")]
 unsafe impl Send for VkImageViewHandleInfoNVX {}
@@ -97293,9 +97496,15 @@ impl VkImageViewHandleInfoNVX {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     imageView: VkImageView::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    imageView: core::ptr::null_mut(),
     descriptorType: VkDescriptorType(0),
+    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     sampler: VkSampler::DEFAULT,
+    #[cfg(not(feature = "VK_COMPUTE_VERSION_1_0"))]
+    sampler: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -97308,6 +97517,7 @@ impl VkImageViewHandleInfoNVX {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_imageView(mut self, val: VkImageView) -> Self {
     self.imageView = val;
@@ -97318,6 +97528,7 @@ impl VkImageViewHandleInfoNVX {
     self.descriptorType = val;
     self
   }
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline]
   pub const fn with_sampler(mut self, val: VkSampler) -> Self {
     self.sampler = val;
@@ -100481,10 +100692,18 @@ pub struct VkDedicatedAllocationMemoryAllocateInfoNV {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// Optional: true
   pub image: VkImage,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// Optional: true
+  pub image: *mut core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   /// Optional: true
   pub buffer: VkBuffer,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  /// Optional: true
+  pub buffer: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_NV_dedicated_allocation")]
 unsafe impl Send for VkDedicatedAllocationMemoryAllocateInfoNV {}
@@ -100495,8 +100714,14 @@ impl VkDedicatedAllocationMemoryAllocateInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     image: VkImage::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    image: core::ptr::null_mut(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     buffer: VkBuffer::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    buffer: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -100509,11 +100734,13 @@ impl VkDedicatedAllocationMemoryAllocateInfoNV {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_image(mut self, val: VkImage) -> Self {
     self.image = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_buffer(mut self, val: VkBuffer) -> Self {
     self.buffer = val;
@@ -102547,7 +102774,10 @@ pub struct VkExternalComputeQueueCreateInfoNV {
   pub sType: VkStructureType,
   /// Optional: true
   pub pNext: *const core::ffi::c_void,
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub preferredQueue: VkQueue,
+  #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+  pub preferredQueue: *mut core::ffi::c_void,
 }
 #[cfg(feature = "VK_NV_external_compute_queue")]
 unsafe impl Send for VkExternalComputeQueueCreateInfoNV {}
@@ -102558,7 +102788,10 @@ impl VkExternalComputeQueueCreateInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV,
     pNext: core::ptr::null(),
+    #[cfg(feature = "VK_BASE_VERSION_1_0")]
     preferredQueue: VkQueue::DEFAULT,
+    #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
+    preferredQueue: core::ptr::null_mut(),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -102571,6 +102804,7 @@ impl VkExternalComputeQueueCreateInfoNV {
     self.pNext = val;
     self
   }
+  #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline]
   pub const fn with_preferredQueue(mut self, val: VkQueue) -> Self {
     self.preferredQueue = val;

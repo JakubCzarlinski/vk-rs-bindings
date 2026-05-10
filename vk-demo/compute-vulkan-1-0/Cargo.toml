@@ -8,4 +8,5 @@ build = "build.rs"
 [dependencies.vk]
 path = "../../vk-rs-bindings"
 package = "vk-rs-bindings"
+default-features = false
 features = ["VK_COMPUTE_VERSION_1_0"]

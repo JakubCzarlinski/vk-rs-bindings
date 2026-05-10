@@ -1313,6 +1313,8 @@ impl<'inst> PhysicalDevice<'inst> {
       fence_table: crate::fence::FenceDispatchTable::load(load_lambda),
       #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
       framebuffer_table: crate::framebuffer::FramebufferDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      gpa_session_amd_table: crate::gpa_session_amd::GpaSessionAMDDispatchTable::load(load_lambda),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       image_table: crate::image::ImageDispatchTable::load(load_lambda),
       #[cfg(feature = "VK_BASE_VERSION_1_0")]

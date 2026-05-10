@@ -781,6 +781,66 @@ pub type PFN_vkCmdBeginDebugUtilsLabelEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   pLabelInfo: *const VkDebugUtilsLabelEXT,
 );
+/// [`vkCmdBeginGpaSampleAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSampleAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+/// - **Queues:** Graphics, Compute
+/// - **Render Pass:** Both
+/// - **Tasks:** Action, State
+///
+/// # Parameters
+/// - `commandBuffer`
+/// - `gpaSession`
+/// - `pGpaSampleBeginInfo`
+/// - `pSampleID`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkCmdBeginGpaSampleAMD = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  gpaSession: VkGpaSessionAMD,
+  pGpaSampleBeginInfo: *const VkGpaSampleBeginInfoAMD,
+  pSampleID: *mut u32,
+) -> VkResult;
+/// [`vkCmdBeginGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSessionAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+/// - **Queues:** Graphics, Compute
+/// - **Render Pass:** Both
+/// - **Tasks:** Action, State
+///
+/// # Parameters
+/// - `commandBuffer`
+/// - `gpaSession`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkCmdBeginGpaSessionAMD = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  gpaSession: VkGpaSessionAMD,
+) -> VkResult;
 /// [`vkCmdBeginPerTileExecutionQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginPerTileExecutionQCOM.html)
 ///
 /// Provided by:
@@ -1910,6 +1970,21 @@ pub type PFN_vkCmdCopyBufferToImage2 = unsafe extern "system" fn(
 ///
 #[cfg(feature = "VK_KHR_copy_commands2")]
 pub type PFN_vkCmdCopyBufferToImage2KHR = PFN_vkCmdCopyBufferToImage2;
+/// [`vkCmdCopyGpaSessionResultsAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyGpaSessionResultsAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+/// - **Queues:** Graphics, Compute, Transfer
+/// - **Render Pass:** Both
+/// - **Tasks:** Action, State
+///
+/// # Parameters
+/// - `commandBuffer`
+/// - `gpaSession`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkCmdCopyGpaSessionResultsAMD =
+  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, gpaSession: VkGpaSessionAMD);
 /// [`vkCmdCopyImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImage.html)
 ///
 /// Provided by:
@@ -3296,6 +3371,53 @@ pub type PFN_vkCmdEndConditionalRenderingEXT =
 /// - `commandBuffer`
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkCmdEndDebugUtilsLabelEXT = unsafe extern "system" fn(commandBuffer: VkCommandBuffer);
+/// [`vkCmdEndGpaSampleAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSampleAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+/// - **Queues:** Graphics, Compute
+/// - **Render Pass:** Both
+/// - **Tasks:** Action, State
+///
+/// # Parameters
+/// - `commandBuffer`
+/// - `gpaSession`
+/// - `sampleID`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkCmdEndGpaSampleAMD = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  gpaSession: VkGpaSessionAMD,
+  sampleID: u32,
+);
+/// [`vkCmdEndGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSessionAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+/// - **Queues:** Graphics, Compute
+/// - **Render Pass:** Both
+/// - **Tasks:** Action, State
+///
+/// # Parameters
+/// - `commandBuffer`
+/// - `gpaSession`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkCmdEndGpaSessionAMD = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  gpaSession: VkGpaSessionAMD,
+) -> VkResult;
 /// [`vkCmdEndPerTileExecutionQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndPerTileExecutionQCOM.html)
 ///
 /// Provided by:
@@ -7769,6 +7891,35 @@ pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
   pAllocator: *const VkAllocationCallbacks,
   pFramebuffer: *mut VkFramebuffer,
 ) -> VkResult;
+/// [`vkCreateGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGpaSessionAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `pCreateInfo`
+/// - `pAllocator`: optional: true
+/// - `pGpaSession`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkCreateGpaSessionAMD = unsafe extern "system" fn(
+  device: VkDevice,
+  pCreateInfo: *const VkGpaSessionCreateInfoAMD,
+  pAllocator: *const VkAllocationCallbacks,
+  pGpaSession: *mut VkGpaSessionAMD,
+) -> VkResult;
 /// [`vkCreateGraphicsPipelines`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGraphicsPipelines.html)
 ///
 /// Provided by:
@@ -9669,6 +9820,22 @@ pub type PFN_vkDestroyFence = unsafe extern "system" fn(
 pub type PFN_vkDestroyFramebuffer = unsafe extern "system" fn(
   device: VkDevice,
   framebuffer: VkFramebuffer,
+  pAllocator: *const VkAllocationCallbacks,
+);
+/// [`vkDestroyGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyGpaSessionAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `gpaSession`: optional: true
+/// - `pAllocator`: optional: true
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkDestroyGpaSessionAMD = unsafe extern "system" fn(
+  device: VkDevice,
+  gpaSession: VkGpaSessionAMD,
   pAllocator: *const VkAllocationCallbacks,
 );
 /// [`vkDestroyImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyImage.html)
@@ -12307,6 +12474,83 @@ pub type PFN_vkGetGeneratedCommandsMemoryRequirementsNV = unsafe extern "system"
   pInfo: *const VkGeneratedCommandsMemoryRequirementsInfoNV,
   pMemoryRequirements: *mut VkMemoryRequirements2,
 );
+/// [`vkGetGpaDeviceClockInfoAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaDeviceClockInfoAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `pInfo`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkGetGpaDeviceClockInfoAMD =
+  unsafe extern "system" fn(device: VkDevice, pInfo: *mut VkGpaDeviceGetClockInfoAMD) -> VkResult;
+/// [`vkGetGpaSessionResultsAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaSessionResultsAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `gpaSession`
+/// - `sampleID`
+/// - `pSizeInBytes`
+/// - `pData`: optional: true, len: pSizeInBytes
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkGetGpaSessionResultsAMD = unsafe extern "system" fn(
+  device: VkDevice,
+  gpaSession: VkGpaSessionAMD,
+  sampleID: u32,
+  pSizeInBytes: *mut usize,
+  pData: *mut core::ffi::c_void,
+) -> VkResult;
+/// [`vkGetGpaSessionStatusAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaSessionStatusAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `gpaSession`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkGetGpaSessionStatusAMD =
+  unsafe extern "system" fn(device: VkDevice, gpaSession: VkGpaSessionAMD) -> VkResult;
 /// [`vkGetImageDrmFormatModifierPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageDrmFormatModifierPropertiesEXT.html)
 ///
 /// Provided by:
@@ -16979,6 +17223,29 @@ pub type PFN_vkResetEvent = unsafe extern "system" fn(device: VkDevice, event: V
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkResetFences =
   unsafe extern "system" fn(device: VkDevice, fenceCount: u32, pFences: *const VkFence) -> VkResult;
+/// [`vkResetGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetGpaSessionAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `gpaSession`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkResetGpaSessionAMD =
+  unsafe extern "system" fn(device: VkDevice, gpaSession: VkGpaSessionAMD) -> VkResult;
 /// [`vkResetQueryPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetQueryPool.html)
 ///
 /// Provided by:
@@ -17147,6 +17414,29 @@ pub type PFN_vkSetDeviceMemoryPriorityEXT =
 ///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkSetEvent = unsafe extern "system" fn(device: VkDevice, event: VkEvent) -> VkResult;
+/// [`vkSetGpaDeviceClockModeAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetGpaDeviceClockModeAMD.html)
+///
+/// Provided by:
+/// - `VK_AMD_gpa_interface`
+///
+///
+/// # Parameters
+/// - `device`
+/// - `pInfo`
+///
+/// # Returns
+///
+/// **Success Codes:**
+///   - `VK_SUCCESS`
+///
+/// **Error Codes:**
+///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+///   - `VK_ERROR_UNKNOWN`
+///   - `VK_ERROR_VALIDATION_FAILED`
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type PFN_vkSetGpaDeviceClockModeAMD =
+  unsafe extern "system" fn(device: VkDevice, pInfo: *mut VkGpaDeviceClockModeInfoAMD) -> VkResult;
 /// [`vkSetHdrMetadataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetHdrMetadataEXT.html)
 ///
 /// Provided by:

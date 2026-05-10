@@ -339,6 +339,8 @@ VK_KHR_storage_buffer_storage_class = []
 # type: device
 VK_AMD_gpu_shader_int16 = []
 # type: device
+VK_AMD_gpa_interface = []
+# type: device
 VK_AMDX_shader_enqueue = ["VK_KHR_maintenance5", "VK_KHR_pipeline_library"]
 # type: device
 VK_EXT_descriptor_heap = ["VK_KHR_maintenance5"]
@@ -419,6 +421,8 @@ VK_EXT_filter_cubic = []
 VK_QCOM_render_pass_shader_resolve = []
 # type: device
 VK_QCOM_cooperative_matrix_conversion = ["VK_KHR_cooperative_matrix"]
+# type: device
+VK_QCOM_elapsed_timer_query = []
 # promoted to: VK_KHR_global_priority
 # type: device
 VK_EXT_global_priority = []
@@ -674,6 +678,12 @@ VK_QCOM_render_pass_store_ops = []
 # type: device
 VK_QCOM_queue_perf_hint = []
 # type: device
+VK_QCOM_image_processing3 = []
+# type: device
+VK_QCOM_shader_multiple_wait_queues = []
+# type: device
+VK_EXT_shader_split_barrier = []
+# type: device
 VK_NV_cuda_kernel_launch = []
 # type: device
 VK_KHR_object_refresh = []
@@ -810,6 +820,7 @@ VK_EXT_image_2d_view_of_3d = []
 VK_KHR_portability_enumeration = []
 # type: device
 VK_EXT_shader_tile_image = ["VK_VERSION_1_3"]
+# promoted to: VK_KHR_opacity_micromap
 # type: device
 VK_EXT_opacity_micromap = ["VK_KHR_acceleration_structure"]
 # type: device
@@ -1097,6 +1108,8 @@ VK_EXT_fragment_density_map_offset = ["VK_EXT_fragment_density_map"]
 VK_EXT_zero_initialize_device_memory = []
 # type: device
 VK_KHR_present_mode_fifo_latest_ready = ["VK_KHR_swapchain"]
+# type: device
+VK_KHR_opacity_micromap = ["VK_KHR_acceleration_structure", "VK_KHR_device_address_commands"]
 # type: device
 VK_EXT_shader_64bit_indexing = []
 # type: device

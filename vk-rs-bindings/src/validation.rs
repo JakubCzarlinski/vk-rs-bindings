@@ -593,6 +593,16 @@ compile_error!(
   "Feature `VK_EXT_sampler_filter_minmax` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_sampler_filter_minmax.html"
 );
 #[cfg(all(
+  feature = "VK_AMD_gpa_interface",
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
+))]
+compile_error!(
+  "Feature `VK_AMD_gpa_interface` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_AMD_gpa_interface.html"
+);
+#[cfg(all(
   feature = "VK_AMDX_shader_enqueue",
   not(any(
     all(
@@ -819,6 +829,16 @@ compile_error!(
 ))]
 compile_error!(
   "Feature `VK_QCOM_cooperative_matrix_conversion` requires `VK_KHR_cooperative_matrix`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_cooperative_matrix_conversion.html"
+);
+#[cfg(all(
+  feature = "VK_QCOM_elapsed_timer_query",
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
+))]
+compile_error!(
+  "Feature `VK_QCOM_elapsed_timer_query` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_elapsed_timer_query.html"
 );
 #[cfg(all(
   feature = "VK_KHR_shader_subgroup_extended_types",
@@ -1743,6 +1763,36 @@ compile_error!(
 ))]
 compile_error!(
   "Feature `VK_QCOM_queue_perf_hint` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_queue_perf_hint.html"
+);
+#[cfg(all(
+  feature = "VK_QCOM_image_processing3",
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
+))]
+compile_error!(
+  "Feature `VK_QCOM_image_processing3` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_image_processing3.html"
+);
+#[cfg(all(
+  feature = "VK_QCOM_shader_multiple_wait_queues",
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
+))]
+compile_error!(
+  "Feature `VK_QCOM_shader_multiple_wait_queues` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_shader_multiple_wait_queues.html"
+);
+#[cfg(all(
+  feature = "VK_EXT_shader_split_barrier",
+  not(any(
+    feature = "VK_KHR_get_physical_device_properties2",
+    feature = "VK_VERSION_1_1"
+  ))
+))]
+compile_error!(
+  "Feature `VK_EXT_shader_split_barrier` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_shader_split_barrier.html"
 );
 #[cfg(all(
   feature = "VK_NV_cuda_kernel_launch",
@@ -3575,6 +3625,16 @@ compile_error!(
 ))]
 compile_error!(
   "Feature `VK_KHR_present_mode_fifo_latest_ready` requires `VK_KHR_swapchain`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_present_mode_fifo_latest_ready.html"
+);
+#[cfg(all(
+  feature = "VK_KHR_opacity_micromap",
+  not(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_device_address_commands"
+  ))
+))]
+compile_error!(
+  "Feature `VK_KHR_opacity_micromap` requires `VK_KHR_acceleration_structure + VK_KHR_device_address_commands`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_opacity_micromap.html"
 );
 #[cfg(all(
   feature = "VK_EXT_shader_64bit_indexing",

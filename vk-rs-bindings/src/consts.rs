@@ -179,6 +179,16 @@ pub const VK_AMD_GCN_SHADER_SPEC_VERSION: u32 = 1;
 /// Extension type: device extension.
 #[cfg(feature = "VK_AMD_gcn_shader")]
 pub const VK_AMD_GCN_SHADER_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_AMD_gcn_shader";
+/// [VK_AMD_GPA_INTERFACE_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_AMD_gpa_interface.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub const VK_AMD_GPA_INTERFACE_SPEC_VERSION: u32 = 1;
+/// [VK_AMD_GPA_INTERFACE_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_AMD_gpa_interface.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub const VK_AMD_GPA_INTERFACE_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_AMD_gpa_interface";
 /// [VK_AMD_GPU_SHADER_HALF_FLOAT_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_AMD_gpu_shader_half_float.html)
 ///
 /// Extension type: device extension.
@@ -599,7 +609,7 @@ pub const VK_API_VERSION: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
 pub const VK_API_VERSION_1_0: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 0u32, 0u32);
 /// [VK_HEADER_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION.html)
 #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
-pub const VK_HEADER_VERSION: u32 = 350u32;
+pub const VK_HEADER_VERSION: u32 = 351u32;
 /// [VK_HEADER_VERSION_COMPLETE](https://docs.vulkan.org/refpages/latest/refpages/source/VK_HEADER_VERSION_COMPLETE.html)
 #[cfg(all(feature = "VK_BASE_VERSION_1_0", not(feature = "VKSC_VERSION_1_0")))]
 pub const VK_HEADER_VERSION_COMPLETE: u32 = VK_MAKE_API_VERSION(0u32, 1u32, 4u32, 0u32);
@@ -1936,6 +1946,17 @@ pub const VK_EXT_SHADER_REPLICATED_COMPOSITES_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_EXT_shader_replicated_composites")]
 pub const VK_EXT_SHADER_REPLICATED_COMPOSITES_EXTENSION_NAME: &'static core::ffi::CStr =
   c"VK_EXT_shader_replicated_composites";
+/// [VK_EXT_SHADER_SPLIT_BARRIER_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_shader_split_barrier.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+pub const VK_EXT_SHADER_SPLIT_BARRIER_SPEC_VERSION: u32 = 1;
+/// [VK_EXT_SHADER_SPLIT_BARRIER_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_shader_split_barrier.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+pub const VK_EXT_SHADER_SPLIT_BARRIER_EXTENSION_NAME: &'static core::ffi::CStr =
+  c"VK_EXT_shader_split_barrier";
 /// [VK_EXT_SHADER_STENCIL_EXPORT_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_shader_stencil_export.html)
 ///
 /// Extension type: device extension.
@@ -3163,6 +3184,17 @@ pub const VK_KHR_OBJECT_REFRESH_SPEC_VERSION: u32 = 1;
 /// Extension type: device extension.
 #[cfg(feature = "VK_KHR_object_refresh")]
 pub const VK_KHR_OBJECT_REFRESH_EXTENSION_NAME: &'static core::ffi::CStr = c"VK_KHR_object_refresh";
+/// [VK_KHR_OPACITY_MICROMAP_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_opacity_micromap.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+pub const VK_KHR_OPACITY_MICROMAP_SPEC_VERSION: u32 = 1;
+/// [VK_KHR_OPACITY_MICROMAP_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_opacity_micromap.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+pub const VK_KHR_OPACITY_MICROMAP_EXTENSION_NAME: &'static core::ffi::CStr =
+  c"VK_KHR_opacity_micromap";
 /// [VK_KHR_PERFORMANCE_QUERY_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_performance_query.html)
 ///
 /// Extension type: device extension.
@@ -5162,6 +5194,17 @@ pub const VK_QCOM_DATA_GRAPH_MODEL_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_QCOM_data_graph_model")]
 pub const VK_QCOM_DATA_GRAPH_MODEL_EXTENSION_NAME: &'static core::ffi::CStr =
   c"VK_QCOM_data_graph_model";
+/// [VK_QCOM_ELAPSED_TIMER_QUERY_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_elapsed_timer_query.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+pub const VK_QCOM_ELAPSED_TIMER_QUERY_SPEC_VERSION: u32 = 1;
+/// [VK_QCOM_ELAPSED_TIMER_QUERY_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_elapsed_timer_query.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+pub const VK_QCOM_ELAPSED_TIMER_QUERY_EXTENSION_NAME: &'static core::ffi::CStr =
+  c"VK_QCOM_elapsed_timer_query";
 /// [VK_QCOM_FILTER_CUBIC_CLAMP_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_filter_cubic_clamp.html)
 ///
 /// Extension type: device extension.
@@ -5217,6 +5260,17 @@ pub const VK_QCOM_IMAGE_PROCESSING_2_SPEC_VERSION: u32 = 1;
 #[cfg(feature = "VK_QCOM_image_processing2")]
 pub const VK_QCOM_IMAGE_PROCESSING_2_EXTENSION_NAME: &'static core::ffi::CStr =
   c"VK_QCOM_image_processing2";
+/// [VK_QCOM_IMAGE_PROCESSING_3_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_image_processing3.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_image_processing3")]
+pub const VK_QCOM_IMAGE_PROCESSING_3_SPEC_VERSION: u32 = 1;
+/// [VK_QCOM_IMAGE_PROCESSING_3_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_image_processing3.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_image_processing3")]
+pub const VK_QCOM_IMAGE_PROCESSING_3_EXTENSION_NAME: &'static core::ffi::CStr =
+  c"VK_QCOM_image_processing3";
 /// [VK_QCOM_MULTIVIEW_PER_VIEW_RENDER_AREAS_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_multiview_per_view_render_areas.html)
 ///
 /// Extension type: device extension.
@@ -5294,6 +5348,17 @@ pub const VK_QCOM_ROTATED_COPY_COMMANDS_SPEC_VERSION: u32 = 2;
 #[cfg(feature = "VK_QCOM_rotated_copy_commands")]
 pub const VK_QCOM_ROTATED_COPY_COMMANDS_EXTENSION_NAME: &'static core::ffi::CStr =
   c"VK_QCOM_rotated_copy_commands";
+/// [VK_QCOM_SHADER_MULTIPLE_WAIT_QUEUES_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_shader_multiple_wait_queues.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+pub const VK_QCOM_SHADER_MULTIPLE_WAIT_QUEUES_SPEC_VERSION: u32 = 1;
+/// [VK_QCOM_SHADER_MULTIPLE_WAIT_QUEUES_EXTENSION_NAME](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_shader_multiple_wait_queues.html)
+///
+/// Extension type: device extension.
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+pub const VK_QCOM_SHADER_MULTIPLE_WAIT_QUEUES_EXTENSION_NAME: &'static core::ffi::CStr =
+  c"VK_QCOM_shader_multiple_wait_queues";
 /// [VK_QCOM_TILE_MEMORY_HEAP_SPEC_VERSION](https://docs.vulkan.org/refpages/latest/refpages/source/VK_QCOM_tile_memory_heap.html)
 ///
 /// Extension type: device extension.

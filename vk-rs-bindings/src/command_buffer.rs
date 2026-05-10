@@ -27,6 +27,16 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdDrawIndexedIndirectCountAMD: Option<PFN_vkCmdDrawIndexedIndirectCountAMD>,
   #[cfg(feature = "VK_AMD_draw_indirect_count")]
   pub vkCmdDrawIndirectCountAMD: Option<PFN_vkCmdDrawIndirectCountAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkCmdBeginGpaSampleAMD: Option<PFN_vkCmdBeginGpaSampleAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkCmdBeginGpaSessionAMD: Option<PFN_vkCmdBeginGpaSessionAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkCmdCopyGpaSessionResultsAMD: Option<PFN_vkCmdCopyGpaSessionResultsAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkCmdEndGpaSampleAMD: Option<PFN_vkCmdEndGpaSampleAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkCmdEndGpaSessionAMD: Option<PFN_vkCmdEndGpaSessionAMD>,
   #[cfg(feature = "VK_ARM_data_graph")]
   pub vkCmdDispatchDataGraphARM: Option<PFN_vkCmdDispatchDataGraphARM>,
   #[cfg(feature = "VK_ARM_scheduling_controls")]
@@ -827,6 +837,16 @@ impl CommandBufferDispatchTable {
     vkCmdDrawIndexedIndirectCountAMD: None,
     #[cfg(feature = "VK_AMD_draw_indirect_count")]
     vkCmdDrawIndirectCountAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkCmdBeginGpaSampleAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkCmdBeginGpaSessionAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkCmdCopyGpaSessionResultsAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkCmdEndGpaSampleAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkCmdEndGpaSessionAMD: None,
     #[cfg(feature = "VK_ARM_data_graph")]
     vkCmdDispatchDataGraphARM: None,
     #[cfg(feature = "VK_ARM_scheduling_controls")]
@@ -1626,6 +1646,21 @@ impl CommandBufferDispatchTable {
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_AMD_draw_indirect_count")]
       vkCmdDrawIndirectCountAMD: loader(c"vkCmdDrawIndirectCountAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkCmdBeginGpaSampleAMD: loader(c"vkCmdBeginGpaSampleAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkCmdBeginGpaSessionAMD: loader(c"vkCmdBeginGpaSessionAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkCmdCopyGpaSessionResultsAMD: loader(c"vkCmdCopyGpaSessionResultsAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkCmdEndGpaSampleAMD: loader(c"vkCmdEndGpaSampleAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkCmdEndGpaSessionAMD: loader(c"vkCmdEndGpaSessionAMD".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_ARM_data_graph")]
       vkCmdDispatchDataGraphARM: loader(c"vkCmdDispatchDataGraphARM".as_ptr())
@@ -3085,6 +3120,163 @@ impl<'dev> CommandBuffer<'dev> {
         maxDrawCount,
         stride,
       )
+    }
+  }
+  /// [`vkCmdBeginGpaSampleAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSampleAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  /// - **Queues:** Graphics, Compute
+  /// - **Render Pass:** Both
+  /// - **Tasks:** Action, State
+  ///
+  /// # Parameters
+  /// - `commandBuffer`
+  /// - `gpaSession`
+  /// - `pGpaSampleBeginInfo`
+  /// - `pSampleID`
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline(always)]
+  pub fn vkCmdBeginGpaSampleAMD(
+    &self,
+    gpaSession: VkGpaSessionAMD,
+    pGpaSampleBeginInfo: &VkGpaSampleBeginInfoAMD,
+    pSampleID: &mut u32,
+  ) -> Result<VkResult, VkResult> {
+    let r = unsafe {
+      (self.table).vkCmdBeginGpaSampleAMD.unwrap_unchecked()(
+        self.raw,
+        gpaSession,
+        pGpaSampleBeginInfo,
+        pSampleID,
+      )
+    };
+    if r >= VkResult::VK_SUCCESS {
+      Ok(r)
+    } else {
+      Err(r)
+    }
+  }
+  /// [`vkCmdBeginGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSessionAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  /// - **Queues:** Graphics, Compute
+  /// - **Render Pass:** Both
+  /// - **Tasks:** Action, State
+  ///
+  /// # Parameters
+  /// - `commandBuffer`
+  /// - `gpaSession`
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline(always)]
+  pub fn vkCmdBeginGpaSessionAMD(&self, gpaSession: VkGpaSessionAMD) -> Result<VkResult, VkResult> {
+    let r =
+      unsafe { (self.table).vkCmdBeginGpaSessionAMD.unwrap_unchecked()(self.raw, gpaSession) };
+    if r >= VkResult::VK_SUCCESS {
+      Ok(r)
+    } else {
+      Err(r)
+    }
+  }
+  /// [`vkCmdCopyGpaSessionResultsAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyGpaSessionResultsAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  /// - **Queues:** Graphics, Compute, Transfer
+  /// - **Render Pass:** Both
+  /// - **Tasks:** Action, State
+  ///
+  /// # Parameters
+  /// - `commandBuffer`
+  /// - `gpaSession`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline(always)]
+  pub fn vkCmdCopyGpaSessionResultsAMD(&self, gpaSession: VkGpaSessionAMD) {
+    unsafe {
+      // SAFETY: table is fully loaded at creation.
+      (self.table)
+        .vkCmdCopyGpaSessionResultsAMD
+        .unwrap_unchecked()(self.raw, gpaSession)
+    }
+  }
+  /// [`vkCmdEndGpaSampleAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSampleAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  /// - **Queues:** Graphics, Compute
+  /// - **Render Pass:** Both
+  /// - **Tasks:** Action, State
+  ///
+  /// # Parameters
+  /// - `commandBuffer`
+  /// - `gpaSession`
+  /// - `sampleID`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline(always)]
+  pub fn vkCmdEndGpaSampleAMD(&self, gpaSession: VkGpaSessionAMD, sampleID: u32) {
+    unsafe {
+      // SAFETY: table is fully loaded at creation.
+      (self.table).vkCmdEndGpaSampleAMD.unwrap_unchecked()(self.raw, gpaSession, sampleID)
+    }
+  }
+  /// [`vkCmdEndGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndGpaSessionAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  /// - **Queues:** Graphics, Compute
+  /// - **Render Pass:** Both
+  /// - **Tasks:** Action, State
+  ///
+  /// # Parameters
+  /// - `commandBuffer`
+  /// - `gpaSession`
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline(always)]
+  pub fn vkCmdEndGpaSessionAMD(&self, gpaSession: VkGpaSessionAMD) -> Result<VkResult, VkResult> {
+    let r = unsafe { (self.table).vkCmdEndGpaSessionAMD.unwrap_unchecked()(self.raw, gpaSession) };
+    if r >= VkResult::VK_SUCCESS {
+      Ok(r)
+    } else {
+      Err(r)
     }
   }
   /// [`vkCmdDispatchDataGraphARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchDataGraphARM.html)

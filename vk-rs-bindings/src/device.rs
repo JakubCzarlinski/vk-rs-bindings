@@ -21,6 +21,12 @@ pub struct DeviceDispatchTable {
   pub vkGetFaultData: Option<PFN_vkGetFaultData>,
   #[cfg(feature = "VK_AMD_anti_lag")]
   pub vkAntiLagUpdateAMD: Option<PFN_vkAntiLagUpdateAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkCreateGpaSessionAMD: Option<PFN_vkCreateGpaSessionAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkGetGpaDeviceClockInfoAMD: Option<PFN_vkGetGpaDeviceClockInfoAMD>,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub vkSetGpaDeviceClockModeAMD: Option<PFN_vkSetGpaDeviceClockModeAMD>,
   #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
   pub vkGetAndroidHardwareBufferPropertiesANDROID:
     Option<PFN_vkGetAndroidHardwareBufferPropertiesANDROID>,
@@ -514,6 +520,12 @@ impl DeviceDispatchTable {
     vkGetFaultData: None,
     #[cfg(feature = "VK_AMD_anti_lag")]
     vkAntiLagUpdateAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkCreateGpaSessionAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkGetGpaDeviceClockInfoAMD: None,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    vkSetGpaDeviceClockModeAMD: None,
     #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
     vkGetAndroidHardwareBufferPropertiesANDROID: None,
     #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
@@ -985,6 +997,15 @@ impl DeviceDispatchTable {
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_AMD_anti_lag")]
       vkAntiLagUpdateAMD: loader(c"vkAntiLagUpdateAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkCreateGpaSessionAMD: loader(c"vkCreateGpaSessionAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkGetGpaDeviceClockInfoAMD: loader(c"vkGetGpaDeviceClockInfoAMD".as_ptr())
+        .map(|f| unsafe { core::mem::transmute(f) }),
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      vkSetGpaDeviceClockModeAMD: loader(c"vkSetGpaDeviceClockModeAMD".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
       vkGetAndroidHardwareBufferPropertiesANDROID: loader(
@@ -1835,6 +1856,8 @@ pub struct Device<'inst> {
   pub(crate) fence_table: crate::fence::FenceDispatchTable,
   #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
   pub(crate) framebuffer_table: crate::framebuffer::FramebufferDispatchTable,
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub(crate) gpa_session_amd_table: crate::gpa_session_amd::GpaSessionAMDDispatchTable,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   pub(crate) image_table: crate::image::ImageDispatchTable,
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -1960,6 +1983,8 @@ impl<'inst> Device<'inst> {
     #[cfg(feature = "VK_BASE_VERSION_1_0")] fence_table: crate::fence::FenceDispatchTable,
     #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
     framebuffer_table: crate::framebuffer::FramebufferDispatchTable,
+    #[cfg(feature = "VK_AMD_gpa_interface")]
+    gpa_session_amd_table: crate::gpa_session_amd::GpaSessionAMDDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")] image_table: crate::image::ImageDispatchTable,
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     image_view_table: crate::image_view::ImageViewDispatchTable,
@@ -2064,6 +2089,8 @@ impl<'inst> Device<'inst> {
       fence_table,
       #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
       framebuffer_table,
+      #[cfg(feature = "VK_AMD_gpa_interface")]
+      gpa_session_amd_table,
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
       image_table,
       #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -2203,6 +2230,120 @@ impl<'inst> Device<'inst> {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (&self.table).vkAntiLagUpdateAMD.unwrap_unchecked()(self.raw, pData)
+    }
+  }
+  /// [`vkCreateGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGpaSessionAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  ///
+  /// # Parameters
+  /// - `device`
+  /// - `pCreateInfo`
+  /// - `pAllocator`: optional: true
+  /// - `pGpaSession`
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline]
+  pub fn vkCreateGpaSessionAMD<'ret>(
+    &'ret self,
+    pCreateInfo: &VkGpaSessionCreateInfoAMD,
+    pAllocator: *const VkAllocationCallbacks,
+  ) -> Result<crate::gpa_session_amd::GpaSessionAMD<'ret>, VkResult> {
+    let mut handle = VkGpaSessionAMD::NULL;
+    let r = unsafe {
+      (&self.table).vkCreateGpaSessionAMD.unwrap_unchecked()(
+        self.raw,
+        pCreateInfo,
+        pAllocator,
+        &mut handle,
+      )
+    };
+    if r >= VkResult::VK_SUCCESS {
+      Ok(crate::gpa_session_amd::GpaSessionAMD {
+        raw: handle,
+        parent: self,
+        table: &self.gpa_session_amd_table,
+      })
+    } else {
+      Err(r)
+    }
+  }
+  /// [`vkGetGpaDeviceClockInfoAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaDeviceClockInfoAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  ///
+  /// # Parameters
+  /// - `device`
+  /// - `pInfo`
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline(always)]
+  pub fn vkGetGpaDeviceClockInfoAMD(
+    &self,
+    pInfo: &mut VkGpaDeviceGetClockInfoAMD,
+  ) -> Result<VkResult, VkResult> {
+    let r = unsafe { (&self.table).vkGetGpaDeviceClockInfoAMD.unwrap_unchecked()(self.raw, pInfo) };
+    if r >= VkResult::VK_SUCCESS {
+      Ok(r)
+    } else {
+      Err(r)
+    }
+  }
+  /// [`vkSetGpaDeviceClockModeAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetGpaDeviceClockModeAMD.html)
+  ///
+  /// Provided by:
+  /// - `VK_AMD_gpa_interface`
+  ///
+  ///
+  /// # Parameters
+  /// - `device`
+  /// - `pInfo`
+  ///
+  /// # Returns
+  ///
+  /// **Success Codes:**
+  ///   - `VK_SUCCESS`
+  ///
+  /// **Error Codes:**
+  ///   - `VK_ERROR_OUT_OF_HOST_MEMORY`
+  ///   - `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  ///   - `VK_ERROR_UNKNOWN`
+  ///   - `VK_ERROR_VALIDATION_FAILED`
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  #[inline(always)]
+  pub fn vkSetGpaDeviceClockModeAMD(
+    &self,
+    pInfo: &mut VkGpaDeviceClockModeInfoAMD,
+  ) -> Result<VkResult, VkResult> {
+    let r = unsafe { (&self.table).vkSetGpaDeviceClockModeAMD.unwrap_unchecked()(self.raw, pInfo) };
+    if r >= VkResult::VK_SUCCESS {
+      Ok(r)
+    } else {
+      Err(r)
     }
   }
   /// [`vkGetAndroidHardwareBufferPropertiesANDROID`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAndroidHardwareBufferPropertiesANDROID.html)

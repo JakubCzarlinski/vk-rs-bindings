@@ -1927,6 +1927,619 @@ impl VkSwapchainDisplayNativeHdrCreateInfoAMD {
     self
   }
 }
+/// [VkGpaSqShaderStageFlagsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSqShaderStageFlagsAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type VkGpaSqShaderStageFlagsAMD = VkFlags;
+/// [VkGpaPerfBlockPropertiesFlagsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfBlockPropertiesFlagsAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type VkGpaPerfBlockPropertiesFlagsAMD = VkFlags;
+/// [VkPhysicalDeviceGpaPropertiesFlagsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGpaPropertiesFlagsAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+pub type VkPhysicalDeviceGpaPropertiesFlagsAMD = VkFlags;
+/// [VkGpaSessionAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSessionAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct VkGpaSessionAMD(pub *mut core::ffi::c_void);
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaSessionAMD {
+  pub const NULL: Self = Self(core::ptr::null_mut());
+  pub const DEFAULT: Self = Self::NULL;
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl Default for VkGpaSessionAMD {
+  fn default() -> Self {
+    Self::NULL
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkGpaSessionAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkGpaSessionAMD {}
+/// [VkGpaPerfBlockPropertiesAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfBlockPropertiesAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkGpaPerfBlockPropertiesAMD {
+  pub blockType: VkGpaPerfBlockAMD,
+  pub flags: VkGpaPerfBlockPropertiesFlagsAMD,
+  pub instanceCount: u32,
+  pub maxEventID: u32,
+  pub maxGlobalOnlyCounters: u32,
+  pub maxGlobalSharedCounters: u32,
+  pub maxStreamingCounters: u32,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkGpaPerfBlockPropertiesAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkGpaPerfBlockPropertiesAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaPerfBlockPropertiesAMD {
+  pub const DEFAULT: Self = Self {
+    blockType: VkGpaPerfBlockAMD(0),
+    flags: 0,
+    instanceCount: 0,
+    maxEventID: 0,
+    maxGlobalOnlyCounters: 0,
+    maxGlobalSharedCounters: 0,
+    maxStreamingCounters: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  #[inline]
+  pub const fn with_blockType(mut self, val: VkGpaPerfBlockAMD) -> Self {
+    self.blockType = val;
+    self
+  }
+  #[inline]
+  pub const fn with_flags(mut self, val: VkGpaPerfBlockPropertiesFlagsAMD) -> Self {
+    self.flags = val;
+    self
+  }
+  #[inline]
+  pub const fn with_instanceCount(mut self, val: u32) -> Self {
+    self.instanceCount = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxEventID(mut self, val: u32) -> Self {
+    self.maxEventID = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxGlobalOnlyCounters(mut self, val: u32) -> Self {
+    self.maxGlobalOnlyCounters = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxGlobalSharedCounters(mut self, val: u32) -> Self {
+    self.maxGlobalSharedCounters = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxStreamingCounters(mut self, val: u32) -> Self {
+    self.maxStreamingCounters = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceGpaFeaturesAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGpaFeaturesAMD.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceGpaFeaturesAMD {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_FEATURES_AMD
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  pub perfCounters: VkBool32,
+  pub streamingPerfCounters: VkBool32,
+  pub sqThreadTracing: VkBool32,
+  pub clockModes: VkBool32,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkPhysicalDeviceGpaFeaturesAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkPhysicalDeviceGpaFeaturesAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkPhysicalDeviceGpaFeaturesAMD {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_FEATURES_AMD,
+    pNext: core::ptr::null_mut(),
+    perfCounters: 0,
+    streamingPerfCounters: 0,
+    sqThreadTracing: 0,
+    clockModes: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_perfCounters(mut self, val: VkBool32) -> Self {
+    self.perfCounters = val;
+    self
+  }
+  #[inline]
+  pub const fn with_streamingPerfCounters(mut self, val: VkBool32) -> Self {
+    self.streamingPerfCounters = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sqThreadTracing(mut self, val: VkBool32) -> Self {
+    self.sqThreadTracing = val;
+    self
+  }
+  #[inline]
+  pub const fn with_clockModes(mut self, val: VkBool32) -> Self {
+    self.clockModes = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceGpaPropertiesAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGpaPropertiesAMD.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceGpaPropertiesAMD {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_PROPERTIES_AMD
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  /// Limit Type: [Noauto]
+  pub flags: VkPhysicalDeviceGpaPropertiesFlagsAMD,
+  /// Limit Type: [Max]
+  pub maxSqttSeBufferSize: VkDeviceSize,
+  /// Limit Type: [Noauto]
+  pub shaderEngineCount: u32,
+  /// Limit Type: [Noauto]
+  pub perfBlockCount: u32,
+  /// Length: perfBlockCount,  Limit Type: [Noauto]
+  pub pPerfBlocks: *mut VkGpaPerfBlockPropertiesAMD,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkPhysicalDeviceGpaPropertiesAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkPhysicalDeviceGpaPropertiesAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkPhysicalDeviceGpaPropertiesAMD {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_PROPERTIES_AMD,
+    pNext: core::ptr::null_mut(),
+    flags: 0,
+    maxSqttSeBufferSize: 0,
+    shaderEngineCount: 0,
+    perfBlockCount: 0,
+    pPerfBlocks: core::ptr::null_mut(),
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_flags(mut self, val: VkPhysicalDeviceGpaPropertiesFlagsAMD) -> Self {
+    self.flags = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxSqttSeBufferSize(mut self, val: VkDeviceSize) -> Self {
+    self.maxSqttSeBufferSize = val;
+    self
+  }
+  #[inline]
+  pub const fn with_shaderEngineCount(mut self, val: u32) -> Self {
+    self.shaderEngineCount = val;
+    self
+  }
+  #[inline]
+  pub const fn with_perfBlockCount(mut self, val: u32) -> Self {
+    self.perfBlockCount = val;
+    self
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pPerfBlocks(mut self, val: &mut [VkGpaPerfBlockPropertiesAMD]) -> Self {
+    self.perfBlockCount = val.len() as u32;
+    self.pPerfBlocks = val.as_mut_ptr();
+    self
+  }
+}
+/// [VkPhysicalDeviceGpaProperties2AMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGpaProperties2AMD.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceGpaProperties2AMD {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  /// Limit Type: [Noauto]
+  pub revisionId: u32,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkPhysicalDeviceGpaProperties2AMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkPhysicalDeviceGpaProperties2AMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkPhysicalDeviceGpaProperties2AMD {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD,
+    pNext: core::ptr::null_mut(),
+    revisionId: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_revisionId(mut self, val: u32) -> Self {
+    self.revisionId = val;
+    self
+  }
+}
+/// [VkGpaPerfCounterAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfCounterAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkGpaPerfCounterAMD {
+  pub blockType: VkGpaPerfBlockAMD,
+  pub blockInstance: u32,
+  pub eventID: u32,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkGpaPerfCounterAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkGpaPerfCounterAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaPerfCounterAMD {
+  pub const DEFAULT: Self = Self {
+    blockType: VkGpaPerfBlockAMD(0),
+    blockInstance: 0,
+    eventID: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  #[inline]
+  pub const fn with_blockType(mut self, val: VkGpaPerfBlockAMD) -> Self {
+    self.blockType = val;
+    self
+  }
+  #[inline]
+  pub const fn with_blockInstance(mut self, val: u32) -> Self {
+    self.blockInstance = val;
+    self
+  }
+  #[inline]
+  pub const fn with_eventID(mut self, val: u32) -> Self {
+    self.eventID = val;
+    self
+  }
+}
+/// [VkGpaSampleBeginInfoAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSampleBeginInfoAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkGpaSampleBeginInfoAMD {
+  /// Values: VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *const core::ffi::c_void,
+  pub sampleType: VkGpaSampleTypeAMD,
+  pub sampleInternalOperations: VkBool32,
+  pub cacheFlushOnCounterCollection: VkBool32,
+  pub sqShaderMaskEnable: VkBool32,
+  pub sqShaderMask: VkGpaSqShaderStageFlagsAMD,
+  pub perfCounterCount: u32,
+  /// Length: perfCounterCount
+  pub pPerfCounters: *const VkGpaPerfCounterAMD,
+  pub streamingPerfTraceSampleInterval: u32,
+  pub perfCounterDeviceMemoryLimit: VkDeviceSize,
+  pub sqThreadTraceEnable: VkBool32,
+  pub sqThreadTraceSuppressInstructionTokens: VkBool32,
+  pub sqThreadTraceDeviceMemoryLimit: VkDeviceSize,
+  pub timingPreSample: VkPipelineStageFlags,
+  pub timingPostSample: VkPipelineStageFlags,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkGpaSampleBeginInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkGpaSampleBeginInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaSampleBeginInfoAMD {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD,
+    pNext: core::ptr::null(),
+    sampleType: VkGpaSampleTypeAMD(0),
+    sampleInternalOperations: 0,
+    cacheFlushOnCounterCollection: 0,
+    sqShaderMaskEnable: 0,
+    sqShaderMask: 0,
+    perfCounterCount: 0,
+    pPerfCounters: core::ptr::null(),
+    streamingPerfTraceSampleInterval: 0,
+    perfCounterDeviceMemoryLimit: 0,
+    sqThreadTraceEnable: 0,
+    sqThreadTraceSuppressInstructionTokens: 0,
+    sqThreadTraceDeviceMemoryLimit: 0,
+    timingPreSample: 0,
+    timingPostSample: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sampleType(mut self, val: VkGpaSampleTypeAMD) -> Self {
+    self.sampleType = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sampleInternalOperations(mut self, val: VkBool32) -> Self {
+    self.sampleInternalOperations = val;
+    self
+  }
+  #[inline]
+  pub const fn with_cacheFlushOnCounterCollection(mut self, val: VkBool32) -> Self {
+    self.cacheFlushOnCounterCollection = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sqShaderMaskEnable(mut self, val: VkBool32) -> Self {
+    self.sqShaderMaskEnable = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sqShaderMask(mut self, val: VkGpaSqShaderStageFlagsAMD) -> Self {
+    self.sqShaderMask = val;
+    self
+  }
+  #[inline]
+  pub const fn with_perfCounterCount(mut self, val: u32) -> Self {
+    self.perfCounterCount = val;
+    self
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pPerfCounters(mut self, val: &[VkGpaPerfCounterAMD]) -> Self {
+    self.perfCounterCount = val.len() as u32;
+    self.pPerfCounters = val.as_ptr();
+    self
+  }
+  #[inline]
+  pub const fn with_streamingPerfTraceSampleInterval(mut self, val: u32) -> Self {
+    self.streamingPerfTraceSampleInterval = val;
+    self
+  }
+  #[inline]
+  pub const fn with_perfCounterDeviceMemoryLimit(mut self, val: VkDeviceSize) -> Self {
+    self.perfCounterDeviceMemoryLimit = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sqThreadTraceEnable(mut self, val: VkBool32) -> Self {
+    self.sqThreadTraceEnable = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sqThreadTraceSuppressInstructionTokens(mut self, val: VkBool32) -> Self {
+    self.sqThreadTraceSuppressInstructionTokens = val;
+    self
+  }
+  #[inline]
+  pub const fn with_sqThreadTraceDeviceMemoryLimit(mut self, val: VkDeviceSize) -> Self {
+    self.sqThreadTraceDeviceMemoryLimit = val;
+    self
+  }
+  #[inline]
+  pub const fn with_timingPreSample(mut self, val: VkPipelineStageFlags) -> Self {
+    self.timingPreSample = val;
+    self
+  }
+  #[inline]
+  pub const fn with_timingPostSample(mut self, val: VkPipelineStageFlags) -> Self {
+    self.timingPostSample = val;
+    self
+  }
+}
+/// [VkGpaDeviceClockModeInfoAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaDeviceClockModeInfoAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkGpaDeviceClockModeInfoAMD {
+  /// Values: VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *const core::ffi::c_void,
+  pub clockMode: VkGpaDeviceClockModeAMD,
+  pub memoryClockRatioToPeak: f32,
+  pub engineClockRatioToPeak: f32,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkGpaDeviceClockModeInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkGpaDeviceClockModeInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaDeviceClockModeInfoAMD {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD,
+    pNext: core::ptr::null(),
+    clockMode: VkGpaDeviceClockModeAMD(0),
+    memoryClockRatioToPeak: 0.0f32,
+    engineClockRatioToPeak: 0.0f32,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_clockMode(mut self, val: VkGpaDeviceClockModeAMD) -> Self {
+    self.clockMode = val;
+    self
+  }
+  #[inline]
+  pub const fn with_memoryClockRatioToPeak(mut self, val: f32) -> Self {
+    self.memoryClockRatioToPeak = val;
+    self
+  }
+  #[inline]
+  pub const fn with_engineClockRatioToPeak(mut self, val: f32) -> Self {
+    self.engineClockRatioToPeak = val;
+    self
+  }
+}
+/// [VkGpaDeviceGetClockInfoAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaDeviceGetClockInfoAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkGpaDeviceGetClockInfoAMD {
+  /// Values: VK_STRUCTURE_TYPE_GPA_DEVICE_GET_CLOCK_INFO_AMD
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  pub memoryClockRatioToPeak: f32,
+  pub engineClockRatioToPeak: f32,
+  pub memoryClockFrequency: u32,
+  pub engineClockFrequency: u32,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkGpaDeviceGetClockInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkGpaDeviceGetClockInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaDeviceGetClockInfoAMD {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_GPA_DEVICE_GET_CLOCK_INFO_AMD,
+    pNext: core::ptr::null_mut(),
+    memoryClockRatioToPeak: 0.0f32,
+    engineClockRatioToPeak: 0.0f32,
+    memoryClockFrequency: 0,
+    engineClockFrequency: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_memoryClockRatioToPeak(mut self, val: f32) -> Self {
+    self.memoryClockRatioToPeak = val;
+    self
+  }
+  #[inline]
+  pub const fn with_engineClockRatioToPeak(mut self, val: f32) -> Self {
+    self.engineClockRatioToPeak = val;
+    self
+  }
+  #[inline]
+  pub const fn with_memoryClockFrequency(mut self, val: u32) -> Self {
+    self.memoryClockFrequency = val;
+    self
+  }
+  #[inline]
+  pub const fn with_engineClockFrequency(mut self, val: u32) -> Self {
+    self.engineClockFrequency = val;
+    self
+  }
+}
+/// [VkGpaSessionCreateInfoAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSessionCreateInfoAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkGpaSessionCreateInfoAMD {
+  /// Values: VK_STRUCTURE_TYPE_GPA_SESSION_CREATE_INFO_AMD
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *const core::ffi::c_void,
+  /// Optional: true
+  pub secondaryCopySource: VkGpaSessionAMD,
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Send for VkGpaSessionCreateInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+unsafe impl Sync for VkGpaSessionCreateInfoAMD {}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaSessionCreateInfoAMD {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_GPA_SESSION_CREATE_INFO_AMD,
+    pNext: core::ptr::null(),
+    secondaryCopySource: VkGpaSessionAMD::DEFAULT,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_secondaryCopySource(mut self, val: VkGpaSessionAMD) -> Self {
+    self.secondaryCopySource = val;
+    self
+  }
+}
 /// [VkDeviceMemoryOverallocationCreateInfoAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceMemoryOverallocationCreateInfoAMD.html)
 ///
 /// **Extends:** VkDeviceCreateInfo.
@@ -39479,6 +40092,7 @@ pub struct VkCopyMicromapInfoEXT {
   pub pNext: *const core::ffi::c_void,
   pub src: VkMicromapEXT,
   pub dst: VkMicromapEXT,
+  /// No Auto-Validity
   pub mode: VkCopyMicromapModeEXT,
 }
 #[cfg(feature = "VK_EXT_opacity_micromap")]
@@ -39722,46 +40336,8 @@ impl VkMicromapUsageEXT {
     self
   }
 }
-/// [VkMicromapTriangleEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapTriangleEXT.html)
 #[cfg(feature = "VK_EXT_opacity_micromap")]
-#[repr(C)]
-#[derive(Debug, Clone, Copy)]
-pub struct VkMicromapTriangleEXT {
-  pub dataOffset: u32,
-  pub subdivisionLevel: u16,
-  pub format: u16,
-}
-#[cfg(feature = "VK_EXT_opacity_micromap")]
-unsafe impl Send for VkMicromapTriangleEXT {}
-#[cfg(feature = "VK_EXT_opacity_micromap")]
-unsafe impl Sync for VkMicromapTriangleEXT {}
-#[cfg(feature = "VK_EXT_opacity_micromap")]
-impl VkMicromapTriangleEXT {
-  pub const DEFAULT: Self = Self {
-    dataOffset: 0,
-    subdivisionLevel: 0,
-    format: 0,
-  };
-  #[inline]
-  pub const fn new() -> Self {
-    Self::DEFAULT
-  }
-  #[inline]
-  pub const fn with_dataOffset(mut self, val: u32) -> Self {
-    self.dataOffset = val;
-    self
-  }
-  #[inline]
-  pub const fn with_subdivisionLevel(mut self, val: u16) -> Self {
-    self.subdivisionLevel = val;
-    self
-  }
-  #[inline]
-  pub const fn with_format(mut self, val: u16) -> Self {
-    self.format = val;
-    self
-  }
-}
+pub type VkMicromapTriangleEXT = VkMicromapTriangleKHR;
 /// [VkPhysicalDeviceOpacityMicromapFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpacityMicromapFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -42992,6 +43568,93 @@ impl VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT {
     self
   }
 }
+/// [VkPhysicalDeviceShaderSplitBarrierFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSplitBarrierFeaturesEXT.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceShaderSplitBarrierFeaturesEXT {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT
+  pub sType: VkStructureType,
+  /// Optional: true,  No Auto-Validity
+  pub pNext: *mut core::ffi::c_void,
+  pub shaderSplitBarrier: VkBool32,
+}
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+unsafe impl Send for VkPhysicalDeviceShaderSplitBarrierFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+unsafe impl Sync for VkPhysicalDeviceShaderSplitBarrierFeaturesEXT {}
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+impl VkPhysicalDeviceShaderSplitBarrierFeaturesEXT {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT,
+    pNext: core::ptr::null_mut(),
+    shaderSplitBarrier: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_shaderSplitBarrier(mut self, val: VkBool32) -> Self {
+    self.shaderSplitBarrier = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceShaderSplitBarrierPropertiesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSplitBarrierPropertiesEXT.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceShaderSplitBarrierPropertiesEXT {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  /// Limit Type: [Max]
+  pub splitBarrierReservedSharedMemory: u32,
+}
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+unsafe impl Send for VkPhysicalDeviceShaderSplitBarrierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+unsafe impl Sync for VkPhysicalDeviceShaderSplitBarrierPropertiesEXT {}
+#[cfg(feature = "VK_EXT_shader_split_barrier")]
+impl VkPhysicalDeviceShaderSplitBarrierPropertiesEXT {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT,
+    pNext: core::ptr::null_mut(),
+    splitBarrierReservedSharedMemory: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_splitBarrierReservedSharedMemory(mut self, val: u32) -> Self {
+    self.splitBarrierReservedSharedMemory = val;
+    self
+  }
+}
 /// [VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -45077,30 +45740,30 @@ impl VkMemoryGetZirconHandleInfoFUCHSIA {
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct zx_handle_t(pub *mut core::ffi::c_void);
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 impl zx_handle_t {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 unsafe impl Send for zx_handle_t {}
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 unsafe impl Sync for zx_handle_t {}
 /// [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreZirconHandleInfoFUCHSIA.html)
@@ -56353,135 +57016,133 @@ impl VkFenceGetWin32HandleInfoKHR {
 /// [LPCWSTR](https://docs.vulkan.org/refpages/latest/refpages/source/LPCWSTR.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LPCWSTR(pub *mut core::ffi::c_void);
 #[cfg(any(
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 impl LPCWSTR {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 unsafe impl Send for LPCWSTR {}
 #[cfg(any(
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32"
 ))]
 unsafe impl Sync for LPCWSTR {}
 /// [HANDLE](https://docs.vulkan.org/refpages/latest/refpages/source/HANDLE.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HANDLE(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32"
 ))]
 impl HANDLE {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Send for HANDLE {}
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Sync for HANDLE {}
 /// [SECURITY_ATTRIBUTES](https://docs.vulkan.org/refpages/latest/refpages/source/SECURITY_ATTRIBUTES.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_memory_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_memory_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 impl SECURITY_ATTRIBUTES {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for SECURITY_ATTRIBUTES {}
 #[cfg(any(
-  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for SECURITY_ATTRIBUTES {}
 /// [DWORD](https://docs.vulkan.org/refpages/latest/refpages/source/DWORD.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DWORD(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 impl DWORD {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Send for DWORD {}
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Sync for DWORD {}
 #[cfg(feature = "VK_KHR_external_memory")]
@@ -59510,6 +60171,353 @@ impl VkRefreshObjectListKHR {
   pub const fn with_pObjects(mut self, val: &[VkRefreshObjectKHR]) -> Self {
     self.objectCount = val.len() as u32;
     self.pObjects = val.as_ptr();
+    self
+  }
+}
+/// [VkAccelerationStructureGeometryMicromapDataKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureGeometryMicromapDataKHR.html)
+///
+/// **Extends:** VkAccelerationStructureGeometryKHR.
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkAccelerationStructureGeometryMicromapDataKHR {
+  /// Values: VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *const core::ffi::c_void,
+  /// Optional: true
+  pub usageCountsCount: u32,
+  /// Optional: true,  Length: usageCountsCount
+  pub pUsageCounts: *const VkMicromapUsageKHR,
+  /// Optional: pointer optional, values required if pointer not null,  Length: usageCountsCount,1
+  pub ppUsageCounts: *const *const VkMicromapUsageKHR,
+  /// No Auto-Validity
+  pub data: VkDeviceAddress,
+  /// No Auto-Validity
+  pub triangleArray: VkDeviceAddress,
+  pub triangleArrayStride: VkDeviceSize,
+}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Send for VkAccelerationStructureGeometryMicromapDataKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Sync for VkAccelerationStructureGeometryMicromapDataKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+impl VkAccelerationStructureGeometryMicromapDataKHR {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR,
+    pNext: core::ptr::null(),
+    usageCountsCount: 0,
+    pUsageCounts: core::ptr::null(),
+    ppUsageCounts: core::ptr::null(),
+    data: 0,
+    triangleArray: 0,
+    triangleArrayStride: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *const core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_usageCountsCount(mut self, val: u32) -> Self {
+    self.usageCountsCount = val;
+    self
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pUsageCounts(mut self, val: *const VkMicromapUsageKHR) -> Self {
+    self.pUsageCounts = val;
+    self
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_ppUsageCounts(mut self, val: *const *const VkMicromapUsageKHR) -> Self {
+    self.ppUsageCounts = val;
+    self
+  }
+  #[inline]
+  pub const fn with_data(mut self, val: VkDeviceAddress) -> Self {
+    self.data = val;
+    self
+  }
+  #[inline]
+  pub const fn with_triangleArray(mut self, val: VkDeviceAddress) -> Self {
+    self.triangleArray = val;
+    self
+  }
+  #[inline]
+  pub const fn with_triangleArrayStride(mut self, val: VkDeviceSize) -> Self {
+    self.triangleArrayStride = val;
+    self
+  }
+}
+/// [VkMicromapUsageKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapUsageKHR.html)
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkMicromapUsageKHR {
+  pub count: u32,
+  pub subdivisionLevel: u32,
+  pub format: VkOpacityMicromapFormatKHR,
+}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Send for VkMicromapUsageKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Sync for VkMicromapUsageKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+impl VkMicromapUsageKHR {
+  pub const DEFAULT: Self = Self {
+    count: 0,
+    subdivisionLevel: 0,
+    format: VkOpacityMicromapFormatKHR(0),
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  #[inline]
+  pub const fn with_count(mut self, val: u32) -> Self {
+    self.count = val;
+    self
+  }
+  #[inline]
+  pub const fn with_subdivisionLevel(mut self, val: u32) -> Self {
+    self.subdivisionLevel = val;
+    self
+  }
+  #[inline]
+  pub const fn with_format(mut self, val: VkOpacityMicromapFormatKHR) -> Self {
+    self.format = val;
+    self
+  }
+}
+/// [VkMicromapTriangleKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapTriangleKHR.html)
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkMicromapTriangleKHR {
+  pub dataOffset: u32,
+  pub subdivisionLevel: u16,
+  pub format: u16,
+}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Send for VkMicromapTriangleKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Sync for VkMicromapTriangleKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+impl VkMicromapTriangleKHR {
+  pub const DEFAULT: Self = Self {
+    dataOffset: 0,
+    subdivisionLevel: 0,
+    format: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  #[inline]
+  pub const fn with_dataOffset(mut self, val: u32) -> Self {
+    self.dataOffset = val;
+    self
+  }
+  #[inline]
+  pub const fn with_subdivisionLevel(mut self, val: u16) -> Self {
+    self.subdivisionLevel = val;
+    self
+  }
+  #[inline]
+  pub const fn with_format(mut self, val: u16) -> Self {
+    self.format = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceOpacityMicromapFeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpacityMicromapFeaturesKHR.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceOpacityMicromapFeaturesKHR {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  pub micromap: VkBool32,
+}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Send for VkPhysicalDeviceOpacityMicromapFeaturesKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Sync for VkPhysicalDeviceOpacityMicromapFeaturesKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+impl VkPhysicalDeviceOpacityMicromapFeaturesKHR {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR,
+    pNext: core::ptr::null_mut(),
+    micromap: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_micromap(mut self, val: VkBool32) -> Self {
+    self.micromap = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceOpacityMicromapPropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceOpacityMicromapPropertiesKHR.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceOpacityMicromapPropertiesKHR {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  /// Limit Type: [Max]
+  pub maxOpacity2StateSubdivisionLevel: u32,
+  /// Limit Type: [Max]
+  pub maxOpacity4StateSubdivisionLevel: u32,
+  /// Limit Type: [Max]
+  pub maxOpacityLossy4StateSubdivisionLevel: u32,
+  /// Limit Type: [Max]
+  pub maxMicromapTriangles: u64,
+}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Send for VkPhysicalDeviceOpacityMicromapPropertiesKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Sync for VkPhysicalDeviceOpacityMicromapPropertiesKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+impl VkPhysicalDeviceOpacityMicromapPropertiesKHR {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR,
+    pNext: core::ptr::null_mut(),
+    maxOpacity2StateSubdivisionLevel: 0,
+    maxOpacity4StateSubdivisionLevel: 0,
+    maxOpacityLossy4StateSubdivisionLevel: 0,
+    maxMicromapTriangles: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxOpacity2StateSubdivisionLevel(mut self, val: u32) -> Self {
+    self.maxOpacity2StateSubdivisionLevel = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxOpacity4StateSubdivisionLevel(mut self, val: u32) -> Self {
+    self.maxOpacity4StateSubdivisionLevel = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxOpacityLossy4StateSubdivisionLevel(mut self, val: u32) -> Self {
+    self.maxOpacityLossy4StateSubdivisionLevel = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxMicromapTriangles(mut self, val: u64) -> Self {
+    self.maxMicromapTriangles = val;
+    self
+  }
+}
+/// [VkAccelerationStructureTrianglesOpacityMicromapKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTrianglesOpacityMicromapKHR.html)
+///
+/// **Extends:** VkAccelerationStructureGeometryTrianglesDataKHR, VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkAccelerationStructureTrianglesOpacityMicromapKHR {
+  /// Values: VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  pub indexType: VkIndexType,
+  /// No Auto-Validity
+  pub indexBuffer: VkDeviceAddress,
+  pub indexStride: VkDeviceSize,
+  pub baseTriangle: u32,
+  /// Optional: true
+  pub micromap: VkAccelerationStructureKHR,
+}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Send for VkAccelerationStructureTrianglesOpacityMicromapKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+unsafe impl Sync for VkAccelerationStructureTrianglesOpacityMicromapKHR {}
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+impl VkAccelerationStructureTrianglesOpacityMicromapKHR {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR,
+    pNext: core::ptr::null_mut(),
+    indexType: VkIndexType(0),
+    indexBuffer: 0,
+    indexStride: 0,
+    baseTriangle: 0,
+    micromap: VkAccelerationStructureKHR::DEFAULT,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_indexType(mut self, val: VkIndexType) -> Self {
+    self.indexType = val;
+    self
+  }
+  #[inline]
+  pub const fn with_indexBuffer(mut self, val: VkDeviceAddress) -> Self {
+    self.indexBuffer = val;
+    self
+  }
+  #[inline]
+  pub const fn with_indexStride(mut self, val: VkDeviceSize) -> Self {
+    self.indexStride = val;
+    self
+  }
+  #[inline]
+  pub const fn with_baseTriangle(mut self, val: u32) -> Self {
+    self.baseTriangle = val;
+    self
+  }
+  #[inline]
+  pub const fn with_micromap(mut self, val: VkAccelerationStructureKHR) -> Self {
+    self.micromap = val;
     self
   }
 }
@@ -93897,6 +94905,47 @@ impl VkPhysicalDeviceDataGraphModelFeaturesQCOM {
     self
   }
 }
+/// [VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM
+  pub sType: VkStructureType,
+  /// Optional: true,  No Auto-Validity
+  pub pNext: *mut core::ffi::c_void,
+  pub elapsedTimerQuery: VkBool32,
+}
+#[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+unsafe impl Send for VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+unsafe impl Sync for VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+impl VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM,
+    pNext: core::ptr::null_mut(),
+    elapsedTimerQuery: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_elapsedTimerQuery(mut self, val: VkBool32) -> Self {
+    self.elapsedTimerQuery = val;
+    self
+  }
+}
 /// [VkPhysicalDeviceCubicClampFeaturesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceCubicClampFeaturesQCOM.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -94385,6 +95434,61 @@ impl VkSamplerBlockMatchWindowCreateInfoQCOM {
     self
   }
 }
+/// [VkPhysicalDeviceImageProcessing3FeaturesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceImageProcessing3FeaturesQCOM.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_QCOM_image_processing3")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceImageProcessing3FeaturesQCOM {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM
+  pub sType: VkStructureType,
+  /// Optional: true,  No Auto-Validity
+  pub pNext: *mut core::ffi::c_void,
+  pub imageGatherLinear: VkBool32,
+  pub imageGatherExtendedModes: VkBool32,
+  pub blockMatchExtendedClampToEdge: VkBool32,
+}
+#[cfg(feature = "VK_QCOM_image_processing3")]
+unsafe impl Send for VkPhysicalDeviceImageProcessing3FeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing3")]
+unsafe impl Sync for VkPhysicalDeviceImageProcessing3FeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_image_processing3")]
+impl VkPhysicalDeviceImageProcessing3FeaturesQCOM {
+  pub const DEFAULT: Self = Self {
+    sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM,
+    pNext: core::ptr::null_mut(),
+    imageGatherLinear: 0,
+    imageGatherExtendedModes: 0,
+    blockMatchExtendedClampToEdge: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_imageGatherLinear(mut self, val: VkBool32) -> Self {
+    self.imageGatherLinear = val;
+    self
+  }
+  #[inline]
+  pub const fn with_imageGatherExtendedModes(mut self, val: VkBool32) -> Self {
+    self.imageGatherExtendedModes = val;
+    self
+  }
+  #[inline]
+  pub const fn with_blockMatchExtendedClampToEdge(mut self, val: VkBool32) -> Self {
+    self.blockMatchExtendedClampToEdge = val;
+    self
+  }
+}
 /// [VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -94786,6 +95890,95 @@ impl VkCopyCommandTransformInfoQCOM {
   #[inline]
   pub const fn with_transform(mut self, val: VkSurfaceTransformFlagBitsKHR) -> Self {
     self.transform = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM.html)
+///
+/// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM
+  pub sType: VkStructureType,
+  /// Optional: true,  No Auto-Validity
+  pub pNext: *mut core::ffi::c_void,
+  pub shaderMultipleWaitQueues: VkBool32,
+}
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+unsafe impl Send for VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+unsafe impl Sync for VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM {}
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+impl VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM {
+  pub const DEFAULT: Self = Self {
+    sType:
+      VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM,
+    pNext: core::ptr::null_mut(),
+    shaderMultipleWaitQueues: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_shaderMultipleWaitQueues(mut self, val: VkBool32) -> Self {
+    self.shaderMultipleWaitQueues = val;
+    self
+  }
+}
+/// [VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM.html)
+///
+/// *Note: This is a **returned only** struct.*
+///
+/// *Note: This struct has **required limit types**.*
+///
+/// **Extends:** VkPhysicalDeviceProperties2.
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM {
+  /// Values: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM
+  pub sType: VkStructureType,
+  /// Optional: true
+  pub pNext: *mut core::ffi::c_void,
+  /// Optional: true,  Limit Type: [Max]
+  pub maxShaderWaitQueues: u32,
+}
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+unsafe impl Send for VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+unsafe impl Sync for VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM {}
+#[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+impl VkPhysicalDeviceShaderMultipleWaitQueuesPropertiesQCOM {
+  pub const DEFAULT: Self = Self {
+    sType:
+      VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM,
+    pNext: core::ptr::null_mut(),
+    maxShaderWaitQueues: 0,
+  };
+  #[inline]
+  pub const fn new() -> Self {
+    Self::DEFAULT
+  }
+  /** # Safety
+  The caller must ensure `val` remains valid and outlives any use of this struct instance. The pointer is stored as-is without any lifetime tracking.*/
+  #[inline]
+  pub const fn with_pNext(mut self, val: *mut core::ffi::c_void) -> Self {
+    self.pNext = val;
+    self
+  }
+  #[inline]
+  pub const fn with_maxShaderWaitQueues(mut self, val: u32) -> Self {
+    self.maxShaderWaitQueues = val;
     self
   }
 }

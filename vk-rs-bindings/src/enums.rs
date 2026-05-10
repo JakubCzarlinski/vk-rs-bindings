@@ -897,6 +897,7 @@ impl VkPipelineCacheValidationVersion {
   feature = "VK_EXT_debug_utils",
   feature = "VK_ANDROID_external_memory_android_hardware_buffer",
   feature = "VK_EXT_sampler_filter_minmax",
+  feature = "VK_AMD_gpa_interface",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_AMD_mixed_attachment_samples",
@@ -924,6 +925,7 @@ impl VkPipelineCacheValidationVersion {
   feature = "VK_KHR_maintenance3",
   feature = "VK_EXT_filter_cubic",
   feature = "VK_QCOM_cooperative_matrix_conversion",
+  feature = "VK_QCOM_elapsed_timer_query",
   feature = "VK_EXT_global_priority",
   feature = "VK_KHR_shader_subgroup_extended_types",
   feature = "VK_KHR_8bit_storage",
@@ -1019,6 +1021,9 @@ impl VkPipelineCacheValidationVersion {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_NV_device_diagnostics_config",
   feature = "VK_QCOM_queue_perf_hint",
+  feature = "VK_QCOM_image_processing3",
+  feature = "VK_QCOM_shader_multiple_wait_queues",
+  feature = "VK_EXT_shader_split_barrier",
   feature = "VK_NV_cuda_kernel_launch",
   feature = "VK_KHR_object_refresh",
   feature = "VK_QCOM_tile_shading",
@@ -1210,6 +1215,7 @@ impl VkPipelineCacheValidationVersion {
   feature = "VK_EXT_fragment_density_map_offset",
   feature = "VK_EXT_zero_initialize_device_memory",
   feature = "VK_KHR_present_mode_fifo_latest_ready",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_EXT_custom_resolve",
   feature = "VK_QCOM_data_graph_model",
@@ -1326,6 +1332,7 @@ pub struct VkStructureType(pub i32);
   feature = "VK_EXT_debug_utils",
   feature = "VK_ANDROID_external_memory_android_hardware_buffer",
   feature = "VK_EXT_sampler_filter_minmax",
+  feature = "VK_AMD_gpa_interface",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_AMD_mixed_attachment_samples",
@@ -1353,6 +1360,7 @@ pub struct VkStructureType(pub i32);
   feature = "VK_KHR_maintenance3",
   feature = "VK_EXT_filter_cubic",
   feature = "VK_QCOM_cooperative_matrix_conversion",
+  feature = "VK_QCOM_elapsed_timer_query",
   feature = "VK_EXT_global_priority",
   feature = "VK_KHR_shader_subgroup_extended_types",
   feature = "VK_KHR_8bit_storage",
@@ -1448,6 +1456,9 @@ pub struct VkStructureType(pub i32);
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_NV_device_diagnostics_config",
   feature = "VK_QCOM_queue_perf_hint",
+  feature = "VK_QCOM_image_processing3",
+  feature = "VK_QCOM_shader_multiple_wait_queues",
+  feature = "VK_EXT_shader_split_barrier",
   feature = "VK_NV_cuda_kernel_launch",
   feature = "VK_KHR_object_refresh",
   feature = "VK_QCOM_tile_shading",
@@ -1639,6 +1650,7 @@ pub struct VkStructureType(pub i32);
   feature = "VK_EXT_fragment_density_map_offset",
   feature = "VK_EXT_zero_initialize_device_memory",
   feature = "VK_KHR_present_mode_fifo_latest_ready",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_EXT_custom_resolve",
   feature = "VK_QCOM_data_graph_model",
@@ -2775,6 +2787,20 @@ impl VkStructureType {
     Self(1000130000);
   #[cfg(feature = "VK_EXT_sampler_filter_minmax")]
   pub const VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO_EXT: Self = Self(1000130001);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_FEATURES_AMD: Self = Self(1000133000);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_PROPERTIES_AMD: Self = Self(1000133001);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD: Self = Self(1000133002);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_STRUCTURE_TYPE_GPA_SESSION_CREATE_INFO_AMD: Self = Self(1000133003);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD: Self = Self(1000133004);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD: Self = Self(1000133005);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_STRUCTURE_TYPE_GPA_DEVICE_GET_CLOCK_INFO_AMD: Self = Self(1000133006);
   #[cfg(feature = "VK_AMDX_shader_enqueue")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX: Self = Self(1000134000);
   #[cfg(feature = "VK_AMDX_shader_enqueue")]
@@ -3089,6 +3115,9 @@ impl VkStructureType {
   #[cfg(feature = "VK_QCOM_cooperative_matrix_conversion")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM: Self =
     Self(1000172000);
+  #[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM: Self =
+    Self(1000173000);
   #[cfg(feature = "VK_EXT_global_priority")]
   pub const VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_EXT: Self = Self(1000174000);
   #[cfg(feature = "VK_KHR_shader_subgroup_extended_types")]
@@ -3674,6 +3703,21 @@ impl VkStructureType {
   #[cfg(feature = "VK_QCOM_queue_perf_hint")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM: Self =
     Self(1000302002);
+  #[cfg(feature = "VK_QCOM_image_processing3")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM: Self =
+    Self(1000303000);
+  #[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM: Self =
+    Self(1000304000);
+  #[cfg(feature = "VK_QCOM_shader_multiple_wait_queues")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM: Self =
+    Self(1000304001);
+  #[cfg(feature = "VK_EXT_shader_split_barrier")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT: Self =
+    Self(1000305000);
+  #[cfg(feature = "VK_EXT_shader_split_barrier")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT: Self =
+    Self(1000305001);
   #[cfg(feature = "VK_NV_cuda_kernel_launch")]
   pub const VK_STRUCTURE_TYPE_CUDA_MODULE_CREATE_INFO_NV: Self = Self(1000307000);
   #[cfg(feature = "VK_NV_cuda_kernel_launch")]
@@ -5203,6 +5247,18 @@ impl VkStructureType {
   #[cfg(feature = "VK_KHR_present_mode_fifo_latest_ready")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR: Self =
     Self(1000361000);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR: Self =
+    Self(1000623000);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR: Self =
+    Self(1000623001);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR: Self =
+    Self(1000623002);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR: Self =
+    Self(1000623003);
   #[cfg(feature = "VK_EXT_shader_64bit_indexing")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT: Self =
     Self(1000627000);
@@ -5987,6 +6043,7 @@ impl VkCompressedTriangleFormatAMDX {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6001,6 +6058,7 @@ pub struct VkBufferUsageFlagBits2(pub u64);
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6028,6 +6086,16 @@ impl VkBufferUsageFlagBits2 {
   pub const VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX: Self = Self(1 << 25u64);
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   pub const VK_BUFFER_USAGE_2_DESCRIPTOR_HEAP_BIT_EXT: Self = Self(1 << 28u64);
+  #[cfg(any(
+    all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
+    all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4")
+  ))]
+  pub const VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT: Self = Self(1 << 23u64);
+  #[cfg(any(
+    all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
+    all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4")
+  ))]
+  pub const VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT: Self = Self(1 << 24u64);
   #[cfg(feature = "VK_KHR_maintenance5")]
   pub const VK_BUFFER_USAGE_2_TRANSFER_SRC_BIT_KHR: Self = Self(1 << 0u64);
   #[cfg(feature = "VK_KHR_maintenance5")]
@@ -6099,10 +6167,6 @@ impl VkBufferUsageFlagBits2 {
   pub const VK_BUFFER_USAGE_2_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT: Self = Self(1 << 22u64);
   #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT: Self = Self(1 << 26u64);
-  #[cfg(all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"))]
-  pub const VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT: Self = Self(1 << 23u64);
-  #[cfg(all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"))]
-  pub const VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT: Self = Self(1 << 24u64);
   #[cfg(feature = "VK_AMDX_dense_geometry_format")]
   pub const VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX: Self = Self(1 << 33u64);
   #[cfg(feature = "VK_ARM_data_graph")]
@@ -6130,6 +6194,7 @@ impl VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6148,6 +6213,7 @@ impl core::ops::BitOr for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6165,6 +6231,7 @@ impl core::ops::BitOrAssign for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6183,6 +6250,7 @@ impl core::ops::BitAnd for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6200,6 +6268,7 @@ impl core::ops::BitAndAssign for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6218,6 +6287,7 @@ impl core::ops::BitXor for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6235,6 +6305,7 @@ impl core::ops::BitXorAssign for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6253,6 +6324,7 @@ impl core::ops::Not for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6271,6 +6343,7 @@ impl core::ops::BitOr<u64> for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6288,6 +6361,7 @@ impl core::ops::BitOrAssign<u64> for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6306,6 +6380,7 @@ impl core::ops::BitAnd<u64> for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6323,6 +6398,7 @@ impl core::ops::BitAndAssign<u64> for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6341,6 +6417,7 @@ impl core::ops::BitXor<u64> for VkBufferUsageFlagBits2 {
   feature = "VK_BASE_VERSION_1_4",
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
@@ -6359,7 +6436,8 @@ impl core::ops::BitXorAssign<u64> for VkBufferUsageFlagBits2 {
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  feature = "VK_AMDX_dense_geometry_format"
+  feature = "VK_AMDX_dense_geometry_format",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
@@ -6368,7 +6446,8 @@ pub struct VkGeometryTypeKHR(pub i32);
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  feature = "VK_AMDX_dense_geometry_format"
+  feature = "VK_AMDX_dense_geometry_format",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl VkGeometryTypeKHR {
   pub const VK_GEOMETRY_TYPE_TRIANGLES_KHR: Self = Self(0);
@@ -6384,6 +6463,8 @@ impl VkGeometryTypeKHR {
   pub const VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV: Self = Self(1000429005);
   #[cfg(feature = "VK_AMDX_dense_geometry_format")]
   pub const VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX: Self = Self(1000478000);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_GEOMETRY_TYPE_MICROMAP_KHR: Self = Self(1000623000);
 }
 /// [VkPipelineBindPoint](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineBindPoint.html)
 #[cfg(any(
@@ -6864,12 +6945,14 @@ impl core::ops::BitXorAssign<u32> for VkBufferUsageFlagBits {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 #[repr(transparent)]
@@ -6880,12 +6963,14 @@ pub struct VkPipelineCreateFlagBits2(pub u64);
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl VkPipelineCreateFlagBits2 {
@@ -6909,6 +6994,11 @@ impl VkPipelineCreateFlagBits2 {
   #[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_BIT_KHR: Self =
     Self(1 << 12u64);
+  #[cfg(any(
+    all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
+    all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4")
+  ))]
+  pub const VK_PIPELINE_CREATE_2_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT: Self = Self(1 << 24u64);
   #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_BIT_NV: Self =
     Self(1 << 33u64);
@@ -7063,8 +7153,6 @@ impl VkPipelineCreateFlagBits2 {
   ))]
   pub const VK_PIPELINE_CREATE_2_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT: Self =
     Self(1 << 22u64);
-  #[cfg(all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"))]
-  pub const VK_PIPELINE_CREATE_2_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT: Self = Self(1 << 24u64);
   #[cfg(all(
     feature = "VK_EXT_attachment_feedback_loop_layout",
     feature = "VK_KHR_maintenance5"
@@ -7115,6 +7203,17 @@ impl VkPipelineCreateFlagBits2 {
   pub const VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT: Self = Self(1 << 38u64);
   #[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
   pub const VK_PIPELINE_CREATE_2_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE: Self = Self(1 << 40u64);
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
+    all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4")
+  ))]
+  pub const VK_PIPELINE_CREATE_2_RAY_TRACING_OPACITY_MICROMAP_BIT_KHR: Self = Self(1 << 24u64);
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
+    all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4")
+  ))]
+  pub const VK_PIPELINE_CREATE_2_OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_BIT_KHR: Self =
+    Self(1 << 41u64);
   #[cfg(feature = "VK_EXT_shader_64bit_indexing")]
   pub const VK_PIPELINE_CREATE_2_64_BIT_INDEXING_BIT_EXT: Self = Self(1 << 43u64);
   #[inline]
@@ -7135,12 +7234,14 @@ impl VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOr for VkPipelineCreateFlagBits2 {
@@ -7155,12 +7256,14 @@ impl core::ops::BitOr for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOrAssign for VkPipelineCreateFlagBits2 {
@@ -7174,12 +7277,14 @@ impl core::ops::BitOrAssign for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAnd for VkPipelineCreateFlagBits2 {
@@ -7194,12 +7299,14 @@ impl core::ops::BitAnd for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAndAssign for VkPipelineCreateFlagBits2 {
@@ -7213,12 +7320,14 @@ impl core::ops::BitAndAssign for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXor for VkPipelineCreateFlagBits2 {
@@ -7233,12 +7342,14 @@ impl core::ops::BitXor for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXorAssign for VkPipelineCreateFlagBits2 {
@@ -7252,12 +7363,14 @@ impl core::ops::BitXorAssign for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::Not for VkPipelineCreateFlagBits2 {
@@ -7272,12 +7385,14 @@ impl core::ops::Not for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOr<u64> for VkPipelineCreateFlagBits2 {
@@ -7292,12 +7407,14 @@ impl core::ops::BitOr<u64> for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOrAssign<u64> for VkPipelineCreateFlagBits2 {
@@ -7311,12 +7428,14 @@ impl core::ops::BitOrAssign<u64> for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAnd<u64> for VkPipelineCreateFlagBits2 {
@@ -7331,12 +7450,14 @@ impl core::ops::BitAnd<u64> for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAndAssign<u64> for VkPipelineCreateFlagBits2 {
@@ -7350,12 +7471,14 @@ impl core::ops::BitAndAssign<u64> for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXor<u64> for VkPipelineCreateFlagBits2 {
@@ -7370,12 +7493,14 @@ impl core::ops::BitXor<u64> for VkPipelineCreateFlagBits2 {
   feature = "VK_AMDX_shader_enqueue",
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_EXT_legacy_dithering",
   feature = "VK_KHR_maintenance5",
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXorAssign<u64> for VkPipelineCreateFlagBits2 {
@@ -7672,6 +7797,406 @@ impl VkColorSpaceKHR {
   pub const VK_COLOR_SPACE_DCI_P3_LINEAR_EXT: Self = Self(1000104003);
   #[cfg(feature = "VK_AMD_display_native_hdr")]
   pub const VK_COLOR_SPACE_DISPLAY_NATIVE_AMD: Self = Self(1000213000);
+}
+/// [VkGpaSqShaderStageFlagBitsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSqShaderStageFlagsAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkGpaSqShaderStageFlagBitsAMD(pub u32);
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaSqShaderStageFlagBitsAMD {
+  pub const EMPTY: Self = Self(0);
+  pub const VK_GPA_SQ_SHADER_STAGE_PS_BIT_AMD: Self = Self(1 << 0u64);
+  pub const VK_GPA_SQ_SHADER_STAGE_VS_BIT_AMD: Self = Self(1 << 1u64);
+  pub const VK_GPA_SQ_SHADER_STAGE_GS_BIT_AMD: Self = Self(1 << 2u64);
+  pub const VK_GPA_SQ_SHADER_STAGE_ES_BIT_AMD: Self = Self(1 << 3u64);
+  pub const VK_GPA_SQ_SHADER_STAGE_HS_BIT_AMD: Self = Self(1 << 4u64);
+  pub const VK_GPA_SQ_SHADER_STAGE_LS_BIT_AMD: Self = Self(1 << 5u64);
+  pub const VK_GPA_SQ_SHADER_STAGE_CS_BIT_AMD: Self = Self(1 << 6u64);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitOr for VkGpaSqShaderStageFlagBitsAMD {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitOrAssign for VkGpaSqShaderStageFlagBitsAMD {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitAnd for VkGpaSqShaderStageFlagBitsAMD {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitAndAssign for VkGpaSqShaderStageFlagBitsAMD {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitXor for VkGpaSqShaderStageFlagBitsAMD {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitXorAssign for VkGpaSqShaderStageFlagBitsAMD {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::Not for VkGpaSqShaderStageFlagBitsAMD {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitOr<u32> for VkGpaSqShaderStageFlagBitsAMD {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitOrAssign<u32> for VkGpaSqShaderStageFlagBitsAMD {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitAnd<u32> for VkGpaSqShaderStageFlagBitsAMD {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitAndAssign<u32> for VkGpaSqShaderStageFlagBitsAMD {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitXor<u32> for VkGpaSqShaderStageFlagBitsAMD {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl core::ops::BitXorAssign<u32> for VkGpaSqShaderStageFlagBitsAMD {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+/// [VkGpaPerfBlockAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfBlockAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkGpaPerfBlockAMD(pub i32);
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaPerfBlockAMD {
+  pub const VK_GPA_PERF_BLOCK_CPF_AMD: Self = Self(0);
+  pub const VK_GPA_PERF_BLOCK_IA_AMD: Self = Self(1);
+  pub const VK_GPA_PERF_BLOCK_VGT_AMD: Self = Self(2);
+  pub const VK_GPA_PERF_BLOCK_PA_AMD: Self = Self(3);
+  pub const VK_GPA_PERF_BLOCK_SC_AMD: Self = Self(4);
+  pub const VK_GPA_PERF_BLOCK_SPI_AMD: Self = Self(5);
+  pub const VK_GPA_PERF_BLOCK_SQ_AMD: Self = Self(6);
+  pub const VK_GPA_PERF_BLOCK_SX_AMD: Self = Self(7);
+  pub const VK_GPA_PERF_BLOCK_TA_AMD: Self = Self(8);
+  pub const VK_GPA_PERF_BLOCK_TD_AMD: Self = Self(9);
+  pub const VK_GPA_PERF_BLOCK_TCP_AMD: Self = Self(10);
+  pub const VK_GPA_PERF_BLOCK_TCC_AMD: Self = Self(11);
+  pub const VK_GPA_PERF_BLOCK_TCA_AMD: Self = Self(12);
+  pub const VK_GPA_PERF_BLOCK_DB_AMD: Self = Self(13);
+  pub const VK_GPA_PERF_BLOCK_CB_AMD: Self = Self(14);
+  pub const VK_GPA_PERF_BLOCK_GDS_AMD: Self = Self(15);
+  pub const VK_GPA_PERF_BLOCK_SRBM_AMD: Self = Self(16);
+  pub const VK_GPA_PERF_BLOCK_GRBM_AMD: Self = Self(17);
+  pub const VK_GPA_PERF_BLOCK_GRBM_SE_AMD: Self = Self(18);
+  pub const VK_GPA_PERF_BLOCK_RLC_AMD: Self = Self(19);
+  pub const VK_GPA_PERF_BLOCK_DMA_AMD: Self = Self(20);
+  pub const VK_GPA_PERF_BLOCK_MC_AMD: Self = Self(21);
+  pub const VK_GPA_PERF_BLOCK_CPG_AMD: Self = Self(22);
+  pub const VK_GPA_PERF_BLOCK_CPC_AMD: Self = Self(23);
+  pub const VK_GPA_PERF_BLOCK_WD_AMD: Self = Self(24);
+  pub const VK_GPA_PERF_BLOCK_TCS_AMD: Self = Self(25);
+  pub const VK_GPA_PERF_BLOCK_ATC_AMD: Self = Self(26);
+  pub const VK_GPA_PERF_BLOCK_ATC_L2_AMD: Self = Self(27);
+  pub const VK_GPA_PERF_BLOCK_MC_VM_L2_AMD: Self = Self(28);
+  pub const VK_GPA_PERF_BLOCK_EA_AMD: Self = Self(29);
+  pub const VK_GPA_PERF_BLOCK_RPB_AMD: Self = Self(30);
+  pub const VK_GPA_PERF_BLOCK_RMI_AMD: Self = Self(31);
+  pub const VK_GPA_PERF_BLOCK_UMCCH_AMD: Self = Self(32);
+  pub const VK_GPA_PERF_BLOCK_GE_AMD: Self = Self(33);
+  pub const VK_GPA_PERF_BLOCK_GL1A_AMD: Self = Self(34);
+  pub const VK_GPA_PERF_BLOCK_GL1C_AMD: Self = Self(35);
+  pub const VK_GPA_PERF_BLOCK_GL1CG_AMD: Self = Self(36);
+  pub const VK_GPA_PERF_BLOCK_GL2A_AMD: Self = Self(37);
+  pub const VK_GPA_PERF_BLOCK_GL2C_AMD: Self = Self(38);
+  pub const VK_GPA_PERF_BLOCK_CHA_AMD: Self = Self(39);
+  pub const VK_GPA_PERF_BLOCK_CHC_AMD: Self = Self(40);
+  pub const VK_GPA_PERF_BLOCK_CHCG_AMD: Self = Self(41);
+  pub const VK_GPA_PERF_BLOCK_GUS_AMD: Self = Self(42);
+  pub const VK_GPA_PERF_BLOCK_GCR_AMD: Self = Self(43);
+  pub const VK_GPA_PERF_BLOCK_PH_AMD: Self = Self(44);
+  pub const VK_GPA_PERF_BLOCK_UTCL1_AMD: Self = Self(45);
+  pub const VK_GPA_PERF_BLOCK_GE1_AMD: Self = Self(33);
+  pub const VK_GPA_PERF_BLOCK_GE_DIST_AMD: Self = Self(46);
+  pub const VK_GPA_PERF_BLOCK_GE_SE_AMD: Self = Self(47);
+  pub const VK_GPA_PERF_BLOCK_DF_MALL_AMD: Self = Self(48);
+  pub const VK_GPA_PERF_BLOCK_SQ_WGP_AMD: Self = Self(49);
+  pub const VK_GPA_PERF_BLOCK_PC_AMD: Self = Self(50);
+  pub const VK_GPA_PERF_BLOCK_GL1XA_AMD: Self = Self(51);
+  pub const VK_GPA_PERF_BLOCK_GL1XC_AMD: Self = Self(52);
+  pub const VK_GPA_PERF_BLOCK_WGS_AMD: Self = Self(53);
+  pub const VK_GPA_PERF_BLOCK_EACPWD_AMD: Self = Self(54);
+  pub const VK_GPA_PERF_BLOCK_EASE_AMD: Self = Self(55);
+  pub const VK_GPA_PERF_BLOCK_RLCUSER_AMD: Self = Self(56);
+  pub const VK_GPA_PERF_BLOCK_RLCLOCAL_AMD: Self = Self(56);
+}
+/// [VkGpaSampleTypeAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSampleTypeAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkGpaSampleTypeAMD(pub i32);
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaSampleTypeAMD {
+  pub const VK_GPA_SAMPLE_TYPE_CUMULATIVE_AMD: Self = Self(0);
+  pub const VK_GPA_SAMPLE_TYPE_TRACE_AMD: Self = Self(1);
+  pub const VK_GPA_SAMPLE_TYPE_TIMING_AMD: Self = Self(2);
+}
+/// [VkGpaDeviceClockModeAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaDeviceClockModeAMD.html)
+#[cfg(feature = "VK_AMD_gpa_interface")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkGpaDeviceClockModeAMD(pub i32);
+#[cfg(feature = "VK_AMD_gpa_interface")]
+impl VkGpaDeviceClockModeAMD {
+  pub const VK_GPA_DEVICE_CLOCK_MODE_DEFAULT_AMD: Self = Self(0);
+  pub const VK_GPA_DEVICE_CLOCK_MODE_QUERY_AMD: Self = Self(1);
+  pub const VK_GPA_DEVICE_CLOCK_MODE_PROFILING_AMD: Self = Self(2);
+  pub const VK_GPA_DEVICE_CLOCK_MODE_MIN_MEMORY_AMD: Self = Self(3);
+  pub const VK_GPA_DEVICE_CLOCK_MODE_MIN_ENGINE_AMD: Self = Self(4);
+  pub const VK_GPA_DEVICE_CLOCK_MODE_PEAK_AMD: Self = Self(5);
+}
+/// [VkObjectType](https://docs.vulkan.org/refpages/latest/refpages/source/VkObjectType.html)
+///
+/// Enums to track objects of various types - also see objtypeenum attributes on type tags
+#[cfg(any(
+  feature = "VK_BASE_VERSION_1_0",
+  feature = "VK_COMPUTE_VERSION_1_1",
+  feature = "VK_BASE_VERSION_1_3",
+  feature = "VK_KHR_surface",
+  feature = "VK_KHR_swapchain",
+  feature = "VK_KHR_display",
+  feature = "VK_EXT_debug_report",
+  feature = "VK_KHR_video_queue",
+  feature = "VK_NVX_binary_import",
+  feature = "VK_KHR_descriptor_update_template",
+  feature = "VK_EXT_debug_utils",
+  feature = "VK_AMD_gpa_interface",
+  feature = "VK_KHR_acceleration_structure",
+  feature = "VK_KHR_sampler_ycbcr_conversion",
+  feature = "VK_EXT_validation_cache",
+  feature = "VK_NV_ray_tracing",
+  feature = "VK_INTEL_performance_query",
+  feature = "VK_KHR_deferred_host_operations",
+  feature = "VK_NV_device_generated_commands",
+  feature = "VK_EXT_private_data",
+  feature = "VK_NV_cuda_kernel_launch",
+  feature = "VK_FUCHSIA_buffer_collection",
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_ARM_tensors",
+  feature = "VK_NV_optical_flow",
+  feature = "VK_EXT_shader_object",
+  feature = "VK_KHR_pipeline_binary",
+  feature = "VK_NV_external_sci_sync2",
+  feature = "VK_ARM_data_graph",
+  feature = "VK_NV_external_compute_queue",
+  feature = "VK_EXT_device_generated_commands",
+  feature = "VK_ARM_shader_instrumentation"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkObjectType(pub i32);
+#[cfg(any(
+  feature = "VK_BASE_VERSION_1_0",
+  feature = "VK_COMPUTE_VERSION_1_1",
+  feature = "VK_BASE_VERSION_1_3",
+  feature = "VK_KHR_surface",
+  feature = "VK_KHR_swapchain",
+  feature = "VK_KHR_display",
+  feature = "VK_EXT_debug_report",
+  feature = "VK_KHR_video_queue",
+  feature = "VK_NVX_binary_import",
+  feature = "VK_KHR_descriptor_update_template",
+  feature = "VK_EXT_debug_utils",
+  feature = "VK_AMD_gpa_interface",
+  feature = "VK_KHR_acceleration_structure",
+  feature = "VK_KHR_sampler_ycbcr_conversion",
+  feature = "VK_EXT_validation_cache",
+  feature = "VK_NV_ray_tracing",
+  feature = "VK_INTEL_performance_query",
+  feature = "VK_KHR_deferred_host_operations",
+  feature = "VK_NV_device_generated_commands",
+  feature = "VK_EXT_private_data",
+  feature = "VK_NV_cuda_kernel_launch",
+  feature = "VK_FUCHSIA_buffer_collection",
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_ARM_tensors",
+  feature = "VK_NV_optical_flow",
+  feature = "VK_EXT_shader_object",
+  feature = "VK_KHR_pipeline_binary",
+  feature = "VK_NV_external_sci_sync2",
+  feature = "VK_ARM_data_graph",
+  feature = "VK_NV_external_compute_queue",
+  feature = "VK_EXT_device_generated_commands",
+  feature = "VK_ARM_shader_instrumentation"
+))]
+impl VkObjectType {
+  pub const VK_OBJECT_TYPE_UNKNOWN: Self = Self(0);
+  pub const VK_OBJECT_TYPE_INSTANCE: Self = Self(1);
+  pub const VK_OBJECT_TYPE_PHYSICAL_DEVICE: Self = Self(2);
+  pub const VK_OBJECT_TYPE_DEVICE: Self = Self(3);
+  pub const VK_OBJECT_TYPE_QUEUE: Self = Self(4);
+  pub const VK_OBJECT_TYPE_SEMAPHORE: Self = Self(5);
+  pub const VK_OBJECT_TYPE_COMMAND_BUFFER: Self = Self(6);
+  pub const VK_OBJECT_TYPE_FENCE: Self = Self(7);
+  pub const VK_OBJECT_TYPE_DEVICE_MEMORY: Self = Self(8);
+  pub const VK_OBJECT_TYPE_BUFFER: Self = Self(9);
+  pub const VK_OBJECT_TYPE_IMAGE: Self = Self(10);
+  pub const VK_OBJECT_TYPE_EVENT: Self = Self(11);
+  pub const VK_OBJECT_TYPE_QUERY_POOL: Self = Self(12);
+  pub const VK_OBJECT_TYPE_BUFFER_VIEW: Self = Self(13);
+  pub const VK_OBJECT_TYPE_IMAGE_VIEW: Self = Self(14);
+  pub const VK_OBJECT_TYPE_SHADER_MODULE: Self = Self(15);
+  pub const VK_OBJECT_TYPE_PIPELINE_CACHE: Self = Self(16);
+  pub const VK_OBJECT_TYPE_PIPELINE_LAYOUT: Self = Self(17);
+  pub const VK_OBJECT_TYPE_RENDER_PASS: Self = Self(18);
+  pub const VK_OBJECT_TYPE_PIPELINE: Self = Self(19);
+  pub const VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT: Self = Self(20);
+  pub const VK_OBJECT_TYPE_SAMPLER: Self = Self(21);
+  pub const VK_OBJECT_TYPE_DESCRIPTOR_POOL: Self = Self(22);
+  pub const VK_OBJECT_TYPE_DESCRIPTOR_SET: Self = Self(23);
+  pub const VK_OBJECT_TYPE_FRAMEBUFFER: Self = Self(24);
+  pub const VK_OBJECT_TYPE_COMMAND_POOL: Self = Self(25);
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+  pub const VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE: Self = Self(1000085000);
+  #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+  pub const VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION: Self = Self(1000156000);
+  #[cfg(feature = "VK_BASE_VERSION_1_3")]
+  pub const VK_OBJECT_TYPE_PRIVATE_DATA_SLOT: Self = Self(1000295000);
+  #[cfg(feature = "VK_KHR_surface")]
+  pub const VK_OBJECT_TYPE_SURFACE_KHR: Self = Self(1000000000);
+  #[cfg(feature = "VK_KHR_swapchain")]
+  pub const VK_OBJECT_TYPE_SWAPCHAIN_KHR: Self = Self(1000001000);
+  #[cfg(feature = "VK_KHR_display")]
+  pub const VK_OBJECT_TYPE_DISPLAY_KHR: Self = Self(1000002000);
+  #[cfg(feature = "VK_KHR_display")]
+  pub const VK_OBJECT_TYPE_DISPLAY_MODE_KHR: Self = Self(1000002001);
+  #[cfg(feature = "VK_EXT_debug_report")]
+  pub const VK_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT: Self = Self(1000011000);
+  #[cfg(feature = "VK_KHR_video_queue")]
+  ///VkVideoSessionKHR
+  pub const VK_OBJECT_TYPE_VIDEO_SESSION_KHR: Self = Self(1000023000);
+  #[cfg(feature = "VK_KHR_video_queue")]
+  ///VkVideoSessionParametersKHR
+  pub const VK_OBJECT_TYPE_VIDEO_SESSION_PARAMETERS_KHR: Self = Self(1000023001);
+  #[cfg(feature = "VK_NVX_binary_import")]
+  pub const VK_OBJECT_TYPE_CU_MODULE_NVX: Self = Self(1000029000);
+  #[cfg(feature = "VK_NVX_binary_import")]
+  pub const VK_OBJECT_TYPE_CU_FUNCTION_NVX: Self = Self(1000029001);
+  #[cfg(feature = "VK_KHR_descriptor_update_template")]
+  pub const VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_KHR: Self = Self(1000085000);
+  #[cfg(feature = "VK_EXT_debug_utils")]
+  pub const VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT: Self = Self(1000128000);
+  #[cfg(feature = "VK_AMD_gpa_interface")]
+  pub const VK_OBJECT_TYPE_GPA_SESSION_AMD: Self = Self(1000133000);
+  #[cfg(feature = "VK_KHR_acceleration_structure")]
+  pub const VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
+  #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+  pub const VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR: Self = Self(1000156000);
+  #[cfg(feature = "VK_EXT_validation_cache")]
+  pub const VK_OBJECT_TYPE_VALIDATION_CACHE_EXT: Self = Self(1000160000);
+  #[cfg(feature = "VK_NV_ray_tracing")]
+  pub const VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
+  #[cfg(feature = "VK_INTEL_performance_query")]
+  pub const VK_OBJECT_TYPE_PERFORMANCE_CONFIGURATION_INTEL: Self = Self(1000210000);
+  #[cfg(feature = "VK_KHR_deferred_host_operations")]
+  pub const VK_OBJECT_TYPE_DEFERRED_OPERATION_KHR: Self = Self(1000268000);
+  #[cfg(feature = "VK_NV_device_generated_commands")]
+  pub const VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NV: Self = Self(1000277000);
+  #[cfg(feature = "VK_EXT_private_data")]
+  pub const VK_OBJECT_TYPE_PRIVATE_DATA_SLOT_EXT: Self = Self(1000295000);
+  #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+  pub const VK_OBJECT_TYPE_CUDA_MODULE_NV: Self = Self(1000307000);
+  #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+  pub const VK_OBJECT_TYPE_CUDA_FUNCTION_NV: Self = Self(1000307001);
+  #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+  ///VkBufferCollectionFUCHSIA
+  pub const VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366000);
+  #[cfg(feature = "VK_EXT_opacity_micromap")]
+  pub const VK_OBJECT_TYPE_MICROMAP_EXT: Self = Self(1000396000);
+  #[cfg(feature = "VK_ARM_tensors")]
+  pub const VK_OBJECT_TYPE_TENSOR_ARM: Self = Self(1000460000);
+  #[cfg(feature = "VK_ARM_tensors")]
+  pub const VK_OBJECT_TYPE_TENSOR_VIEW_ARM: Self = Self(1000460001);
+  #[cfg(feature = "VK_NV_optical_flow")]
+  pub const VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV: Self = Self(1000464000);
+  #[cfg(feature = "VK_EXT_shader_object")]
+  pub const VK_OBJECT_TYPE_SHADER_EXT: Self = Self(1000482000);
+  #[cfg(feature = "VK_KHR_pipeline_binary")]
+  pub const VK_OBJECT_TYPE_PIPELINE_BINARY_KHR: Self = Self(1000483000);
+  #[cfg(feature = "VK_NV_external_sci_sync2")]
+  ///VkSemaphoreSciSyncPoolNV
+  pub const VK_OBJECT_TYPE_SEMAPHORE_SCI_SYNC_POOL_NV: Self = Self(1000489000);
+  #[cfg(feature = "VK_ARM_data_graph")]
+  pub const VK_OBJECT_TYPE_DATA_GRAPH_PIPELINE_SESSION_ARM: Self = Self(1000507000);
+  #[cfg(feature = "VK_NV_external_compute_queue")]
+  pub const VK_OBJECT_TYPE_EXTERNAL_COMPUTE_QUEUE_NV: Self = Self(1000556000);
+  #[cfg(feature = "VK_EXT_device_generated_commands")]
+  pub const VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_EXT: Self = Self(1000572000);
+  #[cfg(feature = "VK_EXT_device_generated_commands")]
+  pub const VK_OBJECT_TYPE_INDIRECT_EXECUTION_SET_EXT: Self = Self(1000572001);
+  #[cfg(feature = "VK_ARM_shader_instrumentation")]
+  pub const VK_OBJECT_TYPE_SHADER_INSTRUMENTATION_ARM: Self = Self(1000607000);
 }
 /// [VkMemoryOverallocationBehaviorAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryOverallocationBehaviorAMD.html)
 #[cfg(feature = "VK_AMD_memory_overallocation_behavior")]
@@ -8880,6 +9405,7 @@ impl core::ops::BitXorAssign<u64> for VkDataGraphPipelineSessionCreateFlagBitsAR
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -8904,6 +9430,7 @@ pub struct VkFormatFeatureFlagBits2(pub u64);
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9016,6 +9543,11 @@ impl VkFormatFeatureFlagBits2 {
     all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3")
   ))]
   pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_DPB_BIT_KHR: Self = Self(1 << 28u64);
+  #[cfg(all(
+    feature = "VK_QCOM_image_processing",
+    feature = "VK_QCOM_image_processing3"
+  ))]
+  pub const VK_FORMAT_FEATURE_2_BLOCK_MATCHING_SXD_BIT_QCOM: Self = Self(1 << 44u64);
   #[cfg(feature = "VK_KHR_format_feature_flags2")]
   pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT_KHR: Self = Self(1 << 0u64);
   #[cfg(feature = "VK_KHR_format_feature_flags2")]
@@ -9215,6 +9747,7 @@ impl VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9243,6 +9776,7 @@ impl core::ops::BitOr for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9270,6 +9804,7 @@ impl core::ops::BitOrAssign for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9298,6 +9833,7 @@ impl core::ops::BitAnd for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9325,6 +9861,7 @@ impl core::ops::BitAndAssign for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9353,6 +9890,7 @@ impl core::ops::BitXor for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9380,6 +9918,7 @@ impl core::ops::BitXorAssign for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9408,6 +9947,7 @@ impl core::ops::Not for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9436,6 +9976,7 @@ impl core::ops::BitOr<u64> for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9463,6 +10004,7 @@ impl core::ops::BitOrAssign<u64> for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9491,6 +10033,7 @@ impl core::ops::BitAnd<u64> for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9518,6 +10061,7 @@ impl core::ops::BitAndAssign<u64> for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9546,6 +10090,7 @@ impl core::ops::BitXor<u64> for VkFormatFeatureFlagBits2 {
   feature = "VK_KHR_fragment_shading_rate",
   feature = "VK_EXT_host_image_copy",
   feature = "VK_KHR_video_encode_queue",
+  feature = "VK_QCOM_image_processing3",
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   feature = "VK_NV_linear_color_attachment",
@@ -9588,184 +10133,6 @@ impl VkPhysicalDeviceDataGraphOperationTypeARM {
     Self(1000629001);
   #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
   pub const VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_OPTICAL_FLOW_ARM: Self = Self(1000631000);
-}
-/// [VkObjectType](https://docs.vulkan.org/refpages/latest/refpages/source/VkObjectType.html)
-///
-/// Enums to track objects of various types - also see objtypeenum attributes on type tags
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_EXT_private_data",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_ARM_tensors",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_ARM_data_graph",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_ARM_shader_instrumentation"
-))]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkObjectType(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_EXT_private_data",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_ARM_tensors",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_ARM_data_graph",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_ARM_shader_instrumentation"
-))]
-impl VkObjectType {
-  pub const VK_OBJECT_TYPE_UNKNOWN: Self = Self(0);
-  pub const VK_OBJECT_TYPE_INSTANCE: Self = Self(1);
-  pub const VK_OBJECT_TYPE_PHYSICAL_DEVICE: Self = Self(2);
-  pub const VK_OBJECT_TYPE_DEVICE: Self = Self(3);
-  pub const VK_OBJECT_TYPE_QUEUE: Self = Self(4);
-  pub const VK_OBJECT_TYPE_SEMAPHORE: Self = Self(5);
-  pub const VK_OBJECT_TYPE_COMMAND_BUFFER: Self = Self(6);
-  pub const VK_OBJECT_TYPE_FENCE: Self = Self(7);
-  pub const VK_OBJECT_TYPE_DEVICE_MEMORY: Self = Self(8);
-  pub const VK_OBJECT_TYPE_BUFFER: Self = Self(9);
-  pub const VK_OBJECT_TYPE_IMAGE: Self = Self(10);
-  pub const VK_OBJECT_TYPE_EVENT: Self = Self(11);
-  pub const VK_OBJECT_TYPE_QUERY_POOL: Self = Self(12);
-  pub const VK_OBJECT_TYPE_BUFFER_VIEW: Self = Self(13);
-  pub const VK_OBJECT_TYPE_IMAGE_VIEW: Self = Self(14);
-  pub const VK_OBJECT_TYPE_SHADER_MODULE: Self = Self(15);
-  pub const VK_OBJECT_TYPE_PIPELINE_CACHE: Self = Self(16);
-  pub const VK_OBJECT_TYPE_PIPELINE_LAYOUT: Self = Self(17);
-  pub const VK_OBJECT_TYPE_RENDER_PASS: Self = Self(18);
-  pub const VK_OBJECT_TYPE_PIPELINE: Self = Self(19);
-  pub const VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT: Self = Self(20);
-  pub const VK_OBJECT_TYPE_SAMPLER: Self = Self(21);
-  pub const VK_OBJECT_TYPE_DESCRIPTOR_POOL: Self = Self(22);
-  pub const VK_OBJECT_TYPE_DESCRIPTOR_SET: Self = Self(23);
-  pub const VK_OBJECT_TYPE_FRAMEBUFFER: Self = Self(24);
-  pub const VK_OBJECT_TYPE_COMMAND_POOL: Self = Self(25);
-  #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-  pub const VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE: Self = Self(1000085000);
-  #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-  pub const VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION: Self = Self(1000156000);
-  #[cfg(feature = "VK_BASE_VERSION_1_3")]
-  pub const VK_OBJECT_TYPE_PRIVATE_DATA_SLOT: Self = Self(1000295000);
-  #[cfg(feature = "VK_KHR_surface")]
-  pub const VK_OBJECT_TYPE_SURFACE_KHR: Self = Self(1000000000);
-  #[cfg(feature = "VK_KHR_swapchain")]
-  pub const VK_OBJECT_TYPE_SWAPCHAIN_KHR: Self = Self(1000001000);
-  #[cfg(feature = "VK_KHR_display")]
-  pub const VK_OBJECT_TYPE_DISPLAY_KHR: Self = Self(1000002000);
-  #[cfg(feature = "VK_KHR_display")]
-  pub const VK_OBJECT_TYPE_DISPLAY_MODE_KHR: Self = Self(1000002001);
-  #[cfg(feature = "VK_EXT_debug_report")]
-  pub const VK_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT: Self = Self(1000011000);
-  #[cfg(feature = "VK_KHR_video_queue")]
-  ///VkVideoSessionKHR
-  pub const VK_OBJECT_TYPE_VIDEO_SESSION_KHR: Self = Self(1000023000);
-  #[cfg(feature = "VK_KHR_video_queue")]
-  ///VkVideoSessionParametersKHR
-  pub const VK_OBJECT_TYPE_VIDEO_SESSION_PARAMETERS_KHR: Self = Self(1000023001);
-  #[cfg(feature = "VK_NVX_binary_import")]
-  pub const VK_OBJECT_TYPE_CU_MODULE_NVX: Self = Self(1000029000);
-  #[cfg(feature = "VK_NVX_binary_import")]
-  pub const VK_OBJECT_TYPE_CU_FUNCTION_NVX: Self = Self(1000029001);
-  #[cfg(feature = "VK_KHR_descriptor_update_template")]
-  pub const VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_KHR: Self = Self(1000085000);
-  #[cfg(feature = "VK_EXT_debug_utils")]
-  pub const VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT: Self = Self(1000128000);
-  #[cfg(feature = "VK_KHR_acceleration_structure")]
-  pub const VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
-  #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
-  pub const VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR: Self = Self(1000156000);
-  #[cfg(feature = "VK_EXT_validation_cache")]
-  pub const VK_OBJECT_TYPE_VALIDATION_CACHE_EXT: Self = Self(1000160000);
-  #[cfg(feature = "VK_NV_ray_tracing")]
-  pub const VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
-  #[cfg(feature = "VK_INTEL_performance_query")]
-  pub const VK_OBJECT_TYPE_PERFORMANCE_CONFIGURATION_INTEL: Self = Self(1000210000);
-  #[cfg(feature = "VK_KHR_deferred_host_operations")]
-  pub const VK_OBJECT_TYPE_DEFERRED_OPERATION_KHR: Self = Self(1000268000);
-  #[cfg(feature = "VK_NV_device_generated_commands")]
-  pub const VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NV: Self = Self(1000277000);
-  #[cfg(feature = "VK_EXT_private_data")]
-  pub const VK_OBJECT_TYPE_PRIVATE_DATA_SLOT_EXT: Self = Self(1000295000);
-  #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-  pub const VK_OBJECT_TYPE_CUDA_MODULE_NV: Self = Self(1000307000);
-  #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-  pub const VK_OBJECT_TYPE_CUDA_FUNCTION_NV: Self = Self(1000307001);
-  #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-  ///VkBufferCollectionFUCHSIA
-  pub const VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366000);
-  #[cfg(feature = "VK_EXT_opacity_micromap")]
-  pub const VK_OBJECT_TYPE_MICROMAP_EXT: Self = Self(1000396000);
-  #[cfg(feature = "VK_ARM_tensors")]
-  pub const VK_OBJECT_TYPE_TENSOR_ARM: Self = Self(1000460000);
-  #[cfg(feature = "VK_ARM_tensors")]
-  pub const VK_OBJECT_TYPE_TENSOR_VIEW_ARM: Self = Self(1000460001);
-  #[cfg(feature = "VK_NV_optical_flow")]
-  pub const VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV: Self = Self(1000464000);
-  #[cfg(feature = "VK_EXT_shader_object")]
-  pub const VK_OBJECT_TYPE_SHADER_EXT: Self = Self(1000482000);
-  #[cfg(feature = "VK_KHR_pipeline_binary")]
-  pub const VK_OBJECT_TYPE_PIPELINE_BINARY_KHR: Self = Self(1000483000);
-  #[cfg(feature = "VK_NV_external_sci_sync2")]
-  ///VkSemaphoreSciSyncPoolNV
-  pub const VK_OBJECT_TYPE_SEMAPHORE_SCI_SYNC_POOL_NV: Self = Self(1000489000);
-  #[cfg(feature = "VK_ARM_data_graph")]
-  pub const VK_OBJECT_TYPE_DATA_GRAPH_PIPELINE_SESSION_ARM: Self = Self(1000507000);
-  #[cfg(feature = "VK_NV_external_compute_queue")]
-  pub const VK_OBJECT_TYPE_EXTERNAL_COMPUTE_QUEUE_NV: Self = Self(1000556000);
-  #[cfg(feature = "VK_EXT_device_generated_commands")]
-  pub const VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_EXT: Self = Self(1000572000);
-  #[cfg(feature = "VK_EXT_device_generated_commands")]
-  pub const VK_OBJECT_TYPE_INDIRECT_EXECUTION_SET_EXT: Self = Self(1000572001);
-  #[cfg(feature = "VK_ARM_shader_instrumentation")]
-  pub const VK_OBJECT_TYPE_SHADER_INSTRUMENTATION_ARM: Self = Self(1000607000);
 }
 /// [VkTensorUsageFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorUsageFlagsARM.html)
 #[cfg(any(feature = "VK_ARM_tensors", feature = "VK_ARM_data_graph"))]
@@ -18212,6 +18579,7 @@ impl core::ops::BitXorAssign<u32> for VkMemoryMapFlagBits {
   feature = "VK_KHR_performance_query",
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
+  feature = "VK_QCOM_elapsed_timer_query",
   feature = "VK_INTEL_performance_query",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_EXT_mesh_shader",
@@ -18229,6 +18597,7 @@ pub struct VkQueryType(pub i32);
   feature = "VK_KHR_performance_query",
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
+  feature = "VK_QCOM_elapsed_timer_query",
   feature = "VK_INTEL_performance_query",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_EXT_mesh_shader",
@@ -18253,6 +18622,8 @@ impl VkQueryType {
   pub const VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR: Self = Self(1000150001);
   #[cfg(feature = "VK_NV_ray_tracing")]
   pub const VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV: Self = Self(1000165000);
+  #[cfg(feature = "VK_QCOM_elapsed_timer_query")]
+  pub const VK_QUERY_TYPE_TIME_ELAPSED_QCOM: Self = Self(1000173000);
   #[cfg(feature = "VK_INTEL_performance_query")]
   pub const VK_QUERY_TYPE_PERFORMANCE_QUERY_INTEL: Self = Self(1000210000);
   #[cfg(feature = "VK_KHR_video_encode_queue")]
@@ -22017,7 +22388,8 @@ impl VkSamplerMipmapMode {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 #[deprecated(note = "superseded by `VkPipelineCreateFlagBits2`")]
 #[repr(transparent)]
@@ -22044,7 +22416,8 @@ pub struct VkPipelineCreateFlagBits(pub u32);
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl VkPipelineCreateFlagBits {
   pub const EMPTY: Self = Self(0);
@@ -22163,6 +22536,8 @@ impl VkPipelineCreateFlagBits {
   pub const VK_PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT: Self = Self(1 << 27u64);
   #[cfg(feature = "VK_EXT_pipeline_protected_access")]
   pub const VK_PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT_EXT: Self = Self(1 << 30u64);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_PIPELINE_CREATE_RAY_TRACING_OPACITY_MICROMAP_BIT_KHR: Self = Self(1 << 24u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
     (self.0 & o.0) == o.0
@@ -22197,7 +22572,8 @@ impl VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOr for VkPipelineCreateFlagBits {
   type Output = Self;
@@ -22227,7 +22603,8 @@ impl core::ops::BitOr for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOrAssign for VkPipelineCreateFlagBits {
   #[inline]
@@ -22256,7 +22633,8 @@ impl core::ops::BitOrAssign for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAnd for VkPipelineCreateFlagBits {
   type Output = Self;
@@ -22286,7 +22664,8 @@ impl core::ops::BitAnd for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAndAssign for VkPipelineCreateFlagBits {
   #[inline]
@@ -22315,7 +22694,8 @@ impl core::ops::BitAndAssign for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXor for VkPipelineCreateFlagBits {
   type Output = Self;
@@ -22345,7 +22725,8 @@ impl core::ops::BitXor for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXorAssign for VkPipelineCreateFlagBits {
   #[inline]
@@ -22374,7 +22755,8 @@ impl core::ops::BitXorAssign for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::Not for VkPipelineCreateFlagBits {
   type Output = Self;
@@ -22404,7 +22786,8 @@ impl core::ops::Not for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOr<u32> for VkPipelineCreateFlagBits {
   type Output = Self;
@@ -22434,7 +22817,8 @@ impl core::ops::BitOr<u32> for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOrAssign<u32> for VkPipelineCreateFlagBits {
   #[inline]
@@ -22463,7 +22847,8 @@ impl core::ops::BitOrAssign<u32> for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAnd<u32> for VkPipelineCreateFlagBits {
   type Output = Self;
@@ -22493,7 +22878,8 @@ impl core::ops::BitAnd<u32> for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAndAssign<u32> for VkPipelineCreateFlagBits {
   #[inline]
@@ -22522,7 +22908,8 @@ impl core::ops::BitAndAssign<u32> for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXor<u32> for VkPipelineCreateFlagBits {
   type Output = Self;
@@ -22552,7 +22939,8 @@ impl core::ops::BitXor<u32> for VkPipelineCreateFlagBits {
   feature = "VK_EXT_attachment_feedback_loop_layout",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
-  feature = "VK_EXT_pipeline_protected_access"
+  feature = "VK_EXT_pipeline_protected_access",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXorAssign<u32> for VkPipelineCreateFlagBits {
   #[inline]
@@ -26322,6 +26710,7 @@ impl VkIndirectCommandsTokenTypeEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26333,6 +26722,7 @@ pub struct VkShaderCreateFlagBitsEXT(pub u32);
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26384,6 +26774,9 @@ impl VkShaderCreateFlagBitsEXT {
   pub const VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT: Self = Self(1 << 6u64);
   #[cfg(feature = "VK_EXT_device_generated_commands")]
   pub const VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT: Self = Self(1 << 7u64);
+  #[cfg(all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"))]
+  pub const VK_SHADER_CREATE_OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_BIT_EXT: Self =
+    Self(1 << 12u64);
   #[cfg(feature = "VK_EXT_shader_64bit_indexing")]
   pub const VK_SHADER_CREATE_64_BIT_INDEXING_BIT_EXT: Self = Self(1 << 15u64);
   #[cfg(all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11"))]
@@ -26406,6 +26799,7 @@ impl VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26421,6 +26815,7 @@ impl core::ops::BitOr for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26435,6 +26830,7 @@ impl core::ops::BitOrAssign for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26450,6 +26846,7 @@ impl core::ops::BitAnd for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26464,6 +26861,7 @@ impl core::ops::BitAndAssign for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26479,6 +26877,7 @@ impl core::ops::BitXor for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26493,6 +26892,7 @@ impl core::ops::BitXorAssign for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26508,6 +26908,7 @@ impl core::ops::Not for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26523,6 +26924,7 @@ impl core::ops::BitOr<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26537,6 +26939,7 @@ impl core::ops::BitOrAssign<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26552,6 +26955,7 @@ impl core::ops::BitAnd<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26566,6 +26970,7 @@ impl core::ops::BitAndAssign<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -26581,6 +26986,7 @@ impl core::ops::BitXor<u32> for VkShaderCreateFlagBitsEXT {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_maintenance5",
   feature = "VK_EXT_device_generated_commands",
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_shader_64bit_indexing",
   feature = "VK_KHR_maintenance11"
 ))]
@@ -28390,16 +28796,10 @@ impl core::ops::BitXorAssign<u32> for VkMicromapCreateFlagBitsEXT {
     self.0 ^= r;
   }
 }
-/// [VkOpacityMicromapFormatEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapFormatEXT.html)
 #[cfg(feature = "VK_EXT_opacity_micromap")]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkOpacityMicromapFormatEXT(pub i32);
+pub type VkOpacityMicromapFormatEXT = VkOpacityMicromapFormatKHR;
 #[cfg(feature = "VK_EXT_opacity_micromap")]
-impl VkOpacityMicromapFormatEXT {
-  pub const VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT: Self = Self(1);
-  pub const VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT: Self = Self(2);
-}
+pub type VkOpacityMicromapSpecialIndexEXT = VkOpacityMicromapSpecialIndexKHR;
 /// [VkBuildAccelerationStructureFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildAccelerationStructureFlagsKHR.html)
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
@@ -28408,7 +28808,8 @@ impl VkOpacityMicromapFormatEXT {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -28420,7 +28821,8 @@ pub struct VkBuildAccelerationStructureFlagBitsKHR(pub u32);
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl VkBuildAccelerationStructureFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
@@ -28477,6 +28879,14 @@ impl VkBuildAccelerationStructureFlagBitsKHR {
   #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
   pub const VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_CLUSTER_OPACITY_MICROMAPS_BIT_NV: Self =
     Self(1 << 12u64);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_KHR: Self =
+    Self(1 << 6u64);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_BIT_KHR: Self =
+    Self(1 << 7u64);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_BUILD_ACCELERATION_STRUCTURE_MICROMAP_LOSSY_BIT_KHR: Self = Self(1 << 10u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
     (self.0 & o.0) == o.0
@@ -28497,7 +28907,8 @@ impl VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOr for VkBuildAccelerationStructureFlagBitsKHR {
   type Output = Self;
@@ -28513,7 +28924,8 @@ impl core::ops::BitOr for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOrAssign for VkBuildAccelerationStructureFlagBitsKHR {
   #[inline]
@@ -28528,7 +28940,8 @@ impl core::ops::BitOrAssign for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAnd for VkBuildAccelerationStructureFlagBitsKHR {
   type Output = Self;
@@ -28544,7 +28957,8 @@ impl core::ops::BitAnd for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAndAssign for VkBuildAccelerationStructureFlagBitsKHR {
   #[inline]
@@ -28559,7 +28973,8 @@ impl core::ops::BitAndAssign for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXor for VkBuildAccelerationStructureFlagBitsKHR {
   type Output = Self;
@@ -28575,7 +28990,8 @@ impl core::ops::BitXor for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXorAssign for VkBuildAccelerationStructureFlagBitsKHR {
   #[inline]
@@ -28590,7 +29006,8 @@ impl core::ops::BitXorAssign for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::Not for VkBuildAccelerationStructureFlagBitsKHR {
   type Output = Self;
@@ -28606,7 +29023,8 @@ impl core::ops::Not for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOr<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   type Output = Self;
@@ -28622,7 +29040,8 @@ impl core::ops::BitOr<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOrAssign<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   #[inline]
@@ -28637,7 +29056,8 @@ impl core::ops::BitOrAssign<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAnd<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   type Output = Self;
@@ -28653,7 +29073,8 @@ impl core::ops::BitAnd<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAndAssign<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   #[inline]
@@ -28668,7 +29089,8 @@ impl core::ops::BitAndAssign<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXor<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   type Output = Self;
@@ -28684,7 +29106,8 @@ impl core::ops::BitXor<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_displacement_micromap",
   feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_NV_cluster_acceleration_structure"
+  feature = "VK_NV_cluster_acceleration_structure",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXorAssign<u32> for VkBuildAccelerationStructureFlagBitsKHR {
   #[inline]
@@ -28696,7 +29119,8 @@ impl core::ops::BitXorAssign<u32> for VkBuildAccelerationStructureFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -28704,7 +29128,8 @@ pub struct VkGeometryInstanceFlagBitsKHR(pub u32);
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl VkGeometryInstanceFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
@@ -28731,6 +29156,10 @@ impl VkGeometryInstanceFlagBitsKHR {
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[deprecated(note = "deprecated")]
   pub const VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 5u64);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_KHR: Self = Self(1 << 4u64);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_KHR: Self = Self(1 << 5u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
     (self.0 & o.0) == o.0
@@ -28747,7 +29176,8 @@ impl VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOr for VkGeometryInstanceFlagBitsKHR {
   type Output = Self;
@@ -28759,7 +29189,8 @@ impl core::ops::BitOr for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOrAssign for VkGeometryInstanceFlagBitsKHR {
   #[inline]
@@ -28770,7 +29201,8 @@ impl core::ops::BitOrAssign for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAnd for VkGeometryInstanceFlagBitsKHR {
   type Output = Self;
@@ -28782,7 +29214,8 @@ impl core::ops::BitAnd for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAndAssign for VkGeometryInstanceFlagBitsKHR {
   #[inline]
@@ -28793,7 +29226,8 @@ impl core::ops::BitAndAssign for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXor for VkGeometryInstanceFlagBitsKHR {
   type Output = Self;
@@ -28805,7 +29239,8 @@ impl core::ops::BitXor for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXorAssign for VkGeometryInstanceFlagBitsKHR {
   #[inline]
@@ -28816,7 +29251,8 @@ impl core::ops::BitXorAssign for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::Not for VkGeometryInstanceFlagBitsKHR {
   type Output = Self;
@@ -28828,7 +29264,8 @@ impl core::ops::Not for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOr<u32> for VkGeometryInstanceFlagBitsKHR {
   type Output = Self;
@@ -28840,7 +29277,8 @@ impl core::ops::BitOr<u32> for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitOrAssign<u32> for VkGeometryInstanceFlagBitsKHR {
   #[inline]
@@ -28851,7 +29289,8 @@ impl core::ops::BitOrAssign<u32> for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAnd<u32> for VkGeometryInstanceFlagBitsKHR {
   type Output = Self;
@@ -28863,7 +29302,8 @@ impl core::ops::BitAnd<u32> for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitAndAssign<u32> for VkGeometryInstanceFlagBitsKHR {
   #[inline]
@@ -28874,7 +29314,8 @@ impl core::ops::BitAndAssign<u32> for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXor<u32> for VkGeometryInstanceFlagBitsKHR {
   type Output = Self;
@@ -28886,7 +29327,8 @@ impl core::ops::BitXor<u32> for VkGeometryInstanceFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
   feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_opacity_micromap"
+  feature = "VK_EXT_opacity_micromap",
+  feature = "VK_KHR_opacity_micromap"
 ))]
 impl core::ops::BitXorAssign<u32> for VkGeometryInstanceFlagBitsKHR {
   #[inline]
@@ -28894,22 +29336,52 @@ impl core::ops::BitXorAssign<u32> for VkGeometryInstanceFlagBitsKHR {
     self.0 ^= r;
   }
 }
-/// [VkOpacityMicromapSpecialIndexEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexEXT.html)
+/// [VkOpacityMicromapFormatKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapFormatKHR.html)
 #[cfg(any(
+  feature = "VK_KHR_opacity_micromap",
+  feature = "VK_EXT_opacity_micromap"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkOpacityMicromapFormatKHR(pub i32);
+#[cfg(any(
+  feature = "VK_KHR_opacity_micromap",
+  feature = "VK_EXT_opacity_micromap"
+))]
+impl VkOpacityMicromapFormatKHR {
+  pub const VK_OPACITY_MICROMAP_FORMAT_2_STATE_KHR: Self = Self(1);
+  pub const VK_OPACITY_MICROMAP_FORMAT_4_STATE_KHR: Self = Self(2);
+  #[cfg(feature = "VK_EXT_opacity_micromap")]
+  pub const VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT: Self = Self(1);
+  #[cfg(feature = "VK_EXT_opacity_micromap")]
+  pub const VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT: Self = Self(2);
+}
+/// [VkOpacityMicromapSpecialIndexKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexKHR.html)
+#[cfg(any(
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_cluster_acceleration_structure"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkOpacityMicromapSpecialIndexEXT(pub i32);
+pub struct VkOpacityMicromapSpecialIndexKHR(pub i32);
 #[cfg(any(
+  feature = "VK_KHR_opacity_micromap",
   feature = "VK_EXT_opacity_micromap",
   feature = "VK_NV_cluster_acceleration_structure"
 ))]
-impl VkOpacityMicromapSpecialIndexEXT {
+impl VkOpacityMicromapSpecialIndexKHR {
+  pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_KHR: Self = Self(-1);
+  pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_KHR: Self = Self(-2);
+  pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_KHR: Self = Self(-3);
+  pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_KHR: Self = Self(-4);
+  #[cfg(feature = "VK_EXT_opacity_micromap")]
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT: Self = Self(-1);
+  #[cfg(feature = "VK_EXT_opacity_micromap")]
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT: Self = Self(-2);
+  #[cfg(feature = "VK_EXT_opacity_micromap")]
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT: Self = Self(-3);
+  #[cfg(feature = "VK_EXT_opacity_micromap")]
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT: Self = Self(-4);
   #[cfg(all(
     feature = "VK_EXT_opacity_micromap",
@@ -30996,6 +31468,31 @@ impl VkAccelerationStructureCompatibilityKHR {
   pub const VK_ACCELERATION_STRUCTURE_COMPATIBILITY_COMPATIBLE_KHR: Self = Self(0);
   pub const VK_ACCELERATION_STRUCTURE_COMPATIBILITY_INCOMPATIBLE_KHR: Self = Self(1);
 }
+/// [VkAccelerationStructureTypeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTypeKHR.html)
+#[cfg(any(
+  feature = "VK_KHR_acceleration_structure",
+  feature = "VK_NV_ray_tracing",
+  feature = "VK_KHR_opacity_micromap"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkAccelerationStructureTypeKHR(pub i32);
+#[cfg(any(
+  feature = "VK_KHR_acceleration_structure",
+  feature = "VK_NV_ray_tracing",
+  feature = "VK_KHR_opacity_micromap"
+))]
+impl VkAccelerationStructureTypeKHR {
+  pub const VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR: Self = Self(0);
+  pub const VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR: Self = Self(1);
+  pub const VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR: Self = Self(2);
+  #[cfg(feature = "VK_NV_ray_tracing")]
+  pub const VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_NV: Self = Self(0);
+  #[cfg(feature = "VK_NV_ray_tracing")]
+  pub const VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_NV: Self = Self(1);
+  #[cfg(feature = "VK_KHR_opacity_micromap")]
+  pub const VK_ACCELERATION_STRUCTURE_TYPE_OPACITY_MICROMAP_KHR: Self = Self(1000623000);
+}
 /// [VkGeometryFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryFlagsKHR.html)
 #[cfg(any(
   feature = "VK_KHR_acceleration_structure",
@@ -31189,27 +31686,6 @@ impl VkCopyAccelerationStructureModeKHR {
   pub const VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_NV: Self = Self(0);
   #[cfg(feature = "VK_NV_ray_tracing")]
   pub const VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_NV: Self = Self(1);
-}
-/// [VkAccelerationStructureTypeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureTypeKHR.html)
-#[cfg(any(
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing"
-))]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkAccelerationStructureTypeKHR(pub i32);
-#[cfg(any(
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing"
-))]
-impl VkAccelerationStructureTypeKHR {
-  pub const VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR: Self = Self(0);
-  pub const VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR: Self = Self(1);
-  pub const VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR: Self = Self(2);
-  #[cfg(feature = "VK_NV_ray_tracing")]
-  pub const VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_NV: Self = Self(0);
-  #[cfg(feature = "VK_NV_ray_tracing")]
-  pub const VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_NV: Self = Self(1);
 }
 /// [VkScopeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkScopeKHR.html)
 #[cfg(any(
@@ -32478,6 +32954,15 @@ impl core::ops::BitXorAssign<u32> for VkRefreshObjectFlagBitsKHR {
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
+}
+/// [VkAccelerationStructureSerializedBlockTypeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureSerializedBlockTypeKHR.html)
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkAccelerationStructureSerializedBlockTypeKHR(pub i32);
+#[cfg(feature = "VK_KHR_opacity_micromap")]
+impl VkAccelerationStructureSerializedBlockTypeKHR {
+  pub const VK_ACCELERATION_STRUCTURE_SERIALIZED_BLOCK_TYPE_OPACITY_MICROMAP_KHR: Self = Self(0);
 }
 /// [VkPerformanceCounterScopeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterScopeKHR.html)
 #[cfg(feature = "VK_KHR_performance_query")]

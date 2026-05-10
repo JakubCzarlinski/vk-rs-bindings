@@ -426,6 +426,7 @@ pub struct EnumVariant {
     pub value: EnumValue,
     pub comment: Option<String>,
     pub api: Option<ApiSet>,
+    pub dep: Option<DepExpr>,
     pub depr: DeprecationInfo,
     pub alias: Option<String>,
     pub provided_by: Vec<String>,
@@ -436,8 +437,6 @@ pub enum EnumValue {
     Integer(i64),
     Hex(u64),
     BitPos(u32),
-    /// Khronos extension-offset encoding:
-    ///   value = `1_000_000_000` + (extnumber − 1) * 1000 + offset
     Offset {
         extnumber: u32,
         offset: u32,

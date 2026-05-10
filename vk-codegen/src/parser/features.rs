@@ -474,6 +474,7 @@ fn collect_extend_enums(
                     value,
                     comment: re.comment.clone(),
                     api: re.api.clone(),
+                    dep: req.depends.clone(),
                     depr: re.depr.clone(),
                     alias: re.alias.clone(),
                     provided_by: vec![source.to_owned()],

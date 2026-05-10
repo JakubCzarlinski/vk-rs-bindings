@@ -2214,17 +2214,17 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000001000);
   #[cfg(feature = "VK_KHR_swapchain")]
   pub const VK_STRUCTURE_TYPE_PRESENT_INFO_KHR: Self = Self(1000001001);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   pub const VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR: Self = Self(1000060007);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   pub const VK_STRUCTURE_TYPE_IMAGE_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060008);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   pub const VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR: Self = Self(1000060009);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   pub const VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KHR: Self = Self(1000060010);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   pub const VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_INFO_KHR: Self = Self(1000060011);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   pub const VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060012);
   #[cfg(feature = "VK_KHR_display")]
   pub const VK_STRUCTURE_TYPE_DISPLAY_MODE_CREATE_INFO_KHR: Self = Self(1000002000);
@@ -2475,9 +2475,9 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_DEVICE_GROUP_SUBMIT_INFO_KHR: Self = Self(1000060005);
   #[cfg(feature = "VK_KHR_device_group")]
   pub const VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO_KHR: Self = Self(1000060006);
-  #[cfg(feature = "VK_KHR_device_group")]
+  #[cfg(all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"))]
   pub const VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO_KHR: Self = Self(1000060013);
-  #[cfg(feature = "VK_KHR_device_group")]
+  #[cfg(all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"))]
   pub const VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO_KHR: Self = Self(1000060014);
   #[cfg(feature = "VK_EXT_validation_flags")]
   pub const VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT: Self = Self(1000061000);
@@ -2597,7 +2597,16 @@ impl VkStructureType {
   #[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX: Self =
     Self(1000097000);
-  #[cfg(feature = "VK_NVX_multiview_per_view_attributes")]
+  #[cfg(any(
+    all(
+      feature = "VK_NVX_multiview_per_view_attributes",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_NVX_multiview_per_view_attributes"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX: Self = Self(1000044009);
   #[cfg(feature = "VK_NV_viewport_swizzle")]
   pub const VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV: Self =
@@ -2682,7 +2691,7 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_KHR: Self = Self(1000116005);
   #[cfg(feature = "VK_KHR_performance_query")]
   pub const VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_DESCRIPTION_KHR: Self = Self(1000116006);
-  #[cfg(feature = "VK_KHR_performance_query")]
+  #[cfg(all(feature = "VKSC_VERSION_1_0", feature = "VK_KHR_performance_query"))]
   pub const VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_RESERVATION_INFO_KHR: Self = Self(1000116007);
   #[cfg(feature = "VK_KHR_maintenance2")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES_KHR: Self =
@@ -2749,7 +2758,16 @@ impl VkStructureType {
     Self(1000129004);
   #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
   pub const VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID: Self = Self(1000129005);
-  #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
+  #[cfg(any(
+    all(
+      feature = "VK_ANDROID_external_memory_android_hardware_buffer",
+      feature = "VK_KHR_format_feature_flags2"
+    ),
+    all(
+      feature = "VK_ANDROID_external_memory_android_hardware_buffer",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID: Self =
     Self(1000129006);
   #[cfg(feature = "VK_EXT_sampler_filter_minmax")]
@@ -2793,17 +2811,35 @@ impl VkStructureType {
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   pub const VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT: Self =
     Self(1000135010);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_custom_border_color",
+    feature = "VK_EXT_descriptor_heap"
+  ))]
   pub const VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT: Self =
     Self(1000135011);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_descriptor_heap",
+    feature = "VK_NV_device_generated_commands"
+  ))]
   pub const VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV: Self = Self(1000135012);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_descriptor_heap",
+    feature = "VK_EXT_fragment_density_map"
+  ))]
   pub const VK_STRUCTURE_TYPE_SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT: Self = Self(1000135013);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM: Self =
     Self(1000135014);
-  #[cfg(feature = "VK_AMD_mixed_attachment_samples")]
+  #[cfg(any(
+    all(
+      feature = "VK_AMD_mixed_attachment_samples",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_AMD_mixed_attachment_samples",
+      feature = "VK_KHR_dynamic_rendering"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD: Self = Self(1000044008);
   #[cfg(feature = "VK_EXT_inline_uniform_block")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES_EXT: Self =
@@ -2913,7 +2949,16 @@ impl VkStructureType {
   #[cfg(feature = "VK_NV_framebuffer_mixed_samples")]
   pub const VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV: Self =
     Self(1000152000);
-  #[cfg(feature = "VK_NV_framebuffer_mixed_samples")]
+  #[cfg(any(
+    all(
+      feature = "VK_NV_framebuffer_mixed_samples",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_NV_framebuffer_mixed_samples"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_NV: Self = Self(1000044008);
   #[cfg(feature = "VK_NV_shader_sm_builtins")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV: Self =
@@ -2952,7 +2997,16 @@ impl VkStructureType {
     Self(1000158004);
   #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
   pub const VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT: Self = Self(1000158005);
-  #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_image_drm_format_modifier",
+      feature = "VK_KHR_format_feature_flags2"
+    ),
+    all(
+      feature = "VK_EXT_image_drm_format_modifier",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT: Self = Self(1000158006);
   #[cfg(feature = "VK_EXT_validation_cache")]
   pub const VK_STRUCTURE_TYPE_VALIDATION_CACHE_CREATE_INFO_EXT: Self = Self(1000160000);
@@ -3130,9 +3184,27 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_CHECKPOINT_DATA_NV: Self = Self(1000206000);
   #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
   pub const VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV: Self = Self(1000206001);
-  #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+  #[cfg(any(
+    all(
+      feature = "VK_NV_device_diagnostic_checkpoints",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_synchronization2",
+      feature = "VK_NV_device_diagnostic_checkpoints"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV: Self = Self(1000314008);
-  #[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+  #[cfg(any(
+    all(
+      feature = "VK_NV_device_diagnostic_checkpoints",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_synchronization2",
+      feature = "VK_NV_device_diagnostic_checkpoints"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV: Self = Self(1000314009);
   #[cfg(feature = "VK_KHR_timeline_semaphore")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES_KHR: Self =
@@ -3212,7 +3284,13 @@ impl VkStructureType {
   #[cfg(feature = "VK_EXT_fragment_density_map")]
   pub const VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT: Self =
     Self(1000218002);
-  #[cfg(feature = "VK_EXT_fragment_density_map")]
+  #[cfg(any(
+    all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_dynamic_rendering"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT: Self =
     Self(1000044007);
   #[cfg(feature = "VK_EXT_scalar_block_layout")]
@@ -3240,7 +3318,13 @@ impl VkStructureType {
     Self(1000226003);
   #[cfg(feature = "VK_KHR_fragment_shading_rate")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR: Self = Self(1000226004);
-  #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+  #[cfg(any(
+    all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_fragment_shading_rate"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR: Self =
     Self(1000044006);
   #[cfg(feature = "VK_AMD_shader_core_properties2")]
@@ -3343,7 +3427,10 @@ impl VkStructureType {
   #[cfg(feature = "VK_EXT_full_screen_exclusive")]
   pub const VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT: Self =
     Self(1000255002);
-  #[cfg(feature = "VK_EXT_full_screen_exclusive")]
+  #[cfg(all(
+    feature = "VK_EXT_full_screen_exclusive",
+    feature = "VK_KHR_win32_surface"
+  ))]
   pub const VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT: Self = Self(1000255001);
   #[cfg(feature = "VK_EXT_headless_surface")]
   pub const VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT: Self = Self(1000256000);
@@ -3685,7 +3772,13 @@ impl VkStructureType {
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
   pub const VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT: Self =
     Self(1000316012);
-  #[cfg(feature = "VK_EXT_descriptor_buffer")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_descriptor_buffer",
+      feature = "VK_KHR_acceleration_structure"
+    ),
+    all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing")
+  ))]
   pub const VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self =
     Self(1000316009);
   #[cfg(feature = "VK_KHR_device_address_commands")]
@@ -3713,13 +3806,25 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_DRAW_INDIRECT_COUNT_2_INFO_KHR: Self = Self(1000318010);
   #[cfg(feature = "VK_KHR_device_address_commands")]
   pub const VK_STRUCTURE_TYPE_DISPATCH_INDIRECT_2_INFO_KHR: Self = Self(1000318011);
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_conditional_rendering",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub const VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT: Self = Self(1000318012);
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub const VK_STRUCTURE_TYPE_BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT: Self = Self(1000318013);
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_AMD_buffer_marker",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub const VK_STRUCTURE_TYPE_MEMORY_MARKER_INFO_AMD: Self = Self(1000318014);
-  #[cfg(feature = "VK_KHR_device_address_commands")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub const VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR: Self = Self(1000318015);
   #[cfg(feature = "VK_EXT_graphics_pipeline_library")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT: Self =
@@ -4258,19 +4363,19 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM: Self = Self(1000460016);
   #[cfg(feature = "VK_ARM_tensors")]
   pub const VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM: Self = Self(1000460017);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM: Self =
     Self(1000460018);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM: Self =
     Self(1000460019);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub const VK_STRUCTURE_TYPE_DESCRIPTOR_GET_TENSOR_INFO_ARM: Self = Self(1000460020);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub const VK_STRUCTURE_TYPE_TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460021);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub const VK_STRUCTURE_TYPE_TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460022);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_frame_boundary"))]
   pub const VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM: Self = Self(1000460023);
   #[cfg(feature = "VK_EXT_shader_module_identifier")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT: Self =
@@ -4428,7 +4533,7 @@ impl VkStructureType {
   #[cfg(feature = "VK_NV_external_sci_sync2")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SCI_SYNC_2_FEATURES_NV: Self =
     Self(1000489002);
-  #[cfg(feature = "VK_NV_external_sci_sync2")]
+  #[cfg(all(feature = "VKSC_VERSION_1_0", feature = "VK_NV_external_sci_sync2"))]
   pub const VK_STRUCTURE_TYPE_DEVICE_SEMAPHORE_SCI_SYNC_POOL_RESERVATION_CREATE_INFO_NV: Self =
     Self(1000489003);
   #[cfg(feature = "VK_NV_ray_tracing_invocation_reorder")]
@@ -4555,7 +4660,7 @@ impl VkStructureType {
   #[cfg(feature = "VK_ARM_data_graph")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM:
     Self = Self(1000507019);
-  #[cfg(feature = "VK_ARM_data_graph")]
+  #[cfg(all(feature = "VK_ARM_data_graph", feature = "VK_ARM_tensors"))]
   pub const VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM: Self = Self(
         1000507015,
     );
@@ -4664,7 +4769,18 @@ impl VkStructureType {
   #[cfg(feature = "VK_KHR_unified_image_layouts")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR: Self =
     Self(1000527000);
-  #[cfg(feature = "VK_KHR_unified_image_layouts")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_attachment_feedback_loop_layout",
+      feature = "VK_KHR_unified_image_layouts",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_EXT_attachment_feedback_loop_layout",
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_unified_image_layouts"
+    )
+  ))]
   pub const VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT: Self = Self(1000527001);
   #[cfg(feature = "VK_KHR_shader_float_controls2")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES_KHR: Self =
@@ -4710,13 +4826,13 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO_KHR: Self = Self(1000545003);
   #[cfg(feature = "VK_KHR_maintenance6")]
   pub const VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO_KHR: Self = Self(1000545004);
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
   pub const VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO_KHR: Self = Self(1000545005);
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
   pub const VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO_KHR: Self = Self(1000545006);
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
   pub const VK_STRUCTURE_TYPE_SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT: Self = Self(1000545007);
-  #[cfg(feature = "VK_KHR_maintenance6")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
   pub const VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT: Self =
     Self(1000545008);
   #[cfg(feature = "VK_NV_descriptor_pool_overallocation")]
@@ -4732,7 +4848,10 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_TILE_MEMORY_REQUIREMENTS_QCOM: Self = Self(1000547002);
   #[cfg(feature = "VK_QCOM_tile_memory_heap")]
   pub const VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM: Self = Self(1000547003);
-  #[cfg(feature = "VK_QCOM_tile_memory_heap")]
+  #[cfg(all(
+    feature = "VK_QCOM_tile_memory_heap",
+    feature = "VK_QCOM_tile_properties"
+  ))]
   pub const VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM: Self = Self(1000547004);
   #[cfg(feature = "VK_KHR_copy_memory_indirect")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR: Self =
@@ -4781,19 +4900,34 @@ impl VkStructureType {
   #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR: Self =
     Self(1000553009);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_h264",
+    feature = "VK_KHR_video_encode_quantization_map"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR: Self =
     Self(1000553003);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_h265",
+    feature = "VK_KHR_video_encode_quantization_map"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR: Self =
     Self(1000553004);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_h265",
+    feature = "VK_KHR_video_encode_quantization_map"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR: Self =
     Self(1000553006);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_av1",
+    feature = "VK_KHR_video_encode_quantization_map"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR: Self =
     Self(1000553007);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_av1",
+    feature = "VK_KHR_video_encode_quantization_map"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR: Self =
     Self(1000553008);
   #[cfg(feature = "VK_NV_raw_access_chains")]
@@ -4961,13 +5095,22 @@ impl VkStructureType {
   #[cfg(feature = "VK_KHR_video_maintenance2")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR: Self =
     Self(1000586000);
-  #[cfg(feature = "VK_KHR_video_maintenance2")]
+  #[cfg(all(
+    feature = "VK_KHR_video_decode_h264",
+    feature = "VK_KHR_video_maintenance2"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR: Self =
     Self(1000586001);
-  #[cfg(feature = "VK_KHR_video_maintenance2")]
+  #[cfg(all(
+    feature = "VK_KHR_video_decode_h265",
+    feature = "VK_KHR_video_maintenance2"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR: Self =
     Self(1000586002);
-  #[cfg(feature = "VK_KHR_video_maintenance2")]
+  #[cfg(all(
+    feature = "VK_KHR_video_decode_av1",
+    feature = "VK_KHR_video_maintenance2"
+  ))]
   pub const VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR: Self =
     Self(1000586003);
   #[cfg(feature = "VK_OHOS_surface")]
@@ -5065,9 +5208,21 @@ impl VkStructureType {
     Self(1000627000);
   #[cfg(feature = "VK_EXT_custom_resolve")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT: Self = Self(1000628000);
-  #[cfg(feature = "VK_EXT_custom_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_custom_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_STRUCTURE_TYPE_BEGIN_CUSTOM_RESOLVE_INFO_EXT: Self = Self(1000628001);
-  #[cfg(feature = "VK_EXT_custom_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_custom_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT: Self = Self(1000628002);
   #[cfg(feature = "VK_QCOM_data_graph_model")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM: Self =
@@ -5866,7 +6021,10 @@ impl VkBufferUsageFlagBits2 {
   pub const VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT: Self = Self(1 << 8u64);
   #[cfg(feature = "VK_BASE_VERSION_1_4")]
   pub const VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT: Self = Self(1 << 17u64);
-  #[cfg(feature = "VK_AMDX_shader_enqueue")]
+  #[cfg(any(
+    all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
+    all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4")
+  ))]
   pub const VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX: Self = Self(1 << 25u64);
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   pub const VK_BUFFER_USAGE_2_DESCRIPTOR_HEAP_BIT_EXT: Self = Self(1 << 28u64);
@@ -5888,40 +6046,62 @@ impl VkBufferUsageFlagBits2 {
   pub const VK_BUFFER_USAGE_2_VERTEX_BUFFER_BIT_KHR: Self = Self(1 << 7u64);
   #[cfg(feature = "VK_KHR_maintenance5")]
   pub const VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT_KHR: Self = Self(1 << 8u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_EXT_conditional_rendering",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_BUFFER_USAGE_2_CONDITIONAL_RENDERING_BIT_EXT: Self = Self(1 << 9u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_BUFFER_USAGE_2_SHADER_BINDING_TABLE_BIT_KHR: Self = Self(1 << 10u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"))]
   pub const VK_BUFFER_USAGE_2_RAY_TRACING_BIT_NV: Self = Self(1 << 10u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT: Self = Self(1 << 11u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT: Self = Self(1 << 12u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"))]
   pub const VK_BUFFER_USAGE_2_VIDEO_DECODE_SRC_BIT_KHR: Self = Self(1 << 13u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"))]
   pub const VK_BUFFER_USAGE_2_VIDEO_DECODE_DST_BIT_KHR: Self = Self(1 << 14u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"))]
   pub const VK_BUFFER_USAGE_2_VIDEO_ENCODE_DST_BIT_KHR: Self = Self(1 << 15u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"))]
   pub const VK_BUFFER_USAGE_2_VIDEO_ENCODE_SRC_BIT_KHR: Self = Self(1 << 16u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
+    all(
+      feature = "VK_KHR_buffer_device_address",
+      feature = "VK_KHR_maintenance5"
+    ),
+    all(
+      feature = "VK_EXT_buffer_device_address",
+      feature = "VK_KHR_maintenance5"
+    )
+  ))]
   pub const VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT_KHR: Self = Self(1 << 17u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_BUFFER_USAGE_2_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR: Self =
     Self(1 << 19u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_BUFFER_USAGE_2_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR: Self = Self(1 << 20u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT: Self = Self(1 << 21u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT: Self = Self(1 << 22u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT: Self = Self(1 << 26u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT: Self = Self(1 << 23u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"))]
   pub const VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT: Self = Self(1 << 24u64);
   #[cfg(feature = "VK_AMDX_dense_geometry_format")]
   pub const VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX: Self = Self(1 << 33u64);
@@ -6719,7 +6899,10 @@ impl VkPipelineCreateFlagBits2 {
   pub const VK_PIPELINE_CREATE_2_EARLY_RETURN_ON_FAILURE_BIT: Self = Self(1 << 9u64);
   pub const VK_PIPELINE_CREATE_2_NO_PROTECTED_ACCESS_BIT: Self = Self(1 << 27u64);
   pub const VK_PIPELINE_CREATE_2_PROTECTED_ACCESS_ONLY_BIT: Self = Self(1 << 30u64);
-  #[cfg(feature = "VK_AMDX_shader_enqueue")]
+  #[cfg(any(
+    all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
+    all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4")
+  ))]
   pub const VK_PIPELINE_CREATE_2_EXECUTION_GRAPH_BIT_AMDX: Self = Self(1 << 32u64);
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   pub const VK_PIPELINE_CREATE_2_DESCRIPTOR_HEAP_BIT_EXT: Self = Self(1 << 36u64);
@@ -6729,7 +6912,28 @@ impl VkPipelineCreateFlagBits2 {
   #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_BIT_NV: Self =
     Self(1 << 33u64);
-  #[cfg(feature = "VK_EXT_legacy_dithering")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_maintenance5"
+    ),
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_VERSION_1_4"
+    ),
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_KHR_maintenance5",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_VERSION_1_3",
+      feature = "VK_VERSION_1_4"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_2_ENABLE_LEGACY_DITHERING_BIT_EXT: Self = Self(1 << 34u64);
   #[cfg(feature = "VK_KHR_maintenance5")]
   pub const VK_PIPELINE_CREATE_2_DISABLE_OPTIMIZATION_BIT_KHR: Self = Self(1 << 0u64);
@@ -6741,69 +6945,169 @@ impl VkPipelineCreateFlagBits2 {
   pub const VK_PIPELINE_CREATE_2_VIEW_INDEX_FROM_DEVICE_INDEX_BIT_KHR: Self = Self(1 << 3u64);
   #[cfg(feature = "VK_KHR_maintenance5")]
   pub const VK_PIPELINE_CREATE_2_DISPATCH_BASE_BIT_KHR: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"))]
   pub const VK_PIPELINE_CREATE_2_DEFER_COMPILE_BIT_NV: Self = Self(1 << 5u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_pipeline_executable_properties"
+  ))]
   pub const VK_PIPELINE_CREATE_2_CAPTURE_STATISTICS_BIT_KHR: Self = Self(1 << 6u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_pipeline_executable_properties"
+  ))]
   pub const VK_PIPELINE_CREATE_2_CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR: Self = Self(1 << 7u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_EXT_pipeline_creation_cache_control",
+      feature = "VK_KHR_maintenance5"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_2_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_KHR: Self = Self(1 << 8u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_EXT_pipeline_creation_cache_control",
+      feature = "VK_KHR_maintenance5"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_2_EARLY_RETURN_ON_FAILURE_BIT_KHR: Self = Self(1 << 9u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_EXT_graphics_pipeline_library",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_PIPELINE_CREATE_2_LINK_TIME_OPTIMIZATION_BIT_EXT: Self = Self(1 << 10u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_EXT_graphics_pipeline_library",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RETAIN_LINK_TIME_OPTIMIZATION_INFO_BIT_EXT: Self =
     Self(1 << 23u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"))]
   pub const VK_PIPELINE_CREATE_2_LIBRARY_BIT_KHR: Self = Self(1 << 11u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR: Self = Self(1 << 12u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_SKIP_AABBS_BIT_KHR: Self = Self(1 << 13u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_BIT_KHR: Self =
     Self(1 << 14u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR: Self =
     Self(1 << 15u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR: Self = Self(1 << 16u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR: Self =
     Self(1 << 17u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_KHR_ray_tracing_pipeline"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR: Self =
     Self(1 << 19u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_NV_device_generated_commands"
+  ))]
   pub const VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_NV: Self = Self(1 << 18u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_NV_ray_tracing_motion_blur"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_ALLOW_MOTION_BIT_NV: Self = Self(1 << 20u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_fragment_shading_rate",
+      feature = "VK_KHR_maintenance5"
+    ),
+    all(
+      feature = "VK_KHR_fragment_shading_rate",
+      feature = "VK_KHR_maintenance5",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_2_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: Self =
     Self(1 << 21u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_maintenance5"
+    ),
+    all(
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_maintenance5",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_2_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT: Self =
     Self(1 << 22u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT: Self = Self(1 << 24u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_EXT_attachment_feedback_loop_layout",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_PIPELINE_CREATE_2_COLOR_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT: Self = Self(1 << 25u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_EXT_attachment_feedback_loop_layout",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_PIPELINE_CREATE_2_DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT: Self =
     Self(1 << 26u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
+    all(
+      feature = "VK_EXT_pipeline_protected_access",
+      feature = "VK_KHR_maintenance5"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_2_NO_PROTECTED_ACCESS_BIT_EXT: Self = Self(1 << 27u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
+    all(
+      feature = "VK_EXT_pipeline_protected_access",
+      feature = "VK_KHR_maintenance5"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_2_PROTECTED_ACCESS_ONLY_BIT_EXT: Self = Self(1 << 30u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_KHR_maintenance5",
+    feature = "VK_NV_displacement_micromap"
+  ))]
   pub const VK_PIPELINE_CREATE_2_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV: Self = Self(1 << 28u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"))]
   pub const VK_PIPELINE_CREATE_2_DESCRIPTOR_BUFFER_BIT_EXT: Self = Self(1 << 29u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_ARM_pipeline_opacity_micromap",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_PIPELINE_CREATE_2_DISALLOW_OPACITY_MICROMAP_BIT_ARM: Self = Self(1 << 37u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_ARM_shader_instrumentation",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_PIPELINE_CREATE_2_INSTRUMENT_SHADERS_BIT_ARM: Self = Self(1 << 39u64);
   #[cfg(feature = "VK_KHR_pipeline_binary")]
   pub const VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR: Self = Self(1 << 31u64);
@@ -7672,12 +7976,36 @@ impl VkResolveModeFlagBits {
   pub const VK_RESOLVE_MODE_MIN_BIT_KHR: Self = Self(1 << 2u64);
   #[cfg(feature = "VK_KHR_depth_stencil_resolve")]
   pub const VK_RESOLVE_MODE_MAX_BIT_KHR: Self = Self(1 << 3u64);
-  #[cfg(feature = "VK_ANDROID_external_format_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_ANDROID_external_format_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(
+      feature = "VK_ANDROID_external_format_resolve",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   pub const VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_ANDROID_external_format_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_ANDROID_external_format_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(
+      feature = "VK_ANDROID_external_format_resolve",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   #[deprecated(note = "deprecated")]
   pub const VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_EXT_custom_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_custom_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_RESOLVE_MODE_CUSTOM_BIT_EXT: Self = Self(1 << 5u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -8628,23 +8956,65 @@ impl VkFormatFeatureFlagBits2 {
   pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT: Self = Self(1 << 13u64);
   #[cfg(feature = "VK_BASE_VERSION_1_4")]
   pub const VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT: Self = Self(1 << 46u64);
-  #[cfg(feature = "VK_KHR_video_decode_queue")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_video_decode_queue"
+    ),
+    all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR: Self = Self(1 << 25u64);
-  #[cfg(feature = "VK_KHR_video_decode_queue")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_video_decode_queue"
+    ),
+    all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR: Self = Self(1 << 26u64);
-  #[cfg(feature = "VK_KHR_acceleration_structure")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_acceleration_structure",
+      feature = "VK_KHR_format_feature_flags2"
+    ),
+    all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR: Self =
     Self(1 << 29u64);
-  #[cfg(feature = "VK_EXT_fragment_density_map")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_format_feature_flags2"
+    ),
+    all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_FRAGMENT_DENSITY_MAP_BIT_EXT: Self = Self(1 << 24u64);
-  #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_fragment_shading_rate"
+    ),
+    all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: Self = Self(1 << 30u64);
   #[cfg(feature = "VK_EXT_host_image_copy")]
   ///Host image copies are supported
   pub const VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT: Self = Self(1 << 46u64);
-  #[cfg(feature = "VK_KHR_video_encode_queue")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_video_encode_queue"
+    ),
+    all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_INPUT_BIT_KHR: Self = Self(1 << 27u64);
-  #[cfg(feature = "VK_KHR_video_encode_queue")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_video_encode_queue"
+    ),
+    all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_DPB_BIT_KHR: Self = Self(1 << 28u64);
   #[cfg(feature = "VK_KHR_format_feature_flags2")]
   pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT_KHR: Self = Self(1 << 0u64);
@@ -8703,23 +9073,68 @@ impl VkFormatFeatureFlagBits2 {
   pub const VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR: Self = Self(1 << 32u64);
   #[cfg(feature = "VK_KHR_format_feature_flags2")]
   pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR: Self = Self(1 << 33u64);
-  #[cfg(feature = "VK_KHR_format_feature_flags2")]
+  #[cfg(any(
+    all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
+    all(
+      feature = "VK_EXT_sampler_filter_minmax",
+      feature = "VK_KHR_format_feature_flags2"
+    )
+  ))]
   pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT_KHR: Self = Self(1 << 16u64);
-  #[cfg(feature = "VK_KHR_format_feature_flags2")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_filter_cubic",
+      feature = "VK_KHR_format_feature_flags2"
+    ),
+    all(
+      feature = "VK_IMG_filter_cubic",
+      feature = "VK_KHR_format_feature_flags2"
+    )
+  ))]
   pub const VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT: Self = Self(1 << 13u64);
   #[cfg(feature = "VK_NV_ray_tracing_linear_swept_spheres")]
   pub const VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_RADIUS_BUFFER_BIT_NV: Self =
     Self(1 << 51u64);
-  #[cfg(feature = "VK_NV_linear_color_attachment")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_NV_linear_color_attachment"
+    ),
+    all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3")
+  ))]
   ///Format support linear image as render target, it cannot be mixed with non linear attachment
   pub const VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV: Self = Self(1 << 38u64);
-  #[cfg(feature = "VK_QCOM_image_processing")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_QCOM_image_processing"
+    ),
+    all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_WEIGHT_IMAGE_BIT_QCOM: Self = Self(1 << 34u64);
-  #[cfg(feature = "VK_QCOM_image_processing")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_QCOM_image_processing"
+    ),
+    all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_WEIGHT_SAMPLED_IMAGE_BIT_QCOM: Self = Self(1 << 35u64);
-  #[cfg(feature = "VK_QCOM_image_processing")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_QCOM_image_processing"
+    ),
+    all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_BLOCK_MATCHING_BIT_QCOM: Self = Self(1 << 36u64);
-  #[cfg(feature = "VK_QCOM_image_processing")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_QCOM_image_processing"
+    ),
+    all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_BOX_FILTER_SAMPLED_BIT_QCOM: Self = Self(1 << 37u64);
   #[cfg(feature = "VK_ARM_tensors")]
   pub const VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM: Self = Self(1 << 39u64);
@@ -8740,13 +9155,37 @@ impl VkFormatFeatureFlagBits2 {
     Self(1 << 49u64);
   #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
   pub const VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR: Self = Self(1 << 50u64);
-  #[cfg(feature = "VK_KHR_maintenance10")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_maintenance10"
+    ),
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_COMPUTE_QUEUE_BIT_KHR: Self = Self(1 << 52u64);
-  #[cfg(feature = "VK_KHR_maintenance10")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_maintenance10"
+    ),
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_DEPTH_COPY_ON_TRANSFER_QUEUE_BIT_KHR: Self = Self(1 << 53u64);
-  #[cfg(feature = "VK_KHR_maintenance10")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_maintenance10"
+    ),
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_COMPUTE_QUEUE_BIT_KHR: Self = Self(1 << 54u64);
-  #[cfg(feature = "VK_KHR_maintenance10")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_maintenance10"
+    ),
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_FORMAT_FEATURE_2_STENCIL_COPY_ON_TRANSFER_QUEUE_BIT_KHR: Self = Self(1 << 55u64);
   #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
   pub const VK_FORMAT_FEATURE_2_DATA_GRAPH_OPTICAL_FLOW_IMAGE_BIT_ARM: Self = Self(1 << 56u64);
@@ -9815,44 +10254,97 @@ impl VkAccessFlagBits2 {
   pub const VK_ACCESS_2_SHADER_STORAGE_READ_BIT_KHR: Self = Self(1 << 33u64);
   #[cfg(feature = "VK_KHR_synchronization2")]
   pub const VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT_KHR: Self = Self(1 << 34u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_TRANSFORM_FEEDBACK_WRITE_BIT_EXT: Self = Self(1 << 25u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_TRANSFORM_FEEDBACK_COUNTER_READ_BIT_EXT: Self = Self(1 << 26u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_TRANSFORM_FEEDBACK_COUNTER_WRITE_BIT_EXT: Self = Self(1 << 27u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_conditional_rendering",
+    feature = "VK_KHR_synchronization2"
+  ))]
   ///read access flag for reading conditional rendering predicate
   pub const VK_ACCESS_2_CONDITIONAL_RENDERING_READ_BIT_EXT: Self = Self(1 << 20u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_synchronization2",
+    feature = "VK_NV_device_generated_commands"
+  ))]
   pub const VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_NV: Self = Self(1 << 17u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_synchronization2",
+    feature = "VK_NV_device_generated_commands"
+  ))]
   pub const VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_NV: Self = Self(1 << 18u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_EXT: Self = Self(1 << 17u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_EXT: Self = Self(1 << 18u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR: Self = Self(1 << 23u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_synchronization2",
+    feature = "VK_NV_shading_rate_image"
+  ))]
   pub const VK_ACCESS_2_SHADING_RATE_IMAGE_READ_BIT_NV: Self = Self(1 << 23u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR: Self = Self(1 << 21u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR: Self = Self(1 << 22u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"))]
   pub const VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_NV: Self = Self(1 << 21u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"))]
   pub const VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_NV: Self = Self(1 << 22u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_FRAGMENT_DENSITY_MAP_READ_BIT_EXT: Self = Self(1 << 24u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_blend_operation_advanced",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_ACCESS_2_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT: Self = Self(1 << 19u64);
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
   pub const VK_ACCESS_2_DESCRIPTOR_BUFFER_READ_BIT_EXT: Self = Self(1 << 41u64);
   #[cfg(feature = "VK_HUAWEI_invocation_mask")]
   pub const VK_ACCESS_2_INVOCATION_MASK_READ_BIT_HUAWEI: Self = Self(1 << 39u64);
-  #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_ray_tracing_maintenance1",
+      feature = "VK_KHR_ray_tracing_pipeline",
+      feature = "VK_KHR_synchronization2"
+    ),
+    all(
+      feature = "VK_KHR_ray_tracing_maintenance1",
+      feature = "VK_KHR_ray_tracing_pipeline",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   pub const VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR: Self = Self(1 << 40u64);
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   pub const VK_ACCESS_2_MICROMAP_READ_BIT_EXT: Self = Self(1 << 44u64);
@@ -10283,36 +10775,63 @@ impl VkPipelineStageFlagBits2 {
   pub const VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT_KHR: Self = Self(1 << 37u64);
   #[cfg(feature = "VK_KHR_synchronization2")]
   pub const VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHADERS_BIT_KHR: Self = Self(1 << 38u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT: Self = Self(1 << 24u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_conditional_rendering",
+    feature = "VK_KHR_synchronization2"
+  ))]
   ///A pipeline stage for conditional rendering predicate fetch
   pub const VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT: Self = Self(1 << 18u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_synchronization2",
+    feature = "VK_NV_device_generated_commands"
+  ))]
   pub const VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_NV: Self = Self(1 << 17u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT: Self = Self(1 << 17u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_fragment_shading_rate",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: Self = Self(1 << 22u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_synchronization2",
+    feature = "VK_NV_shading_rate_image"
+  ))]
   pub const VK_PIPELINE_STAGE_2_SHADING_RATE_IMAGE_BIT_NV: Self = Self(1 << 22u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_acceleration_structure",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR: Self = Self(1 << 25u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_KHR_ray_tracing_pipeline",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR: Self = Self(1 << 21u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"))]
   pub const VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_NV: Self = Self(1 << 21u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"))]
   pub const VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_NV: Self = Self(1 << 25u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_KHR_synchronization2"
+  ))]
   pub const VK_PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT: Self = Self(1 << 23u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"))]
   pub const VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_NV: Self = Self(1 << 19u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"))]
   pub const VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_NV: Self = Self(1 << 20u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"))]
   pub const VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT: Self = Self(1 << 19u64);
-  #[cfg(feature = "VK_KHR_synchronization2")]
+  #[cfg(all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"))]
   pub const VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT: Self = Self(1 << 20u64);
   #[cfg(feature = "VK_HUAWEI_subpass_shading")]
   pub const VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI: Self = Self(1 << 39u64);
@@ -10321,7 +10840,16 @@ impl VkPipelineStageFlagBits2 {
   pub const VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI: Self = Self(1 << 39u64);
   #[cfg(feature = "VK_HUAWEI_invocation_mask")]
   pub const VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI: Self = Self(1 << 40u64);
-  #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_ray_tracing_maintenance1",
+      feature = "VK_KHR_synchronization2"
+    ),
+    all(
+      feature = "VK_KHR_ray_tracing_maintenance1",
+      feature = "VK_VERSION_1_3"
+    )
+  ))]
   pub const VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR: Self = Self(1 << 28u64);
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   pub const VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT: Self = Self(1 << 30u64);
@@ -11860,11 +12388,11 @@ impl VkFormat {
   pub const VK_FORMAT_A4B4G4R4_UNORM_PACK16_EXT: Self = Self(1000340001);
   #[cfg(feature = "VK_ARM_tensors")]
   pub const VK_FORMAT_R8_BOOL_ARM: Self = Self(1000460000);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_KHR_shader_bfloat16"))]
   pub const VK_FORMAT_R16_SFLOAT_FPENCODING_BFLOAT16_ARM: Self = Self(1000460001);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_shader_float8"))]
   pub const VK_FORMAT_R8_SFLOAT_FPENCODING_FLOAT8E4M3_ARM: Self = Self(1000460002);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_shader_float8"))]
   pub const VK_FORMAT_R8_SFLOAT_FPENCODING_FLOAT8E5M2_ARM: Self = Self(1000460003);
   #[cfg(feature = "VK_NV_optical_flow")]
   pub const VK_FORMAT_R16G16_SFIXED5_NV: Self = Self(1000464000);
@@ -12711,6 +13239,7 @@ pub struct VkTensorViewCreateFlagBitsARM(pub u64);
 #[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorViewCreateFlagBitsARM {
   pub const EMPTY: Self = Self(0);
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub const VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM: Self = Self(1 << 0u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -13427,9 +13956,9 @@ impl VkTensorCreateFlagBitsARM {
   pub const EMPTY: Self = Self(0);
   pub const VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM: Self = Self(1 << 0u64);
   pub const VK_TENSOR_CREATE_PROTECTED_BIT_ARM: Self = Self(1 << 1u64);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
   pub const VK_TENSOR_CREATE_DESCRIPTOR_HEAP_CAPTURE_REPLAY_BIT_ARM: Self = Self(1 << 3u64);
-  #[cfg(feature = "VK_ARM_tensors")]
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
   pub const VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM: Self = Self(1 << 2u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -16081,7 +16610,7 @@ impl VkImageCreateFlagBits {
   pub const VK_IMAGE_CREATE_DISJOINT_BIT: Self = Self(1 << 9u64);
   #[cfg(feature = "VK_NV_corner_sampled_image")]
   pub const VK_IMAGE_CREATE_CORNER_SAMPLED_BIT_NV: Self = Self(1 << 13u64);
-  #[cfg(feature = "VK_KHR_device_group")]
+  #[cfg(all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"))]
   pub const VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR: Self = Self(1 << 6u64);
   #[cfg(feature = "VK_KHR_maintenance1")]
   pub const VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT_KHR: Self = Self(1 << 5u64);
@@ -20865,9 +21394,9 @@ impl VkToolPurposeFlagBits {
   pub const VK_TOOL_PURPOSE_ADDITIONAL_FEATURES_BIT_EXT: Self = Self(1 << 3u64);
   #[cfg(feature = "VK_EXT_tooling_info")]
   pub const VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT_EXT: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_EXT_tooling_info")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"))]
   pub const VK_TOOL_PURPOSE_DEBUG_REPORTING_BIT_EXT: Self = Self(1 << 5u64);
-  #[cfg(feature = "VK_EXT_tooling_info")]
+  #[cfg(all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info"))]
   pub const VK_TOOL_PURPOSE_DEBUG_MARKERS_BIT_EXT: Self = Self(1 << 6u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -21563,17 +22092,41 @@ impl VkPipelineCreateFlagBits {
     Self(1 << 19u64);
   #[cfg(feature = "VK_NV_ray_tracing")]
   pub const VK_PIPELINE_CREATE_DEFER_COMPILE_BIT_NV: Self = Self(1 << 5u64);
-  #[cfg(feature = "VK_EXT_fragment_density_map")]
+  #[cfg(any(
+    all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_dynamic_rendering"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT: Self =
     Self(1 << 22u64);
-  #[cfg(feature = "VK_EXT_fragment_density_map")]
+  #[cfg(any(
+    all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_dynamic_rendering"
+    )
+  ))]
   #[deprecated(note = "deprecated")]
   pub const VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT: Self =
     Self(1 << 22u64);
-  #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+  #[cfg(any(
+    all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_fragment_shading_rate"
+    )
+  ))]
   pub const VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: Self =
     Self(1 << 21u64);
-  #[cfg(feature = "VK_KHR_fragment_shading_rate")]
+  #[cfg(any(
+    all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_fragment_shading_rate"
+    )
+  ))]
   #[deprecated(note = "deprecated")]
   pub const VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: Self =
     Self(1 << 21u64);
@@ -23232,7 +23785,18 @@ impl VkPipelineLayoutCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   #[cfg(feature = "VK_EXT_graphics_pipeline_library")]
   pub const VK_PIPELINE_LAYOUT_CREATE_INDEPENDENT_SETS_BIT_EXT: Self = Self(1 << 1u64);
-  #[cfg(feature = "VK_KHR_maintenance11")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_mesh_shader",
+      feature = "VK_EXT_shader_object",
+      feature = "VK_KHR_maintenance11"
+    ),
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_KHR_maintenance11",
+      feature = "VK_NV_mesh_shader"
+    )
+  ))]
   pub const VK_PIPELINE_LAYOUT_CREATE_NO_TASK_SHADER_BIT_KHR: Self = Self(1 << 2u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -23418,7 +23982,13 @@ impl VkDescriptorUpdateTemplateType {
   pub const VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET: Self = Self(0);
   #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
   pub const VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS: Self = Self(1);
-  #[cfg(feature = "VK_KHR_push_descriptor")]
+  #[cfg(any(
+    all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
+    all(
+      feature = "VK_KHR_descriptor_update_template",
+      feature = "VK_KHR_push_descriptor"
+    )
+  ))]
   ///Create descriptor update template for pushed descriptor updates
   pub const VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR: Self = Self(1);
   #[cfg(feature = "VK_KHR_descriptor_update_template")]
@@ -24050,47 +24620,113 @@ impl VkDynamicState {
   pub const VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT: Self = Self(1000455011);
   #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
   pub const VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT: Self = Self(1000455012);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_extended_dynamic_state3",
+      feature = "VK_KHR_maintenance2"
+    ),
+    all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1")
+  ))]
   pub const VK_DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT: Self = Self(1000455002);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_transform_feedback"
+  ))]
   pub const VK_DYNAMIC_STATE_RASTERIZATION_STREAM_EXT: Self = Self(1000455013);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_conservative_rasterization",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ))]
   pub const VK_DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT: Self = Self(1000455014);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_conservative_rasterization",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ))]
   pub const VK_DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT: Self = Self(1000455015);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_depth_clip_enable",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ))]
   pub const VK_DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT: Self = Self(1000455016);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_sample_locations"
+  ))]
   pub const VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT: Self = Self(1000455017);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_blend_operation_advanced",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ))]
   pub const VK_DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT: Self = Self(1000455018);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_provoking_vertex"
+  ))]
   pub const VK_DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT: Self = Self(1000455019);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_line_rasterization"
+  ))]
   pub const VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT: Self = Self(1000455020);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_line_rasterization"
+  ))]
   pub const VK_DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT: Self = Self(1000455021);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_depth_clip_control",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ))]
   pub const VK_DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT: Self = Self(1000455022);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_clip_space_w_scaling"
+  ))]
   pub const VK_DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV: Self = Self(1000455023);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_viewport_swizzle"
+  ))]
   pub const VK_DYNAMIC_STATE_VIEWPORT_SWIZZLE_NV: Self = Self(1000455024);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_fragment_coverage_to_color"
+  ))]
   pub const VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV: Self = Self(1000455025);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_fragment_coverage_to_color"
+  ))]
   pub const VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_LOCATION_NV: Self = Self(1000455026);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  ))]
   pub const VK_DYNAMIC_STATE_COVERAGE_MODULATION_MODE_NV: Self = Self(1000455027);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  ))]
   pub const VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_ENABLE_NV: Self = Self(1000455028);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  ))]
   pub const VK_DYNAMIC_STATE_COVERAGE_MODULATION_TABLE_NV: Self = Self(1000455029);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_shading_rate_image"
+  ))]
   pub const VK_DYNAMIC_STATE_SHADING_RATE_IMAGE_ENABLE_NV: Self = Self(1000455030);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_representative_fragment_test"
+  ))]
   pub const VK_DYNAMIC_STATE_REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV: Self = Self(1000455031);
-  #[cfg(feature = "VK_EXT_extended_dynamic_state3")]
+  #[cfg(all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_coverage_reduction_mode"
+  ))]
   pub const VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV: Self = Self(1000455032);
   #[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
   pub const VK_DYNAMIC_STATE_ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT: Self = Self(1000524000);
@@ -24423,18 +25059,72 @@ impl VkRenderingFlagBits {
   pub const VK_RENDERING_RESUMING_BIT_KHR: Self = Self(1 << 2u64);
   #[cfg(feature = "VK_EXT_nested_command_buffer")]
   pub const VK_RENDERING_CONTENTS_INLINE_BIT_EXT: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_EXT_legacy_dithering")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_maintenance5"
+    ),
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_VERSION_1_4"
+    ),
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_KHR_maintenance5",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_EXT_legacy_dithering",
+      feature = "VK_VERSION_1_3",
+      feature = "VK_VERSION_1_4"
+    )
+  ))]
   pub const VK_RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT: Self = Self(1 << 3u64);
   #[cfg(feature = "VK_KHR_maintenance7")]
   ///Promoted from extension 452
   pub const VK_RENDERING_CONTENTS_INLINE_BIT_KHR: Self = Self(1 << 4u64);
   #[cfg(feature = "VK_VALVE_fragment_density_map_layered")]
   pub const VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE: Self = Self(1 << 5u64);
-  #[cfg(feature = "VK_EXT_custom_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_custom_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_RENDERING_FRAGMENT_REGION_BIT_EXT: Self = Self(1 << 6u64);
-  #[cfg(feature = "VK_EXT_custom_resolve")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_custom_resolve",
+      feature = "VK_KHR_dynamic_rendering"
+    ),
+    all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT: Self = Self(1 << 7u64);
-  #[cfg(feature = "VK_KHR_maintenance10")]
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_maintenance10",
+      feature = "VK_VERSION_1_3",
+      feature = "VK_VERSION_1_4"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_maintenance10",
+      feature = "VK_VERSION_1_4"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering_local_read",
+      feature = "VK_KHR_maintenance10",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_dynamic_rendering_local_read",
+      feature = "VK_KHR_maintenance10"
+    )
+  ))]
   pub const VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR: Self = Self(1 << 8u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -24849,27 +25539,39 @@ impl VkDebugReportObjectTypeEXT {
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT: Self = Self(33);
   #[deprecated(note = "deprecated")]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT: Self = Self(33);
-  #[cfg(feature = "VK_EXT_debug_report")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_VERSION_1_1"))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT: Self = Self(1000156000);
-  #[cfg(feature = "VK_EXT_debug_report")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_VERSION_1_1"))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT: Self = Self(1000085000);
-  #[cfg(feature = "VK_NVX_binary_import")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_NVX_binary_import"))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_CU_MODULE_NVX_EXT: Self = Self(1000029000);
-  #[cfg(feature = "VK_NVX_binary_import")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_NVX_binary_import"))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_CU_FUNCTION_NVX_EXT: Self = Self(1000029001);
-  #[cfg(feature = "VK_KHR_descriptor_update_template")]
+  #[cfg(all(
+    feature = "VK_EXT_debug_report",
+    feature = "VK_KHR_descriptor_update_template"
+  ))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_KHR_EXT: Self = Self(1000085000);
-  #[cfg(feature = "VK_KHR_acceleration_structure")]
+  #[cfg(all(
+    feature = "VK_EXT_debug_report",
+    feature = "VK_KHR_acceleration_structure"
+  ))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR_EXT: Self = Self(1000150000);
-  #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
+  #[cfg(all(
+    feature = "VK_EXT_debug_report",
+    feature = "VK_KHR_sampler_ycbcr_conversion"
+  ))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT: Self = Self(1000156000);
-  #[cfg(feature = "VK_NV_ray_tracing")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_NV_ray_tracing"))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV_EXT: Self = Self(1000165000);
-  #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_NV_cuda_kernel_launch"))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_MODULE_NV_EXT: Self = Self(1000307000);
-  #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+  #[cfg(all(feature = "VK_EXT_debug_report", feature = "VK_NV_cuda_kernel_launch"))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_FUNCTION_NV_EXT: Self = Self(1000307001);
-  #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+  #[cfg(all(
+    feature = "VK_EXT_debug_report",
+    feature = "VK_FUCHSIA_buffer_collection"
+  ))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT: Self = Self(1000366000);
 }
 /// [VkDebugUtilsMessageSeverityFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessageSeverityFlagsEXT.html)
@@ -25386,8 +26088,29 @@ impl VkDescriptorMappingSourceEXT {
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_PUSH_DATA_EXT: Self = Self(5);
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_PUSH_ADDRESS_EXT: Self = Self(6);
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_INDIRECT_ADDRESS_EXT: Self = Self(7);
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_descriptor_heap",
+      feature = "VK_KHR_ray_tracing_pipeline"
+    ),
+    all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing")
+  ))]
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_HEAP_WITH_SHADER_RECORD_INDEX_EXT: Self = Self(8);
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_descriptor_heap",
+      feature = "VK_KHR_ray_tracing_pipeline"
+    ),
+    all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing")
+  ))]
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_SHADER_RECORD_DATA_EXT: Self = Self(9);
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_descriptor_heap",
+      feature = "VK_KHR_ray_tracing_pipeline"
+    ),
+    all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing")
+  ))]
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_SHADER_RECORD_ADDRESS_EXT: Self = Self(10);
 }
 /// [VkSpirvResourceTypeFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkSpirvResourceTypeFlagsEXT.html)
@@ -25407,7 +26130,15 @@ impl VkSpirvResourceTypeFlagBitsEXT {
   pub const VK_SPIRV_RESOURCE_TYPE_UNIFORM_BUFFER_BIT_EXT: Self = Self(1 << 5u64);
   pub const VK_SPIRV_RESOURCE_TYPE_READ_ONLY_STORAGE_BUFFER_BIT_EXT: Self = Self(1 << 6u64);
   pub const VK_SPIRV_RESOURCE_TYPE_READ_WRITE_STORAGE_BUFFER_BIT_EXT: Self = Self(1 << 7u64);
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_descriptor_heap",
+      feature = "VK_KHR_ray_tracing_pipeline"
+    ),
+    all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing")
+  ))]
   pub const VK_SPIRV_RESOURCE_TYPE_ACCELERATION_STRUCTURE_BIT_EXT: Self = Self(1 << 8u64);
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
   pub const VK_SPIRV_RESOURCE_TYPE_TENSOR_BIT_ARM: Self = Self(1 << 9u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -25549,19 +26280,40 @@ impl VkIndirectCommandsTokenTypeEXT {
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_COUNT_EXT: Self = Self(7);
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_COUNT_EXT: Self = Self(8);
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_EXT: Self = Self(9);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_descriptor_heap",
+    feature = "VK_EXT_device_generated_commands"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_DATA_EXT: Self = Self(1000135000);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_descriptor_heap",
+    feature = "VK_EXT_device_generated_commands"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_DATA_SEQUENCE_INDEX_EXT: Self = Self(1000135001);
-  #[cfg(feature = "VK_NV_mesh_shader")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_NV_mesh_shader"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV_EXT: Self = Self(1000202002);
-  #[cfg(feature = "VK_NV_mesh_shader")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_NV_mesh_shader"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_NV_EXT: Self = Self(1000202003);
-  #[cfg(feature = "VK_EXT_mesh_shader")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_EXT_mesh_shader"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_EXT: Self = Self(1000328000);
-  #[cfg(feature = "VK_EXT_mesh_shader")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_EXT_mesh_shader"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_EXT: Self = Self(1000328001);
-  #[cfg(feature = "VK_KHR_ray_tracing_maintenance1")]
+  #[cfg(all(
+    feature = "VK_EXT_device_generated_commands",
+    feature = "VK_KHR_ray_tracing_maintenance1"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT: Self = Self(1000386004);
 }
 /// [VkShaderCreateFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCreateFlagsEXT.html)
@@ -25587,27 +26339,54 @@ pub struct VkShaderCreateFlagBitsEXT(pub u32);
 impl VkShaderCreateFlagBitsEXT {
   pub const EMPTY: Self = Self(0);
   pub const VK_SHADER_CREATE_LINK_STAGE_BIT_EXT: Self = Self(1 << 0u64);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"))]
   pub const VK_SHADER_CREATE_DESCRIPTOR_HEAP_BIT_EXT: Self = Self(1 << 10u64);
-  #[cfg(feature = "VK_KHR_maintenance5")]
+  #[cfg(all(
+    feature = "VK_ARM_shader_instrumentation",
+    feature = "VK_KHR_maintenance5"
+  ))]
   pub const VK_SHADER_CREATE_INSTRUMENT_SHADER_BIT_ARM: Self = Self(1 << 11u64);
-  #[cfg(feature = "VK_EXT_shader_object")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_EXT_subgroup_size_control"
+    ),
+    all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT: Self = Self(1 << 1u64);
-  #[cfg(feature = "VK_EXT_shader_object")]
+  #[cfg(any(
+    all(
+      feature = "VK_EXT_shader_object",
+      feature = "VK_EXT_subgroup_size_control"
+    ),
+    all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3")
+  ))]
   pub const VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT: Self = Self(1 << 2u64);
-  #[cfg(feature = "VK_EXT_shader_object")]
+  #[cfg(any(
+    all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
+    all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader")
+  ))]
   pub const VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT: Self = Self(1 << 3u64);
-  #[cfg(feature = "VK_EXT_shader_object")]
+  #[cfg(any(
+    all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
+    all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1")
+  ))]
   pub const VK_SHADER_CREATE_DISPATCH_BASE_BIT_EXT: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_EXT_shader_object")]
+  #[cfg(all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_KHR_fragment_shading_rate"
+  ))]
   pub const VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT: Self = Self(1 << 5u64);
-  #[cfg(feature = "VK_EXT_shader_object")]
+  #[cfg(all(
+    feature = "VK_EXT_fragment_density_map",
+    feature = "VK_EXT_shader_object"
+  ))]
   pub const VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT: Self = Self(1 << 6u64);
   #[cfg(feature = "VK_EXT_device_generated_commands")]
   pub const VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT: Self = Self(1 << 7u64);
   #[cfg(feature = "VK_EXT_shader_64bit_indexing")]
   pub const VK_SHADER_CREATE_64_BIT_INDEXING_BIT_EXT: Self = Self(1 << 15u64);
-  #[cfg(feature = "VK_KHR_maintenance11")]
+  #[cfg(all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11"))]
   pub const VK_SHADER_CREATE_INDEPENDENT_SETS_BIT_KHR: Self = Self(1 << 18u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -25836,9 +26615,15 @@ impl VkIndirectCommandsTokenTypeNV {
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV: Self = Self(5);
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV: Self = Self(6);
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV: Self = Self(7);
-  #[cfg(feature = "VK_EXT_descriptor_heap")]
+  #[cfg(all(
+    feature = "VK_EXT_descriptor_heap",
+    feature = "VK_NV_device_generated_commands"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_DATA_NV: Self = Self(1000135000);
-  #[cfg(feature = "VK_EXT_mesh_shader")]
+  #[cfg(all(
+    feature = "VK_EXT_mesh_shader",
+    feature = "VK_NV_device_generated_commands"
+  ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV: Self = Self(1000328000);
   #[cfg(feature = "VK_NV_device_generated_commands_compute")]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV: Self = Self(1000428003);
@@ -28126,7 +28911,10 @@ impl VkOpacityMicromapSpecialIndexEXT {
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT: Self = Self(-2);
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT: Self = Self(-3);
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT: Self = Self(-4);
-  #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+  #[cfg(all(
+    feature = "VK_EXT_opacity_micromap",
+    feature = "VK_NV_cluster_acceleration_structure"
+  ))]
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self =
     Self(-5);
 }
@@ -28572,10 +29360,10 @@ pub struct VkSwapchainCreateFlagBitsKHR(pub u32);
 ))]
 impl VkSwapchainCreateFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   ///Allow images with VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT
   pub const VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR: Self = Self(1 << 0u64);
-  #[cfg(feature = "VK_KHR_swapchain")]
+  #[cfg(all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"))]
   ///Swapchain is protected
   pub const VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR: Self = Self(1 << 1u64);
   #[cfg(feature = "VK_KHR_swapchain_mutable_format")]
@@ -28869,7 +29657,10 @@ impl VkComponentTypeKHR {
   pub const VK_COMPONENT_TYPE_UINT16_KHR: Self = Self(8);
   pub const VK_COMPONENT_TYPE_UINT32_KHR: Self = Self(9);
   pub const VK_COMPONENT_TYPE_UINT64_KHR: Self = Self(10);
-  #[cfg(feature = "VK_KHR_shader_bfloat16")]
+  #[cfg(all(
+    feature = "VK_KHR_cooperative_matrix",
+    feature = "VK_KHR_shader_bfloat16"
+  ))]
   pub const VK_COMPONENT_TYPE_BFLOAT16_KHR: Self = Self(1000141000);
   #[cfg(feature = "VK_NV_cooperative_matrix")]
   pub const VK_COMPONENT_TYPE_FLOAT16_NV: Self = Self(0);
@@ -28901,9 +29692,15 @@ impl VkComponentTypeKHR {
   pub const VK_COMPONENT_TYPE_FLOAT_E4M3_NV: Self = Self(1000491002);
   #[cfg(feature = "VK_NV_cooperative_vector")]
   pub const VK_COMPONENT_TYPE_FLOAT_E5M2_NV: Self = Self(1000491003);
-  #[cfg(feature = "VK_EXT_shader_float8")]
+  #[cfg(all(
+    feature = "VK_EXT_shader_float8",
+    feature = "VK_KHR_cooperative_matrix"
+  ))]
   pub const VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT: Self = Self(1000491002);
-  #[cfg(feature = "VK_EXT_shader_float8")]
+  #[cfg(all(
+    feature = "VK_EXT_shader_float8",
+    feature = "VK_KHR_cooperative_matrix"
+  ))]
   pub const VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT: Self = Self(1000491003);
 }
 /// [VkShaderCodeTypeEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCodeTypeEXT.html)
@@ -30578,7 +31375,15 @@ impl VkAddressCommandFlagBitsKHR {
   pub const VK_ADDRESS_COMMAND_FULLY_BOUND_BIT_KHR: Self = Self(1 << 1u64);
   pub const VK_ADDRESS_COMMAND_STORAGE_BUFFER_USAGE_BIT_KHR: Self = Self(1 << 2u64);
   pub const VK_ADDRESS_COMMAND_UNKNOWN_STORAGE_BUFFER_USAGE_BIT_KHR: Self = Self(1 << 3u64);
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub const VK_ADDRESS_COMMAND_TRANSFORM_FEEDBACK_BUFFER_USAGE_BIT_KHR: Self = Self(1 << 4u64);
+  #[cfg(all(
+    feature = "VK_EXT_transform_feedback",
+    feature = "VK_KHR_device_address_commands"
+  ))]
   pub const VK_ADDRESS_COMMAND_UNKNOWN_TRANSFORM_FEEDBACK_BUFFER_USAGE_BIT_KHR: Self =
     Self(1 << 5u64);
   #[inline]
@@ -31128,8 +31933,38 @@ pub struct VkRenderingAttachmentFlagBitsKHR(pub u32);
 #[cfg(feature = "VK_KHR_maintenance10")]
 impl VkRenderingAttachmentFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
+  #[cfg(any(
+    all(
+      feature = "VK_KHR_maintenance10",
+      feature = "VK_VERSION_1_3",
+      feature = "VK_VERSION_1_4"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_maintenance10",
+      feature = "VK_VERSION_1_4"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering_local_read",
+      feature = "VK_KHR_maintenance10",
+      feature = "VK_VERSION_1_3"
+    ),
+    all(
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_dynamic_rendering_local_read",
+      feature = "VK_KHR_maintenance10"
+    )
+  ))]
   pub const VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR: Self = Self(1 << 0u64);
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
+    all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
+  ))]
   pub const VK_RENDERING_ATTACHMENT_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR: Self = Self(1 << 1u64);
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
+    all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
+  ))]
   pub const VK_RENDERING_ATTACHMENT_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR: Self =
     Self(1 << 2u64);
   #[inline]
@@ -31251,7 +32086,15 @@ pub struct VkResolveImageFlagBitsKHR(pub u32);
 #[cfg(feature = "VK_KHR_maintenance10")]
 impl VkResolveImageFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
+    all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
+  ))]
   pub const VK_RESOLVE_IMAGE_SKIP_TRANSFER_FUNCTION_BIT_KHR: Self = Self(1 << 0u64);
+  #[cfg(any(
+    all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
+    all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
+  ))]
   pub const VK_RESOLVE_IMAGE_ENABLE_TRANSFER_FUNCTION_BIT_KHR: Self = Self(1 << 1u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -33554,7 +34397,10 @@ impl VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(1 << 2u64);
   pub const VK_VIDEO_ENCODE_AV1_CAPABILITY_FRAME_SIZE_OVERRIDE_BIT_KHR: Self = Self(1 << 3u64);
   pub const VK_VIDEO_ENCODE_AV1_CAPABILITY_MOTION_VECTOR_SCALING_BIT_KHR: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_av1",
+    feature = "VK_KHR_video_encode_intra_refresh"
+  ))]
   pub const VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR: Self =
     Self(1 << 5u64);
   #[inline]
@@ -34007,10 +34853,16 @@ impl VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(1 << 6u64);
   pub const VK_VIDEO_ENCODE_H264_CAPABILITY_PER_SLICE_CONSTANT_QP_BIT_KHR: Self = Self(1 << 7u64);
   pub const VK_VIDEO_ENCODE_H264_CAPABILITY_GENERATE_PREFIX_NALU_BIT_KHR: Self = Self(1 << 8u64);
-  #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_h264",
+    feature = "VK_KHR_video_encode_intra_refresh"
+  ))]
   pub const VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR: Self =
     Self(1 << 10u64);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_h264",
+    feature = "VK_KHR_video_encode_quantization_map"
+  ))]
   pub const VK_VIDEO_ENCODE_H264_CAPABILITY_MB_QP_DIFF_WRAPAROUND_BIT_KHR: Self = Self(1 << 9u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -34735,10 +35587,16 @@ impl VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(1 << 8u64);
   pub const VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_SLICE_SEGMENTS_PER_TILE_BIT_KHR: Self =
     Self(1 << 9u64);
-  #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_h265",
+    feature = "VK_KHR_video_encode_intra_refresh"
+  ))]
   pub const VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR: Self =
     Self(1 << 11u64);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  #[cfg(all(
+    feature = "VK_KHR_video_encode_h265",
+    feature = "VK_KHR_video_encode_quantization_map"
+  ))]
   pub const VK_VIDEO_ENCODE_H265_CAPABILITY_CU_QP_DIFF_WRAPAROUND_BIT_KHR: Self = Self(1 << 10u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {
@@ -35522,7 +36380,10 @@ impl VkVideoSessionCreateFlagBitsKHR {
     Self(1 << 3u64);
   #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
   pub const VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR: Self = Self(1 << 4u64);
-  #[cfg(feature = "VK_KHR_video_maintenance2")]
+  #[cfg(all(
+    feature = "VK_KHR_video_decode_queue",
+    feature = "VK_KHR_video_maintenance2"
+  ))]
   pub const VK_VIDEO_SESSION_CREATE_INLINE_SESSION_PARAMETERS_BIT_KHR: Self = Self(1 << 5u64);
   #[inline]
   pub const fn contains(self, o: Self) -> bool {

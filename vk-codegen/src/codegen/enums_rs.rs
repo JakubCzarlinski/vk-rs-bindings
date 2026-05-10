@@ -1,6 +1,6 @@
-use crate::cfggen::cfg_any;
+use crate::cfggen::{cfg_any, cfg_expr_from_dnf};
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url};
-use crate::ir::{Enum, EnumValue, Registry};
+use crate::ir::{Enum, EnumValue, EnumVariant, Registry};
 use proc_macro2::{Literal, TokenStream};
 use quote::{format_ident, quote};
 use std::collections::{BTreeMap, HashMap, HashSet};
@@ -135,17 +135,7 @@ fn gen_enum(e: &Enum, disabled: &HashSet<String>) -> TokenStream {
         let variant_name = format_ident!("{}", &variant.name);
         let variant_doc = variant.comment.as_deref().unwrap_or("");
         let variant_depr = deprecate_attr(&variant.depr);
-        let v_feats: Vec<_> = variant
-            .provided_by
-            .iter()
-            .filter(|f| !disabled.contains(*f))
-            .cloned()
-            .collect();
-        let mut variant_cfg = if v_feats.is_empty() || v_feats == all_feats {
-            quote! {}
-        } else {
-            cfg_any(&v_feats)
-        };
+        let mut variant_cfg = variant_cfg(&variant, &all_feats, disabled);
 
         if let Some(ref aset) = variant.api {
             if aset.vulkansc && !aset.vulkan {
@@ -213,17 +203,7 @@ fn gen_bitmask_type(
         let variant_name = format_ident!("{}", &variant.name);
         let variant_doc = variant.comment.as_deref().unwrap_or("");
         let variant_depr = deprecate_attr(&variant.depr);
-        let v_feats: Vec<_> = variant
-            .provided_by
-            .iter()
-            .filter(|f| !disabled.contains(*f))
-            .cloned()
-            .collect();
-        let mut variant_cfg = if v_feats.is_empty() || v_feats == all_feats {
-            quote! {}
-        } else {
-            cfg_any(&v_feats)
-        };
+        let mut variant_cfg = variant_cfg(variant, all_feats, disabled);
 
         if let Some(ref aset) = variant.api {
             if aset.vulkansc && !aset.vulkan {
@@ -280,6 +260,54 @@ fn gen_bitmask_type(
         }
     );
     doc
+}
+
+fn variant_cfg(
+    variant: &EnumVariant,
+    all_feats: &[String],
+    disabled: &HashSet<String>,
+) -> TokenStream {
+    let v_feats: Vec<_> = variant
+        .provided_by
+        .iter()
+        .filter(|f| !disabled.contains(*f))
+        .cloned()
+        .collect();
+
+    if variant.dep.is_none() {
+        return if v_feats.is_empty() || v_feats == all_feats {
+            quote! {}
+        } else {
+            cfg_any(&v_feats)
+        };
+    }
+
+    let Some(dep) = &variant.dep else {
+        return quote! {};
+    };
+
+    let mut clauses = Vec::<Vec<String>>::new();
+    for provider in v_feats {
+        for mut clause in dep.to_dnf_clauses() {
+            if !clause.contains(&provider) {
+                clause.insert(0, provider.clone());
+            }
+            if clause.iter().any(|feature| disabled.contains(feature)) {
+                continue;
+            }
+            clause.sort();
+            if !clauses.contains(&clause) {
+                clauses.push(clause);
+            }
+        }
+    }
+
+    if clauses.is_empty() {
+        quote! {}
+    } else {
+        let expr = cfg_expr_from_dnf(&clauses);
+        quote! { #[cfg(#expr)] }
+    }
 }
 
 fn enum_val_tokens(val: &EnumValue, unsigned: bool) -> TokenStream {

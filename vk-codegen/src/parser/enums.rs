@@ -87,6 +87,7 @@ pub fn parse_enums_block(node: Node, reg: &mut Registry) {
             alias: attr(en, "alias").map(str::to_owned),
             comment: attr(en, "comment").map(str::to_owned),
             api: attr(en, "api").map(ApiSet::parse),
+            dep: None,
             depr: depr_info(en),
             provided_by: vec![],
         });

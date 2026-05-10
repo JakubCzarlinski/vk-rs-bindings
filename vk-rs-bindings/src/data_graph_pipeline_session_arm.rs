@@ -20,6 +20,7 @@ impl DataGraphPipelineSessionARMDispatchTable {
     #[cfg(feature = "VK_ARM_data_graph")]
     vkDestroyDataGraphPipelineSessionARM: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

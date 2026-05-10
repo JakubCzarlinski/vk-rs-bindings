@@ -24,6 +24,7 @@ impl AccelerationStructureNVDispatchTable {
     #[cfg(feature = "VK_NV_ray_tracing")]
     vkGetAccelerationStructureHandleNV: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

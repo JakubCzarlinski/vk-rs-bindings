@@ -116,6 +116,7 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
             pub const EMPTY: Self = Self { #empty_ts };
 
             /// Resolve all instance commands from the given loader closure.
+            #[inline(always)]
             pub fn load<F>(loader: F) -> Self
             where F: Fn(*const c_char) -> Option<unsafe extern "system" fn()> {
                 Self {
@@ -123,7 +124,8 @@ fn gen_instance_dispatch_table(reg: &Registry) -> TokenStream {
                 }
             }
 
-            /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, …)`.
+            /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, name)`.
+            #[inline(always)]
             pub fn load_for_instance<F>(instance: VkInstance, get_proc: F) -> Self
             where F: Fn(VkInstance, *const c_char) -> Option<unsafe extern "system" fn()> {
                 Self::load(|name| get_proc(instance, name))
@@ -238,7 +240,7 @@ fn gen_instance(
             pub(crate) table: InstanceDispatchTable,
             pub(crate) physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable,
             #handle_fields
-            _lib: core::marker::PhantomData<&'lib VulkanLib>,
+            pub(crate) _lib: core::marker::PhantomData<&'lib VulkanLib>,
         }
 
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
@@ -310,12 +312,17 @@ fn gen_enumerate_physical_devices(cmd: &crate::ir::Command, providers: &[String]
             use crate::physical_device::PhysicalDevice;
             let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
             let mut count = 0;
-            let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
-            if #is_err { return Err(r); }
+            {
+                let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
+                if #is_err { return Err(r); }
+            }
+            // No point in calling again if there are no physical devices.
             if count == 0 { return Ok(alloc::boxed::Box::<[PhysicalDevice<'inst>; 0]>::new([])); }
             let mut raw_gpus = alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);
-            let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
-            if r < VkResult::VK_SUCCESS { return Err(r); }
+            {
+                let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
+                if r < VkResult::VK_SUCCESS { return Err(r); }
+            }
             let raw_gpus = unsafe { raw_gpus.assume_init() };
 
             Ok(raw_gpus.into_iter().map(|raw| PhysicalDevice {

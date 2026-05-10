@@ -20,6 +20,7 @@ impl SamplerDispatchTable {
     #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
     vkDestroySampler: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

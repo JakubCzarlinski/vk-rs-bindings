@@ -28,6 +28,7 @@ impl SemaphoreDispatchTable {
     #[cfg(feature = "VK_KHR_timeline_semaphore")]
     vkGetSemaphoreCounterValueKHR: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

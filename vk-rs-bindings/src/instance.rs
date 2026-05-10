@@ -120,6 +120,7 @@ impl InstanceDispatchTable {
     vkCreateUbmSurfaceSEC: None,
   };
   /// Resolve all instance commands from the given loader closure.
+  #[inline(always)]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
@@ -199,7 +200,8 @@ impl InstanceDispatchTable {
         .map(|f| unsafe { core::mem::transmute(f) }),
     }
   }
-  /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, …)`.
+  /// Resolve all instance commands via `vkGetInstanceProcAddr(instance, name)`.
+  #[inline(always)]
   pub fn load_for_instance<F>(instance: VkInstance, get_proc: F) -> Self
   where
     F: Fn(VkInstance, *const c_char) -> Option<unsafe extern "system" fn()>,
@@ -230,7 +232,7 @@ pub struct Instance<'lib> {
     crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable,
   #[cfg(feature = "VK_KHR_surface")]
   pub(crate) surface_khr_table: crate::surface_khr::SurfaceKHRDispatchTable,
-  _lib: core::marker::PhantomData<&'lib VulkanLib>,
+  pub(crate) _lib: core::marker::PhantomData<&'lib VulkanLib>,
 }
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 unsafe impl<'lib> Send for Instance<'lib> {}
@@ -331,17 +333,21 @@ impl<'lib> Instance<'lib> {
     use crate::physical_device::PhysicalDevice;
     let fp = unsafe { self.table.vkEnumeratePhysicalDevices.unwrap_unchecked() };
     let mut count = 0;
-    let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    {
+      let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     if count == 0 {
       return Ok(alloc::boxed::Box::<[PhysicalDevice<'inst>; 0]>::new([]));
     }
     let mut raw_gpus = alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);
-    let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    {
+      let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     let raw_gpus = unsafe { raw_gpus.assume_init() };
     Ok(

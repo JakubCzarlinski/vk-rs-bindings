@@ -72,6 +72,7 @@ impl QueueDispatchTable {
     #[cfg(feature = "VK_QCOM_queue_perf_hint")]
     vkQueueSetPerfHintQCOM: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

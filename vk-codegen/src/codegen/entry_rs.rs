@@ -201,6 +201,7 @@ fn gen_entry_dispatch_table(reg: &Registry) -> TokenStream {
             pub const EMPTY: Self = Self { #empty_ts };
 
             /// Resolve all pre-instance commands from the given loader closure.
+            #[inline]
             pub fn load<F>(loader: F) -> Self
             where F: Fn(*const c_char) -> Option<unsafe extern "system" fn()> {
                 Self {
@@ -312,24 +313,17 @@ fn gen_create_instance(
     let (p_defs, p_fwd) = params_to_tokens(&sig_params_owned);
 
     let mut handle_load = TokenStream::new();
-    let mut handle_args = TokenStream::new();
     for m in handle_meta
         .values()
         .filter(|m| m.root_vk_name == "VkInstance")
     {
-        let name = format_ident!("{}_table", m.mod_name);
+        let field_name = format_ident!("{}", m.table_field);
         let tb = format_ident!("{}", m.table_name);
         let md = format_ident!("{}", m.mod_name);
         let cfg = cfg_any(&m.providers);
         handle_load.extend(quote! {
             #cfg
-            let #name = crate::#md::#tb::load(|name| unsafe {
-                (self.lib.get_instance_proc_addr)(raw, name)
-            });
-        });
-        handle_args.extend(quote! {
-            #cfg
-            #name,
+            #field_name: crate::#md::#tb::load(load_lambda),
         });
     }
 
@@ -350,14 +344,14 @@ fn gen_create_instance(
                 let r = unsafe { (self.table.vkCreateInstance.unwrap_unchecked())(#(#p_fwd,)* &mut raw) };
                 if r < VkResult::VK_SUCCESS { return Err(r); }
             }
-            let table = InstanceDispatchTable::load(|name| unsafe {
-                (self.lib.get_instance_proc_addr)(raw, name)
-            });
-            let pd_table = crate::physical_device::PhysicalDeviceDispatchTable::load(|name| unsafe {
-                (self.lib.get_instance_proc_addr)(raw, name)
-            });
-            #handle_load
-            Ok(unsafe { Instance::from_raw(raw, table, pd_table, #handle_args) })
+            let load_lambda = |name: *const c_char| unsafe { (self.lib.get_instance_proc_addr)(raw, name) };
+            Ok(Instance {
+                raw,
+                table: InstanceDispatchTable::load(load_lambda),
+                physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable::load(load_lambda),
+                #handle_load
+                _lib: core::marker::PhantomData,
+            })
         }
     });
     token_stream

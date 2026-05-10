@@ -24,6 +24,7 @@ impl FenceDispatchTable {
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     vkGetFenceStatus: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

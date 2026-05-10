@@ -83,6 +83,7 @@ fn gen_device_dispatch_table(reg: &Registry) -> TokenStream {
             pub const EMPTY: Self = Self { #empty_ts };
 
             /// Resolve all device commands from the given loader closure.
+            #[inline]
             pub fn load<F>(loader: F) -> Self
             where F: Fn(*const c_char) -> Option<unsafe extern "system" fn()> {
                 Self {
@@ -90,7 +91,8 @@ fn gen_device_dispatch_table(reg: &Registry) -> TokenStream {
                 }
             }
 
-            /// Resolve all device commands via `vkGetDeviceProcAddr(device, …)`.
+            /// Resolve all device commands via `vkGetDeviceProcAddr(device, name)`.
+            #[inline]
             pub fn load_for_device<F>(device: VkDevice, get_proc: F) -> Self
             where F: Fn(VkDevice, *const c_char) -> Option<unsafe extern "system" fn()> {
                 Self::load(|name| get_proc(device, name))

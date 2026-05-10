@@ -29,6 +29,7 @@ impl RenderPassDispatchTable {
     #[cfg(feature = "VK_HUAWEI_subpass_shading")]
     vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

@@ -63,6 +63,8 @@ fn gen_physical_device_dispatch_table(reg: &Registry) -> TokenStream {
         #[cfg(feature = "VK_BASE_VERSION_1_0")]
         impl PhysicalDeviceDispatchTable {
             pub const EMPTY: Self = Self { #empty_ts };
+
+            #[inline(always)]
             pub fn load<F>(loader: F) -> Self where F: Fn(*const c_char) -> Option<unsafe extern "system" fn()> {
                 Self {
                     #init_ts
@@ -140,22 +142,17 @@ fn gen_create_device(
     let (p_defs, p_fwd) = params_to_tokens(&sig_params_owned);
 
     let mut tb_load = TokenStream::new();
-    let mut tb_args = TokenStream::new();
     for m in handle_meta
         .values()
         .filter(|m| m.root_vk_name == "VkDevice")
     {
-        let name = format_ident!("{}_table", m.mod_name);
+        let field_name = format_ident!("{}", m.table_field);
         let tb = format_ident!("{}", m.table_name);
         let md = format_ident!("{}", m.mod_name);
         let cfg = cfg_any(&m.providers);
         tb_load.extend(quote! {
             #cfg
-            let #name = crate::#md::#tb::load(|name| unsafe { gdpa(raw, name) });
-        });
-        tb_args.extend(quote! {
-            #cfg
-            #name,
+            #field_name: crate::#md::#tb::load(load_lambda),
         });
     }
 
@@ -171,14 +168,19 @@ fn gen_create_device(
             #(#p_defs,)*
         ) -> Result<crate::device::Device<'inst>, VkResult> {
             use crate::device::{Device, DeviceDispatchTable};
-            let fp  = unsafe { self.table.vkCreateDevice.unwrap_unchecked() };
             let mut raw = VkDevice::NULL;
-            let r = unsafe { fp(self.raw, #(#p_fwd,)* &mut raw) };
-            if r < VkResult::VK_SUCCESS { return Err(r); }
+            {
+                let r = unsafe { (self.table.vkCreateDevice.unwrap_unchecked())(self.raw, #(#p_fwd,)* &mut raw) };
+                if r < VkResult::VK_SUCCESS { return Err(r); }
+            }
             let gdpa  = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
-            let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-            #tb_load
-            Ok(unsafe { Device::from_raw(raw, self.instance, table, #tb_args) })
+            let load_lambda = |name: *const c_char| unsafe { gdpa(raw, name) };
+            Ok(Device {
+                raw,
+                instance: self.instance,
+                table: DeviceDispatchTable::load(load_lambda),
+                #tb_load
+            })
         }
     });
     token_stream

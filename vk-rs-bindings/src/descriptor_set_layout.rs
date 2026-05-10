@@ -29,6 +29,7 @@ impl DescriptorSetLayoutDispatchTable {
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     vkGetDescriptorSetLayoutSizeEXT: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

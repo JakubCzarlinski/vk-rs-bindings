@@ -456,6 +456,7 @@ impl PhysicalDeviceDispatchTable {
     #[cfg(feature = "VK_SEC_ubm_surface")]
     vkGetPhysicalDeviceUbmPresentationSupportSEC: None,
   };
+  #[inline(always)]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
@@ -1241,312 +1242,157 @@ impl<'inst> PhysicalDevice<'inst> {
     pAllocator: *const VkAllocationCallbacks,
   ) -> Result<crate::device::Device<'inst>, VkResult> {
     use crate::device::{Device, DeviceDispatchTable};
-    let fp = unsafe { self.table.vkCreateDevice.unwrap_unchecked() };
     let mut raw = VkDevice::NULL;
-    let r = unsafe { fp(self.raw, pCreateInfo, pAllocator, &mut raw) };
-    if r < VkResult::VK_SUCCESS {
-      return Err(r);
+    {
+      let r = unsafe {
+        (self.table.vkCreateDevice.unwrap_unchecked())(self.raw, pCreateInfo, pAllocator, &mut raw)
+      };
+      if r < VkResult::VK_SUCCESS {
+        return Err(r);
+      }
     }
     let gdpa = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
-    let table = DeviceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_KHR_acceleration_structure")]
-    let acceleration_structure_khr_table =
-      crate::acceleration_structure_khr::AccelerationStructureKHRDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_NV_ray_tracing")]
-    let acceleration_structure_nv_table =
-      crate::acceleration_structure_nv::AccelerationStructureNVDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let buffer_table = crate::buffer::BufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-    let buffer_collection_fuchsia_table =
-      crate::buffer_collection_fuchsia::BufferCollectionFUCHSIADispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let buffer_view_table =
-      crate::buffer_view::BufferViewDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let command_buffer_table =
-      crate::command_buffer::CommandBufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let command_pool_table =
-      crate::command_pool::CommandPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_NVX_binary_import")]
-    let cu_function_nvx_table =
-      crate::cu_function_nvx::CuFunctionNVXDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_NVX_binary_import")]
-    let cu_module_nvx_table =
-      crate::cu_module_nvx::CuModuleNVXDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-    let cuda_function_nv_table =
-      crate::cuda_function_nv::CudaFunctionNVDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-    let cuda_module_nv_table =
-      crate::cuda_module_nv::CudaModuleNVDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_ARM_data_graph")]
-    let data_graph_pipeline_session_arm_table =
-      crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARMDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_KHR_deferred_host_operations")]
-    let deferred_operation_khr_table =
-      crate::deferred_operation_khr::DeferredOperationKHRDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let descriptor_pool_table =
-      crate::descriptor_pool::DescriptorPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let descriptor_set_table =
-      crate::descriptor_set::DescriptorSetDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let descriptor_set_layout_table =
-      crate::descriptor_set_layout::DescriptorSetLayoutDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-    let descriptor_update_template_table =
-      crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let device_memory_table =
-      crate::device_memory::DeviceMemoryDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let event_table = crate::event::EventDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_NV_external_compute_queue")]
-    let external_compute_queue_nv_table =
-      crate::external_compute_queue_nv::ExternalComputeQueueNVDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let fence_table = crate::fence::FenceDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-    let framebuffer_table =
-      crate::framebuffer::FramebufferDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let image_table = crate::image::ImageDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let image_view_table =
-      crate::image_view::ImageViewDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_EXT_device_generated_commands")]
-    let indirect_commands_layout_ext_table =
-      crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXTDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_NV_device_generated_commands")]
-    let indirect_commands_layout_nv_table =
-      crate::indirect_commands_layout_nv::IndirectCommandsLayoutNVDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_EXT_device_generated_commands")]
-    let indirect_execution_set_ext_table =
-      crate::indirect_execution_set_ext::IndirectExecutionSetEXTDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_EXT_opacity_micromap")]
-    let micromap_ext_table =
-      crate::micromap_ext::MicromapEXTDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_NV_optical_flow")]
-    let optical_flow_session_nv_table =
-      crate::optical_flow_session_nv::OpticalFlowSessionNVDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_INTEL_performance_query")]
-    let performance_configuration_intel_table =
-      crate::performance_configuration_intel::PerformanceConfigurationINTELDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let pipeline_table =
-      crate::pipeline::PipelineDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_KHR_pipeline_binary")]
-    let pipeline_binary_khr_table =
-      crate::pipeline_binary_khr::PipelineBinaryKHRDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let pipeline_cache_table =
-      crate::pipeline_cache::PipelineCacheDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let pipeline_layout_table =
-      crate::pipeline_layout::PipelineLayoutDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_BASE_VERSION_1_3")]
-    let private_data_slot_table =
-      crate::private_data_slot::PrivateDataSlotDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let query_pool_table =
-      crate::query_pool::QueryPoolDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let queue_table = crate::queue::QueueDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-    let render_pass_table =
-      crate::render_pass::RenderPassDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let sampler_table =
-      crate::sampler::SamplerDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-    let sampler_ycbcr_conversion_table =
-      crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_BASE_VERSION_1_0")]
-    let semaphore_table =
-      crate::semaphore::SemaphoreDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_NV_external_sci_sync2")]
-    let semaphore_sci_sync_pool_nv_table =
-      crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNVDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_EXT_shader_object")]
-    let shader_ext_table =
-      crate::shader_ext::ShaderEXTDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_ARM_shader_instrumentation")]
-    let shader_instrumentation_arm_table =
-      crate::shader_instrumentation_arm::ShaderInstrumentationARMDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-    let shader_module_table =
-      crate::shader_module::ShaderModuleDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_KHR_swapchain")]
-    let swapchain_khr_table =
-      crate::swapchain_khr::SwapchainKHRDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
-    let tensor_arm_table =
-      crate::tensor_arm::TensorARMDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_ARM_tensors")]
-    let tensor_view_arm_table =
-      crate::tensor_view_arm::TensorViewARMDispatchTable::load(|name| unsafe { gdpa(raw, name) });
-    #[cfg(feature = "VK_EXT_validation_cache")]
-    let validation_cache_ext_table =
-      crate::validation_cache_ext::ValidationCacheEXTDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_KHR_video_queue")]
-    let video_session_khr_table =
-      crate::video_session_khr::VideoSessionKHRDispatchTable::load(|name| unsafe {
-        gdpa(raw, name)
-      });
-    #[cfg(feature = "VK_KHR_video_queue")]
-    let video_session_parameters_khr_table =
-      crate::video_session_parameters_khr::VideoSessionParametersKHRDispatchTable::load(
-        |name| unsafe { gdpa(raw, name) },
-      );
-    Ok(unsafe {
-      Device::from_raw(
-        raw,
-        self.instance,
-        table,
-        #[cfg(feature = "VK_KHR_acceleration_structure")]
-        acceleration_structure_khr_table,
-        #[cfg(feature = "VK_NV_ray_tracing")]
-        acceleration_structure_nv_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        buffer_table,
-        #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-        buffer_collection_fuchsia_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        buffer_view_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        command_buffer_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        command_pool_table,
-        #[cfg(feature = "VK_NVX_binary_import")]
-        cu_function_nvx_table,
-        #[cfg(feature = "VK_NVX_binary_import")]
-        cu_module_nvx_table,
-        #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        cuda_function_nv_table,
-        #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-        cuda_module_nv_table,
-        #[cfg(feature = "VK_ARM_data_graph")]
-        data_graph_pipeline_session_arm_table,
-        #[cfg(feature = "VK_KHR_deferred_host_operations")]
-        deferred_operation_khr_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        descriptor_pool_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        descriptor_set_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        descriptor_set_layout_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        descriptor_update_template_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        device_memory_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        event_table,
-        #[cfg(feature = "VK_NV_external_compute_queue")]
-        external_compute_queue_nv_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        fence_table,
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        framebuffer_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        image_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        image_view_table,
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        indirect_commands_layout_ext_table,
-        #[cfg(feature = "VK_NV_device_generated_commands")]
-        indirect_commands_layout_nv_table,
-        #[cfg(feature = "VK_EXT_device_generated_commands")]
-        indirect_execution_set_ext_table,
-        #[cfg(feature = "VK_EXT_opacity_micromap")]
-        micromap_ext_table,
-        #[cfg(feature = "VK_NV_optical_flow")]
-        optical_flow_session_nv_table,
-        #[cfg(feature = "VK_INTEL_performance_query")]
-        performance_configuration_intel_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        pipeline_table,
-        #[cfg(feature = "VK_KHR_pipeline_binary")]
-        pipeline_binary_khr_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        pipeline_cache_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        pipeline_layout_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_3")]
-        private_data_slot_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        query_pool_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        queue_table,
-        #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-        render_pass_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        sampler_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
-        sampler_ycbcr_conversion_table,
-        #[cfg(feature = "VK_BASE_VERSION_1_0")]
-        semaphore_table,
-        #[cfg(feature = "VK_NV_external_sci_sync2")]
-        semaphore_sci_sync_pool_nv_table,
-        #[cfg(feature = "VK_EXT_shader_object")]
-        shader_ext_table,
-        #[cfg(feature = "VK_ARM_shader_instrumentation")]
-        shader_instrumentation_arm_table,
-        #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-        shader_module_table,
-        #[cfg(feature = "VK_KHR_swapchain")]
-        swapchain_khr_table,
-        #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
-        tensor_arm_table,
-        #[cfg(feature = "VK_ARM_tensors")]
-        tensor_view_arm_table,
-        #[cfg(feature = "VK_EXT_validation_cache")]
-        validation_cache_ext_table,
-        #[cfg(feature = "VK_KHR_video_queue")]
-        video_session_khr_table,
-        #[cfg(feature = "VK_KHR_video_queue")]
-        video_session_parameters_khr_table,
-      )
+    let load_lambda = |name: *const c_char| unsafe { gdpa(raw, name) };
+    Ok(Device {
+      raw,
+      instance: self.instance,
+      table: DeviceDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_KHR_acceleration_structure")]
+      acceleration_structure_khr_table:
+        crate::acceleration_structure_khr::AccelerationStructureKHRDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_NV_ray_tracing")]
+      acceleration_structure_nv_table:
+        crate::acceleration_structure_nv::AccelerationStructureNVDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      buffer_table: crate::buffer::BufferDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+      buffer_collection_fuchsia_table:
+        crate::buffer_collection_fuchsia::BufferCollectionFUCHSIADispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      buffer_view_table: crate::buffer_view::BufferViewDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      command_buffer_table: crate::command_buffer::CommandBufferDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      command_pool_table: crate::command_pool::CommandPoolDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_NVX_binary_import")]
+      cu_function_nvx_table: crate::cu_function_nvx::CuFunctionNVXDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_NVX_binary_import")]
+      cu_module_nvx_table: crate::cu_module_nvx::CuModuleNVXDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+      cuda_function_nv_table: crate::cuda_function_nv::CudaFunctionNVDispatchTable::load(
+        load_lambda,
+      ),
+      #[cfg(feature = "VK_NV_cuda_kernel_launch")]
+      cuda_module_nv_table: crate::cuda_module_nv::CudaModuleNVDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_ARM_data_graph")]
+      data_graph_pipeline_session_arm_table:
+        crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARMDispatchTable::load(
+          load_lambda,
+        ),
+      #[cfg(feature = "VK_KHR_deferred_host_operations")]
+      deferred_operation_khr_table:
+        crate::deferred_operation_khr::DeferredOperationKHRDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      descriptor_pool_table: crate::descriptor_pool::DescriptorPoolDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      descriptor_set_table: crate::descriptor_set::DescriptorSetDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      descriptor_set_layout_table:
+        crate::descriptor_set_layout::DescriptorSetLayoutDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+      descriptor_update_template_table:
+        crate::descriptor_update_template::DescriptorUpdateTemplateDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      device_memory_table: crate::device_memory::DeviceMemoryDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      event_table: crate::event::EventDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_NV_external_compute_queue")]
+      external_compute_queue_nv_table:
+        crate::external_compute_queue_nv::ExternalComputeQueueNVDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      fence_table: crate::fence::FenceDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+      framebuffer_table: crate::framebuffer::FramebufferDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      image_table: crate::image::ImageDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      image_view_table: crate::image_view::ImageViewDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_EXT_device_generated_commands")]
+      indirect_commands_layout_ext_table:
+        crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXTDispatchTable::load(
+          load_lambda,
+        ),
+      #[cfg(feature = "VK_NV_device_generated_commands")]
+      indirect_commands_layout_nv_table:
+        crate::indirect_commands_layout_nv::IndirectCommandsLayoutNVDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_EXT_device_generated_commands")]
+      indirect_execution_set_ext_table:
+        crate::indirect_execution_set_ext::IndirectExecutionSetEXTDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_EXT_opacity_micromap")]
+      micromap_ext_table: crate::micromap_ext::MicromapEXTDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_NV_optical_flow")]
+      optical_flow_session_nv_table:
+        crate::optical_flow_session_nv::OpticalFlowSessionNVDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_INTEL_performance_query")]
+      performance_configuration_intel_table:
+        crate::performance_configuration_intel::PerformanceConfigurationINTELDispatchTable::load(
+          load_lambda,
+        ),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      pipeline_table: crate::pipeline::PipelineDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_KHR_pipeline_binary")]
+      pipeline_binary_khr_table: crate::pipeline_binary_khr::PipelineBinaryKHRDispatchTable::load(
+        load_lambda,
+      ),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      pipeline_cache_table: crate::pipeline_cache::PipelineCacheDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      pipeline_layout_table: crate::pipeline_layout::PipelineLayoutDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_3")]
+      private_data_slot_table: crate::private_data_slot::PrivateDataSlotDispatchTable::load(
+        load_lambda,
+      ),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      query_pool_table: crate::query_pool::QueryPoolDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      queue_table: crate::queue::QueueDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+      render_pass_table: crate::render_pass::RenderPassDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      sampler_table: crate::sampler::SamplerDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+      sampler_ycbcr_conversion_table:
+        crate::sampler_ycbcr_conversion::SamplerYcbcrConversionDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_BASE_VERSION_1_0")]
+      semaphore_table: crate::semaphore::SemaphoreDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_NV_external_sci_sync2")]
+      semaphore_sci_sync_pool_nv_table:
+        crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNVDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_EXT_shader_object")]
+      shader_ext_table: crate::shader_ext::ShaderEXTDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_ARM_shader_instrumentation")]
+      shader_instrumentation_arm_table:
+        crate::shader_instrumentation_arm::ShaderInstrumentationARMDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+      shader_module_table: crate::shader_module::ShaderModuleDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_KHR_swapchain")]
+      swapchain_khr_table: crate::swapchain_khr::SwapchainKHRDispatchTable::load(load_lambda),
+      #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+      tensor_arm_table: crate::tensor_arm::TensorARMDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_ARM_tensors")]
+      tensor_view_arm_table: crate::tensor_view_arm::TensorViewARMDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_EXT_validation_cache")]
+      validation_cache_ext_table:
+        crate::validation_cache_ext::ValidationCacheEXTDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_KHR_video_queue")]
+      video_session_khr_table: crate::video_session_khr::VideoSessionKHRDispatchTable::load(
+        load_lambda,
+      ),
+      #[cfg(feature = "VK_KHR_video_queue")]
+      video_session_parameters_khr_table:
+        crate::video_session_parameters_khr::VideoSessionParametersKHRDispatchTable::load(
+          load_lambda,
+        ),
     })
   }
   /// [`vkEnumerateDeviceExtensionProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateDeviceExtensionProperties.html)

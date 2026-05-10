@@ -28,6 +28,7 @@ impl DescriptorSetDispatchTable {
     #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
     vkGetDescriptorSetHostMappingVALVE: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

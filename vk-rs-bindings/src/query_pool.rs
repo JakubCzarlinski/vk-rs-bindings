@@ -32,6 +32,7 @@ impl QueryPoolDispatchTable {
     #[cfg(feature = "VK_EXT_host_query_reset")]
     vkResetQueryPoolEXT: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

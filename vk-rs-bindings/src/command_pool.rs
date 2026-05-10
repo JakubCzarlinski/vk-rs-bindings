@@ -44,6 +44,7 @@ impl CommandPoolDispatchTable {
     #[cfg(feature = "VK_KHR_maintenance1")]
     vkTrimCommandPoolKHR: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

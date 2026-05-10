@@ -28,6 +28,7 @@ impl VideoSessionKHRDispatchTable {
     #[cfg(feature = "VK_KHR_video_queue")]
     vkGetVideoSessionMemoryRequirementsKHR: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

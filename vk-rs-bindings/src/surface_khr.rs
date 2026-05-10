@@ -20,6 +20,7 @@ impl SurfaceKHRDispatchTable {
     #[cfg(feature = "VK_KHR_surface")]
     vkDestroySurfaceKHR: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

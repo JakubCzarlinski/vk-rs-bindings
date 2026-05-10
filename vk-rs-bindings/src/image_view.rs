@@ -24,6 +24,7 @@ impl ImageViewDispatchTable {
     #[cfg(feature = "VK_NVX_image_view_handle")]
     vkGetImageViewAddressNVX: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

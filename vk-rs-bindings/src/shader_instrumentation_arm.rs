@@ -28,6 +28,7 @@ impl ShaderInstrumentationARMDispatchTable {
     #[cfg(feature = "VK_ARM_shader_instrumentation")]
     vkGetShaderInstrumentationValuesARM: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

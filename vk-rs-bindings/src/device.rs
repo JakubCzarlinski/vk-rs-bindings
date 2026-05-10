@@ -974,6 +974,7 @@ impl DeviceDispatchTable {
     vkGetDescriptorSetLayoutHostMappingInfoVALVE: None,
   };
   /// Resolve all device commands from the given loader closure.
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
@@ -1757,7 +1758,8 @@ impl DeviceDispatchTable {
       .map(|f| unsafe { core::mem::transmute(f) }),
     }
   }
-  /// Resolve all device commands via `vkGetDeviceProcAddr(device, …)`.
+  /// Resolve all device commands via `vkGetDeviceProcAddr(device, name)`.
+  #[inline]
   pub fn load_for_device<F>(device: VkDevice, get_proc: F) -> Self
   where
     F: Fn(VkDevice, *const c_char) -> Option<unsafe extern "system" fn()>,

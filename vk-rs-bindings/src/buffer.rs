@@ -28,6 +28,7 @@ impl BufferDispatchTable {
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     vkGetBufferMemoryRequirements: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

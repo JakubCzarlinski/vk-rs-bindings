@@ -24,6 +24,7 @@ impl DescriptorUpdateTemplateDispatchTable {
     #[cfg(feature = "VK_KHR_descriptor_update_template")]
     vkDestroyDescriptorUpdateTemplateKHR: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

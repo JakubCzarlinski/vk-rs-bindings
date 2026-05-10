@@ -28,6 +28,7 @@ impl ValidationCacheEXTDispatchTable {
     #[cfg(feature = "VK_EXT_validation_cache")]
     vkMergeValidationCachesEXT: None,
   };
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,

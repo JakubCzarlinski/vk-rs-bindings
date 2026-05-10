@@ -124,6 +124,7 @@ impl EntryDispatchTable {
     vkEnumerateInstanceVersion: None,
   };
   /// Resolve all pre-instance commands from the given loader closure.
+  #[inline]
   pub fn load<F>(loader: F) -> Self
   where
     F: Fn(*const c_char) -> Option<unsafe extern "system" fn()>,
@@ -215,37 +216,20 @@ impl<'lib> Entry<'lib> {
         return Err(r);
       }
     }
-    let table =
-      InstanceDispatchTable::load(|name| unsafe { (self.lib.get_instance_proc_addr)(raw, name) });
-    let pd_table = crate::physical_device::PhysicalDeviceDispatchTable::load(|name| unsafe {
-      (self.lib.get_instance_proc_addr)(raw, name)
-    });
-    #[cfg(feature = "VK_EXT_debug_report")]
-    let debug_report_callback_ext_table =
-      crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable::load(|name| unsafe {
-        (self.lib.get_instance_proc_addr)(raw, name)
-      });
-    #[cfg(feature = "VK_EXT_debug_utils")]
-    let debug_utils_messenger_ext_table =
-      crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable::load(|name| unsafe {
-        (self.lib.get_instance_proc_addr)(raw, name)
-      });
-    #[cfg(feature = "VK_KHR_surface")]
-    let surface_khr_table = crate::surface_khr::SurfaceKHRDispatchTable::load(|name| unsafe {
-      (self.lib.get_instance_proc_addr)(raw, name)
-    });
-    Ok(unsafe {
-      Instance::from_raw(
-        raw,
-        table,
-        pd_table,
-        #[cfg(feature = "VK_EXT_debug_report")]
-        debug_report_callback_ext_table,
-        #[cfg(feature = "VK_EXT_debug_utils")]
-        debug_utils_messenger_ext_table,
-        #[cfg(feature = "VK_KHR_surface")]
-        surface_khr_table,
-      )
+    let load_lambda = |name: *const c_char| unsafe { (self.lib.get_instance_proc_addr)(raw, name) };
+    Ok(Instance {
+      raw,
+      table: InstanceDispatchTable::load(load_lambda),
+      physical_device_table: crate::physical_device::PhysicalDeviceDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_EXT_debug_report")]
+      debug_report_callback_ext_table:
+        crate::debug_report_callback_ext::DebugReportCallbackEXTDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_EXT_debug_utils")]
+      debug_utils_messenger_ext_table:
+        crate::debug_utils_messenger_ext::DebugUtilsMessengerEXTDispatchTable::load(load_lambda),
+      #[cfg(feature = "VK_KHR_surface")]
+      surface_khr_table: crate::surface_khr::SurfaceKHRDispatchTable::load(load_lambda),
+      _lib: core::marker::PhantomData,
     })
   }
   /// [`vkEnumerateInstanceExtensionProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumerateInstanceExtensionProperties.html)

@@ -258,7 +258,7 @@ fn gen_entry(
                 &providers,
                 "",
                 quote! {}, // self_handle unused when handle_base is ""
-                quote! { &self.table },
+                quote! { self.table },
                 handle_types,
                 None,
                 quote! {},

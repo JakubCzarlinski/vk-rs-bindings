@@ -130,7 +130,7 @@ fn gen_device(
                     providers,
                     "VkDevice", // strip param[0] = VkDevice
                     quote! { self.raw },
-                    quote! { &self.table },
+                    quote! { self.table },
                     handle_types,
                     Some(handle_meta),
                     quote! { self },
@@ -156,7 +156,7 @@ fn gen_device(
                     providers,
                     "VkDevice", // strip param[0] = VkDevice
                     quote! { self.raw },
-                    quote! { &self.table },
+                    quote! { self.table },
                     handle_types,
                     Some(handle_meta),
                     quote! { self },

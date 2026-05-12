@@ -265,7 +265,7 @@ impl<'lib> Entry<'lib> {
     pProperties: *mut VkExtensionProperties,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkEnumerateInstanceExtensionProperties
         .unwrap_unchecked()(pLayerName, pPropertyCount, pProperties)
     };
@@ -305,7 +305,7 @@ impl<'lib> Entry<'lib> {
     pProperties: *mut VkLayerProperties,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkEnumerateInstanceLayerProperties
         .unwrap_unchecked()(pPropertyCount, pProperties)
     };
@@ -337,7 +337,7 @@ impl<'lib> Entry<'lib> {
   #[cfg(feature = "VK_BASE_VERSION_1_1")]
   #[inline(always)]
   pub fn vkEnumerateInstanceVersion(&self, pApiVersion: &mut u32) -> Result<VkResult, VkResult> {
-    let r = unsafe { (&self.table).vkEnumerateInstanceVersion.unwrap_unchecked()(pApiVersion) };
+    let r = unsafe { (self.table).vkEnumerateInstanceVersion.unwrap_unchecked()(pApiVersion) };
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {

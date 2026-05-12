@@ -297,7 +297,7 @@ impl<'lib> Instance<'lib> {
     }
     unsafe {
       // SAFETY: table is fully loaded at creation.
-      (&self.table).vkDestroyInstance.unwrap_unchecked()(self.raw, pAllocator)
+      (self.table).vkDestroyInstance.unwrap_unchecked()(self.raw, pAllocator)
     }
     self.raw = VkInstance::NULL;
   }
@@ -380,7 +380,7 @@ impl<'lib> Instance<'lib> {
   ) -> PFN_vkVoidFunction {
     unsafe {
       // SAFETY: table is fully loaded at creation.
-      (&self.table).vkGetDeviceProcAddr.unwrap_unchecked()(device, pName)
+      (self.table).vkGetDeviceProcAddr.unwrap_unchecked()(device, pName)
     }
   }
   /// [`vkEnumeratePhysicalDeviceGroups`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceGroups.html)
@@ -415,7 +415,7 @@ impl<'lib> Instance<'lib> {
     pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupProperties,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkEnumeratePhysicalDeviceGroups
         .unwrap_unchecked()(
         self.raw,
@@ -459,7 +459,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::debug_report_callback_ext::DebugReportCallbackEXT<'ret>, VkResult> {
     let mut handle = VkDebugReportCallbackEXT::NULL;
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkCreateDebugReportCallbackEXT
         .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
     };
@@ -503,7 +503,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::debug_utils_messenger_ext::DebugUtilsMessengerEXT<'ret>, VkResult> {
     let mut handle = VkDebugUtilsMessengerEXT::NULL;
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkCreateDebugUtilsMessengerEXT
         .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
     };
@@ -548,7 +548,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateDirectFBSurfaceEXT.unwrap_unchecked()(
+      (self.table).vkCreateDirectFBSurfaceEXT.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -596,7 +596,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateHeadlessSurfaceEXT.unwrap_unchecked()(
+      (self.table).vkCreateHeadlessSurfaceEXT.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -645,7 +645,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateMetalSurfaceEXT.unwrap_unchecked()(
+      (self.table).vkCreateMetalSurfaceEXT.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -693,7 +693,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkCreateImagePipeSurfaceFUCHSIA
         .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
     };
@@ -739,7 +739,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkCreateStreamDescriptorSurfaceGGP
         .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
     };
@@ -785,7 +785,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateAndroidSurfaceKHR.unwrap_unchecked()(
+      (self.table).vkCreateAndroidSurfaceKHR.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -834,7 +834,7 @@ impl<'lib> Instance<'lib> {
     pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupPropertiesKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkEnumeratePhysicalDeviceGroupsKHR
         .unwrap_unchecked()(
         self.raw,
@@ -879,7 +879,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table)
+      (self.table)
         .vkCreateDisplayPlaneSurfaceKHR
         .unwrap_unchecked()(self.raw, pCreateInfo, pAllocator, &mut handle)
     };
@@ -924,7 +924,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateWaylandSurfaceKHR.unwrap_unchecked()(
+      (self.table).vkCreateWaylandSurfaceKHR.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -972,7 +972,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateWin32SurfaceKHR.unwrap_unchecked()(
+      (self.table).vkCreateWin32SurfaceKHR.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1020,7 +1020,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateXcbSurfaceKHR.unwrap_unchecked()(
+      (self.table).vkCreateXcbSurfaceKHR.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1068,7 +1068,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateXlibSurfaceKHR.unwrap_unchecked()(
+      (self.table).vkCreateXlibSurfaceKHR.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1117,7 +1117,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateIOSSurfaceMVK.unwrap_unchecked()(
+      (self.table).vkCreateIOSSurfaceMVK.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1166,7 +1166,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateMacOSSurfaceMVK.unwrap_unchecked()(
+      (self.table).vkCreateMacOSSurfaceMVK.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1215,7 +1215,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateViSurfaceNN.unwrap_unchecked()(
+      (self.table).vkCreateViSurfaceNN.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1263,7 +1263,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateSurfaceOHOS.unwrap_unchecked()(
+      (self.table).vkCreateSurfaceOHOS.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1311,7 +1311,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateScreenSurfaceQNX.unwrap_unchecked()(
+      (self.table).vkCreateScreenSurfaceQNX.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,
@@ -1359,7 +1359,7 @@ impl<'lib> Instance<'lib> {
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
-      (&self.table).vkCreateUbmSurfaceSEC.unwrap_unchecked()(
+      (self.table).vkCreateUbmSurfaceSEC.unwrap_unchecked()(
         self.raw,
         pCreateInfo,
         pAllocator,

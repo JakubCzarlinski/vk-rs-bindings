@@ -166,7 +166,7 @@ fn gen_instance(
                     providers,
                     "VkInstance", // strip param[0] = VkInstance
                     quote! { self.raw },
-                    quote! { &self.table },
+                    quote! { self.table },
                     handle_types,
                     Some(handle_meta),
                     quote! {},
@@ -188,7 +188,7 @@ fn gen_instance(
                     providers,
                     "VkInstance", // strip param[0] = VkInstance
                     quote! { self.raw },
-                    quote! { &self.table },
+                    quote! { self.table },
                     handle_types,
                     Some(handle_meta),
                     quote! {},

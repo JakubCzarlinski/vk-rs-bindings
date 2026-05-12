@@ -1405,7 +1405,7 @@ impl VkExecutionGraphPipelineCreateInfoAMDX {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineCreateFlagBits(0),
     stageCount: 0,
     pStages: core::ptr::null(),
     pLibraryInfo: core::ptr::null(),
@@ -1929,7 +1929,7 @@ impl VkSwapchainDisplayNativeHdrCreateInfoAMD {
 }
 /// [VkGpaSqShaderStageFlagsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaSqShaderStageFlagsAMD.html)
 #[cfg(feature = "VK_AMD_gpa_interface")]
-pub type VkGpaSqShaderStageFlagsAMD = VkFlags;
+pub type VkGpaSqShaderStageFlagsAMD = VkGpaSqShaderStageFlagBitsAMD;
 /// [VkGpaPerfBlockPropertiesFlagsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkGpaPerfBlockPropertiesFlagsAMD.html)
 #[cfg(feature = "VK_AMD_gpa_interface")]
 pub type VkGpaPerfBlockPropertiesFlagsAMD = VkFlags;
@@ -2291,7 +2291,7 @@ impl VkGpaSampleBeginInfoAMD {
     sampleInternalOperations: 0,
     cacheFlushOnCounterCollection: 0,
     sqShaderMaskEnable: 0,
-    sqShaderMask: 0,
+    sqShaderMask: VkGpaSqShaderStageFlagBitsAMD(0),
     perfCounterCount: 0,
     pPerfCounters: core::ptr::null(),
     streamingPerfTraceSampleInterval: 0,
@@ -2299,8 +2299,8 @@ impl VkGpaSampleBeginInfoAMD {
     sqThreadTraceEnable: 0,
     sqThreadTraceSuppressInstructionTokens: 0,
     sqThreadTraceDeviceMemoryLimit: 0,
-    timingPreSample: 0,
-    timingPostSample: 0,
+    timingPreSample: VkPipelineStageFlagBits(0),
+    timingPostSample: VkPipelineStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -2685,7 +2685,7 @@ impl VkAttachmentSampleCountInfoAMD {
 }
 /// [VkPipelineCompilerControlFlagsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCompilerControlFlagsAMD.html)
 #[cfg(feature = "VK_AMD_pipeline_compiler_control")]
-pub type VkPipelineCompilerControlFlagsAMD = VkFlags;
+pub type VkPipelineCompilerControlFlagsAMD = VkPipelineCompilerControlFlagBitsAMD;
 /// [VkPipelineCompilerControlCreateInfoAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCompilerControlCreateInfoAMD.html)
 ///
 /// **Extends:** VkGraphicsPipelineCreateInfo, VkComputePipelineCreateInfo, VkExecutionGraphPipelineCreateInfoAMDX.
@@ -2709,7 +2709,7 @@ impl VkPipelineCompilerControlCreateInfoAMD {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD,
     pNext: core::ptr::null(),
-    compilerControlFlags: 0,
+    compilerControlFlags: VkPipelineCompilerControlFlagBitsAMD(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -2921,7 +2921,7 @@ impl VkPhysicalDeviceShaderCorePropertiesAMD {
 }
 /// [VkShaderCorePropertiesFlagsAMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCorePropertiesFlagsAMD.html)
 #[cfg(feature = "VK_AMD_shader_core_properties2")]
-pub type VkShaderCorePropertiesFlagsAMD = VkFlags;
+pub type VkShaderCorePropertiesFlagsAMD = VkShaderCorePropertiesFlagBitsAMD;
 /// [VkPhysicalDeviceShaderCoreProperties2AMD](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderCoreProperties2AMD.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -2951,7 +2951,7 @@ impl VkPhysicalDeviceShaderCoreProperties2AMD {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD,
     pNext: core::ptr::null_mut(),
-    shaderCoreFeatures: 0,
+    shaderCoreFeatures: VkShaderCorePropertiesFlagBitsAMD(0),
     activeComputeUnitCount: 0,
   };
   #[inline]
@@ -3095,7 +3095,7 @@ unsafe impl Sync for VkShaderStatisticsInfoAMD {}
 #[cfg(feature = "VK_AMD_shader_info")]
 impl VkShaderStatisticsInfoAMD {
   pub const DEFAULT: Self = Self {
-    shaderStageMask: 0,
+    shaderStageMask: VkShaderStageFlagBits(0),
     resourceUsage: VkShaderResourceUsageAMD::DEFAULT,
     numPhysicalVgprs: 0,
     numPhysicalSgprs: 0,
@@ -3555,7 +3555,7 @@ impl VkAndroidHardwareBufferFormatPropertiesANDROID {
     pNext: core::ptr::null_mut(),
     format: VkFormat(0),
     externalFormat: 0,
-    formatFeatures: 0,
+    formatFeatures: VkFormatFeatureFlagBits(0),
     samplerYcbcrConversionComponents: VkComponentMapping::DEFAULT,
     suggestedYcbcrModel: VkSamplerYcbcrModelConversion(0),
     suggestedYcbcrRange: VkSamplerYcbcrRange(0),
@@ -4895,8 +4895,8 @@ impl VkQueueFamilyDataGraphProcessingEnginePropertiesARM {
     sType:
       VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM,
     pNext: core::ptr::null_mut(),
-    foreignSemaphoreHandleTypes: 0,
-    foreignMemoryHandleTypes: 0,
+    foreignSemaphoreHandleTypes: VkExternalSemaphoreHandleTypeFlagBits(0),
+    foreignMemoryHandleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -4983,7 +4983,7 @@ impl VkDataGraphProcessingEngineCreateInfoARM {
 }
 /// [VkDataGraphTOSAQualityFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSAQualityFlagsARM.html)
 #[cfg(feature = "VK_ARM_data_graph_instruction_set_tosa")]
-pub type VkDataGraphTOSAQualityFlagsARM = VkFlags;
+pub type VkDataGraphTOSAQualityFlagsARM = VkDataGraphTOSAQualityFlagBitsARM;
 /// [VkDataGraphTOSANameQualityARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphTOSANameQualityARM.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -5003,7 +5003,7 @@ unsafe impl Sync for VkDataGraphTOSANameQualityARM {}
 impl VkDataGraphTOSANameQualityARM {
   pub const DEFAULT: Self = Self {
     name: [0i8; VK_MAX_DATA_GRAPH_TOSA_NAME_SIZE_ARM as usize],
-    qualityFlags: 0,
+    qualityFlags: VkDataGraphTOSAQualityFlagBitsARM(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -5225,16 +5225,16 @@ impl VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM {
 }
 /// [VkDataGraphOpticalFlowGridSizeFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowGridSizeFlagsARM.html)
 #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
-pub type VkDataGraphOpticalFlowGridSizeFlagsARM = VkFlags;
+pub type VkDataGraphOpticalFlowGridSizeFlagsARM = VkDataGraphOpticalFlowGridSizeFlagBitsARM;
 /// [VkDataGraphOpticalFlowImageUsageFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowImageUsageFlagsARM.html)
 #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
-pub type VkDataGraphOpticalFlowImageUsageFlagsARM = VkFlags;
+pub type VkDataGraphOpticalFlowImageUsageFlagsARM = VkDataGraphOpticalFlowImageUsageFlagBitsARM;
 /// [VkDataGraphOpticalFlowCreateFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowCreateFlagsARM.html)
 #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
-pub type VkDataGraphOpticalFlowCreateFlagsARM = VkFlags;
+pub type VkDataGraphOpticalFlowCreateFlagsARM = VkDataGraphOpticalFlowCreateFlagBitsARM;
 /// [VkDataGraphOpticalFlowExecuteFlagsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphOpticalFlowExecuteFlagsARM.html)
 #[cfg(feature = "VK_ARM_data_graph_optical_flow")]
-pub type VkDataGraphOpticalFlowExecuteFlagsARM = VkFlags;
+pub type VkDataGraphOpticalFlowExecuteFlagsARM = VkDataGraphOpticalFlowExecuteFlagBitsARM;
 /// [VkDataGraphPipelineResourceInfoImageLayoutARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkDataGraphPipelineResourceInfoImageLayoutARM.html)
 ///
 /// **Extends:** VkDataGraphPipelineResourceInfoARM.
@@ -5409,8 +5409,8 @@ impl VkQueueFamilyDataGraphOpticalFlowPropertiesARM {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM,
     pNext: core::ptr::null_mut(),
-    supportedOutputGridSizes: 0,
-    supportedHintGridSizes: 0,
+    supportedOutputGridSizes: VkDataGraphOpticalFlowGridSizeFlagBitsARM(0),
+    supportedHintGridSizes: VkDataGraphOpticalFlowGridSizeFlagBitsARM(0),
     hintSupported: 0,
     costSupported: 0,
     minWidth: 0,
@@ -5498,7 +5498,7 @@ impl VkDataGraphOpticalFlowImageFormatInfoARM {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM,
     pNext: core::ptr::null(),
-    usage: 0,
+    usage: VkDataGraphOpticalFlowImageUsageFlagBitsARM(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -5660,10 +5660,10 @@ impl VkDataGraphPipelineOpticalFlowCreateInfoARM {
     imageFormat: VkFormat(0),
     flowVectorFormat: VkFormat(0),
     costFormat: VkFormat(0),
-    outputGridSize: 0,
-    hintGridSize: 0,
+    outputGridSize: VkDataGraphOpticalFlowGridSizeFlagBitsARM(0),
+    hintGridSize: VkDataGraphOpticalFlowGridSizeFlagBitsARM(0),
     performanceLevel: VkDataGraphOpticalFlowPerformanceLevelARM(0),
-    flags: 0,
+    flags: VkDataGraphOpticalFlowCreateFlagBitsARM(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -5750,7 +5750,7 @@ impl VkDataGraphPipelineOpticalFlowDispatchInfoARM {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkDataGraphOpticalFlowExecuteFlagBitsARM(0),
     meanFlowL1NormHint: 0,
   };
   #[inline]
@@ -7086,7 +7086,7 @@ impl VkShaderInstrumentationMetricDataHeaderARM {
   pub const DEFAULT: Self = Self {
     resultIndex: 0,
     resultSubIndex: 0,
-    stages: 0,
+    stages: VkShaderStageFlagBits(0),
     basicBlockIndex: 0,
   };
   #[inline]
@@ -7558,7 +7558,7 @@ impl VkPhysicalDeviceTensorPropertiesARM {
     maxDescriptorSetUpdateAfterBindStorageTensors: 0,
     maxPerStageDescriptorUpdateAfterBindStorageTensors: 0,
     shaderStorageTensorArrayNonUniformIndexingNative: 0,
-    shaderTensorSupportedStages: 0,
+    shaderTensorSupportedStages: VkShaderStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -8475,7 +8475,7 @@ impl VkExternalMemoryTensorCreateInfoARM {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -8585,10 +8585,10 @@ pub type VkDeviceSize = u64;
 pub type VkDeviceAddress = u64;
 /// [VkQueryPoolCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPoolCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkQueryPoolCreateFlags = VkFlags;
+pub type VkQueryPoolCreateFlags = VkQueryPoolCreateFlagBits;
 /// [VkInstanceCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkInstanceCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkInstanceCreateFlags = VkFlags;
+pub type VkInstanceCreateFlags = VkInstanceCreateFlagBits;
 /// [VkDeviceCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type VkDeviceCreateFlags = VkFlags;
@@ -8597,85 +8597,85 @@ pub type VkDeviceCreateFlags = VkFlags;
 pub type VkDeviceQueueCreateFlags = VkFlags;
 /// [VkQueueFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkQueueFlags = VkFlags;
+pub type VkQueueFlags = VkQueueFlagBits;
 /// [VkMemoryPropertyFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryPropertyFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkMemoryPropertyFlags = VkFlags;
+pub type VkMemoryPropertyFlags = VkMemoryPropertyFlagBits;
 /// [VkMemoryHeapFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryHeapFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkMemoryHeapFlags = VkFlags;
+pub type VkMemoryHeapFlags = VkMemoryHeapFlagBits;
 /// [VkAccessFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccessFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkAccessFlags = VkFlags;
+pub type VkAccessFlags = VkAccessFlagBits;
 /// [VkBufferUsageFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkBufferUsageFlags = VkFlags;
+pub type VkBufferUsageFlags = VkBufferUsageFlagBits;
 /// [VkBufferCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkBufferCreateFlags = VkFlags;
+pub type VkBufferCreateFlags = VkBufferCreateFlagBits;
 /// [VkShaderStageFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderStageFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkShaderStageFlags = VkFlags;
+pub type VkShaderStageFlags = VkShaderStageFlagBits;
 /// [VkImageUsageFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageUsageFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkImageUsageFlags = VkFlags;
+pub type VkImageUsageFlags = VkImageUsageFlagBits;
 /// [VkImageCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkImageCreateFlags = VkFlags;
+pub type VkImageCreateFlags = VkImageCreateFlagBits;
 /// [VkImageViewCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkImageViewCreateFlags = VkFlags;
+pub type VkImageViewCreateFlags = VkImageViewCreateFlagBits;
 /// [VkFenceCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkFenceCreateFlags = VkFlags;
+pub type VkFenceCreateFlags = VkFenceCreateFlagBits;
 /// [VkSemaphoreCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type VkSemaphoreCreateFlags = VkFlags;
 /// [VkFormatFeatureFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkFormatFeatureFlags = VkFlags;
+pub type VkFormatFeatureFlags = VkFormatFeatureFlagBits;
 /// [VkQueryControlFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryControlFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkQueryControlFlags = VkFlags;
+pub type VkQueryControlFlags = VkQueryControlFlagBits;
 /// [VkQueryResultFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryResultFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkQueryResultFlags = VkFlags;
+pub type VkQueryResultFlags = VkQueryResultFlagBits;
 /// [VkCommandPoolCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPoolCreateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkCommandPoolCreateFlags = VkFlags;
+pub type VkCommandPoolCreateFlags = VkCommandPoolCreateFlagBits;
 /// [VkCommandPoolResetFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPoolResetFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkCommandPoolResetFlags = VkFlags;
+pub type VkCommandPoolResetFlags = VkCommandPoolResetFlagBits;
 /// [VkCommandBufferResetFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferResetFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkCommandBufferResetFlags = VkFlags;
+pub type VkCommandBufferResetFlags = VkCommandBufferResetFlagBits;
 /// [VkCommandBufferUsageFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandBufferUsageFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkCommandBufferUsageFlags = VkFlags;
+pub type VkCommandBufferUsageFlags = VkCommandBufferUsageFlagBits;
 /// [VkQueryPipelineStatisticFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPipelineStatisticFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkQueryPipelineStatisticFlags = VkFlags;
+pub type VkQueryPipelineStatisticFlags = VkQueryPipelineStatisticFlagBits;
 /// [VkMemoryMapFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryMapFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkMemoryMapFlags = VkFlags;
+pub type VkMemoryMapFlags = VkMemoryMapFlagBits;
 /// [VkImageAspectFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageAspectFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkImageAspectFlags = VkFlags;
+pub type VkImageAspectFlags = VkImageAspectFlagBits;
 /// [VkSparseMemoryBindFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseMemoryBindFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkSparseMemoryBindFlags = VkFlags;
+pub type VkSparseMemoryBindFlags = VkSparseMemoryBindFlagBits;
 /// [VkSparseImageFormatFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSparseImageFormatFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkSparseImageFormatFlags = VkFlags;
+pub type VkSparseImageFormatFlags = VkSparseImageFormatFlagBits;
 /// [VkPipelineStageFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineStageFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkPipelineStageFlags = VkFlags;
+pub type VkPipelineStageFlags = VkPipelineStageFlagBits;
 /// [VkSampleCountFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSampleCountFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkSampleCountFlags = VkFlags;
+pub type VkSampleCountFlags = VkSampleCountFlagBits;
 /// [VkDependencyFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkDependencyFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
-pub type VkDependencyFlags = VkFlags;
+pub type VkDependencyFlags = VkDependencyFlagBits;
 /// [VkInstance](https://docs.vulkan.org/refpages/latest/refpages/source/VkInstance.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -9813,7 +9813,7 @@ impl VkInstanceCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkInstanceCreateFlagBits(0),
     pApplicationInfo: core::ptr::null(),
     enabledLayerCount: 0,
     ppEnabledLayerNames: core::ptr::null(),
@@ -9896,7 +9896,7 @@ unsafe impl Sync for VkQueueFamilyProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueueFamilyProperties {
   pub const DEFAULT: Self = Self {
-    queueFlags: 0,
+    queueFlags: VkQueueFlagBits(0),
     queueCount: 0,
     timestampValidBits: 0,
     minImageTransferGranularity: VkExtent3D::DEFAULT,
@@ -10094,9 +10094,9 @@ unsafe impl Sync for VkSparseImageFormatProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkSparseImageFormatProperties {
   pub const DEFAULT: Self = Self {
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
     imageGranularity: VkExtent3D::DEFAULT,
-    flags: 0,
+    flags: VkSparseImageFormatFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -10192,7 +10192,7 @@ unsafe impl Sync for VkMemoryType {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryType {
   pub const DEFAULT: Self = Self {
-    propertyFlags: 0,
+    propertyFlags: VkMemoryPropertyFlagBits(0),
     heapIndex: 0,
   };
   #[inline]
@@ -10227,7 +10227,10 @@ unsafe impl Send for VkMemoryHeap {}
 unsafe impl Sync for VkMemoryHeap {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryHeap {
-  pub const DEFAULT: Self = Self { size: 0, flags: 0 };
+  pub const DEFAULT: Self = Self {
+    size: 0,
+    flags: VkMemoryHeapFlagBits(0),
+  };
   #[inline]
   pub const fn new() -> Self {
     Self::DEFAULT
@@ -10319,9 +10322,9 @@ unsafe impl Sync for VkFormatProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkFormatProperties {
   pub const DEFAULT: Self = Self {
-    linearTilingFeatures: 0,
-    optimalTilingFeatures: 0,
-    bufferFeatures: 0,
+    linearTilingFeatures: VkFormatFeatureFlagBits(0),
+    optimalTilingFeatures: VkFormatFeatureFlagBits(0),
+    bufferFeatures: VkFormatFeatureFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -10367,7 +10370,7 @@ impl VkImageFormatProperties {
     maxExtent: VkExtent3D::DEFAULT,
     maxMipLevels: 0,
     maxArrayLayers: 0,
-    sampleCounts: 0,
+    sampleCounts: VkSampleCountFlagBits(0),
     maxResourceSize: 0,
   };
   #[inline]
@@ -10429,9 +10432,9 @@ impl VkBufferCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkBufferCreateFlagBits(0),
     size: 0,
-    usage: 0,
+    usage: VkBufferUsageFlagBits(0),
     sharingMode: VkSharingMode(0),
     queueFamilyIndexCount: 0,
     pQueueFamilyIndices: core::ptr::null(),
@@ -10497,7 +10500,7 @@ unsafe impl Sync for VkImageSubresource {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageSubresource {
   pub const DEFAULT: Self = Self {
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
     mipLevel: 0,
     arrayLayer: 0,
   };
@@ -10538,7 +10541,7 @@ unsafe impl Sync for VkImageSubresourceLayers {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageSubresourceLayers {
   pub const DEFAULT: Self = Self {
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
     mipLevel: 0,
     baseArrayLayer: 0,
     layerCount: 0,
@@ -10586,7 +10589,7 @@ unsafe impl Sync for VkImageSubresourceRange {}
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageSubresourceRange {
   pub const DEFAULT: Self = Self {
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
     baseMipLevel: 0,
     levelCount: 0,
     baseArrayLayer: 0,
@@ -10646,8 +10649,8 @@ impl VkMemoryBarrier {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER,
     pNext: core::ptr::null(),
-    srcAccessMask: 0,
-    dstAccessMask: 0,
+    srcAccessMask: VkAccessFlagBits(0),
+    dstAccessMask: VkAccessFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -10700,8 +10703,8 @@ impl VkBufferMemoryBarrier {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER,
     pNext: core::ptr::null(),
-    srcAccessMask: 0,
-    dstAccessMask: 0,
+    srcAccessMask: VkAccessFlagBits(0),
+    dstAccessMask: VkAccessFlagBits(0),
     srcQueueFamilyIndex: 0,
     dstQueueFamilyIndex: 0,
     buffer: VkBuffer::DEFAULT,
@@ -10785,8 +10788,8 @@ impl VkImageMemoryBarrier {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,
     pNext: core::ptr::null(),
-    srcAccessMask: 0,
-    dstAccessMask: 0,
+    srcAccessMask: VkAccessFlagBits(0),
+    dstAccessMask: VkAccessFlagBits(0),
     oldLayout: VkImageLayout(0),
     newLayout: VkImageLayout(0),
     srcQueueFamilyIndex: 0,
@@ -10881,7 +10884,7 @@ impl VkImageCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkImageCreateFlagBits(0),
     imageType: VkImageType(0),
     format: VkFormat(0),
     extent: VkExtent3D::DEFAULT,
@@ -10889,7 +10892,7 @@ impl VkImageCreateInfo {
     arrayLayers: 0,
     samples: VkSampleCountFlagBits(0),
     tiling: VkImageTiling(0),
-    usage: 0,
+    usage: VkImageUsageFlagBits(0),
     sharingMode: VkSharingMode(0),
     queueFamilyIndexCount: 0,
     pQueueFamilyIndices: core::ptr::null(),
@@ -11055,7 +11058,7 @@ impl VkImageViewCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkImageViewCreateFlagBits(0),
     image: VkImage::DEFAULT,
     viewType: VkImageViewType(0),
     format: VkFormat(0),
@@ -11169,7 +11172,7 @@ impl VkSparseMemoryBind {
     size: 0,
     memory: VkDeviceMemory::DEFAULT,
     memoryOffset: 0,
-    flags: 0,
+    flags: VkSparseMemoryBindFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -11227,7 +11230,7 @@ impl VkSparseImageMemoryBind {
     extent: VkExtent3D::DEFAULT,
     memory: VkDeviceMemory::DEFAULT,
     memoryOffset: 0,
-    flags: 0,
+    flags: VkSparseMemoryBindFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -11660,7 +11663,7 @@ impl VkCommandPoolCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkCommandPoolCreateFlagBits(0),
     queueFamilyIndex: 0,
   };
   #[inline]
@@ -11785,8 +11788,8 @@ impl VkCommandBufferInheritanceInfo {
     #[cfg(not(feature = "VK_GRAPHICS_VERSION_1_0"))]
     framebuffer: core::ptr::null_mut(),
     occlusionQueryEnable: 0,
-    queryFlags: 0,
-    pipelineStatistics: 0,
+    queryFlags: VkQueryControlFlagBits(0),
+    pipelineStatistics: VkQueryPipelineStatisticFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -11855,7 +11858,7 @@ impl VkCommandBufferBeginInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkCommandBufferUsageFlagBits(0),
     pInheritanceInfo: core::ptr::null(),
   };
   #[inline]
@@ -11903,7 +11906,7 @@ impl VkFenceCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_FENCE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkFenceCreateFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -12698,16 +12701,16 @@ impl VkPhysicalDeviceLimits {
     maxFramebufferWidth: 0,
     maxFramebufferHeight: 0,
     maxFramebufferLayers: 0,
-    framebufferColorSampleCounts: 0,
-    framebufferDepthSampleCounts: 0,
-    framebufferStencilSampleCounts: 0,
-    framebufferNoAttachmentsSampleCounts: 0,
+    framebufferColorSampleCounts: VkSampleCountFlagBits(0),
+    framebufferDepthSampleCounts: VkSampleCountFlagBits(0),
+    framebufferStencilSampleCounts: VkSampleCountFlagBits(0),
+    framebufferNoAttachmentsSampleCounts: VkSampleCountFlagBits(0),
     maxColorAttachments: 0,
-    sampledImageColorSampleCounts: 0,
-    sampledImageIntegerSampleCounts: 0,
-    sampledImageDepthSampleCounts: 0,
-    sampledImageStencilSampleCounts: 0,
-    storageImageSampleCounts: 0,
+    sampledImageColorSampleCounts: VkSampleCountFlagBits(0),
+    sampledImageIntegerSampleCounts: VkSampleCountFlagBits(0),
+    sampledImageDepthSampleCounts: VkSampleCountFlagBits(0),
+    sampledImageStencilSampleCounts: VkSampleCountFlagBits(0),
+    storageImageSampleCounts: VkSampleCountFlagBits(0),
     maxSampleMaskWords: 0,
     timestampComputeAndGraphics: 0,
     timestampPeriod: 0.0f32,
@@ -13328,10 +13331,10 @@ impl VkQueryPoolCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkQueryPoolCreateFlagBits(0),
     queryType: VkQueryType(0),
     queryCount: 0,
-    pipelineStatistics: 0,
+    pipelineStatistics: VkQueryPipelineStatisticFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -13467,40 +13470,40 @@ impl VkSubmitInfo {
 }
 /// [VkSubgroupFeatureFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSubgroupFeatureFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkSubgroupFeatureFlags = VkFlags;
+pub type VkSubgroupFeatureFlags = VkSubgroupFeatureFlagBits;
 /// [VkPeerMemoryFeatureFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPeerMemoryFeatureFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkPeerMemoryFeatureFlags = VkFlags;
+pub type VkPeerMemoryFeatureFlags = VkPeerMemoryFeatureFlagBits;
 /// [VkMemoryAllocateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryAllocateFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkMemoryAllocateFlags = VkFlags;
+pub type VkMemoryAllocateFlags = VkMemoryAllocateFlagBits;
 /// [VkCommandPoolTrimFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPoolTrimFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type VkCommandPoolTrimFlags = VkFlags;
 /// [VkExternalMemoryHandleTypeFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryHandleTypeFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkExternalMemoryHandleTypeFlags = VkFlags;
+pub type VkExternalMemoryHandleTypeFlags = VkExternalMemoryHandleTypeFlagBits;
 /// [VkExternalMemoryFeatureFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryFeatureFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkExternalMemoryFeatureFlags = VkFlags;
+pub type VkExternalMemoryFeatureFlags = VkExternalMemoryFeatureFlagBits;
 /// [VkExternalSemaphoreHandleTypeFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreHandleTypeFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkExternalSemaphoreHandleTypeFlags = VkFlags;
+pub type VkExternalSemaphoreHandleTypeFlags = VkExternalSemaphoreHandleTypeFlagBits;
 /// [VkExternalSemaphoreFeatureFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreFeatureFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkExternalSemaphoreFeatureFlags = VkFlags;
+pub type VkExternalSemaphoreFeatureFlags = VkExternalSemaphoreFeatureFlagBits;
 /// [VkSemaphoreImportFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreImportFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkSemaphoreImportFlags = VkFlags;
+pub type VkSemaphoreImportFlags = VkSemaphoreImportFlagBits;
 /// [VkExternalFenceHandleTypeFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceHandleTypeFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkExternalFenceHandleTypeFlags = VkFlags;
+pub type VkExternalFenceHandleTypeFlags = VkExternalFenceHandleTypeFlagBits;
 /// [VkExternalFenceFeatureFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceFeatureFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkExternalFenceFeatureFlags = VkFlags;
+pub type VkExternalFenceFeatureFlags = VkExternalFenceFeatureFlagBits;
 /// [VkFenceImportFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceImportFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
-pub type VkFenceImportFlags = VkFlags;
+pub type VkFenceImportFlags = VkFenceImportFlagBits;
 /// [VkPhysicalDeviceFeatures2](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceFeatures2.html)
 ///
 /// **Extends:** VkDeviceCreateInfo.
@@ -13699,8 +13702,8 @@ impl VkPhysicalDeviceImageFormatInfo2 {
     format: VkFormat(0),
     type_: VkImageType(0),
     tiling: VkImageTiling(0),
-    usage: 0,
-    flags: 0,
+    usage: VkImageUsageFlagBits(0),
+    flags: VkImageCreateFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -13895,7 +13898,7 @@ impl VkPhysicalDeviceSparseImageFormatInfo2 {
     format: VkFormat(0),
     type_: VkImageType(0),
     samples: VkSampleCountFlagBits(0),
-    usage: 0,
+    usage: VkImageUsageFlagBits(0),
     tiling: VkImageTiling(0),
   };
   #[inline]
@@ -13954,9 +13957,9 @@ unsafe impl Sync for VkExternalMemoryProperties {}
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 impl VkExternalMemoryProperties {
   pub const DEFAULT: Self = Self {
-    externalMemoryFeatures: 0,
-    exportFromImportedHandleTypes: 0,
-    compatibleHandleTypes: 0,
+    externalMemoryFeatures: VkExternalMemoryFeatureFlagBits(0),
+    exportFromImportedHandleTypes: VkExternalMemoryHandleTypeFlagBits(0),
+    compatibleHandleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14090,8 +14093,8 @@ impl VkPhysicalDeviceExternalBufferInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
-    usage: 0,
+    flags: VkBufferCreateFlagBits(0),
+    usage: VkBufferUsageFlagBits(0),
     handleType: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
@@ -14263,7 +14266,7 @@ impl VkExternalMemoryImageCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14305,7 +14308,7 @@ impl VkExternalMemoryBufferCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_BUFFER_CREATE_INFO,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14347,7 +14350,7 @@ impl VkExportMemoryAllocateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14430,9 +14433,9 @@ impl VkExternalSemaphoreProperties {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_SEMAPHORE_PROPERTIES,
     pNext: core::ptr::null_mut(),
-    exportFromImportedHandleTypes: 0,
-    compatibleHandleTypes: 0,
-    externalSemaphoreFeatures: 0,
+    exportFromImportedHandleTypes: VkExternalSemaphoreHandleTypeFlagBits(0),
+    compatibleHandleTypes: VkExternalSemaphoreHandleTypeFlagBits(0),
+    externalSemaphoreFeatures: VkExternalSemaphoreFeatureFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14493,7 +14496,7 @@ impl VkExportSemaphoreCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalSemaphoreHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14576,9 +14579,9 @@ impl VkExternalFenceProperties {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES,
     pNext: core::ptr::null_mut(),
-    exportFromImportedHandleTypes: 0,
-    compatibleHandleTypes: 0,
-    externalFenceFeatures: 0,
+    exportFromImportedHandleTypes: VkExternalFenceHandleTypeFlagBits(0),
+    compatibleHandleTypes: VkExternalFenceHandleTypeFlagBits(0),
+    externalFenceFeatures: VkExternalFenceFeatureFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14633,7 +14636,7 @@ impl VkExportFenceCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_FENCE_CREATE_INFO,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalFenceHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -14735,7 +14738,7 @@ impl VkMemoryAllocateFlagsInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkMemoryAllocateFlagBits(0),
     deviceMask: 0,
   };
   #[inline]
@@ -15546,7 +15549,7 @@ impl VkImageViewUsageCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO,
     pNext: core::ptr::null(),
-    usage: 0,
+    usage: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -15831,10 +15834,10 @@ impl VkDeviceQueueInfo2 {
 }
 /// [VkSemaphoreWaitFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreWaitFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
-pub type VkSemaphoreWaitFlags = VkFlags;
+pub type VkSemaphoreWaitFlags = VkSemaphoreWaitFlagBits;
 /// [VkResolveModeFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveModeFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
-pub type VkResolveModeFlags = VkFlags;
+pub type VkResolveModeFlags = VkResolveModeFlagBits;
 /// [VkConformanceVersion](https://docs.vulkan.org/refpages/latest/refpages/source/VkConformanceVersion.html)
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 #[repr(C)]
@@ -16283,7 +16286,7 @@ impl VkSemaphoreWaitInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_WAIT_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSemaphoreWaitFlagBits(0),
     semaphoreCount: 0,
     pSemaphores: core::ptr::null(),
     pValues: core::ptr::null(),
@@ -16821,8 +16824,8 @@ impl VkPhysicalDeviceVulkan11Properties {
     deviceNodeMask: 0,
     deviceLUIDValid: 0,
     subgroupSize: 0,
-    subgroupSupportedStages: 0,
-    subgroupSupportedOperations: 0,
+    subgroupSupportedStages: VkShaderStageFlagBits(0),
+    subgroupSupportedOperations: VkSubgroupFeatureFlagBits(0),
     subgroupQuadOperationsInAllStages: 0,
     pointClippingBehavior: VkPointClippingBehavior(0),
     maxMultiviewViewCount: 0,
@@ -17466,14 +17469,14 @@ impl VkPhysicalDeviceVulkan12Properties {
     maxDescriptorSetUpdateAfterBindSampledImages: 0,
     maxDescriptorSetUpdateAfterBindStorageImages: 0,
     maxDescriptorSetUpdateAfterBindInputAttachments: 0,
-    supportedDepthResolveModes: 0,
-    supportedStencilResolveModes: 0,
+    supportedDepthResolveModes: VkResolveModeFlagBits(0),
+    supportedStencilResolveModes: VkResolveModeFlagBits(0),
     independentResolveNone: 0,
     independentResolve: 0,
     filterMinmaxSingleComponentFormats: 0,
     filterMinmaxImageComponentMapping: 0,
     maxTimelineSemaphoreValueDifference: 0,
-    framebufferIntegerColorSampleCounts: 0,
+    framebufferIntegerColorSampleCounts: VkSampleCountFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -17797,10 +17800,10 @@ pub type VkPipelineStageFlags2 = VkFlags64;
 pub type VkFormatFeatureFlags2 = VkFlags64;
 /// [VkToolPurposeFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkToolPurposeFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
-pub type VkToolPurposeFlags = VkFlags;
+pub type VkToolPurposeFlags = VkToolPurposeFlagBits;
 /// [VkSubmitFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSubmitFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
-pub type VkSubmitFlags = VkFlags;
+pub type VkSubmitFlags = VkSubmitFlagBits;
 /// [VkPrivateDataSlot](https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlot.html)
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 #[repr(transparent)]
@@ -18420,7 +18423,7 @@ impl VkPhysicalDeviceVulkan13Properties {
     minSubgroupSize: 0,
     maxSubgroupSize: 0,
     maxComputeWorkgroupSubgroups: 0,
-    requiredSubgroupSizeStages: 0,
+    requiredSubgroupSizeStages: VkShaderStageFlagBits(0),
     maxInlineUniformBlockSize: 0,
     maxPerStageDescriptorInlineUniformBlocks: 0,
     maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks: 0,
@@ -18801,7 +18804,7 @@ impl VkPhysicalDeviceToolProperties {
     pNext: core::ptr::null_mut(),
     name: [0i8; VK_MAX_EXTENSION_NAME_SIZE as usize],
     version: [0i8; VK_MAX_EXTENSION_NAME_SIZE as usize],
-    purposes: 0,
+    purposes: VkToolPurposeFlagBits(0),
     description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
     layer: [0i8; VK_MAX_EXTENSION_NAME_SIZE as usize],
   };
@@ -19643,7 +19646,7 @@ impl VkDependencyInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEPENDENCY_INFO,
     pNext: core::ptr::null(),
-    dependencyFlags: 0,
+    dependencyFlags: VkDependencyFlagBits(0),
     memoryBarrierCount: 0,
     pMemoryBarriers: core::ptr::null(),
     bufferMemoryBarrierCount: 0,
@@ -19847,7 +19850,7 @@ impl VkSubmitInfo2 {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SUBMIT_INFO_2,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSubmitFlagBits(0),
     waitSemaphoreInfoCount: 0,
     pWaitSemaphoreInfos: core::ptr::null(),
     commandBufferInfoCount: 0,
@@ -20019,13 +20022,13 @@ impl VkFormatProperties3 {
 pub type VkFlags64 = u64;
 /// [VkMemoryUnmapFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryUnmapFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
-pub type VkMemoryUnmapFlags = VkFlags;
+pub type VkMemoryUnmapFlags = VkMemoryUnmapFlagBits;
 /// [VkBufferUsageFlags2](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlags2.html)
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type VkBufferUsageFlags2 = VkFlags64;
 /// [VkHostImageCopyFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkHostImageCopyFlags.html)
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
-pub type VkHostImageCopyFlags = VkFlags;
+pub type VkHostImageCopyFlags = VkHostImageCopyFlagBits;
 /// [VkBufferUsageFlags2CreateInfo](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlags2CreateInfo.html)
 ///
 /// **Extends:** VkBufferViewCreateInfo, VkBufferCreateInfo, VkPhysicalDeviceExternalBufferInfo, VkDescriptorBufferBindingInfoEXT.
@@ -21237,7 +21240,7 @@ impl VkCopyMemoryToImageInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkHostImageCopyFlagBits(0),
     dstImage: VkImage::DEFAULT,
     dstImageLayout: VkImageLayout(0),
     regionCount: 0,
@@ -21309,7 +21312,7 @@ impl VkCopyImageToMemoryInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_IMAGE_TO_MEMORY_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkHostImageCopyFlagBits(0),
     srcImage: VkImage::DEFAULT,
     srcImageLayout: VkImageLayout(0),
     regionCount: 0,
@@ -21383,7 +21386,7 @@ impl VkCopyImageToImageInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_IMAGE_TO_IMAGE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkHostImageCopyFlagBits(0),
     srcImage: VkImage::DEFAULT,
     srcImageLayout: VkImageLayout(0),
     dstImage: VkImage::DEFAULT,
@@ -21748,7 +21751,7 @@ impl VkMemoryMapInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_MAP_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkMemoryMapFlagBits(0),
     memory: VkDeviceMemory::DEFAULT,
     offset: 0,
     size: 0,
@@ -21807,7 +21810,7 @@ impl VkMemoryUnmapInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkMemoryUnmapFlagBits(0),
     memory: VkDeviceMemory::DEFAULT,
   };
   #[inline]
@@ -21877,34 +21880,34 @@ impl VkBindMemoryStatus {
 }
 /// [VkSamplerCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSamplerCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkSamplerCreateFlags = VkFlags;
+pub type VkSamplerCreateFlags = VkSamplerCreateFlagBits;
 /// [VkPipelineLayoutCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineLayoutCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkPipelineLayoutCreateFlags = VkFlags;
+pub type VkPipelineLayoutCreateFlags = VkPipelineLayoutCreateFlagBits;
 /// [VkPipelineCacheCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCacheCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkPipelineCacheCreateFlags = VkFlags;
+pub type VkPipelineCacheCreateFlags = VkPipelineCacheCreateFlagBits;
 /// [VkPipelineShaderStageCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineShaderStageCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkPipelineShaderStageCreateFlags = VkFlags;
+pub type VkPipelineShaderStageCreateFlags = VkPipelineShaderStageCreateFlagBits;
 /// [VkDescriptorSetLayoutCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorSetLayoutCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkDescriptorSetLayoutCreateFlags = VkFlags;
+pub type VkDescriptorSetLayoutCreateFlags = VkDescriptorSetLayoutCreateFlagBits;
 /// [VkBufferViewCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferViewCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type VkBufferViewCreateFlags = VkFlags;
 /// [VkPipelineCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkPipelineCreateFlags = VkFlags;
+pub type VkPipelineCreateFlags = VkPipelineCreateFlagBits;
 /// [VkShaderModuleCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModuleCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type VkShaderModuleCreateFlags = VkFlags;
 /// [VkEventCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkEventCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkEventCreateFlags = VkFlags;
+pub type VkEventCreateFlags = VkEventCreateFlagBits;
 /// [VkDescriptorPoolCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPoolCreateFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
-pub type VkDescriptorPoolCreateFlags = VkFlags;
+pub type VkDescriptorPoolCreateFlags = VkDescriptorPoolCreateFlagBits;
 /// [VkDescriptorPoolResetFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorPoolResetFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type VkDescriptorPoolResetFlags = VkFlags;
@@ -22525,7 +22528,7 @@ impl VkDescriptorSetLayoutBinding {
     binding: 0,
     descriptorType: VkDescriptorType(0),
     descriptorCount: 0,
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     pImmutableSamplers: core::ptr::null(),
   };
   #[inline]
@@ -22585,7 +22588,7 @@ impl VkDescriptorSetLayoutCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkDescriptorSetLayoutCreateFlagBits(0),
     bindingCount: 0,
     pBindings: core::ptr::null(),
   };
@@ -22678,7 +22681,7 @@ impl VkDescriptorPoolCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkDescriptorPoolCreateFlagBits(0),
     maxSets: 0,
     poolSizeCount: 0,
     pPoolSizes: core::ptr::null(),
@@ -22904,7 +22907,7 @@ impl VkPipelineShaderStageCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineShaderStageCreateFlagBits(0),
     stage: VkShaderStageFlagBits(0),
     module: VkShaderModule::DEFAULT,
     #[cfg(not(feature = "VKSC_VERSION_1_0"))]
@@ -22990,7 +22993,7 @@ impl VkComputePipelineCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineCreateFlagBits(0),
     stage: VkPipelineShaderStageCreateInfo::DEFAULT,
     layout: VkPipelineLayout::DEFAULT,
     basePipelineHandle: VkPipeline::DEFAULT,
@@ -23061,7 +23064,7 @@ impl VkPipelineCacheCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineCacheCreateFlagBits(0),
     #[cfg(not(feature = "VKSC_VERSION_1_0"))]
     initialDataSize: 0,
     #[cfg(feature = "VKSC_VERSION_1_0")]
@@ -23174,7 +23177,7 @@ unsafe impl Sync for VkPushConstantRange {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 impl VkPushConstantRange {
   pub const DEFAULT: Self = Self {
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     offset: 0,
     size: 0,
   };
@@ -23229,7 +23232,7 @@ impl VkPipelineLayoutCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineLayoutCreateFlagBits(0),
     setLayoutCount: 0,
     pSetLayouts: core::ptr::null(),
     pushConstantRangeCount: 0,
@@ -23315,7 +23318,7 @@ impl VkSamplerCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSamplerCreateFlagBits(0),
     magFilter: VkFilter(0),
     minFilter: VkFilter(0),
     mipmapMode: VkSamplerMipmapMode(0),
@@ -23480,7 +23483,7 @@ impl VkEventCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EVENT_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkEventCreateFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -23934,8 +23937,8 @@ impl VkPhysicalDeviceSubgroupProperties {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES,
     pNext: core::ptr::null_mut(),
     subgroupSize: 0,
-    supportedStages: 0,
-    supportedOperations: 0,
+    supportedStages: VkShaderStageFlagBits(0),
+    supportedOperations: VkSubgroupFeatureFlagBits(0),
     quadOperationsInAllStages: 0,
   };
   #[inline]
@@ -24280,7 +24283,7 @@ impl VkDescriptorSetLayoutSupport {
 }
 /// [VkDescriptorBindingFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBindingFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_2")]
-pub type VkDescriptorBindingFlags = VkFlags;
+pub type VkDescriptorBindingFlags = VkDescriptorBindingFlagBits;
 /// [VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -25417,7 +25420,7 @@ impl VkPhysicalDeviceUniformBufferStandardLayoutFeatures {
 }
 /// [VkPipelineCreationFeedbackFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedbackFlags.html)
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
-pub type VkPipelineCreationFeedbackFlags = VkFlags;
+pub type VkPipelineCreationFeedbackFlags = VkPipelineCreationFeedbackFlagBits;
 /// [VkPhysicalDeviceInlineUniformBlockFeatures](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceInlineUniformBlockFeatures.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -25659,7 +25662,7 @@ unsafe impl Sync for VkPipelineCreationFeedback {}
 #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
 impl VkPipelineCreationFeedback {
   pub const DEFAULT: Self = Self {
-    flags: 0,
+    flags: VkPipelineCreationFeedbackFlagBits(0),
     duration: 0,
   };
   #[inline]
@@ -25941,7 +25944,7 @@ impl VkPhysicalDeviceSubgroupSizeControlProperties {
     minSubgroupSize: 0,
     maxSubgroupSize: 0,
     maxComputeWorkgroupSubgroups: 0,
-    requiredSubgroupSizeStages: 0,
+    requiredSubgroupSizeStages: VkShaderStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -26916,7 +26919,7 @@ impl VkBindDescriptorSetsInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO,
     pNext: core::ptr::null(),
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     layout: VkPipelineLayout::DEFAULT,
     firstSet: 0,
     descriptorSetCount: 0,
@@ -27004,7 +27007,7 @@ impl VkPushConstantsInfo {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO,
     pNext: core::ptr::null(),
     layout: VkPipelineLayout::DEFAULT,
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     offset: 0,
     size: 0,
     pValues: core::ptr::null(),
@@ -27075,7 +27078,7 @@ impl VkPushDescriptorSetInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO,
     pNext: core::ptr::null(),
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     layout: VkPipelineLayout::DEFAULT,
     set: 0,
     descriptorWriteCount: 0,
@@ -28236,7 +28239,7 @@ impl VkPipelineColorWriteCreateInfoEXT {
 }
 /// [VkConditionalRenderingFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkConditionalRenderingFlagsEXT.html)
 #[cfg(feature = "VK_EXT_conditional_rendering")]
-pub type VkConditionalRenderingFlagsEXT = VkFlags;
+pub type VkConditionalRenderingFlagsEXT = VkConditionalRenderingFlagBitsEXT;
 /// [VkConditionalRenderingBeginInfoEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkConditionalRenderingBeginInfoEXT.html)
 #[cfg(feature = "VK_EXT_conditional_rendering")]
 #[deprecated(note = "superseded by `VkConditionalRenderingBeginInfo2EXT`")]
@@ -28263,7 +28266,7 @@ impl VkConditionalRenderingBeginInfoEXT {
     pNext: core::ptr::null(),
     buffer: VkBuffer::DEFAULT,
     offset: 0,
-    flags: 0,
+    flags: VkConditionalRenderingFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -29082,7 +29085,7 @@ impl VkDebugMarkerMarkerInfoEXT {
 }
 /// [VkDebugReportFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugReportFlagsEXT.html)
 #[cfg(feature = "VK_EXT_debug_report")]
-pub type VkDebugReportFlagsEXT = VkFlags;
+pub type VkDebugReportFlagsEXT = VkDebugReportFlagBitsEXT;
 /// [VkDebugReportCallbackEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugReportCallbackEXT.html)
 #[cfg(feature = "VK_EXT_debug_report")]
 #[repr(transparent)]
@@ -29143,7 +29146,7 @@ impl VkDebugReportCallbackCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkDebugReportFlagBitsEXT(0),
     pfnCallback: None,
     pUserData: core::ptr::null_mut(),
   };
@@ -29178,10 +29181,10 @@ impl VkDebugReportCallbackCreateInfoEXT {
 }
 /// [VkDebugUtilsMessageSeverityFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessageSeverityFlagsEXT.html)
 #[cfg(feature = "VK_EXT_debug_utils")]
-pub type VkDebugUtilsMessageSeverityFlagsEXT = VkFlags;
+pub type VkDebugUtilsMessageSeverityFlagsEXT = VkDebugUtilsMessageSeverityFlagBitsEXT;
 /// [VkDebugUtilsMessageTypeFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessageTypeFlagsEXT.html)
 #[cfg(feature = "VK_EXT_debug_utils")]
-pub type VkDebugUtilsMessageTypeFlagsEXT = VkFlags;
+pub type VkDebugUtilsMessageTypeFlagsEXT = VkDebugUtilsMessageTypeFlagBitsEXT;
 /// [VkDebugUtilsMessengerCreateFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugUtilsMessengerCreateFlagsEXT.html)
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type VkDebugUtilsMessengerCreateFlagsEXT = VkFlags;
@@ -29426,8 +29429,8 @@ impl VkDebugUtilsMessengerCreateInfoEXT {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
     flags: 0,
-    messageSeverity: 0,
-    messageType: 0,
+    messageSeverity: VkDebugUtilsMessageSeverityFlagBitsEXT(0),
+    messageType: VkDebugUtilsMessageTypeFlagBitsEXT(0),
     pfnUserCallback: None,
     pUserData: core::ptr::null_mut(),
   };
@@ -30609,7 +30612,7 @@ impl VkDescriptorBufferBindingInfoEXT {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT,
     pNext: core::ptr::null(),
     address: 0,
-    usage: 0,
+    usage: VkBufferUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -31060,7 +31063,7 @@ impl VkOpaqueCaptureDescriptorDataCreateInfoEXT {
 }
 /// [VkSpirvResourceTypeFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkSpirvResourceTypeFlagsEXT.html)
 #[cfg(feature = "VK_EXT_descriptor_heap")]
-pub type VkSpirvResourceTypeFlagsEXT = VkFlags;
+pub type VkSpirvResourceTypeFlagsEXT = VkSpirvResourceTypeFlagBitsEXT;
 /// [VkHostAddressRangeEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkHostAddressRangeEXT.html)
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 #[repr(C)]
@@ -31984,7 +31987,7 @@ impl VkDescriptorSetAndBindingMappingEXT {
     descriptorSet: 0,
     firstBinding: 0,
     bindingCount: 0,
-    resourceMask: 0,
+    resourceMask: VkSpirvResourceTypeFlagBitsEXT(0),
     source: VkDescriptorMappingSourceEXT(0),
     sourceData: VkDescriptorMappingSourceDataEXT::DEFAULT,
   };
@@ -32691,7 +32694,7 @@ impl VkDeviceAddressRangeEXT {
 }
 /// [VkDescriptorBindingFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorBindingFlagsEXT.html)
 #[cfg(feature = "VK_EXT_descriptor_indexing")]
-pub type VkDescriptorBindingFlagsEXT = VkFlags;
+pub type VkDescriptorBindingFlagsEXT = VkDescriptorBindingFlagBits;
 /// [VkPhysicalDeviceDescriptorIndexingFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDescriptorIndexingFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -33276,7 +33279,7 @@ impl VkDescriptorSetVariableDescriptorCountLayoutSupportEXT {
 }
 /// [VkDeviceAddressBindingFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressBindingFlagsEXT.html)
 #[cfg(feature = "VK_EXT_device_address_binding_report")]
-pub type VkDeviceAddressBindingFlagsEXT = VkFlags;
+pub type VkDeviceAddressBindingFlagsEXT = VkDeviceAddressBindingFlagBitsEXT;
 /// [VkPhysicalDeviceAddressBindingReportFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceAddressBindingReportFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -33344,7 +33347,7 @@ impl VkDeviceAddressBindingCallbackDataEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkDeviceAddressBindingFlagBitsEXT(0),
     baseAddress: 0,
     size: 0,
     bindingType: VkDeviceAddressBindingTypeEXT(0),
@@ -33749,10 +33752,10 @@ impl VkDeviceFaultVendorBinaryHeaderVersionOneEXT {
 }
 /// [VkIndirectCommandsLayoutUsageFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutUsageFlagsEXT.html)
 #[cfg(feature = "VK_EXT_device_generated_commands")]
-pub type VkIndirectCommandsLayoutUsageFlagsEXT = VkFlags;
+pub type VkIndirectCommandsLayoutUsageFlagsEXT = VkIndirectCommandsLayoutUsageFlagBitsEXT;
 /// [VkIndirectCommandsInputModeFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsInputModeFlagsEXT.html)
 #[cfg(feature = "VK_EXT_device_generated_commands")]
-pub type VkIndirectCommandsInputModeFlagsEXT = VkFlags;
+pub type VkIndirectCommandsInputModeFlagsEXT = VkIndirectCommandsInputModeFlagBitsEXT;
 /// [VkIndirectCommandsLayoutEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutEXT.html)
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 #[repr(transparent)]
@@ -33898,10 +33901,10 @@ impl VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
     maxIndirectCommandsTokenCount: 0,
     maxIndirectCommandsTokenOffset: 0,
     maxIndirectCommandsIndirectStride: 0,
-    supportedIndirectCommandsInputModes: 0,
-    supportedIndirectCommandsShaderStages: 0,
-    supportedIndirectCommandsShaderStagesPipelineBinding: 0,
-    supportedIndirectCommandsShaderStagesShaderBinding: 0,
+    supportedIndirectCommandsInputModes: VkIndirectCommandsInputModeFlagBitsEXT(0),
+    supportedIndirectCommandsShaderStages: VkShaderStageFlagBits(0),
+    supportedIndirectCommandsShaderStagesPipelineBinding: VkShaderStageFlagBits(0),
+    supportedIndirectCommandsShaderStagesShaderBinding: VkShaderStageFlagBits(0),
     deviceGeneratedCommandsTransformFeedback: 0,
     deviceGeneratedCommandsMultiDrawIndirectCount: 0,
   };
@@ -34439,7 +34442,7 @@ impl VkGeneratedCommandsInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_EXT,
     pNext: core::ptr::null(),
-    shaderStages: 0,
+    shaderStages: VkShaderStageFlagBits(0),
     indirectExecutionSet: VkIndirectExecutionSetEXT::DEFAULT,
     indirectCommandsLayout: VkIndirectCommandsLayoutEXT::DEFAULT,
     indirectAddress: 0,
@@ -34653,8 +34656,8 @@ impl VkIndirectCommandsLayoutCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
-    shaderStages: 0,
+    flags: VkIndirectCommandsLayoutUsageFlagBitsEXT(0),
+    shaderStages: VkShaderStageFlagBits(0),
     indirectStride: 0,
     pipelineLayout: VkPipelineLayout::DEFAULT,
     tokenCount: 0,
@@ -34973,7 +34976,7 @@ unsafe impl Sync for VkIndirectCommandsExecutionSetTokenEXT {}
 impl VkIndirectCommandsExecutionSetTokenEXT {
   pub const DEFAULT: Self = Self {
     type_: VkIndirectExecutionSetInfoTypeEXT(0),
-    shaderStages: 0,
+    shaderStages: VkShaderStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -35566,7 +35569,7 @@ impl VkSwapchainCounterCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_COUNTER_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    surfaceCounters: 0,
+    surfaceCounters: VkSurfaceCounterFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -35587,7 +35590,7 @@ impl VkSwapchainCounterCreateInfoEXT {
 }
 /// [VkSurfaceCounterFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCounterFlagsEXT.html)
 #[cfg(feature = "VK_EXT_display_surface_counter")]
-pub type VkSurfaceCounterFlagsEXT = VkFlags;
+pub type VkSurfaceCounterFlagsEXT = VkSurfaceCounterFlagBitsEXT;
 /// [VkSurfaceCapabilities2EXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceCapabilities2EXT.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -35627,11 +35630,11 @@ impl VkSurfaceCapabilities2EXT {
     minImageExtent: VkExtent2D::DEFAULT,
     maxImageExtent: VkExtent2D::DEFAULT,
     maxImageArrayLayers: 0,
-    supportedTransforms: 0,
+    supportedTransforms: VkSurfaceTransformFlagBitsKHR(0),
     currentTransform: VkSurfaceTransformFlagBitsKHR(0),
-    supportedCompositeAlpha: 0,
-    supportedUsageFlags: 0,
-    supportedSurfaceCounters: 0,
+    supportedCompositeAlpha: VkCompositeAlphaFlagBitsKHR(0),
+    supportedUsageFlags: VkImageUsageFlagBits(0),
+    supportedSurfaceCounters: VkSurfaceCounterFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -37272,7 +37275,7 @@ impl VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT {
 }
 /// [VkFrameBoundaryFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkFrameBoundaryFlagsEXT.html)
 #[cfg(feature = "VK_EXT_frame_boundary")]
-pub type VkFrameBoundaryFlagsEXT = VkFlags;
+pub type VkFrameBoundaryFlagsEXT = VkFrameBoundaryFlagBitsEXT;
 /// [VkFrameBoundaryEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkFrameBoundaryEXT.html)
 ///
 /// **Extends:** VkSubmitInfo, VkSubmitInfo2, VkPresentInfoKHR, VkBindSparseInfo.
@@ -37311,7 +37314,7 @@ impl VkFrameBoundaryEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_FRAME_BOUNDARY_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkFrameBoundaryFlagBitsEXT(0),
     frameID: 0,
     imageCount: 0,
     pImages: core::ptr::null(),
@@ -37719,7 +37722,7 @@ impl VkQueueFamilyGlobalPriorityPropertiesEXT {
 }
 /// [VkGraphicsPipelineLibraryFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkGraphicsPipelineLibraryFlagsEXT.html)
 #[cfg(feature = "VK_EXT_graphics_pipeline_library")]
-pub type VkGraphicsPipelineLibraryFlagsEXT = VkFlags;
+pub type VkGraphicsPipelineLibraryFlagsEXT = VkGraphicsPipelineLibraryFlagBitsEXT;
 /// [VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -37842,7 +37845,7 @@ impl VkGraphicsPipelineLibraryCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkGraphicsPipelineLibraryFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -38037,7 +38040,7 @@ impl VkHeadlessSurfaceCreateInfoEXT {
 }
 /// [VkHostImageCopyFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkHostImageCopyFlagsEXT.html)
 #[cfg(feature = "VK_EXT_host_image_copy")]
-pub type VkHostImageCopyFlagsEXT = VkFlags;
+pub type VkHostImageCopyFlagsEXT = VkHostImageCopyFlagBits;
 /// [VkPhysicalDeviceHostImageCopyFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceHostImageCopyFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -38345,7 +38348,7 @@ impl VkCopyMemoryToImageInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkHostImageCopyFlagBits(0),
     dstImage: VkImage::DEFAULT,
     dstImageLayout: VkImageLayout(0),
     regionCount: 0,
@@ -38417,7 +38420,7 @@ impl VkCopyImageToMemoryInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_IMAGE_TO_MEMORY_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkHostImageCopyFlagBits(0),
     srcImage: VkImage::DEFAULT,
     srcImageLayout: VkImageLayout(0),
     regionCount: 0,
@@ -38491,7 +38494,7 @@ impl VkCopyImageToImageInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_IMAGE_TO_IMAGE_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkHostImageCopyFlagBits(0),
     srcImage: VkImage::DEFAULT,
     srcImageLayout: VkImageLayout(0),
     dstImage: VkImage::DEFAULT,
@@ -38897,10 +38900,10 @@ impl VkPhysicalDeviceImage2DViewOf3DFeaturesEXT {
 }
 /// [VkImageCompressionFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCompressionFlagsEXT.html)
 #[cfg(feature = "VK_EXT_image_compression_control")]
-pub type VkImageCompressionFlagsEXT = VkFlags;
+pub type VkImageCompressionFlagsEXT = VkImageCompressionFlagBitsEXT;
 /// [VkImageCompressionFixedRateFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCompressionFixedRateFlagsEXT.html)
 #[cfg(feature = "VK_EXT_image_compression_control")]
-pub type VkImageCompressionFixedRateFlagsEXT = VkFlags;
+pub type VkImageCompressionFixedRateFlagsEXT = VkImageCompressionFixedRateFlagBitsEXT;
 /// [VkImageCompressionControlEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCompressionControlEXT.html)
 ///
 /// **Extends:** VkImageCreateInfo, VkSwapchainCreateInfoKHR, VkPhysicalDeviceImageFormatInfo2.
@@ -38928,7 +38931,7 @@ impl VkImageCompressionControlEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_CONTROL_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkImageCompressionFlagBitsEXT(0),
     compressionControlPlaneCount: 0,
     pFixedRateFlags: core::ptr::null_mut(),
   };
@@ -39032,8 +39035,8 @@ impl VkImageCompressionPropertiesEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_PROPERTIES_EXT,
     pNext: core::ptr::null_mut(),
-    imageCompressionFlags: 0,
-    imageCompressionFixedRateFlags: 0,
+    imageCompressionFlags: VkImageCompressionFlagBitsEXT(0),
+    imageCompressionFixedRateFlags: VkImageCompressionFixedRateFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -39185,7 +39188,7 @@ impl VkDrmFormatModifierPropertiesEXT {
   pub const DEFAULT: Self = Self {
     drmFormatModifier: 0,
     drmFormatModifierPlaneCount: 0,
-    drmFormatModifierTilingFeatures: 0,
+    drmFormatModifierTilingFeatures: VkFormatFeatureFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -41463,7 +41466,7 @@ unsafe impl Send for IOSurfaceRef {}
 unsafe impl Sync for IOSurfaceRef {}
 /// [VkExportMetalObjectTypeFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalObjectTypeFlagsEXT.html)
 #[cfg(feature = "VK_EXT_metal_objects")]
-pub type VkExportMetalObjectTypeFlagsEXT = VkFlags;
+pub type VkExportMetalObjectTypeFlagsEXT = VkExportMetalObjectTypeFlagBitsEXT;
 /// [VkExportMetalObjectCreateInfoEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportMetalObjectCreateInfoEXT.html)
 ///
 /// **Extends:** VkInstanceCreateInfo, VkMemoryAllocateInfo, VkImageCreateInfo, VkImageViewCreateInfo, VkBufferViewCreateInfo, VkSemaphoreCreateInfo, VkEventCreateInfo.
@@ -42726,10 +42729,10 @@ impl VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT {
 }
 /// [VkBuildMicromapFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildMicromapFlagsEXT.html)
 #[cfg(feature = "VK_EXT_opacity_micromap")]
-pub type VkBuildMicromapFlagsEXT = VkFlags;
+pub type VkBuildMicromapFlagsEXT = VkBuildMicromapFlagBitsEXT;
 /// [VkMicromapCreateFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapCreateFlagsEXT.html)
 #[cfg(feature = "VK_EXT_opacity_micromap")]
-pub type VkMicromapCreateFlagsEXT = VkFlags;
+pub type VkMicromapCreateFlagsEXT = VkMicromapCreateFlagBitsEXT;
 /// [VkMicromapEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkMicromapEXT.html)
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 #[repr(transparent)]
@@ -42790,7 +42793,7 @@ impl VkMicromapBuildInfoEXT {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT,
     pNext: core::ptr::null(),
     type_: VkMicromapTypeEXT(0),
-    flags: 0,
+    flags: VkBuildMicromapFlagBitsEXT(0),
     mode: VkBuildMicromapModeEXT(0),
     dstMicromap: VkMicromapEXT::DEFAULT,
     usageCountsCount: 0,
@@ -42899,7 +42902,7 @@ impl VkMicromapCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    createFlags: 0,
+    createFlags: VkMicromapCreateFlagBitsEXT(0),
     buffer: VkBuffer::DEFAULT,
     offset: 0,
     size: 0,
@@ -43734,7 +43737,7 @@ impl VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT {
 }
 /// [VkPipelineCreationFeedbackFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedbackFlagsEXT.html)
 #[cfg(feature = "VK_EXT_pipeline_creation_feedback")]
-pub type VkPipelineCreationFeedbackFlagsEXT = VkFlags;
+pub type VkPipelineCreationFeedbackFlagsEXT = VkPipelineCreationFeedbackFlagBits;
 /// [VkPipelineCreationFeedbackEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreationFeedbackEXT.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -43752,7 +43755,7 @@ unsafe impl Sync for VkPipelineCreationFeedbackEXT {}
 #[cfg(feature = "VK_EXT_pipeline_creation_feedback")]
 impl VkPipelineCreationFeedbackEXT {
   pub const DEFAULT: Self = Self {
-    flags: 0,
+    flags: VkPipelineCreationFeedbackFlagBits(0),
     duration: 0,
   };
   #[inline]
@@ -44272,13 +44275,13 @@ impl VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT {
 }
 /// [VkPresentStageFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentStageFlagsEXT.html)
 #[cfg(feature = "VK_EXT_present_timing")]
-pub type VkPresentStageFlagsEXT = VkFlags;
+pub type VkPresentStageFlagsEXT = VkPresentStageFlagBitsEXT;
 /// [VkPastPresentationTimingFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPastPresentationTimingFlagsEXT.html)
 #[cfg(feature = "VK_EXT_present_timing")]
-pub type VkPastPresentationTimingFlagsEXT = VkFlags;
+pub type VkPastPresentationTimingFlagsEXT = VkPastPresentationTimingFlagBitsEXT;
 /// [VkPresentTimingInfoFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentTimingInfoFlagsEXT.html)
 #[cfg(feature = "VK_EXT_present_timing")]
-pub type VkPresentTimingInfoFlagsEXT = VkFlags;
+pub type VkPresentTimingInfoFlagsEXT = VkPresentTimingInfoFlagBitsEXT;
 /// [VkPhysicalDevicePresentTimingFeaturesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePresentTimingFeaturesEXT.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -44364,7 +44367,7 @@ impl VkPresentTimingSurfaceCapabilitiesEXT {
     presentTimingSupported: 0,
     presentAtAbsoluteTimeSupported: 0,
     presentAtRelativeTimeSupported: 0,
-    presentStageQueries: 0,
+    presentStageQueries: VkPresentStageFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -44523,7 +44526,10 @@ unsafe impl Send for VkPresentStageTimeEXT {}
 unsafe impl Sync for VkPresentStageTimeEXT {}
 #[cfg(feature = "VK_EXT_present_timing")]
 impl VkPresentStageTimeEXT {
-  pub const DEFAULT: Self = Self { stage: 0, time: 0 };
+  pub const DEFAULT: Self = Self {
+    stage: VkPresentStageFlagBitsEXT(0),
+    time: 0,
+  };
   #[inline]
   pub const fn new() -> Self {
     Self::DEFAULT
@@ -44561,7 +44567,7 @@ impl VkPastPresentationTimingInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPastPresentationTimingFlagBitsEXT(0),
     swapchain: VkSwapchainKHR::DEFAULT,
   };
   #[inline]
@@ -44820,11 +44826,11 @@ impl VkPresentTimingInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPresentTimingInfoFlagBitsEXT(0),
     targetTime: 0,
     timeDomainId: 0,
-    presentStageQueries: 0,
-    targetTimeDomainPresentStage: 0,
+    presentStageQueries: VkPresentStageFlagBitsEXT(0),
+    targetTimeDomainPresentStage: VkPresentStageFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -44889,7 +44895,7 @@ impl VkSwapchainCalibratedTimestampInfoEXT {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT,
     pNext: core::ptr::null(),
     swapchain: VkSwapchainKHR::DEFAULT,
-    presentStage: 0,
+    presentStage: VkPresentStageFlagBitsEXT(0),
     timeDomainId: 0,
   };
   #[inline]
@@ -45988,7 +45994,7 @@ impl VkPhysicalDeviceSampleLocationsPropertiesEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT,
     pNext: core::ptr::null_mut(),
-    sampleLocationSampleCounts: 0,
+    sampleLocationSampleCounts: VkSampleCountFlagBits(0),
     maxSampleLocationGridSize: VkExtent2D::DEFAULT,
     sampleLocationCoordinateRange: [0.0f32; 2],
     sampleLocationSubPixelBits: 0,
@@ -46230,7 +46236,7 @@ impl VkImageStencilUsageCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    stencilUsage: 0,
+    stencilUsage: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -46951,7 +46957,7 @@ impl VkShaderModuleIdentifierEXT {
 }
 /// [VkShaderCreateFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCreateFlagsEXT.html)
 #[cfg(feature = "VK_EXT_shader_object")]
-pub type VkShaderCreateFlagsEXT = VkFlags;
+pub type VkShaderCreateFlagsEXT = VkShaderCreateFlagBitsEXT;
 /// [VkShaderEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderEXT.html)
 #[cfg(feature = "VK_EXT_shader_object")]
 #[repr(transparent)]
@@ -47148,9 +47154,9 @@ impl VkShaderCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SHADER_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkShaderCreateFlagBitsEXT(0),
     stage: VkShaderStageFlagBits(0),
-    nextStage: 0,
+    nextStage: VkShaderStageFlagBits(0),
     codeType: VkShaderCodeTypeEXT(0),
     codeSize: 0,
     pCode: core::ptr::null(),
@@ -47803,7 +47809,7 @@ impl VkPhysicalDeviceSubgroupSizeControlPropertiesEXT {
     minSubgroupSize: 0,
     maxSubgroupSize: 0,
     maxComputeWorkgroupSubgroups: 0,
-    requiredSubgroupSizeStages: 0,
+    requiredSubgroupSizeStages: VkShaderStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -48522,9 +48528,9 @@ impl VkSwapchainPresentScalingCreateInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT,
     pNext: core::ptr::null(),
-    scalingBehavior: 0,
-    presentGravityX: 0,
-    presentGravityY: 0,
+    scalingBehavior: VkPresentScalingFlagBitsKHR(0),
+    presentGravityX: VkPresentGravityFlagBitsKHR(0),
+    presentGravityY: VkPresentGravityFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -48807,7 +48813,7 @@ impl VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT {
 }
 /// [VkToolPurposeFlagsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkToolPurposeFlagsEXT.html)
 #[cfg(feature = "VK_EXT_tooling_info")]
-pub type VkToolPurposeFlagsEXT = VkFlags;
+pub type VkToolPurposeFlagsEXT = VkToolPurposeFlagBits;
 /// [VkPhysicalDeviceToolPropertiesEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceToolPropertiesEXT.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -48840,7 +48846,7 @@ impl VkPhysicalDeviceToolPropertiesEXT {
     pNext: core::ptr::null_mut(),
     name: [0i8; VK_MAX_EXTENSION_NAME_SIZE as usize],
     version: [0i8; VK_MAX_EXTENSION_NAME_SIZE as usize],
-    purposes: 0,
+    purposes: VkToolPurposeFlagBits(0),
     description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
     layer: [0i8; VK_MAX_EXTENSION_NAME_SIZE as usize],
   };
@@ -49760,7 +49766,7 @@ impl VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT {
 pub type VkImageFormatConstraintsFlagsFUCHSIA = VkFlags;
 /// [VkImageConstraintsInfoFlagsFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageConstraintsInfoFlagsFUCHSIA.html)
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
-pub type VkImageConstraintsInfoFlagsFUCHSIA = VkFlags;
+pub type VkImageConstraintsInfoFlagsFUCHSIA = VkImageConstraintsInfoFlagBitsFUCHSIA;
 /// [VkBufferCollectionFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCollectionFUCHSIA.html)
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 #[repr(transparent)]
@@ -50000,7 +50006,7 @@ impl VkBufferCollectionPropertiesFUCHSIA {
     bufferCount: 0,
     createInfoIndex: 0,
     sysmemPixelFormat: 0,
-    formatFeatures: 0,
+    formatFeatures: VkFormatFeatureFlagBits(0),
     sysmemColorSpaceIndex: VkSysmemColorSpaceFUCHSIA::DEFAULT,
     samplerYcbcrConversionComponents: VkComponentMapping::DEFAULT,
     suggestedYcbcrModel: VkSamplerYcbcrModelConversion(0),
@@ -50099,7 +50105,7 @@ impl VkBufferConstraintsInfoFUCHSIA {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CONSTRAINTS_INFO_FUCHSIA,
     pNext: core::ptr::null(),
     createInfo: VkBufferCreateInfo::DEFAULT,
-    requiredFormatFeatures: 0,
+    requiredFormatFeatures: VkFormatFeatureFlagBits(0),
     bufferCollectionConstraints: VkBufferCollectionConstraintsInfoFUCHSIA::DEFAULT,
   };
   #[inline]
@@ -50200,7 +50206,7 @@ impl VkImageFormatConstraintsInfoFUCHSIA {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA,
     pNext: core::ptr::null(),
     imageCreateInfo: VkImageCreateInfo::DEFAULT,
-    requiredFormatFeatures: 0,
+    requiredFormatFeatures: VkFormatFeatureFlagBits(0),
     flags: 0,
     sysmemPixelFormat: 0,
     colorSpaceCount: 0,
@@ -50279,7 +50285,7 @@ impl VkImageConstraintsInfoFUCHSIA {
     formatConstraintsCount: 0,
     pFormatConstraints: core::ptr::null(),
     bufferCollectionConstraints: VkBufferCollectionConstraintsInfoFUCHSIA::DEFAULT,
-    flags: 0,
+    flags: VkImageConstraintsInfoFlagBitsFUCHSIA(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -50529,31 +50535,31 @@ impl VkMemoryGetZirconHandleInfoFUCHSIA {
 /// [zx_handle_t](https://docs.vulkan.org/refpages/latest/refpages/source/zx_handle_t.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_FUCHSIA_external_memory",
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore"
+  feature = "VK_FUCHSIA_external_semaphore",
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct zx_handle_t(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_FUCHSIA_external_memory",
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore"
+  feature = "VK_FUCHSIA_external_semaphore",
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 impl zx_handle_t {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_FUCHSIA_external_memory",
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore"
+  feature = "VK_FUCHSIA_external_semaphore",
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 unsafe impl Send for zx_handle_t {}
 #[cfg(any(
-  feature = "VK_FUCHSIA_external_memory",
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore"
+  feature = "VK_FUCHSIA_external_semaphore",
+  feature = "VK_FUCHSIA_external_memory"
 ))]
 unsafe impl Sync for zx_handle_t {}
 /// [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreZirconHandleInfoFUCHSIA.html)
@@ -50581,7 +50587,7 @@ impl VkImportSemaphoreZirconHandleInfoFUCHSIA {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA,
     pNext: core::ptr::null(),
     semaphore: VkSemaphore::DEFAULT,
-    flags: 0,
+    flags: VkSemaphoreImportFlagBits(0),
     handleType: VkExternalSemaphoreHandleTypeFlagBits(0),
     zirconHandle: zx_handle_t::NULL,
   };
@@ -51003,19 +51009,19 @@ impl VkPresentTimeGOOGLE {
 pub type VkSampleMask = u32;
 /// [VkFramebufferCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebufferCreateFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkFramebufferCreateFlags = VkFlags;
+pub type VkFramebufferCreateFlags = VkFramebufferCreateFlagBits;
 /// [VkRenderPassCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderPassCreateFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkRenderPassCreateFlags = VkFlags;
+pub type VkRenderPassCreateFlags = VkRenderPassCreateFlagBits;
 /// [VkPipelineDepthStencilStateCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDepthStencilStateCreateFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkPipelineDepthStencilStateCreateFlags = VkFlags;
+pub type VkPipelineDepthStencilStateCreateFlags = VkPipelineDepthStencilStateCreateFlagBits;
 /// [VkPipelineDynamicStateCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineDynamicStateCreateFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 pub type VkPipelineDynamicStateCreateFlags = VkFlags;
 /// [VkPipelineColorBlendStateCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineColorBlendStateCreateFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkPipelineColorBlendStateCreateFlags = VkFlags;
+pub type VkPipelineColorBlendStateCreateFlags = VkPipelineColorBlendStateCreateFlagBits;
 /// [VkPipelineMultisampleStateCreateFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineMultisampleStateCreateFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 pub type VkPipelineMultisampleStateCreateFlags = VkFlags;
@@ -51036,19 +51042,19 @@ pub type VkPipelineInputAssemblyStateCreateFlags = VkFlags;
 pub type VkPipelineVertexInputStateCreateFlags = VkFlags;
 /// [VkColorComponentFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkColorComponentFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkColorComponentFlags = VkFlags;
+pub type VkColorComponentFlags = VkColorComponentFlagBits;
 /// [VkSubpassDescriptionFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDescriptionFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkSubpassDescriptionFlags = VkFlags;
+pub type VkSubpassDescriptionFlags = VkSubpassDescriptionFlagBits;
 /// [VkAttachmentDescriptionFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkAttachmentDescriptionFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkAttachmentDescriptionFlags = VkFlags;
+pub type VkAttachmentDescriptionFlags = VkAttachmentDescriptionFlagBits;
 /// [VkStencilFaceFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkStencilFaceFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkStencilFaceFlags = VkFlags;
+pub type VkStencilFaceFlags = VkStencilFaceFlagBits;
 /// [VkCullModeFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkCullModeFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
-pub type VkCullModeFlags = VkFlags;
+pub type VkCullModeFlags = VkCullModeFlagBits;
 /// [VkFramebuffer](https://docs.vulkan.org/refpages/latest/refpages/source/VkFramebuffer.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[repr(transparent)]
@@ -51679,7 +51685,7 @@ impl VkPipelineRasterizationStateCreateInfo {
     depthClampEnable: 0,
     rasterizerDiscardEnable: 0,
     polygonMode: VkPolygonMode(0),
-    cullMode: 0,
+    cullMode: VkCullModeFlagBits(0),
     frontFace: VkFrontFace(0),
     depthBiasEnable: 0,
     depthBiasConstantFactor: 0.0f32,
@@ -51868,7 +51874,7 @@ impl VkPipelineColorBlendAttachmentState {
     srcAlphaBlendFactor: VkBlendFactor(0),
     dstAlphaBlendFactor: VkBlendFactor(0),
     alphaBlendOp: VkBlendOp(0),
-    colorWriteMask: 0,
+    colorWriteMask: VkColorComponentFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -51944,7 +51950,7 @@ impl VkPipelineColorBlendStateCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineColorBlendStateCreateFlagBits(0),
     logicOpEnable: 0,
     logicOp: VkLogicOp(0),
     attachmentCount: 0,
@@ -52155,7 +52161,7 @@ impl VkPipelineDepthStencilStateCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineDepthStencilStateCreateFlagBits(0),
     depthTestEnable: 0,
     depthWriteEnable: 0,
     depthCompareOp: VkCompareOp(0),
@@ -52284,7 +52290,7 @@ impl VkGraphicsPipelineCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineCreateFlagBits(0),
     stageCount: 0,
     #[cfg(not(feature = "VKSC_VERSION_1_0"))]
     pStages: core::ptr::null(),
@@ -52614,7 +52620,7 @@ unsafe impl Sync for VkClearAttachment {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkClearAttachment {
   pub const DEFAULT: Self = Self {
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
     colorAttachment: 0,
     clearValue: VkClearValue::DEFAULT,
   };
@@ -52662,7 +52668,7 @@ unsafe impl Sync for VkAttachmentDescription {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkAttachmentDescription {
   pub const DEFAULT: Self = Self {
-    flags: 0,
+    flags: VkAttachmentDescriptionFlagBits(0),
     format: VkFormat(0),
     samples: VkSampleCountFlagBits(0),
     loadOp: VkAttachmentLoadOp(0),
@@ -52789,7 +52795,7 @@ unsafe impl Sync for VkSubpassDescription {}
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 impl VkSubpassDescription {
   pub const DEFAULT: Self = Self {
-    flags: 0,
+    flags: VkSubpassDescriptionFlagBits(0),
     pipelineBindPoint: VkPipelineBindPoint(0),
     inputAttachmentCount: 0,
     pInputAttachments: core::ptr::null(),
@@ -52896,11 +52902,11 @@ impl VkSubpassDependency {
   pub const DEFAULT: Self = Self {
     srcSubpass: 0,
     dstSubpass: 0,
-    srcStageMask: 0,
-    dstStageMask: 0,
-    srcAccessMask: 0,
-    dstAccessMask: 0,
-    dependencyFlags: 0,
+    srcStageMask: VkPipelineStageFlagBits(0),
+    dstStageMask: VkPipelineStageFlagBits(0),
+    srcAccessMask: VkAccessFlagBits(0),
+    dstAccessMask: VkAccessFlagBits(0),
+    dependencyFlags: VkDependencyFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -52975,7 +52981,7 @@ impl VkRenderPassCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderPassCreateFlagBits(0),
     attachmentCount: 0,
     pAttachments: core::ptr::null(),
     subpassCount: 0,
@@ -53068,7 +53074,7 @@ impl VkFramebufferCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkFramebufferCreateFlagBits(0),
     renderPass: VkRenderPass::DEFAULT,
     attachmentCount: 0,
     pAttachments: core::ptr::null(),
@@ -53507,7 +53513,7 @@ impl VkInputAttachmentAspectReference {
   pub const DEFAULT: Self = Self {
     subpass: 0,
     inputAttachmentIndex: 0,
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -53779,7 +53785,7 @@ impl VkAttachmentDescription2 {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkAttachmentDescriptionFlagBits(0),
     format: VkFormat(0),
     samples: VkSampleCountFlagBits(0),
     loadOp: VkAttachmentLoadOp(0),
@@ -53871,7 +53877,7 @@ impl VkAttachmentReference2 {
     pNext: core::ptr::null(),
     attachment: 0,
     layout: VkImageLayout(0),
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -53939,7 +53945,7 @@ impl VkSubpassDescription2 {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSubpassDescriptionFlagBits(0),
     pipelineBindPoint: VkPipelineBindPoint(0),
     viewMask: 0,
     inputAttachmentCount: 0,
@@ -54065,11 +54071,11 @@ impl VkSubpassDependency2 {
     pNext: core::ptr::null(),
     srcSubpass: 0,
     dstSubpass: 0,
-    srcStageMask: 0,
-    dstStageMask: 0,
-    srcAccessMask: 0,
-    dstAccessMask: 0,
-    dependencyFlags: 0,
+    srcStageMask: VkPipelineStageFlagBits(0),
+    dstStageMask: VkPipelineStageFlagBits(0),
+    srcAccessMask: VkAccessFlagBits(0),
+    dstAccessMask: VkAccessFlagBits(0),
+    dependencyFlags: VkDependencyFlagBits(0),
     viewOffset: 0,
   };
   #[inline]
@@ -54160,7 +54166,7 @@ impl VkRenderPassCreateInfo2 {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderPassCreateFlagBits(0),
     attachmentCount: 0,
     pAttachments: core::ptr::null(),
     subpassCount: 0,
@@ -54343,8 +54349,8 @@ impl VkPhysicalDeviceDepthStencilResolveProperties {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES,
     pNext: core::ptr::null_mut(),
-    supportedDepthResolveModes: 0,
-    supportedStencilResolveModes: 0,
+    supportedDepthResolveModes: VkResolveModeFlagBits(0),
+    supportedStencilResolveModes: VkResolveModeFlagBits(0),
     independentResolveNone: 0,
     independentResolve: 0,
   };
@@ -54465,7 +54471,7 @@ impl VkImageStencilUsageCreateInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO,
     pNext: core::ptr::null(),
-    stencilUsage: 0,
+    stencilUsage: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -54610,8 +54616,8 @@ impl VkFramebufferAttachmentImageInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
-    usage: 0,
+    flags: VkImageCreateFlagBits(0),
+    usage: VkImageUsageFlagBits(0),
     width: 0,
     height: 0,
     layerCount: 0,
@@ -54854,7 +54860,7 @@ impl VkAttachmentDescriptionStencilLayout {
 }
 /// [VkRenderingFlags](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingFlags.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-pub type VkRenderingFlags = VkFlags;
+pub type VkRenderingFlags = VkRenderingFlagBits;
 /// [VkImageBlit2](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageBlit2.html)
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 #[repr(C)]
@@ -55253,7 +55259,7 @@ impl VkRenderingInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RENDERING_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderingFlagBits(0),
     renderArea: VkRect2D::DEFAULT,
     layerCount: 0,
     viewMask: 0,
@@ -55488,7 +55494,7 @@ impl VkCommandBufferInheritanceRenderingInfo {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderingFlagBits(0),
     viewMask: 0,
     #[cfg(not(feature = "VKSC_VERSION_1_0"))]
     colorAttachmentCount: 0,
@@ -57195,16 +57201,16 @@ impl VkPhysicalDevice8BitStorageFeaturesKHR {
 }
 /// [VkGeometryFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryFlagsKHR.html)
 #[cfg(feature = "VK_KHR_acceleration_structure")]
-pub type VkGeometryFlagsKHR = VkFlags;
+pub type VkGeometryFlagsKHR = VkGeometryFlagBitsKHR;
 /// [VkGeometryInstanceFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryInstanceFlagsKHR.html)
 #[cfg(feature = "VK_KHR_acceleration_structure")]
-pub type VkGeometryInstanceFlagsKHR = VkFlags;
+pub type VkGeometryInstanceFlagsKHR = VkGeometryInstanceFlagBitsKHR;
 /// [VkBuildAccelerationStructureFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildAccelerationStructureFlagsKHR.html)
 #[cfg(feature = "VK_KHR_acceleration_structure")]
-pub type VkBuildAccelerationStructureFlagsKHR = VkFlags;
+pub type VkBuildAccelerationStructureFlagsKHR = VkBuildAccelerationStructureFlagBitsKHR;
 /// [VkAccelerationStructureCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_acceleration_structure")]
-pub type VkAccelerationStructureCreateFlagsKHR = VkFlags;
+pub type VkAccelerationStructureCreateFlagsKHR = VkAccelerationStructureCreateFlagBitsKHR;
 /// [VkAccelerationStructureKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureKHR.html)
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 #[repr(transparent)]
@@ -57695,7 +57701,7 @@ impl VkAccelerationStructureGeometryKHR {
     pNext: core::ptr::null(),
     geometryType: VkGeometryTypeKHR(0),
     geometry: VkAccelerationStructureGeometryDataKHR::DEFAULT,
-    flags: 0,
+    flags: VkGeometryFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -57761,7 +57767,7 @@ impl VkAccelerationStructureBuildGeometryInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR,
     pNext: core::ptr::null(),
     type_: VkAccelerationStructureTypeKHR(0),
-    flags: 0,
+    flags: VkBuildAccelerationStructureFlagBitsKHR(0),
     mode: VkBuildAccelerationStructureModeKHR(0),
     srcAccelerationStructure: VkAccelerationStructureKHR::DEFAULT,
     dstAccelerationStructure: VkAccelerationStructureKHR::DEFAULT,
@@ -57909,7 +57915,7 @@ impl VkAccelerationStructureCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    createFlags: 0,
+    createFlags: VkAccelerationStructureCreateFlagBitsKHR(0),
     buffer: VkBuffer::DEFAULT,
     offset: 0,
     size: 0,
@@ -58069,7 +58075,7 @@ impl VkAccelerationStructureInstanceKHR {
     instanceCustomIndex: 0,
     mask: 0,
     instanceShaderBindingTableRecordOffset: 0,
-    flags: 0,
+    flags: VkGeometryInstanceFlagBitsKHR(0),
     accelerationStructureReference: 0,
   };
   #[inline]
@@ -59227,7 +59233,7 @@ impl VkPhysicalDeviceCooperativeMatrixPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    cooperativeMatrixSupportedStages: 0,
+    cooperativeMatrixSupportedStages: VkShaderStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -60017,7 +60023,7 @@ impl VkResolveImageInfo2KHR {
 }
 /// [VkAddressCopyFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAddressCopyFlagsKHR.html)
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
-pub type VkAddressCopyFlagsKHR = VkFlags;
+pub type VkAddressCopyFlagsKHR = VkAddressCopyFlagBitsKHR;
 /// [VkCopyMemoryIndirectCommandKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkCopyMemoryIndirectCommandKHR.html)
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
 #[repr(C)]
@@ -60083,8 +60089,8 @@ impl VkCopyMemoryIndirectInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_INDIRECT_INFO_KHR,
     pNext: core::ptr::null(),
-    srcCopyFlags: 0,
-    dstCopyFlags: 0,
+    srcCopyFlags: VkAddressCopyFlagBitsKHR(0),
+    dstCopyFlags: VkAddressCopyFlagBitsKHR(0),
     copyCount: 0,
     copyAddressRange: VkStridedDeviceAddressRangeKHR::DEFAULT,
   };
@@ -60208,7 +60214,7 @@ impl VkCopyMemoryToImageIndirectInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR,
     pNext: core::ptr::null(),
-    srcCopyFlags: 0,
+    srcCopyFlags: VkAddressCopyFlagBitsKHR(0),
     copyCount: 0,
     copyAddressRange: VkStridedDeviceAddressRangeKHR::DEFAULT,
     dstImage: VkImage::DEFAULT,
@@ -60335,7 +60341,7 @@ impl VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    supportedQueues: 0,
+    supportedQueues: VkQueueFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -60436,7 +60442,7 @@ impl VkAttachmentDescription2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkAttachmentDescriptionFlagBits(0),
     format: VkFormat(0),
     samples: VkSampleCountFlagBits(0),
     loadOp: VkAttachmentLoadOp(0),
@@ -60528,7 +60534,7 @@ impl VkAttachmentReference2KHR {
     pNext: core::ptr::null(),
     attachment: 0,
     layout: VkImageLayout(0),
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -60596,7 +60602,7 @@ impl VkSubpassDescription2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSubpassDescriptionFlagBits(0),
     pipelineBindPoint: VkPipelineBindPoint(0),
     viewMask: 0,
     inputAttachmentCount: 0,
@@ -60725,11 +60731,11 @@ impl VkSubpassDependency2KHR {
     pNext: core::ptr::null(),
     srcSubpass: 0,
     dstSubpass: 0,
-    srcStageMask: 0,
-    dstStageMask: 0,
-    srcAccessMask: 0,
-    dstAccessMask: 0,
-    dependencyFlags: 0,
+    srcStageMask: VkPipelineStageFlagBits(0),
+    dstStageMask: VkPipelineStageFlagBits(0),
+    srcAccessMask: VkAccessFlagBits(0),
+    dstAccessMask: VkAccessFlagBits(0),
+    dependencyFlags: VkDependencyFlagBits(0),
     viewOffset: 0,
   };
   #[inline]
@@ -60820,7 +60826,7 @@ impl VkRenderPassCreateInfo2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderPassCreateFlagBits(0),
     attachmentCount: 0,
     pAttachments: core::ptr::null(),
     subpassCount: 0,
@@ -61133,7 +61139,7 @@ impl VkPhysicalDeviceDepthClampZeroOneFeaturesKHR {
 }
 /// [VkResolveModeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveModeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_depth_stencil_resolve")]
-pub type VkResolveModeFlagsKHR = VkFlags;
+pub type VkResolveModeFlagsKHR = VkResolveModeFlagBits;
 /// [VkPhysicalDeviceDepthStencilResolvePropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDepthStencilResolvePropertiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -61167,8 +61173,8 @@ impl VkPhysicalDeviceDepthStencilResolvePropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    supportedDepthResolveModes: 0,
-    supportedStencilResolveModes: 0,
+    supportedDepthResolveModes: VkResolveModeFlagBits(0),
+    supportedStencilResolveModes: VkResolveModeFlagBits(0),
     independentResolveNone: 0,
     independentResolve: 0,
   };
@@ -61469,7 +61475,7 @@ impl VkDescriptorUpdateTemplateCreateInfoKHR {
 }
 /// [VkAddressCommandFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAddressCommandFlagsKHR.html)
 #[cfg(feature = "VK_KHR_device_address_commands")]
-pub type VkAddressCommandFlagsKHR = VkFlags;
+pub type VkAddressCommandFlagsKHR = VkAddressCommandFlagBitsKHR;
 /// [VkDeviceAddressRangeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceAddressRangeKHR.html)
 #[cfg(feature = "VK_KHR_device_address_commands")]
 #[repr(C)]
@@ -61530,9 +61536,9 @@ impl VkDeviceMemoryCopyKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_COPY_KHR,
     pNext: core::ptr::null(),
     srcRange: VkDeviceAddressRangeKHR::DEFAULT,
-    srcFlags: 0,
+    srcFlags: VkAddressCommandFlagBitsKHR(0),
     dstRange: VkDeviceAddressRangeKHR::DEFAULT,
-    dstFlags: 0,
+    dstFlags: VkAddressCommandFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -61645,7 +61651,7 @@ impl VkDeviceMemoryImageCopyKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_IMAGE_COPY_KHR,
     pNext: core::ptr::null(),
     addressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
     addressRowLength: 0,
     addressImageHeight: 0,
     imageSubresource: VkImageSubresourceLayers::DEFAULT,
@@ -61854,7 +61860,7 @@ impl VkMemoryRangeBarrierKHR {
     srcQueueFamilyIndex: 0,
     dstQueueFamilyIndex: 0,
     addressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -61988,8 +61994,8 @@ impl VkConditionalRenderingBeginInfo2EXT {
     sType: VkStructureType::VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT,
     pNext: core::ptr::null(),
     addressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
-    flags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
+    flags: VkConditionalRenderingFlagBitsEXT(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -62057,9 +62063,9 @@ impl VkAccelerationStructureCreateInfo2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR,
     pNext: core::ptr::null(),
-    createFlags: 0,
+    createFlags: VkAccelerationStructureCreateFlagBitsKHR(0),
     addressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
     type_: VkAccelerationStructureTypeKHR(0),
   };
   #[inline]
@@ -62118,7 +62124,7 @@ impl VkBindIndexBuffer3InfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_INDEX_BUFFER_3_INFO_KHR,
     pNext: core::ptr::null(),
     addressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
     indexType: VkIndexType(0),
   };
   #[inline]
@@ -62173,7 +62179,7 @@ impl VkBindVertexBuffer3InfoKHR {
     pNext: core::ptr::null(),
     setStride: 0,
     addressRange: VkStridedDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -62226,7 +62232,7 @@ impl VkDrawIndirect2InfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DRAW_INDIRECT_2_INFO_KHR,
     pNext: core::ptr::null(),
     addressRange: VkStridedDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
     drawCount: 0,
   };
   #[inline]
@@ -62283,9 +62289,9 @@ impl VkDrawIndirectCount2InfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DRAW_INDIRECT_COUNT_2_INFO_KHR,
     pNext: core::ptr::null(),
     addressRange: VkStridedDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
     countAddressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    countAddressFlags: 0,
+    countAddressFlags: VkAddressCommandFlagBitsKHR(0),
     maxDrawCount: 0,
   };
   #[inline]
@@ -62348,7 +62354,7 @@ impl VkDispatchIndirect2InfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_INDIRECT_2_INFO_KHR,
     pNext: core::ptr::null(),
     addressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -62409,7 +62415,7 @@ impl VkBindTransformFeedbackBuffer2InfoEXT {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT,
     pNext: core::ptr::null(),
     addressRange: VkDeviceAddressRangeKHR::DEFAULT,
-    addressFlags: 0,
+    addressFlags: VkAddressCommandFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -62473,7 +62479,7 @@ impl VkMemoryMarkerInfoAMD {
     pNext: core::ptr::null(),
     stage: 0,
     dstRange: VkDeviceAddressRangeKHR::DEFAULT,
-    dstFlags: 0,
+    dstFlags: VkAddressCommandFlagBitsKHR(0),
     marker: 0,
   };
   #[inline]
@@ -62510,7 +62516,7 @@ impl VkMemoryMarkerInfoAMD {
 }
 /// [VkDeviceFaultFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultFlagsKHR.html)
 #[cfg(feature = "VK_KHR_device_fault")]
-pub type VkDeviceFaultFlagsKHR = VkFlags;
+pub type VkDeviceFaultFlagsKHR = VkDeviceFaultFlagBitsKHR;
 /// [VkDeviceFaultAddressInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceFaultAddressInfoKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -62630,7 +62636,7 @@ impl VkDeviceFaultInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkDeviceFaultFlagBitsKHR(0),
     groupId: 0,
     description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
     faultAddressInfo: VkDeviceFaultAddressInfoKHR::DEFAULT,
@@ -62942,10 +62948,10 @@ impl VkPhysicalDeviceFaultPropertiesKHR {
 }
 /// [VkPeerMemoryFeatureFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPeerMemoryFeatureFlagsKHR.html)
 #[cfg(feature = "VK_KHR_device_group")]
-pub type VkPeerMemoryFeatureFlagsKHR = VkFlags;
+pub type VkPeerMemoryFeatureFlagsKHR = VkPeerMemoryFeatureFlagBits;
 /// [VkMemoryAllocateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryAllocateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_device_group")]
-pub type VkMemoryAllocateFlagsKHR = VkFlags;
+pub type VkMemoryAllocateFlagsKHR = VkMemoryAllocateFlagBits;
 /// [VkMemoryAllocateFlagsInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryAllocateFlagsInfoKHR.html)
 ///
 /// **Extends:** VkMemoryAllocateInfo.
@@ -62970,7 +62976,7 @@ impl VkMemoryAllocateFlagsInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkMemoryAllocateFlagBits(0),
     deviceMask: 0,
   };
   #[inline]
@@ -63371,7 +63377,7 @@ impl VkDeviceGroupBindSparseInfoKHR {
   all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   all(feature = "VK_KHR_device_group", feature = "VK_KHR_surface")
 ))]
-pub type VkDeviceGroupPresentModeFlagsKHR = VkFlags;
+pub type VkDeviceGroupPresentModeFlagsKHR = VkDeviceGroupPresentModeFlagBitsKHR;
 /// [VkDeviceGroupPresentCapabilitiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceGroupPresentCapabilitiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -63410,7 +63416,7 @@ impl VkDeviceGroupPresentCapabilitiesKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
     presentMask: [0u32; VK_MAX_DEVICE_GROUP_SIZE as usize],
-    modes: 0,
+    modes: VkDeviceGroupPresentModeFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -63761,7 +63767,7 @@ impl VkDeviceGroupSwapchainCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    modes: 0,
+    modes: VkDeviceGroupPresentModeFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -63894,7 +63900,7 @@ impl VkDeviceGroupDeviceCreateInfoKHR {
 }
 /// [VkDisplayPlaneAlphaFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayPlaneAlphaFlagsKHR.html)
 #[cfg(feature = "VK_KHR_display")]
-pub type VkDisplayPlaneAlphaFlagsKHR = VkFlags;
+pub type VkDisplayPlaneAlphaFlagsKHR = VkDisplayPlaneAlphaFlagBitsKHR;
 /// [VkDisplayModeCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkDisplayModeCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_display")]
 pub type VkDisplayModeCreateFlagsKHR = VkFlags;
@@ -63969,7 +63975,7 @@ impl VkDisplayPropertiesKHR {
     displayName: core::ptr::null(),
     physicalDimensions: VkExtent2D::DEFAULT,
     physicalResolution: VkExtent2D::DEFAULT,
-    supportedTransforms: 0,
+    supportedTransforms: VkSurfaceTransformFlagBitsKHR(0),
     planeReorderPossible: 0,
     persistentContent: 0,
   };
@@ -64191,7 +64197,7 @@ unsafe impl Sync for VkDisplayPlaneCapabilitiesKHR {}
 #[cfg(feature = "VK_KHR_display")]
 impl VkDisplayPlaneCapabilitiesKHR {
   pub const DEFAULT: Self = Self {
-    supportedAlpha: 0,
+    supportedAlpha: VkDisplayPlaneAlphaFlagBitsKHR(0),
     minSrcPosition: VkOffset2D::DEFAULT,
     maxSrcPosition: VkOffset2D::DEFAULT,
     minSrcExtent: VkExtent2D::DEFAULT,
@@ -64520,7 +64526,7 @@ impl VkPhysicalDeviceDriverPropertiesKHR {
 }
 /// [VkRenderingFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingFlagsKHR.html)
 #[cfg(feature = "VK_KHR_dynamic_rendering")]
-pub type VkRenderingFlagsKHR = VkFlags;
+pub type VkRenderingFlagsKHR = VkRenderingFlagBits;
 /// [VkPipelineRenderingCreateInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineRenderingCreateInfoKHR.html)
 ///
 /// **Extends:** VkGraphicsPipelineCreateInfo.
@@ -64764,7 +64770,7 @@ impl VkCommandBufferInheritanceRenderingInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderingFlagBits(0),
     viewMask: 0,
     #[cfg(not(feature = "VKSC_VERSION_1_0"))]
     colorAttachmentCount: 0,
@@ -64894,7 +64900,7 @@ impl VkRenderingInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RENDERING_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderingFlagBits(0),
     renderArea: VkRect2D::DEFAULT,
     layerCount: 0,
     viewMask: 0,
@@ -65131,7 +65137,7 @@ impl VkRenderingInputAttachmentIndexInfoKHR {
 }
 /// [VkFenceImportFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkFenceImportFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_fence")]
-pub type VkFenceImportFlagsKHR = VkFlags;
+pub type VkFenceImportFlagsKHR = VkFenceImportFlagBits;
 /// [VkExportFenceCreateInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportFenceCreateInfoKHR.html)
 ///
 /// **Extends:** VkFenceCreateInfo.
@@ -65155,7 +65161,7 @@ impl VkExportFenceCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_FENCE_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalFenceHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -65176,10 +65182,10 @@ impl VkExportFenceCreateInfoKHR {
 }
 /// [VkExternalFenceHandleTypeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceHandleTypeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_fence_capabilities")]
-pub type VkExternalFenceHandleTypeFlagsKHR = VkFlags;
+pub type VkExternalFenceHandleTypeFlagsKHR = VkExternalFenceHandleTypeFlagBits;
 /// [VkExternalFenceFeatureFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalFenceFeatureFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_fence_capabilities")]
-pub type VkExternalFenceFeatureFlagsKHR = VkFlags;
+pub type VkExternalFenceFeatureFlagsKHR = VkExternalFenceFeatureFlagBits;
 /// [VkPhysicalDeviceExternalFenceInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalFenceInfoKHR.html)
 #[cfg(feature = "VK_KHR_external_fence_capabilities")]
 #[repr(C)]
@@ -65244,9 +65250,9 @@ impl VkExternalFencePropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    exportFromImportedHandleTypes: 0,
-    compatibleHandleTypes: 0,
-    externalFenceFeatures: 0,
+    exportFromImportedHandleTypes: VkExternalFenceHandleTypeFlagBits(0),
+    compatibleHandleTypes: VkExternalFenceHandleTypeFlagBits(0),
+    externalFenceFeatures: VkExternalFenceFeatureFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -65400,7 +65406,7 @@ impl VkImportFenceFdInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_FENCE_FD_INFO_KHR,
     pNext: core::ptr::null(),
     fence: VkFence::DEFAULT,
-    flags: 0,
+    flags: VkFenceImportFlagBits(0),
     handleType: VkExternalFenceHandleTypeFlagBits(0),
     fd: 0,
   };
@@ -65511,7 +65517,7 @@ impl VkImportFenceWin32HandleInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_FENCE_WIN32_HANDLE_INFO_KHR,
     pNext: core::ptr::null(),
     fence: VkFence::DEFAULT,
-    flags: 0,
+    flags: VkFenceImportFlagBits(0),
     handleType: VkExternalFenceHandleTypeFlagBits(0),
     handle: HANDLE::NULL,
     name: LPCWSTR::NULL,
@@ -65690,103 +65696,103 @@ unsafe impl Sync for LPCWSTR {}
 /// [HANDLE](https://docs.vulkan.org/refpages/latest/refpages/source/HANDLE.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HANDLE(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 impl HANDLE {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Send for HANDLE {}
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32"
+  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Sync for HANDLE {}
 /// [SECURITY_ATTRIBUTES](https://docs.vulkan.org/refpages/latest/refpages/source/SECURITY_ATTRIBUTES.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_NV_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_NV_external_memory_win32"
 ))]
 impl SECURITY_ATTRIBUTES {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Send for SECURITY_ATTRIBUTES {}
 #[cfg(any(
-  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_NV_external_memory_win32"
 ))]
 unsafe impl Sync for SECURITY_ATTRIBUTES {}
 /// [DWORD](https://docs.vulkan.org/refpages/latest/refpages/source/DWORD.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_memory_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DWORD(pub *mut core::ffi::c_void);
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_memory_win32"
 ))]
 impl DWORD {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Send for DWORD {}
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
-  feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_semaphore_win32"
+  feature = "VK_KHR_external_memory_win32"
 ))]
 unsafe impl Sync for DWORD {}
 /// [VkExternalMemoryImageCreateInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryImageCreateInfoKHR.html)
@@ -65812,7 +65818,7 @@ impl VkExternalMemoryImageCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -65854,7 +65860,7 @@ impl VkExternalMemoryBufferCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_BUFFER_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -65896,7 +65902,7 @@ impl VkExportMemoryAllocateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO_KHR,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -65917,10 +65923,10 @@ impl VkExportMemoryAllocateInfoKHR {
 }
 /// [VkExternalMemoryHandleTypeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryHandleTypeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_memory_capabilities")]
-pub type VkExternalMemoryHandleTypeFlagsKHR = VkFlags;
+pub type VkExternalMemoryHandleTypeFlagsKHR = VkExternalMemoryHandleTypeFlagBits;
 /// [VkExternalMemoryFeatureFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryFeatureFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_memory_capabilities")]
-pub type VkExternalMemoryFeatureFlagsKHR = VkFlags;
+pub type VkExternalMemoryFeatureFlagsKHR = VkExternalMemoryFeatureFlagBits;
 /// [VkExternalMemoryPropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryPropertiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -65940,9 +65946,9 @@ unsafe impl Sync for VkExternalMemoryPropertiesKHR {}
 #[cfg(feature = "VK_KHR_external_memory_capabilities")]
 impl VkExternalMemoryPropertiesKHR {
   pub const DEFAULT: Self = Self {
-    externalMemoryFeatures: 0,
-    exportFromImportedHandleTypes: 0,
-    compatibleHandleTypes: 0,
+    externalMemoryFeatures: VkExternalMemoryFeatureFlagBits(0),
+    exportFromImportedHandleTypes: VkExternalMemoryHandleTypeFlagBits(0),
+    compatibleHandleTypes: VkExternalMemoryHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -66079,8 +66085,8 @@ impl VkPhysicalDeviceExternalBufferInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
-    usage: 0,
+    flags: VkBufferCreateFlagBits(0),
+    usage: VkBufferUsageFlagBits(0),
     handleType: VkExternalMemoryHandleTypeFlagBitsKHR(0),
   };
   #[inline]
@@ -66492,7 +66498,7 @@ impl VkMemoryGetWin32HandleInfoKHR {
 }
 /// [VkSemaphoreImportFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreImportFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_semaphore")]
-pub type VkSemaphoreImportFlagsKHR = VkFlags;
+pub type VkSemaphoreImportFlagsKHR = VkSemaphoreImportFlagBits;
 /// [VkExportSemaphoreCreateInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportSemaphoreCreateInfoKHR.html)
 ///
 /// **Extends:** VkSemaphoreCreateInfo.
@@ -66516,7 +66522,7 @@ impl VkExportSemaphoreCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalSemaphoreHandleTypeFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -66537,10 +66543,10 @@ impl VkExportSemaphoreCreateInfoKHR {
 }
 /// [VkExternalSemaphoreHandleTypeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreHandleTypeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_semaphore_capabilities")]
-pub type VkExternalSemaphoreHandleTypeFlagsKHR = VkFlags;
+pub type VkExternalSemaphoreHandleTypeFlagsKHR = VkExternalSemaphoreHandleTypeFlagBits;
 /// [VkExternalSemaphoreFeatureFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalSemaphoreFeatureFlagsKHR.html)
 #[cfg(feature = "VK_KHR_external_semaphore_capabilities")]
-pub type VkExternalSemaphoreFeatureFlagsKHR = VkFlags;
+pub type VkExternalSemaphoreFeatureFlagsKHR = VkExternalSemaphoreFeatureFlagBits;
 /// [VkPhysicalDeviceExternalSemaphoreInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceExternalSemaphoreInfoKHR.html)
 #[cfg(feature = "VK_KHR_external_semaphore_capabilities")]
 #[repr(C)]
@@ -66605,9 +66611,9 @@ impl VkExternalSemaphorePropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_SEMAPHORE_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    exportFromImportedHandleTypes: 0,
-    compatibleHandleTypes: 0,
-    externalSemaphoreFeatures: 0,
+    exportFromImportedHandleTypes: VkExternalSemaphoreHandleTypeFlagBits(0),
+    compatibleHandleTypes: VkExternalSemaphoreHandleTypeFlagBits(0),
+    externalSemaphoreFeatures: VkExternalSemaphoreFeatureFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -66670,7 +66676,7 @@ impl VkImportSemaphoreFdInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_SEMAPHORE_FD_INFO_KHR,
     pNext: core::ptr::null(),
     semaphore: VkSemaphore::DEFAULT,
-    flags: 0,
+    flags: VkSemaphoreImportFlagBits(0),
     handleType: VkExternalSemaphoreHandleTypeFlagBits(0),
     fd: 0,
   };
@@ -66781,7 +66787,7 @@ impl VkImportSemaphoreWin32HandleInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR,
     pNext: core::ptr::null(),
     semaphore: VkSemaphore::DEFAULT,
-    flags: 0,
+    flags: VkSemaphoreImportFlagBits(0),
     handleType: VkExternalSemaphoreHandleTypeFlagBits(0),
     handle: HANDLE::NULL,
     name: LPCWSTR::NULL,
@@ -67527,7 +67533,7 @@ impl VkPhysicalDeviceFragmentShadingRateKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR,
     pNext: core::ptr::null_mut(),
-    sampleCounts: 0,
+    sampleCounts: VkSampleCountFlagBits(0),
     fragmentSize: VkExtent2D::DEFAULT,
   };
   #[inline]
@@ -68264,8 +68270,8 @@ impl VkPhysicalDeviceImageFormatInfo2KHR {
     format: VkFormat(0),
     type_: VkImageType(0),
     tiling: VkImageTiling(0),
-    usage: 0,
-    flags: 0,
+    usage: VkImageUsageFlagBits(0),
+    flags: VkImageCreateFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -68460,7 +68466,7 @@ impl VkPhysicalDeviceSparseImageFormatInfo2KHR {
     format: VkFormat(0),
     type_: VkImageType(0),
     samples: VkSampleCountFlagBits(0),
-    usage: 0,
+    usage: VkImageUsageFlagBits(0),
     tiling: VkImageTiling(0),
   };
   #[inline]
@@ -68940,8 +68946,8 @@ impl VkFramebufferAttachmentImageInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
-    usage: 0,
+    flags: VkImageCreateFlagBits(0),
+    usage: VkImageUsageFlagBits(0),
     width: 0,
     height: 0,
     layerCount: 0,
@@ -69452,10 +69458,10 @@ impl VkPipelineRasterizationLineStateCreateInfoKHR {
 pub type VkCommandPoolTrimFlagsKHR = VkFlags;
 /// [VkRenderingAttachmentFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingAttachmentFlagsKHR.html)
 #[cfg(feature = "VK_KHR_maintenance10")]
-pub type VkRenderingAttachmentFlagsKHR = VkFlags;
+pub type VkRenderingAttachmentFlagsKHR = VkRenderingAttachmentFlagBitsKHR;
 /// [VkResolveImageFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveImageFlagsKHR.html)
 #[cfg(feature = "VK_KHR_maintenance10")]
-pub type VkResolveImageFlagsKHR = VkFlags;
+pub type VkResolveImageFlagsKHR = VkResolveImageFlagBitsKHR;
 /// [VkPhysicalDeviceMaintenance10PropertiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceMaintenance10PropertiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -69617,7 +69623,7 @@ impl VkRenderingAttachmentFlagsInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_FLAGS_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkRenderingAttachmentFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -69663,7 +69669,7 @@ impl VkResolveImageModeInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RESOLVE_IMAGE_MODE_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkResolveImageFlagBitsKHR(0),
     resolveMode: VkResolveModeFlagBits(0),
     stencilResolveMode: VkResolveModeFlagBits(0),
   };
@@ -69799,7 +69805,7 @@ impl VkInputAttachmentAspectReferenceKHR {
   pub const DEFAULT: Self = Self {
     subpass: 0,
     inputAttachmentIndex: 0,
-    aspectMask: 0,
+    aspectMask: VkImageAspectFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -69944,7 +69950,7 @@ impl VkImageViewUsageCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    usage: 0,
+    usage: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -70880,7 +70886,7 @@ impl VkBindDescriptorSetsInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO_KHR,
     pNext: core::ptr::null(),
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     layout: VkPipelineLayout::DEFAULT,
     firstSet: 0,
     descriptorSetCount: 0,
@@ -70968,7 +70974,7 @@ impl VkPushConstantsInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO_KHR,
     pNext: core::ptr::null(),
     layout: VkPipelineLayout::DEFAULT,
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     offset: 0,
     size: 0,
     pValues: core::ptr::null(),
@@ -71041,7 +71047,7 @@ impl VkPushDescriptorSetInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO_KHR,
     pNext: core::ptr::null(),
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     layout: VkPipelineLayout::DEFAULT,
     set: 0,
     descriptorWriteCount: 0,
@@ -71184,7 +71190,7 @@ impl VkSetDescriptorBufferOffsetsInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT,
     pNext: core::ptr::null(),
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     layout: VkPipelineLayout::DEFAULT,
     firstSet: 0,
     setCount: 0,
@@ -71265,7 +71271,7 @@ impl VkBindDescriptorBufferEmbeddedSamplersInfoEXT {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT,
     pNext: core::ptr::null(),
-    stageFlags: 0,
+    stageFlags: VkShaderStageFlagBits(0),
     layout: VkPipelineLayout::DEFAULT,
     set: 0,
   };
@@ -71887,7 +71893,7 @@ impl VkMemoryMapInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_MEMORY_MAP_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkMemoryMapFlagBits(0),
     #[cfg(feature = "VK_BASE_VERSION_1_0")]
     memory: VkDeviceMemory::DEFAULT,
     #[cfg(not(feature = "VK_BASE_VERSION_1_0"))]
@@ -72184,7 +72190,7 @@ impl VkRenderPassMultiviewCreateInfoKHR {
 }
 /// [VkRefreshObjectFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkRefreshObjectFlagsKHR.html)
 #[cfg(feature = "VK_KHR_object_refresh")]
-pub type VkRefreshObjectFlagsKHR = VkFlags;
+pub type VkRefreshObjectFlagsKHR = VkRefreshObjectFlagBitsKHR;
 /// [VkRefreshObjectKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkRefreshObjectKHR.html)
 #[cfg(feature = "VK_KHR_object_refresh")]
 #[repr(C)]
@@ -72205,7 +72211,7 @@ impl VkRefreshObjectKHR {
   pub const DEFAULT: Self = Self {
     objectType: VkObjectType(0),
     objectHandle: 0,
-    flags: 0,
+    flags: VkRefreshObjectFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -72626,10 +72632,10 @@ impl VkAccelerationStructureTrianglesOpacityMicromapKHR {
 }
 /// [VkPerformanceCounterDescriptionFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterDescriptionFlagsKHR.html)
 #[cfg(feature = "VK_KHR_performance_query")]
-pub type VkPerformanceCounterDescriptionFlagsKHR = VkFlags;
+pub type VkPerformanceCounterDescriptionFlagsKHR = VkPerformanceCounterDescriptionFlagBitsKHR;
 /// [VkAcquireProfilingLockFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAcquireProfilingLockFlagsKHR.html)
 #[cfg(feature = "VK_KHR_performance_query")]
-pub type VkAcquireProfilingLockFlagsKHR = VkFlags;
+pub type VkAcquireProfilingLockFlagsKHR = VkAcquireProfilingLockFlagBitsKHR;
 /// [VkPhysicalDevicePerformanceQueryFeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePerformanceQueryFeaturesKHR.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -72815,7 +72821,7 @@ impl VkPerformanceCounterDescriptionKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_DESCRIPTION_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkPerformanceCounterDescriptionFlagBitsKHR(0),
     name: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
     category: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
     description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
@@ -72980,7 +72986,7 @@ impl VkAcquireProfilingLockInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_ACQUIRE_PROFILING_LOCK_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkAcquireProfilingLockFlagBitsKHR(0),
     timeout: 0,
   };
   #[inline]
@@ -73781,7 +73787,7 @@ impl VkPipelineExecutablePropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    stages: 0,
+    stages: VkShaderStageFlagBits(0),
     name: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
     description: [0i8; VK_MAX_DESCRIPTION_SIZE as usize],
     subgroupSize: 0,
@@ -75119,7 +75125,7 @@ impl VkRayTracingPipelineCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineCreateFlagBits(0),
     stageCount: 0,
     pStages: core::ptr::null(),
     groupCount: 0,
@@ -77615,7 +77621,7 @@ impl VkSharedPresentSurfaceCapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SHARED_PRESENT_SURFACE_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    sharedPresentSupportedUsageFlags: 0,
+    sharedPresentSupportedUsageFlags: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -77636,10 +77642,10 @@ impl VkSharedPresentSurfaceCapabilitiesKHR {
 }
 /// [VkCompositeAlphaFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkCompositeAlphaFlagsKHR.html)
 #[cfg(feature = "VK_KHR_surface")]
-pub type VkCompositeAlphaFlagsKHR = VkFlags;
+pub type VkCompositeAlphaFlagsKHR = VkCompositeAlphaFlagBitsKHR;
 /// [VkSurfaceTransformFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceTransformFlagsKHR.html)
 #[cfg(feature = "VK_KHR_surface")]
-pub type VkSurfaceTransformFlagsKHR = VkFlags;
+pub type VkSurfaceTransformFlagsKHR = VkSurfaceTransformFlagBitsKHR;
 /// [VkSurfaceKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfaceKHR.html)
 #[cfg(feature = "VK_KHR_surface")]
 #[repr(transparent)]
@@ -77691,10 +77697,10 @@ impl VkSurfaceCapabilitiesKHR {
     minImageExtent: VkExtent2D::DEFAULT,
     maxImageExtent: VkExtent2D::DEFAULT,
     maxImageArrayLayers: 0,
-    supportedTransforms: 0,
+    supportedTransforms: VkSurfaceTransformFlagBitsKHR(0),
     currentTransform: VkSurfaceTransformFlagBitsKHR(0),
-    supportedCompositeAlpha: 0,
-    supportedUsageFlags: 0,
+    supportedCompositeAlpha: VkCompositeAlphaFlagBitsKHR(0),
+    supportedUsageFlags: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -77788,10 +77794,10 @@ impl VkSurfaceFormatKHR {
 }
 /// [VkPresentScalingFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentScalingFlagsKHR.html)
 #[cfg(feature = "VK_KHR_surface_maintenance1")]
-pub type VkPresentScalingFlagsKHR = VkFlags;
+pub type VkPresentScalingFlagsKHR = VkPresentScalingFlagBitsKHR;
 /// [VkPresentGravityFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPresentGravityFlagsKHR.html)
 #[cfg(feature = "VK_KHR_surface_maintenance1")]
-pub type VkPresentGravityFlagsKHR = VkFlags;
+pub type VkPresentGravityFlagsKHR = VkPresentGravityFlagBitsKHR;
 /// [VkSurfacePresentModeKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSurfacePresentModeKHR.html)
 ///
 /// **Extends:** VkPhysicalDeviceSurfaceInfo2KHR.
@@ -77864,9 +77870,9 @@ impl VkSurfacePresentScalingCapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    supportedPresentScaling: 0,
-    supportedPresentGravityX: 0,
-    supportedPresentGravityY: 0,
+    supportedPresentScaling: VkPresentScalingFlagBitsKHR(0),
+    supportedPresentGravityX: VkPresentGravityFlagBitsKHR(0),
+    supportedPresentGravityY: VkPresentGravityFlagBitsKHR(0),
     minScaledImageExtent: VkExtent2D::DEFAULT,
     maxScaledImageExtent: VkExtent2D::DEFAULT,
   };
@@ -78004,7 +78010,7 @@ impl VkSurfaceProtectedCapabilitiesKHR {
 }
 /// [VkSwapchainCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_swapchain")]
-pub type VkSwapchainCreateFlagsKHR = VkFlags;
+pub type VkSwapchainCreateFlagsKHR = VkSwapchainCreateFlagBitsKHR;
 /// [VkSwapchainKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainKHR.html)
 #[cfg(feature = "VK_KHR_swapchain")]
 #[repr(transparent)]
@@ -78068,14 +78074,14 @@ impl VkSwapchainCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSwapchainCreateFlagBitsKHR(0),
     surface: VkSurfaceKHR::DEFAULT,
     minImageCount: 0,
     imageFormat: VkFormat(0),
     imageColorSpace: VkColorSpaceKHR(0),
     imageExtent: VkExtent2D::DEFAULT,
     imageArrayLayers: 0,
-    imageUsage: 0,
+    imageUsage: VkImageUsageFlagBits(0),
     imageSharingMode: VkSharingMode(0),
     queueFamilyIndexCount: 0,
     pQueueFamilyIndices: core::ptr::null(),
@@ -78503,9 +78509,9 @@ impl VkSwapchainPresentScalingCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    scalingBehavior: 0,
-    presentGravityX: 0,
-    presentGravityY: 0,
+    scalingBehavior: VkPresentScalingFlagBitsKHR(0),
+    presentGravityX: VkPresentGravityFlagBitsKHR(0),
+    presentGravityY: VkPresentGravityFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -78599,7 +78605,7 @@ pub type VkAccessFlags2KHR = VkFlags64;
 pub type VkPipelineStageFlags2KHR = VkFlags64;
 /// [VkSubmitFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSubmitFlagsKHR.html)
 #[cfg(feature = "VK_KHR_synchronization2")]
-pub type VkSubmitFlagsKHR = VkFlags;
+pub type VkSubmitFlagsKHR = VkSubmitFlagBits;
 /// [VkMemoryBarrier2KHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryBarrier2KHR.html)
 ///
 /// **Extends:** VkSubpassDependency2.
@@ -78904,7 +78910,7 @@ impl VkDependencyInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEPENDENCY_INFO_KHR,
     pNext: core::ptr::null(),
-    dependencyFlags: 0,
+    dependencyFlags: VkDependencyFlagBits(0),
     memoryBarrierCount: 0,
     pMemoryBarriers: core::ptr::null(),
     bufferMemoryBarrierCount: 0,
@@ -79108,7 +79114,7 @@ impl VkSubmitInfo2KHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SUBMIT_INFO_2_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSubmitFlagBits(0),
     waitSemaphoreInfoCount: 0,
     pWaitSemaphoreInfos: core::ptr::null(),
     commandBufferInfoCount: 0,
@@ -79215,7 +79221,7 @@ impl VkPhysicalDeviceSynchronization2FeaturesKHR {
 }
 /// [VkSemaphoreWaitFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreWaitFlagsKHR.html)
 #[cfg(feature = "VK_KHR_timeline_semaphore")]
-pub type VkSemaphoreWaitFlagsKHR = VkFlags;
+pub type VkSemaphoreWaitFlagsKHR = VkSemaphoreWaitFlagBits;
 /// [VkPhysicalDeviceTimelineSemaphoreFeaturesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTimelineSemaphoreFeaturesKHR.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -79447,7 +79453,7 @@ impl VkSemaphoreWaitInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_WAIT_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkSemaphoreWaitFlagBits(0),
     semaphoreCount: 0,
     pSemaphores: core::ptr::null(),
     pValues: core::ptr::null(),
@@ -80810,7 +80816,7 @@ impl StdVideoDecodeAV1ReferenceInfo {
 }
 /// [VkVideoDecodeH264PictureLayoutFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoDecodeH264PictureLayoutFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_decode_h264")]
-pub type VkVideoDecodeH264PictureLayoutFlagsKHR = VkFlags;
+pub type VkVideoDecodeH264PictureLayoutFlagsKHR = VkVideoDecodeH264PictureLayoutFlagBitsKHR;
 /// [VkVideoDecodeH264ProfileInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoDecodeH264ProfileInfoKHR.html)
 ///
 /// **Extends:** VkVideoProfileInfoKHR, VkQueryPoolCreateInfo.
@@ -81962,10 +81968,10 @@ impl StdVideoDecodeH265ReferenceInfo {
 }
 /// [VkVideoDecodeUsageFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoDecodeUsageFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_decode_queue")]
-pub type VkVideoDecodeUsageFlagsKHR = VkFlags;
+pub type VkVideoDecodeUsageFlagsKHR = VkVideoDecodeUsageFlagBitsKHR;
 /// [VkVideoDecodeCapabilityFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoDecodeCapabilityFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_decode_queue")]
-pub type VkVideoDecodeCapabilityFlagsKHR = VkFlags;
+pub type VkVideoDecodeCapabilityFlagsKHR = VkVideoDecodeCapabilityFlagBitsKHR;
 /// [VkVideoDecodeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoDecodeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_decode_queue")]
 pub type VkVideoDecodeFlagsKHR = VkFlags;
@@ -81996,7 +82002,7 @@ impl VkVideoDecodeCapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkVideoDecodeCapabilityFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -82038,7 +82044,7 @@ impl VkVideoDecodeUsageInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_USAGE_INFO_KHR,
     pNext: core::ptr::null(),
-    videoUsageHints: 0,
+    videoUsageHints: VkVideoDecodeUsageFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -82592,16 +82598,16 @@ impl StdVideoDecodeVP9PictureInfo {
 }
 /// [VkVideoEncodeAV1CapabilityFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeAV1CapabilityFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_av1")]
-pub type VkVideoEncodeAV1CapabilityFlagsKHR = VkFlags;
+pub type VkVideoEncodeAV1CapabilityFlagsKHR = VkVideoEncodeAV1CapabilityFlagBitsKHR;
 /// [VkVideoEncodeAV1StdFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeAV1StdFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_av1")]
-pub type VkVideoEncodeAV1StdFlagsKHR = VkFlags;
+pub type VkVideoEncodeAV1StdFlagsKHR = VkVideoEncodeAV1StdFlagBitsKHR;
 /// [VkVideoEncodeAV1RateControlFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeAV1RateControlFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_av1")]
-pub type VkVideoEncodeAV1RateControlFlagsKHR = VkFlags;
+pub type VkVideoEncodeAV1RateControlFlagsKHR = VkVideoEncodeAV1RateControlFlagBitsKHR;
 /// [VkVideoEncodeAV1SuperblockSizeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeAV1SuperblockSizeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_av1")]
-pub type VkVideoEncodeAV1SuperblockSizeFlagsKHR = VkFlags;
+pub type VkVideoEncodeAV1SuperblockSizeFlagsKHR = VkVideoEncodeAV1SuperblockSizeFlagBitsKHR;
 /// [VkVideoEncodeAV1CapabilitiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeAV1CapabilitiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -82675,13 +82681,13 @@ impl VkVideoEncodeAV1CapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkVideoEncodeAV1CapabilityFlagBitsKHR(0),
     maxLevel: StdVideoAV1Level(0),
     codedPictureAlignment: VkExtent2D::DEFAULT,
     maxTiles: VkExtent2D::DEFAULT,
     minTileSize: VkExtent2D::DEFAULT,
     maxTileSize: VkExtent2D::DEFAULT,
-    superblockSizes: 0,
+    superblockSizes: VkVideoEncodeAV1SuperblockSizeFlagBitsKHR(0),
     maxSingleReferenceCount: 0,
     singleReferenceNameMask: 0,
     maxUnidirectionalCompoundReferenceCount: 0,
@@ -82698,7 +82704,7 @@ impl VkVideoEncodeAV1CapabilitiesKHR {
     maxQIndex: 0,
     prefersGopRemainingFrames: 0,
     requiresGopRemainingFrames: 0,
-    stdSyntaxFlags: 0,
+    stdSyntaxFlags: VkVideoEncodeAV1StdFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -82870,7 +82876,7 @@ impl VkVideoEncodeAV1QualityLevelPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    preferredRateControlFlags: 0,
+    preferredRateControlFlags: VkVideoEncodeAV1RateControlFlagBitsKHR(0),
     preferredGopFrameCount: 0,
     preferredKeyFramePeriod: 0,
     preferredConsecutiveBipredictiveFrameCount: 0,
@@ -83350,7 +83356,7 @@ impl VkVideoEncodeAV1RateControlInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkVideoEncodeAV1RateControlFlagBitsKHR(0),
     gopFrameCount: 0,
     keyFramePeriod: 0,
     consecutiveBipredictiveFrameCount: 0,
@@ -84401,13 +84407,13 @@ impl StdVideoEncodeAV1ReferenceInfo {
 }
 /// [VkVideoEncodeH264CapabilityFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH264CapabilityFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h264")]
-pub type VkVideoEncodeH264CapabilityFlagsKHR = VkFlags;
+pub type VkVideoEncodeH264CapabilityFlagsKHR = VkVideoEncodeH264CapabilityFlagBitsKHR;
 /// [VkVideoEncodeH264StdFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH264StdFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h264")]
-pub type VkVideoEncodeH264StdFlagsKHR = VkFlags;
+pub type VkVideoEncodeH264StdFlagsKHR = VkVideoEncodeH264StdFlagBitsKHR;
 /// [VkVideoEncodeH264RateControlFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH264RateControlFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h264")]
-pub type VkVideoEncodeH264RateControlFlagsKHR = VkFlags;
+pub type VkVideoEncodeH264RateControlFlagsKHR = VkVideoEncodeH264RateControlFlagBitsKHR;
 /// [VkVideoEncodeH264CapabilitiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH264CapabilitiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -84459,7 +84465,7 @@ impl VkVideoEncodeH264CapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkVideoEncodeH264CapabilityFlagBitsKHR(0),
     maxLevelIdc: StdVideoH264LevelIdc(0),
     maxSliceCount: 0,
     maxPPictureL0ReferenceCount: 0,
@@ -84471,7 +84477,7 @@ impl VkVideoEncodeH264CapabilitiesKHR {
     maxQp: 0,
     prefersGopRemainingFrames: 0,
     requiresGopRemainingFrames: 0,
-    stdSyntaxFlags: 0,
+    stdSyntaxFlags: VkVideoEncodeH264StdFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -84582,7 +84588,7 @@ impl VkVideoEncodeH264QualityLevelPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    preferredRateControlFlags: 0,
+    preferredRateControlFlags: VkVideoEncodeH264RateControlFlagBitsKHR(0),
     preferredGopFrameCount: 0,
     preferredIdrPeriod: 0,
     preferredConsecutiveBFrameCount: 0,
@@ -85171,7 +85177,7 @@ impl VkVideoEncodeH264RateControlInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkVideoEncodeH264RateControlFlagBitsKHR(0),
     gopFrameCount: 0,
     idrPeriod: 0,
     consecutiveBFrameCount: 0,
@@ -86266,19 +86272,20 @@ impl StdVideoEncodeH264SliceHeader {
 }
 /// [VkVideoEncodeH265CapabilityFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH265CapabilityFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h265")]
-pub type VkVideoEncodeH265CapabilityFlagsKHR = VkFlags;
+pub type VkVideoEncodeH265CapabilityFlagsKHR = VkVideoEncodeH265CapabilityFlagBitsKHR;
 /// [VkVideoEncodeH265StdFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH265StdFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h265")]
-pub type VkVideoEncodeH265StdFlagsKHR = VkFlags;
+pub type VkVideoEncodeH265StdFlagsKHR = VkVideoEncodeH265StdFlagBitsKHR;
 /// [VkVideoEncodeH265RateControlFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH265RateControlFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h265")]
-pub type VkVideoEncodeH265RateControlFlagsKHR = VkFlags;
+pub type VkVideoEncodeH265RateControlFlagsKHR = VkVideoEncodeH265RateControlFlagBitsKHR;
 /// [VkVideoEncodeH265CtbSizeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH265CtbSizeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h265")]
-pub type VkVideoEncodeH265CtbSizeFlagsKHR = VkFlags;
+pub type VkVideoEncodeH265CtbSizeFlagsKHR = VkVideoEncodeH265CtbSizeFlagBitsKHR;
 /// [VkVideoEncodeH265TransformBlockSizeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH265TransformBlockSizeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_h265")]
-pub type VkVideoEncodeH265TransformBlockSizeFlagsKHR = VkFlags;
+pub type VkVideoEncodeH265TransformBlockSizeFlagsKHR =
+  VkVideoEncodeH265TransformBlockSizeFlagBitsKHR;
 /// [VkVideoEncodeH265CapabilitiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH265CapabilitiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -86336,12 +86343,12 @@ impl VkVideoEncodeH265CapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkVideoEncodeH265CapabilityFlagBitsKHR(0),
     maxLevelIdc: StdVideoH265LevelIdc(0),
     maxSliceSegmentCount: 0,
     maxTiles: VkExtent2D::DEFAULT,
-    ctbSizes: 0,
-    transformBlockSizes: 0,
+    ctbSizes: VkVideoEncodeH265CtbSizeFlagBitsKHR(0),
+    transformBlockSizes: VkVideoEncodeH265TransformBlockSizeFlagBitsKHR(0),
     maxPPictureL0ReferenceCount: 0,
     maxBPictureL0ReferenceCount: 0,
     maxL1ReferenceCount: 0,
@@ -86351,7 +86358,7 @@ impl VkVideoEncodeH265CapabilitiesKHR {
     maxQp: 0,
     prefersGopRemainingFrames: 0,
     requiresGopRemainingFrames: 0,
-    stdSyntaxFlags: 0,
+    stdSyntaxFlags: VkVideoEncodeH265StdFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -86479,7 +86486,7 @@ impl VkVideoEncodeH265QualityLevelPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    preferredRateControlFlags: 0,
+    preferredRateControlFlags: VkVideoEncodeH265RateControlFlagBitsKHR(0),
     preferredGopFrameCount: 0,
     preferredIdrPeriod: 0,
     preferredConsecutiveBFrameCount: 0,
@@ -87023,7 +87030,7 @@ impl VkVideoEncodeH265RateControlInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkVideoEncodeH265RateControlFlagBitsKHR(0),
     gopFrameCount: 0,
     idrPeriod: 0,
     consecutiveBFrameCount: 0,
@@ -88274,7 +88281,7 @@ impl StdVideoEncodeH265ReferenceInfo {
 }
 /// [VkVideoEncodeIntraRefreshModeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeIntraRefreshModeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_intra_refresh")]
-pub type VkVideoEncodeIntraRefreshModeFlagsKHR = VkFlags;
+pub type VkVideoEncodeIntraRefreshModeFlagsKHR = VkVideoEncodeIntraRefreshModeFlagBitsKHR;
 /// [VkVideoEncodeIntraRefreshCapabilitiesKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeIntraRefreshCapabilitiesKHR.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -88310,7 +88317,7 @@ impl VkVideoEncodeIntraRefreshCapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    intraRefreshModes: 0,
+    intraRefreshModes: VkVideoEncodeIntraRefreshModeFlagBitsKHR(0),
     maxIntraRefreshCycleDuration: 0,
     maxIntraRefreshActiveReferencePictures: 0,
     partitionIndependentIntraRefreshRegions: 0,
@@ -88869,7 +88876,7 @@ impl VkVideoFormatH265QuantizationMapPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    compatibleCtbSizes: 0,
+    compatibleCtbSizes: VkVideoEncodeH265CtbSizeFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -88929,7 +88936,7 @@ impl VkVideoFormatAV1QuantizationMapPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    compatibleSuperblockSizes: 0,
+    compatibleSuperblockSizes: VkVideoEncodeAV1SuperblockSizeFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -89088,22 +89095,22 @@ impl VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR {
 pub type VkVideoEncodeFlagsKHR = VkFlags;
 /// [VkVideoEncodeUsageFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeUsageFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_queue")]
-pub type VkVideoEncodeUsageFlagsKHR = VkFlags;
+pub type VkVideoEncodeUsageFlagsKHR = VkVideoEncodeUsageFlagBitsKHR;
 /// [VkVideoEncodeContentFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeContentFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_queue")]
-pub type VkVideoEncodeContentFlagsKHR = VkFlags;
+pub type VkVideoEncodeContentFlagsKHR = VkVideoEncodeContentFlagBitsKHR;
 /// [VkVideoEncodeCapabilityFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeCapabilityFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_queue")]
-pub type VkVideoEncodeCapabilityFlagsKHR = VkFlags;
+pub type VkVideoEncodeCapabilityFlagsKHR = VkVideoEncodeCapabilityFlagBitsKHR;
 /// [VkVideoEncodeFeedbackFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeFeedbackFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_queue")]
-pub type VkVideoEncodeFeedbackFlagsKHR = VkFlags;
+pub type VkVideoEncodeFeedbackFlagsKHR = VkVideoEncodeFeedbackFlagBitsKHR;
 /// [VkVideoEncodeRateControlFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRateControlFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 pub type VkVideoEncodeRateControlFlagsKHR = VkFlags;
 /// [VkVideoEncodeRateControlModeFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRateControlModeFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_queue")]
-pub type VkVideoEncodeRateControlModeFlagsKHR = VkFlags;
+pub type VkVideoEncodeRateControlModeFlagsKHR = VkVideoEncodeRateControlModeFlagBitsKHR;
 /// [VkVideoEncodeSessionParametersGetInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeSessionParametersGetInfoKHR.html)
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 #[repr(C)]
@@ -89211,8 +89218,8 @@ impl VkVideoEncodeUsageInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR,
     pNext: core::ptr::null(),
-    videoUsageHints: 0,
-    videoContentHints: 0,
+    videoUsageHints: VkVideoEncodeUsageFlagBitsKHR(0),
+    videoContentHints: VkVideoEncodeContentFlagBitsKHR(0),
     tuningMode: VkVideoEncodeTuningModeKHR(0),
   };
   #[inline]
@@ -89368,7 +89375,7 @@ impl VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
-    encodeFeedbackFlags: 0,
+    encodeFeedbackFlags: VkVideoEncodeFeedbackFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -89712,13 +89719,13 @@ impl VkVideoEncodeCapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
-    rateControlModes: 0,
+    flags: VkVideoEncodeCapabilityFlagBitsKHR(0),
+    rateControlModes: VkVideoEncodeRateControlModeFlagBitsKHR(0),
     maxRateControlLayers: 0,
     maxBitrate: 0,
     maxQualityLevels: 0,
     encodeInputPictureGranularity: VkExtent2D::DEFAULT,
-    supportedEncodeFeedbackFlags: 0,
+    supportedEncodeFeedbackFlags: VkVideoEncodeFeedbackFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -90114,13 +90121,13 @@ impl VkVideoDecodeAV1InlineSessionParametersInfoKHR {
 }
 /// [VkVideoCodecOperationFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoCodecOperationFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
-pub type VkVideoCodecOperationFlagsKHR = VkFlags;
+pub type VkVideoCodecOperationFlagsKHR = VkVideoCodecOperationFlagBitsKHR;
 /// [VkVideoCapabilityFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoCapabilityFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
-pub type VkVideoCapabilityFlagsKHR = VkFlags;
+pub type VkVideoCapabilityFlagsKHR = VkVideoCapabilityFlagBitsKHR;
 /// [VkVideoSessionCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoSessionCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
-pub type VkVideoSessionCreateFlagsKHR = VkFlags;
+pub type VkVideoSessionCreateFlagsKHR = VkVideoSessionCreateFlagBitsKHR;
 /// [VkVideoSessionParametersCreateFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoSessionParametersCreateFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type VkVideoSessionParametersCreateFlagsKHR = VkFlags;
@@ -90132,13 +90139,13 @@ pub type VkVideoBeginCodingFlagsKHR = VkFlags;
 pub type VkVideoEndCodingFlagsKHR = VkFlags;
 /// [VkVideoCodingControlFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoCodingControlFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
-pub type VkVideoCodingControlFlagsKHR = VkFlags;
+pub type VkVideoCodingControlFlagsKHR = VkVideoCodingControlFlagBitsKHR;
 /// [VkVideoChromaSubsamplingFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoChromaSubsamplingFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
-pub type VkVideoChromaSubsamplingFlagsKHR = VkFlags;
+pub type VkVideoChromaSubsamplingFlagsKHR = VkVideoChromaSubsamplingFlagBitsKHR;
 /// [VkVideoComponentBitDepthFlagsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoComponentBitDepthFlagsKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
-pub type VkVideoComponentBitDepthFlagsKHR = VkFlags;
+pub type VkVideoComponentBitDepthFlagsKHR = VkVideoComponentBitDepthFlagBitsKHR;
 /// [VkVideoSessionKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoSessionKHR.html)
 #[cfg(feature = "VK_KHR_video_queue")]
 #[repr(transparent)]
@@ -90206,7 +90213,7 @@ impl VkQueueFamilyVideoPropertiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_VIDEO_PROPERTIES_KHR,
     pNext: core::ptr::null_mut(),
-    videoCodecOperations: 0,
+    videoCodecOperations: VkVideoCodecOperationFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -90344,7 +90351,7 @@ impl VkPhysicalDeviceVideoFormatInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR,
     pNext: core::ptr::null(),
-    imageUsage: 0,
+    imageUsage: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -90400,10 +90407,10 @@ impl VkVideoFormatPropertiesKHR {
     pNext: core::ptr::null_mut(),
     format: VkFormat(0),
     componentMapping: VkComponentMapping::DEFAULT,
-    imageCreateFlags: 0,
+    imageCreateFlags: VkImageCreateFlagBits(0),
     imageType: VkImageType(0),
     imageTiling: VkImageTiling(0),
-    imageUsageFlags: 0,
+    imageUsageFlags: VkImageUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -90474,9 +90481,9 @@ impl VkVideoProfileInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR,
     pNext: core::ptr::null(),
     videoCodecOperation: VkVideoCodecOperationFlagBitsKHR(0),
-    chromaSubsampling: 0,
-    lumaBitDepth: 0,
-    chromaBitDepth: 0,
+    chromaSubsampling: VkVideoChromaSubsamplingFlagBitsKHR(0),
+    lumaBitDepth: VkVideoComponentBitDepthFlagBitsKHR(0),
+    chromaBitDepth: VkVideoComponentBitDepthFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -90551,7 +90558,7 @@ impl VkVideoCapabilitiesKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkVideoCapabilityFlagBitsKHR(0),
     minBitstreamBufferOffsetAlignment: 0,
     minBitstreamBufferSizeAlignment: 0,
     pictureAccessGranularity: VkExtent2D::DEFAULT,
@@ -90865,7 +90872,7 @@ impl VkVideoSessionCreateInfoKHR {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_CREATE_INFO_KHR,
     pNext: core::ptr::null(),
     queueFamilyIndex: 0,
-    flags: 0,
+    flags: VkVideoSessionCreateFlagBitsKHR(0),
     pVideoProfile: core::ptr::null(),
     pictureFormat: VkFormat(0),
     maxCodedExtent: VkExtent2D::DEFAULT,
@@ -91166,7 +91173,7 @@ impl VkVideoCodingControlInfoKHR {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkVideoCodingControlFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -97808,16 +97815,20 @@ impl VkPipelineViewportWScalingStateCreateInfoNV {
 }
 /// [VkClusterAccelerationStructureGeometryFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureGeometryFlagsNV.html)
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-pub type VkClusterAccelerationStructureGeometryFlagsNV = VkFlags;
+pub type VkClusterAccelerationStructureGeometryFlagsNV =
+  VkClusterAccelerationStructureGeometryFlagBitsNV;
 /// [VkClusterAccelerationStructureClusterFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureClusterFlagsNV.html)
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-pub type VkClusterAccelerationStructureClusterFlagsNV = VkFlags;
+pub type VkClusterAccelerationStructureClusterFlagsNV =
+  VkClusterAccelerationStructureClusterFlagBitsNV;
 /// [VkClusterAccelerationStructureAddressResolutionFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureAddressResolutionFlagsNV.html)
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-pub type VkClusterAccelerationStructureAddressResolutionFlagsNV = VkFlags;
+pub type VkClusterAccelerationStructureAddressResolutionFlagsNV =
+  VkClusterAccelerationStructureAddressResolutionFlagBitsNV;
 /// [VkClusterAccelerationStructureIndexFormatFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkClusterAccelerationStructureIndexFormatFlagsNV.html)
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
-pub type VkClusterAccelerationStructureIndexFormatFlagsNV = VkFlags;
+pub type VkClusterAccelerationStructureIndexFormatFlagsNV =
+  VkClusterAccelerationStructureIndexFormatFlagBitsNV;
 /// [VkPhysicalDeviceClusterAccelerationStructureFeaturesNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceClusterAccelerationStructureFeaturesNV.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -98218,7 +98229,7 @@ unsafe impl Sync for VkClusterAccelerationStructureBuildTriangleClusterInfoNV {}
 impl VkClusterAccelerationStructureBuildTriangleClusterInfoNV {
   pub const DEFAULT: Self = Self {
     clusterID: 0,
-    clusterFlags: 0,
+    clusterFlags: VkClusterAccelerationStructureClusterFlagBitsNV(0),
     triangleCount: 0,
     vertexCount: 0,
     positionTruncateBitCount: 0,
@@ -98371,7 +98382,7 @@ unsafe impl Sync for VkClusterAccelerationStructureBuildTriangleClusterTemplateI
 impl VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
   pub const DEFAULT: Self = Self {
     clusterID: 0,
-    clusterFlags: 0,
+    clusterFlags: VkClusterAccelerationStructureClusterFlagBitsNV(0),
     triangleCount: 0,
     vertexCount: 0,
     positionTruncateBitCount: 0,
@@ -98796,7 +98807,7 @@ impl VkClusterAccelerationStructureInputInfoNV {
     sType: VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV,
     pNext: core::ptr::null_mut(),
     maxAccelerationStructureCount: 0,
-    flags: 0,
+    flags: VkBuildAccelerationStructureFlagBitsKHR(0),
     opType: VkClusterAccelerationStructureOpTypeNV(0),
     opMode: VkClusterAccelerationStructureOpModeNV(0),
     opInput: VkClusterAccelerationStructureOpInputNV::DEFAULT,
@@ -98875,7 +98886,7 @@ impl VkClusterAccelerationStructureCommandsInfoNV {
     dstSizesArray: VkStridedDeviceAddressRegionKHR::DEFAULT,
     srcInfosArray: VkStridedDeviceAddressRegionKHR::DEFAULT,
     srcInfosCount: 0,
-    addressResolutionFlags: 0,
+    addressResolutionFlags: VkClusterAccelerationStructureAddressResolutionFlagBitsNV(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -99186,7 +99197,7 @@ impl VkPhysicalDeviceCooperativeMatrixPropertiesNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV,
     pNext: core::ptr::null_mut(),
-    cooperativeMatrixSupportedStages: 0,
+    cooperativeMatrixSupportedStages: VkShaderStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -99702,7 +99713,7 @@ impl VkPhysicalDeviceCooperativeVectorPropertiesNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV,
     pNext: core::ptr::null_mut(),
-    cooperativeVectorSupportedStages: 0,
+    cooperativeVectorSupportedStages: VkShaderStageFlagBits(0),
     cooperativeVectorTrainingFloat16Accumulation: 0,
     cooperativeVectorTrainingFloat32Accumulation: 0,
     maxCooperativeVectorComponents: 0,
@@ -100027,7 +100038,7 @@ impl VkPhysicalDeviceCopyMemoryIndirectPropertiesNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV,
     pNext: core::ptr::null_mut(),
-    supportedQueues: 0,
+    supportedQueues: VkQueueFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -100207,8 +100218,8 @@ impl VkFramebufferMixedSamplesCombinationNV {
     pNext: core::ptr::null_mut(),
     coverageReductionMode: VkCoverageReductionModeNV(0),
     rasterizationSamples: VkSampleCountFlagBits(0),
-    depthStencilSamples: 0,
-    colorSamples: 0,
+    depthStencilSamples: VkSampleCountFlagBits(0),
+    colorSamples: VkSampleCountFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -100857,7 +100868,7 @@ impl VkQueueFamilyCheckpointPropertiesNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV,
     pNext: core::ptr::null_mut(),
-    checkpointExecutionStageMask: 0,
+    checkpointExecutionStageMask: VkPipelineStageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -101102,7 +101113,7 @@ impl VkCheckpointData2NV {
 }
 /// [VkDeviceDiagnosticsConfigFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceDiagnosticsConfigFlagsNV.html)
 #[cfg(feature = "VK_NV_device_diagnostics_config")]
-pub type VkDeviceDiagnosticsConfigFlagsNV = VkFlags;
+pub type VkDeviceDiagnosticsConfigFlagsNV = VkDeviceDiagnosticsConfigFlagBitsNV;
 /// [VkPhysicalDeviceDiagnosticsConfigFeaturesNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceDiagnosticsConfigFeaturesNV.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -101167,7 +101178,7 @@ impl VkDeviceDiagnosticsConfigCreateInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkDeviceDiagnosticsConfigFlagBitsNV(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -101188,10 +101199,10 @@ impl VkDeviceDiagnosticsConfigCreateInfoNV {
 }
 /// [VkIndirectCommandsLayoutUsageFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutUsageFlagsNV.html)
 #[cfg(feature = "VK_NV_device_generated_commands")]
-pub type VkIndirectCommandsLayoutUsageFlagsNV = VkFlags;
+pub type VkIndirectCommandsLayoutUsageFlagsNV = VkIndirectCommandsLayoutUsageFlagBitsNV;
 /// [VkIndirectStateFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectStateFlagsNV.html)
 #[cfg(feature = "VK_NV_device_generated_commands")]
-pub type VkIndirectStateFlagsNV = VkFlags;
+pub type VkIndirectStateFlagsNV = VkIndirectStateFlagBitsNV;
 /// [VkIndirectCommandsLayoutNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsLayoutNV.html)
 #[cfg(feature = "VK_NV_device_generated_commands")]
 #[repr(transparent)]
@@ -101717,10 +101728,10 @@ impl VkIndirectCommandsLayoutTokenNV {
     vertexBindingUnit: 0,
     vertexDynamicStride: 0,
     pushconstantPipelineLayout: VkPipelineLayout::DEFAULT,
-    pushconstantShaderStageFlags: 0,
+    pushconstantShaderStageFlags: VkShaderStageFlagBits(0),
     pushconstantOffset: 0,
     pushconstantSize: 0,
-    indirectStateFlags: 0,
+    indirectStateFlags: VkIndirectStateFlagBitsNV(0),
     indexTypeCount: 0,
     pIndexTypes: core::ptr::null(),
     pIndexTypeValues: core::ptr::null(),
@@ -101836,7 +101847,7 @@ impl VkIndirectCommandsLayoutCreateInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkIndirectCommandsLayoutUsageFlagBitsNV(0),
     pipelineBindPoint: VkPipelineBindPoint(0),
     tokenCount: 0,
     pTokens: core::ptr::null(),
@@ -102674,8 +102685,8 @@ impl VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV {
       VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV,
     pNext: core::ptr::null_mut(),
     extendedSparseAddressSpaceSize: 0,
-    extendedSparseImageUsageFlags: 0,
-    extendedSparseBufferUsageFlags: 0,
+    extendedSparseImageUsageFlags: VkImageUsageFlagBits(0),
+    extendedSparseBufferUsageFlags: VkBufferUsageFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -102927,7 +102938,7 @@ impl VkExternalMemoryImageCreateInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBitsNV(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -102969,7 +102980,7 @@ impl VkExportMemoryAllocateInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO_NV,
     pNext: core::ptr::null(),
-    handleTypes: 0,
+    handleTypes: VkExternalMemoryHandleTypeFlagBitsNV(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -102990,10 +103001,10 @@ impl VkExportMemoryAllocateInfoNV {
 }
 /// [VkExternalMemoryHandleTypeFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryHandleTypeFlagsNV.html)
 #[cfg(feature = "VK_NV_external_memory_capabilities")]
-pub type VkExternalMemoryHandleTypeFlagsNV = VkFlags;
+pub type VkExternalMemoryHandleTypeFlagsNV = VkExternalMemoryHandleTypeFlagBitsNV;
 /// [VkExternalMemoryFeatureFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryFeatureFlagsNV.html)
 #[cfg(feature = "VK_NV_external_memory_capabilities")]
-pub type VkExternalMemoryFeatureFlagsNV = VkFlags;
+pub type VkExternalMemoryFeatureFlagsNV = VkExternalMemoryFeatureFlagBitsNV;
 /// [VkExternalImageFormatPropertiesNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalImageFormatPropertiesNV.html)
 ///
 /// *Note: This is a **returned only** struct.*
@@ -103017,9 +103028,9 @@ unsafe impl Sync for VkExternalImageFormatPropertiesNV {}
 impl VkExternalImageFormatPropertiesNV {
   pub const DEFAULT: Self = Self {
     imageFormatProperties: VkImageFormatProperties::DEFAULT,
-    externalMemoryFeatures: 0,
-    exportFromImportedHandleTypes: 0,
-    compatibleHandleTypes: 0,
+    externalMemoryFeatures: VkExternalMemoryFeatureFlagBitsNV(0),
+    exportFromImportedHandleTypes: VkExternalMemoryHandleTypeFlagBitsNV(0),
+    compatibleHandleTypes: VkExternalMemoryHandleTypeFlagBitsNV(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -103465,7 +103476,7 @@ impl VkImportMemoryWin32HandleInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_WIN32_HANDLE_INFO_NV,
     pNext: core::ptr::null(),
-    handleType: 0,
+    handleType: VkExternalMemoryHandleTypeFlagBitsNV(0),
     handle: HANDLE::NULL,
   };
   #[inline]
@@ -103749,27 +103760,27 @@ impl VkPhysicalDeviceExternalSciSyncFeaturesNV {
 /// [NvSciSyncAttrList](https://docs.vulkan.org/refpages/latest/refpages/source/NvSciSyncAttrList.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_NV_external_sci_sync"
+  feature = "VK_NV_external_sci_sync",
+  feature = "VK_NV_external_sci_sync2"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct NvSciSyncAttrList(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_NV_external_sci_sync"
+  feature = "VK_NV_external_sci_sync",
+  feature = "VK_NV_external_sci_sync2"
 ))]
 impl NvSciSyncAttrList {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_NV_external_sci_sync"
+  feature = "VK_NV_external_sci_sync",
+  feature = "VK_NV_external_sci_sync2"
 ))]
 unsafe impl Send for NvSciSyncAttrList {}
 #[cfg(any(
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_NV_external_sci_sync"
+  feature = "VK_NV_external_sci_sync",
+  feature = "VK_NV_external_sci_sync2"
 ))]
 unsafe impl Sync for NvSciSyncAttrList {}
 /// [VkExportFenceSciSyncInfoNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkExportFenceSciSyncInfoNV.html)
@@ -105762,16 +105773,16 @@ impl VkDrawMeshTasksIndirectCommandNV {
 }
 /// [VkOpticalFlowGridSizeFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowGridSizeFlagsNV.html)
 #[cfg(feature = "VK_NV_optical_flow")]
-pub type VkOpticalFlowGridSizeFlagsNV = VkFlags;
+pub type VkOpticalFlowGridSizeFlagsNV = VkOpticalFlowGridSizeFlagBitsNV;
 /// [VkOpticalFlowUsageFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowUsageFlagsNV.html)
 #[cfg(feature = "VK_NV_optical_flow")]
-pub type VkOpticalFlowUsageFlagsNV = VkFlags;
+pub type VkOpticalFlowUsageFlagsNV = VkOpticalFlowUsageFlagBitsNV;
 /// [VkOpticalFlowSessionCreateFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowSessionCreateFlagsNV.html)
 #[cfg(feature = "VK_NV_optical_flow")]
-pub type VkOpticalFlowSessionCreateFlagsNV = VkFlags;
+pub type VkOpticalFlowSessionCreateFlagsNV = VkOpticalFlowSessionCreateFlagBitsNV;
 /// [VkOpticalFlowExecuteFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowExecuteFlagsNV.html)
 #[cfg(feature = "VK_NV_optical_flow")]
-pub type VkOpticalFlowExecuteFlagsNV = VkFlags;
+pub type VkOpticalFlowExecuteFlagsNV = VkOpticalFlowExecuteFlagBitsNV;
 /// [VkOpticalFlowSessionNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpticalFlowSessionNV.html)
 #[cfg(feature = "VK_NV_optical_flow")]
 #[repr(transparent)]
@@ -105880,8 +105891,8 @@ impl VkPhysicalDeviceOpticalFlowPropertiesNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV,
     pNext: core::ptr::null_mut(),
-    supportedOutputGridSizes: 0,
-    supportedHintGridSizes: 0,
+    supportedOutputGridSizes: VkOpticalFlowGridSizeFlagBitsNV(0),
+    supportedHintGridSizes: VkOpticalFlowGridSizeFlagBitsNV(0),
     hintSupported: 0,
     costSupported: 0,
     bidirectionalFlowSupported: 0,
@@ -105981,7 +105992,7 @@ impl VkOpticalFlowImageFormatInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV,
     pNext: core::ptr::null(),
-    usage: 0,
+    usage: VkOpticalFlowUsageFlagBitsNV(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -106078,10 +106089,10 @@ impl VkOpticalFlowSessionCreateInfoNV {
     imageFormat: VkFormat(0),
     flowVectorFormat: VkFormat(0),
     costFormat: VkFormat(0),
-    outputGridSize: 0,
-    hintGridSize: 0,
+    outputGridSize: VkOpticalFlowGridSizeFlagBitsNV(0),
+    hintGridSize: VkOpticalFlowGridSizeFlagBitsNV(0),
     performanceLevel: VkOpticalFlowPerformanceLevelNV(0),
-    flags: 0,
+    flags: VkOpticalFlowSessionCreateFlagBitsNV(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -106222,7 +106233,7 @@ impl VkOpticalFlowExecuteInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkOpticalFlowExecuteFlagBitsNV(0),
     regionCount: 0,
     pRegions: core::ptr::null(),
   };
@@ -106258,7 +106269,8 @@ impl VkOpticalFlowExecuteInfoNV {
 }
 /// [VkPartitionedAccelerationStructureInstanceFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkPartitionedAccelerationStructureInstanceFlagsNV.html)
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
-pub type VkPartitionedAccelerationStructureInstanceFlagsNV = VkFlags;
+pub type VkPartitionedAccelerationStructureInstanceFlagsNV =
+  VkPartitionedAccelerationStructureInstanceFlagBitsNV;
 /// [VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -106455,7 +106467,7 @@ impl VkPartitionedAccelerationStructureWriteInstanceDataNV {
     instanceID: 0,
     instanceMask: 0,
     instanceContributionToHitGroupIndex: 0,
-    instanceFlags: 0,
+    instanceFlags: VkPartitionedAccelerationStructureInstanceFlagBitsNV(0),
     instanceIndex: 0,
     partitionIndex: 0,
     accelerationStructure: 0,
@@ -106663,7 +106675,7 @@ impl VkPartitionedAccelerationStructureInstancesInputNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV,
     pNext: core::ptr::null_mut(),
-    flags: 0,
+    flags: VkBuildAccelerationStructureFlagBitsKHR(0),
     instanceCount: 0,
     maxInstancePerPartitionCount: 0,
     partitionCount: 0,
@@ -107242,13 +107254,13 @@ impl VkPhysicalDeviceRawAccessChainsFeaturesNV {
 }
 /// [VkGeometryFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryFlagsNV.html)
 #[cfg(feature = "VK_NV_ray_tracing")]
-pub type VkGeometryFlagsNV = VkFlags;
+pub type VkGeometryFlagsNV = VkGeometryFlagBitsKHR;
 /// [VkGeometryInstanceFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkGeometryInstanceFlagsNV.html)
 #[cfg(feature = "VK_NV_ray_tracing")]
-pub type VkGeometryInstanceFlagsNV = VkFlags;
+pub type VkGeometryInstanceFlagsNV = VkGeometryInstanceFlagBitsKHR;
 /// [VkBuildAccelerationStructureFlagsNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkBuildAccelerationStructureFlagsNV.html)
 #[cfg(feature = "VK_NV_ray_tracing")]
-pub type VkBuildAccelerationStructureFlagsNV = VkFlags;
+pub type VkBuildAccelerationStructureFlagsNV = VkBuildAccelerationStructureFlagBitsKHR;
 /// [VkAccelerationStructureNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccelerationStructureNV.html)
 #[cfg(feature = "VK_NV_ray_tracing")]
 #[repr(transparent)]
@@ -107369,7 +107381,7 @@ impl VkRayTracingPipelineCreateInfoNV {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_NV,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkPipelineCreateFlagBits(0),
     stageCount: 0,
     pStages: core::ptr::null(),
     groupCount: 0,
@@ -107673,7 +107685,7 @@ impl VkGeometryNV {
     pNext: core::ptr::null(),
     geometryType: VkGeometryTypeKHR(0),
     geometry: VkGeometryDataNV::DEFAULT,
-    flags: 0,
+    flags: VkGeometryFlagBitsKHR(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -107731,7 +107743,7 @@ impl VkAccelerationStructureInfoNV {
     sType: VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_INFO_NV,
     pNext: core::ptr::null(),
     type_: VkAccelerationStructureTypeNV(0),
-    flags: 0,
+    flags: VkBuildAccelerationStructureFlagBitsKHR(0),
     instanceCount: 0,
     geometryCount: 0,
     pGeometries: core::ptr::null(),
@@ -108207,7 +108219,7 @@ impl VkAccelerationStructureInstanceNV {
     instanceCustomIndex: 0,
     mask: 0,
     instanceShaderBindingTableRecordOffset: 0,
-    flags: 0,
+    flags: VkGeometryInstanceFlagBitsKHR(0),
     accelerationStructureReference: 0,
   };
   #[inline]
@@ -108897,7 +108909,7 @@ impl VkAccelerationStructureSRTMotionInstanceNV {
     instanceCustomIndex: 0,
     mask: 0,
     instanceShaderBindingTableRecordOffset: 0,
-    flags: 0,
+    flags: VkGeometryInstanceFlagBitsKHR(0),
     accelerationStructureReference: 0,
   };
   #[inline]
@@ -108966,7 +108978,7 @@ impl VkAccelerationStructureMatrixMotionInstanceNV {
     instanceCustomIndex: 0,
     mask: 0,
     instanceShaderBindingTableRecordOffset: 0,
-    flags: 0,
+    flags: VkGeometryInstanceFlagBitsKHR(0),
     accelerationStructureReference: 0,
   };
   #[inline]
@@ -110197,7 +110209,7 @@ impl VkNativeBufferFormatPropertiesOHOS {
     pNext: core::ptr::null_mut(),
     format: VkFormat(0),
     externalFormat: 0,
-    formatFeatures: 0,
+    formatFeatures: VkFormatFeatureFlagBits(0),
     samplerYcbcrConversionComponents: VkComponentMapping::DEFAULT,
     suggestedYcbcrModel: VkSamplerYcbcrModelConversion(0),
     suggestedYcbcrRange: VkSamplerYcbcrRange(0),
@@ -111600,7 +111612,7 @@ impl VkPhysicalDeviceQueuePerfHintPropertiesQCOM {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM,
     pNext: core::ptr::null_mut(),
-    supportedQueues: 0,
+    supportedQueues: VkQueueFlagBits(0),
   };
   #[inline]
   pub const fn new() -> Self {
@@ -112175,7 +112187,7 @@ impl VkTilePropertiesQCOM {
 }
 /// [VkTileShadingRenderPassFlagsQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTileShadingRenderPassFlagsQCOM.html)
 #[cfg(feature = "VK_QCOM_tile_shading")]
-pub type VkTileShadingRenderPassFlagsQCOM = VkFlags;
+pub type VkTileShadingRenderPassFlagsQCOM = VkTileShadingRenderPassFlagBitsQCOM;
 /// [VkPhysicalDeviceTileShadingFeaturesQCOM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceTileShadingFeaturesQCOM.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -112403,7 +112415,7 @@ impl VkRenderPassTileShadingCreateInfoQCOM {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM,
     pNext: core::ptr::null(),
-    flags: 0,
+    flags: VkTileShadingRenderPassFlagBitsQCOM(0),
     tileApronSize: VkExtent2D::DEFAULT,
   };
   #[inline]
@@ -112755,7 +112767,7 @@ impl VkScreenBufferFormatPropertiesQNX {
     format: VkFormat(0),
     externalFormat: 0,
     screenUsage: 0,
-    formatFeatures: 0,
+    formatFeatures: VkFormatFeatureFlagBits(0),
     samplerYcbcrConversionComponents: VkComponentMapping::DEFAULT,
     suggestedYcbcrModel: VkSamplerYcbcrModelConversion(0),
     suggestedYcbcrRange: VkSamplerYcbcrRange(0),
@@ -113760,13 +113772,13 @@ impl VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE {
 }
 /// [VkVideoEncodeRgbModelConversionFlagsVALVE](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbModelConversionFlagsVALVE.html)
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
-pub type VkVideoEncodeRgbModelConversionFlagsVALVE = VkFlags;
+pub type VkVideoEncodeRgbModelConversionFlagsVALVE = VkVideoEncodeRgbModelConversionFlagBitsVALVE;
 /// [VkVideoEncodeRgbRangeCompressionFlagsVALVE](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbRangeCompressionFlagsVALVE.html)
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
-pub type VkVideoEncodeRgbRangeCompressionFlagsVALVE = VkFlags;
+pub type VkVideoEncodeRgbRangeCompressionFlagsVALVE = VkVideoEncodeRgbRangeCompressionFlagBitsVALVE;
 /// [VkVideoEncodeRgbChromaOffsetFlagsVALVE](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeRgbChromaOffsetFlagsVALVE.html)
 #[cfg(feature = "VK_VALVE_video_encode_rgb_conversion")]
-pub type VkVideoEncodeRgbChromaOffsetFlagsVALVE = VkFlags;
+pub type VkVideoEncodeRgbChromaOffsetFlagsVALVE = VkVideoEncodeRgbChromaOffsetFlagBitsVALVE;
 /// [VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE](https://docs.vulkan.org/refpages/latest/refpages/source/VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE.html)
 ///
 /// **Extends:** VkPhysicalDeviceFeatures2, VkDeviceCreateInfo.
@@ -113842,10 +113854,10 @@ impl VkVideoEncodeRgbConversionCapabilitiesVALVE {
   pub const DEFAULT: Self = Self {
     sType: VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE,
     pNext: core::ptr::null_mut(),
-    rgbModels: 0,
-    rgbRanges: 0,
-    xChromaOffsets: 0,
-    yChromaOffsets: 0,
+    rgbModels: VkVideoEncodeRgbModelConversionFlagBitsVALVE(0),
+    rgbRanges: VkVideoEncodeRgbRangeCompressionFlagBitsVALVE(0),
+    xChromaOffsets: VkVideoEncodeRgbChromaOffsetFlagBitsVALVE(0),
+    yChromaOffsets: VkVideoEncodeRgbChromaOffsetFlagBitsVALVE(0),
   };
   #[inline]
   pub const fn new() -> Self {

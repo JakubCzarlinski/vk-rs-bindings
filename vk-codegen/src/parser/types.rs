@@ -66,6 +66,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
                         name,
                         alias,
                         ty: None,
+                        bitmask_bits: None,
                         kind: TypedefKind::Alias,
                         api: aset,
                         comment,
@@ -98,6 +99,7 @@ pub fn parse_types(node: Node, reg: &mut Registry) {
                         name,
                         alias: None,
                         ty: None,
+                        bitmask_bits: None,
                         kind: TypedefKind::OpaqueExtern,
                         api: aset,
                         comment,
@@ -172,6 +174,7 @@ fn parse_handle(
         name,
         alias,
         ty: None,
+        bitmask_bits: None,
         kind: TypedefKind::Handle {
             dispatchable,
             parent,
@@ -226,10 +229,12 @@ fn parse_bitmask(
     depr: DeprecationInfo,
 ) {
     let underlying = child_text(node, "type").unwrap_or_else(|| "VkFlags".into());
+    let bitmask_bits = attr(node, "requires").map(str::to_owned);
     reg.typedefs.entry(name.clone()).or_default().push(Typedef {
         name,
         alias,
         ty: Some(underlying),
+        bitmask_bits,
         kind: TypedefKind::Bitmask,
         api: aset,
         comment,
@@ -275,6 +280,7 @@ fn parse_basetype(
         name,
         alias,
         ty,
+        bitmask_bits: None,
         kind,
         api: aset,
         comment,
@@ -319,6 +325,7 @@ fn parse_funcpointer(
         name,
         alias,
         ty: Some(format!("{}|{}", ret_rust, params.join(","))),
+        bitmask_bits: None,
         kind: TypedefKind::FuncPointer,
         api: aset,
         comment,
@@ -414,6 +421,7 @@ fn parse_define(
         name,
         alias,
         ty: ty_field,
+        bitmask_bits: None,
         kind: TypedefKind::Define,
         api: aset,
         comment,

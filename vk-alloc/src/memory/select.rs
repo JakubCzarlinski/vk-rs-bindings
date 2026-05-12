@@ -3,14 +3,17 @@ use crate::pool::PoolConfig;
 use crate::resource::{AllocationCreateInfo, AllocationStrategy, MemoryTypePolicy};
 use crate::vulkan::requirements::RequirementInfo;
 
-pub(crate) fn score_memory_type(policy: MemoryTypePolicy, property_flags: u32) -> Option<i32> {
-    if (property_flags & policy.required_flags) != policy.required_flags {
+pub(crate) fn score_memory_type(
+    policy: MemoryTypePolicy,
+    property_flags: vk::VkMemoryPropertyFlags,
+) -> Option<i32> {
+    if !property_flags.contains(policy.required_flags) {
         return None;
     }
     let mut score = 0;
-    score += ((property_flags & policy.preferred_flags).count_ones() as i32) * 16;
-    score -= ((property_flags & policy.avoid_flags).count_ones() as i32) * 8;
-    score += (property_flags.count_ones() as i32) * 2;
+    score += ((property_flags & policy.preferred_flags).0.count_ones() as i32) * 16;
+    score -= ((property_flags & policy.avoid_flags).0.count_ones() as i32) * 8;
+    score += (property_flags.0.count_ones() as i32) * 2;
     Some(score)
 }
 
@@ -41,18 +44,18 @@ pub(crate) fn is_host_visible(
     properties: &vk::VkPhysicalDeviceMemoryProperties,
     memory_type_index: u32,
 ) -> bool {
-    properties.memoryTypes[memory_type_index as usize].propertyFlags
-        & vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
-        != 0
+    properties.memoryTypes[memory_type_index as usize]
+        .propertyFlags
+        .intersects(vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT)
 }
 
 fn is_device_local(
     properties: &vk::VkPhysicalDeviceMemoryProperties,
     memory_type_index: u32,
 ) -> bool {
-    properties.memoryTypes[memory_type_index as usize].propertyFlags
-        & vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT.0
-        != 0
+    properties.memoryTypes[memory_type_index as usize]
+        .propertyFlags
+        .intersects(vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)
 }
 
 pub(crate) fn block_size_for(

@@ -94,12 +94,12 @@ const fn align_up(value: u64, alignment: u64) -> u64 {
 }
 
 fn score_memory_type(policy: MemoryTypePolicy, property_flags: u32) -> Option<i32> {
-    if (property_flags & policy.required_flags) != policy.required_flags {
+    if (property_flags & policy.required_flags.0) != policy.required_flags.0 {
         return None;
     }
     let mut score = 0;
-    score += ((property_flags & policy.preferred_flags).count_ones() as i32) * 16;
-    score -= ((property_flags & policy.avoid_flags).count_ones() as i32) * 8;
+    score += ((property_flags & policy.preferred_flags.0).count_ones() as i32) * 16;
+    score -= ((property_flags & policy.avoid_flags.0).count_ones() as i32) * 8;
     score += (property_flags.count_ones() as i32) * 2;
     Some(score)
 }

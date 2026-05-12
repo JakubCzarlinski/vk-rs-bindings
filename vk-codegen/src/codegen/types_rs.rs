@@ -17,6 +17,41 @@ fn parse_expr(s: &str) -> TokenStream {
     syn::parse_str::<syn::Expr>(s).map_or_else(|_| s.parse().unwrap_or_default(), |e| quote! { #e })
 }
 
+fn typed_bitmask_target(td: &Typedef, reg: &Registry) -> Option<String> {
+    if td.bitmask_bits.is_none()
+        && let Some(alias) = td.alias.as_deref()
+        && let Some(target) = reg.typedefs.get(alias).and_then(|items| items.first())
+    {
+        let mut resolved = target.clone();
+        resolved.name = td.name.clone();
+        resolved.alias = None;
+        resolved.provided_by = td.provided_by.clone();
+        resolved.availability = td.availability.clone();
+        resolved.dep = td.dep.clone();
+        return typed_bitmask_target(&resolved, reg);
+    }
+
+    let bits = td.bitmask_bits.as_deref()?;
+    let bit_enum = reg.enums.get(bits).and_then(|items| items.first())?;
+    if !bit_enum.is_bitmask {
+        return None;
+    }
+
+    let mut providers = bit_enum.provided_by.clone();
+    for variant in &bit_enum.variants {
+        for provider in &variant.provided_by {
+            if !providers.contains(provider) {
+                providers.push(provider.clone());
+            }
+        }
+    }
+
+    td.provided_by
+        .iter()
+        .all(|provider| providers.contains(provider))
+        .then(|| bits.to_owned())
+}
+
 pub fn gen_types_rs(reg: &Registry) -> String {
     // Collect all items keyed by feature group, then emit groups sorted
     // so identical #[cfg(...)] attributes are adjacent - the compiler
@@ -103,6 +138,7 @@ fn gen_typedef_ts(td: &Typedef, reg: &Registry) -> TokenStream {
         resolved.availability = td.availability.clone();
         resolved.depr = td.depr.clone();
         resolved.provided_by = td.provided_by.clone();
+        resolved.bitmask_bits = td.bitmask_bits.clone().or(resolved.bitmask_bits);
         return gen_typedef_ts(&resolved, reg);
     }
 
@@ -159,6 +195,13 @@ fn gen_typedef_ts(td: &Typedef, reg: &Registry) -> TokenStream {
             if let Some(ref alias) = td.alias {
                 let a = parse_ty(alias);
                 quote! { #cfg pub type #name = #a; }
+            } else if let Some(bits) = typed_bitmask_target(td, reg) {
+                let bits = format_ident!("{}", bits);
+                doc.extend(quote! {
+                    #cfg
+                    pub type #name = #bits;
+                });
+                doc
             } else if let Some(ref ty) = td.ty {
                 let mapped = c_type_to_rust(ty);
                 let rty = parse_ty(if mapped.is_empty() { ty } else { mapped });
@@ -890,19 +933,18 @@ fn classify_type_inner(base: &str, reg: &Registry, depth: u8) -> (TypeClass, Str
         _ => {}
     }
 
-    if let Some(td) = reg.typedefs.get(base).and_then(|v| v.last()) {
+    if let Some(td) = reg.typedefs.get(base).and_then(|v| v.first()) {
         return match td.kind {
             TypedefKind::Handle { .. } => (TypeClass::StructWithDefault, base.to_owned()),
             TypedefKind::Basetype => (TypeClass::PrimitiveAlias, base.to_owned()),
-            TypedefKind::Bitmask => (TypeClass::PrimitiveAlias, base.to_owned()),
-            TypedefKind::Alias => {
-                // Follow alias chain - return the canonical name of the target
-                if let Some(ref target) = td.alias {
-                    classify_type_inner(target, reg, depth + 1)
+            TypedefKind::Bitmask => {
+                if let Some(bits) = typed_bitmask_target(td, reg) {
+                    (TypeClass::EnumNewtype, bits)
                 } else {
                     (TypeClass::PrimitiveAlias, base.to_owned())
                 }
             }
+            TypedefKind::Alias => (TypeClass::PrimitiveAlias, base.to_owned()),
             TypedefKind::FuncPointer => (TypeClass::OptionType, base.to_owned()),
             TypedefKind::OpaqueExtern => (TypeClass::NullMutAlias, base.to_owned()),
             TypedefKind::Define => (TypeClass::PrimitiveAlias, base.to_owned()),

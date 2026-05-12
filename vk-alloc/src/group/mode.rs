@@ -5,7 +5,7 @@ use crate::group_allocator::GroupBindMode;
 pub(crate) fn validate_group_mode(
     mode: GroupBindMode,
     device_mask: u32,
-    heap_flags: u32,
+    heap_flags: vk::VkMemoryHeapFlags,
     is_image: bool,
     split_regions: usize,
 ) -> Result<(), AllocatorError> {
@@ -15,7 +15,8 @@ pub(crate) fn validate_group_mode(
         GroupBindMode::PerDeviceInstance => {
             let active_device_count = device_mask.count_ones();
             if active_device_count > 1
-                && heap_flags & vk::VkMemoryHeapFlagBits::VK_MEMORY_HEAP_MULTI_INSTANCE_BIT.0 == 0
+                && !heap_flags
+                    .intersects(vk::VkMemoryHeapFlagBits::VK_MEMORY_HEAP_MULTI_INSTANCE_BIT)
             {
                 return Err(AllocatorError::GroupModeUnsupported);
             }

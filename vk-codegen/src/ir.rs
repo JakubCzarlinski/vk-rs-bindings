@@ -393,6 +393,7 @@ pub struct Typedef {
     pub name: String,
     pub alias: Option<String>,
     pub ty: Option<String>,
+    pub bitmask_bits: Option<String>,
     pub kind: TypedefKind,
     pub api: ApiSet,
     pub comment: Option<String>,

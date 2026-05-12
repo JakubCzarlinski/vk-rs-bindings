@@ -28,12 +28,12 @@ const BINDINGS: [VkDescriptorSetLayoutBinding; 2] = [
         .with_binding(0)
         .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
         .with_descriptorCount(1)
-        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
+        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT),
     VkDescriptorSetLayoutBinding::DEFAULT
         .with_binding(1)
         .with_descriptorType(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
         .with_descriptorCount(1)
-        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT.0),
+        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT),
 ];
 
 const DSL_INFO: VkDescriptorSetLayoutCreateInfo =
@@ -52,8 +52,8 @@ fn main() {
     let memory_type_index = find_host_visible_memory_type(
         &physical_device,
         u32::MAX,
-        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
-            | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
+        VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT
+            | VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
     )
     .expect("Failed to find suitable memory type");
 
@@ -131,7 +131,9 @@ fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
     let props = unsafe { props.assume_init() };
 
     props.iter().enumerate().find_map(|(i, p)| {
-        if (p.queueFlags & VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT.0) != 0 {
+        if p.queueFlags
+            .intersects(VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT)
+        {
             Some(i as u32)
         } else {
             None
@@ -203,7 +205,7 @@ impl HostVisibleBuffer<'_> {
         let buffer: Buffer<'_> = {
             #[allow(deprecated)]
             let buffer_info = VkBufferCreateInfo::DEFAULT
-                .with_usage(VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT.0)
+                .with_usage(VkBufferUsageFlagBits::VK_BUFFER_USAGE_STORAGE_BUFFER_BIT)
                 .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
                 .with_size(size);
             device.vkCreateBuffer(&buffer_info, null())
@@ -229,7 +231,7 @@ impl HostVisibleBuffer<'_> {
 fn find_host_visible_memory_type(
     physical_device: &PhysicalDevice<'_>,
     memory_type_bits: u32,
-    required_flags: u32,
+    required_flags: VkMemoryPropertyFlagBits,
 ) -> Result<u32, ()> {
     let mut properties = VkPhysicalDeviceMemoryProperties::DEFAULT;
     physical_device.vkGetPhysicalDeviceMemoryProperties(&mut properties);
@@ -241,7 +243,7 @@ fn find_host_visible_memory_type(
         }
 
         let flags = properties.memoryTypes[index as usize].propertyFlags;
-        if (flags & required_flags) == required_flags {
+        if flags.contains(required_flags) {
             return Ok(index);
         }
     }
@@ -253,7 +255,7 @@ fn write_to_buffer(memory: &DeviceMemory<'_>, data: &[u32]) -> Result<(), VkResu
     {
         let mut mapped = null_mut();
         let bytes = mem::size_of_val(data);
-        memory.vkMapMemory(0, bytes as u64, 0, &raw mut mapped)?;
+        memory.vkMapMemory(0, bytes as u64, VkMemoryMapFlagBits::EMPTY, &raw mut mapped)?;
         unsafe {
             ptr::copy_nonoverlapping(data.as_ptr().cast::<u8>(), mapped.cast::<u8>(), bytes);
         }
@@ -266,7 +268,7 @@ fn read_from_buffer(memory: &DeviceMemory<'_>) -> Result<u32, VkResult> {
     let mut mapped = null_mut();
     {
         const BYTES: u64 = mem::size_of::<u32>() as u64;
-        memory.vkMapMemory(0, BYTES, 0, &raw mut mapped)?;
+        memory.vkMapMemory(0, BYTES, VkMemoryMapFlagBits::EMPTY, &raw mut mapped)?;
     }
     let value = unsafe { mapped.cast::<u32>().read() };
     memory.vkUnmapMemory();
@@ -277,7 +279,7 @@ fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'
     const POOL_INFO: VkDescriptorPoolCreateInfo = VkDescriptorPoolCreateInfo::DEFAULT
         .with_maxSets(1)
         .with_flags(
-            vk::VkDescriptorPoolCreateFlagBits::VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT.0,
+            VkDescriptorPoolCreateFlagBits::VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT,
         )
         .with_pPoolSizes(&[VkDescriptorPoolSize::DEFAULT
             .with_type(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
@@ -342,7 +344,7 @@ fn run_compute<'a>(
     let cmd_pool = {
         let pool_info = VkCommandPoolCreateInfo::DEFAULT
             .with_flags(
-                VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT.0,
+                VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT,
             )
             .with_queueFamilyIndex(queue_familiy_index);
         device.vkCreateCommandPool(&pool_info, null())

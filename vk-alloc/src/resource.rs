@@ -4,9 +4,9 @@ use alloc::vec::Vec;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct MemoryTypePolicy {
-    pub required_flags: u32,
-    pub preferred_flags: u32,
-    pub avoid_flags: u32,
+    pub required_flags: vk::VkMemoryPropertyFlags,
+    pub preferred_flags: vk::VkMemoryPropertyFlags,
+    pub avoid_flags: vk::VkMemoryPropertyFlags,
 }
 
 impl Default for MemoryTypePolicy {
@@ -17,42 +17,48 @@ impl Default for MemoryTypePolicy {
 
 impl MemoryTypePolicy {
     pub const DEFAULT: Self = Self {
-        required_flags: 0,
-        preferred_flags: 0,
-        avoid_flags: 0,
+        required_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
+        preferred_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
+        avoid_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
     };
 
     pub const DEVICE_LOCAL: Self = Self {
-        required_flags: 0,
-        preferred_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT.0,
-        avoid_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0,
+        required_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
+        preferred_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+        avoid_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
     };
 
     pub const HOST_VISIBLE: Self = Self {
-        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0,
-        preferred_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
-        avoid_flags: 0,
+        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
+        preferred_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+        avoid_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
     };
 
     pub const UPLOAD: Self = Self {
-        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0,
-        preferred_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0
-            | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT.0,
-        avoid_flags: 0,
+        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
+        preferred_flags: vk::VkMemoryPropertyFlagBits(
+            vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0
+                | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT.0,
+        ),
+        avoid_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
     };
 
     pub const READBACK: Self = Self {
-        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0,
-        preferred_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_CACHED_BIT.0
-            | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
-        avoid_flags: 0,
+        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
+        preferred_flags: vk::VkMemoryPropertyFlagBits(
+            vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_CACHED_BIT.0
+                | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
+        ),
+        avoid_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
     };
 
     pub const UNIFIED: Self = Self {
-        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0,
-        preferred_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT.0
-            | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
-        avoid_flags: 0,
+        required_flags: vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT,
+        preferred_flags: vk::VkMemoryPropertyFlagBits(
+            vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT.0
+                | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0,
+        ),
+        avoid_flags: vk::VkMemoryPropertyFlagBits::EMPTY,
     };
 
     pub const fn new() -> Self {
@@ -60,19 +66,19 @@ impl MemoryTypePolicy {
     }
 
     #[must_use]
-    pub const fn with_required_flags(mut self, flags: u32) -> Self {
+    pub const fn with_required_flags(mut self, flags: vk::VkMemoryPropertyFlags) -> Self {
         self.required_flags = flags;
         self
     }
 
     #[must_use]
-    pub const fn with_preferred_flags(mut self, flags: u32) -> Self {
+    pub const fn with_preferred_flags(mut self, flags: vk::VkMemoryPropertyFlags) -> Self {
         self.preferred_flags = flags;
         self
     }
 
     #[must_use]
-    pub const fn with_avoid_flags(mut self, flags: u32) -> Self {
+    pub const fn with_avoid_flags(mut self, flags: vk::VkMemoryPropertyFlags) -> Self {
         self.avoid_flags = flags;
         self
     }

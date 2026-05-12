@@ -15,7 +15,8 @@ use crate::stats::{AllocatorStats, StatsState};
 use crate::vulkan::import::import_host_buffer;
 use crate::vulkan::limits::{DeviceLimits, device_limits, memory_properties};
 use crate::vulkan::requirements::{
-    RequirementInfo, buffer_requirements, image_requirements, recommended_buffer_chunk_size,
+    RequirementInfo, buffer_requirements, buffer_usage_flags2, image_requirements,
+    recommended_buffer_chunk_size,
 };
 use alloc::sync::Arc;
 use alloc::vec;
@@ -178,7 +179,11 @@ impl<'vk> Allocator<'vk> {
         large_info: LargeBufferCreateInfo,
     ) -> Result<LargeBuffer<'vk>, AllocatorError> {
         let chunk_size = large_info.preferred_chunk_size.unwrap_or_else(|| {
-            recommended_buffer_chunk_size(buffer_info.size, buffer_info.usage, self.limits)
+            recommended_buffer_chunk_size(
+                buffer_info.size,
+                buffer_usage_flags2(buffer_info),
+                self.limits,
+            )
         });
         let chunk_size = chunk_size.max(1);
         let mut segments = Vec::new();

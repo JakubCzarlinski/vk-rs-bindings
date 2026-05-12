@@ -141,6 +141,7 @@ fn gen_enum(e: &Enum, reg: &Registry, disabled: &HashSet<String>) -> TokenStream
         quote! {i32}
     };
     let mut variant_token_stream = TokenStream::new();
+    let mut display_match_arms = TokenStream::new();
     let mut seen_features: HashSet<String> = HashSet::new();
 
     for variant in variants {
@@ -162,6 +163,7 @@ fn gen_enum(e: &Enum, reg: &Registry, disabled: &HashSet<String>) -> TokenStream
 
         let resolved = resolve_enum_value(&variant.value, &value_by_name);
         let val = enum_val_tokens(&resolved, false);
+        let variant_name_str = variant.name.clone();
         if variant_doc.is_empty() {
             variant_token_stream.extend(quote! {
                 #variant_cfg #variant_depr
@@ -173,6 +175,10 @@ fn gen_enum(e: &Enum, reg: &Registry, disabled: &HashSet<String>) -> TokenStream
                 pub const #variant_name: Self = Self(#val);
             });
         }
+        display_match_arms.extend(quote! {
+            #variant_cfg
+            value if value == Self::#variant_name.0 => f.write_str(#variant_name_str),
+        });
     }
 
     doc.extend(quote! {
@@ -183,6 +189,16 @@ fn gen_enum(e: &Enum, reg: &Registry, disabled: &HashSet<String>) -> TokenStream
 
         #cfg
         impl #name { #variant_token_stream }
+
+        #cfg
+        impl core::fmt::Display for #name {
+            fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                match self.0 {
+                    #display_match_arms
+                    _ => write!(f, "{}({})", stringify!(#name), self.0),
+                }
+            }
+        }
     });
     doc
 }
@@ -203,6 +219,8 @@ fn gen_bitmask_type(
         quote! {u32}
     };
     let mut bit_token_stream = TokenStream::new();
+    let mut display_token_stream = TokenStream::new();
+    let mut known_bits_token_stream = TokenStream::new();
     let mut seen_features: HashSet<String> = HashSet::new();
     let value_by_name: HashMap<String, EnumValue> = e
         .variants
@@ -230,6 +248,7 @@ fn gen_bitmask_type(
 
         let resolved = resolve_enum_value(&variant.value, &value_by_name);
         let val = enum_val_tokens(&resolved, true);
+        let variant_name_str = variant.name.clone();
         if variant_doc.is_empty() {
             bit_token_stream.extend(quote! {
                 #variant_cfg #variant_depr
@@ -241,7 +260,71 @@ fn gen_bitmask_type(
                 pub const #variant_name: Self = Self(#val);
             });
         }
+        display_token_stream.extend(quote! {
+            #variant_cfg
+            if self.intersects(Self::#variant_name) {
+                if wrote {
+                    f.write_str(" | ")?;
+                }
+                f.write_str(#variant_name_str)?;
+                wrote = true;
+            }
+        });
+        known_bits_token_stream.extend(quote! {
+            #variant_cfg
+            {
+                bits |= Self::#variant_name.0;
+            }
+        });
     }
+
+    let display_impl = if display_token_stream.is_empty() {
+        quote! {
+            #cfg
+            impl core::fmt::Display for #name {
+                fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                    if self.0 == 0 {
+                        f.write_str("0")
+                    } else {
+                        write!(f, "0x{:x}", self.0)
+                    }
+                }
+            }
+        }
+    } else {
+        quote! {
+            #cfg
+            impl core::fmt::Display for #name {
+                #[allow(unused_mut)]
+                fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                    if self.is_empty() {
+                        f.write_str("0")
+                    } else {
+                        let mut wrote = false;
+                        #display_token_stream
+                        let known_bits = {
+                            let mut bits = 0;
+                            #known_bits_token_stream
+                            bits
+                        };
+                        let unknown_bits = self.0 & !known_bits;
+                        if unknown_bits != 0 {
+                            if wrote {
+                                f.write_str(" | ")?;
+                            }
+                            write!(f, "0x{:x}", unknown_bits)?;
+                            wrote = true;
+                        }
+                        if wrote {
+                            Ok(())
+                        } else {
+                            write!(f, "0x{:x}", self.0)
+                        }
+                    }
+                }
+            }
+        }
+    };
 
     doc.extend(
         quote! {
@@ -272,6 +355,8 @@ fn gen_bitmask_type(
             #cfg impl core::ops::BitAndAssign  <#inner> for #name { #[inline] fn bitand_assign  (&mut self,r:#inner){self.0&=r} }
             #cfg impl core::ops::BitXor       <#inner> for #name { type Output=Self; #[inline] fn bitxor  (self,r:#inner)-> Self{Self(self.0^r)} }
             #cfg impl core::ops::BitXorAssign  <#inner> for #name { #[inline] fn bitxor_assign  (&mut self,r:#inner){self.0^=r} }
+
+            #display_impl
         }
     );
     doc

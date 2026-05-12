@@ -15,12 +15,15 @@ pub(crate) fn queue_family_properties(
 pub(crate) fn supports_queue_family(
     physical_device: &vk::PhysicalDevice<'_>,
     queue_family_index: u32,
-    required_flags: u32,
+    required_flags: vk::VkQueueFlags,
 ) -> bool {
     queue_family_properties(physical_device)
         .get(queue_family_index as usize)
         .is_some_and(|properties| {
-            properties.queueFamilyProperties.queueFlags & required_flags == required_flags
+            properties
+                .queueFamilyProperties
+                .queueFlags
+                .contains(required_flags)
         })
 }
 
@@ -29,9 +32,10 @@ pub(crate) fn find_compute_queue_family(physical_device: &vk::PhysicalDevice<'_>
         .iter()
         .enumerate()
         .find_map(|(index, properties)| {
-            if properties.queueFamilyProperties.queueFlags
-                & vk::VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT.0
-                != 0
+            if properties
+                .queueFamilyProperties
+                .queueFlags
+                .intersects(vk::VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT)
             {
                 Some(index as u32)
             } else {

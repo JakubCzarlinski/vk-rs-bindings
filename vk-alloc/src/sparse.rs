@@ -133,7 +133,10 @@ fn sparse_buffer_base<'vk>(
     if group_allocator && sparse_info.group_bind_mode == Some(GroupBindMode::SplitInstanceRegions) {
         return Err(AllocatorError::GroupModeUnsupported);
     }
-    if buffer_info.flags & vk::VkBufferCreateFlagBits::VK_BUFFER_CREATE_SPARSE_BINDING_BIT.0 == 0 {
+    if !buffer_info
+        .flags
+        .intersects(vk::VkBufferCreateFlagBits::VK_BUFFER_CREATE_SPARSE_BINDING_BIT)
+    {
         return Err(AllocatorError::SparseBindingUnsupported);
     }
     let buffer = device
@@ -165,7 +168,10 @@ fn sparse_image_base<'vk>(
     {
         return Err(AllocatorError::InvalidSparseRegion);
     }
-    if image_info.flags & vk::VkImageCreateFlagBits::VK_IMAGE_CREATE_SPARSE_BINDING_BIT.0 == 0 {
+    if !image_info
+        .flags
+        .intersects(vk::VkImageCreateFlagBits::VK_IMAGE_CREATE_SPARSE_BINDING_BIT)
+    {
         return Err(AllocatorError::SparseBindingUnsupported);
     }
     let image = device

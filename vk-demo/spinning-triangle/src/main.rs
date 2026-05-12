@@ -379,9 +379,10 @@ fn find_graphics_present_queue_family(
     physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, props.as_mut_ptr());
 
     for (index, family) in props.iter().enumerate() {
-        let is_graphics = (family.queueFamilyProperties.queueFlags
-            & VkQueueFlagBits::VK_QUEUE_GRAPHICS_BIT.0)
-            != 0;
+        let is_graphics = family
+            .queueFamilyProperties
+            .queueFlags
+            .intersects(VkQueueFlagBits::VK_QUEUE_GRAPHICS_BIT);
         if !is_graphics {
             continue;
         }
@@ -461,7 +462,7 @@ fn create_swapchain_state<'a>(
         .with_imageColorSpace(surface_format.colorSpace)
         .with_imageExtent(extent)
         .with_imageArrayLayers(1)
-        .with_imageUsage(VkImageUsageFlagBits::VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT.0)
+        .with_imageUsage(VkImageUsageFlagBits::VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT)
         .with_imageSharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
         .with_preTransform(caps.currentTransform)
         .with_compositeAlpha(composite_alpha)
@@ -483,7 +484,7 @@ fn create_swapchain_state<'a>(
         .iter()
         .map(|image| {
             let range = VkImageSubresourceRange::DEFAULT
-                .with_aspectMask(VkImageAspectFlagBits::VK_IMAGE_ASPECT_COLOR_BIT.0)
+                .with_aspectMask(VkImageAspectFlagBits::VK_IMAGE_ASPECT_COLOR_BIT)
                 .with_baseMipLevel(0)
                 .with_levelCount(1)
                 .with_baseArrayLayer(0)
@@ -586,7 +587,7 @@ fn choose_composite_alpha(supported: VkCompositeAlphaFlagsKHR) -> VkCompositeAlp
     ];
     options
         .into_iter()
-        .find(|flag| (supported & flag.0) != 0)
+        .find(|flag| supported.intersects(*flag))
         .unwrap_or(VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR)
 }
 
@@ -613,14 +614,10 @@ fn create_render_pass<'a>(device: &'a Device<'a>, color_format: VkFormat) -> Ren
     let dependency = VkSubpassDependency2::DEFAULT
         .with_srcSubpass(VK_SUBPASS_EXTERNAL)
         .with_dstSubpass(0)
-        .with_srcStageMask(
-            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0 as u32,
-        )
-        .with_dstStageMask(
-            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0 as u32,
-        )
-        .with_srcAccessMask(0)
-        .with_dstAccessMask(VkAccessFlagBits2::VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT.0 as u32);
+        .with_srcStageMask(VkPipelineStageFlagBits::VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT)
+        .with_dstStageMask(VkPipelineStageFlagBits::VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT)
+        .with_srcAccessMask(VkAccessFlagBits::EMPTY)
+        .with_dstAccessMask(VkAccessFlagBits::VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT);
     let attachments = [color_attachment];
     let subpasses = [subpass];
     let dependencies = [dependency];
@@ -667,7 +664,7 @@ fn create_graphics_pipeline<'a>(
         .with_rasterizerDiscardEnable(0)
         .with_polygonMode(VkPolygonMode::VK_POLYGON_MODE_FILL)
         .with_lineWidth(1.0)
-        .with_cullMode(VkCullModeFlagBits::VK_CULL_MODE_NONE.0)
+        .with_cullMode(VkCullModeFlagBits::VK_CULL_MODE_NONE)
         .with_frontFace(VkFrontFace::VK_FRONT_FACE_COUNTER_CLOCKWISE)
         .with_depthBiasEnable(0);
 
@@ -677,10 +674,10 @@ fn create_graphics_pipeline<'a>(
 
     let color_blend_attachment = VkPipelineColorBlendAttachmentState::DEFAULT
         .with_colorWriteMask(
-            VkColorComponentFlagBits::VK_COLOR_COMPONENT_R_BIT.0
-                | VkColorComponentFlagBits::VK_COLOR_COMPONENT_G_BIT.0
-                | VkColorComponentFlagBits::VK_COLOR_COMPONENT_B_BIT.0
-                | VkColorComponentFlagBits::VK_COLOR_COMPONENT_A_BIT.0,
+            VkColorComponentFlagBits::VK_COLOR_COMPONENT_R_BIT
+                | VkColorComponentFlagBits::VK_COLOR_COMPONENT_G_BIT
+                | VkColorComponentFlagBits::VK_COLOR_COMPONENT_B_BIT
+                | VkColorComponentFlagBits::VK_COLOR_COMPONENT_A_BIT,
         )
         .with_blendEnable(0);
     let color_blend = VkPipelineColorBlendStateCreateInfo::DEFAULT
@@ -697,7 +694,7 @@ fn create_graphics_pipeline<'a>(
         .with_pDynamicStates(&dynamic_states);
 
     let push_constant_range = VkPushConstantRange::DEFAULT
-        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT.0)
+        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT)
         .with_offset(0)
         .with_size(std::mem::size_of::<f32>() as u32);
     let push_constant_ranges = [push_constant_range];
@@ -775,7 +772,7 @@ fn create_frame_sync<'a>(device: &'a Device<'a>) -> Vec<FrameSync<'a>> {
     for _ in 0..FRAMES_IN_FLIGHT {
         let semaphore_info = VkSemaphoreCreateInfo::DEFAULT;
         let fence_info = VkFenceCreateInfo::DEFAULT
-            .with_flags(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT.0);
+            .with_flags(VkFenceCreateFlagBits::VK_FENCE_CREATE_SIGNALED_BIT);
         frames.push(FrameSync {
             image_available: device
                 .vkCreateSemaphore(&semaphore_info, null())
@@ -800,7 +797,7 @@ fn create_command_pools<'a>(
         let pool_info = VkCommandPoolCreateInfo::DEFAULT
             .with_queueFamilyIndex(queue_family_index)
             .with_flags(
-                VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT.0,
+                VkCommandPoolCreateFlagBits::VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT,
             );
         pools.push(
             device
@@ -884,7 +881,7 @@ fn draw_frame(
         .expect("vkResetFences failed");
     command_buffer
         .vkResetCommandBuffer(
-            VkCommandBufferResetFlagBits::VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT.0,
+            VkCommandBufferResetFlagBits::VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT,
         )
         .expect("vkResetCommandBuffer failed");
 
@@ -1007,7 +1004,7 @@ fn record_command_buffer(
 
     command_buffer.vkCmdPushConstants(
         pipeline_layout,
-        VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT.0,
+        VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT,
         0,
         std::mem::size_of::<f32>() as u32,
         (&angle as *const f32).cast::<c_void>(),

@@ -66,7 +66,7 @@ impl OwnedMemory {
                 self.raw,
                 0,
                 self.size,
-                0,
+                vk::VkMemoryMapFlagBits::EMPTY,
                 &raw mut out,
             )
         };
@@ -118,7 +118,7 @@ pub(crate) fn allocate_owned_memory(
     }
     if let Some(mask) = device_mask {
         flags_info = flags_info
-            .with_flags(vk::VkMemoryAllocateFlagBits::VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT.0)
+            .with_flags(vk::VkMemoryAllocateFlagBits::VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT)
             .with_deviceMask(mask)
             .with_pNext(next);
         next = (&raw const flags_info).cast::<c_void>();

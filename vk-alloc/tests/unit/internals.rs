@@ -11,9 +11,9 @@ use alloc::vec::Vec;
 
 #[test]
 fn memory_type_scoring_prefers_expected_flags() {
-    let host_visible = vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT.0
-        | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT.0;
-    let device_local = vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT.0;
+    let host_visible = vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT
+        | vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+    let device_local = vk::VkMemoryPropertyFlagBits::VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
     let gpu_only = score_memory_type(MemoryTypePolicy::DEVICE_LOCAL, device_local).unwrap();
     let cpu_only = score_memory_type(MemoryTypePolicy::HOST_VISIBLE, host_visible).unwrap();
     let cpu_to_gpu =
@@ -56,15 +56,27 @@ fn dedicated_threshold_behavior_matches_policy() {
 
 #[test]
 fn strict_fail_group_mode_validation_rejects_unsupported_modes() {
-    let err = validate_group_mode(GroupBindMode::PerDeviceInstance, 0b11, 0, false, 0)
-        .expect_err("mode should fail without multi-instance heap");
+    let err = validate_group_mode(
+        GroupBindMode::PerDeviceInstance,
+        0b11,
+        vk::VkMemoryHeapFlagBits::EMPTY,
+        false,
+        0,
+    )
+    .expect_err("mode should fail without multi-instance heap");
     assert_eq!(err, crate::AllocatorError::GroupModeUnsupported);
 }
 
 #[test]
 fn per_device_instance_allows_single_device_without_multi_instance_heap() {
-    validate_group_mode(GroupBindMode::PerDeviceInstance, 0b1, 0, false, 0)
-        .expect("single-device mask should be valid without multi-instance heaps");
+    validate_group_mode(
+        GroupBindMode::PerDeviceInstance,
+        0b1,
+        vk::VkMemoryHeapFlagBits::EMPTY,
+        false,
+        0,
+    )
+    .expect("single-device mask should be valid without multi-instance heaps");
 }
 
 #[test]
@@ -87,7 +99,13 @@ fn page_table_insert_remove_update_is_consistent() {
 
 #[test]
 fn split_instance_regions_validation_requires_image_and_regions() {
-    let err = validate_group_mode(GroupBindMode::SplitInstanceRegions, 0b11, 0, true, 0)
-        .expect_err("split instance regions need regions");
+    let err = validate_group_mode(
+        GroupBindMode::SplitInstanceRegions,
+        0b11,
+        vk::VkMemoryHeapFlagBits::EMPTY,
+        true,
+        0,
+    )
+    .expect_err("split instance regions need regions");
     assert_eq!(err, crate::AllocatorError::InvalidSparseRegion);
 }

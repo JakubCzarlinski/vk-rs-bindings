@@ -28,7 +28,7 @@ pub(crate) fn import_host_buffer<'vk>(
     validate_allocation_size(import_info.size, limits.max_memory_allocation_size)?;
 
     let external_memory_info =
-        vk::VkExternalMemoryBufferCreateInfo::DEFAULT.with_handleTypes(import_info.handle_type.0);
+        vk::VkExternalMemoryBufferCreateInfo::DEFAULT.with_handleTypes(import_info.handle_type);
     let buffer_info = (*buffer_info).with_pNext((&raw const external_memory_info).cast());
     let buffer = device
         .vkCreateBuffer(&buffer_info, vk::null())

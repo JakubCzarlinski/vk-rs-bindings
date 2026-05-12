@@ -327,8 +327,7 @@ impl<'dev> Pipeline<'dev> {
     &self,
     firstGroup: u32,
     groupCount: u32,
-    dataSize: usize,
-    pData: *mut core::ffi::c_void,
+    pData: &mut [u8],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -338,8 +337,8 @@ impl<'dev> Pipeline<'dev> {
         self.raw,
         firstGroup,
         groupCount,
-        dataSize,
-        pData,
+        pData.len() as usize,
+        pData.as_mut_ptr().cast::<core::ffi::c_void>(),
       )
     };
     if r >= VkResult::VK_SUCCESS {
@@ -378,8 +377,7 @@ impl<'dev> Pipeline<'dev> {
     &self,
     firstGroup: u32,
     groupCount: u32,
-    dataSize: usize,
-    pData: *mut core::ffi::c_void,
+    pData: &mut [u8],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -389,8 +387,8 @@ impl<'dev> Pipeline<'dev> {
         self.raw,
         firstGroup,
         groupCount,
-        dataSize,
-        pData,
+        pData.len() as usize,
+        pData.as_mut_ptr().cast::<core::ffi::c_void>(),
       )
     };
     if r >= VkResult::VK_SUCCESS {
@@ -487,8 +485,7 @@ impl<'dev> Pipeline<'dev> {
     &self,
     firstGroup: u32,
     groupCount: u32,
-    dataSize: usize,
-    pData: *mut core::ffi::c_void,
+    pData: &mut [u8],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -498,8 +495,8 @@ impl<'dev> Pipeline<'dev> {
         self.raw,
         firstGroup,
         groupCount,
-        dataSize,
-        pData,
+        pData.len() as usize,
+        pData.as_mut_ptr().cast::<core::ffi::c_void>(),
       )
     };
     if r >= VkResult::VK_SUCCESS {

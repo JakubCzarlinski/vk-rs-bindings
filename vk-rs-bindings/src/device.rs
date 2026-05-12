@@ -5451,16 +5451,15 @@ impl<'inst> Device<'inst> {
   pub fn vkGetDescriptorEXT(
     &self,
     pDescriptorInfo: &VkDescriptorGetInfoEXT,
-    dataSize: usize,
-    pDescriptor: *mut core::ffi::c_void,
+    pDescriptor: &mut [u8],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetDescriptorEXT.unwrap_unchecked()(
         self.raw,
         pDescriptorInfo,
-        dataSize,
-        pDescriptor,
+        pDescriptor.len() as usize,
+        pDescriptor.as_mut_ptr().cast::<core::ffi::c_void>(),
       )
     }
   }
@@ -6536,8 +6535,7 @@ impl<'inst> Device<'inst> {
     &self,
     pMicromaps: &[VkMicromapEXT],
     queryType: VkQueryType,
-    dataSize: usize,
-    pData: *mut core::ffi::c_void,
+    pData: &mut [u8],
     stride: usize,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -6548,8 +6546,8 @@ impl<'inst> Device<'inst> {
         pMicromaps.len() as u32,
         pMicromaps.as_ptr(),
         queryType,
-        dataSize,
-        pData,
+        pData.len() as usize,
+        pData.as_mut_ptr().cast::<core::ffi::c_void>(),
         stride,
       )
     };
@@ -7672,8 +7670,7 @@ impl<'inst> Device<'inst> {
     &self,
     pAccelerationStructures: &[VkAccelerationStructureKHR],
     queryType: VkQueryType,
-    dataSize: usize,
-    pData: *mut core::ffi::c_void,
+    pData: &mut [u8],
     stride: usize,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -7684,8 +7681,8 @@ impl<'inst> Device<'inst> {
         pAccelerationStructures.len() as u32,
         pAccelerationStructures.as_ptr(),
         queryType,
-        dataSize,
-        pData,
+        pData.len() as usize,
+        pData.as_mut_ptr().cast::<core::ffi::c_void>(),
         stride,
       )
     };

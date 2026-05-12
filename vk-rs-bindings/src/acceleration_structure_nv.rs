@@ -134,15 +134,16 @@ impl<'dev> AccelerationStructureNV<'dev> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_NV_ray_tracing")]
   #[inline(always)]
-  pub fn vkGetAccelerationStructureHandleNV(
-    &self,
-    dataSize: usize,
-    pData: *mut core::ffi::c_void,
-  ) -> Result<VkResult, VkResult> {
+  pub fn vkGetAccelerationStructureHandleNV(&self, pData: &mut [u8]) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
         .vkGetAccelerationStructureHandleNV
-        .unwrap_unchecked()(self.device().raw(), self.raw, dataSize, pData)
+        .unwrap_unchecked()(
+        self.device().raw(),
+        self.raw,
+        pData.len() as usize,
+        pData.as_mut_ptr().cast::<core::ffi::c_void>(),
+      )
     };
     if r >= VkResult::VK_SUCCESS {
       Ok(r)

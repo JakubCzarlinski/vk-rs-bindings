@@ -4350,17 +4350,15 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[deprecated(note = "superseded by `vkCmdUpdateMemoryKHR`")]
   #[inline(always)]
-  pub fn vkCmdUpdateBuffer(
-    &self,
-    dstBuffer: VkBuffer,
-    dstOffset: VkDeviceSize,
-    dataSize: VkDeviceSize,
-    pData: *const core::ffi::c_void,
-  ) {
+  pub fn vkCmdUpdateBuffer(&self, dstBuffer: VkBuffer, dstOffset: VkDeviceSize, pData: &[u8]) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdUpdateBuffer.unwrap_unchecked()(
-        self.raw, dstBuffer, dstOffset, dataSize, pData,
+        self.raw,
+        dstBuffer,
+        dstOffset,
+        pData.len() as VkDeviceSize,
+        pData.as_ptr().cast::<core::ffi::c_void>(),
       )
     }
   }
@@ -4789,13 +4787,17 @@ impl<'dev> CommandBuffer<'dev> {
     layout: VkPipelineLayout,
     stageFlags: VkShaderStageFlags,
     offset: u32,
-    size: u32,
-    pValues: *const core::ffi::c_void,
+    pValues: &[u8],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushConstants.unwrap_unchecked()(
-        self.raw, layout, stageFlags, offset, size, pValues,
+        self.raw,
+        layout,
+        stageFlags,
+        offset,
+        pValues.len() as u32,
+        pValues.as_ptr().cast::<core::ffi::c_void>(),
       )
     }
   }
@@ -10605,13 +10607,16 @@ impl<'dev> CommandBuffer<'dev> {
     &self,
     pDstRange: &VkDeviceAddressRangeKHR,
     dstFlags: VkAddressCommandFlagsKHR,
-    dataSize: VkDeviceSize,
-    pData: *const core::ffi::c_void,
+    pData: &[u8],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdUpdateMemoryKHR.unwrap_unchecked()(
-        self.raw, pDstRange, dstFlags, dataSize, pData,
+        self.raw,
+        pDstRange,
+        dstFlags,
+        pData.len() as VkDeviceSize,
+        pData.as_ptr().cast::<core::ffi::c_void>(),
       )
     }
   }

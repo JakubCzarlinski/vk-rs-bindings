@@ -1,4 +1,4 @@
-use core::ffi::{c_char, c_void};
+use core::ffi::c_char;
 use core::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 use core::time::Duration;
 #[cfg(target_os = "linux")]
@@ -1002,12 +1002,17 @@ fn record_command_buffer(
         .with_extent(extent);
     command_buffer.vkCmdSetScissor(0, &[scissor]);
 
+    let angle_bytes = unsafe {
+        core::slice::from_raw_parts(
+            (&raw const angle).cast::<u8>(),
+            core::mem::size_of_val(&angle),
+        )
+    };
     command_buffer.vkCmdPushConstants(
         pipeline_layout,
         VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT,
         0,
-        std::mem::size_of::<f32>() as u32,
-        (&angle as *const f32).cast::<c_void>(),
+        angle_bytes,
     );
     command_buffer.vkCmdDraw(3, 1, 0, 0);
     command_buffer.vkCmdEndRenderPass2(&subpass_end);

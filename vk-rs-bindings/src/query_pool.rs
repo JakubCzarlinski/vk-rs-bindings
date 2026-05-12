@@ -158,8 +158,7 @@ impl<'dev> QueryPool<'dev> {
     &self,
     firstQuery: u32,
     queryCount: u32,
-    dataSize: usize,
-    pData: *mut core::ffi::c_void,
+    pData: &mut [u8],
     stride: VkDeviceSize,
     flags: VkQueryResultFlags,
   ) -> Result<VkResult, VkResult> {
@@ -169,8 +168,8 @@ impl<'dev> QueryPool<'dev> {
         self.raw,
         firstQuery,
         queryCount,
-        dataSize,
-        pData,
+        pData.len() as usize,
+        pData.as_mut_ptr().cast::<core::ffi::c_void>(),
         stride,
         flags,
       )

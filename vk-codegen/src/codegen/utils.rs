@@ -504,7 +504,6 @@ fn collect_required_slice_pairs(cmd: &Command, strip_count: usize) -> Vec<SliceP
     for (ptr_idx, ptr) in cmd.params.iter().enumerate().skip(strip_count) {
         if ptr.ty.pointer_depth != 1
             || !matches!(ptr.optional, Optional::False | Optional::FalseTrue)
-            || ptr.ty.base == "void"
         {
             continue;
         }
@@ -547,7 +546,11 @@ fn params_to_tokens_with_required_slices(
 
         let n = format_ident!("{}", kw_escape(&m.name));
         if pairs.iter().any(|p| p.ptr_full_idx == full_idx) {
-            let elem = base_type_tokens(&m.ty.base);
+            let elem = if m.ty.base == "void" {
+                quote! { u8 }
+            } else {
+                base_type_tokens(&m.ty.base)
+            };
             let t = if m.ty.is_const {
                 quote! { &[#elem] }
             } else {
@@ -735,9 +738,17 @@ pub fn safe_method(
         let count_ty = ctype_to_tokens(&cmd.params[pair.count_full_idx].ty);
         fwd[pair.count_full_idx] = quote! { #ptr_name.len() as #count_ty };
         fwd[pair.ptr_full_idx] = if ptr_param.ty.is_const {
-            quote! { #ptr_name.as_ptr() }
+            if ptr_param.ty.base == "void" {
+                quote! { #ptr_name.as_ptr().cast::<core::ffi::c_void>() }
+            } else {
+                quote! { #ptr_name.as_ptr() }
+            }
         } else {
-            quote! { #ptr_name.as_mut_ptr() }
+            if ptr_param.ty.base == "void" {
+                quote! { #ptr_name.as_mut_ptr().cast::<core::ffi::c_void>() }
+            } else {
+                quote! { #ptr_name.as_mut_ptr() }
+            }
         };
     }
 
@@ -995,9 +1006,17 @@ pub fn safe_method_unit_with_overrides(
         let count_ty = ctype_to_tokens(&cmd.params[pair.count_full_idx].ty);
         fwd[pair.count_full_idx] = quote! { #ptr_name.len() as #count_ty };
         fwd[pair.ptr_full_idx] = if ptr_param.ty.is_const {
-            quote! { #ptr_name.as_ptr() }
+            if ptr_param.ty.base == "void" {
+                quote! { #ptr_name.as_ptr().cast::<core::ffi::c_void>() }
+            } else {
+                quote! { #ptr_name.as_ptr() }
+            }
         } else {
-            quote! { #ptr_name.as_mut_ptr() }
+            if ptr_param.ty.base == "void" {
+                quote! { #ptr_name.as_mut_ptr().cast::<core::ffi::c_void>() }
+            } else {
+                quote! { #ptr_name.as_mut_ptr() }
+            }
         };
     }
 

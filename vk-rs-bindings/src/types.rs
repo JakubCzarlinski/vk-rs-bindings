@@ -50536,30 +50536,30 @@ impl VkMemoryGetZirconHandleInfoFUCHSIA {
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct zx_handle_t(pub *mut core::ffi::c_void);
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 impl zx_handle_t {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 unsafe impl Send for zx_handle_t {}
 #[cfg(any(
   feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_external_memory"
+  feature = "VK_FUCHSIA_external_memory",
+  feature = "VK_FUCHSIA_external_semaphore"
 ))]
 unsafe impl Sync for zx_handle_t {}
 /// [VkImportSemaphoreZirconHandleInfoFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImportSemaphoreZirconHandleInfoFUCHSIA.html)
@@ -65666,133 +65666,133 @@ impl VkFenceGetWin32HandleInfoKHR {
 /// [LPCWSTR](https://docs.vulkan.org/refpages/latest/refpages/source/LPCWSTR.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LPCWSTR(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 impl LPCWSTR {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for LPCWSTR {}
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
   feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for LPCWSTR {}
 /// [HANDLE](https://docs.vulkan.org/refpages/latest/refpages/source/HANDLE.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct HANDLE(pub *mut core::ffi::c_void);
 #[cfg(any(
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 impl HANDLE {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for HANDLE {}
 #[cfg(any(
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for HANDLE {}
 /// [SECURITY_ATTRIBUTES](https://docs.vulkan.org/refpages/latest/refpages/source/SECURITY_ATTRIBUTES.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SECURITY_ATTRIBUTES(pub *mut core::ffi::c_void);
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32"
 ))]
 impl SECURITY_ATTRIBUTES {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for SECURITY_ATTRIBUTES {}
 #[cfg(any(
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
+  feature = "VK_NV_external_memory_win32",
   feature = "VK_KHR_external_memory_win32",
-  feature = "VK_NV_external_memory_win32"
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for SECURITY_ATTRIBUTES {}
 /// [DWORD](https://docs.vulkan.org/refpages/latest/refpages/source/DWORD.html)
 /// Opaque platform handle - always used as a raw pointer.
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct DWORD(pub *mut core::ffi::c_void);
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 impl DWORD {
   pub const NULL: Self = Self(core::ptr::null_mut());
 }
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Send for DWORD {}
 #[cfg(any(
   feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_memory_win32",
   feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_memory_win32"
+  feature = "VK_KHR_external_fence_win32"
 ))]
 unsafe impl Sync for DWORD {}
 /// [VkExternalMemoryImageCreateInfoKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkExternalMemoryImageCreateInfoKHR.html)

@@ -435,7 +435,8 @@ pub fn apply_require_extensions(reg: &mut Registry) {
         .collect();
 
     for tname in &opaque_names {
-        let providers: Vec<String> = reg
+        let mut providers = Vec::<String>::new();
+        for provider in reg
             .structs
             .values()
             .flatten()
@@ -450,10 +451,11 @@ pub fn apply_require_extensions(reg: &mut Registry) {
                     .filter(|c| c.params.iter().any(|p| &p.ty.base == tname))
                     .flat_map(|c| &c.provided_by),
             )
-            .cloned()
-            .collect::<std::collections::HashSet<_>>()
-            .into_iter()
-            .collect();
+        {
+            if !providers.contains(provider) {
+                providers.push(provider.clone());
+            }
+        }
 
         if let Some(tt) = reg.typedefs.get_mut(tname) {
             for td in tt {

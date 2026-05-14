@@ -31,7 +31,8 @@ fn large_buffer_chunking_respects_limits() {
 fn buffer_usage_flags2_prefers_pnext_usage() {
     let usage2 = vk::VkBufferUsageFlags2CreateInfo::DEFAULT
         .with_usage(vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0);
-    let buffer_info = vk::VkBufferCreateInfo::DEFAULT.with_pNext((&raw const usage2).cast());
+    let buffer_info =
+        vk::VkBufferCreateInfo::DEFAULT.with_pNext_VkBufferUsageFlags2CreateInfo(&usage2);
 
     assert_eq!(
         buffer_usage_flags2(&buffer_info),

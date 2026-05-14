@@ -68,9 +68,18 @@ pub fn cfg_availability(
         return cfg_providers_with_dep(fallback_features, fallback_dep);
     }
 
-    let clauses = availability_clauses(availability, fallback_features, fallback_dep);
-    let expr = cfg_expr_from_dnf(&clauses);
+    let expr = cfg_availability_expr(availability, fallback_features, fallback_dep);
     quote! { #[cfg(#expr)] }
+}
+
+#[must_use]
+pub fn cfg_availability_expr(
+    availability: &[Availability],
+    fallback_features: &[String],
+    fallback_dep: Option<&DepExpr>,
+) -> TokenStream {
+    let clauses = availability_clauses(availability, fallback_features, fallback_dep);
+    cfg_expr_from_dnf(&clauses)
 }
 
 #[must_use]

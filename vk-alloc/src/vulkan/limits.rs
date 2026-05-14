@@ -1,5 +1,4 @@
 use crate::error::AllocatorError;
-use core::ffi::c_void;
 
 #[derive(Debug, Clone, Copy)]
 pub struct DeviceLimits {
@@ -20,9 +19,9 @@ pub(crate) fn memory_properties(
 pub(crate) fn device_limits(physical_device: &vk::PhysicalDevice<'_>) -> DeviceLimits {
     let mut host = vk::VkPhysicalDeviceExternalMemoryHostPropertiesEXT::DEFAULT;
     let mut maintenance3 = vk::VkPhysicalDeviceMaintenance3Properties::DEFAULT
-        .with_pNext((&raw mut host).cast::<c_void>());
+        .with_pNext_chain_VkPhysicalDeviceProperties2(&mut host);
     let mut props = vk::VkPhysicalDeviceProperties2::DEFAULT
-        .with_pNext((&raw mut maintenance3).cast::<c_void>());
+        .with_pNext_VkPhysicalDeviceMaintenance3Properties(&mut maintenance3);
     physical_device.vkGetPhysicalDeviceProperties2(&mut props);
     DeviceLimits {
         max_memory_allocation_size: maintenance3.maxMemoryAllocationSize,

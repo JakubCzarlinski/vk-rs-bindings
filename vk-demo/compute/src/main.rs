@@ -1,5 +1,4 @@
 use core::ffi::CStr;
-use core::ffi::c_void;
 use core::iter;
 use core::mem;
 use vk::*;
@@ -156,7 +155,7 @@ fn create_device<'inst>(instance: &'inst Instance) -> (Device<'inst>, PhysicalDe
         VkPhysicalDeviceVulkan13Features::DEFAULT.with_synchronization2(VK_TRUE);
     let device_info = DEVICE_CREATE_INFO
         .with_pQueueCreateInfos(&queue_infos)
-        .with_pNext((&raw const vulkan13_features).cast::<c_void>());
+        .with_pNext_VkPhysicalDeviceVulkan13Features(&vulkan13_features);
 
     let device = physical_device
         .vkCreateDevice(&device_info, null())
@@ -213,7 +212,7 @@ fn create_storage_buffer<'a>(
         .with_usage(VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0);
     let buffer_info = VkBufferCreateInfo::DEFAULT
         .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
-        .with_pNext((&raw const buffer_usage_info).cast::<c_void>())
+        .with_pNext_VkBufferUsageFlags2CreateInfo(&buffer_usage_info)
         .with_size(size);
     allocator
         .create_buffer(

@@ -1,4 +1,4 @@
-use crate::cfggen::{cfg_availability, cfg_not_availability};
+use crate::cfggen::{cfg_availability, cfg_availability_expr, cfg_not_availability};
 use crate::codegen::utils::rewrite_member_types_for_providers;
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url, sanitize_ident};
 use crate::ir::{Member, Optional, Registry, Struct, Typedef, TypedefKind};
@@ -93,6 +93,11 @@ pub fn gen_types_rs(reg: &Registry) -> String {
         #[allow(unused_imports)] use core::ffi::{c_char, c_void};
         #[allow(unused_imports)] use crate::consts::*;
         #[allow(unused_imports)] use crate::enums::*;
+        /// Marker trait for Vulkan structs that are valid in the `pNext` chain rooted at `Root`.
+        ///
+        /// # Safety
+        /// Implementors must be Vulkan structs whose `structextends` metadata includes `Root`.
+        pub unsafe trait VkPNextExtends<Root> {}
     });
     for (_key, items) in groups {
         out.extend(items);
@@ -377,6 +382,12 @@ struct RequiredSliceMemberPair {
     ptr_idx: usize,
 }
 
+#[derive(Clone, Debug)]
+struct SliceMemberGroup {
+    count_idx: usize,
+    ptr_indices: Vec<usize>,
+}
+
 /// Required pointer + count struct members that can be exposed as builder slice setters.
 fn collect_required_slice_member_pairs(s: &Struct) -> Vec<RequiredSliceMemberPair> {
     let mut pairs = Vec::new();
@@ -415,11 +426,126 @@ fn collect_required_slice_member_pairs(s: &Struct) -> Vec<RequiredSliceMemberPai
     pairs
 }
 
+fn collect_slice_member_groups(s: &Struct, reg: &Registry) -> Vec<SliceMemberGroup> {
+    let mut by_count: BTreeMap<usize, Vec<usize>> = BTreeMap::new();
+    for (ptr_idx, ptr) in s.members.iter().enumerate() {
+        if ptr.ty.pointer_depth != 1
+            || ptr.ty.base == "void"
+            || ptr.ty.is_array.is_some()
+            || ptr.len.is_none()
+            || c_type_to_rust(&ptr.ty.base) == "core::ffi::c_char"
+            || member_uses_opaque_extern_pointee(ptr, reg)
+        {
+            continue;
+        }
+
+        let len_name = ptr.len.as_deref().unwrap_or_default();
+        let Some((count_idx, count)) = s
+            .members
+            .iter()
+            .enumerate()
+            .find(|(_, m)| m.name == len_name)
+        else {
+            continue;
+        };
+        if count.ty.pointer_depth != 0 || count.ty.is_array.is_some() {
+            continue;
+        }
+
+        by_count.entry(count_idx).or_default().push(ptr_idx);
+    }
+
+    by_count
+        .into_iter()
+        .filter_map(|(count_idx, ptr_indices)| {
+            let has_required = ptr_indices
+                .iter()
+                .any(|idx| s.members[*idx].optional == Optional::False);
+            let mut names = HashSet::new();
+            let has_duplicate_names = ptr_indices
+                .iter()
+                .any(|idx| !names.insert(sanitize_ident(&s.members[*idx].name)));
+            (ptr_indices.len() >= 2 && has_required && !has_duplicate_names).then_some(
+                SliceMemberGroup {
+                    count_idx,
+                    ptr_indices,
+                },
+            )
+        })
+        .collect()
+}
+
 fn member_uses_opaque_extern_pointee(m: &Member, reg: &Registry) -> bool {
     reg.typedefs
         .get(&m.ty.base)
         .and_then(|variants| variants.last())
         .is_some_and(|td| matches!(td.kind, TypedefKind::OpaqueExtern))
+}
+
+fn pnext_member(s: &Struct) -> Option<&Member> {
+    s.members.iter().find(|m| {
+        m.name == "pNext"
+            && m.ty.pointer_depth == 1
+            && m.ty.base == "void"
+            && m.ty.is_array.is_none()
+    })
+}
+
+fn collect_pnext_extenders<'a>(s: &Struct, reg: &'a Registry) -> Vec<&'a Struct> {
+    let mut seen = HashSet::new();
+    let mut extenders = Vec::new();
+    for child in reg.structs.values().filter_map(|items| items.first()) {
+        if child.provided_by.is_empty()
+            || child.is_union
+            || !child.struct_extends.iter().any(|parent| parent == &s.name)
+            || !seen.insert(child.name.clone())
+        {
+            continue;
+        }
+        extenders.push(child);
+    }
+    extenders.sort_by(|a, b| a.name.cmp(&b.name));
+    extenders
+}
+
+fn pnext_chain_root_structs<'a>(s: &'a Struct, reg: &'a Registry) -> Vec<&'a Struct> {
+    if s.struct_extends.is_empty() {
+        return vec![s];
+    }
+
+    let mut roots = Vec::new();
+    for root_name in &s.struct_extends {
+        let Some(root) = reg.structs.get(root_name).and_then(|items| items.first()) else {
+            continue;
+        };
+        if !roots
+            .iter()
+            .any(|existing: &&Struct| existing.name == root.name)
+        {
+            roots.push(root);
+        }
+    }
+    roots
+}
+
+fn gen_pnext_marker_impls(s: &Struct, reg: &Registry) -> TokenStream {
+    if s.is_union || s.struct_extends.is_empty() {
+        return quote! {};
+    }
+
+    let mut ts = TokenStream::new();
+    let child = format_ident!("{}", &s.name);
+    let child_cfg_expr = cfg_availability_expr(&s.availability, &s.provided_by, s.dep.as_ref());
+    for root in pnext_chain_root_structs(s, reg) {
+        let root_cfg_expr =
+            cfg_availability_expr(&root.availability, &root.provided_by, root.dep.as_ref());
+        let root = format_ident!("{}", &root.name);
+        ts.extend(quote! {
+            #[cfg(all(#child_cfg_expr, #root_cfg_expr))]
+            unsafe impl VkPNextExtends<#root> for #child {}
+        });
+    }
+    ts
 }
 
 /// Generate builder setter methods for all struct members except `sType`.
@@ -433,11 +559,12 @@ fn member_uses_opaque_extern_pointee(m: &Member, reg: &Registry) -> bool {
 fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
     let mut ts = TokenStream::new();
     let required_slice_pairs = collect_required_slice_member_pairs(s);
-    let safety_doc = " # Safety\n \
-         The caller must ensure `val` remains valid and outlives \
-         any use of this struct instance. The pointer is stored as-is \
-         without any lifetime tracking."
-        .to_string();
+    let slice_groups = collect_slice_member_groups(s, reg);
+    let safety_doc = quote! {
+        /// # Safety
+        /// The caller must ensure `val` remains valid and outlives any use of this struct
+        /// instance. The pointer is stored as-is without any lifetime tracking.
+    };
 
     for (member_idx, m) in s.members.iter().enumerate() {
         // sType is always fixed by the spec - no setter.
@@ -494,7 +621,7 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             ts.extend(quote! {
                 #fcfg
                 #fdepr
-                #[doc = #safety_doc]
+                #safety_doc
                 #[inline]
                 pub const fn #method_name(mut self, val: #val_ty) -> Self {
                     self.#count_fname = val.len() as #count_ty;
@@ -528,7 +655,7 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             ts.extend(quote! {
                 #fcfg
                 #fdepr
-                #[doc = #safety_doc]
+                #safety_doc
                 #[inline]
                 pub const fn #method_name(mut self, val: #val_ty) -> Self {
                     self.#fname = val as #ptr_ty;
@@ -540,7 +667,7 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             ts.extend(quote! {
                 #fcfg
                 #fdepr
-                #[doc = #safety_doc]
+                #safety_doc
                 #[inline]
                 pub const fn #method_name(mut self, val: #ftype) -> Self {
                     self.#fname = val;
@@ -558,6 +685,156 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
                     self
                 }
             });
+        }
+    }
+
+    for group in slice_groups {
+        let count_member = &s.members[group.count_idx];
+        let count_fname = format_ident!("{}", sanitize_ident(&count_member.name));
+        let count_ty = parse_ty(&ctype_to_rust_str(&count_member.ty));
+        let method_name = format_ident!("with_{}_slices", &count_member.name);
+        let fcfg = member_cfg(count_member);
+        let fdepr = deprecate_attr(&count_member.depr);
+        let group_safety_doc = format!(
+            " The caller must ensure every provided array constrained by `{}` has the same length. \
+             Optional pointer arguments may be null, but non-null pointers must be valid for that \
+             same length and outlive any use of this struct instance.",
+            count_member.name
+        );
+        let Some(first_ptr_idx) = group
+            .ptr_indices
+            .iter()
+            .copied()
+            .find(|idx| s.members[*idx].optional == Optional::False)
+        else {
+            continue;
+        };
+        let first_arg = format_ident!("{}", sanitize_ident(&s.members[first_ptr_idx].name));
+
+        let mut params = TokenStream::new();
+        let mut setters = TokenStream::new();
+        for ptr_idx in group.ptr_indices {
+            let ptr = &s.members[ptr_idx];
+            let arg_name = format_ident!("{}", sanitize_ident(&ptr.name));
+            let fname = format_ident!("{}", sanitize_ident(&ptr.name));
+            let mapped = c_type_to_rust(&ptr.ty.base);
+            let elem_ty = parse_ty(if mapped.is_empty() {
+                &ptr.ty.base
+            } else {
+                mapped
+            });
+            let slice_ty = if ptr.ty.is_const {
+                quote! { &[#elem_ty] }
+            } else {
+                quote! { &mut [#elem_ty] }
+            };
+            let arg_ty = if ptr.optional == Optional::False {
+                slice_ty
+            } else if ptr.ty.is_const {
+                quote! { *const #elem_ty }
+            } else {
+                quote! { *mut #elem_ty }
+            };
+            params.extend(quote! { #arg_name: #arg_ty, });
+
+            if ptr.optional == Optional::False {
+                let ptr_expr = if ptr.ty.is_const {
+                    quote! { #arg_name.as_ptr() }
+                } else {
+                    quote! { #arg_name.as_mut_ptr() }
+                };
+                setters.extend(quote! {
+                    self.#fname = #ptr_expr;
+                });
+            } else {
+                setters.extend(quote! {
+                    self.#fname = #arg_name;
+                });
+            }
+        }
+
+        ts.extend(quote! {
+            #fcfg
+            #fdepr
+            #[doc = " # Safety"]
+            #[doc = #group_safety_doc]
+            #[inline]
+            pub const fn #method_name(mut self, #params) -> Self {
+                let len = #first_arg.len();
+                self.#count_fname = len as #count_ty;
+                #setters
+                self
+            }
+        });
+    }
+
+    if let Some(pnext) = pnext_member(s) {
+        let pnext_fname = format_ident!("{}", sanitize_ident(&pnext.name));
+        let pnext_safety_doc = quote! {
+            /// # Safety
+            /// The caller must ensure `val` remains valid and outlives any use of this struct
+            /// instance. The pointer is stored as-is without any lifetime tracking.
+        };
+
+        for child in collect_pnext_extenders(s, reg) {
+            let child_cfg =
+                cfg_availability(&child.availability, &child.provided_by, child.dep.as_ref());
+            let child_depr = deprecate_attr(&child.depr);
+            let child_ty = format_ident!("{}", &child.name);
+            let method_name = format_ident!("with_pNext_{}", &child.name);
+
+            if pnext.ty.is_const {
+                ts.extend(quote! {
+                    #child_cfg
+                    #child_depr
+                    #pnext_safety_doc
+                    #[inline]
+                    pub const fn #method_name(mut self, val: &#child_ty) -> Self {
+                        self.#pnext_fname = (val as *const #child_ty).cast::<core::ffi::c_void>();
+                        self
+                    }
+                });
+            } else {
+                ts.extend(quote! {
+                    #child_cfg
+                    #child_depr
+                    #pnext_safety_doc
+                    #[inline]
+                    pub const fn #method_name(mut self, val: &mut #child_ty) -> Self {
+                        self.#pnext_fname = (val as *mut #child_ty).cast::<core::ffi::c_void>();
+                        self
+                    }
+                });
+            }
+        }
+
+        for root in pnext_chain_root_structs(s, reg) {
+            let root_cfg =
+                cfg_availability(&root.availability, &root.provided_by, root.dep.as_ref());
+            let root_ty = format_ident!("{}", &root.name);
+            let method_name = format_ident!("with_pNext_chain_{}", &root.name);
+
+            if pnext.ty.is_const {
+                ts.extend(quote! {
+                    #root_cfg
+                    #pnext_safety_doc
+                    #[inline]
+                    pub const fn #method_name<T: VkPNextExtends<#root_ty>>(mut self, val: &T) -> Self {
+                        self.#pnext_fname = (val as *const T).cast::<core::ffi::c_void>();
+                        self
+                    }
+                });
+            } else {
+                ts.extend(quote! {
+                    #root_cfg
+                    #pnext_safety_doc
+                    #[inline]
+                    pub const fn #method_name<T: VkPNextExtends<#root_ty>>(mut self, val: &mut T) -> Self {
+                        self.#pnext_fname = (val as *mut T).cast::<core::ffi::c_void>();
+                        self
+                    }
+                });
+            }
         }
     }
 
@@ -795,6 +1072,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
     } else {
         // Struct: Debug+Clone+Copy derive
         let builder_setters = gen_builder_setters(s, reg);
+        let pnext_marker_impls = gen_pnext_marker_impls(s, reg);
         let impl_body: TokenStream = if let Some(ref sv) = stype_default {
             if needs_unsafe {
                 quote! {
@@ -839,6 +1117,8 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             unsafe impl Send for #name {}
             #cfg
             unsafe impl Sync for #name {}
+
+            #pnext_marker_impls
 
             #cfg
             impl #name { #impl_body }

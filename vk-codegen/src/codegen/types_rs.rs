@@ -380,6 +380,7 @@ fn handle_fallback_member(
 struct RequiredSliceMemberPair {
     count_idx: usize,
     ptr_idx: usize,
+    kind: SliceSetterKind,
 }
 
 #[derive(Clone, Debug)]
@@ -388,63 +389,142 @@ struct SliceMemberGroup {
     ptr_indices: Vec<usize>,
 }
 
-/// Required pointer + count struct members that can be exposed as builder slice setters.
+#[derive(Clone, Copy, Debug)]
+enum SliceSetterKind {
+    Default,
+    ShaderModuleCode,
+}
+
+/// Pointer + count struct members that can be exposed as builder slice setters.
 fn collect_required_slice_member_pairs(s: &Struct) -> Vec<RequiredSliceMemberPair> {
     let mut pairs = Vec::new();
     for (ptr_idx, ptr) in s.members.iter().enumerate() {
-        if ptr.ty.pointer_depth != 1 || ptr.ty.base == "void" {
+        if !member_can_use_slice_setter(ptr) {
             continue;
         }
-        let Some(len_name) = ptr.len.as_deref() else {
+        let Some((len_name, kind)) = slice_len_count_member_name(ptr, s) else {
             continue;
         };
         let Some((count_idx, count)) = s
             .members
             .iter()
             .enumerate()
-            .find(|(_, m)| m.name == len_name)
+            .find(|(_, m)| m.name == len_name.as_str())
         else {
             continue;
         };
         if count.ty.pointer_depth != 0 || count.ty.is_array.is_some() {
             continue;
         }
-        let has_required_variant = ptr.optional == Optional::False
-            || s.members.iter().any(|other| {
-                other.name == ptr.name
-                    && other.ty.pointer_depth == ptr.ty.pointer_depth
-                    && other.ty.is_const == ptr.ty.is_const
-                    && other.ty.base == ptr.ty.base
-                    && other.len == ptr.len
-                    && other.optional == Optional::False
-            });
-        if !has_required_variant {
-            continue;
-        }
-        pairs.push(RequiredSliceMemberPair { count_idx, ptr_idx });
+        pairs.push(RequiredSliceMemberPair {
+            count_idx,
+            ptr_idx,
+            kind,
+        });
     }
     pairs
+}
+
+fn slice_len_count_member_name(ptr: &Member, s: &Struct) -> Option<(String, SliceSetterKind)> {
+    let len = ptr.len.as_deref()?;
+    if s.name == "VkShaderModuleCreateInfo"
+        && ptr.name == "pCode"
+        && len == r"latexmath:[\textrm{codeSize} \over 4]"
+    {
+        return Some(("codeSize".to_owned(), SliceSetterKind::ShaderModuleCode));
+    }
+
+    let count_name = len.split(',').next()?.trim();
+    if count_name.is_empty()
+        || count_name == "null-terminated"
+        || count_name.starts_with("latexmath:[")
+    {
+        return None;
+    }
+
+    Some((count_name.to_owned(), SliceSetterKind::Default))
+}
+
+fn member_can_use_slice_setter(m: &Member) -> bool {
+    if m.ty.is_array.is_some() {
+        return false;
+    }
+
+    match m.ty.pointer_depth {
+        1 => m.ty.base != "char",
+        2 => true,
+        _ => false,
+    }
+}
+
+fn member_base_rust_ty(m: &Member) -> TokenStream {
+    let mapped = c_type_to_rust(&m.ty.base);
+    parse_ty(if mapped.is_empty() {
+        &m.ty.base
+    } else {
+        mapped
+    })
+}
+
+fn slice_setter_value_type_and_pointer_expr(m: &Member) -> (TokenStream, TokenStream) {
+    let arg = quote! { val };
+    slice_arg_type_and_pointer_expr(m, &arg)
+}
+
+fn shader_module_code_value_type_and_pointer_expr() -> (TokenStream, TokenStream) {
+    (quote! { &[u32] }, quote! { val.as_ptr().cast::<u32>() })
+}
+
+fn slice_arg_type_and_pointer_expr(m: &Member, arg: &TokenStream) -> (TokenStream, TokenStream) {
+    if m.ty.pointer_depth == 1 && m.ty.base == "void" {
+        if m.ty.is_const {
+            return (
+                quote! { &[u8] },
+                quote! { #arg.as_ptr().cast::<core::ffi::c_void>() },
+            );
+        }
+        return (
+            quote! { &mut [u8] },
+            quote! { #arg.as_mut_ptr().cast::<core::ffi::c_void>() },
+        );
+    }
+
+    let elem_ty = member_base_rust_ty(m);
+    let slice_elem_ty = if m.ty.pointer_depth == 2 {
+        if m.ty.is_const {
+            quote! { *const #elem_ty }
+        } else {
+            quote! { *mut #elem_ty }
+        }
+    } else {
+        elem_ty
+    };
+
+    if m.ty.is_const {
+        (quote! { &[#slice_elem_ty] }, quote! { #arg.as_ptr() })
+    } else {
+        (
+            quote! { &mut [#slice_elem_ty] },
+            quote! { #arg.as_mut_ptr() },
+        )
+    }
 }
 
 fn collect_slice_member_groups(s: &Struct, reg: &Registry) -> Vec<SliceMemberGroup> {
     let mut by_count: BTreeMap<usize, Vec<usize>> = BTreeMap::new();
     for (ptr_idx, ptr) in s.members.iter().enumerate() {
-        if ptr.ty.pointer_depth != 1
-            || ptr.ty.base == "void"
-            || ptr.ty.is_array.is_some()
-            || ptr.len.is_none()
-            || c_type_to_rust(&ptr.ty.base) == "core::ffi::c_char"
-            || member_uses_opaque_extern_pointee(ptr, reg)
-        {
+        if !member_can_use_slice_setter(ptr) || member_uses_opaque_extern_pointee(ptr, reg) {
             continue;
         }
 
-        let len_name = ptr.len.as_deref().unwrap_or_default();
+        let Some((len_name, _)) = slice_len_count_member_name(ptr, s) else {
+            continue;
+        };
         let Some((count_idx, count)) = s
             .members
             .iter()
             .enumerate()
-            .find(|(_, m)| m.name == len_name)
+            .find(|(_, m)| m.name == len_name.as_str())
         else {
             continue;
         };
@@ -602,21 +682,15 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             let count_member = &s.members[pair.count_idx];
             let count_fname = format_ident!("{}", sanitize_ident(&count_member.name));
             let count_ty = parse_ty(&ctype_to_rust_str(&count_member.ty));
-            let mapped = c_type_to_rust(&m.ty.base);
-            let elem_ty = parse_ty(if mapped.is_empty() {
-                &m.ty.base
-            } else {
-                mapped
-            });
-            let val_ty = if m.ty.is_const {
-                quote! { &[#elem_ty] }
-            } else {
-                quote! { &mut [#elem_ty] }
+            let (val_ty, ptr_expr) = match pair.kind {
+                SliceSetterKind::Default => slice_setter_value_type_and_pointer_expr(m),
+                SliceSetterKind::ShaderModuleCode => {
+                    shader_module_code_value_type_and_pointer_expr()
+                }
             };
-            let ptr_expr = if m.ty.is_const {
-                quote! { val.as_ptr() }
-            } else {
-                quote! { val.as_mut_ptr() }
+            let count_expr = match pair.kind {
+                SliceSetterKind::Default => quote! { val.len() as #count_ty },
+                SliceSetterKind::ShaderModuleCode => quote! { val.len() as usize * 4 },
             };
             ts.extend(quote! {
                 #fcfg
@@ -624,7 +698,7 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
                 #safety_doc
                 #[inline]
                 pub const fn #method_name(mut self, val: #val_ty) -> Self {
-                    self.#count_fname = val.len() as #count_ty;
+                    self.#count_fname = #count_expr;
                     self.#fname = #ptr_expr;
                     self
                 }
@@ -717,32 +791,17 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             let ptr = &s.members[ptr_idx];
             let arg_name = format_ident!("{}", sanitize_ident(&ptr.name));
             let fname = format_ident!("{}", sanitize_ident(&ptr.name));
-            let mapped = c_type_to_rust(&ptr.ty.base);
-            let elem_ty = parse_ty(if mapped.is_empty() {
-                &ptr.ty.base
-            } else {
-                mapped
-            });
-            let slice_ty = if ptr.ty.is_const {
-                quote! { &[#elem_ty] }
-            } else {
-                quote! { &mut [#elem_ty] }
-            };
+            let arg_ts = quote! { #arg_name };
+            let (slice_ty, ptr_expr) = slice_arg_type_and_pointer_expr(ptr, &arg_ts);
+            let raw_ty = parse_ty(&ctype_to_rust_str(&ptr.ty));
             let arg_ty = if ptr.optional == Optional::False {
                 slice_ty
-            } else if ptr.ty.is_const {
-                quote! { *const #elem_ty }
             } else {
-                quote! { *mut #elem_ty }
+                raw_ty
             };
             params.extend(quote! { #arg_name: #arg_ty, });
 
             if ptr.optional == Optional::False {
-                let ptr_expr = if ptr.ty.is_const {
-                    quote! { #arg_name.as_ptr() }
-                } else {
-                    quote! { #arg_name.as_mut_ptr() }
-                };
                 setters.extend(quote! {
                     self.#fname = #ptr_expr;
                 });

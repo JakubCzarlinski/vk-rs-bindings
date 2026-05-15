@@ -4,8 +4,20 @@ use core::mem;
 use vk::*;
 use vk_alloc::{AllocationCreateInfo, Allocator};
 
+#[repr(C, align(4))]
+struct AlignedSpv<const N: usize>([u8; N]);
+
+macro_rules! include_spirv_words {
+    ($path:expr) => {{
+        static SPV: AlignedSpv<{ include_bytes!($path).len() }> =
+            AlignedSpv(*include_bytes!($path));
+        // SAFETY: The aligned static contains SPIR-V bytes, which are a sequence of u32 words.
+        unsafe { core::slice::from_raw_parts(SPV.0.as_ptr().cast::<u32>(), SPV.0.len() / 4) }
+    }};
+}
+
 // Minimal SPIR-V compute shader: result = a + b
-const COMPUTE_SHADER_SPV: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/shader.spv"));
+const COMPUTE_SHADER_SPV: &[u32] = include_spirv_words!(concat!(env!("OUT_DIR"), "/shader.spv"));
 
 const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
     .with_apiVersion(VK_API_VERSION_1_4)
@@ -17,8 +29,7 @@ const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
 const VALIDATION_LAYER: &CStr = c"VK_LAYER_KHRONOS_validation";
 const LAYER_NAMES: [*const i8; 1] = [VALIDATION_LAYER.as_ptr()];
 const INSTANCE_CREATE_INFO: VkInstanceCreateInfo = VkInstanceCreateInfo::DEFAULT
-    .with_enabledLayerCount(LAYER_NAMES.len() as u32)
-    .with_ppEnabledLayerNames(LAYER_NAMES.as_ptr())
+    .with_ppEnabledLayerNames(&LAYER_NAMES)
     .with_pApplicationInfo(&APP_INFO);
 const DEVICE_CREATE_INFO: VkDeviceCreateInfo = VkDeviceCreateInfo::DEFAULT;
 
@@ -38,9 +49,8 @@ const BINDINGS: [VkDescriptorSetLayoutBinding; 2] = [
 const DSL_INFO: VkDescriptorSetLayoutCreateInfo =
     VkDescriptorSetLayoutCreateInfo::DEFAULT.with_pBindings(&BINDINGS);
 
-const SHADER_MODULE_INFO: VkShaderModuleCreateInfo = VkShaderModuleCreateInfo::DEFAULT
-    .with_codeSize(COMPUTE_SHADER_SPV.len())
-    .with_pCode(COMPUTE_SHADER_SPV.as_ptr().cast::<u32>());
+const SHADER_MODULE_INFO: VkShaderModuleCreateInfo =
+    VkShaderModuleCreateInfo::DEFAULT.with_pCode(COMPUTE_SHADER_SPV);
 
 fn main() {
     let library = VulkanLib::load().expect("Failed to load Vulkan library");
@@ -181,7 +191,7 @@ fn create_compute_pipeline<'a>(
     let layouts = [ds_layout.raw()];
     let pll_info = VkPipelineLayoutCreateInfo::DEFAULT
         .with_setLayoutCount(1)
-        .with_pSetLayouts(layouts.as_ptr());
+        .with_pSetLayouts(&layouts);
     let pipeline_layout = device
         .vkCreatePipelineLayout(&pll_info, null())
         .map_err(|e| format!("PLLayout: {e:?}"))?;

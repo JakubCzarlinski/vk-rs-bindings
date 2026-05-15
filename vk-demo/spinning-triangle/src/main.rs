@@ -16,10 +16,22 @@ use winit::event_loop::EventLoop;
 use winit::platform::pump_events::{EventLoopExtPumpEvents, PumpStatus};
 use winit::window::{Window, WindowBuilder};
 
-const VERT_SHADER_SPV: &[u8] =
-    include_bytes!(concat!(env!("OUT_DIR"), "/spinning_triangle.vert.spv"));
-const FRAG_SHADER_SPV: &[u8] =
-    include_bytes!(concat!(env!("OUT_DIR"), "/spinning_triangle.frag.spv"));
+#[repr(C, align(4))]
+struct AlignedSpv<const N: usize>([u8; N]);
+
+macro_rules! include_spirv_words {
+    ($path:expr) => {{
+        static SPV: AlignedSpv<{ include_bytes!($path).len() }> =
+            AlignedSpv(*include_bytes!($path));
+        // SAFETY: The aligned static contains SPIR-V bytes, which are a sequence of u32 words.
+        unsafe { core::slice::from_raw_parts(SPV.0.as_ptr().cast::<u32>(), SPV.0.len() / 4) }
+    }};
+}
+
+const VERT_SHADER_SPV: &[u32] =
+    include_spirv_words!(concat!(env!("OUT_DIR"), "/spinning_triangle.vert.spv"));
+const FRAG_SHADER_SPV: &[u32] =
+    include_spirv_words!(concat!(env!("OUT_DIR"), "/spinning_triangle.frag.spv"));
 
 const FRAMES_IN_FLIGHT: usize = 2;
 
@@ -255,7 +267,7 @@ fn create_instance<'a>(entry: &'a Entry<'a>, window: &Window) -> Instance<'a> {
     let create_info = VkInstanceCreateInfo::DEFAULT
         .with_pApplicationInfo(&APP_INFO)
         .with_enabledExtensionCount(instance_extensions.len() as u32)
-        .with_ppEnabledExtensionNames(instance_extensions.as_ptr());
+        .with_ppEnabledExtensionNames(&instance_extensions);
 
     entry
         .vkCreateInstance(&create_info, null())
@@ -416,7 +428,7 @@ fn create_device<'a>(
     let device_info = VkDeviceCreateInfo::DEFAULT
         .with_pQueueCreateInfos(queue_infos)
         .with_enabledExtensionCount(ENABLED_EXTENSIONS.len() as u32)
-        .with_ppEnabledExtensionNames(ENABLED_EXTENSIONS.as_ptr());
+        .with_ppEnabledExtensionNames(ENABLED_EXTENSIONS);
 
     physical_device
         .vkCreateDevice(&device_info, null())
@@ -689,18 +701,18 @@ fn create_graphics_pipeline<'a>(
         .vkCreatePipelineLayout(&layout_info, null())
         .expect("vkCreatePipelineLayout failed");
 
-    let color_blend_attachment = VkPipelineColorBlendAttachmentState::DEFAULT
+    let color_blend_attachment = &[VkPipelineColorBlendAttachmentState::DEFAULT
         .with_colorWriteMask(
             VkColorComponentFlagBits::VK_COLOR_COMPONENT_R_BIT
                 | VkColorComponentFlagBits::VK_COLOR_COMPONENT_G_BIT
                 | VkColorComponentFlagBits::VK_COLOR_COMPONENT_B_BIT
                 | VkColorComponentFlagBits::VK_COLOR_COMPONENT_A_BIT,
         )
-        .with_blendEnable(0);
+        .with_blendEnable(0)];
     let color_blend = VkPipelineColorBlendStateCreateInfo::DEFAULT
         .with_logicOpEnable(0)
         .with_attachmentCount(1)
-        .with_pAttachments(&color_blend_attachment);
+        .with_pAttachments(color_blend_attachment);
 
     let vert_module = create_shader_module(device, VERT_SHADER_SPV);
     let frag_module = create_shader_module(device, FRAG_SHADER_SPV);
@@ -739,10 +751,8 @@ fn create_graphics_pipeline<'a>(
     (pipeline_layout, pipeline)
 }
 
-fn create_shader_module<'a>(device: &'a Device<'a>, bytes: &[u8]) -> ShaderModule<'a> {
-    let info = VkShaderModuleCreateInfo::DEFAULT
-        .with_codeSize(bytes.len())
-        .with_pCode(bytes.as_ptr().cast::<u32>());
+fn create_shader_module<'a>(device: &'a Device<'a>, words: &[u32]) -> ShaderModule<'a> {
+    let info = VkShaderModuleCreateInfo::DEFAULT.with_pCode(words);
     device
         .vkCreateShaderModule(&info, null())
         .expect("vkCreateShaderModule failed")

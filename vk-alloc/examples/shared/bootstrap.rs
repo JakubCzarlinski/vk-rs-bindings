@@ -16,8 +16,7 @@ pub(crate) fn create_instance<'lib>(
     let layer_names = [VALIDATION_LAYER.as_ptr()];
     let create_info = vk::VkInstanceCreateInfo::DEFAULT
         .with_pApplicationInfo(&raw const app_info)
-        .with_enabledLayerCount(layer_names.len() as u32)
-        .with_ppEnabledLayerNames(layer_names.as_ptr());
+        .with_ppEnabledLayerNames(&layer_names);
     entry
         .vkCreateInstance(&create_info, null())
         .map_err(|err| format!("vkCreateInstance failed: {err:?}"))
@@ -50,7 +49,7 @@ pub(crate) fn create_group_device<'inst>(
     let queue_infos = [queue_info];
     let group_info = vk::VkDeviceGroupDeviceCreateInfo::DEFAULT.with_pPhysicalDevices(raw_devices);
     let create_info = vk::VkDeviceCreateInfo::DEFAULT
-        .with_pNext((&raw const group_info).cast())
+        .with_pNext_VkDeviceGroupDeviceCreateInfo(&group_info)
         .with_pQueueCreateInfos(&queue_infos);
     physical_device
         .vkCreateDevice(&create_info, null())

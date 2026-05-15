@@ -99,7 +99,7 @@ impl<'dev> Framebuffer<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyFramebuffer(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyFramebuffer(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -139,7 +139,7 @@ impl<'dev> Framebuffer<'dev> {
   pub fn vkGetFramebufferTilePropertiesQCOM(
     &self,
     pPropertiesCount: *mut u32,
-    pProperties: *mut VkTilePropertiesQCOM,
+    pProperties: *mut VkTilePropertiesQCOM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

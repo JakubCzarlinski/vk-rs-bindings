@@ -1,5 +1,8 @@
 use crate::cfggen::{cfg_availability, cfg_availability_expr, cfg_not_availability};
-use crate::codegen::utils::rewrite_member_types_for_providers;
+use crate::codegen::utils::{
+    base_type_tokens_for_registry, ctype_to_tokens_for_registry,
+    rewrite_member_types_for_providers, struct_name_has_lifetime,
+};
 use crate::codegen::{deprecate_attr, feature_key, pretty, refpage_url, sanitize_ident};
 use crate::ir::{Member, Optional, Registry, Struct, Typedef, TypedefKind};
 use crate::types::{c_type_to_rust, ctype_to_rust_str};
@@ -307,6 +310,24 @@ fn member_is_pointer(m: &Member) -> bool {
     m.ty.pointer_depth > 0
 }
 
+fn struct_has_lifetime(s: &Struct, reg: &Registry) -> bool {
+    !s.is_union
+        && s.members.iter().any(|m| {
+            m.ty.pointer_depth > 0
+                || ((m.ty.pointer_depth == 0 || m.ty.is_array.is_some())
+                    && struct_name_has_lifetime(&m.ty.base, reg))
+        })
+}
+
+fn union_has_lifetime(s: &Struct, reg: &Registry) -> bool {
+    s.is_union
+        && s.members.iter().any(|m| {
+            m.ty.pointer_depth > 0
+                || ((m.ty.pointer_depth == 0 || m.ty.is_array.is_some())
+                    && struct_name_has_lifetime(&m.ty.base, reg))
+        })
+}
+
 /// Emit a per-field cfg guard matching the one used on the field declaration itself.
 fn member_cfg(m: &Member) -> TokenStream {
     if let Some(ref aset) = m.api {
@@ -466,6 +487,10 @@ fn member_base_rust_ty(m: &Member) -> TokenStream {
     })
 }
 
+fn member_base_rust_ty_for_registry(m: &Member, reg: &Registry) -> TokenStream {
+    base_type_tokens_for_registry(&m.ty.base, reg, quote! { 'a })
+}
+
 fn slice_setter_value_type_and_pointer_expr(m: &Member) -> (TokenStream, TokenStream) {
     let arg = quote! { val };
     slice_arg_type_and_pointer_expr(m, &arg)
@@ -505,6 +530,53 @@ fn slice_arg_type_and_pointer_expr(m: &Member, arg: &TokenStream) -> (TokenStrea
     } else {
         (
             quote! { &mut [#slice_elem_ty] },
+            quote! { #arg.as_mut_ptr() },
+        )
+    }
+}
+
+fn slice_setter_value_type_and_pointer_expr_for_registry(
+    m: &Member,
+    reg: &Registry,
+) -> (TokenStream, TokenStream) {
+    let arg = quote! { val };
+    slice_arg_type_and_pointer_expr_for_registry(m, &arg, reg)
+}
+
+fn slice_arg_type_and_pointer_expr_for_registry(
+    m: &Member,
+    arg: &TokenStream,
+    reg: &Registry,
+) -> (TokenStream, TokenStream) {
+    if m.ty.pointer_depth == 1 && m.ty.base == "void" {
+        if m.ty.is_const {
+            return (
+                quote! { &'a [u8] },
+                quote! { #arg.as_ptr().cast::<core::ffi::c_void>() },
+            );
+        }
+        return (
+            quote! { &'a mut [u8] },
+            quote! { #arg.as_mut_ptr().cast::<core::ffi::c_void>() },
+        );
+    }
+
+    let elem_ty = member_base_rust_ty_for_registry(m, reg);
+    let slice_elem_ty = if m.ty.pointer_depth == 2 {
+        if m.ty.is_const {
+            quote! { *const #elem_ty }
+        } else {
+            quote! { *mut #elem_ty }
+        }
+    } else {
+        elem_ty
+    };
+
+    if m.ty.is_const {
+        (quote! { &'a [#slice_elem_ty] }, quote! { #arg.as_ptr() })
+    } else {
+        (
+            quote! { &'a mut [#slice_elem_ty] },
             quote! { #arg.as_mut_ptr() },
         )
     }
@@ -615,15 +687,32 @@ fn gen_pnext_marker_impls(s: &Struct, reg: &Registry) -> TokenStream {
 
     let mut ts = TokenStream::new();
     let child = format_ident!("{}", &s.name);
+    let child_has_lifetime = struct_has_lifetime(s, reg) || union_has_lifetime(s, reg);
+    let child_lifetime = child_has_lifetime.then_some(quote! { <'child> });
     let child_cfg_expr = cfg_availability_expr(&s.availability, &s.provided_by, s.dep.as_ref());
     for root in pnext_chain_root_structs(s, reg) {
         let root_cfg_expr =
             cfg_availability_expr(&root.availability, &root.provided_by, root.dep.as_ref());
+        let root_has_lifetime = struct_has_lifetime(root, reg) || union_has_lifetime(root, reg);
+        let root_lifetime = root_has_lifetime.then_some(quote! { <'root> });
         let root = format_ident!("{}", &root.name);
-        ts.extend(quote! {
-            #[cfg(all(#child_cfg_expr, #root_cfg_expr))]
-            unsafe impl VkPNextExtends<#root> for #child {}
-        });
+        let impl_generics = match (child_has_lifetime, root_has_lifetime) {
+            (true, true) => quote! { <'child, 'root> },
+            (true, false) => quote! { <'child> },
+            (false, true) => quote! { <'root> },
+            (false, false) => quote! {},
+        };
+        if child_has_lifetime || root_has_lifetime {
+            ts.extend(quote! {
+                #[cfg(all(#child_cfg_expr, #root_cfg_expr))]
+                unsafe impl #impl_generics VkPNextExtends<#root #root_lifetime> for #child #child_lifetime {}
+            });
+        } else {
+            ts.extend(quote! {
+                #[cfg(all(#child_cfg_expr, #root_cfg_expr))]
+                unsafe impl VkPNextExtends<#root> for #child {}
+            });
+        }
     }
     ts
 }
@@ -638,6 +727,7 @@ fn gen_pnext_marker_impls(s: &Struct, reg: &Registry) -> TokenStream {
 /// Each setter carries the same `#[cfg(...)]` guard as its corresponding field.
 fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
     let mut ts = TokenStream::new();
+    let has_lifetime = struct_has_lifetime(s, reg) || union_has_lifetime(s, reg);
     let required_slice_pairs = collect_required_slice_member_pairs(s);
     let slice_groups = collect_slice_member_groups(s, reg);
     let safety_doc = quote! {
@@ -673,7 +763,11 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             continue;
         }
 
-        let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
+        let ftype = if has_lifetime {
+            ctype_to_tokens_for_registry(&m.ty, reg, quote! { 'a })
+        } else {
+            parse_ty(&ctype_to_rust_str(&m.ty))
+        };
 
         if let Some(pair) = required_slice_pairs
             .iter()
@@ -683,6 +777,9 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             let count_fname = format_ident!("{}", sanitize_ident(&count_member.name));
             let count_ty = parse_ty(&ctype_to_rust_str(&count_member.ty));
             let (val_ty, ptr_expr) = match pair.kind {
+                SliceSetterKind::Default if has_lifetime => {
+                    slice_setter_value_type_and_pointer_expr_for_registry(m, reg)
+                }
                 SliceSetterKind::Default => slice_setter_value_type_and_pointer_expr(m),
                 SliceSetterKind::ShaderModuleCode => {
                     shader_module_code_value_type_and_pointer_expr()
@@ -711,15 +808,27 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             && !member_uses_opaque_extern_pointee(m, reg)
         {
             let mapped = c_type_to_rust(&m.ty.base);
-            let elem_ty = parse_ty(if mapped.is_empty() {
-                &m.ty.base
+            let elem_ty = if has_lifetime {
+                base_type_tokens_for_registry(&m.ty.base, reg, quote! { 'a })
             } else {
-                mapped
-            });
+                parse_ty(if mapped.is_empty() {
+                    &m.ty.base
+                } else {
+                    mapped
+                })
+            };
             let val_ty = if m.ty.is_const {
-                quote! { &#elem_ty }
+                if has_lifetime {
+                    quote! { &'a #elem_ty }
+                } else {
+                    quote! { &#elem_ty }
+                }
             } else {
-                quote! { &mut #elem_ty }
+                if has_lifetime {
+                    quote! { &'a mut #elem_ty }
+                } else {
+                    quote! { &mut #elem_ty }
+                }
             };
             let ptr_ty = if m.ty.is_const {
                 quote! { *const #elem_ty }
@@ -792,8 +901,16 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             let arg_name = format_ident!("{}", sanitize_ident(&ptr.name));
             let fname = format_ident!("{}", sanitize_ident(&ptr.name));
             let arg_ts = quote! { #arg_name };
-            let (slice_ty, ptr_expr) = slice_arg_type_and_pointer_expr(ptr, &arg_ts);
-            let raw_ty = parse_ty(&ctype_to_rust_str(&ptr.ty));
+            let (slice_ty, ptr_expr) = if has_lifetime {
+                slice_arg_type_and_pointer_expr_for_registry(ptr, &arg_ts, reg)
+            } else {
+                slice_arg_type_and_pointer_expr(ptr, &arg_ts)
+            };
+            let raw_ty = if has_lifetime {
+                ctype_to_tokens_for_registry(&ptr.ty, reg, quote! { 'a })
+            } else {
+                parse_ty(&ctype_to_rust_str(&ptr.ty))
+            };
             let arg_ty = if ptr.optional == Optional::False {
                 slice_ty
             } else {
@@ -840,6 +957,10 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
                 cfg_availability(&child.availability, &child.provided_by, child.dep.as_ref());
             let child_depr = deprecate_attr(&child.depr);
             let child_ty = format_ident!("{}", &child.name);
+            let child_has_lifetime =
+                struct_has_lifetime(child, reg) || union_has_lifetime(child, reg);
+            let child_lifetime = child_has_lifetime.then_some(quote! { <'child> });
+            let child_generics = child_has_lifetime.then_some(quote! { <'child> });
             let method_name = format_ident!("with_pNext_{}", &child.name);
 
             if pnext.ty.is_const {
@@ -848,8 +969,8 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
                     #child_depr
                     #pnext_safety_doc
                     #[inline]
-                    pub const fn #method_name(mut self, val: &#child_ty) -> Self {
-                        self.#pnext_fname = (val as *const #child_ty).cast::<core::ffi::c_void>();
+                    pub const fn #method_name #child_generics(mut self, val: &'a #child_ty #child_lifetime) -> Self {
+                        self.#pnext_fname = (val as *const #child_ty #child_lifetime).cast::<core::ffi::c_void>();
                         self
                     }
                 });
@@ -859,8 +980,8 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
                     #child_depr
                     #pnext_safety_doc
                     #[inline]
-                    pub const fn #method_name(mut self, val: &mut #child_ty) -> Self {
-                        self.#pnext_fname = (val as *mut #child_ty).cast::<core::ffi::c_void>();
+                    pub const fn #method_name #child_generics(mut self, val: &'a mut #child_ty #child_lifetime) -> Self {
+                        self.#pnext_fname = (val as *mut #child_ty #child_lifetime).cast::<core::ffi::c_void>();
                         self
                     }
                 });
@@ -871,6 +992,13 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
             let root_cfg =
                 cfg_availability(&root.availability, &root.provided_by, root.dep.as_ref());
             let root_ty = format_ident!("{}", &root.name);
+            let root_has_lifetime = struct_has_lifetime(root, reg) || union_has_lifetime(root, reg);
+            let root_lifetime = root_has_lifetime.then_some(quote! { <'root> });
+            let root_generics = if root_has_lifetime {
+                quote! { <'root, T: VkPNextExtends<#root_ty #root_lifetime>> }
+            } else {
+                quote! { <T: VkPNextExtends<#root_ty>> }
+            };
             let method_name = format_ident!("with_pNext_chain_{}", &root.name);
 
             if pnext.ty.is_const {
@@ -878,7 +1006,7 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
                     #root_cfg
                     #pnext_safety_doc
                     #[inline]
-                    pub const fn #method_name<T: VkPNextExtends<#root_ty>>(mut self, val: &T) -> Self {
+                    pub const fn #method_name #root_generics(mut self, val: &'a T) -> Self {
                         self.#pnext_fname = (val as *const T).cast::<core::ffi::c_void>();
                         self
                     }
@@ -888,7 +1016,7 @@ fn gen_builder_setters(s: &Struct, reg: &Registry) -> TokenStream {
                     #root_cfg
                     #pnext_safety_doc
                     #[inline]
-                    pub const fn #method_name<T: VkPNextExtends<#root_ty>>(mut self, val: &mut T) -> Self {
+                    pub const fn #method_name #root_generics(mut self, val: &'a mut T) -> Self {
                         self.#pnext_fname = (val as *mut T).cast::<core::ffi::c_void>();
                         self
                     }
@@ -949,6 +1077,10 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
 
     let depr = deprecate_attr(&s.depr);
     let name = format_ident!("{}", &s.name);
+    let has_lifetime = struct_has_lifetime(s, reg) || union_has_lifetime(s, reg);
+    let decl_lifetime = has_lifetime.then_some(quote! { <'a> });
+    let impl_lifetime = has_lifetime.then_some(quote! { <'a> });
+    let impl_generics = has_lifetime.then_some(quote! { <'a> });
 
     if let Some(ref alias) = s.alias {
         if let Some(target) = reg.structs.get(alias).and_then(|items| items.first()) {
@@ -1042,7 +1174,11 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
                 };
             }
 
-            let ftype = parse_ty(&ctype_to_rust_str(&m.ty));
+            let ftype = if has_lifetime {
+                ctype_to_tokens_for_registry(&m.ty, reg, quote! { 'a })
+            } else {
+                parse_ty(&ctype_to_rust_str(&m.ty))
+            };
             if full_doc.is_empty() {
                 quote! { #fcfg #fdepr pub #fname: #ftype, }
             } else {
@@ -1081,7 +1217,14 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             quote! { #fcfg #fname: #def, }
         })
         .collect();
-    let default_body: TokenStream = default_fields.into_iter().collect();
+    let marker_field = has_lifetime.then_some(quote! {
+        #[doc(hidden)]
+        pub _marker: core::marker::PhantomData<&'a ()>,
+    });
+    let marker_default = has_lifetime.then_some(quote! {
+        _marker: core::marker::PhantomData,
+    });
+    let default_body: TokenStream = default_fields.into_iter().chain(marker_default).collect();
 
     if s.is_union {
         // Union: Copy+Clone derive, manual Debug, unsafe const DEFAULT.
@@ -1091,25 +1234,37 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             || format_ident!("_"),
             |m| format_ident!("{}", sanitize_ident(&m.name)),
         );
-        let first_ftype = s
-            .members
-            .first()
-            .map_or_else(|| quote! { u8 }, |m| parse_ty(&ctype_to_rust_str(&m.ty)));
+        let first_ftype = s.members.first().map_or_else(
+            || quote! { u8 },
+            |m| {
+                if has_lifetime {
+                    ctype_to_tokens_for_registry(&m.ty, reg, quote! { 'a })
+                } else {
+                    parse_ty(&ctype_to_rust_str(&m.ty))
+                }
+            },
+        );
         let name_str = s.name.as_str();
         let fname_str = s.members.first().map_or("_", |m| m.name.as_str());
+        let marker_union_field = has_lifetime.then_some(quote! {
+            pub _marker: core::marker::PhantomData<&'a ()>,
+        });
         doc.extend(quote! {
             #cfg #depr
             #[repr(C)]
             #[derive(Copy, Clone)]
-            pub union #name { #field_toks }
+            pub union #name #decl_lifetime {
+                #field_toks
+                #marker_union_field
+            }
 
             #cfg
-            unsafe impl Send for #name {}
+            unsafe impl #impl_generics Send for #name #impl_lifetime {}
             #cfg
-            unsafe impl Sync for #name {}
+            unsafe impl #impl_generics Sync for #name #impl_lifetime {}
 
             #cfg
-            impl #name {
+            impl #impl_generics #name #impl_lifetime {
                 pub const DEFAULT: Self = unsafe {
                     Self { #first_fname: core::mem::zeroed::<#first_ftype>() }
                 };
@@ -1118,7 +1273,7 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             }
 
             #cfg
-            impl core::fmt::Debug for #name {
+            impl #impl_generics core::fmt::Debug for #name #impl_lifetime {
                 fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                     // SAFETY: all union variants are valid bit patterns for their types.
                     f.debug_struct(#name_str)
@@ -1170,17 +1325,20 @@ fn gen_struct_ts(s: &Struct, reg: &Registry) -> TokenStream {
             #cfg #depr
             #[repr(C)]
             #[derive(Debug, Clone, Copy)]
-            pub struct #name { #field_toks }
+            pub struct #name #decl_lifetime {
+                #field_toks
+                #marker_field
+            }
 
             #cfg
-            unsafe impl Send for #name {}
+            unsafe impl #impl_generics Send for #name #impl_lifetime {}
             #cfg
-            unsafe impl Sync for #name {}
+            unsafe impl #impl_generics Sync for #name #impl_lifetime {}
 
             #pnext_marker_impls
 
             #cfg
-            impl #name { #impl_body }
+            impl #impl_generics #name #impl_lifetime { #impl_body }
         });
         doc
     }

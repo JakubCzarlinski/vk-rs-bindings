@@ -120,7 +120,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
   #[inline(always)]
-  pub fn vkDestroyBufferCollectionFUCHSIA(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyBufferCollectionFUCHSIA(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -157,7 +157,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
   #[inline(always)]
   pub fn vkGetBufferCollectionPropertiesFUCHSIA(
     &self,
-    pProperties: &mut VkBufferCollectionPropertiesFUCHSIA,
+    pProperties: &mut VkBufferCollectionPropertiesFUCHSIA<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -196,7 +196,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
   #[inline(always)]
   pub fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
     &self,
-    pBufferConstraintsInfo: &VkBufferConstraintsInfoFUCHSIA,
+    pBufferConstraintsInfo: &VkBufferConstraintsInfoFUCHSIA<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -235,7 +235,7 @@ impl<'dev> BufferCollectionFUCHSIA<'dev> {
   #[inline(always)]
   pub fn vkSetBufferCollectionImageConstraintsFUCHSIA(
     &self,
-    pImageConstraintsInfo: &VkImageConstraintsInfoFUCHSIA,
+    pImageConstraintsInfo: &VkImageConstraintsInfoFUCHSIA<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

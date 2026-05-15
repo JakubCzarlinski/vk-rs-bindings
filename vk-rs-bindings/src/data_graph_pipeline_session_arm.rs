@@ -93,7 +93,10 @@ impl<'dev> DataGraphPipelineSessionARM<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_ARM_data_graph")]
   #[inline(always)]
-  pub fn vkDestroyDataGraphPipelineSessionARM(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDataGraphPipelineSessionARM(
+    &mut self,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+  ) {
     if self.raw.0.is_null() {
       return;
     }

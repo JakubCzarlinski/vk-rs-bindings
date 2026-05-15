@@ -1,10 +1,10 @@
 #[path = "shared/mod.rs"]
 mod shared;
 
+use core::ptr::null;
 use shared::bootstrap::{create_group_device, create_instance};
 use shared::device_select::device_name;
 use shared::group_select::select_device_group;
-use std::ptr::null;
 use vk_alloc::{
     AllocationCreateInfo, GroupAllocator, GroupAllocatorCreateInfo, GroupBindMode,
     MemoryTypePolicy, PoolCreateInfo,
@@ -49,7 +49,7 @@ fn main() -> Result<(), String> {
                 .with_usage(vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0);
             let buffer_info = vk::VkBufferCreateInfo::DEFAULT
                 .with_size(1024 * 16) // 8 KB
-                .with_pNext((&raw const usage).cast())
+                .with_pNext_VkBufferUsageFlags2CreateInfo(&usage)
                 .with_sharingMode(vk::VkSharingMode::VK_SHARING_MODE_EXCLUSIVE);
             let buffer = allocator
                 .create_buffer_with_mode(

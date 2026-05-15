@@ -98,7 +98,7 @@ impl<'dev> CudaModuleNV<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_NV_cuda_kernel_launch")]
   #[inline(always)]
-  pub fn vkDestroyCudaModuleNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyCudaModuleNV(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

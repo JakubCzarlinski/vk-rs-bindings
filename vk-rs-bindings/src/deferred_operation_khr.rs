@@ -207,8 +207,8 @@ impl<'dev> DeferredOperationKHR<'dev> {
   pub fn vkCreateDataGraphPipelinesARM(
     &self,
     pipelineCache: VkPipelineCache,
-    pCreateInfos: &[VkDataGraphPipelineCreateInfoARM],
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfos: &[VkDataGraphPipelineCreateInfoARM<'_>],
+    pAllocator: *const VkAllocationCallbacks<'_>,
     pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -258,7 +258,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkBuildMicromapsEXT(
     &self,
-    pInfos: &[VkMicromapBuildInfoEXT],
+    pInfos: &[VkMicromapBuildInfoEXT<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBuildMicromapsEXT.unwrap_unchecked()(
@@ -301,7 +301,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyMemoryToMicromapEXT(
     &self,
-    pInfo: &VkCopyMemoryToMicromapInfoEXT,
+    pInfo: &VkCopyMemoryToMicromapInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMemoryToMicromapEXT.unwrap_unchecked()(
@@ -341,7 +341,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[inline(always)]
-  pub fn vkCopyMicromapEXT(&self, pInfo: &VkCopyMicromapInfoEXT) -> Result<VkResult, VkResult> {
+  pub fn vkCopyMicromapEXT(&self, pInfo: &VkCopyMicromapInfoEXT<'_>) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMicromapEXT.unwrap_unchecked()(self.device().raw(), self.raw, pInfo)
     };
@@ -378,7 +378,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyMicromapToMemoryEXT(
     &self,
-    pInfo: &VkCopyMicromapToMemoryInfoEXT,
+    pInfo: &VkCopyMicromapToMemoryInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMicromapToMemoryEXT.unwrap_unchecked()(
@@ -422,7 +422,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkBuildAccelerationStructuresKHR(
     &self,
-    pInfos: &[VkAccelerationStructureBuildGeometryInfoKHR],
+    pInfos: &[VkAccelerationStructureBuildGeometryInfoKHR<'_>],
     ppBuildRangeInfos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -469,7 +469,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyAccelerationStructureKHR(
     &self,
-    pInfo: &VkCopyAccelerationStructureInfoKHR,
+    pInfo: &VkCopyAccelerationStructureInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -509,7 +509,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyAccelerationStructureToMemoryKHR(
     &self,
-    pInfo: &VkCopyAccelerationStructureToMemoryInfoKHR,
+    pInfo: &VkCopyAccelerationStructureToMemoryInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -549,7 +549,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   #[inline(always)]
   pub fn vkCopyMemoryToAccelerationStructureKHR(
     &self,
-    pInfo: &VkCopyMemoryToAccelerationStructureInfoKHR,
+    pInfo: &VkCopyMemoryToAccelerationStructureInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -608,7 +608,7 @@ impl<'dev> DeferredOperationKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_deferred_host_operations")]
   #[inline(always)]
-  pub fn vkDestroyDeferredOperationKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDeferredOperationKHR(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -709,8 +709,8 @@ impl<'dev> DeferredOperationKHR<'dev> {
   pub fn vkCreateRayTracingPipelinesKHR(
     &self,
     pipelineCache: VkPipelineCache,
-    pCreateInfos: &[VkRayTracingPipelineCreateInfoKHR],
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfos: &[VkRayTracingPipelineCreateInfoKHR<'_>],
+    pAllocator: *const VkAllocationCallbacks<'_>,
     pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

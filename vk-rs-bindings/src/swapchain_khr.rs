@@ -374,7 +374,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkGetSwapchainTimeDomainPropertiesEXT(
     &self,
-    pSwapchainTimeDomainProperties: &mut VkSwapchainTimeDomainPropertiesEXT,
+    pSwapchainTimeDomainProperties: &mut VkSwapchainTimeDomainPropertiesEXT<'_>,
     pTimeDomainsCounter: *mut u64,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -421,7 +421,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkGetSwapchainTimingPropertiesEXT(
     &self,
-    pSwapchainTimingProperties: &mut VkSwapchainTimingPropertiesEXT,
+    pSwapchainTimingProperties: &mut VkSwapchainTimingPropertiesEXT<'_>,
     pSwapchainTimingPropertiesCounter: *mut u64,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -639,7 +639,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkWaitForPresent2KHR(
     &self,
-    pPresentWait2Info: &VkPresentWait2InfoKHR,
+    pPresentWait2Info: &VkPresentWait2InfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkWaitForPresent2KHR.unwrap_unchecked()(
@@ -759,7 +759,7 @@ impl<'dev> SwapchainKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_swapchain")]
   #[inline(always)]
-  pub fn vkDestroySwapchainKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroySwapchainKHR(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -829,7 +829,7 @@ impl<'dev> SwapchainKHR<'dev> {
   /// - `pLatencyMarkerInfo`
   #[cfg(feature = "VK_NV_low_latency2")]
   #[inline(always)]
-  pub fn vkGetLatencyTimingsNV(&self, pLatencyMarkerInfo: &mut VkGetLatencyMarkerInfoNV) {
+  pub fn vkGetLatencyTimingsNV(&self, pLatencyMarkerInfo: &mut VkGetLatencyMarkerInfoNV<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetLatencyTimingsNV.unwrap_unchecked()(
@@ -860,7 +860,10 @@ impl<'dev> SwapchainKHR<'dev> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_NV_low_latency2")]
   #[inline(always)]
-  pub fn vkLatencySleepNV(&self, pSleepInfo: &VkLatencySleepInfoNV) -> Result<VkResult, VkResult> {
+  pub fn vkLatencySleepNV(
+    &self,
+    pSleepInfo: &VkLatencySleepInfoNV<'_>,
+  ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkLatencySleepNV.unwrap_unchecked()(self.device().raw(), self.raw, pSleepInfo)
     };
@@ -882,7 +885,7 @@ impl<'dev> SwapchainKHR<'dev> {
   /// - `pLatencyMarkerInfo`
   #[cfg(feature = "VK_NV_low_latency2")]
   #[inline(always)]
-  pub fn vkSetLatencyMarkerNV(&self, pLatencyMarkerInfo: &VkSetLatencyMarkerInfoNV) {
+  pub fn vkSetLatencyMarkerNV(&self, pLatencyMarkerInfo: &VkSetLatencyMarkerInfoNV<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkSetLatencyMarkerNV.unwrap_unchecked()(
@@ -916,7 +919,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkSetLatencySleepModeNV(
     &self,
-    pSleepModeInfo: &VkLatencySleepModeInfoNV,
+    pSleepModeInfo: &VkLatencySleepModeInfoNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkSetLatencySleepModeNV.unwrap_unchecked()(

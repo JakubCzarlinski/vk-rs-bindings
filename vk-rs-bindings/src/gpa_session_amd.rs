@@ -112,7 +112,7 @@ impl<'dev> GpaSessionAMD<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_AMD_gpa_interface")]
   #[inline(always)]
-  pub fn vkDestroyGpaSessionAMD(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyGpaSessionAMD(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

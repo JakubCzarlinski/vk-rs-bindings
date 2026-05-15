@@ -99,7 +99,7 @@ impl<'dev> ShaderModule<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyShaderModule(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyShaderModule(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -125,7 +125,7 @@ impl<'dev> ShaderModule<'dev> {
   /// - `pIdentifier`
   #[cfg(feature = "VK_EXT_shader_module_identifier")]
   #[inline(always)]
-  pub fn vkGetShaderModuleIdentifierEXT(&self, pIdentifier: &mut VkShaderModuleIdentifierEXT) {
+  pub fn vkGetShaderModuleIdentifierEXT(&self, pIdentifier: &mut VkShaderModuleIdentifierEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)

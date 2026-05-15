@@ -140,7 +140,7 @@ impl<'dev> OpticalFlowSessionNV<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_NV_optical_flow")]
   #[inline(always)]
-  pub fn vkDestroyOpticalFlowSessionNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyOpticalFlowSessionNV(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

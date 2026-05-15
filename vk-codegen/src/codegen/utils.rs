@@ -471,6 +471,45 @@ pub fn params_to_tokens(params: &[Member]) -> (Vec<TokenStream>, Vec<TokenStream
 }
 
 #[must_use]
+pub fn struct_name_has_lifetime(base: &str, reg: &Registry) -> bool {
+    struct_name_has_lifetime_inner(base, reg, &mut HashSet::new())
+}
+
+fn struct_name_has_lifetime_inner(
+    base: &str,
+    reg: &Registry,
+    visiting: &mut HashSet<String>,
+) -> bool {
+    let Some(mut s) = reg.structs.get(base).and_then(|items| {
+        items
+            .iter()
+            .find(|s| !s.provided_by.is_empty())
+            .or_else(|| items.first())
+    }) else {
+        return false;
+    };
+    if let Some(alias) = s.alias.as_deref()
+        && let Some(target) = reg.structs.get(alias).and_then(|items| {
+            items
+                .iter()
+                .find(|s| !s.provided_by.is_empty())
+                .or_else(|| items.first())
+        })
+    {
+        s = target;
+    }
+    if !visiting.insert(base.to_owned()) {
+        return false;
+    }
+
+    s.members.iter().any(|m| {
+        m.ty.pointer_depth > 0
+            || ((m.ty.pointer_depth == 0 || m.ty.is_array.is_some())
+                && struct_name_has_lifetime_inner(&m.ty.base, reg, visiting))
+    })
+}
+
+#[must_use]
 pub fn param_sig_type(m: &Member) -> TokenStream {
     // In safe wrappers, prefer references for required single-pointer
     // params that are not array-like (for example `pCreateInfo: &Vk*CreateInfo`).
@@ -489,6 +528,24 @@ pub fn param_sig_type(m: &Member) -> TokenStream {
         }
     } else {
         ctype_to_tokens(&m.ty)
+    }
+}
+
+#[must_use]
+pub fn param_sig_type_for_registry(m: &Member, reg: &Registry) -> TokenStream {
+    if m.ty.pointer_depth == 1
+        && m.optional == Optional::False
+        && m.len.is_none()
+        && m.ty.base != "void"
+    {
+        let base = base_type_tokens_for_registry(&m.ty.base, reg, quote! { '_ });
+        if m.ty.is_const {
+            quote! { &#base }
+        } else {
+            quote! { &mut #base }
+        }
+    } else {
+        ctype_to_tokens_for_registry(&m.ty, reg, quote! { '_ })
     }
 }
 
@@ -535,6 +592,7 @@ fn params_to_tokens_with_required_slices(
     cmd: &Command,
     sig_params: &[Member],
     strip_count: usize,
+    reg: &Registry,
 ) -> Vec<TokenStream> {
     let pairs = collect_required_slice_pairs(cmd, strip_count);
     let mut defs = Vec::new();
@@ -549,7 +607,7 @@ fn params_to_tokens_with_required_slices(
             let elem = if m.ty.base == "void" {
                 quote! { u8 }
             } else {
-                base_type_tokens(&m.ty.base)
+                base_type_tokens_for_registry(&m.ty.base, reg, quote! { '_ })
             };
             let t = if m.ty.is_const {
                 quote! { &[#elem] }
@@ -558,7 +616,7 @@ fn params_to_tokens_with_required_slices(
             };
             defs.push(quote! { #n: #t });
         } else {
-            let t = param_sig_type(m);
+            let t = param_sig_type_for_registry(m, reg);
             defs.push(quote! { #n: #t });
         }
     }
@@ -614,6 +672,36 @@ pub fn ctype_to_tokens(ty: &CType) -> TokenStream {
 }
 
 #[must_use]
+pub fn ctype_to_tokens_for_registry(
+    ty: &CType,
+    reg: &Registry,
+    lifetime: TokenStream,
+) -> TokenStream {
+    if (ty.base.is_empty() || ty.base == "void") && ty.pointer_depth == 0 && ty.is_array.is_none() {
+        return quote! { () };
+    }
+    let base = base_type_tokens_for_registry(&ty.base, reg, lifetime);
+    let mut ts = if let Some(ref size) = ty.is_array {
+        let size_ts: TokenStream = if size.parse::<u64>().is_ok() {
+            size.parse().unwrap()
+        } else {
+            format!("{size} as usize").parse().unwrap()
+        };
+        quote! { [#base; #size_ts] }
+    } else {
+        base
+    };
+    for _ in 0..ty.pointer_depth {
+        ts = if ty.is_const {
+            quote! { *const #ts }
+        } else {
+            quote! { *mut #ts }
+        };
+    }
+    ts
+}
+
+#[must_use]
 pub fn base_type_tokens(base: &str) -> TokenStream {
     let resolved = c_type_to_rust(base);
     let name = if resolved.is_empty() {
@@ -627,6 +715,21 @@ pub fn base_type_tokens(base: &str) -> TokenStream {
     };
     name.parse::<TokenStream>()
         .unwrap_or_else(|_| format_ident!("{}", name).into_token_stream())
+}
+
+#[must_use]
+pub fn base_type_tokens_for_registry(
+    base: &str,
+    reg: &Registry,
+    lifetime: TokenStream,
+) -> TokenStream {
+    let resolved = c_type_to_rust(base);
+    if resolved.is_empty() && struct_name_has_lifetime(base, reg) {
+        let ident = format_ident!("{}", base);
+        quote! { #ident <#lifetime> }
+    } else {
+        base_type_tokens(base)
+    }
 }
 
 #[must_use]
@@ -663,6 +766,7 @@ pub fn kw_escape(name: &str) -> &str {
 #[allow(clippy::too_many_arguments)]
 #[must_use]
 pub fn safe_method(
+    reg: &Registry,
     cmd: &Command,
     name: &str,
     providers: &[String],
@@ -752,7 +856,7 @@ pub fn safe_method(
         };
     }
 
-    let p_defs = params_to_tokens_with_required_slices(cmd, sig_params, strip_count);
+    let p_defs = params_to_tokens_with_required_slices(cmd, sig_params, strip_count, reg);
 
     let depr = deprecate_attr(&cmd.depr);
     let doc = create_doc(cmd, providers);
@@ -773,7 +877,7 @@ pub fn safe_method(
         },
 
         WrapperReturn::Raw(ret_ty) => {
-            let ret = ctype_to_tokens(ret_ty);
+            let ret = ctype_to_tokens_for_registry(ret_ty, reg, quote! { '_ });
             quote! {
                 #cfg #depr
                 #[inline(always)]
@@ -790,7 +894,14 @@ pub fn safe_method(
             let h_ty = deref_ctype(handle_ty);
             let h_ty_str = h_ty.to_string();
             let inner = strip_out_param(sig_params);
-            let (p_defs, _) = params_to_tokens(&inner);
+            let p_defs: Vec<_> = inner
+                .iter()
+                .map(|m| {
+                    let n = format_ident!("{}", kw_escape(&m.name));
+                    let t = param_sig_type_for_registry(m, reg);
+                    quote! { #n: #t }
+                })
+                .collect();
             let last = fwd.len().saturating_sub(1);
             if !fwd.is_empty() {
                 fwd[last] = quote! { &mut handle };
@@ -857,7 +968,7 @@ pub fn safe_method(
             count_idx,
             array_idx,
         } => {
-            let elem_ty = deref_ctype(item_ty);
+            let elem_ty = ctype_to_tokens_for_registry(item_ty, reg, quote! { '_ });
             let ci = count_idx;
             let ai = array_idx;
 
@@ -872,7 +983,14 @@ pub fn safe_method(
                 })
                 .map(|(_, m)| m.clone())
                 .collect();
-            let (p_defs, _) = params_to_tokens(&keep);
+            let p_defs: Vec<_> = keep
+                .iter()
+                .map(|m| {
+                    let n = format_ident!("{}", kw_escape(&m.name));
+                    let t = param_sig_type_for_registry(m, reg);
+                    quote! { #n: #t }
+                })
+                .collect();
 
             let is_err = vk_result_is_err();
 
@@ -926,6 +1044,7 @@ pub fn safe_method(
 #[allow(clippy::too_many_arguments)]
 #[must_use]
 pub fn safe_method_unit_with_overrides(
+    reg: &Registry,
     cmd: &Command,
     name: &str,
     providers: &[String],
@@ -942,6 +1061,7 @@ pub fn safe_method_unit_with_overrides(
 ) -> TokenStream {
     if !matches!(classify_return(cmd, handle_types), WrapperReturn::Unit) {
         return safe_method(
+            reg,
             cmd,
             name,
             providers,
@@ -1020,7 +1140,7 @@ pub fn safe_method_unit_with_overrides(
         };
     }
 
-    let p_defs = params_to_tokens_with_required_slices(cmd, sig_params, strip_count);
+    let p_defs = params_to_tokens_with_required_slices(cmd, sig_params, strip_count, reg);
     let depr = deprecate_attr(&cmd.depr);
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();

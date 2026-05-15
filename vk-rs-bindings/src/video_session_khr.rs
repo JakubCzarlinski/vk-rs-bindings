@@ -121,7 +121,7 @@ impl<'dev> VideoSessionKHR<'dev> {
   #[inline(always)]
   pub fn vkBindVideoSessionMemoryKHR(
     &self,
-    pBindSessionMemoryInfos: &[VkBindVideoSessionMemoryInfoKHR],
+    pBindSessionMemoryInfos: &[VkBindVideoSessionMemoryInfoKHR<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBindVideoSessionMemoryKHR.unwrap_unchecked()(
@@ -149,7 +149,7 @@ impl<'dev> VideoSessionKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_video_queue")]
   #[inline(always)]
-  pub fn vkDestroyVideoSessionKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyVideoSessionKHR(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -189,7 +189,7 @@ impl<'dev> VideoSessionKHR<'dev> {
   pub fn vkGetVideoSessionMemoryRequirementsKHR(
     &self,
     pMemoryRequirementsCount: *mut u32,
-    pMemoryRequirements: *mut VkVideoSessionMemoryRequirementsKHR,
+    pMemoryRequirements: *mut VkVideoSessionMemoryRequirementsKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

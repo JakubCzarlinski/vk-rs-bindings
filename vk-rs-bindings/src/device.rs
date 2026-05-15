@@ -2300,7 +2300,7 @@ impl<'inst> Device<'inst> {
     faultQueryBehavior: VkFaultQueryBehavior,
     pUnrecordedFaults: &mut VkBool32,
     pFaultCount: *mut u32,
-    pFaults: *mut VkFaultData,
+    pFaults: *mut VkFaultData<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetFaultData.unwrap_unchecked()(
@@ -2328,7 +2328,7 @@ impl<'inst> Device<'inst> {
   /// - `pData`
   #[cfg(feature = "VK_AMD_anti_lag")]
   #[inline(always)]
-  pub fn vkAntiLagUpdateAMD(&self, pData: &VkAntiLagDataAMD) {
+  pub fn vkAntiLagUpdateAMD(&self, pData: &VkAntiLagDataAMD<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkAntiLagUpdateAMD.unwrap_unchecked()(self.raw, pData)
@@ -2360,8 +2360,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateGpaSessionAMD<'ret>(
     &'ret self,
-    pCreateInfo: &VkGpaSessionCreateInfoAMD,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkGpaSessionCreateInfoAMD<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::gpa_session_amd::GpaSessionAMD<'ret>, VkResult> {
     let mut handle = VkGpaSessionAMD::NULL;
     let r = unsafe {
@@ -2406,7 +2406,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetGpaDeviceClockInfoAMD(
     &self,
-    pInfo: &mut VkGpaDeviceGetClockInfoAMD,
+    pInfo: &mut VkGpaDeviceGetClockInfoAMD<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkGetGpaDeviceClockInfoAMD.unwrap_unchecked()(self.raw, pInfo) };
     if r >= VkResult::VK_SUCCESS {
@@ -2439,7 +2439,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkSetGpaDeviceClockModeAMD(
     &self,
-    pInfo: &mut VkGpaDeviceClockModeInfoAMD,
+    pInfo: &mut VkGpaDeviceClockModeInfoAMD<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkSetGpaDeviceClockModeAMD.unwrap_unchecked()(self.raw, pInfo) };
     if r >= VkResult::VK_SUCCESS {
@@ -2474,7 +2474,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetAndroidHardwareBufferPropertiesANDROID(
     &self,
     buffer: &AHardwareBuffer,
-    pProperties: &mut VkAndroidHardwareBufferPropertiesANDROID,
+    pProperties: &mut VkAndroidHardwareBufferPropertiesANDROID<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2512,7 +2512,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemoryAndroidHardwareBufferANDROID(
     &self,
-    pInfo: &VkMemoryGetAndroidHardwareBufferInfoANDROID,
+    pInfo: &VkMemoryGetAndroidHardwareBufferInfoANDROID<'_>,
     pBuffer: *mut *mut AHardwareBuffer,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -2551,7 +2551,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindDataGraphPipelineSessionMemoryARM(
     &self,
-    pBindInfos: &[VkBindDataGraphPipelineSessionMemoryInfoARM],
+    pBindInfos: &[VkBindDataGraphPipelineSessionMemoryInfoARM<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2590,8 +2590,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateDataGraphPipelineSessionARM<'ret>(
     &'ret self,
-    pCreateInfo: &VkDataGraphPipelineSessionCreateInfoARM,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDataGraphPipelineSessionCreateInfoARM<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::data_graph_pipeline_session_arm::DataGraphPipelineSessionARM<'ret>, VkResult>
   {
     let mut handle = VkDataGraphPipelineSessionARM::NULL;
@@ -2639,7 +2639,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDataGraphPipelineAvailablePropertiesARM(
     &self,
-    pPipelineInfo: &VkDataGraphPipelineInfoARM,
+    pPipelineInfo: &VkDataGraphPipelineInfoARM<'_>,
     pPropertiesCount: *mut u32,
     pProperties: *mut VkDataGraphPipelinePropertyARM,
   ) -> Result<VkResult, VkResult> {
@@ -2681,8 +2681,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDataGraphPipelinePropertiesARM(
     &self,
-    pPipelineInfo: &VkDataGraphPipelineInfoARM,
-    pProperties: &mut [VkDataGraphPipelinePropertyQueryResultARM],
+    pPipelineInfo: &VkDataGraphPipelineInfoARM<'_>,
+    pProperties: &mut [VkDataGraphPipelinePropertyQueryResultARM<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2727,9 +2727,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDataGraphPipelineSessionBindPointRequirementsARM(
     &self,
-    pInfo: &VkDataGraphPipelineSessionBindPointRequirementsInfoARM,
+    pInfo: &VkDataGraphPipelineSessionBindPointRequirementsInfoARM<'_>,
     pBindPointRequirementCount: *mut u32,
-    pBindPointRequirements: *mut VkDataGraphPipelineSessionBindPointRequirementARM,
+    pBindPointRequirements: *mut VkDataGraphPipelineSessionBindPointRequirementARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2761,8 +2761,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDataGraphPipelineSessionMemoryRequirementsARM(
     &self,
-    pInfo: &VkDataGraphPipelineSessionMemoryRequirementsInfoARM,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkDataGraphPipelineSessionMemoryRequirementsInfoARM<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2797,8 +2797,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateShaderInstrumentationARM<'ret>(
     &'ret self,
-    pCreateInfo: &VkShaderInstrumentationCreateInfoARM,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkShaderInstrumentationCreateInfoARM<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::shader_instrumentation_arm::ShaderInstrumentationARM<'ret>, VkResult> {
     let mut handle = VkShaderInstrumentationARM::NULL;
     let r = unsafe {
@@ -2843,7 +2843,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindTensorMemoryARM(
     &self,
-    pBindInfos: &[VkBindTensorMemoryInfoARM],
+    pBindInfos: &[VkBindTensorMemoryInfoARM<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBindTensorMemoryARM.unwrap_unchecked()(
@@ -2884,8 +2884,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateTensorARM<'ret>(
     &'ret self,
-    pCreateInfo: &VkTensorCreateInfoARM,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkTensorCreateInfoARM<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::tensor_arm::TensorARM<'ret>, VkResult> {
     let mut handle = VkTensorARM::NULL;
     let r = unsafe {
@@ -2932,8 +2932,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateTensorViewARM<'ret>(
     &'ret self,
-    pCreateInfo: &VkTensorViewCreateInfoARM,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkTensorViewCreateInfoARM<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::tensor_view_arm::TensorViewARM<'ret>, VkResult> {
     let mut handle = VkTensorViewARM::NULL;
     let r = unsafe {
@@ -2968,8 +2968,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceTensorMemoryRequirementsARM(
     &self,
-    pInfo: &VkDeviceTensorMemoryRequirementsARM,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkDeviceTensorMemoryRequirementsARM<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2992,8 +2992,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetTensorMemoryRequirementsARM(
     &self,
-    pInfo: &VkTensorMemoryRequirementsInfoARM,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkTensorMemoryRequirementsInfoARM<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3028,7 +3028,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetTensorOpaqueCaptureDescriptorDataARM(
     &self,
-    pInfo: &VkTensorCaptureDescriptorDataInfoARM,
+    pInfo: &VkTensorCaptureDescriptorDataInfoARM<'_>,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3068,7 +3068,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetTensorViewOpaqueCaptureDescriptorDataARM(
     &self,
-    pInfo: &VkTensorViewCaptureDescriptorDataInfoARM,
+    pInfo: &VkTensorViewCaptureDescriptorDataInfoARM<'_>,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3111,8 +3111,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkAllocateMemory<'ret>(
     &'ret self,
-    pAllocateInfo: &VkMemoryAllocateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pAllocateInfo: &VkMemoryAllocateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::device_memory::DeviceMemory<'ret>, VkResult> {
     let mut handle = VkDeviceMemory::NULL;
     let r = unsafe {
@@ -3161,8 +3161,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateBuffer<'ret>(
     &'ret self,
-    pCreateInfo: &VkBufferCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkBufferCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::buffer::Buffer<'ret>, VkResult> {
     let mut handle = VkBuffer::NULL;
     let r = unsafe {
@@ -3254,8 +3254,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateFence<'ret>(
     &'ret self,
-    pCreateInfo: &VkFenceCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkFenceCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::fence::Fence<'ret>, VkResult> {
     let mut handle = VkFence::NULL;
     let r = unsafe {
@@ -3300,8 +3300,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateImage<'ret>(
     &'ret self,
-    pCreateInfo: &VkImageCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkImageCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::image::Image<'ret>, VkResult> {
     let mut handle = VkImage::NULL;
     let r = unsafe {
@@ -3345,8 +3345,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateImageView<'ret>(
     &'ret self,
-    pCreateInfo: &VkImageViewCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkImageViewCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::image_view::ImageView<'ret>, VkResult> {
     let mut handle = VkImageView::NULL;
     let r = unsafe {
@@ -3394,8 +3394,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateQueryPool<'ret>(
     &'ret self,
-    pCreateInfo: &VkQueryPoolCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkQueryPoolCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::query_pool::QueryPool<'ret>, VkResult> {
     let mut handle = VkQueryPool::NULL;
     let r = unsafe {
@@ -3443,8 +3443,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateSemaphore<'ret>(
     &'ret self,
-    pCreateInfo: &VkSemaphoreCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkSemaphoreCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::semaphore::Semaphore<'ret>, VkResult> {
     let mut handle = VkSemaphore::NULL;
     let r = unsafe {
@@ -3477,7 +3477,7 @@ impl<'inst> Device<'inst> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyDevice(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDevice(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -3544,7 +3544,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkFlushMappedMemoryRanges(
     &self,
-    pMemoryRanges: &[VkMappedMemoryRange],
+    pMemoryRanges: &[VkMappedMemoryRange<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkFlushMappedMemoryRanges.unwrap_unchecked()(
@@ -3619,7 +3619,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkInvalidateMappedMemoryRanges(
     &self,
-    pMemoryRanges: &[VkMappedMemoryRange],
+    pMemoryRanges: &[VkMappedMemoryRange<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3745,7 +3745,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindBufferMemory2(
     &self,
-    pBindInfos: &[VkBindBufferMemoryInfo],
+    pBindInfos: &[VkBindBufferMemoryInfo<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBindBufferMemory2.unwrap_unchecked()(
@@ -3786,7 +3786,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindImageMemory2(
     &self,
-    pBindInfos: &[VkBindImageMemoryInfo],
+    pBindInfos: &[VkBindImageMemoryInfo<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBindImageMemory2.unwrap_unchecked()(
@@ -3816,8 +3816,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetBufferMemoryRequirements2(
     &self,
-    pInfo: &VkBufferMemoryRequirementsInfo2,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkBufferMemoryRequirementsInfo2<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3874,7 +3874,7 @@ impl<'inst> Device<'inst> {
   /// - `pQueue`
   #[cfg(feature = "VK_BASE_VERSION_1_1")]
   #[inline(always)]
-  pub fn vkGetDeviceQueue2(&self, pQueueInfo: &VkDeviceQueueInfo2, pQueue: &mut VkQueue) {
+  pub fn vkGetDeviceQueue2(&self, pQueueInfo: &VkDeviceQueueInfo2<'_>, pQueue: &mut VkQueue) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetDeviceQueue2.unwrap_unchecked()(self.raw, pQueueInfo, pQueue)
@@ -3895,8 +3895,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageMemoryRequirements2(
     &self,
-    pInfo: &VkImageMemoryRequirementsInfo2,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkImageMemoryRequirementsInfo2<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3921,9 +3921,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageSparseMemoryRequirements2(
     &self,
-    pInfo: &VkImageSparseMemoryRequirementsInfo2,
+    pInfo: &VkImageSparseMemoryRequirementsInfo2<'_>,
     pSparseMemoryRequirementCount: *mut u32,
-    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
+    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3949,7 +3949,7 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_BASE_VERSION_1_2")]
   #[inline(always)]
-  pub fn vkGetBufferDeviceAddress(&self, pInfo: &VkBufferDeviceAddressInfo) -> VkDeviceAddress {
+  pub fn vkGetBufferDeviceAddress(&self, pInfo: &VkBufferDeviceAddressInfo<'_>) -> VkDeviceAddress {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetBufferDeviceAddress.unwrap_unchecked()(self.raw, pInfo)
@@ -3967,7 +3967,7 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_BASE_VERSION_1_2")]
   #[inline(always)]
-  pub fn vkGetBufferOpaqueCaptureAddress(&self, pInfo: &VkBufferDeviceAddressInfo) -> u64 {
+  pub fn vkGetBufferOpaqueCaptureAddress(&self, pInfo: &VkBufferDeviceAddressInfo<'_>) -> u64 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -3989,7 +3989,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceMemoryOpaqueCaptureAddress(
     &self,
-    pInfo: &VkDeviceMemoryOpaqueCaptureAddressInfo,
+    pInfo: &VkDeviceMemoryOpaqueCaptureAddressInfo<'_>,
   ) -> u64 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -4023,7 +4023,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkSignalSemaphore(
     &self,
-    pSignalInfo: &VkSemaphoreSignalInfo,
+    pSignalInfo: &VkSemaphoreSignalInfo<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkSignalSemaphore.unwrap_unchecked()(self.raw, pSignalInfo) };
     if r >= VkResult::VK_SUCCESS {
@@ -4060,7 +4060,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkWaitSemaphores(
     &self,
-    pWaitInfo: &VkSemaphoreWaitInfo,
+    pWaitInfo: &VkSemaphoreWaitInfo<'_>,
     timeout: u64,
   ) -> Result<VkResult, VkResult> {
     let r =
@@ -4097,8 +4097,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreatePrivateDataSlot<'ret>(
     &'ret self,
-    pCreateInfo: &VkPrivateDataSlotCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkPrivateDataSlotCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::private_data_slot::PrivateDataSlot<'ret>, VkResult> {
     let mut handle = VkPrivateDataSlot::NULL;
     let r = unsafe {
@@ -4134,8 +4134,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceBufferMemoryRequirements(
     &self,
-    pInfo: &VkDeviceBufferMemoryRequirements,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkDeviceBufferMemoryRequirements<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -4159,8 +4159,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageMemoryRequirements(
     &self,
-    pInfo: &VkDeviceImageMemoryRequirements,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkDeviceImageMemoryRequirements<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -4185,9 +4185,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageSparseMemoryRequirements(
     &self,
-    pInfo: &VkDeviceImageMemoryRequirements,
+    pInfo: &VkDeviceImageMemoryRequirements<'_>,
     pSparseMemoryRequirementCount: *mut u32,
-    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
+    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -4308,7 +4308,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyImageToImage(
     &self,
-    pCopyImageToImageInfo: &VkCopyImageToImageInfo,
+    pCopyImageToImageInfo: &VkCopyImageToImageInfo<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyImageToImage.unwrap_unchecked()(self.raw, pCopyImageToImageInfo)
@@ -4346,7 +4346,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyImageToMemory(
     &self,
-    pCopyImageToMemoryInfo: &VkCopyImageToMemoryInfo,
+    pCopyImageToMemoryInfo: &VkCopyImageToMemoryInfo<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyImageToMemory.unwrap_unchecked()(self.raw, pCopyImageToMemoryInfo)
@@ -4384,7 +4384,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyMemoryToImage(
     &self,
-    pCopyMemoryToImageInfo: &VkCopyMemoryToImageInfo,
+    pCopyMemoryToImageInfo: &VkCopyMemoryToImageInfo<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMemoryToImage.unwrap_unchecked()(self.raw, pCopyMemoryToImageInfo)
@@ -4410,8 +4410,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageSubresourceLayout(
     &self,
-    pInfo: &VkDeviceImageSubresourceInfo,
-    pLayout: &mut VkSubresourceLayout2,
+    pInfo: &VkDeviceImageSubresourceInfo<'_>,
+    pLayout: &mut VkSubresourceLayout2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -4447,7 +4447,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkMapMemory2(
     &self,
-    pMemoryMapInfo: &VkMemoryMapInfo,
+    pMemoryMapInfo: &VkMemoryMapInfo<'_>,
     ppData: *mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r =
@@ -4486,7 +4486,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkTransitionImageLayout(
     &self,
-    pTransitions: &[VkHostImageLayoutTransitionInfo],
+    pTransitions: &[VkHostImageLayoutTransitionInfo<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkTransitionImageLayout.unwrap_unchecked()(
@@ -4523,7 +4523,10 @@ impl<'inst> Device<'inst> {
   ///   - `VK_ERROR_VALIDATION_FAILED`
   #[cfg(feature = "VK_BASE_VERSION_1_4")]
   #[inline(always)]
-  pub fn vkUnmapMemory2(&self, pMemoryUnmapInfo: &VkMemoryUnmapInfo) -> Result<VkResult, VkResult> {
+  pub fn vkUnmapMemory2(
+    &self,
+    pMemoryUnmapInfo: &VkMemoryUnmapInfo<'_>,
+  ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkUnmapMemory2.unwrap_unchecked()(self.raw, pMemoryUnmapInfo) };
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
@@ -4558,8 +4561,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateBufferView<'ret>(
     &'ret self,
-    pCreateInfo: &VkBufferViewCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkBufferViewCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::buffer_view::BufferView<'ret>, VkResult> {
     let mut handle = VkBufferView::NULL;
     let r = unsafe {
@@ -4674,8 +4677,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateDescriptorPool<'ret>(
     &'ret self,
-    pCreateInfo: &VkDescriptorPoolCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDescriptorPoolCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::descriptor_pool::DescriptorPool<'ret>, VkResult> {
     let mut handle = VkDescriptorPool::NULL;
     let r = unsafe {
@@ -4724,8 +4727,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateDescriptorSetLayout<'ret>(
     &'ret self,
-    pCreateInfo: &VkDescriptorSetLayoutCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDescriptorSetLayoutCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::descriptor_set_layout::DescriptorSetLayout<'ret>, VkResult> {
     let mut handle = VkDescriptorSetLayout::NULL;
     let r = unsafe {
@@ -4773,8 +4776,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateEvent<'ret>(
     &'ret self,
-    pCreateInfo: &VkEventCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkEventCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::event::Event<'ret>, VkResult> {
     let mut handle = VkEvent::NULL;
     let r = unsafe {
@@ -4819,8 +4822,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreatePipelineCache<'ret>(
     &'ret self,
-    pCreateInfo: &VkPipelineCacheCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkPipelineCacheCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::pipeline_cache::PipelineCache<'ret>, VkResult> {
     let mut handle = VkPipelineCache::NULL;
     let r = unsafe {
@@ -4869,8 +4872,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreatePipelineLayout<'ret>(
     &'ret self,
-    pCreateInfo: &VkPipelineLayoutCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkPipelineLayoutCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::pipeline_layout::PipelineLayout<'ret>, VkResult> {
     let mut handle = VkPipelineLayout::NULL;
     let r = unsafe {
@@ -4920,8 +4923,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateSampler<'ret>(
     &'ret self,
-    pCreateInfo: &VkSamplerCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkSamplerCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::sampler::Sampler<'ret>, VkResult> {
     let mut handle = VkSampler::NULL;
     let r = unsafe {
@@ -4971,8 +4974,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateShaderModule<'ret>(
     &'ret self,
-    pCreateInfo: &VkShaderModuleCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkShaderModuleCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::shader_module::ShaderModule<'ret>, VkResult> {
     let mut handle = VkShaderModule::NULL;
     let r = unsafe {
@@ -5010,8 +5013,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkUpdateDescriptorSets(
     &self,
-    pDescriptorWrites: &[VkWriteDescriptorSet],
-    pDescriptorCopies: &[VkCopyDescriptorSet],
+    pDescriptorWrites: &[VkWriteDescriptorSet<'_>],
+    pDescriptorCopies: &[VkCopyDescriptorSet<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5051,8 +5054,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateDescriptorUpdateTemplate<'ret>(
     &'ret self,
-    pCreateInfo: &VkDescriptorUpdateTemplateCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDescriptorUpdateTemplateCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::descriptor_update_template::DescriptorUpdateTemplate<'ret>, VkResult> {
     let mut handle = VkDescriptorUpdateTemplate::NULL;
     let r = unsafe {
@@ -5100,8 +5103,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateSamplerYcbcrConversion<'ret>(
     &'ret self,
-    pCreateInfo: &VkSamplerYcbcrConversionCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkSamplerYcbcrConversionCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::sampler_ycbcr_conversion::SamplerYcbcrConversion<'ret>, VkResult> {
     let mut handle = VkSamplerYcbcrConversion::NULL;
     let r = unsafe {
@@ -5134,8 +5137,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDescriptorSetLayoutSupport(
     &self,
-    pCreateInfo: &VkDescriptorSetLayoutCreateInfo,
-    pSupport: &mut VkDescriptorSetLayoutSupport,
+    pCreateInfo: &VkDescriptorSetLayoutCreateInfo<'_>,
+    pSupport: &mut VkDescriptorSetLayoutSupport<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5158,7 +5161,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetBufferDeviceAddressEXT(
     &self,
-    pInfo: &VkBufferDeviceAddressInfoEXT,
+    pInfo: &VkBufferDeviceAddressInfoEXT<'_>,
   ) -> VkDeviceAddress {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5192,7 +5195,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetCalibratedTimestampsEXT(
     &self,
-    pTimestampInfos: &[VkCalibratedTimestampInfoEXT],
+    pTimestampInfos: &[VkCalibratedTimestampInfoEXT<'_>],
     pTimestamps: &mut [u64],
     pMaxDeviation: &mut u64,
   ) -> Result<VkResult, VkResult> {
@@ -5235,7 +5238,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkDebugMarkerSetObjectNameEXT(
     &self,
-    pNameInfo: &VkDebugMarkerObjectNameInfoEXT,
+    pNameInfo: &VkDebugMarkerObjectNameInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -5272,7 +5275,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkDebugMarkerSetObjectTagEXT(
     &self,
-    pTagInfo: &VkDebugMarkerObjectTagInfoEXT,
+    pTagInfo: &VkDebugMarkerObjectTagInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkDebugMarkerSetObjectTagEXT.unwrap_unchecked()(self.raw, pTagInfo) };
@@ -5306,7 +5309,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkSetDebugUtilsObjectNameEXT(
     &self,
-    pNameInfo: &VkDebugUtilsObjectNameInfoEXT,
+    pNameInfo: &VkDebugUtilsObjectNameInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkSetDebugUtilsObjectNameEXT.unwrap_unchecked()(self.raw, pNameInfo) };
@@ -5340,7 +5343,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkSetDebugUtilsObjectTagEXT(
     &self,
-    pTagInfo: &VkDebugUtilsObjectTagInfoEXT,
+    pTagInfo: &VkDebugUtilsObjectTagInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkSetDebugUtilsObjectTagEXT.unwrap_unchecked()(self.raw, pTagInfo) };
@@ -5382,7 +5385,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
     &self,
-    pInfo: &VkAccelerationStructureCaptureDescriptorDataInfoEXT,
+    pInfo: &VkAccelerationStructureCaptureDescriptorDataInfoEXT<'_>,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -5421,7 +5424,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
     &self,
-    pInfo: &VkBufferCaptureDescriptorDataInfoEXT,
+    pInfo: &VkBufferCaptureDescriptorDataInfoEXT<'_>,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -5450,7 +5453,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDescriptorEXT(
     &self,
-    pDescriptorInfo: &VkDescriptorGetInfoEXT,
+    pDescriptorInfo: &VkDescriptorGetInfoEXT<'_>,
     pDescriptor: &mut [u8],
   ) {
     unsafe {
@@ -5488,7 +5491,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageOpaqueCaptureDescriptorDataEXT(
     &self,
-    pInfo: &VkImageCaptureDescriptorDataInfoEXT,
+    pInfo: &VkImageCaptureDescriptorDataInfoEXT<'_>,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -5527,7 +5530,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     &self,
-    pInfo: &VkImageViewCaptureDescriptorDataInfoEXT,
+    pInfo: &VkImageViewCaptureDescriptorDataInfoEXT<'_>,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -5566,7 +5569,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
     &self,
-    pInfo: &VkSamplerCaptureDescriptorDataInfoEXT,
+    pInfo: &VkSamplerCaptureDescriptorDataInfoEXT<'_>,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -5607,7 +5610,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetImageOpaqueCaptureDataEXT(
     &self,
     pImages: &[VkImage],
-    pDatas: &mut [VkHostAddressRangeEXT],
+    pDatas: &mut [VkHostAddressRangeEXT<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -5653,7 +5656,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetTensorOpaqueCaptureDataARM(
     &self,
     pTensors: &[VkTensorARM],
-    pDatas: &mut [VkHostAddressRangeEXT],
+    pDatas: &mut [VkHostAddressRangeEXT<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -5703,7 +5706,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkRegisterCustomBorderColorEXT(
     &self,
-    pBorderColor: &VkSamplerCustomBorderColorCreateInfoEXT,
+    pBorderColor: &VkSamplerCustomBorderColorCreateInfoEXT<'_>,
     requestIndex: VkBool32,
     pIndex: &mut u32,
   ) -> Result<VkResult, VkResult> {
@@ -5767,8 +5770,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkWriteResourceDescriptorsEXT(
     &self,
-    pResources: &[VkResourceDescriptorInfoEXT],
-    pDescriptors: &[VkHostAddressRangeEXT],
+    pResources: &[VkResourceDescriptorInfoEXT<'_>],
+    pDescriptors: &[VkHostAddressRangeEXT<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -5812,8 +5815,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkWriteSamplerDescriptorsEXT(
     &self,
-    pSamplers: &[VkSamplerCreateInfo],
-    pDescriptors: &[VkHostAddressRangeEXT],
+    pSamplers: &[VkSamplerCreateInfo<'_>],
+    pDescriptors: &[VkHostAddressRangeEXT<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkWriteSamplerDescriptorsEXT.unwrap_unchecked()(
@@ -5854,8 +5857,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceFaultInfoEXT(
     &self,
-    pFaultCounts: &mut VkDeviceFaultCountsEXT,
-    pFaultInfo: *mut VkDeviceFaultInfoEXT,
+    pFaultCounts: &mut VkDeviceFaultCountsEXT<'_>,
+    pFaultInfo: *mut VkDeviceFaultInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetDeviceFaultInfoEXT.unwrap_unchecked()(self.raw, pFaultCounts, pFaultInfo)
@@ -5892,8 +5895,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateIndirectCommandsLayoutEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkIndirectCommandsLayoutCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkIndirectCommandsLayoutCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::indirect_commands_layout_ext::IndirectCommandsLayoutEXT<'ret>, VkResult> {
     let mut handle = VkIndirectCommandsLayoutEXT::NULL;
     let r = unsafe {
@@ -5939,8 +5942,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateIndirectExecutionSetEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkIndirectExecutionSetCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkIndirectExecutionSetCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::indirect_execution_set_ext::IndirectExecutionSetEXT<'ret>, VkResult> {
     let mut handle = VkIndirectExecutionSetEXT::NULL;
     let r = unsafe {
@@ -5972,8 +5975,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetGeneratedCommandsMemoryRequirementsEXT(
     &self,
-    pInfo: &VkGeneratedCommandsMemoryRequirementsInfoEXT,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkGeneratedCommandsMemoryRequirementsInfoEXT<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -6007,8 +6010,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkRegisterDeviceEventEXT<'ret>(
     &'ret self,
-    pDeviceEventInfo: &VkDeviceEventInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pDeviceEventInfo: &VkDeviceEventInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::fence::Fence<'ret>, VkResult> {
     let mut handle = VkFence::NULL;
     let r = unsafe {
@@ -6057,7 +6060,7 @@ impl<'inst> Device<'inst> {
     &self,
     handleType: VkExternalMemoryHandleTypeFlagBits,
     pHostPointer: *const core::ffi::c_void,
-    pMemoryHostPointerProperties: &mut VkMemoryHostPointerPropertiesEXT,
+    pMemoryHostPointerProperties: &mut VkMemoryHostPointerPropertiesEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -6100,7 +6103,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemoryMetalHandleEXT(
     &self,
-    pGetMetalHandleInfo: &VkMemoryGetMetalHandleInfoEXT,
+    pGetMetalHandleInfo: &VkMemoryGetMetalHandleInfoEXT<'_>,
     pHandle: *mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -6144,7 +6147,7 @@ impl<'inst> Device<'inst> {
     &self,
     handleType: VkExternalMemoryHandleTypeFlagBits,
     pHandle: *const core::ffi::c_void,
-    pMemoryMetalHandleProperties: &mut VkMemoryMetalHandlePropertiesEXT,
+    pMemoryMetalHandleProperties: &mut VkMemoryMetalHandlePropertiesEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -6190,7 +6193,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceGroupSurfacePresentModes2EXT(
     &self,
-    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR,
+    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR<'_>,
     pModes: *mut VkDeviceGroupPresentModeFlagsKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -6220,7 +6223,7 @@ impl<'inst> Device<'inst> {
   pub fn vkSetHdrMetadataEXT(
     &self,
     pSwapchains: &[VkSwapchainKHR],
-    pMetadata: &[VkHdrMetadataEXT],
+    pMetadata: &[VkHdrMetadataEXT<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -6259,7 +6262,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyImageToImageEXT(
     &self,
-    pCopyImageToImageInfo: &VkCopyImageToImageInfoEXT,
+    pCopyImageToImageInfo: &VkCopyImageToImageInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyImageToImageEXT.unwrap_unchecked()(self.raw, pCopyImageToImageInfo)
@@ -6297,7 +6300,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyImageToMemoryEXT(
     &self,
-    pCopyImageToMemoryInfo: &VkCopyImageToMemoryInfoEXT,
+    pCopyImageToMemoryInfo: &VkCopyImageToMemoryInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyImageToMemoryEXT.unwrap_unchecked()(self.raw, pCopyImageToMemoryInfo)
@@ -6335,7 +6338,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCopyMemoryToImageEXT(
     &self,
-    pCopyMemoryToImageInfo: &VkCopyMemoryToImageInfoEXT,
+    pCopyMemoryToImageInfo: &VkCopyMemoryToImageInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCopyMemoryToImageEXT.unwrap_unchecked()(self.raw, pCopyMemoryToImageInfo)
@@ -6374,7 +6377,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkTransitionImageLayoutEXT(
     &self,
-    pTransitions: &[VkHostImageLayoutTransitionInfoEXT],
+    pTransitions: &[VkHostImageLayoutTransitionInfoEXT<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkTransitionImageLayoutEXT.unwrap_unchecked()(
@@ -6400,7 +6403,7 @@ impl<'inst> Device<'inst> {
   /// - `pMetalObjectsInfo`
   #[cfg(feature = "VK_EXT_metal_objects")]
   #[inline(always)]
-  pub fn vkExportMetalObjectsEXT(&self, pMetalObjectsInfo: &mut VkExportMetalObjectsInfoEXT) {
+  pub fn vkExportMetalObjectsEXT(&self, pMetalObjectsInfo: &mut VkExportMetalObjectsInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkExportMetalObjectsEXT.unwrap_unchecked()(self.raw, pMetalObjectsInfo)
@@ -6432,8 +6435,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateMicromapEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkMicromapCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkMicromapCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::micromap_ext::MicromapEXT<'ret>, VkResult> {
     let mut handle = VkMicromapEXT::NULL;
     let r = unsafe {
@@ -6468,7 +6471,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceMicromapCompatibilityEXT(
     &self,
-    pVersionInfo: &VkMicromapVersionInfoEXT,
+    pVersionInfo: &VkMicromapVersionInfoEXT<'_>,
     pCompatibility: &mut VkAccelerationStructureCompatibilityKHR,
   ) {
     unsafe {
@@ -6494,8 +6497,8 @@ impl<'inst> Device<'inst> {
   pub fn vkGetMicromapBuildSizesEXT(
     &self,
     buildType: VkAccelerationStructureBuildTypeKHR,
-    pBuildInfo: &VkMicromapBuildInfoEXT,
-    pSizeInfo: &mut VkMicromapBuildSizesInfoEXT,
+    pBuildInfo: &VkMicromapBuildInfoEXT<'_>,
+    pSizeInfo: &mut VkMicromapBuildSizesInfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -6581,8 +6584,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelinePropertiesEXT(
     &self,
-    pPipelineInfo: &VkPipelineInfoKHR,
-    pPipelineProperties: &mut VkBaseOutStructure,
+    pPipelineInfo: &VkPipelineInfoKHR<'_>,
+    pPipelineProperties: &mut VkBaseOutStructure<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetPipelinePropertiesEXT.unwrap_unchecked()(
@@ -6624,8 +6627,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPastPresentationTimingEXT(
     &self,
-    pPastPresentationTimingInfo: &VkPastPresentationTimingInfoEXT,
-    pPastPresentationTimingProperties: &mut VkPastPresentationTimingPropertiesEXT,
+    pPastPresentationTimingInfo: &VkPastPresentationTimingInfoEXT<'_>,
+    pPastPresentationTimingProperties: &mut VkPastPresentationTimingPropertiesEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -6668,8 +6671,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreatePrivateDataSlotEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkPrivateDataSlotCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkPrivateDataSlotCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::private_data_slot_ext::PrivateDataSlotEXT<'ret>, VkResult> {
     let mut handle = VkPrivateDataSlotEXT::NULL;
     let r = unsafe {
@@ -6784,8 +6787,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetShaderModuleCreateInfoIdentifierEXT(
     &self,
-    pCreateInfo: &VkShaderModuleCreateInfo,
-    pIdentifier: &mut VkShaderModuleIdentifierEXT,
+    pCreateInfo: &VkShaderModuleCreateInfo<'_>,
+    pIdentifier: &mut VkShaderModuleIdentifierEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -6824,8 +6827,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCreateShadersEXT(
     &self,
-    pCreateInfos: &[VkShaderCreateInfoEXT],
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfos: &[VkShaderCreateInfoEXT<'_>],
+    pAllocator: *const VkAllocationCallbacks<'_>,
     pShaders: &mut [VkShaderEXT],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -6866,7 +6869,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkReleaseSwapchainImagesEXT(
     &self,
-    pReleaseInfo: &VkReleaseSwapchainImagesInfoEXT,
+    pReleaseInfo: &VkReleaseSwapchainImagesInfoEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkReleaseSwapchainImagesEXT.unwrap_unchecked()(self.raw, pReleaseInfo)
@@ -6902,8 +6905,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateValidationCacheEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkValidationCacheCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkValidationCacheCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::validation_cache_ext::ValidationCacheEXT<'ret>, VkResult> {
     let mut handle = VkValidationCacheEXT::NULL;
     let r = unsafe {
@@ -6951,8 +6954,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateBufferCollectionFUCHSIA<'ret>(
     &'ret self,
-    pCreateInfo: &VkBufferCollectionCreateInfoFUCHSIA,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkBufferCollectionCreateInfoFUCHSIA<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::buffer_collection_fuchsia::BufferCollectionFUCHSIA<'ret>, VkResult> {
     let mut handle = VkBufferCollectionFUCHSIA::NULL;
     let r = unsafe {
@@ -6995,7 +6998,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemoryZirconHandleFUCHSIA(
     &self,
-    pGetZirconHandleInfo: &VkMemoryGetZirconHandleInfoFUCHSIA,
+    pGetZirconHandleInfo: &VkMemoryGetZirconHandleInfoFUCHSIA<'_>,
     pZirconHandle: &mut zx_handle_t,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -7036,7 +7039,7 @@ impl<'inst> Device<'inst> {
     &self,
     handleType: VkExternalMemoryHandleTypeFlagBits,
     zirconHandle: zx_handle_t,
-    pMemoryZirconHandleProperties: &mut VkMemoryZirconHandlePropertiesFUCHSIA,
+    pMemoryZirconHandleProperties: &mut VkMemoryZirconHandlePropertiesFUCHSIA<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -7079,7 +7082,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetSemaphoreZirconHandleFUCHSIA(
     &self,
-    pGetZirconHandleInfo: &VkSemaphoreGetZirconHandleInfoFUCHSIA,
+    pGetZirconHandleInfo: &VkSemaphoreGetZirconHandleInfoFUCHSIA<'_>,
     pZirconHandle: &mut zx_handle_t,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -7117,7 +7120,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportSemaphoreZirconHandleFUCHSIA(
     &self,
-    pImportSemaphoreZirconHandleInfo: &VkImportSemaphoreZirconHandleInfoFUCHSIA,
+    pImportSemaphoreZirconHandleInfo: &VkImportSemaphoreZirconHandleInfoFUCHSIA<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -7157,8 +7160,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateFramebuffer<'ret>(
     &'ret self,
-    pCreateInfo: &VkFramebufferCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkFramebufferCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::framebuffer::Framebuffer<'ret>, VkResult> {
     let mut handle = VkFramebuffer::NULL;
     let r = unsafe {
@@ -7274,8 +7277,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateRenderPass<'ret>(
     &'ret self,
-    pCreateInfo: &VkRenderPassCreateInfo,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkRenderPassCreateInfo<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::render_pass::RenderPass<'ret>, VkResult> {
     let mut handle = VkRenderPass::NULL;
     let r = unsafe {
@@ -7324,8 +7327,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateRenderPass2<'ret>(
     &'ret self,
-    pCreateInfo: &VkRenderPassCreateInfo2,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkRenderPassCreateInfo2<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::render_pass::RenderPass<'ret>, VkResult> {
     let mut handle = VkRenderPass::NULL;
     let r = unsafe {
@@ -7361,7 +7364,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetRenderingAreaGranularity(
     &self,
-    pRenderingAreaInfo: &VkRenderingAreaInfo,
+    pRenderingAreaInfo: &VkRenderingAreaInfo<'_>,
     pGranularity: &mut VkExtent2D,
   ) {
     unsafe {
@@ -7396,7 +7399,7 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkAcquirePerformanceConfigurationINTEL<'ret>(
     &'ret self,
-    pAcquireInfo: &VkPerformanceConfigurationAcquireInfoINTEL,
+    pAcquireInfo: &VkPerformanceConfigurationAcquireInfoINTEL<'_>,
   ) -> Result<crate::performance_configuration_intel::PerformanceConfigurationINTEL<'ret>, VkResult>
   {
     let mut handle = VkPerformanceConfigurationINTEL::NULL;
@@ -7443,7 +7446,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetPerformanceParameterINTEL(
     &self,
     parameter: VkPerformanceParameterTypeINTEL,
-    pValue: &mut VkPerformanceValueINTEL,
+    pValue: &mut VkPerformanceValueINTEL<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -7480,7 +7483,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkInitializePerformanceApiINTEL(
     &self,
-    pInitializeInfo: &VkInitializePerformanceApiInfoINTEL,
+    pInitializeInfo: &VkInitializePerformanceApiInfoINTEL<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -7538,8 +7541,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateAccelerationStructureKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkAccelerationStructureCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkAccelerationStructureCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::acceleration_structure_khr::AccelerationStructureKHR<'ret>, VkResult> {
     let mut handle = VkAccelerationStructureKHR::NULL;
     let r = unsafe {
@@ -7576,9 +7579,9 @@ impl<'inst> Device<'inst> {
   pub fn vkGetAccelerationStructureBuildSizesKHR(
     &self,
     buildType: VkAccelerationStructureBuildTypeKHR,
-    pBuildInfo: &VkAccelerationStructureBuildGeometryInfoKHR,
+    pBuildInfo: &VkAccelerationStructureBuildGeometryInfoKHR<'_>,
     pMaxPrimitiveCounts: *const u32,
-    pSizeInfo: &mut VkAccelerationStructureBuildSizesInfoKHR,
+    pSizeInfo: &mut VkAccelerationStructureBuildSizesInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -7606,7 +7609,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetAccelerationStructureDeviceAddressKHR(
     &self,
-    pInfo: &VkAccelerationStructureDeviceAddressInfoKHR,
+    pInfo: &VkAccelerationStructureDeviceAddressInfoKHR<'_>,
   ) -> VkDeviceAddress {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -7629,7 +7632,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceAccelerationStructureCompatibilityKHR(
     &self,
-    pVersionInfo: &VkAccelerationStructureVersionInfoKHR,
+    pVersionInfo: &VkAccelerationStructureVersionInfoKHR<'_>,
     pCompatibility: &mut VkAccelerationStructureCompatibilityKHR,
   ) {
     unsafe {
@@ -7719,7 +7722,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindBufferMemory2KHR(
     &self,
-    pBindInfos: &[VkBindBufferMemoryInfoKHR],
+    pBindInfos: &[VkBindBufferMemoryInfoKHR<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBindBufferMemory2KHR.unwrap_unchecked()(
@@ -7760,7 +7763,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindImageMemory2KHR(
     &self,
-    pBindInfos: &[VkBindImageMemoryInfoKHR],
+    pBindInfos: &[VkBindImageMemoryInfoKHR<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkBindImageMemory2KHR.unwrap_unchecked()(
@@ -7789,7 +7792,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetBufferDeviceAddressKHR(
     &self,
-    pInfo: &VkBufferDeviceAddressInfoKHR,
+    pInfo: &VkBufferDeviceAddressInfoKHR<'_>,
   ) -> VkDeviceAddress {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -7808,7 +7811,10 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_buffer_device_address")]
   #[inline(always)]
-  pub fn vkGetBufferOpaqueCaptureAddressKHR(&self, pInfo: &VkBufferDeviceAddressInfoKHR) -> u64 {
+  pub fn vkGetBufferOpaqueCaptureAddressKHR(
+    &self,
+    pInfo: &VkBufferDeviceAddressInfoKHR<'_>,
+  ) -> u64 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -7830,7 +7836,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceMemoryOpaqueCaptureAddressKHR(
     &self,
-    pInfo: &VkDeviceMemoryOpaqueCaptureAddressInfoKHR,
+    pInfo: &VkDeviceMemoryOpaqueCaptureAddressInfoKHR<'_>,
   ) -> u64 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -7866,7 +7872,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetCalibratedTimestampsKHR(
     &self,
-    pTimestampInfos: &[VkCalibratedTimestampInfoKHR],
+    pTimestampInfos: &[VkCalibratedTimestampInfoKHR<'_>],
     pTimestamps: &mut [u64],
     pMaxDeviation: &mut u64,
   ) -> Result<VkResult, VkResult> {
@@ -7913,8 +7919,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateRenderPass2KHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkRenderPassCreateInfo2KHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkRenderPassCreateInfo2KHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::render_pass::RenderPass<'ret>, VkResult> {
     let mut handle = VkRenderPass::NULL;
     let r = unsafe {
@@ -7959,7 +7965,7 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateDeferredOperationKHR<'ret>(
     &'ret self,
-    pAllocator: *const VkAllocationCallbacks,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::deferred_operation_khr::DeferredOperationKHR<'ret>, VkResult> {
     let mut handle = VkDeferredOperationKHR::NULL;
     let r = unsafe {
@@ -8006,8 +8012,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateDescriptorUpdateTemplateKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkDescriptorUpdateTemplateCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDescriptorUpdateTemplateCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::descriptor_update_template_khr::DescriptorUpdateTemplateKHR<'ret>, VkResult>
   {
     let mut handle = VkDescriptorUpdateTemplateKHR::NULL;
@@ -8058,8 +8064,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateAccelerationStructure2KHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkAccelerationStructureCreateInfo2KHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkAccelerationStructureCreateInfo2KHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::acceleration_structure_khr::AccelerationStructureKHR<'ret>, VkResult> {
     let mut handle = VkAccelerationStructureKHR::NULL;
     let r = unsafe {
@@ -8104,7 +8110,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceFaultDebugInfoKHR(
     &self,
-    pDebugInfo: &mut VkDeviceFaultDebugInfoKHR,
+    pDebugInfo: &mut VkDeviceFaultDebugInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkGetDeviceFaultDebugInfoKHR.unwrap_unchecked()(self.raw, pDebugInfo) };
@@ -8143,7 +8149,7 @@ impl<'inst> Device<'inst> {
     &self,
     timeout: u64,
     pFaultCounts: &mut u32,
-    pFaultInfo: *mut VkDeviceFaultInfoKHR,
+    pFaultInfo: *mut VkDeviceFaultInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetDeviceFaultReportsKHR.unwrap_unchecked()(
@@ -8196,7 +8202,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkAcquireNextImage2KHR(
     &self,
-    pAcquireInfo: &VkAcquireNextImageInfoKHR,
+    pAcquireInfo: &VkAcquireNextImageInfoKHR<'_>,
     pImageIndex: &mut u32,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -8272,7 +8278,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceGroupPresentCapabilitiesKHR(
     &self,
-    pDeviceGroupPresentCapabilities: &mut VkDeviceGroupPresentCapabilitiesKHR,
+    pDeviceGroupPresentCapabilities: &mut VkDeviceGroupPresentCapabilitiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -8315,8 +8321,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCreateSharedSwapchainsKHR(
     &self,
-    pCreateInfos: &[VkSwapchainCreateInfoKHR],
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfos: &[VkSwapchainCreateInfoKHR<'_>],
+    pAllocator: *const VkAllocationCallbacks<'_>,
     pSwapchains: &mut [VkSwapchainKHR],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -8359,7 +8365,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetFenceFdKHR(
     &self,
-    pGetFdInfo: &VkFenceGetFdInfoKHR,
+    pGetFdInfo: &VkFenceGetFdInfoKHR<'_>,
     pFd: &mut core::ffi::c_int,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkGetFenceFdKHR.unwrap_unchecked()(self.raw, pGetFdInfo, pFd) };
@@ -8393,7 +8399,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportFenceFdKHR(
     &self,
-    pImportFenceFdInfo: &VkImportFenceFdInfoKHR,
+    pImportFenceFdInfo: &VkImportFenceFdInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkImportFenceFdKHR.unwrap_unchecked()(self.raw, pImportFenceFdInfo) };
@@ -8428,7 +8434,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetFenceWin32HandleKHR(
     &self,
-    pGetWin32HandleInfo: &VkFenceGetWin32HandleInfoKHR,
+    pGetWin32HandleInfo: &VkFenceGetWin32HandleInfoKHR<'_>,
     pHandle: &mut HANDLE,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -8468,7 +8474,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportFenceWin32HandleKHR(
     &self,
-    pImportFenceWin32HandleInfo: &VkImportFenceWin32HandleInfoKHR,
+    pImportFenceWin32HandleInfo: &VkImportFenceWin32HandleInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkImportFenceWin32HandleKHR.unwrap_unchecked()(
@@ -8507,7 +8513,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemoryFdKHR(
     &self,
-    pGetFdInfo: &VkMemoryGetFdInfoKHR,
+    pGetFdInfo: &VkMemoryGetFdInfoKHR<'_>,
     pFd: &mut core::ffi::c_int,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkGetMemoryFdKHR.unwrap_unchecked()(self.raw, pGetFdInfo, pFd) };
@@ -8545,7 +8551,7 @@ impl<'inst> Device<'inst> {
     &self,
     handleType: VkExternalMemoryHandleTypeFlagBits,
     fd: core::ffi::c_int,
-    pMemoryFdProperties: &mut VkMemoryFdPropertiesKHR,
+    pMemoryFdProperties: &mut VkMemoryFdPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetMemoryFdPropertiesKHR.unwrap_unchecked()(
@@ -8586,7 +8592,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemoryWin32HandleKHR(
     &self,
-    pGetWin32HandleInfo: &VkMemoryGetWin32HandleInfoKHR,
+    pGetWin32HandleInfo: &VkMemoryGetWin32HandleInfoKHR<'_>,
     pHandle: &mut HANDLE,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -8630,7 +8636,7 @@ impl<'inst> Device<'inst> {
     &self,
     handleType: VkExternalMemoryHandleTypeFlagBits,
     handle: HANDLE,
-    pMemoryWin32HandleProperties: &mut VkMemoryWin32HandlePropertiesKHR,
+    pMemoryWin32HandleProperties: &mut VkMemoryWin32HandlePropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -8668,7 +8674,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetSemaphoreFdKHR(
     &self,
-    pGetFdInfo: &VkSemaphoreGetFdInfoKHR,
+    pGetFdInfo: &VkSemaphoreGetFdInfoKHR<'_>,
     pFd: &mut core::ffi::c_int,
   ) -> Result<VkResult, VkResult> {
     let r =
@@ -8703,7 +8709,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportSemaphoreFdKHR(
     &self,
-    pImportSemaphoreFdInfo: &VkImportSemaphoreFdInfoKHR,
+    pImportSemaphoreFdInfo: &VkImportSemaphoreFdInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkImportSemaphoreFdKHR.unwrap_unchecked()(self.raw, pImportSemaphoreFdInfo)
@@ -8739,7 +8745,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetSemaphoreWin32HandleKHR(
     &self,
-    pGetWin32HandleInfo: &VkSemaphoreGetWin32HandleInfoKHR,
+    pGetWin32HandleInfo: &VkSemaphoreGetWin32HandleInfoKHR<'_>,
     pHandle: &mut HANDLE,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -8779,7 +8785,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportSemaphoreWin32HandleKHR(
     &self,
-    pImportSemaphoreWin32HandleInfo: &VkImportSemaphoreWin32HandleInfoKHR,
+    pImportSemaphoreWin32HandleInfo: &VkImportSemaphoreWin32HandleInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -8807,8 +8813,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetBufferMemoryRequirements2KHR(
     &self,
-    pInfo: &VkBufferMemoryRequirementsInfo2KHR,
-    pMemoryRequirements: &mut VkMemoryRequirements2KHR,
+    pInfo: &VkBufferMemoryRequirementsInfo2KHR<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8832,8 +8838,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageMemoryRequirements2KHR(
     &self,
-    pInfo: &VkImageMemoryRequirementsInfo2KHR,
-    pMemoryRequirements: &mut VkMemoryRequirements2KHR,
+    pInfo: &VkImageMemoryRequirementsInfo2KHR<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8858,9 +8864,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetImageSparseMemoryRequirements2KHR(
     &self,
-    pInfo: &VkImageSparseMemoryRequirementsInfo2KHR,
+    pInfo: &VkImageSparseMemoryRequirementsInfo2KHR<'_>,
     pSparseMemoryRequirementCount: *mut u32,
-    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2KHR,
+    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8889,8 +8895,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDescriptorSetLayoutSupportKHR(
     &self,
-    pCreateInfo: &VkDescriptorSetLayoutCreateInfo,
-    pSupport: &mut VkDescriptorSetLayoutSupportKHR,
+    pCreateInfo: &VkDescriptorSetLayoutCreateInfo<'_>,
+    pSupport: &mut VkDescriptorSetLayoutSupportKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8914,8 +8920,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceBufferMemoryRequirementsKHR(
     &self,
-    pInfo: &VkDeviceBufferMemoryRequirementsKHR,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkDeviceBufferMemoryRequirementsKHR<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8939,8 +8945,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageMemoryRequirementsKHR(
     &self,
-    pInfo: &VkDeviceImageMemoryRequirementsKHR,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkDeviceImageMemoryRequirementsKHR<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8965,9 +8971,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageSparseMemoryRequirementsKHR(
     &self,
-    pInfo: &VkDeviceImageMemoryRequirementsKHR,
+    pInfo: &VkDeviceImageMemoryRequirementsKHR<'_>,
     pSparseMemoryRequirementCount: *mut u32,
-    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
+    pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8996,8 +9002,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDeviceImageSubresourceLayoutKHR(
     &self,
-    pInfo: &VkDeviceImageSubresourceInfoKHR,
-    pLayout: &mut VkSubresourceLayout2KHR,
+    pInfo: &VkDeviceImageSubresourceInfoKHR<'_>,
+    pLayout: &mut VkSubresourceLayout2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9021,7 +9027,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetRenderingAreaGranularityKHR(
     &self,
-    pRenderingAreaInfo: &VkRenderingAreaInfoKHR,
+    pRenderingAreaInfo: &VkRenderingAreaInfoKHR<'_>,
     pGranularity: &mut VkExtent2D,
   ) {
     unsafe {
@@ -9058,7 +9064,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkMapMemory2KHR(
     &self,
-    pMemoryMapInfo: &VkMemoryMapInfoKHR,
+    pMemoryMapInfo: &VkMemoryMapInfoKHR<'_>,
     ppData: *mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r =
@@ -9093,7 +9099,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkUnmapMemory2KHR(
     &self,
-    pMemoryUnmapInfo: &VkMemoryUnmapInfoKHR,
+    pMemoryUnmapInfo: &VkMemoryUnmapInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkUnmapMemory2KHR.unwrap_unchecked()(self.raw, pMemoryUnmapInfo) };
@@ -9127,7 +9133,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkAcquireProfilingLockKHR(
     &self,
-    pInfo: &VkAcquireProfilingLockInfoKHR,
+    pInfo: &VkAcquireProfilingLockInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkAcquireProfilingLockKHR.unwrap_unchecked()(self.raw, pInfo) };
     if r >= VkResult::VK_SUCCESS {
@@ -9182,9 +9188,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkCreatePipelineBinariesKHR(
     &self,
-    pCreateInfo: &VkPipelineBinaryCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
-    pBinaries: &mut VkPipelineBinaryHandlesInfoKHR,
+    pCreateInfo: &VkPipelineBinaryCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+    pBinaries: &mut VkPipelineBinaryHandlesInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkCreatePipelineBinariesKHR.unwrap_unchecked()(
@@ -9228,8 +9234,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelineBinaryDataKHR(
     &self,
-    pInfo: &VkPipelineBinaryDataInfoKHR,
-    pPipelineBinaryKey: &mut VkPipelineBinaryKeyKHR,
+    pInfo: &VkPipelineBinaryDataInfoKHR<'_>,
+    pPipelineBinaryKey: &mut VkPipelineBinaryKeyKHR<'_>,
     pPipelineBinaryDataSize: *mut usize,
     pPipelineBinaryData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
@@ -9273,8 +9279,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelineKeyKHR(
     &self,
-    pPipelineCreateInfo: *const VkPipelineCreateInfoKHR,
-    pPipelineKey: &mut VkPipelineBinaryKeyKHR,
+    pPipelineCreateInfo: *const VkPipelineCreateInfoKHR<'_>,
+    pPipelineKey: &mut VkPipelineBinaryKeyKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetPipelineKeyKHR.unwrap_unchecked()(
@@ -9312,8 +9318,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkReleaseCapturedPipelineDataKHR(
     &self,
-    pInfo: &VkReleaseCapturedPipelineDataInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pInfo: &VkReleaseCapturedPipelineDataInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -9353,9 +9359,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelineExecutableInternalRepresentationsKHR(
     &self,
-    pExecutableInfo: &VkPipelineExecutableInfoKHR,
+    pExecutableInfo: &VkPipelineExecutableInfoKHR<'_>,
     pInternalRepresentationCount: *mut u32,
-    pInternalRepresentations: *mut VkPipelineExecutableInternalRepresentationKHR,
+    pInternalRepresentations: *mut VkPipelineExecutableInternalRepresentationKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -9400,9 +9406,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelineExecutablePropertiesKHR(
     &self,
-    pPipelineInfo: &VkPipelineInfoKHR,
+    pPipelineInfo: &VkPipelineInfoKHR<'_>,
     pExecutableCount: *mut u32,
-    pProperties: *mut VkPipelineExecutablePropertiesKHR,
+    pProperties: *mut VkPipelineExecutablePropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -9442,9 +9448,9 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelineExecutableStatisticsKHR(
     &self,
-    pExecutableInfo: &VkPipelineExecutableInfoKHR,
+    pExecutableInfo: &VkPipelineExecutableInfoKHR<'_>,
     pStatisticCount: *mut u32,
-    pStatistics: *mut VkPipelineExecutableStatisticKHR,
+    pStatistics: *mut VkPipelineExecutableStatisticKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -9485,8 +9491,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateSamplerYcbcrConversionKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkSamplerYcbcrConversionCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkSamplerYcbcrConversionCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::sampler_ycbcr_conversion_khr::SamplerYcbcrConversionKHR<'ret>, VkResult> {
     let mut handle = VkSamplerYcbcrConversionKHR::NULL;
     let r = unsafe {
@@ -9537,8 +9543,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateSwapchainKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkSwapchainCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkSwapchainCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::swapchain_khr::SwapchainKHR<'ret>, VkResult> {
     let mut handle = VkSwapchainKHR::NULL;
     let r = unsafe {
@@ -9582,7 +9588,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkReleaseSwapchainImagesKHR(
     &self,
-    pReleaseInfo: &VkReleaseSwapchainImagesInfoKHR,
+    pReleaseInfo: &VkReleaseSwapchainImagesInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkReleaseSwapchainImagesKHR.unwrap_unchecked()(self.raw, pReleaseInfo)
@@ -9618,7 +9624,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkSignalSemaphoreKHR(
     &self,
-    pSignalInfo: &VkSemaphoreSignalInfoKHR,
+    pSignalInfo: &VkSemaphoreSignalInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkSignalSemaphoreKHR.unwrap_unchecked()(self.raw, pSignalInfo) };
     if r >= VkResult::VK_SUCCESS {
@@ -9655,7 +9661,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkWaitSemaphoresKHR(
     &self,
-    pWaitInfo: &VkSemaphoreWaitInfoKHR,
+    pWaitInfo: &VkSemaphoreWaitInfoKHR<'_>,
     timeout: u64,
   ) -> Result<VkResult, VkResult> {
     let r =
@@ -9694,8 +9700,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetEncodedVideoSessionParametersKHR(
     &self,
-    pVideoSessionParametersInfo: &VkVideoEncodeSessionParametersGetInfoKHR,
-    pFeedbackInfo: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR,
+    pVideoSessionParametersInfo: &VkVideoEncodeSessionParametersGetInfoKHR<'_>,
+    pFeedbackInfo: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR<'_>,
     pDataSize: *mut usize,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
@@ -9745,8 +9751,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateVideoSessionKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkVideoSessionCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkVideoSessionCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::video_session_khr::VideoSessionKHR<'ret>, VkResult> {
     let mut handle = VkVideoSessionKHR::NULL;
     let r = unsafe {
@@ -9795,8 +9801,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateVideoSessionParametersKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkVideoSessionParametersCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkVideoSessionParametersCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::video_session_parameters_khr::VideoSessionParametersKHR<'ret>, VkResult> {
     let mut handle = VkVideoSessionParametersKHR::NULL;
     let r = unsafe {
@@ -9842,8 +9848,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateCuFunctionNVX<'ret>(
     &'ret self,
-    pCreateInfo: &VkCuFunctionCreateInfoNVX,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkCuFunctionCreateInfoNVX<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::cu_function_nvx::CuFunctionNVX<'ret>, VkResult> {
     let mut handle = VkCuFunctionNVX::NULL;
     let r = unsafe {
@@ -9890,8 +9896,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateCuModuleNVX<'ret>(
     &'ret self,
-    pCreateInfo: &VkCuModuleCreateInfoNVX,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkCuModuleCreateInfoNVX<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::cu_module_nvx::CuModuleNVX<'ret>, VkResult> {
     let mut handle = VkCuModuleNVX::NULL;
     let r = unsafe {
@@ -9947,7 +9953,7 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_NVX_image_view_handle")]
   #[inline(always)]
-  pub fn vkGetImageViewHandle64NVX(&self, pInfo: &VkImageViewHandleInfoNVX) -> u64 {
+  pub fn vkGetImageViewHandle64NVX(&self, pInfo: &VkImageViewHandleInfoNVX<'_>) -> u64 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetImageViewHandle64NVX.unwrap_unchecked()(self.raw, pInfo)
@@ -9964,7 +9970,7 @@ impl<'inst> Device<'inst> {
   /// - `pInfo`
   #[cfg(feature = "VK_NVX_image_view_handle")]
   #[inline(always)]
-  pub fn vkGetImageViewHandleNVX(&self, pInfo: &VkImageViewHandleInfoNVX) -> u32 {
+  pub fn vkGetImageViewHandleNVX(&self, pInfo: &VkImageViewHandleInfoNVX<'_>) -> u32 {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetImageViewHandleNVX.unwrap_unchecked()(self.raw, pInfo)
@@ -9984,8 +9990,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetClusterAccelerationStructureBuildSizesNV(
     &self,
-    pInfo: &VkClusterAccelerationStructureInputInfoNV,
-    pSizeInfo: &mut VkAccelerationStructureBuildSizesInfoKHR,
+    pInfo: &VkClusterAccelerationStructureInputInfoNV<'_>,
+    pSizeInfo: &mut VkAccelerationStructureBuildSizesInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10018,7 +10024,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkConvertCooperativeVectorMatrixNV(
     &self,
-    pInfo: &VkConvertCooperativeVectorMatrixInfoNV,
+    pInfo: &VkConvertCooperativeVectorMatrixInfoNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -10057,8 +10063,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateCudaFunctionNV<'ret>(
     &'ret self,
-    pCreateInfo: &VkCudaFunctionCreateInfoNV,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkCudaFunctionCreateInfoNV<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::cuda_function_nv::CudaFunctionNV<'ret>, VkResult> {
     let mut handle = VkCudaFunctionNV::NULL;
     let r = unsafe {
@@ -10105,8 +10111,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateCudaModuleNV<'ret>(
     &'ret self,
-    pCreateInfo: &VkCudaModuleCreateInfoNV,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkCudaModuleCreateInfoNV<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::cuda_module_nv::CudaModuleNV<'ret>, VkResult> {
     let mut handle = VkCudaModuleNV::NULL;
     let r = unsafe {
@@ -10153,8 +10159,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateIndirectCommandsLayoutNV<'ret>(
     &'ret self,
-    pCreateInfo: &VkIndirectCommandsLayoutCreateInfoNV,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkIndirectCommandsLayoutCreateInfoNV<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::indirect_commands_layout_nv::IndirectCommandsLayoutNV<'ret>, VkResult> {
     let mut handle = VkIndirectCommandsLayoutNV::NULL;
     let r = unsafe {
@@ -10188,8 +10194,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetGeneratedCommandsMemoryRequirementsNV(
     &self,
-    pInfo: &VkGeneratedCommandsMemoryRequirementsInfoNV,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkGeneratedCommandsMemoryRequirementsInfoNV<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10211,7 +10217,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelineIndirectDeviceAddressNV(
     &self,
-    pInfo: &VkPipelineIndirectDeviceAddressInfoNV,
+    pInfo: &VkPipelineIndirectDeviceAddressInfoNV<'_>,
   ) -> VkDeviceAddress {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10234,8 +10240,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPipelineIndirectMemoryRequirementsNV(
     &self,
-    pCreateInfo: &VkComputePipelineCreateInfo,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pCreateInfo: &VkComputePipelineCreateInfo<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10270,8 +10276,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateExternalComputeQueueNV<'ret>(
     &'ret self,
-    pCreateInfo: &VkExternalComputeQueueCreateInfoNV,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkExternalComputeQueueCreateInfoNV<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::external_compute_queue_nv::ExternalComputeQueueNV<'ret>, VkResult> {
     let mut handle = VkExternalComputeQueueNV::NULL;
     let r = unsafe {
@@ -10313,7 +10319,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemoryRemoteAddressNV(
     &self,
-    pMemoryGetRemoteAddressInfo: &VkMemoryGetRemoteAddressInfoNV,
+    pMemoryGetRemoteAddressInfo: &VkMemoryGetRemoteAddressInfoNV<'_>,
     pAddress: &mut VkRemoteAddressNV,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10353,7 +10359,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemorySciBufNV(
     &self,
-    pGetSciBufInfo: &VkMemoryGetSciBufInfoNV,
+    pGetSciBufInfo: &VkMemoryGetSciBufInfoNV<'_>,
     pHandle: &mut NvSciBufObj,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10394,7 +10400,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetFenceSciSyncFenceNV(
     &self,
-    pGetSciSyncHandleInfo: &VkFenceGetSciSyncInfoNV,
+    pGetSciSyncHandleInfo: &VkFenceGetSciSyncInfoNV<'_>,
     pHandle: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10439,7 +10445,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetFenceSciSyncObjNV(
     &self,
-    pGetSciSyncHandleInfo: &VkFenceGetSciSyncInfoNV,
+    pGetSciSyncHandleInfo: &VkFenceGetSciSyncInfoNV<'_>,
     pHandle: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10480,7 +10486,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetSemaphoreSciSyncObjNV(
     &self,
-    pGetSciSyncInfo: &VkSemaphoreGetSciSyncInfoNV,
+    pGetSciSyncInfo: &VkSemaphoreGetSciSyncInfoNV<'_>,
     pHandle: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10520,7 +10526,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportFenceSciSyncFenceNV(
     &self,
-    pImportFenceSciSyncInfo: &VkImportFenceSciSyncInfoNV,
+    pImportFenceSciSyncInfo: &VkImportFenceSciSyncInfoNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkImportFenceSciSyncFenceNV.unwrap_unchecked()(self.raw, pImportFenceSciSyncInfo)
@@ -10559,7 +10565,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportFenceSciSyncObjNV(
     &self,
-    pImportFenceSciSyncInfo: &VkImportFenceSciSyncInfoNV,
+    pImportFenceSciSyncInfo: &VkImportFenceSciSyncInfoNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkImportFenceSciSyncObjNV.unwrap_unchecked()(self.raw, pImportFenceSciSyncInfo)
@@ -10595,7 +10601,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkImportSemaphoreSciSyncObjNV(
     &self,
-    pImportSemaphoreSciSyncInfo: &VkImportSemaphoreSciSyncInfoNV,
+    pImportSemaphoreSciSyncInfo: &VkImportSemaphoreSciSyncInfoNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -10634,8 +10640,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateSemaphoreSciSyncPoolNV<'ret>(
     &'ret self,
-    pCreateInfo: &VkSemaphoreSciSyncPoolCreateInfoNV,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkSemaphoreSciSyncPoolCreateInfoNV<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::semaphore_sci_sync_pool_nv::SemaphoreSciSyncPoolNV<'ret>, VkResult> {
     let mut handle = VkSemaphoreSciSyncPoolNV::NULL;
     let r = unsafe {
@@ -10679,8 +10685,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateOpticalFlowSessionNV<'ret>(
     &'ret self,
-    pCreateInfo: &VkOpticalFlowSessionCreateInfoNV,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkOpticalFlowSessionCreateInfoNV<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::optical_flow_session_nv::OpticalFlowSessionNV<'ret>, VkResult> {
     let mut handle = VkOpticalFlowSessionNV::NULL;
     let r = unsafe {
@@ -10715,8 +10721,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetPartitionedAccelerationStructuresBuildSizesNV(
     &self,
-    pInfo: &VkPartitionedAccelerationStructureInstancesInputNV,
-    pSizeInfo: &mut VkAccelerationStructureBuildSizesInfoKHR,
+    pInfo: &VkPartitionedAccelerationStructureInstancesInputNV<'_>,
+    pSizeInfo: &mut VkAccelerationStructureBuildSizesInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10750,7 +10756,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkBindAccelerationStructureMemoryNV(
     &self,
-    pBindInfos: &[VkBindAccelerationStructureMemoryInfoNV],
+    pBindInfos: &[VkBindAccelerationStructureMemoryInfoNV<'_>],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -10788,8 +10794,8 @@ impl<'inst> Device<'inst> {
   #[inline]
   pub fn vkCreateAccelerationStructureNV<'ret>(
     &'ret self,
-    pCreateInfo: &VkAccelerationStructureCreateInfoNV,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkAccelerationStructureCreateInfoNV<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::acceleration_structure_nv::AccelerationStructureNV<'ret>, VkResult> {
     let mut handle = VkAccelerationStructureNV::NULL;
     let r = unsafe {
@@ -10821,8 +10827,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetAccelerationStructureMemoryRequirementsNV(
     &self,
-    pInfo: &VkAccelerationStructureMemoryRequirementsInfoNV,
-    pMemoryRequirements: &mut VkMemoryRequirements2,
+    pInfo: &VkAccelerationStructureMemoryRequirementsInfoNV<'_>,
+    pMemoryRequirements: &mut VkMemoryRequirements2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10855,7 +10861,7 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetMemoryNativeBufferOHOS(
     &self,
-    pInfo: &VkMemoryGetNativeBufferInfoOHOS,
+    pInfo: &VkMemoryGetNativeBufferInfoOHOS<'_>,
     pBuffer: *mut *mut OH_NativeBuffer,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10893,7 +10899,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetNativeBufferPropertiesOHOS(
     &self,
     buffer: &OH_NativeBuffer,
-    pProperties: &mut VkNativeBufferPropertiesOHOS,
+    pProperties: &mut VkNativeBufferPropertiesOHOS<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -10929,8 +10935,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDynamicRenderingTilePropertiesQCOM(
     &self,
-    pRenderingInfo: &VkRenderingInfo,
-    pProperties: &mut VkTilePropertiesQCOM,
+    pRenderingInfo: &VkRenderingInfo<'_>,
+    pProperties: &mut VkTilePropertiesQCOM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -10969,7 +10975,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetScreenBufferPropertiesQNX(
     &self,
     buffer: &_screen_buffer,
-    pProperties: &mut VkScreenBufferPropertiesQNX,
+    pProperties: &mut VkScreenBufferPropertiesQNX<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -10996,8 +11002,8 @@ impl<'inst> Device<'inst> {
   #[inline(always)]
   pub fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
     &self,
-    pBindingReference: &VkDescriptorSetBindingReferenceVALVE,
-    pHostMapping: &mut VkDescriptorSetLayoutHostMappingInfoVALVE,
+    pBindingReference: &VkDescriptorSetBindingReferenceVALVE<'_>,
+    pHostMapping: &mut VkDescriptorSetLayoutHostMappingInfoVALVE<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.

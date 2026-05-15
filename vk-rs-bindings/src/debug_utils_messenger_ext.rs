@@ -94,7 +94,7 @@ impl<'dev> DebugUtilsMessengerEXT<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_EXT_debug_utils")]
   #[inline(always)]
-  pub fn vkDestroyDebugUtilsMessengerEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDebugUtilsMessengerEXT(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -123,7 +123,7 @@ impl<'dev> DebugUtilsMessengerEXT<'dev> {
     &self,
     messageSeverity: VkDebugUtilsMessageSeverityFlagBitsEXT,
     messageTypes: VkDebugUtilsMessageTypeFlagsEXT,
-    pCallbackData: &VkDebugUtilsMessengerCallbackDataEXT,
+    pCallbackData: &VkDebugUtilsMessengerCallbackDataEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.

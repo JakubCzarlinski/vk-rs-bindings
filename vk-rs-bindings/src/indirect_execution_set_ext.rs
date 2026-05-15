@@ -109,7 +109,7 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_EXT_device_generated_commands")]
   #[inline(always)]
-  pub fn vkDestroyIndirectExecutionSetEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyIndirectExecutionSetEXT(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -136,7 +136,7 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
   #[inline(always)]
   pub fn vkUpdateIndirectExecutionSetPipelineEXT(
     &self,
-    pExecutionSetWrites: &[VkWriteIndirectExecutionSetPipelineEXT],
+    pExecutionSetWrites: &[VkWriteIndirectExecutionSetPipelineEXT<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -165,7 +165,7 @@ impl<'dev> IndirectExecutionSetEXT<'dev> {
   #[inline(always)]
   pub fn vkUpdateIndirectExecutionSetShaderEXT(
     &self,
-    pExecutionSetWrites: &[VkWriteIndirectExecutionSetShaderEXT],
+    pExecutionSetWrites: &[VkWriteIndirectExecutionSetShaderEXT<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.

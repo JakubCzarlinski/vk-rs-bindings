@@ -89,6 +89,7 @@ fn gen_physical_device(
                 methods_ts.extend(gen_create_device(cmd, providers, handle_meta));
             } else {
                 methods_ts.extend(safe_method(
+                    reg,
                     cmd,
                     name,
                     providers,

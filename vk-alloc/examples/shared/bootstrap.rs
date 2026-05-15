@@ -1,6 +1,6 @@
 use crate::shared::validation::{VALIDATION_LAYER, require_validation_layer};
-use std::ffi::CStr;
-use std::ptr::null;
+use core::ffi::CStr;
+use core::ptr::null;
 
 pub(crate) fn create_instance<'lib>(
     entry: &'lib vk::Entry<'lib>,

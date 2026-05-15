@@ -135,7 +135,7 @@ impl<'dev> DebugReportCallbackEXT<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_EXT_debug_report")]
   #[inline(always)]
-  pub fn vkDestroyDebugReportCallbackEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDebugReportCallbackEXT(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

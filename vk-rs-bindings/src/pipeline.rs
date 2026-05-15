@@ -173,7 +173,7 @@ impl<'dev> Pipeline<'dev> {
   #[inline(always)]
   pub fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     &self,
-    pNodeInfo: &VkPipelineShaderStageNodeCreateInfoAMDX,
+    pNodeInfo: &VkPipelineShaderStageNodeCreateInfoAMDX<'_>,
     pNodeIndex: &mut u32,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -211,7 +211,7 @@ impl<'dev> Pipeline<'dev> {
   #[inline(always)]
   pub fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     &self,
-    pSizeInfo: &mut VkExecutionGraphPipelineScratchSizeAMDX,
+    pSizeInfo: &mut VkExecutionGraphPipelineScratchSizeAMDX<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -287,7 +287,7 @@ impl<'dev> Pipeline<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyPipeline(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyPipeline(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

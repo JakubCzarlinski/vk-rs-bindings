@@ -87,7 +87,7 @@ impl<'dev> SurfaceKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_surface")]
   #[inline(always)]
-  pub fn vkDestroySurfaceKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroySurfaceKHR(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

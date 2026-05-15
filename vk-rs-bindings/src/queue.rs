@@ -220,7 +220,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkQueueBindSparse(
     &self,
-    pBindInfo: &[VkBindSparseInfo],
+    pBindInfo: &[VkBindSparseInfo<'_>],
     fence: VkFence,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -266,7 +266,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkQueueSubmit(
     &self,
-    pSubmits: &[VkSubmitInfo],
+    pSubmits: &[VkSubmitInfo<'_>],
     fence: VkFence,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -342,7 +342,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkQueueSubmit2(
     &self,
-    pSubmits: &[VkSubmitInfo2],
+    pSubmits: &[VkSubmitInfo2<'_>],
     fence: VkFence,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -370,7 +370,7 @@ impl<'dev> Queue<'dev> {
   /// - `pLabelInfo`
   #[cfg(feature = "VK_EXT_debug_utils")]
   #[inline(always)]
-  pub fn vkQueueBeginDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT) {
+  pub fn vkQueueBeginDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -405,7 +405,7 @@ impl<'dev> Queue<'dev> {
   /// - `pLabelInfo`
   #[cfg(feature = "VK_EXT_debug_utils")]
   #[inline(always)]
-  pub fn vkQueueInsertDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT) {
+  pub fn vkQueueInsertDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -478,7 +478,10 @@ impl<'dev> Queue<'dev> {
   ///   - `VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT`
   #[cfg(feature = "VK_KHR_swapchain")]
   #[inline(always)]
-  pub fn vkQueuePresentKHR(&self, pPresentInfo: &VkPresentInfoKHR) -> Result<VkResult, VkResult> {
+  pub fn vkQueuePresentKHR(
+    &self,
+    pPresentInfo: &VkPresentInfoKHR<'_>,
+  ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkQueuePresentKHR.unwrap_unchecked()(self.raw, pPresentInfo) };
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
@@ -514,7 +517,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkQueueSubmit2KHR(
     &self,
-    pSubmits: &[VkSubmitInfo2KHR],
+    pSubmits: &[VkSubmitInfo2KHR<'_>],
     fence: VkFence,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -556,7 +559,7 @@ impl<'dev> Queue<'dev> {
   pub fn vkGetQueueCheckpointData2NV(
     &self,
     pCheckpointDataCount: *mut u32,
-    pCheckpointData: *mut VkCheckpointData2NV,
+    pCheckpointData: *mut VkCheckpointData2NV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -582,7 +585,7 @@ impl<'dev> Queue<'dev> {
   pub fn vkGetQueueCheckpointDataNV(
     &self,
     pCheckpointDataCount: *mut u32,
-    pCheckpointData: *mut VkCheckpointDataNV,
+    pCheckpointData: *mut VkCheckpointDataNV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -604,7 +607,7 @@ impl<'dev> Queue<'dev> {
   /// - `pQueueTypeInfo`
   #[cfg(feature = "VK_NV_low_latency2")]
   #[inline(always)]
-  pub fn vkQueueNotifyOutOfBandNV(&self, pQueueTypeInfo: &VkOutOfBandQueueTypeInfoNV) {
+  pub fn vkQueueNotifyOutOfBandNV(&self, pQueueTypeInfo: &VkOutOfBandQueueTypeInfoNV<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkQueueNotifyOutOfBandNV.unwrap_unchecked()(self.raw, pQueueTypeInfo)
@@ -633,7 +636,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkQueueSetPerfHintQCOM(
     &self,
-    pPerfHintInfo: &VkPerfHintInfoQCOM,
+    pPerfHintInfo: &VkPerfHintInfoQCOM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkQueueSetPerfHintQCOM.unwrap_unchecked()(self.raw, pPerfHintInfo) };

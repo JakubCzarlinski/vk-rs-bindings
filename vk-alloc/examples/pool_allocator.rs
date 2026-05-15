@@ -1,12 +1,12 @@
 #[path = "shared/mod.rs"]
 mod shared;
 
+use core::ptr::null;
+use core::time::Duration;
 use shared::bootstrap::{create_device, create_instance};
 use shared::device_select::{device_name, select_single_device};
-use std::ptr::null;
 use std::sync::mpsc;
 use std::thread;
-use std::time::Duration;
 use vk_alloc::{
     AllocationCreateInfo, Allocator, AllocatorCreateInfo, MemoryTypePolicy, PoolCreateInfo,
 };
@@ -53,7 +53,7 @@ fn main() -> Result<(), String> {
                 .with_usage(vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_TRANSFER_SRC_BIT.0);
             let buffer_info = vk::VkBufferCreateInfo::DEFAULT
                 .with_size((WORDS_PER_FRAME * core::mem::size_of::<u32>()) as u64)
-                .with_pNext((&raw const usage).cast())
+                .with_pNext_VkBufferUsageFlags2CreateInfo(&usage)
                 .with_sharingMode(vk::VkSharingMode::VK_SHARING_MODE_EXCLUSIVE);
             let (tx, rx) = mpsc::sync_channel::<Vec<u32>>(8);
             let producer = thread::spawn(move || -> Result<(), String> {

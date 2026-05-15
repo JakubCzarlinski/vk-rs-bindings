@@ -23,10 +23,13 @@ pub(crate) fn device_limits(physical_device: &vk::PhysicalDevice<'_>) -> DeviceL
     let mut props = vk::VkPhysicalDeviceProperties2::DEFAULT
         .with_pNext_VkPhysicalDeviceMaintenance3Properties(&mut maintenance3);
     physical_device.vkGetPhysicalDeviceProperties2(&mut props);
+    let max_storage_buffer_range = props.properties.limits.maxStorageBufferRange;
+    let max_uniform_buffer_range = props.properties.limits.maxUniformBufferRange;
+    let max_memory_allocation_size = maintenance3.maxMemoryAllocationSize;
     DeviceLimits {
-        max_memory_allocation_size: maintenance3.maxMemoryAllocationSize,
-        max_storage_buffer_range: props.properties.limits.maxStorageBufferRange,
-        max_uniform_buffer_range: props.properties.limits.maxUniformBufferRange,
+        max_memory_allocation_size,
+        max_storage_buffer_range,
+        max_uniform_buffer_range,
         min_imported_host_pointer_alignment: host.minImportedHostPointerAlignment,
     }
 }

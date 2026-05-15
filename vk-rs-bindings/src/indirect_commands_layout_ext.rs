@@ -91,7 +91,10 @@ impl<'dev> IndirectCommandsLayoutEXT<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_EXT_device_generated_commands")]
   #[inline(always)]
-  pub fn vkDestroyIndirectCommandsLayoutEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyIndirectCommandsLayoutEXT(
+    &mut self,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+  ) {
     if self.raw.0.is_null() {
       return;
     }

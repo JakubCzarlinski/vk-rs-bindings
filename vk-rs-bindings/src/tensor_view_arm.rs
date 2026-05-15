@@ -91,7 +91,7 @@ impl<'dev> TensorViewARM<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_ARM_tensors")]
   #[inline(always)]
-  pub fn vkDestroyTensorViewARM(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyTensorViewARM(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

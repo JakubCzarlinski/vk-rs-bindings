@@ -170,7 +170,7 @@ impl<'dev> DescriptorPool<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyDescriptorPool(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDescriptorPool(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

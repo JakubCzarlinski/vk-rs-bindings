@@ -313,6 +313,7 @@ fn gen_handle_module(
             } else if is_self_destructor_command(cmd_name, cmd, meta) {
                 let handle_ty = format_ident!("{}", meta.vk_name);
                 methods_ts.extend(safe_method_unit_with_overrides(
+                    reg,
                     cmd,
                     cmd_name,
                     providers,
@@ -336,6 +337,7 @@ fn gen_handle_module(
             } else {
                 let device_acc = quote! { self.device() };
                 methods_ts.extend(safe_method(
+                    reg,
                     cmd,
                     cmd_name,
                     providers,
@@ -387,6 +389,7 @@ fn gen_handle_module(
                 if is_self_destructor_command(cmd_name, cmd, meta) {
                     let handle_ty = format_ident!("{}", meta.vk_name);
                     methods_ts.extend(safe_method_unit_with_overrides(
+                        reg,
                         cmd,
                         cmd_name,
                         providers,
@@ -417,6 +420,7 @@ fn gen_handle_module(
                     ));
                 } else {
                     methods_ts.extend(safe_method(
+                        reg,
                         cmd,
                         cmd_name,
                         providers,

@@ -253,6 +253,7 @@ fn gen_entry(
         } else {
             // No param[0] stripping for entry commands (handle_base = "").
             methods_ts.extend(safe_method(
+                reg,
                 cmd,
                 name,
                 &providers,

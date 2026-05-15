@@ -125,6 +125,7 @@ fn gen_device(
                 methods_ts.extend(gen_get_device_queue(cmd, providers));
             } else if name == "vkDestroyDevice" {
                 methods_ts.extend(safe_method_unit_with_overrides(
+                    reg,
                     cmd,
                     name,
                     providers,
@@ -151,6 +152,7 @@ fn gen_device(
                 methods_ts.extend(gen_create_pipelines(cmd, providers));
             } else {
                 methods_ts.extend(safe_method(
+                    reg,
                     cmd,
                     name,
                     providers,

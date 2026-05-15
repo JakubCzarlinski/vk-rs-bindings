@@ -91,7 +91,10 @@ impl<'dev> AccelerationStructureKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_acceleration_structure")]
   #[inline(always)]
-  pub fn vkDestroyAccelerationStructureKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyAccelerationStructureKHR(
+    &mut self,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+  ) {
     if self.raw.0.is_null() {
       return;
     }

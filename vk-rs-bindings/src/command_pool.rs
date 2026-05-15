@@ -138,7 +138,7 @@ impl<'dev> CommandPool<'dev> {
   pub fn vkGetCommandPoolMemoryConsumption(
     &self,
     commandBuffer: VkCommandBuffer,
-    pConsumption: &mut VkCommandPoolMemoryConsumption,
+    pConsumption: &mut VkCommandPoolMemoryConsumption<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -215,7 +215,7 @@ impl<'dev> CommandPool<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyCommandPool(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyCommandPool(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

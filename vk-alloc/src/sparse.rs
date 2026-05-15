@@ -6,7 +6,6 @@ use crate::resource::{AllocationCreateInfo, SparseAllocationCreateInfo};
 use alloc::boxed::Box;
 use alloc::collections::BTreeMap;
 use alloc::sync::Arc;
-use alloc::vec;
 use alloc::vec::Vec;
 use parking_lot::RwLock;
 
@@ -81,31 +80,66 @@ impl SparseImageBindList {
 #[derive(Debug, Clone)]
 pub struct PreparedBindSparseInfo {
     buffer_binds: Box<[vk::VkSparseMemoryBind]>,
-    buffer_infos: Box<[vk::VkSparseBufferMemoryBindInfo]>,
+    buffer: Option<vk::VkBuffer>,
     image_binds: Box<[vk::VkSparseImageMemoryBind]>,
-    image_infos: Box<[vk::VkSparseImageMemoryBindInfo]>,
-    info: vk::VkBindSparseInfo,
+    image: Option<vk::VkImage>,
+}
+
+#[derive(Debug, Clone)]
+pub struct PreparedBindSparseInfoView<'a> {
+    buffer_infos: Box<[vk::VkSparseBufferMemoryBindInfo<'a>]>,
+    image_infos: Box<[vk::VkSparseImageMemoryBindInfo<'a>]>,
+}
+
+impl<'a> PreparedBindSparseInfoView<'a> {
+    pub fn buffer_infos(&self) -> &[vk::VkSparseBufferMemoryBindInfo<'a>] {
+        &self.buffer_infos
+    }
+
+    pub fn image_infos(&self) -> &[vk::VkSparseImageMemoryBindInfo<'a>] {
+        &self.image_infos
+    }
+
+    pub fn with_vk_info<R>(&self, f: impl FnOnce(&vk::VkBindSparseInfo<'_>) -> R) -> R {
+        let info = vk::VkBindSparseInfo::DEFAULT
+            .with_pBufferBinds(&self.buffer_infos)
+            .with_pImageBinds(&self.image_infos);
+        f(&info)
+    }
 }
 
 impl PreparedBindSparseInfo {
-    pub fn vk_info(&self) -> &vk::VkBindSparseInfo {
-        &self.info
+    pub fn as_vk_info(&self) -> PreparedBindSparseInfoView<'_> {
+        let buffer_infos = self
+            .buffer
+            .map(|buffer| {
+                vk::VkSparseBufferMemoryBindInfo::DEFAULT
+                    .with_buffer(buffer)
+                    .with_pBinds(&self.buffer_binds)
+            })
+            .into_iter()
+            .collect::<Box<[_]>>();
+        let image_infos = self
+            .image
+            .map(|image| {
+                vk::VkSparseImageMemoryBindInfo::DEFAULT
+                    .with_image(image)
+                    .with_pBinds(&self.image_binds)
+            })
+            .into_iter()
+            .collect::<Box<[_]>>();
+        PreparedBindSparseInfoView {
+            buffer_infos,
+            image_infos,
+        }
     }
 
     pub fn buffer_binds(&self) -> &[vk::VkSparseMemoryBind] {
         &self.buffer_binds
     }
 
-    pub fn buffer_infos(&self) -> &[vk::VkSparseBufferMemoryBindInfo] {
-        &self.buffer_infos
-    }
-
     pub fn image_binds(&self) -> &[vk::VkSparseImageMemoryBind] {
         &self.image_binds
-    }
-
-    pub fn image_infos(&self) -> &[vk::VkSparseImageMemoryBindInfo] {
-        &self.image_infos
     }
 }
 
@@ -288,19 +322,11 @@ impl<'vk> SparseBufferAllocation<'vk> {
 
     pub fn prepare_bind_info(&self) -> PreparedBindSparseInfo {
         let buffer_binds = self.build_bind_list().binds;
-        let buffer_infos = vec![
-            vk::VkSparseBufferMemoryBindInfo::DEFAULT
-                .with_buffer(self.buffer.raw())
-                .with_pBinds(&buffer_binds),
-        ]
-        .into_boxed_slice();
-        let info = vk::VkBindSparseInfo::DEFAULT.with_pBufferBinds(&buffer_infos);
         PreparedBindSparseInfo {
             buffer_binds,
-            buffer_infos,
+            buffer: Some(self.buffer.raw()),
             image_binds: empty_box(),
-            image_infos: empty_box(),
-            info,
+            image: None,
         }
     }
 }
@@ -402,19 +428,11 @@ impl<'vk> SparseImageAllocation<'vk> {
 
     pub fn prepare_bind_info(&self) -> PreparedBindSparseInfo {
         let image_binds = self.build_bind_list().binds;
-        let image_infos = vec![
-            vk::VkSparseImageMemoryBindInfo::DEFAULT
-                .with_image(self.image.raw())
-                .with_pBinds(&image_binds),
-        ]
-        .into_boxed_slice();
-        let info = vk::VkBindSparseInfo::DEFAULT.with_pImageBinds(&image_infos);
         PreparedBindSparseInfo {
             buffer_binds: empty_box(),
-            buffer_infos: empty_box(),
+            buffer: None,
             image_binds,
-            image_infos,
-            info,
+            image: Some(self.image.raw()),
         }
     }
 }

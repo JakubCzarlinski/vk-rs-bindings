@@ -933,8 +933,12 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM(
     &self,
-    pQueueFamilyDataGraphProcessingEngineInfo: &VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM,
-    pQueueFamilyDataGraphProcessingEngineProperties: &mut VkQueueFamilyDataGraphProcessingEnginePropertiesARM,
+    pQueueFamilyDataGraphProcessingEngineInfo: &VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<
+            '_,
+        >,
+    pQueueFamilyDataGraphProcessingEngineProperties: &mut VkQueueFamilyDataGraphProcessingEnginePropertiesARM<
+            '_,
+        >,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -976,7 +980,7 @@ impl<'inst> PhysicalDevice<'inst> {
     &self,
     queueFamilyIndex: u32,
     pQueueFamilyDataGraphPropertyCount: *mut u32,
-    pQueueFamilyDataGraphProperties: *mut VkQueueFamilyDataGraphPropertiesARM,
+    pQueueFamilyDataGraphProperties: *mut VkQueueFamilyDataGraphPropertiesARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -1025,8 +1029,8 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM(
     &self,
     queueFamilyIndex: u32,
-    pQueueFamilyDataGraphProperties: &VkQueueFamilyDataGraphPropertiesARM,
-    pProperties: &mut VkBaseOutStructure,
+    pQueueFamilyDataGraphProperties: &VkQueueFamilyDataGraphPropertiesARM<'_>,
+    pProperties: &mut VkBaseOutStructure<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -1075,10 +1079,10 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM(
     &self,
     queueFamilyIndex: u32,
-    pQueueFamilyDataGraphProperties: &VkQueueFamilyDataGraphPropertiesARM,
-    pOpticalFlowImageFormatInfo: &VkDataGraphOpticalFlowImageFormatInfoARM,
+    pQueueFamilyDataGraphProperties: &VkQueueFamilyDataGraphPropertiesARM<'_>,
+    pOpticalFlowImageFormatInfo: &VkDataGraphOpticalFlowImageFormatInfoARM<'_>,
     pFormatCount: *mut u32,
-    pImageFormatProperties: *mut VkDataGraphOpticalFlowImageFormatPropertiesARM,
+    pImageFormatProperties: *mut VkDataGraphOpticalFlowImageFormatPropertiesARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -1129,8 +1133,8 @@ impl<'inst> PhysicalDevice<'inst> {
     &self,
     queueFamilyIndex: u32,
     pCounterCount: *mut u32,
-    pCounters: *mut VkPerformanceCounterARM,
-    pCounterDescriptions: *mut VkPerformanceCounterDescriptionARM,
+    pCounters: *mut VkPerformanceCounterARM<'_>,
+    pCounterDescriptions: *mut VkPerformanceCounterDescriptionARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -1177,7 +1181,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM(
     &self,
     pDescriptionCount: *mut u32,
-    pDescriptions: *mut VkShaderInstrumentationMetricDescriptionARM,
+    pDescriptions: *mut VkShaderInstrumentationMetricDescriptionARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -1204,8 +1208,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalTensorPropertiesARM(
     &self,
-    pExternalTensorInfo: &VkPhysicalDeviceExternalTensorInfoARM,
-    pExternalTensorProperties: &mut VkExternalTensorPropertiesARM,
+    pExternalTensorInfo: &VkPhysicalDeviceExternalTensorInfoARM<'_>,
+    pExternalTensorProperties: &mut VkExternalTensorPropertiesARM<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -1736,8 +1740,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalBufferProperties(
     &self,
-    pExternalBufferInfo: &VkPhysicalDeviceExternalBufferInfo,
-    pExternalBufferProperties: &mut VkExternalBufferProperties,
+    pExternalBufferInfo: &VkPhysicalDeviceExternalBufferInfo<'_>,
+    pExternalBufferProperties: &mut VkExternalBufferProperties<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -1761,8 +1765,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalFenceProperties(
     &self,
-    pExternalFenceInfo: &VkPhysicalDeviceExternalFenceInfo,
-    pExternalFenceProperties: &mut VkExternalFenceProperties,
+    pExternalFenceInfo: &VkPhysicalDeviceExternalFenceInfo<'_>,
+    pExternalFenceProperties: &mut VkExternalFenceProperties<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -1786,8 +1790,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalSemaphoreProperties(
     &self,
-    pExternalSemaphoreInfo: &VkPhysicalDeviceExternalSemaphoreInfo,
-    pExternalSemaphoreProperties: &mut VkExternalSemaphoreProperties,
+    pExternalSemaphoreInfo: &VkPhysicalDeviceExternalSemaphoreInfo<'_>,
+    pExternalSemaphoreProperties: &mut VkExternalSemaphoreProperties<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -1812,7 +1816,7 @@ impl<'inst> PhysicalDevice<'inst> {
   /// - `pFeatures`
   #[cfg(feature = "VK_BASE_VERSION_1_1")]
   #[inline(always)]
-  pub fn vkGetPhysicalDeviceFeatures2(&self, pFeatures: &mut VkPhysicalDeviceFeatures2) {
+  pub fn vkGetPhysicalDeviceFeatures2(&self, pFeatures: &mut VkPhysicalDeviceFeatures2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkGetPhysicalDeviceFeatures2.unwrap_unchecked()(self.raw, pFeatures)
@@ -1834,7 +1838,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceFormatProperties2(
     &self,
     format: VkFormat,
-    pFormatProperties: &mut VkFormatProperties2,
+    pFormatProperties: &mut VkFormatProperties2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -1875,8 +1879,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceImageFormatProperties2(
     &self,
-    pImageFormatInfo: &VkPhysicalDeviceImageFormatInfo2,
-    pImageFormatProperties: &mut VkImageFormatProperties2,
+    pImageFormatInfo: &VkPhysicalDeviceImageFormatInfo2<'_>,
+    pImageFormatProperties: &mut VkImageFormatProperties2<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -1903,7 +1907,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceMemoryProperties2(
     &self,
-    pMemoryProperties: &mut VkPhysicalDeviceMemoryProperties2,
+    pMemoryProperties: &mut VkPhysicalDeviceMemoryProperties2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -1924,7 +1928,7 @@ impl<'inst> PhysicalDevice<'inst> {
   /// - `pProperties`
   #[cfg(feature = "VK_BASE_VERSION_1_1")]
   #[inline(always)]
-  pub fn vkGetPhysicalDeviceProperties2(&self, pProperties: &mut VkPhysicalDeviceProperties2) {
+  pub fn vkGetPhysicalDeviceProperties2(&self, pProperties: &mut VkPhysicalDeviceProperties2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -1948,7 +1952,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceQueueFamilyProperties2(
     &self,
     pQueueFamilyPropertyCount: *mut u32,
-    pQueueFamilyProperties: *mut VkQueueFamilyProperties2,
+    pQueueFamilyProperties: *mut VkQueueFamilyProperties2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -1973,9 +1977,9 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     &self,
-    pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2,
+    pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2<'_>,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkSparseImageFormatProperties2,
+    pProperties: *mut VkSparseImageFormatProperties2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2011,7 +2015,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceToolProperties(
     &self,
     pToolCount: *mut u32,
-    pToolProperties: *mut VkPhysicalDeviceToolProperties,
+    pToolProperties: *mut VkPhysicalDeviceToolProperties<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2314,7 +2318,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
     &self,
     surface: VkSurfaceKHR,
-    pSurfaceCapabilities: &mut VkSurfaceCapabilities2EXT,
+    pSurfaceCapabilities: &mut VkSurfaceCapabilities2EXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2355,7 +2359,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     &self,
-    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR,
+    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR<'_>,
     pPresentModeCount: *mut u32,
     pPresentModes: *mut VkPresentModeKHR,
   ) -> Result<VkResult, VkResult> {
@@ -2385,7 +2389,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
     &self,
     samples: VkSampleCountFlagBits,
-    pMultisampleProperties: &mut VkMultisamplePropertiesEXT,
+    pMultisampleProperties: &mut VkMultisamplePropertiesEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2421,7 +2425,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceToolPropertiesEXT(
     &self,
     pToolCount: *mut u32,
-    pToolProperties: *mut VkPhysicalDeviceToolPropertiesEXT,
+    pToolProperties: *mut VkPhysicalDeviceToolPropertiesEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2501,7 +2505,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
     &self,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeMatrixPropertiesKHR,
+    pProperties: *mut VkCooperativeMatrixPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2590,8 +2594,8 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkCreateDisplayModeKHR(
     &self,
     display: VkDisplayKHR,
-    pCreateInfo: &VkDisplayModeCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDisplayModeCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<VkDisplayModeKHR, VkResult> {
     let mut handle = VkDisplayModeKHR::NULL;
     let r = unsafe {
@@ -2801,7 +2805,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     &self,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkDisplayPropertiesKHR,
+    pProperties: *mut VkDisplayPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2829,8 +2833,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalFencePropertiesKHR(
     &self,
-    pExternalFenceInfo: &VkPhysicalDeviceExternalFenceInfoKHR,
-    pExternalFenceProperties: &mut VkExternalFencePropertiesKHR,
+    pExternalFenceInfo: &VkPhysicalDeviceExternalFenceInfoKHR<'_>,
+    pExternalFenceProperties: &mut VkExternalFencePropertiesKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2854,8 +2858,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalBufferPropertiesKHR(
     &self,
-    pExternalBufferInfo: &VkPhysicalDeviceExternalBufferInfoKHR,
-    pExternalBufferProperties: &mut VkExternalBufferPropertiesKHR,
+    pExternalBufferInfo: &VkPhysicalDeviceExternalBufferInfoKHR<'_>,
+    pExternalBufferProperties: &mut VkExternalBufferPropertiesKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2879,8 +2883,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(
     &self,
-    pExternalSemaphoreInfo: &VkPhysicalDeviceExternalSemaphoreInfoKHR,
-    pExternalSemaphoreProperties: &mut VkExternalSemaphorePropertiesKHR,
+    pExternalSemaphoreInfo: &VkPhysicalDeviceExternalSemaphoreInfoKHR<'_>,
+    pExternalSemaphoreProperties: &mut VkExternalSemaphorePropertiesKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -2919,7 +2923,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     &self,
     pFragmentShadingRateCount: *mut u32,
-    pFragmentShadingRates: *mut VkPhysicalDeviceFragmentShadingRateKHR,
+    pFragmentShadingRates: *mut VkPhysicalDeviceFragmentShadingRateKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2961,7 +2965,7 @@ impl<'inst> PhysicalDevice<'inst> {
     &self,
     display: VkDisplayKHR,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkDisplayModeProperties2KHR,
+    pProperties: *mut VkDisplayModeProperties2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -2999,8 +3003,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetDisplayPlaneCapabilities2KHR(
     &self,
-    pDisplayPlaneInfo: &VkDisplayPlaneInfo2KHR,
-    pCapabilities: &mut VkDisplayPlaneCapabilities2KHR,
+    pDisplayPlaneInfo: &VkDisplayPlaneInfo2KHR<'_>,
+    pCapabilities: &mut VkDisplayPlaneCapabilities2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3040,7 +3044,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     &self,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkDisplayPlaneProperties2KHR,
+    pProperties: *mut VkDisplayPlaneProperties2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3080,7 +3084,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceDisplayProperties2KHR(
     &self,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkDisplayProperties2KHR,
+    pProperties: *mut VkDisplayProperties2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3105,7 +3109,7 @@ impl<'inst> PhysicalDevice<'inst> {
   /// - `pFeatures`
   #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
   #[inline(always)]
-  pub fn vkGetPhysicalDeviceFeatures2KHR(&self, pFeatures: &mut VkPhysicalDeviceFeatures2KHR) {
+  pub fn vkGetPhysicalDeviceFeatures2KHR(&self, pFeatures: &mut VkPhysicalDeviceFeatures2KHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -3129,7 +3133,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceFormatProperties2KHR(
     &self,
     format: VkFormat,
-    pFormatProperties: &mut VkFormatProperties2KHR,
+    pFormatProperties: &mut VkFormatProperties2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3170,8 +3174,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceImageFormatProperties2KHR(
     &self,
-    pImageFormatInfo: &VkPhysicalDeviceImageFormatInfo2KHR,
-    pImageFormatProperties: &mut VkImageFormatProperties2KHR,
+    pImageFormatInfo: &VkPhysicalDeviceImageFormatInfo2KHR<'_>,
+    pImageFormatProperties: &mut VkImageFormatProperties2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3198,7 +3202,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceMemoryProperties2KHR(
     &self,
-    pMemoryProperties: &mut VkPhysicalDeviceMemoryProperties2KHR,
+    pMemoryProperties: &mut VkPhysicalDeviceMemoryProperties2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3221,7 +3225,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceProperties2KHR(
     &self,
-    pProperties: &mut VkPhysicalDeviceProperties2KHR,
+    pProperties: &mut VkPhysicalDeviceProperties2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3246,7 +3250,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceQueueFamilyProperties2KHR(
     &self,
     pQueueFamilyPropertyCount: *mut u32,
-    pQueueFamilyProperties: *mut VkQueueFamilyProperties2KHR,
+    pQueueFamilyProperties: *mut VkQueueFamilyProperties2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3271,9 +3275,9 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSparseImageFormatProperties2KHR(
     &self,
-    pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2KHR,
+    pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2KHR<'_>,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkSparseImageFormatProperties2KHR,
+    pProperties: *mut VkSparseImageFormatProperties2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3308,8 +3312,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
     &self,
-    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR,
-    pSurfaceCapabilities: &mut VkSurfaceCapabilities2KHR,
+    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR<'_>,
+    pSurfaceCapabilities: &mut VkSurfaceCapabilities2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3350,9 +3354,9 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     &self,
-    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR,
+    pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR<'_>,
     pSurfaceFormatCount: *mut u32,
-    pSurfaceFormats: *mut VkSurfaceFormat2KHR,
+    pSurfaceFormats: *mut VkSurfaceFormat2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3438,8 +3442,8 @@ impl<'inst> PhysicalDevice<'inst> {
     &self,
     queueFamilyIndex: u32,
     pCounterCount: *mut u32,
-    pCounters: *mut VkPerformanceCounterKHR,
-    pCounterDescriptions: *mut VkPerformanceCounterDescriptionKHR,
+    pCounters: *mut VkPerformanceCounterKHR<'_>,
+    pCounterDescriptions: *mut VkPerformanceCounterDescriptionKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3472,7 +3476,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(
     &self,
-    pPerformanceQueryCreateInfo: &VkQueryPoolPerformanceCreateInfoKHR,
+    pPerformanceQueryCreateInfo: &VkQueryPoolPerformanceCreateInfoKHR<'_>,
     pNumPasses: &mut u32,
   ) {
     unsafe {
@@ -3679,8 +3683,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(
     &self,
-    pQualityLevelInfo: &VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR,
-    pQualityLevelProperties: &mut VkVideoEncodeQualityLevelPropertiesKHR,
+    pQualityLevelInfo: &VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_>,
+    pQualityLevelProperties: &mut VkVideoEncodeQualityLevelPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3722,8 +3726,8 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
     &self,
-    pVideoProfile: &VkVideoProfileInfoKHR,
-    pCapabilities: &mut VkVideoCapabilitiesKHR,
+    pVideoProfile: &VkVideoProfileInfoKHR<'_>,
+    pCapabilities: &mut VkVideoCapabilitiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3768,9 +3772,9 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     &self,
-    pVideoFormatInfo: &VkPhysicalDeviceVideoFormatInfoKHR,
+    pVideoFormatInfo: &VkPhysicalDeviceVideoFormatInfoKHR<'_>,
     pVideoFormatPropertyCount: *mut u32,
-    pVideoFormatProperties: *mut VkVideoFormatPropertiesKHR,
+    pVideoFormatProperties: *mut VkVideoFormatPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3976,7 +3980,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     &self,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeMatrixPropertiesNV,
+    pProperties: *mut VkCooperativeMatrixPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -4016,7 +4020,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(
     &self,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeMatrixFlexibleDimensionsPropertiesNV,
+    pProperties: *mut VkCooperativeMatrixFlexibleDimensionsPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -4056,7 +4060,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceCooperativeVectorPropertiesNV(
     &self,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeVectorPropertiesNV,
+    pProperties: *mut VkCooperativeVectorPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -4096,7 +4100,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
     &self,
     pCombinationCount: *mut u32,
-    pCombinations: *mut VkFramebufferMixedSamplesCombinationNV,
+    pCombinations: *mut VkFramebufferMixedSamplesCombinationNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -4196,7 +4200,7 @@ impl<'inst> PhysicalDevice<'inst> {
     &self,
     handleType: VkExternalMemoryHandleTypeFlagBits,
     handle: NvSciBufObj,
-    pMemorySciBufProperties: &mut VkMemorySciBufPropertiesNV,
+    pMemorySciBufProperties: &mut VkMemorySciBufPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -4274,7 +4278,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSciSyncAttributesNV(
     &self,
-    pSciSyncAttributesInfo: &VkSciSyncAttributesInfoNV,
+    pSciSyncAttributesInfo: &VkSciSyncAttributesInfoNV<'_>,
     pAttributes: NvSciSyncAttrList,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4316,9 +4320,9 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     &self,
-    pOpticalFlowImageFormatInfo: &VkOpticalFlowImageFormatInfoNV,
+    pOpticalFlowImageFormatInfo: &VkOpticalFlowImageFormatInfoNV<'_>,
     pFormatCount: *mut u32,
-    pImageFormatProperties: *mut VkOpticalFlowImageFormatPropertiesNV,
+    pImageFormatProperties: *mut VkOpticalFlowImageFormatPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

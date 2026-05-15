@@ -94,7 +94,10 @@ impl<'dev> DescriptorUpdateTemplateKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_descriptor_update_template")]
   #[inline(always)]
-  pub fn vkDestroyDescriptorUpdateTemplateKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDescriptorUpdateTemplateKHR(
+    &mut self,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+  ) {
     if self.raw.0.is_null() {
       return;
     }

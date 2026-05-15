@@ -91,7 +91,7 @@ impl<'dev> MicromapEXT<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[inline(always)]
-  pub fn vkDestroyMicromapEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyMicromapEXT(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

@@ -1,5 +1,5 @@
-use std::ffi::CStr;
-use std::ptr::null_mut;
+use core::ffi::CStr;
+use core::ptr::null_mut;
 
 pub(crate) const VALIDATION_LAYER: &CStr = c"VK_LAYER_KHRONOS_validation";
 

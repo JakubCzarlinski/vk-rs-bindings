@@ -98,7 +98,7 @@ impl<'dev> ShaderEXT<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_EXT_shader_object")]
   #[inline(always)]
-  pub fn vkDestroyShaderEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyShaderEXT(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

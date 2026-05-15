@@ -1,8 +1,9 @@
 use crate::cfggen::cfg_availability;
-use crate::codegen::utils::{create_doc, resolve_alias, rewrite_command_types_for_providers};
+use crate::codegen::utils::{
+    create_doc, ctype_to_tokens_for_registry, resolve_alias, rewrite_command_types_for_providers,
+};
 use crate::codegen::{deprecate_attr, pretty, sanitize_ident};
 use crate::ir::{Command, Registry};
-use crate::types::ctype_to_rust_str;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use std::collections::BTreeMap;
@@ -56,20 +57,18 @@ pub fn gen_commands_rs(reg: &Registry) -> String {
             cmd.clone()
         };
 
-        let ret_s = ctype_to_rust_str(&sig_cmd.return_type);
-        let ret_ts: TokenStream = if ret_s == "core::ffi::c_void" || ret_s == "void" {
-            quote! {}
-        } else {
-            let r: TokenStream = ret_s.parse().unwrap_or_else(|_| quote! {()});
-            quote! { -> #r }
-        };
+        let ret_ts: TokenStream =
+            if sig_cmd.return_type.base == "void" || sig_cmd.return_type.base.is_empty() {
+                quote! {}
+            } else {
+                let r = ctype_to_tokens_for_registry(&sig_cmd.return_type, reg, quote! { '_ });
+                quote! { -> #r }
+            };
 
         let mut params = TokenStream::new();
         for p in &sig_cmd.params {
             let pname = format_ident!("{}", sanitize_ident(&p.name));
-            let pty: TokenStream = ctype_to_rust_str(&p.ty)
-                .parse()
-                .unwrap_or_else(|_| quote! { *mut core::ffi::c_void });
+            let pty: TokenStream = ctype_to_tokens_for_registry(&p.ty, reg, quote! { '_ });
             params.extend(quote! { #pname: #pty, });
         }
 

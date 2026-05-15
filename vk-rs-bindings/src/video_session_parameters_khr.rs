@@ -98,7 +98,10 @@ impl<'dev> VideoSessionParametersKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_video_queue")]
   #[inline(always)]
-  pub fn vkDestroyVideoSessionParametersKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyVideoSessionParametersKHR(
+    &mut self,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+  ) {
     if self.raw.0.is_null() {
       return;
     }
@@ -136,7 +139,7 @@ impl<'dev> VideoSessionParametersKHR<'dev> {
   #[inline(always)]
   pub fn vkUpdateVideoSessionParametersKHR(
     &self,
-    pUpdateInfo: &VkVideoSessionParametersUpdateInfoKHR,
+    pUpdateInfo: &VkVideoSessionParametersUpdateInfoKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)

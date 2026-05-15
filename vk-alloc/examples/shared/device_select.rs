@@ -1,8 +1,8 @@
-use std::ffi::CStr;
+use core::ffi::CStr;
 
-pub(crate) fn queue_family_properties(
-    physical_device: &vk::PhysicalDevice<'_>,
-) -> Vec<vk::VkQueueFamilyProperties2> {
+pub(crate) fn queue_family_properties<'a>(
+    physical_device: &'a vk::PhysicalDevice<'a>,
+) -> Vec<vk::VkQueueFamilyProperties2<'a>> {
     let mut count = 0;
     physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&raw mut count, std::ptr::null_mut());
     let mut properties = vec![vk::VkQueueFamilyProperties2::DEFAULT; count as usize];

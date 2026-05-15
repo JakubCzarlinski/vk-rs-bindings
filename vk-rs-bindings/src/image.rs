@@ -200,7 +200,7 @@ impl<'dev> Image<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyImage(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyImage(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -309,8 +309,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2(
     &self,
-    pSubresource: &VkImageSubresource2,
-    pLayout: &mut VkSubresourceLayout2,
+    pSubresource: &VkImageSubresource2<'_>,
+    pLayout: &mut VkSubresourceLayout2<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -342,8 +342,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2EXT(
     &self,
-    pSubresource: &VkImageSubresource2EXT,
-    pLayout: &mut VkSubresourceLayout2EXT,
+    pSubresource: &VkImageSubresource2EXT<'_>,
+    pLayout: &mut VkSubresourceLayout2EXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -376,7 +376,7 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageDrmFormatModifierPropertiesEXT(
     &self,
-    pProperties: &mut VkImageDrmFormatModifierPropertiesEXT,
+    pProperties: &mut VkImageDrmFormatModifierPropertiesEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -405,8 +405,8 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSubresourceLayout2KHR(
     &self,
-    pSubresource: &VkImageSubresource2KHR,
-    pLayout: &mut VkSubresourceLayout2KHR,
+    pSubresource: &VkImageSubresource2KHR<'_>,
+    pLayout: &mut VkSubresourceLayout2KHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.

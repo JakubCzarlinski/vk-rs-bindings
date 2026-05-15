@@ -161,6 +161,7 @@ fn gen_instance(
                 methods_ts.extend(gen_enumerate_physical_devices(cmd, providers));
             } else if name == "vkDestroyInstance" {
                 methods_ts.extend(safe_method_unit_with_overrides(
+                    reg,
                     cmd,
                     name,
                     providers,
@@ -183,6 +184,7 @@ fn gen_instance(
                 ));
             } else {
                 methods_ts.extend(safe_method(
+                    reg,
                     cmd,
                     name,
                     providers,

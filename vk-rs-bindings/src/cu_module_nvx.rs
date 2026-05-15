@@ -91,7 +91,7 @@ impl<'dev> CuModuleNVX<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_NVX_binary_import")]
   #[inline(always)]
-  pub fn vkDestroyCuModuleNVX(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyCuModuleNVX(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

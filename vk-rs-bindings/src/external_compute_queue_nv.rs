@@ -98,7 +98,7 @@ impl<'dev> ExternalComputeQueueNV<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_NV_external_compute_queue")]
   #[inline(always)]
-  pub fn vkDestroyExternalComputeQueueNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyExternalComputeQueueNV(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -124,7 +124,7 @@ impl<'dev> ExternalComputeQueueNV<'dev> {
   #[inline(always)]
   pub fn vkGetExternalComputeQueueDataNV(
     &self,
-    params: &mut VkExternalComputeQueueDataParamsNV,
+    params: &mut VkExternalComputeQueueDataParamsNV<'_>,
     pData: *mut core::ffi::c_void,
   ) {
     unsafe {

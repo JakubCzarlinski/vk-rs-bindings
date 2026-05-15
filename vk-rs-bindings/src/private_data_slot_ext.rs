@@ -92,7 +92,7 @@ impl<'dev> PrivateDataSlotEXT<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_EXT_private_data")]
   #[inline(always)]
-  pub fn vkDestroyPrivateDataSlotEXT(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyPrivateDataSlotEXT(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

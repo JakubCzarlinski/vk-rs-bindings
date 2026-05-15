@@ -92,7 +92,7 @@ pub type PFN_vkAcquireFullScreenExclusiveModeEXT =
 ))]
 pub type PFN_vkAcquireNextImage2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pAcquireInfo: *const VkAcquireNextImageInfoKHR,
+  pAcquireInfo: *const VkAcquireNextImageInfoKHR<'_>,
   pImageIndex: *mut u32,
 ) -> VkResult;
 /// [`vkAcquireNextImageKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireNextImageKHR.html)
@@ -159,7 +159,7 @@ pub type PFN_vkAcquireNextImageKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkAcquirePerformanceConfigurationINTEL = unsafe extern "system" fn(
   device: VkDevice,
-  pAcquireInfo: *const VkPerformanceConfigurationAcquireInfoINTEL,
+  pAcquireInfo: *const VkPerformanceConfigurationAcquireInfoINTEL<'_>,
   pConfiguration: *mut VkPerformanceConfigurationINTEL,
 ) -> VkResult;
 /// [`vkAcquireProfilingLockKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireProfilingLockKHR.html)
@@ -185,7 +185,7 @@ pub type PFN_vkAcquirePerformanceConfigurationINTEL = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_performance_query")]
 pub type PFN_vkAcquireProfilingLockKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkAcquireProfilingLockInfoKHR,
+  pInfo: *const VkAcquireProfilingLockInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkAcquireWinrtDisplayNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAcquireWinrtDisplayNV.html)
 ///
@@ -263,7 +263,7 @@ pub type PFN_vkAcquireXlibDisplayEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkAllocateCommandBuffers = unsafe extern "system" fn(
   device: VkDevice,
-  pAllocateInfo: *const VkCommandBufferAllocateInfo,
+  pAllocateInfo: *const VkCommandBufferAllocateInfo<'_>,
   pCommandBuffers: *mut VkCommandBuffer,
 ) -> VkResult;
 /// [`vkAllocateDescriptorSets`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateDescriptorSets.html)
@@ -293,7 +293,7 @@ pub type PFN_vkAllocateCommandBuffers = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkAllocateDescriptorSets = unsafe extern "system" fn(
   device: VkDevice,
-  pAllocateInfo: *const VkDescriptorSetAllocateInfo,
+  pAllocateInfo: *const VkDescriptorSetAllocateInfo<'_>,
   pDescriptorSets: *mut VkDescriptorSet,
 ) -> VkResult;
 /// [`vkAllocateMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAllocateMemory.html)
@@ -324,8 +324,8 @@ pub type PFN_vkAllocateDescriptorSets = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkAllocateMemory = unsafe extern "system" fn(
   device: VkDevice,
-  pAllocateInfo: *const VkMemoryAllocateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocateInfo: *const VkMemoryAllocateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pMemory: *mut VkDeviceMemory,
 ) -> VkResult;
 /// [`vkAntiLagUpdateAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkAntiLagUpdateAMD.html)
@@ -339,7 +339,7 @@ pub type PFN_vkAllocateMemory = unsafe extern "system" fn(
 /// - `pData`
 #[cfg(feature = "VK_AMD_anti_lag")]
 pub type PFN_vkAntiLagUpdateAMD =
-  unsafe extern "system" fn(device: VkDevice, pData: *const VkAntiLagDataAMD);
+  unsafe extern "system" fn(device: VkDevice, pData: *const VkAntiLagDataAMD<'_>);
 /// [`vkBeginCommandBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBeginCommandBuffer.html)
 ///
 /// Provided by:
@@ -364,7 +364,7 @@ pub type PFN_vkAntiLagUpdateAMD =
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkBeginCommandBuffer = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBeginInfo: *const VkCommandBufferBeginInfo,
+  pBeginInfo: *const VkCommandBufferBeginInfo<'_>,
 ) -> VkResult;
 /// [`vkBindAccelerationStructureMemoryNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindAccelerationStructureMemoryNV.html)
 ///
@@ -391,7 +391,7 @@ pub type PFN_vkBeginCommandBuffer = unsafe extern "system" fn(
 pub type PFN_vkBindAccelerationStructureMemoryNV = unsafe extern "system" fn(
   device: VkDevice,
   bindInfoCount: u32,
-  pBindInfos: *const VkBindAccelerationStructureMemoryInfoNV,
+  pBindInfos: *const VkBindAccelerationStructureMemoryInfoNV<'_>,
 ) -> VkResult;
 /// [`vkBindBufferMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory.html)
 ///
@@ -451,7 +451,7 @@ pub type PFN_vkBindBufferMemory = unsafe extern "system" fn(
 pub type PFN_vkBindBufferMemory2 = unsafe extern "system" fn(
   device: VkDevice,
   bindInfoCount: u32,
-  pBindInfos: *const VkBindBufferMemoryInfo,
+  pBindInfos: *const VkBindBufferMemoryInfo<'_>,
 ) -> VkResult;
 /// [`vkBindBufferMemory2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindBufferMemory2KHR.html)
 ///
@@ -462,7 +462,7 @@ pub type PFN_vkBindBufferMemory2 = unsafe extern "system" fn(
 pub type PFN_vkBindBufferMemory2KHR = unsafe extern "system" fn(
   device: VkDevice,
   bindInfoCount: u32,
-  pBindInfos: *const VkBindBufferMemoryInfoKHR,
+  pBindInfos: *const VkBindBufferMemoryInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkBindDataGraphPipelineSessionMemoryARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindDataGraphPipelineSessionMemoryARM.html)
 ///
@@ -489,7 +489,7 @@ pub type PFN_vkBindBufferMemory2KHR = unsafe extern "system" fn(
 pub type PFN_vkBindDataGraphPipelineSessionMemoryARM = unsafe extern "system" fn(
   device: VkDevice,
   bindInfoCount: u32,
-  pBindInfos: *const VkBindDataGraphPipelineSessionMemoryInfoARM,
+  pBindInfos: *const VkBindDataGraphPipelineSessionMemoryInfoARM<'_>,
 ) -> VkResult;
 /// [`vkBindImageMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory.html)
 ///
@@ -547,7 +547,7 @@ pub type PFN_vkBindImageMemory = unsafe extern "system" fn(
 pub type PFN_vkBindImageMemory2 = unsafe extern "system" fn(
   device: VkDevice,
   bindInfoCount: u32,
-  pBindInfos: *const VkBindImageMemoryInfo,
+  pBindInfos: *const VkBindImageMemoryInfo<'_>,
 ) -> VkResult;
 /// [`vkBindImageMemory2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindImageMemory2KHR.html)
 ///
@@ -558,7 +558,7 @@ pub type PFN_vkBindImageMemory2 = unsafe extern "system" fn(
 pub type PFN_vkBindImageMemory2KHR = unsafe extern "system" fn(
   device: VkDevice,
   bindInfoCount: u32,
-  pBindInfos: *const VkBindImageMemoryInfoKHR,
+  pBindInfos: *const VkBindImageMemoryInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkBindOpticalFlowSessionImageNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindOpticalFlowSessionImageNV.html)
 ///
@@ -616,7 +616,7 @@ pub type PFN_vkBindOpticalFlowSessionImageNV = unsafe extern "system" fn(
 pub type PFN_vkBindTensorMemoryARM = unsafe extern "system" fn(
   device: VkDevice,
   bindInfoCount: u32,
-  pBindInfos: *const VkBindTensorMemoryInfoARM,
+  pBindInfos: *const VkBindTensorMemoryInfoARM<'_>,
 ) -> VkResult;
 /// [`vkBindVideoSessionMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBindVideoSessionMemoryKHR.html)
 ///
@@ -645,7 +645,7 @@ pub type PFN_vkBindVideoSessionMemoryKHR = unsafe extern "system" fn(
   device: VkDevice,
   videoSession: VkVideoSessionKHR,
   bindSessionMemoryInfoCount: u32,
-  pBindSessionMemoryInfos: *const VkBindVideoSessionMemoryInfoKHR,
+  pBindSessionMemoryInfos: *const VkBindVideoSessionMemoryInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkBuildAccelerationStructuresKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildAccelerationStructuresKHR.html)
 ///
@@ -677,7 +677,7 @@ pub type PFN_vkBuildAccelerationStructuresKHR = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
   infoCount: u32,
-  pInfos: *const VkAccelerationStructureBuildGeometryInfoKHR,
+  pInfos: *const VkAccelerationStructureBuildGeometryInfoKHR<'_>,
   ppBuildRangeInfos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
 ) -> VkResult;
 /// [`vkBuildMicromapsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkBuildMicromapsEXT.html)
@@ -709,7 +709,7 @@ pub type PFN_vkBuildMicromapsEXT = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
   infoCount: u32,
-  pInfos: *const VkMicromapBuildInfoEXT,
+  pInfos: *const VkMicromapBuildInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkClearShaderInstrumentationMetricsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkClearShaderInstrumentationMetricsARM.html)
 ///
@@ -742,7 +742,7 @@ pub type PFN_vkClearShaderInstrumentationMetricsARM =
 ))]
 pub type PFN_vkCmdBeginConditionalRendering2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pConditionalRenderingBegin: *const VkConditionalRenderingBeginInfo2EXT,
+  pConditionalRenderingBegin: *const VkConditionalRenderingBeginInfo2EXT<'_>,
 );
 /// [`vkCmdBeginConditionalRenderingEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginConditionalRenderingEXT.html)
 ///
@@ -760,7 +760,7 @@ pub type PFN_vkCmdBeginConditionalRendering2EXT = unsafe extern "system" fn(
 #[deprecated(note = "superseded by `vkCmdBeginConditionalRendering2EXT`")]
 pub type PFN_vkCmdBeginConditionalRenderingEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pConditionalRenderingBegin: *const VkConditionalRenderingBeginInfoEXT,
+  pConditionalRenderingBegin: *const VkConditionalRenderingBeginInfoEXT<'_>,
 );
 /// [`vkCmdBeginCustomResolveEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginCustomResolveEXT.html)
 ///
@@ -785,7 +785,7 @@ pub type PFN_vkCmdBeginConditionalRenderingEXT = unsafe extern "system" fn(
 ))]
 pub type PFN_vkCmdBeginCustomResolveEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBeginCustomResolveInfo: *const VkBeginCustomResolveInfoEXT,
+  pBeginCustomResolveInfo: *const VkBeginCustomResolveInfoEXT<'_>,
 );
 /// [`vkCmdBeginDebugUtilsLabelEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginDebugUtilsLabelEXT.html)
 ///
@@ -802,7 +802,7 @@ pub type PFN_vkCmdBeginCustomResolveEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkCmdBeginDebugUtilsLabelEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pLabelInfo: *const VkDebugUtilsLabelEXT,
+  pLabelInfo: *const VkDebugUtilsLabelEXT<'_>,
 );
 /// [`vkCmdBeginGpaSampleAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSampleAMD.html)
 ///
@@ -833,7 +833,7 @@ pub type PFN_vkCmdBeginDebugUtilsLabelEXT = unsafe extern "system" fn(
 pub type PFN_vkCmdBeginGpaSampleAMD = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   gpaSession: VkGpaSessionAMD,
-  pGpaSampleBeginInfo: *const VkGpaSampleBeginInfoAMD,
+  pGpaSampleBeginInfo: *const VkGpaSampleBeginInfoAMD<'_>,
   pSampleID: *mut u32,
 ) -> VkResult;
 /// [`vkCmdBeginGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginGpaSessionAMD.html)
@@ -879,7 +879,7 @@ pub type PFN_vkCmdBeginGpaSessionAMD = unsafe extern "system" fn(
 #[cfg(feature = "VK_QCOM_tile_shading")]
 pub type PFN_vkCmdBeginPerTileExecutionQCOM = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPerTileBeginInfo: *const VkPerTileBeginInfoQCOM,
+  pPerTileBeginInfo: *const VkPerTileBeginInfoQCOM<'_>,
 );
 /// [`vkCmdBeginQuery`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginQuery.html)
 ///
@@ -944,7 +944,7 @@ pub type PFN_vkCmdBeginQueryIndexedEXT = unsafe extern "system" fn(
 #[deprecated(note = "superseded by `vkCmdBeginRenderPass2`")]
 pub type PFN_vkCmdBeginRenderPass = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pRenderPassBegin: *const VkRenderPassBeginInfo,
+  pRenderPassBegin: *const VkRenderPassBeginInfo<'_>,
   contents: VkSubpassContents,
 );
 /// [`vkCmdBeginRenderPass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderPass2.html)
@@ -964,8 +964,8 @@ pub type PFN_vkCmdBeginRenderPass = unsafe extern "system" fn(
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 pub type PFN_vkCmdBeginRenderPass2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pRenderPassBegin: *const VkRenderPassBeginInfo,
-  pSubpassBeginInfo: *const VkSubpassBeginInfo,
+  pRenderPassBegin: *const VkRenderPassBeginInfo<'_>,
+  pSubpassBeginInfo: *const VkSubpassBeginInfo<'_>,
 );
 /// [`vkCmdBeginRenderPass2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderPass2KHR.html)
 ///
@@ -975,8 +975,8 @@ pub type PFN_vkCmdBeginRenderPass2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_create_renderpass2")]
 pub type PFN_vkCmdBeginRenderPass2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pRenderPassBegin: *const VkRenderPassBeginInfo,
-  pSubpassBeginInfo: *const VkSubpassBeginInfoKHR,
+  pRenderPassBegin: *const VkRenderPassBeginInfo<'_>,
+  pSubpassBeginInfo: *const VkSubpassBeginInfoKHR<'_>,
 );
 /// [`vkCmdBeginRendering`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRendering.html)
 ///
@@ -992,8 +992,10 @@ pub type PFN_vkCmdBeginRenderPass2KHR = unsafe extern "system" fn(
 /// - `commandBuffer`
 /// - `pRenderingInfo`
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
-pub type PFN_vkCmdBeginRendering =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pRenderingInfo: *const VkRenderingInfo);
+pub type PFN_vkCmdBeginRendering = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pRenderingInfo: *const VkRenderingInfo<'_>,
+);
 /// [`vkCmdBeginRenderingKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginRenderingKHR.html)
 ///
 /// Provided by:
@@ -1002,7 +1004,7 @@ pub type PFN_vkCmdBeginRendering =
 #[cfg(feature = "VK_KHR_dynamic_rendering")]
 pub type PFN_vkCmdBeginRenderingKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pRenderingInfo: *const VkRenderingInfoKHR,
+  pRenderingInfo: *const VkRenderingInfoKHR<'_>,
 );
 /// [`vkCmdBeginShaderInstrumentationARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginShaderInstrumentationARM.html)
 ///
@@ -1044,7 +1046,7 @@ pub type PFN_vkCmdBeginTransformFeedback2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   firstCounterRange: u32,
   counterRangeCount: u32,
-  pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT,
+  pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT<'_>,
 );
 /// [`vkCmdBeginTransformFeedbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBeginTransformFeedbackEXT.html)
 ///
@@ -1085,7 +1087,7 @@ pub type PFN_vkCmdBeginTransformFeedbackEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkCmdBeginVideoCodingKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBeginInfo: *const VkVideoBeginCodingInfoKHR,
+  pBeginInfo: *const VkVideoBeginCodingInfoKHR<'_>,
 );
 /// [`vkCmdBindDescriptorBufferEmbeddedSamplers2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html)
 ///
@@ -1103,7 +1105,9 @@ pub type PFN_vkCmdBeginVideoCodingKHR = unsafe extern "system" fn(
 #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
 pub type PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBindDescriptorBufferEmbeddedSamplersInfo: *const VkBindDescriptorBufferEmbeddedSamplersInfoEXT,
+  pBindDescriptorBufferEmbeddedSamplersInfo: *const VkBindDescriptorBufferEmbeddedSamplersInfoEXT<
+    '_,
+  >,
 );
 /// [`vkCmdBindDescriptorBufferEmbeddedSamplersEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html)
 ///
@@ -1143,7 +1147,7 @@ pub type PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT = unsafe extern "syste
 pub type PFN_vkCmdBindDescriptorBuffersEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   bufferCount: u32,
-  pBindingInfos: *const VkDescriptorBufferBindingInfoEXT,
+  pBindingInfos: *const VkDescriptorBufferBindingInfoEXT<'_>,
 );
 /// [`vkCmdBindDescriptorSets`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorSets.html)
 ///
@@ -1191,7 +1195,7 @@ pub type PFN_vkCmdBindDescriptorSets = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 pub type PFN_vkCmdBindDescriptorSets2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBindDescriptorSetsInfo: *const VkBindDescriptorSetsInfo,
+  pBindDescriptorSetsInfo: *const VkBindDescriptorSetsInfo<'_>,
 );
 /// [`vkCmdBindDescriptorSets2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindDescriptorSets2KHR.html)
 ///
@@ -1201,7 +1205,7 @@ pub type PFN_vkCmdBindDescriptorSets2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance6")]
 pub type PFN_vkCmdBindDescriptorSets2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBindDescriptorSetsInfo: *const VkBindDescriptorSetsInfoKHR,
+  pBindDescriptorSetsInfo: *const VkBindDescriptorSetsInfoKHR<'_>,
 );
 /// [`vkCmdBindIndexBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindIndexBuffer.html)
 ///
@@ -1278,7 +1282,7 @@ pub type PFN_vkCmdBindIndexBuffer2KHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_device_address_commands")]
 pub type PFN_vkCmdBindIndexBuffer3KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkBindIndexBuffer3InfoKHR,
+  pInfo: *const VkBindIndexBuffer3InfoKHR<'_>,
 );
 /// [`vkCmdBindInvocationMaskHUAWEI`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindInvocationMaskHUAWEI.html)
 ///
@@ -1353,8 +1357,10 @@ pub type PFN_vkCmdBindPipelineShaderGroupNV = unsafe extern "system" fn(
 /// - `commandBuffer`
 /// - `pBindInfo`
 #[cfg(feature = "VK_EXT_descriptor_heap")]
-pub type PFN_vkCmdBindResourceHeapEXT =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pBindInfo: *const VkBindHeapInfoEXT);
+pub type PFN_vkCmdBindResourceHeapEXT = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pBindInfo: *const VkBindHeapInfoEXT<'_>,
+);
 /// [`vkCmdBindSamplerHeapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindSamplerHeapEXT.html)
 ///
 /// Provided by:
@@ -1368,8 +1374,10 @@ pub type PFN_vkCmdBindResourceHeapEXT =
 /// - `commandBuffer`
 /// - `pBindInfo`
 #[cfg(feature = "VK_EXT_descriptor_heap")]
-pub type PFN_vkCmdBindSamplerHeapEXT =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pBindInfo: *const VkBindHeapInfoEXT);
+pub type PFN_vkCmdBindSamplerHeapEXT = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pBindInfo: *const VkBindHeapInfoEXT<'_>,
+);
 /// [`vkCmdBindShadersEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindShadersEXT.html)
 ///
 /// Provided by:
@@ -1425,7 +1433,7 @@ pub type PFN_vkCmdBindShadingRateImageNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_QCOM_tile_memory_heap")]
 pub type PFN_vkCmdBindTileMemoryQCOM = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pTileMemoryBindInfo: *const VkTileMemoryBindInfoQCOM,
+  pTileMemoryBindInfo: *const VkTileMemoryBindInfoQCOM<'_>,
 );
 /// [`vkCmdBindTransformFeedbackBuffers2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindTransformFeedbackBuffers2EXT.html)
 ///
@@ -1450,7 +1458,7 @@ pub type PFN_vkCmdBindTransformFeedbackBuffers2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   firstBinding: u32,
   bindingCount: u32,
-  pBindingInfos: *const VkBindTransformFeedbackBuffer2InfoEXT,
+  pBindingInfos: *const VkBindTransformFeedbackBuffer2InfoEXT<'_>,
 );
 /// [`vkCmdBindTransformFeedbackBuffersEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBindTransformFeedbackBuffersEXT.html)
 ///
@@ -1569,7 +1577,7 @@ pub type PFN_vkCmdBindVertexBuffers3KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   firstBinding: u32,
   bindingCount: u32,
-  pBindingInfos: *const VkBindVertexBuffer3InfoKHR,
+  pBindingInfos: *const VkBindVertexBuffer3InfoKHR<'_>,
 );
 /// [`vkCmdBlitImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBlitImage.html)
 ///
@@ -1617,7 +1625,7 @@ pub type PFN_vkCmdBlitImage = unsafe extern "system" fn(
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 pub type PFN_vkCmdBlitImage2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBlitImageInfo: *const VkBlitImageInfo2,
+  pBlitImageInfo: *const VkBlitImageInfo2<'_>,
 );
 /// [`vkCmdBlitImage2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBlitImage2KHR.html)
 ///
@@ -1627,7 +1635,7 @@ pub type PFN_vkCmdBlitImage2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_copy_commands2")]
 pub type PFN_vkCmdBlitImage2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBlitImageInfo: *const VkBlitImageInfo2KHR,
+  pBlitImageInfo: *const VkBlitImageInfo2KHR<'_>,
 );
 /// [`vkCmdBuildAccelerationStructureNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildAccelerationStructureNV.html)
 ///
@@ -1651,7 +1659,7 @@ pub type PFN_vkCmdBlitImage2KHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkCmdBuildAccelerationStructureNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkAccelerationStructureInfoNV,
+  pInfo: *const VkAccelerationStructureInfoNV<'_>,
   instanceData: VkBuffer,
   instanceOffset: VkDeviceSize,
   update: VkBool32,
@@ -1680,7 +1688,7 @@ pub type PFN_vkCmdBuildAccelerationStructureNV = unsafe extern "system" fn(
 pub type PFN_vkCmdBuildAccelerationStructuresIndirectKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   infoCount: u32,
-  pInfos: *const VkAccelerationStructureBuildGeometryInfoKHR,
+  pInfos: *const VkAccelerationStructureBuildGeometryInfoKHR<'_>,
   pIndirectDeviceAddresses: *const VkDeviceAddress,
   pIndirectStrides: *const u32,
   ppMaxPrimitiveCounts: *const *const u32,
@@ -1703,7 +1711,7 @@ pub type PFN_vkCmdBuildAccelerationStructuresIndirectKHR = unsafe extern "system
 pub type PFN_vkCmdBuildAccelerationStructuresKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   infoCount: u32,
-  pInfos: *const VkAccelerationStructureBuildGeometryInfoKHR,
+  pInfos: *const VkAccelerationStructureBuildGeometryInfoKHR<'_>,
   ppBuildRangeInfos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
 );
 /// [`vkCmdBuildClusterAccelerationStructureIndirectNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildClusterAccelerationStructureIndirectNV.html)
@@ -1721,7 +1729,7 @@ pub type PFN_vkCmdBuildAccelerationStructuresKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 pub type PFN_vkCmdBuildClusterAccelerationStructureIndirectNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCommandInfos: *const VkClusterAccelerationStructureCommandsInfoNV,
+  pCommandInfos: *const VkClusterAccelerationStructureCommandsInfoNV<'_>,
 );
 /// [`vkCmdBuildMicromapsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildMicromapsEXT.html)
 ///
@@ -1740,7 +1748,7 @@ pub type PFN_vkCmdBuildClusterAccelerationStructureIndirectNV = unsafe extern "s
 pub type PFN_vkCmdBuildMicromapsEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   infoCount: u32,
-  pInfos: *const VkMicromapBuildInfoEXT,
+  pInfos: *const VkMicromapBuildInfoEXT<'_>,
 );
 /// [`vkCmdBuildPartitionedAccelerationStructuresNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdBuildPartitionedAccelerationStructuresNV.html)
 ///
@@ -1757,7 +1765,7 @@ pub type PFN_vkCmdBuildMicromapsEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 pub type PFN_vkCmdBuildPartitionedAccelerationStructuresNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pBuildInfo: *const VkBuildPartitionedAccelerationStructureInfoNV,
+  pBuildInfo: *const VkBuildPartitionedAccelerationStructureInfoNV<'_>,
 );
 /// [`vkCmdClearAttachments`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdClearAttachments.html)
 ///
@@ -1851,7 +1859,7 @@ pub type PFN_vkCmdClearDepthStencilImage = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkCmdControlVideoCodingKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCodingControlInfo: *const VkVideoCodingControlInfoKHR,
+  pCodingControlInfo: *const VkVideoCodingControlInfoKHR<'_>,
 );
 /// [`vkCmdConvertCooperativeVectorMatrixNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdConvertCooperativeVectorMatrixNV.html)
 ///
@@ -1870,7 +1878,7 @@ pub type PFN_vkCmdControlVideoCodingKHR = unsafe extern "system" fn(
 pub type PFN_vkCmdConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   infoCount: u32,
-  pInfos: *const VkConvertCooperativeVectorMatrixInfoNV,
+  pInfos: *const VkConvertCooperativeVectorMatrixInfoNV<'_>,
 );
 /// [`vkCmdCopyAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyAccelerationStructureKHR.html)
 ///
@@ -1887,7 +1895,7 @@ pub type PFN_vkCmdConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkCmdCopyAccelerationStructureKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkCopyAccelerationStructureInfoKHR,
+  pInfo: *const VkCopyAccelerationStructureInfoKHR<'_>,
 );
 /// [`vkCmdCopyAccelerationStructureNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyAccelerationStructureNV.html)
 ///
@@ -1925,7 +1933,7 @@ pub type PFN_vkCmdCopyAccelerationStructureNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkCmdCopyAccelerationStructureToMemoryKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkCopyAccelerationStructureToMemoryInfoKHR,
+  pInfo: *const VkCopyAccelerationStructureToMemoryInfoKHR<'_>,
 );
 /// [`vkCmdCopyBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBuffer.html)
 ///
@@ -1968,7 +1976,7 @@ pub type PFN_vkCmdCopyBuffer = unsafe extern "system" fn(
 #[deprecated(note = "superseded by `vkCmdCopyMemoryKHR`")]
 pub type PFN_vkCmdCopyBuffer2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyBufferInfo: *const VkCopyBufferInfo2,
+  pCopyBufferInfo: *const VkCopyBufferInfo2<'_>,
 );
 /// [`vkCmdCopyBuffer2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBuffer2KHR.html)
 ///
@@ -1978,7 +1986,7 @@ pub type PFN_vkCmdCopyBuffer2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_copy_commands2")]
 pub type PFN_vkCmdCopyBuffer2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyBufferInfo: *const VkCopyBufferInfo2KHR,
+  pCopyBufferInfo: *const VkCopyBufferInfo2KHR<'_>,
 );
 /// [`vkCmdCopyBufferToImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBufferToImage.html)
 ///
@@ -2023,7 +2031,7 @@ pub type PFN_vkCmdCopyBufferToImage = unsafe extern "system" fn(
 #[deprecated(note = "superseded by `vkCmdCopyMemoryToImageKHR`")]
 pub type PFN_vkCmdCopyBufferToImage2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyBufferToImageInfo: *const VkCopyBufferToImageInfo2,
+  pCopyBufferToImageInfo: *const VkCopyBufferToImageInfo2<'_>,
 );
 /// [`vkCmdCopyBufferToImage2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyBufferToImage2KHR.html)
 ///
@@ -2033,7 +2041,7 @@ pub type PFN_vkCmdCopyBufferToImage2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_copy_commands2")]
 pub type PFN_vkCmdCopyBufferToImage2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyBufferToImageInfo: *const VkCopyBufferToImageInfo2KHR,
+  pCopyBufferToImageInfo: *const VkCopyBufferToImageInfo2KHR<'_>,
 );
 /// [`vkCmdCopyGpaSessionResultsAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyGpaSessionResultsAMD.html)
 ///
@@ -2094,7 +2102,7 @@ pub type PFN_vkCmdCopyImage = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkCmdCopyImage2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyImageInfo: *const VkCopyImageInfo2,
+  pCopyImageInfo: *const VkCopyImageInfo2<'_>,
 );
 /// [`vkCmdCopyImage2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImage2KHR.html)
 ///
@@ -2104,7 +2112,7 @@ pub type PFN_vkCmdCopyImage2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_copy_commands2")]
 pub type PFN_vkCmdCopyImage2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyImageInfo: *const VkCopyImageInfo2KHR,
+  pCopyImageInfo: *const VkCopyImageInfo2KHR<'_>,
 );
 /// [`vkCmdCopyImageToBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToBuffer.html)
 ///
@@ -2149,7 +2157,7 @@ pub type PFN_vkCmdCopyImageToBuffer = unsafe extern "system" fn(
 #[deprecated(note = "superseded by `vkCmdCopyImageToMemoryKHR`")]
 pub type PFN_vkCmdCopyImageToBuffer2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyImageToBufferInfo: *const VkCopyImageToBufferInfo2,
+  pCopyImageToBufferInfo: *const VkCopyImageToBufferInfo2<'_>,
 );
 /// [`vkCmdCopyImageToBuffer2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToBuffer2KHR.html)
 ///
@@ -2159,7 +2167,7 @@ pub type PFN_vkCmdCopyImageToBuffer2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_copy_commands2")]
 pub type PFN_vkCmdCopyImageToBuffer2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyImageToBufferInfo: *const VkCopyImageToBufferInfo2KHR,
+  pCopyImageToBufferInfo: *const VkCopyImageToBufferInfo2KHR<'_>,
 );
 /// [`vkCmdCopyImageToMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyImageToMemoryKHR.html)
 ///
@@ -2176,7 +2184,7 @@ pub type PFN_vkCmdCopyImageToBuffer2KHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_device_address_commands")]
 pub type PFN_vkCmdCopyImageToMemoryKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR,
+  pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR<'_>,
 );
 /// [`vkCmdCopyMemoryIndirectKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryIndirectKHR.html)
 ///
@@ -2193,7 +2201,7 @@ pub type PFN_vkCmdCopyImageToMemoryKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
 pub type PFN_vkCmdCopyMemoryIndirectKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyMemoryIndirectInfo: *const VkCopyMemoryIndirectInfoKHR,
+  pCopyMemoryIndirectInfo: *const VkCopyMemoryIndirectInfoKHR<'_>,
 );
 /// [`vkCmdCopyMemoryIndirectNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryIndirectNV.html)
 ///
@@ -2231,7 +2239,7 @@ pub type PFN_vkCmdCopyMemoryIndirectNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_device_address_commands")]
 pub type PFN_vkCmdCopyMemoryKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyMemoryInfo: *const VkCopyDeviceMemoryInfoKHR,
+  pCopyMemoryInfo: *const VkCopyDeviceMemoryInfoKHR<'_>,
 );
 /// [`vkCmdCopyMemoryToAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToAccelerationStructureKHR.html)
 ///
@@ -2248,7 +2256,7 @@ pub type PFN_vkCmdCopyMemoryKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkCmdCopyMemoryToAccelerationStructureKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkCopyMemoryToAccelerationStructureInfoKHR,
+  pInfo: *const VkCopyMemoryToAccelerationStructureInfoKHR<'_>,
 );
 /// [`vkCmdCopyMemoryToImageIndirectKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToImageIndirectKHR.html)
 ///
@@ -2265,7 +2273,7 @@ pub type PFN_vkCmdCopyMemoryToAccelerationStructureKHR = unsafe extern "system" 
 #[cfg(feature = "VK_KHR_copy_memory_indirect")]
 pub type PFN_vkCmdCopyMemoryToImageIndirectKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyMemoryToImageIndirectInfo: *const VkCopyMemoryToImageIndirectInfoKHR,
+  pCopyMemoryToImageIndirectInfo: *const VkCopyMemoryToImageIndirectInfoKHR<'_>,
 );
 /// [`vkCmdCopyMemoryToImageIndirectNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToImageIndirectNV.html)
 ///
@@ -2309,7 +2317,7 @@ pub type PFN_vkCmdCopyMemoryToImageIndirectNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_device_address_commands")]
 pub type PFN_vkCmdCopyMemoryToImageKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR,
+  pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR<'_>,
 );
 /// [`vkCmdCopyMemoryToMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMemoryToMicromapEXT.html)
 ///
@@ -2326,7 +2334,7 @@ pub type PFN_vkCmdCopyMemoryToImageKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkCmdCopyMemoryToMicromapEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkCopyMemoryToMicromapInfoEXT,
+  pInfo: *const VkCopyMemoryToMicromapInfoEXT<'_>,
 );
 /// [`vkCmdCopyMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMicromapEXT.html)
 ///
@@ -2341,8 +2349,10 @@ pub type PFN_vkCmdCopyMemoryToMicromapEXT = unsafe extern "system" fn(
 /// - `commandBuffer`
 /// - `pInfo`
 #[cfg(feature = "VK_EXT_opacity_micromap")]
-pub type PFN_vkCmdCopyMicromapEXT =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pInfo: *const VkCopyMicromapInfoEXT);
+pub type PFN_vkCmdCopyMicromapEXT = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pInfo: *const VkCopyMicromapInfoEXT<'_>,
+);
 /// [`vkCmdCopyMicromapToMemoryEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyMicromapToMemoryEXT.html)
 ///
 /// Provided by:
@@ -2358,7 +2368,7 @@ pub type PFN_vkCmdCopyMicromapEXT =
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkCmdCopyMicromapToMemoryEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkCopyMicromapToMemoryInfoEXT,
+  pInfo: *const VkCopyMicromapToMemoryInfoEXT<'_>,
 );
 /// [`vkCmdCopyQueryPoolResults`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCopyQueryPoolResults.html)
 ///
@@ -2433,7 +2443,7 @@ pub type PFN_vkCmdCopyQueryPoolResultsToMemoryKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkCmdCopyTensorARM = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pCopyTensorInfo: *const VkCopyTensorInfoARM,
+  pCopyTensorInfo: *const VkCopyTensorInfoARM<'_>,
 );
 /// [`vkCmdCuLaunchKernelNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCuLaunchKernelNVX.html)
 ///
@@ -2448,8 +2458,10 @@ pub type PFN_vkCmdCopyTensorARM = unsafe extern "system" fn(
 /// - `commandBuffer`
 /// - `pLaunchInfo`
 #[cfg(feature = "VK_NVX_binary_import")]
-pub type PFN_vkCmdCuLaunchKernelNVX =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pLaunchInfo: *const VkCuLaunchInfoNVX);
+pub type PFN_vkCmdCuLaunchKernelNVX = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pLaunchInfo: *const VkCuLaunchInfoNVX<'_>,
+);
 /// [`vkCmdCudaLaunchKernelNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdCudaLaunchKernelNV.html)
 ///
 /// Provided by:
@@ -2463,8 +2475,10 @@ pub type PFN_vkCmdCuLaunchKernelNVX =
 /// - `commandBuffer`
 /// - `pLaunchInfo`
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
-pub type PFN_vkCmdCudaLaunchKernelNV =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pLaunchInfo: *const VkCudaLaunchInfoNV);
+pub type PFN_vkCmdCudaLaunchKernelNV = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pLaunchInfo: *const VkCudaLaunchInfoNV<'_>,
+);
 /// [`vkCmdDebugMarkerBeginEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDebugMarkerBeginEXT.html)
 ///
 /// Provided by:
@@ -2480,7 +2494,7 @@ pub type PFN_vkCmdCudaLaunchKernelNV =
 #[cfg(feature = "VK_EXT_debug_marker")]
 pub type PFN_vkCmdDebugMarkerBeginEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT,
+  pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT<'_>,
 );
 /// [`vkCmdDebugMarkerEndEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDebugMarkerEndEXT.html)
 ///
@@ -2510,7 +2524,7 @@ pub type PFN_vkCmdDebugMarkerEndEXT = unsafe extern "system" fn(commandBuffer: V
 #[cfg(feature = "VK_EXT_debug_marker")]
 pub type PFN_vkCmdDebugMarkerInsertEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT,
+  pMarkerInfo: *const VkDebugMarkerMarkerInfoEXT<'_>,
 );
 /// [`vkCmdDecodeVideoKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecodeVideoKHR.html)
 ///
@@ -2527,7 +2541,7 @@ pub type PFN_vkCmdDebugMarkerInsertEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_video_decode_queue")]
 pub type PFN_vkCmdDecodeVideoKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pDecodeInfo: *const VkVideoDecodeInfoKHR,
+  pDecodeInfo: *const VkVideoDecodeInfoKHR<'_>,
 );
 /// [`vkCmdDecompressMemoryEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryEXT.html)
 ///
@@ -2544,7 +2558,7 @@ pub type PFN_vkCmdDecodeVideoKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_memory_decompression")]
 pub type PFN_vkCmdDecompressMemoryEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pDecompressMemoryInfoEXT: *const VkDecompressMemoryInfoEXT,
+  pDecompressMemoryInfoEXT: *const VkDecompressMemoryInfoEXT<'_>,
 );
 /// [`vkCmdDecompressMemoryIndirectCountEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDecompressMemoryIndirectCountEXT.html)
 ///
@@ -2696,7 +2710,7 @@ pub type PFN_vkCmdDispatchBaseKHR = unsafe extern "system" fn(
 pub type PFN_vkCmdDispatchDataGraphARM = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   session: VkDataGraphPipelineSessionARM,
-  pInfo: *const VkDataGraphPipelineDispatchInfoARM,
+  pInfo: *const VkDataGraphPipelineDispatchInfoARM<'_>,
 );
 /// [`vkCmdDispatchGraphAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphAMDX.html)
 ///
@@ -2718,7 +2732,7 @@ pub type PFN_vkCmdDispatchGraphAMDX = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   scratch: VkDeviceAddress,
   scratchSize: VkDeviceSize,
-  pCountInfo: *const VkDispatchGraphCountInfoAMDX,
+  pCountInfo: *const VkDispatchGraphCountInfoAMDX<'_>,
 );
 /// [`vkCmdDispatchGraphIndirectAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphIndirectAMDX.html)
 ///
@@ -2740,7 +2754,7 @@ pub type PFN_vkCmdDispatchGraphIndirectAMDX = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   scratch: VkDeviceAddress,
   scratchSize: VkDeviceSize,
-  pCountInfo: *const VkDispatchGraphCountInfoAMDX,
+  pCountInfo: *const VkDispatchGraphCountInfoAMDX<'_>,
 );
 /// [`vkCmdDispatchGraphIndirectCountAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchGraphIndirectCountAMDX.html)
 ///
@@ -2799,7 +2813,7 @@ pub type PFN_vkCmdDispatchIndirect =
 #[cfg(feature = "VK_KHR_device_address_commands")]
 pub type PFN_vkCmdDispatchIndirect2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkDispatchIndirect2InfoKHR,
+  pInfo: *const VkDispatchIndirect2InfoKHR<'_>,
 );
 /// [`vkCmdDispatchTileQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDispatchTileQCOM.html)
 ///
@@ -2817,7 +2831,7 @@ pub type PFN_vkCmdDispatchIndirect2KHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_QCOM_tile_shading")]
 pub type PFN_vkCmdDispatchTileQCOM = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pDispatchTileInfo: *const VkDispatchTileInfoQCOM,
+  pDispatchTileInfo: *const VkDispatchTileInfoQCOM<'_>,
 );
 /// [`vkCmdDraw`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDraw.html)
 ///
@@ -2950,8 +2964,10 @@ pub type PFN_vkCmdDrawIndexedIndirect = unsafe extern "system" fn(
 /// - `commandBuffer`
 /// - `pInfo`
 #[cfg(feature = "VK_KHR_device_address_commands")]
-pub type PFN_vkCmdDrawIndexedIndirect2KHR =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pInfo: *const VkDrawIndirect2InfoKHR);
+pub type PFN_vkCmdDrawIndexedIndirect2KHR = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pInfo: *const VkDrawIndirect2InfoKHR<'_>,
+);
 /// [`vkCmdDrawIndexedIndirectCount`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirectCount.html)
 ///
 /// Provided by:
@@ -3005,7 +3021,7 @@ pub type PFN_vkCmdDrawIndexedIndirectCount = unsafe extern "system" fn(
 ))]
 pub type PFN_vkCmdDrawIndexedIndirectCount2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkDrawIndirectCount2InfoKHR,
+  pInfo: *const VkDrawIndirectCount2InfoKHR<'_>,
 );
 /// [`vkCmdDrawIndexedIndirectCountAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndexedIndirectCountAMD.html)
 ///
@@ -3077,8 +3093,10 @@ pub type PFN_vkCmdDrawIndirect = unsafe extern "system" fn(
 /// - `commandBuffer`
 /// - `pInfo`
 #[cfg(feature = "VK_KHR_device_address_commands")]
-pub type PFN_vkCmdDrawIndirect2KHR =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pInfo: *const VkDrawIndirect2InfoKHR);
+pub type PFN_vkCmdDrawIndirect2KHR = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pInfo: *const VkDrawIndirect2InfoKHR<'_>,
+);
 /// [`vkCmdDrawIndirectByteCount2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectByteCount2EXT.html)
 ///
 /// Provided by:
@@ -3105,7 +3123,7 @@ pub type PFN_vkCmdDrawIndirectByteCount2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   instanceCount: u32,
   firstInstance: u32,
-  pCounterInfo: *const VkBindTransformFeedbackBuffer2InfoEXT,
+  pCounterInfo: *const VkBindTransformFeedbackBuffer2InfoEXT<'_>,
   counterOffset: u32,
   vertexStride: u32,
 );
@@ -3191,7 +3209,7 @@ pub type PFN_vkCmdDrawIndirectCount = unsafe extern "system" fn(
 ))]
 pub type PFN_vkCmdDrawIndirectCount2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkDrawIndirectCount2InfoKHR,
+  pInfo: *const VkDrawIndirectCount2InfoKHR<'_>,
 );
 /// [`vkCmdDrawIndirectCountAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawIndirectCountAMD.html)
 ///
@@ -3263,8 +3281,10 @@ pub type PFN_vkCmdDrawMeshTasksEXT = unsafe extern "system" fn(
   feature = "VK_EXT_mesh_shader",
   feature = "VK_KHR_device_address_commands"
 ))]
-pub type PFN_vkCmdDrawMeshTasksIndirect2EXT =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pInfo: *const VkDrawIndirect2InfoKHR);
+pub type PFN_vkCmdDrawMeshTasksIndirect2EXT = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pInfo: *const VkDrawIndirect2InfoKHR<'_>,
+);
 /// [`vkCmdDrawMeshTasksIndirectCount2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectCount2EXT.html)
 ///
 /// Provided by:
@@ -3293,7 +3313,7 @@ pub type PFN_vkCmdDrawMeshTasksIndirect2EXT =
 ))]
 pub type PFN_vkCmdDrawMeshTasksIndirectCount2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInfo: *const VkDrawIndirectCount2InfoKHR,
+  pInfo: *const VkDrawIndirectCount2InfoKHR<'_>,
 );
 /// [`vkCmdDrawMeshTasksIndirectCountEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdDrawMeshTasksIndirectCountEXT.html)
 ///
@@ -3497,7 +3517,7 @@ pub type PFN_vkCmdDrawMultiIndexedEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 pub type PFN_vkCmdEncodeVideoKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pEncodeInfo: *const VkVideoEncodeInfoKHR,
+  pEncodeInfo: *const VkVideoEncodeInfoKHR<'_>,
 );
 /// [`vkCmdEndConditionalRenderingEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndConditionalRenderingEXT.html)
 ///
@@ -3588,7 +3608,7 @@ pub type PFN_vkCmdEndGpaSessionAMD = unsafe extern "system" fn(
 #[cfg(feature = "VK_QCOM_tile_shading")]
 pub type PFN_vkCmdEndPerTileExecutionQCOM = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPerTileEndInfo: *const VkPerTileEndInfoQCOM,
+  pPerTileEndInfo: *const VkPerTileEndInfoQCOM<'_>,
 );
 /// [`vkCmdEndQuery`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndQuery.html)
 ///
@@ -3659,7 +3679,7 @@ pub type PFN_vkCmdEndRenderPass = unsafe extern "system" fn(commandBuffer: VkCom
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 pub type PFN_vkCmdEndRenderPass2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pSubpassEndInfo: *const VkSubpassEndInfo,
+  pSubpassEndInfo: *const VkSubpassEndInfo<'_>,
 );
 /// [`vkCmdEndRenderPass2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderPass2KHR.html)
 ///
@@ -3669,7 +3689,7 @@ pub type PFN_vkCmdEndRenderPass2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_create_renderpass2")]
 pub type PFN_vkCmdEndRenderPass2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pSubpassEndInfo: *const VkSubpassEndInfoKHR,
+  pSubpassEndInfo: *const VkSubpassEndInfoKHR<'_>,
 );
 /// [`vkCmdEndRendering`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRendering.html)
 ///
@@ -3693,7 +3713,7 @@ pub type PFN_vkCmdEndRendering = unsafe extern "system" fn(commandBuffer: VkComm
 #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
 pub type PFN_vkCmdEndRendering2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pRenderingEndInfo: *const VkRenderingEndInfoEXT,
+  pRenderingEndInfo: *const VkRenderingEndInfoEXT<'_>,
 );
 /// [`vkCmdEndRendering2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRendering2KHR.html)
 ///
@@ -3710,7 +3730,7 @@ pub type PFN_vkCmdEndRendering2EXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance10")]
 pub type PFN_vkCmdEndRendering2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pRenderingEndInfo: *const VkRenderingEndInfoKHR,
+  pRenderingEndInfo: *const VkRenderingEndInfoKHR<'_>,
 );
 /// [`vkCmdEndRenderingKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndRenderingKHR.html)
 ///
@@ -3756,7 +3776,7 @@ pub type PFN_vkCmdEndTransformFeedback2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   firstCounterRange: u32,
   counterRangeCount: u32,
-  pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT,
+  pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT<'_>,
 );
 /// [`vkCmdEndTransformFeedbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdEndTransformFeedbackEXT.html)
 ///
@@ -3797,7 +3817,7 @@ pub type PFN_vkCmdEndTransformFeedbackEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkCmdEndVideoCodingKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pEndCodingInfo: *const VkVideoEndCodingInfoKHR,
+  pEndCodingInfo: *const VkVideoEndCodingInfoKHR<'_>,
 );
 /// [`vkCmdExecuteCommands`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdExecuteCommands.html)
 ///
@@ -3837,7 +3857,7 @@ pub type PFN_vkCmdExecuteCommands = unsafe extern "system" fn(
 pub type PFN_vkCmdExecuteGeneratedCommandsEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   isPreprocessed: VkBool32,
-  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoEXT,
+  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoEXT<'_>,
 );
 /// [`vkCmdExecuteGeneratedCommandsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdExecuteGeneratedCommandsNV.html)
 ///
@@ -3857,7 +3877,7 @@ pub type PFN_vkCmdExecuteGeneratedCommandsEXT = unsafe extern "system" fn(
 pub type PFN_vkCmdExecuteGeneratedCommandsNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   isPreprocessed: VkBool32,
-  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoNV,
+  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoNV<'_>,
 );
 /// [`vkCmdFillBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdFillBuffer.html)
 ///
@@ -3941,7 +3961,7 @@ pub type PFN_vkCmdInitializeGraphScratchMemoryAMDX = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkCmdInsertDebugUtilsLabelEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pLabelInfo: *const VkDebugUtilsLabelEXT,
+  pLabelInfo: *const VkDebugUtilsLabelEXT<'_>,
 );
 /// [`vkCmdNextSubpass`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdNextSubpass.html)
 ///
@@ -3977,8 +3997,8 @@ pub type PFN_vkCmdNextSubpass =
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 pub type PFN_vkCmdNextSubpass2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pSubpassBeginInfo: *const VkSubpassBeginInfo,
-  pSubpassEndInfo: *const VkSubpassEndInfo,
+  pSubpassBeginInfo: *const VkSubpassBeginInfo<'_>,
+  pSubpassEndInfo: *const VkSubpassEndInfo<'_>,
 );
 /// [`vkCmdNextSubpass2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdNextSubpass2KHR.html)
 ///
@@ -3988,8 +4008,8 @@ pub type PFN_vkCmdNextSubpass2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_create_renderpass2")]
 pub type PFN_vkCmdNextSubpass2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pSubpassBeginInfo: *const VkSubpassBeginInfoKHR,
-  pSubpassEndInfo: *const VkSubpassEndInfoKHR,
+  pSubpassBeginInfo: *const VkSubpassBeginInfoKHR<'_>,
+  pSubpassEndInfo: *const VkSubpassEndInfoKHR<'_>,
 );
 /// [`vkCmdOpticalFlowExecuteNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdOpticalFlowExecuteNV.html)
 ///
@@ -4008,7 +4028,7 @@ pub type PFN_vkCmdNextSubpass2KHR = unsafe extern "system" fn(
 pub type PFN_vkCmdOpticalFlowExecuteNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   session: VkOpticalFlowSessionNV,
-  pExecuteInfo: *const VkOpticalFlowExecuteInfoNV,
+  pExecuteInfo: *const VkOpticalFlowExecuteInfoNV<'_>,
 );
 /// [`vkCmdPipelineBarrier`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier.html)
 ///
@@ -4039,11 +4059,11 @@ pub type PFN_vkCmdPipelineBarrier = unsafe extern "system" fn(
   dstStageMask: VkPipelineStageFlags,
   dependencyFlags: VkDependencyFlags,
   memoryBarrierCount: u32,
-  pMemoryBarriers: *const VkMemoryBarrier,
+  pMemoryBarriers: *const VkMemoryBarrier<'_>,
   bufferMemoryBarrierCount: u32,
-  pBufferMemoryBarriers: *const VkBufferMemoryBarrier,
+  pBufferMemoryBarriers: *const VkBufferMemoryBarrier<'_>,
   imageMemoryBarrierCount: u32,
-  pImageMemoryBarriers: *const VkImageMemoryBarrier,
+  pImageMemoryBarriers: *const VkImageMemoryBarrier<'_>,
 );
 /// [`vkCmdPipelineBarrier2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier2.html)
 ///
@@ -4061,7 +4081,7 @@ pub type PFN_vkCmdPipelineBarrier = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkCmdPipelineBarrier2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pDependencyInfo: *const VkDependencyInfo,
+  pDependencyInfo: *const VkDependencyInfo<'_>,
 );
 /// [`vkCmdPipelineBarrier2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPipelineBarrier2KHR.html)
 ///
@@ -4071,7 +4091,7 @@ pub type PFN_vkCmdPipelineBarrier2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_synchronization2")]
 pub type PFN_vkCmdPipelineBarrier2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pDependencyInfo: *const VkDependencyInfoKHR,
+  pDependencyInfo: *const VkDependencyInfoKHR<'_>,
 );
 /// [`vkCmdPreprocessGeneratedCommandsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPreprocessGeneratedCommandsEXT.html)
 ///
@@ -4089,7 +4109,7 @@ pub type PFN_vkCmdPipelineBarrier2KHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 pub type PFN_vkCmdPreprocessGeneratedCommandsEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoEXT,
+  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoEXT<'_>,
   stateCommandBuffer: VkCommandBuffer,
 );
 /// [`vkCmdPreprocessGeneratedCommandsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPreprocessGeneratedCommandsNV.html)
@@ -4107,7 +4127,7 @@ pub type PFN_vkCmdPreprocessGeneratedCommandsEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_device_generated_commands")]
 pub type PFN_vkCmdPreprocessGeneratedCommandsNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoNV,
+  pGeneratedCommandsInfo: *const VkGeneratedCommandsInfoNV<'_>,
 );
 /// [`vkCmdPushConstants`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants.html)
 ///
@@ -4151,7 +4171,7 @@ pub type PFN_vkCmdPushConstants = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 pub type PFN_vkCmdPushConstants2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPushConstantsInfo: *const VkPushConstantsInfo,
+  pPushConstantsInfo: *const VkPushConstantsInfo<'_>,
 );
 /// [`vkCmdPushConstants2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushConstants2KHR.html)
 ///
@@ -4161,7 +4181,7 @@ pub type PFN_vkCmdPushConstants2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance6")]
 pub type PFN_vkCmdPushConstants2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPushConstantsInfo: *const VkPushConstantsInfoKHR,
+  pPushConstantsInfo: *const VkPushConstantsInfoKHR<'_>,
 );
 /// [`vkCmdPushDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDataEXT.html)
 ///
@@ -4178,7 +4198,7 @@ pub type PFN_vkCmdPushConstants2KHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_descriptor_heap")]
 pub type PFN_vkCmdPushDataEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPushDataInfo: *const VkPushDataInfoEXT,
+  pPushDataInfo: *const VkPushDataInfoEXT<'_>,
 );
 /// [`vkCmdPushDescriptorSet`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet.html)
 ///
@@ -4204,7 +4224,7 @@ pub type PFN_vkCmdPushDescriptorSet = unsafe extern "system" fn(
   layout: VkPipelineLayout,
   set: u32,
   descriptorWriteCount: u32,
-  pDescriptorWrites: *const VkWriteDescriptorSet,
+  pDescriptorWrites: *const VkWriteDescriptorSet<'_>,
 );
 /// [`vkCmdPushDescriptorSet2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet2.html)
 ///
@@ -4222,7 +4242,7 @@ pub type PFN_vkCmdPushDescriptorSet = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 pub type PFN_vkCmdPushDescriptorSet2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPushDescriptorSetInfo: *const VkPushDescriptorSetInfo,
+  pPushDescriptorSetInfo: *const VkPushDescriptorSetInfo<'_>,
 );
 /// [`vkCmdPushDescriptorSet2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSet2KHR.html)
 ///
@@ -4233,7 +4253,7 @@ pub type PFN_vkCmdPushDescriptorSet2 = unsafe extern "system" fn(
 #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
 pub type PFN_vkCmdPushDescriptorSet2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPushDescriptorSetInfo: *const VkPushDescriptorSetInfoKHR,
+  pPushDescriptorSetInfo: *const VkPushDescriptorSetInfoKHR<'_>,
 );
 /// [`vkCmdPushDescriptorSetKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetKHR.html)
 ///
@@ -4247,7 +4267,7 @@ pub type PFN_vkCmdPushDescriptorSetKHR = unsafe extern "system" fn(
   layout: VkPipelineLayout,
   set: u32,
   descriptorWriteCount: u32,
-  pDescriptorWrites: *const VkWriteDescriptorSet,
+  pDescriptorWrites: *const VkWriteDescriptorSet<'_>,
 );
 /// [`vkCmdPushDescriptorSetWithTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate.html)
 ///
@@ -4289,7 +4309,7 @@ pub type PFN_vkCmdPushDescriptorSetWithTemplate = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
 pub type PFN_vkCmdPushDescriptorSetWithTemplate2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPushDescriptorSetWithTemplateInfo: *const VkPushDescriptorSetWithTemplateInfo,
+  pPushDescriptorSetWithTemplateInfo: *const VkPushDescriptorSetWithTemplateInfo<'_>,
 );
 /// [`vkCmdPushDescriptorSetWithTemplate2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplate2KHR.html)
 ///
@@ -4300,7 +4320,7 @@ pub type PFN_vkCmdPushDescriptorSetWithTemplate2 = unsafe extern "system" fn(
 #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
 pub type PFN_vkCmdPushDescriptorSetWithTemplate2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pPushDescriptorSetWithTemplateInfo: *const VkPushDescriptorSetWithTemplateInfoKHR,
+  pPushDescriptorSetWithTemplateInfo: *const VkPushDescriptorSetWithTemplateInfoKHR<'_>,
 );
 /// [`vkCmdPushDescriptorSetWithTemplateKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdPushDescriptorSetWithTemplateKHR.html)
 ///
@@ -4338,7 +4358,7 @@ pub type PFN_vkCmdPushDescriptorSetWithTemplateKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_object_refresh")]
 pub type PFN_vkCmdRefreshObjectsKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pRefreshObjects: *const VkRefreshObjectListKHR,
+  pRefreshObjects: *const VkRefreshObjectListKHR<'_>,
 );
 /// [`vkCmdResetEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResetEvent.html)
 ///
@@ -4458,7 +4478,7 @@ pub type PFN_vkCmdResolveImage = unsafe extern "system" fn(
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
 pub type PFN_vkCmdResolveImage2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pResolveImageInfo: *const VkResolveImageInfo2,
+  pResolveImageInfo: *const VkResolveImageInfo2<'_>,
 );
 /// [`vkCmdResolveImage2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdResolveImage2KHR.html)
 ///
@@ -4468,7 +4488,7 @@ pub type PFN_vkCmdResolveImage2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_copy_commands2")]
 pub type PFN_vkCmdResolveImage2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pResolveImageInfo: *const VkResolveImageInfo2KHR,
+  pResolveImageInfo: *const VkResolveImageInfo2KHR<'_>,
 );
 /// [`vkCmdSetAlphaToCoverageEnableEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetAlphaToCoverageEnableEXT.html)
 ///
@@ -4575,7 +4595,7 @@ pub type PFN_vkCmdSetCoarseSampleOrderNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   sampleOrderType: VkCoarseSampleOrderTypeNV,
   customSampleOrderCount: u32,
-  pCustomSampleOrders: *const VkCoarseSampleOrderCustomNV,
+  pCustomSampleOrders: *const VkCoarseSampleOrderCustomNV<'_>,
 );
 /// [`vkCmdSetColorBlendAdvancedEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetColorBlendAdvancedEXT.html)
 ///
@@ -4718,7 +4738,7 @@ pub type PFN_vkCmdSetColorWriteMaskEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_compute_occupancy_priority")]
 pub type PFN_vkCmdSetComputeOccupancyPriorityNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pParameters: *const VkComputeOccupancyPriorityParametersNV,
+  pParameters: *const VkComputeOccupancyPriorityParametersNV<'_>,
 );
 /// [`vkCmdSetConservativeRasterizationModeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetConservativeRasterizationModeEXT.html)
 ///
@@ -4979,7 +4999,7 @@ pub type PFN_vkCmdSetDepthBias = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_depth_bias_control")]
 pub type PFN_vkCmdSetDepthBias2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pDepthBiasInfo: *const VkDepthBiasInfoEXT,
+  pDepthBiasInfo: *const VkDepthBiasInfoEXT<'_>,
 );
 /// [`vkCmdSetDepthBiasEnable`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDepthBiasEnable.html)
 ///
@@ -5251,7 +5271,7 @@ pub type PFN_vkCmdSetDepthWriteEnableEXT =
 #[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
 pub type PFN_vkCmdSetDescriptorBufferOffsets2EXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pSetDescriptorBufferOffsetsInfo: *const VkSetDescriptorBufferOffsetsInfoEXT,
+  pSetDescriptorBufferOffsetsInfo: *const VkSetDescriptorBufferOffsetsInfoEXT<'_>,
 );
 /// [`vkCmdSetDescriptorBufferOffsetsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetDescriptorBufferOffsetsEXT.html)
 ///
@@ -5372,7 +5392,7 @@ pub type PFN_vkCmdSetDiscardRectangleModeEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_scheduling_controls")]
 pub type PFN_vkCmdSetDispatchParametersARM = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pDispatchParameters: *const VkDispatchParametersARM,
+  pDispatchParameters: *const VkDispatchParametersARM<'_>,
 );
 /// [`vkCmdSetEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetEvent.html)
 ///
@@ -5413,7 +5433,7 @@ pub type PFN_vkCmdSetEvent = unsafe extern "system" fn(
 pub type PFN_vkCmdSetEvent2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   event: VkEvent,
-  pDependencyInfo: *const VkDependencyInfo,
+  pDependencyInfo: *const VkDependencyInfo<'_>,
 );
 /// [`vkCmdSetEvent2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetEvent2KHR.html)
 ///
@@ -5424,7 +5444,7 @@ pub type PFN_vkCmdSetEvent2 = unsafe extern "system" fn(
 pub type PFN_vkCmdSetEvent2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   event: VkEvent,
-  pDependencyInfo: *const VkDependencyInfoKHR,
+  pDependencyInfo: *const VkDependencyInfoKHR<'_>,
 );
 /// [`vkCmdSetExclusiveScissorEnableNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetExclusiveScissorEnableNV.html)
 ///
@@ -5755,7 +5775,7 @@ pub type PFN_vkCmdSetPatchControlPointsEXT =
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkCmdSetPerformanceMarkerINTEL = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pMarkerInfo: *const VkPerformanceMarkerInfoINTEL,
+  pMarkerInfo: *const VkPerformanceMarkerInfoINTEL<'_>,
 ) -> VkResult;
 /// [`vkCmdSetPerformanceOverrideINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPerformanceOverrideINTEL.html)
 ///
@@ -5783,7 +5803,7 @@ pub type PFN_vkCmdSetPerformanceMarkerINTEL = unsafe extern "system" fn(
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkCmdSetPerformanceOverrideINTEL = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pOverrideInfo: *const VkPerformanceOverrideInfoINTEL,
+  pOverrideInfo: *const VkPerformanceOverrideInfoINTEL<'_>,
 ) -> VkResult;
 /// [`vkCmdSetPerformanceStreamMarkerINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPerformanceStreamMarkerINTEL.html)
 ///
@@ -5811,7 +5831,7 @@ pub type PFN_vkCmdSetPerformanceOverrideINTEL = unsafe extern "system" fn(
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkCmdSetPerformanceStreamMarkerINTEL = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pMarkerInfo: *const VkPerformanceStreamMarkerInfoINTEL,
+  pMarkerInfo: *const VkPerformanceStreamMarkerInfoINTEL<'_>,
 ) -> VkResult;
 /// [`vkCmdSetPolygonModeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetPolygonModeEXT.html)
 ///
@@ -6034,7 +6054,7 @@ pub type PFN_vkCmdSetRayTracingPipelineStackSizeKHR =
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 pub type PFN_vkCmdSetRenderingAttachmentLocations = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pLocationInfo: *const VkRenderingAttachmentLocationInfo,
+  pLocationInfo: *const VkRenderingAttachmentLocationInfo<'_>,
 );
 /// [`vkCmdSetRenderingAttachmentLocationsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingAttachmentLocationsKHR.html)
 ///
@@ -6044,7 +6064,7 @@ pub type PFN_vkCmdSetRenderingAttachmentLocations = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
 pub type PFN_vkCmdSetRenderingAttachmentLocationsKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pLocationInfo: *const VkRenderingAttachmentLocationInfoKHR,
+  pLocationInfo: *const VkRenderingAttachmentLocationInfoKHR<'_>,
 );
 /// [`vkCmdSetRenderingInputAttachmentIndices`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingInputAttachmentIndices.html)
 ///
@@ -6062,7 +6082,7 @@ pub type PFN_vkCmdSetRenderingAttachmentLocationsKHR = unsafe extern "system" fn
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 pub type PFN_vkCmdSetRenderingInputAttachmentIndices = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInputAttachmentIndexInfo: *const VkRenderingInputAttachmentIndexInfo,
+  pInputAttachmentIndexInfo: *const VkRenderingInputAttachmentIndexInfo<'_>,
 );
 /// [`vkCmdSetRenderingInputAttachmentIndicesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRenderingInputAttachmentIndicesKHR.html)
 ///
@@ -6072,7 +6092,7 @@ pub type PFN_vkCmdSetRenderingInputAttachmentIndices = unsafe extern "system" fn
 #[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
 pub type PFN_vkCmdSetRenderingInputAttachmentIndicesKHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pInputAttachmentIndexInfo: *const VkRenderingInputAttachmentIndexInfoKHR,
+  pInputAttachmentIndexInfo: *const VkRenderingInputAttachmentIndexInfoKHR<'_>,
 );
 /// [`vkCmdSetRepresentativeFragmentTestEnableNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetRepresentativeFragmentTestEnableNV.html)
 ///
@@ -6117,7 +6137,7 @@ pub type PFN_vkCmdSetRepresentativeFragmentTestEnableNV = unsafe extern "system"
 #[cfg(feature = "VK_EXT_sample_locations")]
 pub type PFN_vkCmdSetSampleLocationsEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
-  pSampleLocationsInfo: *const VkSampleLocationsInfoEXT,
+  pSampleLocationsInfo: *const VkSampleLocationsInfoEXT<'_>,
 );
 /// [`vkCmdSetSampleLocationsEnableEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetSampleLocationsEnableEXT.html)
 ///
@@ -6425,9 +6445,9 @@ pub type PFN_vkCmdSetTessellationDomainOriginEXT = unsafe extern "system" fn(
 pub type PFN_vkCmdSetVertexInputEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   vertexBindingDescriptionCount: u32,
-  pVertexBindingDescriptions: *const VkVertexInputBindingDescription2EXT,
+  pVertexBindingDescriptions: *const VkVertexInputBindingDescription2EXT<'_>,
   vertexAttributeDescriptionCount: u32,
-  pVertexAttributeDescriptions: *const VkVertexInputAttributeDescription2EXT,
+  pVertexAttributeDescriptions: *const VkVertexInputAttributeDescription2EXT<'_>,
 );
 /// [`vkCmdSetViewport`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewport.html)
 ///
@@ -6470,7 +6490,7 @@ pub type PFN_vkCmdSetViewportShadingRatePaletteNV = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   firstViewport: u32,
   viewportCount: u32,
-  pShadingRatePalettes: *const VkShadingRatePaletteNV,
+  pShadingRatePalettes: *const VkShadingRatePaletteNV<'_>,
 );
 /// [`vkCmdSetViewportSwizzleNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdSetViewportSwizzleNV.html)
 ///
@@ -6810,11 +6830,11 @@ pub type PFN_vkCmdWaitEvents = unsafe extern "system" fn(
   srcStageMask: VkPipelineStageFlags,
   dstStageMask: VkPipelineStageFlags,
   memoryBarrierCount: u32,
-  pMemoryBarriers: *const VkMemoryBarrier,
+  pMemoryBarriers: *const VkMemoryBarrier<'_>,
   bufferMemoryBarrierCount: u32,
-  pBufferMemoryBarriers: *const VkBufferMemoryBarrier,
+  pBufferMemoryBarriers: *const VkBufferMemoryBarrier<'_>,
   imageMemoryBarrierCount: u32,
-  pImageMemoryBarriers: *const VkImageMemoryBarrier,
+  pImageMemoryBarriers: *const VkImageMemoryBarrier<'_>,
 );
 /// [`vkCmdWaitEvents2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2.html)
 ///
@@ -6836,7 +6856,7 @@ pub type PFN_vkCmdWaitEvents2 = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   eventCount: u32,
   pEvents: *const VkEvent,
-  pDependencyInfos: *const VkDependencyInfo,
+  pDependencyInfos: *const VkDependencyInfo<'_>,
 );
 /// [`vkCmdWaitEvents2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWaitEvents2KHR.html)
 ///
@@ -6848,7 +6868,7 @@ pub type PFN_vkCmdWaitEvents2KHR = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   eventCount: u32,
   pEvents: *const VkEvent,
-  pDependencyInfos: *const VkDependencyInfoKHR,
+  pDependencyInfos: *const VkDependencyInfoKHR<'_>,
 );
 /// [`vkCmdWriteAccelerationStructuresPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteAccelerationStructuresPropertiesKHR.html)
 ///
@@ -6967,8 +6987,10 @@ pub type PFN_vkCmdWriteBufferMarkerAMD = unsafe extern "system" fn(
   feature = "VK_AMD_buffer_marker",
   feature = "VK_KHR_device_address_commands"
 ))]
-pub type PFN_vkCmdWriteMarkerToMemoryAMD =
-  unsafe extern "system" fn(commandBuffer: VkCommandBuffer, pInfo: *const VkMemoryMarkerInfoAMD);
+pub type PFN_vkCmdWriteMarkerToMemoryAMD = unsafe extern "system" fn(
+  commandBuffer: VkCommandBuffer,
+  pInfo: *const VkMemoryMarkerInfoAMD<'_>,
+);
 /// [`vkCmdWriteMicromapsPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCmdWriteMicromapsPropertiesEXT.html)
 ///
 /// Provided by:
@@ -7098,7 +7120,7 @@ pub type PFN_vkCompileDeferredNV =
 #[cfg(feature = "VK_NV_cooperative_vector")]
 pub type PFN_vkConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkConvertCooperativeVectorMatrixInfoNV,
+  pInfo: *const VkConvertCooperativeVectorMatrixInfoNV<'_>,
 ) -> VkResult;
 /// [`vkCopyAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyAccelerationStructureKHR.html)
 ///
@@ -7127,7 +7149,7 @@ pub type PFN_vkConvertCooperativeVectorMatrixNV = unsafe extern "system" fn(
 pub type PFN_vkCopyAccelerationStructureKHR = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
-  pInfo: *const VkCopyAccelerationStructureInfoKHR,
+  pInfo: *const VkCopyAccelerationStructureInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkCopyAccelerationStructureToMemoryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyAccelerationStructureToMemoryKHR.html)
 ///
@@ -7156,7 +7178,7 @@ pub type PFN_vkCopyAccelerationStructureKHR = unsafe extern "system" fn(
 pub type PFN_vkCopyAccelerationStructureToMemoryKHR = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
-  pInfo: *const VkCopyAccelerationStructureToMemoryInfoKHR,
+  pInfo: *const VkCopyAccelerationStructureToMemoryInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkCopyImageToImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToImage.html)
 ///
@@ -7184,7 +7206,7 @@ pub type PFN_vkCopyAccelerationStructureToMemoryKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkCopyImageToImage = unsafe extern "system" fn(
   device: VkDevice,
-  pCopyImageToImageInfo: *const VkCopyImageToImageInfo,
+  pCopyImageToImageInfo: *const VkCopyImageToImageInfo<'_>,
 ) -> VkResult;
 /// [`vkCopyImageToImageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToImageEXT.html)
 ///
@@ -7194,7 +7216,7 @@ pub type PFN_vkCopyImageToImage = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_host_image_copy")]
 pub type PFN_vkCopyImageToImageEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCopyImageToImageInfo: *const VkCopyImageToImageInfoEXT,
+  pCopyImageToImageInfo: *const VkCopyImageToImageInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkCopyImageToMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToMemory.html)
 ///
@@ -7222,7 +7244,7 @@ pub type PFN_vkCopyImageToImageEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkCopyImageToMemory = unsafe extern "system" fn(
   device: VkDevice,
-  pCopyImageToMemoryInfo: *const VkCopyImageToMemoryInfo,
+  pCopyImageToMemoryInfo: *const VkCopyImageToMemoryInfo<'_>,
 ) -> VkResult;
 /// [`vkCopyImageToMemoryEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyImageToMemoryEXT.html)
 ///
@@ -7232,7 +7254,7 @@ pub type PFN_vkCopyImageToMemory = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_host_image_copy")]
 pub type PFN_vkCopyImageToMemoryEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCopyImageToMemoryInfo: *const VkCopyImageToMemoryInfoEXT,
+  pCopyImageToMemoryInfo: *const VkCopyImageToMemoryInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkCopyMemoryToAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToAccelerationStructureKHR.html)
 ///
@@ -7261,7 +7283,7 @@ pub type PFN_vkCopyImageToMemoryEXT = unsafe extern "system" fn(
 pub type PFN_vkCopyMemoryToAccelerationStructureKHR = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
-  pInfo: *const VkCopyMemoryToAccelerationStructureInfoKHR,
+  pInfo: *const VkCopyMemoryToAccelerationStructureInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkCopyMemoryToImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToImage.html)
 ///
@@ -7289,7 +7311,7 @@ pub type PFN_vkCopyMemoryToAccelerationStructureKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkCopyMemoryToImage = unsafe extern "system" fn(
   device: VkDevice,
-  pCopyMemoryToImageInfo: *const VkCopyMemoryToImageInfo,
+  pCopyMemoryToImageInfo: *const VkCopyMemoryToImageInfo<'_>,
 ) -> VkResult;
 /// [`vkCopyMemoryToImageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToImageEXT.html)
 ///
@@ -7299,7 +7321,7 @@ pub type PFN_vkCopyMemoryToImage = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_host_image_copy")]
 pub type PFN_vkCopyMemoryToImageEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCopyMemoryToImageInfo: *const VkCopyMemoryToImageInfoEXT,
+  pCopyMemoryToImageInfo: *const VkCopyMemoryToImageInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkCopyMemoryToMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMemoryToMicromapEXT.html)
 ///
@@ -7328,7 +7350,7 @@ pub type PFN_vkCopyMemoryToImageEXT = unsafe extern "system" fn(
 pub type PFN_vkCopyMemoryToMicromapEXT = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
-  pInfo: *const VkCopyMemoryToMicromapInfoEXT,
+  pInfo: *const VkCopyMemoryToMicromapInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkCopyMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMicromapEXT.html)
 ///
@@ -7357,7 +7379,7 @@ pub type PFN_vkCopyMemoryToMicromapEXT = unsafe extern "system" fn(
 pub type PFN_vkCopyMicromapEXT = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
-  pInfo: *const VkCopyMicromapInfoEXT,
+  pInfo: *const VkCopyMicromapInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkCopyMicromapToMemoryEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCopyMicromapToMemoryEXT.html)
 ///
@@ -7386,7 +7408,7 @@ pub type PFN_vkCopyMicromapEXT = unsafe extern "system" fn(
 pub type PFN_vkCopyMicromapToMemoryEXT = unsafe extern "system" fn(
   device: VkDevice,
   deferredOperation: VkDeferredOperationKHR,
-  pInfo: *const VkCopyMicromapToMemoryInfoEXT,
+  pInfo: *const VkCopyMicromapToMemoryInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkCreateAccelerationStructure2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructure2KHR.html)
 ///
@@ -7417,8 +7439,8 @@ pub type PFN_vkCopyMicromapToMemoryEXT = unsafe extern "system" fn(
 ))]
 pub type PFN_vkCreateAccelerationStructure2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkAccelerationStructureCreateInfo2KHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkAccelerationStructureCreateInfo2KHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pAccelerationStructure: *mut VkAccelerationStructureKHR,
 ) -> VkResult;
 /// [`vkCreateAccelerationStructureKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructureKHR.html)
@@ -7447,8 +7469,8 @@ pub type PFN_vkCreateAccelerationStructure2KHR = unsafe extern "system" fn(
 #[deprecated(note = "superseded by `vkCreateAccelerationStructure2KHR`")]
 pub type PFN_vkCreateAccelerationStructureKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkAccelerationStructureCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkAccelerationStructureCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pAccelerationStructure: *mut VkAccelerationStructureKHR,
 ) -> VkResult;
 /// [`vkCreateAccelerationStructureNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAccelerationStructureNV.html)
@@ -7475,8 +7497,8 @@ pub type PFN_vkCreateAccelerationStructureKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkCreateAccelerationStructureNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkAccelerationStructureCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkAccelerationStructureCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pAccelerationStructure: *mut VkAccelerationStructureNV,
 ) -> VkResult;
 /// [`vkCreateAndroidSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateAndroidSurfaceKHR.html)
@@ -7505,8 +7527,8 @@ pub type PFN_vkCreateAccelerationStructureNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_android_surface")]
 pub type PFN_vkCreateAndroidSurfaceKHR = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkAndroidSurfaceCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkAndroidSurfaceCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBuffer.html)
@@ -7536,8 +7558,8 @@ pub type PFN_vkCreateAndroidSurfaceKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateBuffer = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkBufferCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkBufferCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pBuffer: *mut VkBuffer,
 ) -> VkResult;
 /// [`vkCreateBufferCollectionFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBufferCollectionFUCHSIA.html)
@@ -7566,8 +7588,8 @@ pub type PFN_vkCreateBuffer = unsafe extern "system" fn(
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkBufferCollectionCreateInfoFUCHSIA,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkBufferCollectionCreateInfoFUCHSIA<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pCollection: *mut VkBufferCollectionFUCHSIA,
 ) -> VkResult;
 /// [`vkCreateBufferView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateBufferView.html)
@@ -7596,8 +7618,8 @@ pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateBufferView = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkBufferViewCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkBufferViewCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pView: *mut VkBufferView,
 ) -> VkResult;
 /// [`vkCreateCommandPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCommandPool.html)
@@ -7626,8 +7648,8 @@ pub type PFN_vkCreateBufferView = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateCommandPool = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkCommandPoolCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkCommandPoolCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pCommandPool: *mut VkCommandPool,
 ) -> VkResult;
 /// [`vkCreateComputePipelines`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateComputePipelines.html)
@@ -7663,8 +7685,8 @@ pub type PFN_vkCreateComputePipelines = unsafe extern "system" fn(
   device: VkDevice,
   pipelineCache: VkPipelineCache,
   createInfoCount: u32,
-  pCreateInfos: *const VkComputePipelineCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkComputePipelineCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelines: *mut VkPipeline,
 ) -> VkResult;
 /// [`vkCreateCuFunctionNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCuFunctionNVX.html)
@@ -7692,8 +7714,8 @@ pub type PFN_vkCreateComputePipelines = unsafe extern "system" fn(
 #[cfg(feature = "VK_NVX_binary_import")]
 pub type PFN_vkCreateCuFunctionNVX = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkCuFunctionCreateInfoNVX,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkCuFunctionCreateInfoNVX<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pFunction: *mut VkCuFunctionNVX,
 ) -> VkResult;
 /// [`vkCreateCuModuleNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCuModuleNVX.html)
@@ -7721,8 +7743,8 @@ pub type PFN_vkCreateCuFunctionNVX = unsafe extern "system" fn(
 #[cfg(feature = "VK_NVX_binary_import")]
 pub type PFN_vkCreateCuModuleNVX = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkCuModuleCreateInfoNVX,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkCuModuleCreateInfoNVX<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pModule: *mut VkCuModuleNVX,
 ) -> VkResult;
 /// [`vkCreateCudaFunctionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCudaFunctionNV.html)
@@ -7750,8 +7772,8 @@ pub type PFN_vkCreateCuModuleNVX = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 pub type PFN_vkCreateCudaFunctionNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkCudaFunctionCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkCudaFunctionCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pFunction: *mut VkCudaFunctionNV,
 ) -> VkResult;
 /// [`vkCreateCudaModuleNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateCudaModuleNV.html)
@@ -7779,8 +7801,8 @@ pub type PFN_vkCreateCudaFunctionNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_cuda_kernel_launch")]
 pub type PFN_vkCreateCudaModuleNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkCudaModuleCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkCudaModuleCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pModule: *mut VkCudaModuleNV,
 ) -> VkResult;
 /// [`vkCreateDataGraphPipelineSessionARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDataGraphPipelineSessionARM.html)
@@ -7808,8 +7830,8 @@ pub type PFN_vkCreateCudaModuleNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkCreateDataGraphPipelineSessionARM = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkDataGraphPipelineSessionCreateInfoARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDataGraphPipelineSessionCreateInfoARM<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSession: *mut VkDataGraphPipelineSessionARM,
 ) -> VkResult;
 /// [`vkCreateDataGraphPipelinesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDataGraphPipelinesARM.html)
@@ -7844,8 +7866,8 @@ pub type PFN_vkCreateDataGraphPipelinesARM = unsafe extern "system" fn(
   deferredOperation: VkDeferredOperationKHR,
   pipelineCache: VkPipelineCache,
   createInfoCount: u32,
-  pCreateInfos: *const VkDataGraphPipelineCreateInfoARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkDataGraphPipelineCreateInfoARM<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelines: *mut VkPipeline,
 ) -> VkResult;
 /// [`vkCreateDebugReportCallbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDebugReportCallbackEXT.html)
@@ -7872,8 +7894,8 @@ pub type PFN_vkCreateDataGraphPipelinesARM = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_debug_report")]
 pub type PFN_vkCreateDebugReportCallbackEXT = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkDebugReportCallbackCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDebugReportCallbackCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pCallback: *mut VkDebugReportCallbackEXT,
 ) -> VkResult;
 /// [`vkCreateDebugUtilsMessengerEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDebugUtilsMessengerEXT.html)
@@ -7900,8 +7922,8 @@ pub type PFN_vkCreateDebugReportCallbackEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkCreateDebugUtilsMessengerEXT = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkDebugUtilsMessengerCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDebugUtilsMessengerCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pMessenger: *mut VkDebugUtilsMessengerEXT,
 ) -> VkResult;
 /// [`vkCreateDeferredOperationKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDeferredOperationKHR.html)
@@ -7927,7 +7949,7 @@ pub type PFN_vkCreateDebugUtilsMessengerEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
 pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pDeferredOperation: *mut VkDeferredOperationKHR,
 ) -> VkResult;
 /// [`vkCreateDescriptorPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorPool.html)
@@ -7957,8 +7979,8 @@ pub type PFN_vkCreateDeferredOperationKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateDescriptorPool = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkDescriptorPoolCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDescriptorPoolCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pDescriptorPool: *mut VkDescriptorPool,
 ) -> VkResult;
 /// [`vkCreateDescriptorSetLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorSetLayout.html)
@@ -7988,8 +8010,8 @@ pub type PFN_vkCreateDescriptorPool = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateDescriptorSetLayout = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkDescriptorSetLayoutCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDescriptorSetLayoutCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSetLayout: *mut VkDescriptorSetLayout,
 ) -> VkResult;
 /// [`vkCreateDescriptorUpdateTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorUpdateTemplate.html)
@@ -8018,8 +8040,8 @@ pub type PFN_vkCreateDescriptorSetLayout = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 pub type PFN_vkCreateDescriptorUpdateTemplate = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkDescriptorUpdateTemplateCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDescriptorUpdateTemplateCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pDescriptorUpdateTemplate: *mut VkDescriptorUpdateTemplate,
 ) -> VkResult;
 /// [`vkCreateDescriptorUpdateTemplateKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDescriptorUpdateTemplateKHR.html)
@@ -8030,8 +8052,8 @@ pub type PFN_vkCreateDescriptorUpdateTemplate = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_descriptor_update_template")]
 pub type PFN_vkCreateDescriptorUpdateTemplateKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkDescriptorUpdateTemplateCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDescriptorUpdateTemplateCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pDescriptorUpdateTemplate: *mut VkDescriptorUpdateTemplateKHR,
 ) -> VkResult;
 /// [`vkCreateDevice`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDevice.html)
@@ -8066,8 +8088,8 @@ pub type PFN_vkCreateDescriptorUpdateTemplateKHR = unsafe extern "system" fn(
 #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 pub type PFN_vkCreateDevice = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pCreateInfo: *const VkDeviceCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDeviceCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pDevice: *mut VkDevice,
 ) -> VkResult;
 /// [`vkCreateDirectFBSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDirectFBSurfaceEXT.html)
@@ -8095,8 +8117,8 @@ pub type PFN_vkCreateDevice = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_directfb_surface")]
 pub type PFN_vkCreateDirectFBSurfaceEXT = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkDirectFBSurfaceCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDirectFBSurfaceCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateDisplayModeKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDisplayModeKHR.html)
@@ -8127,8 +8149,8 @@ pub type PFN_vkCreateDirectFBSurfaceEXT = unsafe extern "system" fn(
 pub type PFN_vkCreateDisplayModeKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   display: VkDisplayKHR,
-  pCreateInfo: *const VkDisplayModeCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDisplayModeCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pMode: *mut VkDisplayModeKHR,
 ) -> VkResult;
 /// [`vkCreateDisplayPlaneSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateDisplayPlaneSurfaceKHR.html)
@@ -8156,8 +8178,8 @@ pub type PFN_vkCreateDisplayModeKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_display")]
 pub type PFN_vkCreateDisplayPlaneSurfaceKHR = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkDisplaySurfaceCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkDisplaySurfaceCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateEvent.html)
@@ -8186,8 +8208,8 @@ pub type PFN_vkCreateDisplayPlaneSurfaceKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateEvent = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkEventCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkEventCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pEvent: *mut VkEvent,
 ) -> VkResult;
 /// [`vkCreateExecutionGraphPipelinesAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateExecutionGraphPipelinesAMDX.html)
@@ -8221,8 +8243,8 @@ pub type PFN_vkCreateExecutionGraphPipelinesAMDX = unsafe extern "system" fn(
   device: VkDevice,
   pipelineCache: VkPipelineCache,
   createInfoCount: u32,
-  pCreateInfos: *const VkExecutionGraphPipelineCreateInfoAMDX,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkExecutionGraphPipelineCreateInfoAMDX<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelines: *mut VkPipeline,
 ) -> VkResult;
 /// [`vkCreateExternalComputeQueueNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateExternalComputeQueueNV.html)
@@ -8250,8 +8272,8 @@ pub type PFN_vkCreateExecutionGraphPipelinesAMDX = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_external_compute_queue")]
 pub type PFN_vkCreateExternalComputeQueueNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkExternalComputeQueueCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkExternalComputeQueueCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pExternalQueue: *mut VkExternalComputeQueueNV,
 ) -> VkResult;
 /// [`vkCreateFence`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateFence.html)
@@ -8280,8 +8302,8 @@ pub type PFN_vkCreateExternalComputeQueueNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateFence = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkFenceCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkFenceCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pFence: *mut VkFence,
 ) -> VkResult;
 /// [`vkCreateFramebuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateFramebuffer.html)
@@ -8310,8 +8332,8 @@ pub type PFN_vkCreateFence = unsafe extern "system" fn(
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkFramebufferCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkFramebufferCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pFramebuffer: *mut VkFramebuffer,
 ) -> VkResult;
 /// [`vkCreateGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGpaSessionAMD.html)
@@ -8339,8 +8361,8 @@ pub type PFN_vkCreateFramebuffer = unsafe extern "system" fn(
 #[cfg(feature = "VK_AMD_gpa_interface")]
 pub type PFN_vkCreateGpaSessionAMD = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkGpaSessionCreateInfoAMD,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkGpaSessionCreateInfoAMD<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pGpaSession: *mut VkGpaSessionAMD,
 ) -> VkResult;
 /// [`vkCreateGraphicsPipelines`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateGraphicsPipelines.html)
@@ -8376,8 +8398,8 @@ pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
   device: VkDevice,
   pipelineCache: VkPipelineCache,
   createInfoCount: u32,
-  pCreateInfos: *const VkGraphicsPipelineCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkGraphicsPipelineCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelines: *mut VkPipeline,
 ) -> VkResult;
 /// [`vkCreateHeadlessSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateHeadlessSurfaceEXT.html)
@@ -8405,8 +8427,8 @@ pub type PFN_vkCreateGraphicsPipelines = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_headless_surface")]
 pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkHeadlessSurfaceCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkHeadlessSurfaceCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateIOSSurfaceMVK`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIOSSurfaceMVK.html)
@@ -8435,8 +8457,8 @@ pub type PFN_vkCreateHeadlessSurfaceEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_MVK_ios_surface")]
 pub type PFN_vkCreateIOSSurfaceMVK = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkIOSSurfaceCreateInfoMVK,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkIOSSurfaceCreateInfoMVK<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImage.html)
@@ -8467,8 +8489,8 @@ pub type PFN_vkCreateIOSSurfaceMVK = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateImage = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkImageCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkImageCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pImage: *mut VkImage,
 ) -> VkResult;
 /// [`vkCreateImagePipeSurfaceFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImagePipeSurfaceFUCHSIA.html)
@@ -8496,8 +8518,8 @@ pub type PFN_vkCreateImage = unsafe extern "system" fn(
 #[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
 pub type PFN_vkCreateImagePipeSurfaceFUCHSIA = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkImagePipeSurfaceCreateInfoFUCHSIA,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkImagePipeSurfaceCreateInfoFUCHSIA<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateImageView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateImageView.html)
@@ -8527,8 +8549,8 @@ pub type PFN_vkCreateImagePipeSurfaceFUCHSIA = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateImageView = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkImageViewCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkImageViewCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pView: *mut VkImageView,
 ) -> VkResult;
 /// [`vkCreateIndirectCommandsLayoutEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectCommandsLayoutEXT.html)
@@ -8556,8 +8578,8 @@ pub type PFN_vkCreateImageView = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 pub type PFN_vkCreateIndirectCommandsLayoutEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkIndirectCommandsLayoutCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkIndirectCommandsLayoutCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pIndirectCommandsLayout: *mut VkIndirectCommandsLayoutEXT,
 ) -> VkResult;
 /// [`vkCreateIndirectCommandsLayoutNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectCommandsLayoutNV.html)
@@ -8585,8 +8607,8 @@ pub type PFN_vkCreateIndirectCommandsLayoutEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_device_generated_commands")]
 pub type PFN_vkCreateIndirectCommandsLayoutNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkIndirectCommandsLayoutCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkIndirectCommandsLayoutCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pIndirectCommandsLayout: *mut VkIndirectCommandsLayoutNV,
 ) -> VkResult;
 /// [`vkCreateIndirectExecutionSetEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateIndirectExecutionSetEXT.html)
@@ -8614,8 +8636,8 @@ pub type PFN_vkCreateIndirectCommandsLayoutNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 pub type PFN_vkCreateIndirectExecutionSetEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkIndirectExecutionSetCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkIndirectExecutionSetCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pIndirectExecutionSet: *mut VkIndirectExecutionSetEXT,
 ) -> VkResult;
 /// [`vkCreateInstance`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateInstance.html)
@@ -8646,8 +8668,8 @@ pub type PFN_vkCreateIndirectExecutionSetEXT = unsafe extern "system" fn(
 ///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateInstance = unsafe extern "system" fn(
-  pCreateInfo: *const VkInstanceCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkInstanceCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pInstance: *mut VkInstance,
 ) -> VkResult;
 /// [`vkCreateMacOSSurfaceMVK`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMacOSSurfaceMVK.html)
@@ -8676,8 +8698,8 @@ pub type PFN_vkCreateInstance = unsafe extern "system" fn(
 #[cfg(feature = "VK_MVK_macos_surface")]
 pub type PFN_vkCreateMacOSSurfaceMVK = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkMacOSSurfaceCreateInfoMVK,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkMacOSSurfaceCreateInfoMVK<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateMetalSurfaceEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMetalSurfaceEXT.html)
@@ -8706,8 +8728,8 @@ pub type PFN_vkCreateMacOSSurfaceMVK = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_metal_surface")]
 pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkMetalSurfaceCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkMetalSurfaceCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateMicromapEXT.html)
@@ -8735,8 +8757,8 @@ pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkMicromapCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkMicromapCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pMicromap: *mut VkMicromapEXT,
 ) -> VkResult;
 /// [`vkCreateOpticalFlowSessionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateOpticalFlowSessionNV.html)
@@ -8764,8 +8786,8 @@ pub type PFN_vkCreateMicromapEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_optical_flow")]
 pub type PFN_vkCreateOpticalFlowSessionNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkOpticalFlowSessionCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkOpticalFlowSessionCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSession: *mut VkOpticalFlowSessionNV,
 ) -> VkResult;
 /// [`vkCreatePipelineBinariesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineBinariesKHR.html)
@@ -8797,9 +8819,9 @@ pub type PFN_vkCreateOpticalFlowSessionNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkCreatePipelineBinariesKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkPipelineBinaryCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
-  pBinaries: *mut VkPipelineBinaryHandlesInfoKHR,
+  pCreateInfo: *const VkPipelineBinaryCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
+  pBinaries: *mut VkPipelineBinaryHandlesInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkCreatePipelineCache`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineCache.html)
 ///
@@ -8828,8 +8850,8 @@ pub type PFN_vkCreatePipelineBinariesKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkPipelineCacheCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkPipelineCacheCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelineCache: *mut VkPipelineCache,
 ) -> VkResult;
 /// [`vkCreatePipelineLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePipelineLayout.html)
@@ -8859,8 +8881,8 @@ pub type PFN_vkCreatePipelineCache = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreatePipelineLayout = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkPipelineLayoutCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkPipelineLayoutCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelineLayout: *mut VkPipelineLayout,
 ) -> VkResult;
 /// [`vkCreatePrivateDataSlot`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePrivateDataSlot.html)
@@ -8888,8 +8910,8 @@ pub type PFN_vkCreatePipelineLayout = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkCreatePrivateDataSlot = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkPrivateDataSlotCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkPrivateDataSlotCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPrivateDataSlot: *mut VkPrivateDataSlot,
 ) -> VkResult;
 /// [`vkCreatePrivateDataSlotEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreatePrivateDataSlotEXT.html)
@@ -8900,8 +8922,8 @@ pub type PFN_vkCreatePrivateDataSlot = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_private_data")]
 pub type PFN_vkCreatePrivateDataSlotEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkPrivateDataSlotCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkPrivateDataSlotCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPrivateDataSlot: *mut VkPrivateDataSlotEXT,
 ) -> VkResult;
 /// [`vkCreateQueryPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateQueryPool.html)
@@ -8930,8 +8952,8 @@ pub type PFN_vkCreatePrivateDataSlotEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateQueryPool = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkQueryPoolCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkQueryPoolCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pQueryPool: *mut VkQueryPool,
 ) -> VkResult;
 /// [`vkCreateRayTracingPipelinesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesKHR.html)
@@ -8970,8 +8992,8 @@ pub type PFN_vkCreateRayTracingPipelinesKHR = unsafe extern "system" fn(
   deferredOperation: VkDeferredOperationKHR,
   pipelineCache: VkPipelineCache,
   createInfoCount: u32,
-  pCreateInfos: *const VkRayTracingPipelineCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkRayTracingPipelineCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelines: *mut VkPipeline,
 ) -> VkResult;
 /// [`vkCreateRayTracingPipelinesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRayTracingPipelinesNV.html)
@@ -9006,8 +9028,8 @@ pub type PFN_vkCreateRayTracingPipelinesNV = unsafe extern "system" fn(
   device: VkDevice,
   pipelineCache: VkPipelineCache,
   createInfoCount: u32,
-  pCreateInfos: *const VkRayTracingPipelineCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkRayTracingPipelineCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pPipelines: *mut VkPipeline,
 ) -> VkResult;
 /// [`vkCreateRenderPass`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass.html)
@@ -9038,8 +9060,8 @@ pub type PFN_vkCreateRayTracingPipelinesNV = unsafe extern "system" fn(
 #[deprecated(note = "superseded by `vkCreateRenderPass2`")]
 pub type PFN_vkCreateRenderPass = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkRenderPassCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkRenderPassCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pRenderPass: *mut VkRenderPass,
 ) -> VkResult;
 /// [`vkCreateRenderPass2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass2.html)
@@ -9069,8 +9091,8 @@ pub type PFN_vkCreateRenderPass = unsafe extern "system" fn(
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
 pub type PFN_vkCreateRenderPass2 = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkRenderPassCreateInfo2,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkRenderPassCreateInfo2<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pRenderPass: *mut VkRenderPass,
 ) -> VkResult;
 /// [`vkCreateRenderPass2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateRenderPass2KHR.html)
@@ -9081,8 +9103,8 @@ pub type PFN_vkCreateRenderPass2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_create_renderpass2")]
 pub type PFN_vkCreateRenderPass2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkRenderPassCreateInfo2KHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkRenderPassCreateInfo2KHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pRenderPass: *mut VkRenderPass,
 ) -> VkResult;
 /// [`vkCreateSampler`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSampler.html)
@@ -9113,8 +9135,8 @@ pub type PFN_vkCreateRenderPass2KHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateSampler = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkSamplerCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkSamplerCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSampler: *mut VkSampler,
 ) -> VkResult;
 /// [`vkCreateSamplerYcbcrConversion`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSamplerYcbcrConversion.html)
@@ -9144,8 +9166,8 @@ pub type PFN_vkCreateSampler = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 pub type PFN_vkCreateSamplerYcbcrConversion = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkSamplerYcbcrConversionCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkSamplerYcbcrConversionCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pYcbcrConversion: *mut VkSamplerYcbcrConversion,
 ) -> VkResult;
 /// [`vkCreateSamplerYcbcrConversionKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSamplerYcbcrConversionKHR.html)
@@ -9156,8 +9178,8 @@ pub type PFN_vkCreateSamplerYcbcrConversion = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
 pub type PFN_vkCreateSamplerYcbcrConversionKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkSamplerYcbcrConversionCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkSamplerYcbcrConversionCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pYcbcrConversion: *mut VkSamplerYcbcrConversionKHR,
 ) -> VkResult;
 /// [`vkCreateScreenSurfaceQNX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateScreenSurfaceQNX.html)
@@ -9185,8 +9207,8 @@ pub type PFN_vkCreateSamplerYcbcrConversionKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_QNX_screen_surface")]
 pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkScreenSurfaceCreateInfoQNX,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkScreenSurfaceCreateInfoQNX<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateSemaphore`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSemaphore.html)
@@ -9215,8 +9237,8 @@ pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkCreateSemaphore = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkSemaphoreCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkSemaphoreCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSemaphore: *mut VkSemaphore,
 ) -> VkResult;
 /// [`vkCreateSemaphoreSciSyncPoolNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSemaphoreSciSyncPoolNV.html)
@@ -9244,8 +9266,8 @@ pub type PFN_vkCreateSemaphore = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_external_sci_sync2")]
 pub type PFN_vkCreateSemaphoreSciSyncPoolNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkSemaphoreSciSyncPoolCreateInfoNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkSemaphoreSciSyncPoolCreateInfoNV<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSemaphorePool: *mut VkSemaphoreSciSyncPoolNV,
 ) -> VkResult;
 /// [`vkCreateShaderInstrumentationARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShaderInstrumentationARM.html)
@@ -9273,8 +9295,8 @@ pub type PFN_vkCreateSemaphoreSciSyncPoolNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 pub type PFN_vkCreateShaderInstrumentationARM = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkShaderInstrumentationCreateInfoARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkShaderInstrumentationCreateInfoARM<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pInstrumentation: *mut VkShaderInstrumentationARM,
 ) -> VkResult;
 /// [`vkCreateShaderModule`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShaderModule.html)
@@ -9305,8 +9327,8 @@ pub type PFN_vkCreateShaderInstrumentationARM = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 pub type PFN_vkCreateShaderModule = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkShaderModuleCreateInfo,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkShaderModuleCreateInfo<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pShaderModule: *mut VkShaderModule,
 ) -> VkResult;
 /// [`vkCreateShadersEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateShadersEXT.html)
@@ -9339,8 +9361,8 @@ pub type PFN_vkCreateShaderModule = unsafe extern "system" fn(
 pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(
   device: VkDevice,
   createInfoCount: u32,
-  pCreateInfos: *const VkShaderCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkShaderCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pShaders: *mut VkShaderEXT,
 ) -> VkResult;
 /// [`vkCreateSharedSwapchainsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSharedSwapchainsKHR.html)
@@ -9373,8 +9395,8 @@ pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(
 pub type PFN_vkCreateSharedSwapchainsKHR = unsafe extern "system" fn(
   device: VkDevice,
   swapchainCount: u32,
-  pCreateInfos: *const VkSwapchainCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfos: *const VkSwapchainCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSwapchains: *mut VkSwapchainKHR,
 ) -> VkResult;
 /// [`vkCreateStreamDescriptorSurfaceGGP`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateStreamDescriptorSurfaceGGP.html)
@@ -9403,8 +9425,8 @@ pub type PFN_vkCreateSharedSwapchainsKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_GGP_stream_descriptor_surface")]
 pub type PFN_vkCreateStreamDescriptorSurfaceGGP = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkStreamDescriptorSurfaceCreateInfoGGP,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkStreamDescriptorSurfaceCreateInfoGGP<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateSurfaceOHOS`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSurfaceOHOS.html)
@@ -9432,8 +9454,8 @@ pub type PFN_vkCreateStreamDescriptorSurfaceGGP = unsafe extern "system" fn(
 #[cfg(feature = "VK_OHOS_surface")]
 pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkSurfaceCreateInfoOHOS,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkSurfaceCreateInfoOHOS<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateSwapchainKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateSwapchainKHR.html)
@@ -9466,8 +9488,8 @@ pub type PFN_vkCreateSurfaceOHOS = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_swapchain")]
 pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkSwapchainCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkSwapchainCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSwapchain: *mut VkSwapchainKHR,
 ) -> VkResult;
 /// [`vkCreateTensorARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateTensorARM.html)
@@ -9495,8 +9517,8 @@ pub type PFN_vkCreateSwapchainKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkTensorCreateInfoARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkTensorCreateInfoARM<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pTensor: *mut VkTensorARM,
 ) -> VkResult;
 /// [`vkCreateTensorViewARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateTensorViewARM.html)
@@ -9524,8 +9546,8 @@ pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkCreateTensorViewARM = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkTensorViewCreateInfoARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkTensorViewCreateInfoARM<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pView: *mut VkTensorViewARM,
 ) -> VkResult;
 /// [`vkCreateUbmSurfaceSEC`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateUbmSurfaceSEC.html)
@@ -9553,8 +9575,8 @@ pub type PFN_vkCreateTensorViewARM = unsafe extern "system" fn(
 #[cfg(feature = "VK_SEC_ubm_surface")]
 pub type PFN_vkCreateUbmSurfaceSEC = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkUbmSurfaceCreateInfoSEC,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkUbmSurfaceCreateInfoSEC<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateValidationCacheEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateValidationCacheEXT.html)
@@ -9581,8 +9603,8 @@ pub type PFN_vkCreateUbmSurfaceSEC = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_validation_cache")]
 pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkValidationCacheCreateInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkValidationCacheCreateInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pValidationCache: *mut VkValidationCacheEXT,
 ) -> VkResult;
 /// [`vkCreateViSurfaceNN`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateViSurfaceNN.html)
@@ -9611,8 +9633,8 @@ pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_NN_vi_surface")]
 pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkViSurfaceCreateInfoNN,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkViSurfaceCreateInfoNN<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateVideoSessionKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateVideoSessionKHR.html)
@@ -9643,8 +9665,8 @@ pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkCreateVideoSessionKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkVideoSessionCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkVideoSessionCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pVideoSession: *mut VkVideoSessionKHR,
 ) -> VkResult;
 /// [`vkCreateVideoSessionParametersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateVideoSessionParametersKHR.html)
@@ -9674,8 +9696,8 @@ pub type PFN_vkCreateVideoSessionKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkCreateVideoSessionParametersKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkVideoSessionParametersCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkVideoSessionParametersCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pVideoSessionParameters: *mut VkVideoSessionParametersKHR,
 ) -> VkResult;
 /// [`vkCreateWaylandSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWaylandSurfaceKHR.html)
@@ -9703,8 +9725,8 @@ pub type PFN_vkCreateVideoSessionParametersKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_wayland_surface")]
 pub type PFN_vkCreateWaylandSurfaceKHR = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkWaylandSurfaceCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkWaylandSurfaceCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateWin32SurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateWin32SurfaceKHR.html)
@@ -9732,8 +9754,8 @@ pub type PFN_vkCreateWaylandSurfaceKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_win32_surface")]
 pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkWin32SurfaceCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkWin32SurfaceCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateXcbSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXcbSurfaceKHR.html)
@@ -9761,8 +9783,8 @@ pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_xcb_surface")]
 pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkXcbSurfaceCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkXcbSurfaceCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkCreateXlibSurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkCreateXlibSurfaceKHR.html)
@@ -9790,8 +9812,8 @@ pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_xlib_surface")]
 pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
   instance: VkInstance,
-  pCreateInfo: *const VkXlibSurfaceCreateInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pCreateInfo: *const VkXlibSurfaceCreateInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pSurface: *mut VkSurfaceKHR,
 ) -> VkResult;
 /// [`vkDebugMarkerSetObjectNameEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugMarkerSetObjectNameEXT.html)
@@ -9817,7 +9839,7 @@ pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_debug_marker")]
 pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pNameInfo: *const VkDebugMarkerObjectNameInfoEXT,
+  pNameInfo: *const VkDebugMarkerObjectNameInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkDebugMarkerSetObjectTagEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugMarkerSetObjectTagEXT.html)
 ///
@@ -9842,7 +9864,7 @@ pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_debug_marker")]
 pub type PFN_vkDebugMarkerSetObjectTagEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pTagInfo: *const VkDebugMarkerObjectTagInfoEXT,
+  pTagInfo: *const VkDebugMarkerObjectTagInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkDebugReportMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDebugReportMessageEXT.html)
 ///
@@ -9909,7 +9931,7 @@ pub type PFN_vkDeferredOperationJoinKHR =
 pub type PFN_vkDestroyAccelerationStructureKHR = unsafe extern "system" fn(
   device: VkDevice,
   accelerationStructure: VkAccelerationStructureKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyAccelerationStructureNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyAccelerationStructureNV.html)
 ///
@@ -9925,7 +9947,7 @@ pub type PFN_vkDestroyAccelerationStructureKHR = unsafe extern "system" fn(
 pub type PFN_vkDestroyAccelerationStructureNV = unsafe extern "system" fn(
   device: VkDevice,
   accelerationStructure: VkAccelerationStructureNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBuffer.html)
 ///
@@ -9942,7 +9964,7 @@ pub type PFN_vkDestroyAccelerationStructureNV = unsafe extern "system" fn(
 pub type PFN_vkDestroyBuffer = unsafe extern "system" fn(
   device: VkDevice,
   buffer: VkBuffer,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyBufferCollectionFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBufferCollectionFUCHSIA.html)
 ///
@@ -9958,7 +9980,7 @@ pub type PFN_vkDestroyBuffer = unsafe extern "system" fn(
 pub type PFN_vkDestroyBufferCollectionFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
   collection: VkBufferCollectionFUCHSIA,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyBufferView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyBufferView.html)
 ///
@@ -9975,7 +9997,7 @@ pub type PFN_vkDestroyBufferCollectionFUCHSIA = unsafe extern "system" fn(
 pub type PFN_vkDestroyBufferView = unsafe extern "system" fn(
   device: VkDevice,
   bufferView: VkBufferView,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyCommandPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCommandPool.html)
 ///
@@ -9992,7 +10014,7 @@ pub type PFN_vkDestroyBufferView = unsafe extern "system" fn(
 pub type PFN_vkDestroyCommandPool = unsafe extern "system" fn(
   device: VkDevice,
   commandPool: VkCommandPool,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyCuFunctionNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCuFunctionNVX.html)
 ///
@@ -10008,7 +10030,7 @@ pub type PFN_vkDestroyCommandPool = unsafe extern "system" fn(
 pub type PFN_vkDestroyCuFunctionNVX = unsafe extern "system" fn(
   device: VkDevice,
   function: VkCuFunctionNVX,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyCuModuleNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCuModuleNVX.html)
 ///
@@ -10024,7 +10046,7 @@ pub type PFN_vkDestroyCuFunctionNVX = unsafe extern "system" fn(
 pub type PFN_vkDestroyCuModuleNVX = unsafe extern "system" fn(
   device: VkDevice,
   module: VkCuModuleNVX,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyCudaFunctionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCudaFunctionNV.html)
 ///
@@ -10040,7 +10062,7 @@ pub type PFN_vkDestroyCuModuleNVX = unsafe extern "system" fn(
 pub type PFN_vkDestroyCudaFunctionNV = unsafe extern "system" fn(
   device: VkDevice,
   function: VkCudaFunctionNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyCudaModuleNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyCudaModuleNV.html)
 ///
@@ -10056,7 +10078,7 @@ pub type PFN_vkDestroyCudaFunctionNV = unsafe extern "system" fn(
 pub type PFN_vkDestroyCudaModuleNV = unsafe extern "system" fn(
   device: VkDevice,
   module: VkCudaModuleNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDataGraphPipelineSessionARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDataGraphPipelineSessionARM.html)
 ///
@@ -10072,7 +10094,7 @@ pub type PFN_vkDestroyCudaModuleNV = unsafe extern "system" fn(
 pub type PFN_vkDestroyDataGraphPipelineSessionARM = unsafe extern "system" fn(
   device: VkDevice,
   session: VkDataGraphPipelineSessionARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDebugReportCallbackEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugReportCallbackEXT.html)
 ///
@@ -10088,7 +10110,7 @@ pub type PFN_vkDestroyDataGraphPipelineSessionARM = unsafe extern "system" fn(
 pub type PFN_vkDestroyDebugReportCallbackEXT = unsafe extern "system" fn(
   instance: VkInstance,
   callback: VkDebugReportCallbackEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDebugUtilsMessengerEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDebugUtilsMessengerEXT.html)
 ///
@@ -10104,7 +10126,7 @@ pub type PFN_vkDestroyDebugReportCallbackEXT = unsafe extern "system" fn(
 pub type PFN_vkDestroyDebugUtilsMessengerEXT = unsafe extern "system" fn(
   instance: VkInstance,
   messenger: VkDebugUtilsMessengerEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDeferredOperationKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDeferredOperationKHR.html)
 ///
@@ -10120,7 +10142,7 @@ pub type PFN_vkDestroyDebugUtilsMessengerEXT = unsafe extern "system" fn(
 pub type PFN_vkDestroyDeferredOperationKHR = unsafe extern "system" fn(
   device: VkDevice,
   operation: VkDeferredOperationKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDescriptorPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorPool.html)
 ///
@@ -10137,7 +10159,7 @@ pub type PFN_vkDestroyDeferredOperationKHR = unsafe extern "system" fn(
 pub type PFN_vkDestroyDescriptorPool = unsafe extern "system" fn(
   device: VkDevice,
   descriptorPool: VkDescriptorPool,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDescriptorSetLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorSetLayout.html)
 ///
@@ -10154,7 +10176,7 @@ pub type PFN_vkDestroyDescriptorPool = unsafe extern "system" fn(
 pub type PFN_vkDestroyDescriptorSetLayout = unsafe extern "system" fn(
   device: VkDevice,
   descriptorSetLayout: VkDescriptorSetLayout,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDescriptorUpdateTemplate`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorUpdateTemplate.html)
 ///
@@ -10171,7 +10193,7 @@ pub type PFN_vkDestroyDescriptorSetLayout = unsafe extern "system" fn(
 pub type PFN_vkDestroyDescriptorUpdateTemplate = unsafe extern "system" fn(
   device: VkDevice,
   descriptorUpdateTemplate: VkDescriptorUpdateTemplate,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDescriptorUpdateTemplateKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDescriptorUpdateTemplateKHR.html)
 ///
@@ -10182,7 +10204,7 @@ pub type PFN_vkDestroyDescriptorUpdateTemplate = unsafe extern "system" fn(
 pub type PFN_vkDestroyDescriptorUpdateTemplateKHR = unsafe extern "system" fn(
   device: VkDevice,
   descriptorUpdateTemplate: VkDescriptorUpdateTemplateKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyDevice`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyDevice.html)
 ///
@@ -10196,7 +10218,7 @@ pub type PFN_vkDestroyDescriptorUpdateTemplateKHR = unsafe extern "system" fn(
 /// - `pAllocator`: optional: true
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkDestroyDevice =
-  unsafe extern "system" fn(device: VkDevice, pAllocator: *const VkAllocationCallbacks);
+  unsafe extern "system" fn(device: VkDevice, pAllocator: *const VkAllocationCallbacks<'_>);
 /// [`vkDestroyEvent`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyEvent.html)
 ///
 /// Provided by:
@@ -10212,7 +10234,7 @@ pub type PFN_vkDestroyDevice =
 pub type PFN_vkDestroyEvent = unsafe extern "system" fn(
   device: VkDevice,
   event: VkEvent,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyExternalComputeQueueNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyExternalComputeQueueNV.html)
 ///
@@ -10228,7 +10250,7 @@ pub type PFN_vkDestroyEvent = unsafe extern "system" fn(
 pub type PFN_vkDestroyExternalComputeQueueNV = unsafe extern "system" fn(
   device: VkDevice,
   externalQueue: VkExternalComputeQueueNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyFence`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyFence.html)
 ///
@@ -10245,7 +10267,7 @@ pub type PFN_vkDestroyExternalComputeQueueNV = unsafe extern "system" fn(
 pub type PFN_vkDestroyFence = unsafe extern "system" fn(
   device: VkDevice,
   fence: VkFence,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyFramebuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyFramebuffer.html)
 ///
@@ -10262,7 +10284,7 @@ pub type PFN_vkDestroyFence = unsafe extern "system" fn(
 pub type PFN_vkDestroyFramebuffer = unsafe extern "system" fn(
   device: VkDevice,
   framebuffer: VkFramebuffer,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyGpaSessionAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyGpaSessionAMD.html)
 ///
@@ -10278,7 +10300,7 @@ pub type PFN_vkDestroyFramebuffer = unsafe extern "system" fn(
 pub type PFN_vkDestroyGpaSessionAMD = unsafe extern "system" fn(
   device: VkDevice,
   gpaSession: VkGpaSessionAMD,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyImage`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyImage.html)
 ///
@@ -10295,7 +10317,7 @@ pub type PFN_vkDestroyGpaSessionAMD = unsafe extern "system" fn(
 pub type PFN_vkDestroyImage = unsafe extern "system" fn(
   device: VkDevice,
   image: VkImage,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyImageView`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyImageView.html)
 ///
@@ -10312,7 +10334,7 @@ pub type PFN_vkDestroyImage = unsafe extern "system" fn(
 pub type PFN_vkDestroyImageView = unsafe extern "system" fn(
   device: VkDevice,
   imageView: VkImageView,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyIndirectCommandsLayoutEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyIndirectCommandsLayoutEXT.html)
 ///
@@ -10328,7 +10350,7 @@ pub type PFN_vkDestroyImageView = unsafe extern "system" fn(
 pub type PFN_vkDestroyIndirectCommandsLayoutEXT = unsafe extern "system" fn(
   device: VkDevice,
   indirectCommandsLayout: VkIndirectCommandsLayoutEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyIndirectCommandsLayoutNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyIndirectCommandsLayoutNV.html)
 ///
@@ -10344,7 +10366,7 @@ pub type PFN_vkDestroyIndirectCommandsLayoutEXT = unsafe extern "system" fn(
 pub type PFN_vkDestroyIndirectCommandsLayoutNV = unsafe extern "system" fn(
   device: VkDevice,
   indirectCommandsLayout: VkIndirectCommandsLayoutNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyIndirectExecutionSetEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyIndirectExecutionSetEXT.html)
 ///
@@ -10360,7 +10382,7 @@ pub type PFN_vkDestroyIndirectCommandsLayoutNV = unsafe extern "system" fn(
 pub type PFN_vkDestroyIndirectExecutionSetEXT = unsafe extern "system" fn(
   device: VkDevice,
   indirectExecutionSet: VkIndirectExecutionSetEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyInstance`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyInstance.html)
 ///
@@ -10374,7 +10396,7 @@ pub type PFN_vkDestroyIndirectExecutionSetEXT = unsafe extern "system" fn(
 /// - `pAllocator`: optional: true
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 pub type PFN_vkDestroyInstance =
-  unsafe extern "system" fn(instance: VkInstance, pAllocator: *const VkAllocationCallbacks);
+  unsafe extern "system" fn(instance: VkInstance, pAllocator: *const VkAllocationCallbacks<'_>);
 /// [`vkDestroyMicromapEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyMicromapEXT.html)
 ///
 /// Provided by:
@@ -10389,7 +10411,7 @@ pub type PFN_vkDestroyInstance =
 pub type PFN_vkDestroyMicromapEXT = unsafe extern "system" fn(
   device: VkDevice,
   micromap: VkMicromapEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyOpticalFlowSessionNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyOpticalFlowSessionNV.html)
 ///
@@ -10405,7 +10427,7 @@ pub type PFN_vkDestroyMicromapEXT = unsafe extern "system" fn(
 pub type PFN_vkDestroyOpticalFlowSessionNV = unsafe extern "system" fn(
   device: VkDevice,
   session: VkOpticalFlowSessionNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyPipeline`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipeline.html)
 ///
@@ -10422,7 +10444,7 @@ pub type PFN_vkDestroyOpticalFlowSessionNV = unsafe extern "system" fn(
 pub type PFN_vkDestroyPipeline = unsafe extern "system" fn(
   device: VkDevice,
   pipeline: VkPipeline,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyPipelineBinaryKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineBinaryKHR.html)
 ///
@@ -10438,7 +10460,7 @@ pub type PFN_vkDestroyPipeline = unsafe extern "system" fn(
 pub type PFN_vkDestroyPipelineBinaryKHR = unsafe extern "system" fn(
   device: VkDevice,
   pipelineBinary: VkPipelineBinaryKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyPipelineCache`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineCache.html)
 ///
@@ -10455,7 +10477,7 @@ pub type PFN_vkDestroyPipelineBinaryKHR = unsafe extern "system" fn(
 pub type PFN_vkDestroyPipelineCache = unsafe extern "system" fn(
   device: VkDevice,
   pipelineCache: VkPipelineCache,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyPipelineLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPipelineLayout.html)
 ///
@@ -10472,7 +10494,7 @@ pub type PFN_vkDestroyPipelineCache = unsafe extern "system" fn(
 pub type PFN_vkDestroyPipelineLayout = unsafe extern "system" fn(
   device: VkDevice,
   pipelineLayout: VkPipelineLayout,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyPrivateDataSlot`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPrivateDataSlot.html)
 ///
@@ -10489,7 +10511,7 @@ pub type PFN_vkDestroyPipelineLayout = unsafe extern "system" fn(
 pub type PFN_vkDestroyPrivateDataSlot = unsafe extern "system" fn(
   device: VkDevice,
   privateDataSlot: VkPrivateDataSlot,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyPrivateDataSlotEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyPrivateDataSlotEXT.html)
 ///
@@ -10500,7 +10522,7 @@ pub type PFN_vkDestroyPrivateDataSlot = unsafe extern "system" fn(
 pub type PFN_vkDestroyPrivateDataSlotEXT = unsafe extern "system" fn(
   device: VkDevice,
   privateDataSlot: VkPrivateDataSlotEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyQueryPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyQueryPool.html)
 ///
@@ -10517,7 +10539,7 @@ pub type PFN_vkDestroyPrivateDataSlotEXT = unsafe extern "system" fn(
 pub type PFN_vkDestroyQueryPool = unsafe extern "system" fn(
   device: VkDevice,
   queryPool: VkQueryPool,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyRenderPass`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyRenderPass.html)
 ///
@@ -10534,7 +10556,7 @@ pub type PFN_vkDestroyQueryPool = unsafe extern "system" fn(
 pub type PFN_vkDestroyRenderPass = unsafe extern "system" fn(
   device: VkDevice,
   renderPass: VkRenderPass,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroySampler`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySampler.html)
 ///
@@ -10551,7 +10573,7 @@ pub type PFN_vkDestroyRenderPass = unsafe extern "system" fn(
 pub type PFN_vkDestroySampler = unsafe extern "system" fn(
   device: VkDevice,
   sampler: VkSampler,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroySamplerYcbcrConversion`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySamplerYcbcrConversion.html)
 ///
@@ -10568,7 +10590,7 @@ pub type PFN_vkDestroySampler = unsafe extern "system" fn(
 pub type PFN_vkDestroySamplerYcbcrConversion = unsafe extern "system" fn(
   device: VkDevice,
   ycbcrConversion: VkSamplerYcbcrConversion,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroySamplerYcbcrConversionKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySamplerYcbcrConversionKHR.html)
 ///
@@ -10579,7 +10601,7 @@ pub type PFN_vkDestroySamplerYcbcrConversion = unsafe extern "system" fn(
 pub type PFN_vkDestroySamplerYcbcrConversionKHR = unsafe extern "system" fn(
   device: VkDevice,
   ycbcrConversion: VkSamplerYcbcrConversionKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroySemaphore`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySemaphore.html)
 ///
@@ -10596,7 +10618,7 @@ pub type PFN_vkDestroySamplerYcbcrConversionKHR = unsafe extern "system" fn(
 pub type PFN_vkDestroySemaphore = unsafe extern "system" fn(
   device: VkDevice,
   semaphore: VkSemaphore,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroySemaphoreSciSyncPoolNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySemaphoreSciSyncPoolNV.html)
 ///
@@ -10612,7 +10634,7 @@ pub type PFN_vkDestroySemaphore = unsafe extern "system" fn(
 pub type PFN_vkDestroySemaphoreSciSyncPoolNV = unsafe extern "system" fn(
   device: VkDevice,
   semaphorePool: VkSemaphoreSciSyncPoolNV,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyShaderEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyShaderEXT.html)
 ///
@@ -10628,7 +10650,7 @@ pub type PFN_vkDestroySemaphoreSciSyncPoolNV = unsafe extern "system" fn(
 pub type PFN_vkDestroyShaderEXT = unsafe extern "system" fn(
   device: VkDevice,
   shader: VkShaderEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyShaderInstrumentationARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyShaderInstrumentationARM.html)
 ///
@@ -10644,7 +10666,7 @@ pub type PFN_vkDestroyShaderEXT = unsafe extern "system" fn(
 pub type PFN_vkDestroyShaderInstrumentationARM = unsafe extern "system" fn(
   device: VkDevice,
   instrumentation: VkShaderInstrumentationARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyShaderModule`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyShaderModule.html)
 ///
@@ -10661,7 +10683,7 @@ pub type PFN_vkDestroyShaderInstrumentationARM = unsafe extern "system" fn(
 pub type PFN_vkDestroyShaderModule = unsafe extern "system" fn(
   device: VkDevice,
   shaderModule: VkShaderModule,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroySurfaceKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySurfaceKHR.html)
 ///
@@ -10677,7 +10699,7 @@ pub type PFN_vkDestroyShaderModule = unsafe extern "system" fn(
 pub type PFN_vkDestroySurfaceKHR = unsafe extern "system" fn(
   instance: VkInstance,
   surface: VkSurfaceKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroySwapchainKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroySwapchainKHR.html)
 ///
@@ -10693,7 +10715,7 @@ pub type PFN_vkDestroySurfaceKHR = unsafe extern "system" fn(
 pub type PFN_vkDestroySwapchainKHR = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyTensorARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyTensorARM.html)
 ///
@@ -10709,7 +10731,7 @@ pub type PFN_vkDestroySwapchainKHR = unsafe extern "system" fn(
 pub type PFN_vkDestroyTensorARM = unsafe extern "system" fn(
   device: VkDevice,
   tensor: VkTensorARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyTensorViewARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyTensorViewARM.html)
 ///
@@ -10725,7 +10747,7 @@ pub type PFN_vkDestroyTensorARM = unsafe extern "system" fn(
 pub type PFN_vkDestroyTensorViewARM = unsafe extern "system" fn(
   device: VkDevice,
   tensorView: VkTensorViewARM,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyValidationCacheEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyValidationCacheEXT.html)
 ///
@@ -10741,7 +10763,7 @@ pub type PFN_vkDestroyTensorViewARM = unsafe extern "system" fn(
 pub type PFN_vkDestroyValidationCacheEXT = unsafe extern "system" fn(
   device: VkDevice,
   validationCache: VkValidationCacheEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyVideoSessionKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyVideoSessionKHR.html)
 ///
@@ -10757,7 +10779,7 @@ pub type PFN_vkDestroyValidationCacheEXT = unsafe extern "system" fn(
 pub type PFN_vkDestroyVideoSessionKHR = unsafe extern "system" fn(
   device: VkDevice,
   videoSession: VkVideoSessionKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDestroyVideoSessionParametersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDestroyVideoSessionParametersKHR.html)
 ///
@@ -10773,7 +10795,7 @@ pub type PFN_vkDestroyVideoSessionKHR = unsafe extern "system" fn(
 pub type PFN_vkDestroyVideoSessionParametersKHR = unsafe extern "system" fn(
   device: VkDevice,
   videoSessionParameters: VkVideoSessionParametersKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkDeviceWaitIdle`](https://docs.vulkan.org/refpages/latest/refpages/source/vkDeviceWaitIdle.html)
 ///
@@ -10822,7 +10844,7 @@ pub type PFN_vkDeviceWaitIdle = unsafe extern "system" fn(device: VkDevice) -> V
 pub type PFN_vkDisplayPowerControlEXT = unsafe extern "system" fn(
   device: VkDevice,
   display: VkDisplayKHR,
-  pDisplayPowerInfo: *const VkDisplayPowerInfoEXT,
+  pDisplayPowerInfo: *const VkDisplayPowerInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkEndCommandBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEndCommandBuffer.html)
 ///
@@ -11017,7 +11039,7 @@ pub type PFN_vkEnumerateInstanceVersion =
 pub type PFN_vkEnumeratePhysicalDeviceGroups = unsafe extern "system" fn(
   instance: VkInstance,
   pPhysicalDeviceGroupCount: *mut u32,
-  pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupProperties,
+  pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupProperties<'_>,
 ) -> VkResult;
 /// [`vkEnumeratePhysicalDeviceGroupsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceGroupsKHR.html)
 ///
@@ -11028,7 +11050,7 @@ pub type PFN_vkEnumeratePhysicalDeviceGroups = unsafe extern "system" fn(
 pub type PFN_vkEnumeratePhysicalDeviceGroupsKHR = unsafe extern "system" fn(
   instance: VkInstance,
   pPhysicalDeviceGroupCount: *mut u32,
-  pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupPropertiesKHR,
+  pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupPropertiesKHR<'_>,
 ) -> VkResult;
 /// [`vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html)
 ///
@@ -11061,8 +11083,8 @@ pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM 
     physicalDevice: VkPhysicalDevice,
     queueFamilyIndex: u32,
     pCounterCount: *mut u32,
-    pCounters: *mut VkPerformanceCounterARM,
-    pCounterDescriptions: *mut VkPerformanceCounterDescriptionARM,
+    pCounters: *mut VkPerformanceCounterARM<'_>,
+    pCounterDescriptions: *mut VkPerformanceCounterDescriptionARM<'_>,
   ) -> VkResult;
 /// [`vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html)
 ///
@@ -11095,8 +11117,8 @@ pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
     physicalDevice: VkPhysicalDevice,
     queueFamilyIndex: u32,
     pCounterCount: *mut u32,
-    pCounters: *mut VkPerformanceCounterKHR,
-    pCounterDescriptions: *mut VkPerformanceCounterDescriptionKHR,
+    pCounters: *mut VkPerformanceCounterKHR<'_>,
+    pCounterDescriptions: *mut VkPerformanceCounterDescriptionKHR<'_>,
   ) -> VkResult;
 /// [`vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM.html)
 ///
@@ -11126,7 +11148,7 @@ pub type PFN_vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     pDescriptionCount: *mut u32,
-    pDescriptions: *mut VkShaderInstrumentationMetricDescriptionARM,
+    pDescriptions: *mut VkShaderInstrumentationMetricDescriptionARM<'_>,
   ) -> VkResult;
 /// [`vkEnumeratePhysicalDevices`](https://docs.vulkan.org/refpages/latest/refpages/source/vkEnumeratePhysicalDevices.html)
 ///
@@ -11168,8 +11190,10 @@ pub type PFN_vkEnumeratePhysicalDevices = unsafe extern "system" fn(
 /// - `device`
 /// - `pMetalObjectsInfo`
 #[cfg(feature = "VK_EXT_metal_objects")]
-pub type PFN_vkExportMetalObjectsEXT =
-  unsafe extern "system" fn(device: VkDevice, pMetalObjectsInfo: *mut VkExportMetalObjectsInfoEXT);
+pub type PFN_vkExportMetalObjectsEXT = unsafe extern "system" fn(
+  device: VkDevice,
+  pMetalObjectsInfo: *mut VkExportMetalObjectsInfoEXT<'_>,
+);
 /// [`vkFlushMappedMemoryRanges`](https://docs.vulkan.org/refpages/latest/refpages/source/vkFlushMappedMemoryRanges.html)
 ///
 /// Provided by:
@@ -11196,7 +11220,7 @@ pub type PFN_vkExportMetalObjectsEXT =
 pub type PFN_vkFlushMappedMemoryRanges = unsafe extern "system" fn(
   device: VkDevice,
   memoryRangeCount: u32,
-  pMemoryRanges: *const VkMappedMemoryRange,
+  pMemoryRanges: *const VkMappedMemoryRange<'_>,
 ) -> VkResult;
 /// [`vkFreeCommandBuffers`](https://docs.vulkan.org/refpages/latest/refpages/source/vkFreeCommandBuffers.html)
 ///
@@ -11260,7 +11284,7 @@ pub type PFN_vkFreeDescriptorSets = unsafe extern "system" fn(
 pub type PFN_vkFreeMemory = unsafe extern "system" fn(
   device: VkDevice,
   memory: VkDeviceMemory,
-  pAllocator: *const VkAllocationCallbacks,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 );
 /// [`vkGetAccelerationStructureBuildSizesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureBuildSizesKHR.html)
 ///
@@ -11278,9 +11302,9 @@ pub type PFN_vkFreeMemory = unsafe extern "system" fn(
 pub type PFN_vkGetAccelerationStructureBuildSizesKHR = unsafe extern "system" fn(
   device: VkDevice,
   buildType: VkAccelerationStructureBuildTypeKHR,
-  pBuildInfo: *const VkAccelerationStructureBuildGeometryInfoKHR,
+  pBuildInfo: *const VkAccelerationStructureBuildGeometryInfoKHR<'_>,
   pMaxPrimitiveCounts: *const u32,
-  pSizeInfo: *mut VkAccelerationStructureBuildSizesInfoKHR,
+  pSizeInfo: *mut VkAccelerationStructureBuildSizesInfoKHR<'_>,
 );
 /// [`vkGetAccelerationStructureDeviceAddressKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureDeviceAddressKHR.html)
 ///
@@ -11295,7 +11319,7 @@ pub type PFN_vkGetAccelerationStructureBuildSizesKHR = unsafe extern "system" fn
 pub type PFN_vkGetAccelerationStructureDeviceAddressKHR =
   unsafe extern "system" fn(
     device: VkDevice,
-    pInfo: *const VkAccelerationStructureDeviceAddressInfoKHR,
+    pInfo: *const VkAccelerationStructureDeviceAddressInfoKHR<'_>,
   ) -> VkDeviceAddress;
 /// [`vkGetAccelerationStructureHandleNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureHandleNV.html)
 ///
@@ -11339,8 +11363,8 @@ pub type PFN_vkGetAccelerationStructureHandleNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_ray_tracing")]
 pub type PFN_vkGetAccelerationStructureMemoryRequirementsNV = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkAccelerationStructureMemoryRequirementsInfoNV,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkAccelerationStructureMemoryRequirementsInfoNV<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html)
 ///
@@ -11374,7 +11398,7 @@ pub type PFN_vkGetAccelerationStructureMemoryRequirementsNV = unsafe extern "sys
 pub type PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
   unsafe extern "system" fn(
     device: VkDevice,
-    pInfo: *const VkAccelerationStructureCaptureDescriptorDataInfoEXT,
+    pInfo: *const VkAccelerationStructureCaptureDescriptorDataInfoEXT<'_>,
     pData: *mut core::ffi::c_void,
   ) -> VkResult;
 /// [`vkGetAndroidHardwareBufferPropertiesANDROID`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetAndroidHardwareBufferPropertiesANDROID.html)
@@ -11402,7 +11426,7 @@ pub type PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT =
 pub type PFN_vkGetAndroidHardwareBufferPropertiesANDROID = unsafe extern "system" fn(
   device: VkDevice,
   buffer: *const AHardwareBuffer,
-  pProperties: *mut VkAndroidHardwareBufferPropertiesANDROID,
+  pProperties: *mut VkAndroidHardwareBufferPropertiesANDROID<'_>,
 ) -> VkResult;
 /// [`vkGetBufferCollectionPropertiesFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferCollectionPropertiesFUCHSIA.html)
 ///
@@ -11429,7 +11453,7 @@ pub type PFN_vkGetAndroidHardwareBufferPropertiesANDROID = unsafe extern "system
 pub type PFN_vkGetBufferCollectionPropertiesFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
   collection: VkBufferCollectionFUCHSIA,
-  pProperties: *mut VkBufferCollectionPropertiesFUCHSIA,
+  pProperties: *mut VkBufferCollectionPropertiesFUCHSIA<'_>,
 ) -> VkResult;
 /// [`vkGetBufferDeviceAddress`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferDeviceAddress.html)
 ///
@@ -11444,7 +11468,7 @@ pub type PFN_vkGetBufferCollectionPropertiesFUCHSIA = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkGetBufferDeviceAddress = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkBufferDeviceAddressInfo,
+  pInfo: *const VkBufferDeviceAddressInfo<'_>,
 ) -> VkDeviceAddress;
 /// [`vkGetBufferDeviceAddressEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferDeviceAddressEXT.html)
 ///
@@ -11454,7 +11478,7 @@ pub type PFN_vkGetBufferDeviceAddress = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_buffer_device_address")]
 pub type PFN_vkGetBufferDeviceAddressEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkBufferDeviceAddressInfoEXT,
+  pInfo: *const VkBufferDeviceAddressInfoEXT<'_>,
 ) -> VkDeviceAddress;
 /// [`vkGetBufferDeviceAddressKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferDeviceAddressKHR.html)
 ///
@@ -11464,7 +11488,7 @@ pub type PFN_vkGetBufferDeviceAddressEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_buffer_device_address")]
 pub type PFN_vkGetBufferDeviceAddressKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkBufferDeviceAddressInfoKHR,
+  pInfo: *const VkBufferDeviceAddressInfoKHR<'_>,
 ) -> VkDeviceAddress;
 /// [`vkGetBufferMemoryRequirements`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferMemoryRequirements.html)
 ///
@@ -11497,8 +11521,8 @@ pub type PFN_vkGetBufferMemoryRequirements = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetBufferMemoryRequirements2 = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkBufferMemoryRequirementsInfo2,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkBufferMemoryRequirementsInfo2<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetBufferMemoryRequirements2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferMemoryRequirements2KHR.html)
 ///
@@ -11508,8 +11532,8 @@ pub type PFN_vkGetBufferMemoryRequirements2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_get_memory_requirements2")]
 pub type PFN_vkGetBufferMemoryRequirements2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkBufferMemoryRequirementsInfo2KHR,
-  pMemoryRequirements: *mut VkMemoryRequirements2KHR,
+  pInfo: *const VkBufferMemoryRequirementsInfo2KHR<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2KHR<'_>,
 );
 /// [`vkGetBufferOpaqueCaptureAddress`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferOpaqueCaptureAddress.html)
 ///
@@ -11523,15 +11547,17 @@ pub type PFN_vkGetBufferMemoryRequirements2KHR = unsafe extern "system" fn(
 /// - `pInfo`
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkGetBufferOpaqueCaptureAddress =
-  unsafe extern "system" fn(device: VkDevice, pInfo: *const VkBufferDeviceAddressInfo) -> u64;
+  unsafe extern "system" fn(device: VkDevice, pInfo: *const VkBufferDeviceAddressInfo<'_>) -> u64;
 /// [`vkGetBufferOpaqueCaptureAddressKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferOpaqueCaptureAddressKHR.html)
 ///
 /// Provided by:
 /// - `VK_KHR_buffer_device_address`
 ///
 #[cfg(feature = "VK_KHR_buffer_device_address")]
-pub type PFN_vkGetBufferOpaqueCaptureAddressKHR =
-  unsafe extern "system" fn(device: VkDevice, pInfo: *const VkBufferDeviceAddressInfoKHR) -> u64;
+pub type PFN_vkGetBufferOpaqueCaptureAddressKHR = unsafe extern "system" fn(
+  device: VkDevice,
+  pInfo: *const VkBufferDeviceAddressInfoKHR<'_>,
+) -> u64;
 /// [`vkGetBufferOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetBufferOpaqueCaptureDescriptorDataEXT.html)
 ///
 /// Provided by:
@@ -11556,7 +11582,7 @@ pub type PFN_vkGetBufferOpaqueCaptureAddressKHR =
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkBufferCaptureDescriptorDataInfoEXT,
+  pInfo: *const VkBufferCaptureDescriptorDataInfoEXT<'_>,
   pData: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetCalibratedTimestampsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetCalibratedTimestampsEXT.html)
@@ -11568,7 +11594,7 @@ pub type PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT = unsafe extern "system" 
 pub type PFN_vkGetCalibratedTimestampsEXT = unsafe extern "system" fn(
   device: VkDevice,
   timestampCount: u32,
-  pTimestampInfos: *const VkCalibratedTimestampInfoEXT,
+  pTimestampInfos: *const VkCalibratedTimestampInfoEXT<'_>,
   pTimestamps: *mut u64,
   pMaxDeviation: *mut u64,
 ) -> VkResult;
@@ -11599,7 +11625,7 @@ pub type PFN_vkGetCalibratedTimestampsEXT = unsafe extern "system" fn(
 pub type PFN_vkGetCalibratedTimestampsKHR = unsafe extern "system" fn(
   device: VkDevice,
   timestampCount: u32,
-  pTimestampInfos: *const VkCalibratedTimestampInfoKHR,
+  pTimestampInfos: *const VkCalibratedTimestampInfoKHR<'_>,
   pTimestamps: *mut u64,
   pMaxDeviation: *mut u64,
 ) -> VkResult;
@@ -11616,8 +11642,8 @@ pub type PFN_vkGetCalibratedTimestampsKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_cluster_acceleration_structure")]
 pub type PFN_vkGetClusterAccelerationStructureBuildSizesNV = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkClusterAccelerationStructureInputInfoNV,
-  pSizeInfo: *mut VkAccelerationStructureBuildSizesInfoKHR,
+  pInfo: *const VkClusterAccelerationStructureInputInfoNV<'_>,
+  pSizeInfo: *mut VkAccelerationStructureBuildSizesInfoKHR<'_>,
 );
 /// [`vkGetCommandPoolMemoryConsumption`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetCommandPoolMemoryConsumption.html)
 ///
@@ -11636,7 +11662,7 @@ pub type PFN_vkGetCommandPoolMemoryConsumption = unsafe extern "system" fn(
   device: VkDevice,
   commandPool: VkCommandPool,
   commandBuffer: VkCommandBuffer,
-  pConsumption: *mut VkCommandPoolMemoryConsumption,
+  pConsumption: *mut VkCommandPoolMemoryConsumption<'_>,
 );
 /// [`vkGetCudaModuleCacheNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetCudaModuleCacheNV.html)
 ///
@@ -11693,7 +11719,7 @@ pub type PFN_vkGetCudaModuleCacheNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetDataGraphPipelineAvailablePropertiesARM = unsafe extern "system" fn(
   device: VkDevice,
-  pPipelineInfo: *const VkDataGraphPipelineInfoARM,
+  pPipelineInfo: *const VkDataGraphPipelineInfoARM<'_>,
   pPropertiesCount: *mut u32,
   pProperties: *mut VkDataGraphPipelinePropertyARM,
 ) -> VkResult;
@@ -11723,9 +11749,9 @@ pub type PFN_vkGetDataGraphPipelineAvailablePropertiesARM = unsafe extern "syste
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetDataGraphPipelinePropertiesARM = unsafe extern "system" fn(
   device: VkDevice,
-  pPipelineInfo: *const VkDataGraphPipelineInfoARM,
+  pPipelineInfo: *const VkDataGraphPipelineInfoARM<'_>,
   propertiesCount: u32,
-  pProperties: *mut VkDataGraphPipelinePropertyQueryResultARM,
+  pProperties: *mut VkDataGraphPipelinePropertyQueryResultARM<'_>,
 ) -> VkResult;
 /// [`vkGetDataGraphPipelineSessionBindPointRequirementsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html)
 ///
@@ -11754,9 +11780,9 @@ pub type PFN_vkGetDataGraphPipelinePropertiesARM = unsafe extern "system" fn(
 pub type PFN_vkGetDataGraphPipelineSessionBindPointRequirementsARM =
   unsafe extern "system" fn(
     device: VkDevice,
-    pInfo: *const VkDataGraphPipelineSessionBindPointRequirementsInfoARM,
+    pInfo: *const VkDataGraphPipelineSessionBindPointRequirementsInfoARM<'_>,
     pBindPointRequirementCount: *mut u32,
-    pBindPointRequirements: *mut VkDataGraphPipelineSessionBindPointRequirementARM,
+    pBindPointRequirements: *mut VkDataGraphPipelineSessionBindPointRequirementARM<'_>,
   ) -> VkResult;
 /// [`vkGetDataGraphPipelineSessionMemoryRequirementsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDataGraphPipelineSessionMemoryRequirementsARM.html)
 ///
@@ -11771,8 +11797,8 @@ pub type PFN_vkGetDataGraphPipelineSessionBindPointRequirementsARM =
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetDataGraphPipelineSessionMemoryRequirementsARM = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDataGraphPipelineSessionMemoryRequirementsInfoARM,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkDataGraphPipelineSessionMemoryRequirementsInfoARM<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetDeferredOperationMaxConcurrencyKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeferredOperationMaxConcurrencyKHR.html)
 ///
@@ -11822,7 +11848,7 @@ pub type PFN_vkGetDeferredOperationResultKHR =
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetDescriptorEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pDescriptorInfo: *const VkDescriptorGetInfoEXT,
+  pDescriptorInfo: *const VkDescriptorGetInfoEXT<'_>,
   dataSize: usize,
   pDescriptor: *mut core::ffi::c_void,
 );
@@ -11873,8 +11899,8 @@ pub type PFN_vkGetDescriptorSetLayoutBindingOffsetEXT = unsafe extern "system" f
 #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
 pub type PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE = unsafe extern "system" fn(
   device: VkDevice,
-  pBindingReference: *const VkDescriptorSetBindingReferenceVALVE,
-  pHostMapping: *mut VkDescriptorSetLayoutHostMappingInfoVALVE,
+  pBindingReference: *const VkDescriptorSetBindingReferenceVALVE<'_>,
+  pHostMapping: *mut VkDescriptorSetLayoutHostMappingInfoVALVE<'_>,
 );
 /// [`vkGetDescriptorSetLayoutSizeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutSizeEXT.html)
 ///
@@ -11906,8 +11932,8 @@ pub type PFN_vkGetDescriptorSetLayoutSizeEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
 pub type PFN_vkGetDescriptorSetLayoutSupport = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkDescriptorSetLayoutCreateInfo,
-  pSupport: *mut VkDescriptorSetLayoutSupport,
+  pCreateInfo: *const VkDescriptorSetLayoutCreateInfo<'_>,
+  pSupport: *mut VkDescriptorSetLayoutSupport<'_>,
 );
 /// [`vkGetDescriptorSetLayoutSupportKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDescriptorSetLayoutSupportKHR.html)
 ///
@@ -11917,8 +11943,8 @@ pub type PFN_vkGetDescriptorSetLayoutSupport = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance3")]
 pub type PFN_vkGetDescriptorSetLayoutSupportKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkDescriptorSetLayoutCreateInfo,
-  pSupport: *mut VkDescriptorSetLayoutSupportKHR,
+  pCreateInfo: *const VkDescriptorSetLayoutCreateInfo<'_>,
+  pSupport: *mut VkDescriptorSetLayoutSupportKHR<'_>,
 );
 /// [`vkGetDeviceAccelerationStructureCompatibilityKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceAccelerationStructureCompatibilityKHR.html)
 ///
@@ -11933,7 +11959,7 @@ pub type PFN_vkGetDescriptorSetLayoutSupportKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_acceleration_structure")]
 pub type PFN_vkGetDeviceAccelerationStructureCompatibilityKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pVersionInfo: *const VkAccelerationStructureVersionInfoKHR,
+  pVersionInfo: *const VkAccelerationStructureVersionInfoKHR<'_>,
   pCompatibility: *mut VkAccelerationStructureCompatibilityKHR,
 );
 /// [`vkGetDeviceBufferMemoryRequirements`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceBufferMemoryRequirements.html)
@@ -11950,8 +11976,8 @@ pub type PFN_vkGetDeviceAccelerationStructureCompatibilityKHR = unsafe extern "s
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkGetDeviceBufferMemoryRequirements = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceBufferMemoryRequirements,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkDeviceBufferMemoryRequirements<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetDeviceBufferMemoryRequirementsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceBufferMemoryRequirementsKHR.html)
 ///
@@ -11961,8 +11987,8 @@ pub type PFN_vkGetDeviceBufferMemoryRequirements = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance4")]
 pub type PFN_vkGetDeviceBufferMemoryRequirementsKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceBufferMemoryRequirementsKHR,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkDeviceBufferMemoryRequirementsKHR<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetDeviceCombinedImageSamplerIndexNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceCombinedImageSamplerIndexNVX.html)
 ///
@@ -12001,7 +12027,7 @@ pub type PFN_vkGetDeviceCombinedImageSamplerIndexNVX =
 #[cfg(feature = "VK_KHR_device_fault")]
 pub type PFN_vkGetDeviceFaultDebugInfoKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pDebugInfo: *mut VkDeviceFaultDebugInfoKHR,
+  pDebugInfo: *mut VkDeviceFaultDebugInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkGetDeviceFaultInfoEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultInfoEXT.html)
 ///
@@ -12027,8 +12053,8 @@ pub type PFN_vkGetDeviceFaultDebugInfoKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_device_fault")]
 pub type PFN_vkGetDeviceFaultInfoEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pFaultCounts: *mut VkDeviceFaultCountsEXT,
-  pFaultInfo: *mut VkDeviceFaultInfoEXT,
+  pFaultCounts: *mut VkDeviceFaultCountsEXT<'_>,
+  pFaultInfo: *mut VkDeviceFaultInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkGetDeviceFaultReportsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceFaultReportsKHR.html)
 ///
@@ -12058,7 +12084,7 @@ pub type PFN_vkGetDeviceFaultReportsKHR = unsafe extern "system" fn(
   device: VkDevice,
   timeout: u64,
   pFaultCounts: *mut u32,
-  pFaultInfo: *mut VkDeviceFaultInfoKHR,
+  pFaultInfo: *mut VkDeviceFaultInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkGetDeviceGroupPeerMemoryFeatures`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupPeerMemoryFeatures.html)
 ///
@@ -12122,7 +12148,7 @@ pub type PFN_vkGetDeviceGroupPeerMemoryFeaturesKHR = unsafe extern "system" fn(
 ))]
 pub type PFN_vkGetDeviceGroupPresentCapabilitiesKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pDeviceGroupPresentCapabilities: *mut VkDeviceGroupPresentCapabilitiesKHR,
+  pDeviceGroupPresentCapabilities: *mut VkDeviceGroupPresentCapabilitiesKHR<'_>,
 ) -> VkResult;
 /// [`vkGetDeviceGroupSurfacePresentModes2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupSurfacePresentModes2EXT.html)
 ///
@@ -12156,7 +12182,7 @@ pub type PFN_vkGetDeviceGroupPresentCapabilitiesKHR = unsafe extern "system" fn(
 ))]
 pub type PFN_vkGetDeviceGroupSurfacePresentModes2EXT = unsafe extern "system" fn(
   device: VkDevice,
-  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR,
+  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR<'_>,
   pModes: *mut VkDeviceGroupPresentModeFlagsKHR,
 ) -> VkResult;
 /// [`vkGetDeviceGroupSurfacePresentModesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceGroupSurfacePresentModesKHR.html)
@@ -12206,8 +12232,8 @@ pub type PFN_vkGetDeviceGroupSurfacePresentModesKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkGetDeviceImageMemoryRequirements = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceImageMemoryRequirements,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkDeviceImageMemoryRequirements<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetDeviceImageMemoryRequirementsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageMemoryRequirementsKHR.html)
 ///
@@ -12217,8 +12243,8 @@ pub type PFN_vkGetDeviceImageMemoryRequirements = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance4")]
 pub type PFN_vkGetDeviceImageMemoryRequirementsKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceImageMemoryRequirementsKHR,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkDeviceImageMemoryRequirementsKHR<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetDeviceImageSparseMemoryRequirements`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSparseMemoryRequirements.html)
 ///
@@ -12235,9 +12261,9 @@ pub type PFN_vkGetDeviceImageMemoryRequirementsKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_3")]
 pub type PFN_vkGetDeviceImageSparseMemoryRequirements = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceImageMemoryRequirements,
+  pInfo: *const VkDeviceImageMemoryRequirements<'_>,
   pSparseMemoryRequirementCount: *mut u32,
-  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
+  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
 );
 /// [`vkGetDeviceImageSparseMemoryRequirementsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSparseMemoryRequirementsKHR.html)
 ///
@@ -12247,9 +12273,9 @@ pub type PFN_vkGetDeviceImageSparseMemoryRequirements = unsafe extern "system" f
 #[cfg(feature = "VK_KHR_maintenance4")]
 pub type PFN_vkGetDeviceImageSparseMemoryRequirementsKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceImageMemoryRequirementsKHR,
+  pInfo: *const VkDeviceImageMemoryRequirementsKHR<'_>,
   pSparseMemoryRequirementCount: *mut u32,
-  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
+  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
 );
 /// [`vkGetDeviceImageSubresourceLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSubresourceLayout.html)
 ///
@@ -12265,8 +12291,8 @@ pub type PFN_vkGetDeviceImageSparseMemoryRequirementsKHR = unsafe extern "system
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkGetDeviceImageSubresourceLayout = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceImageSubresourceInfo,
-  pLayout: *mut VkSubresourceLayout2,
+  pInfo: *const VkDeviceImageSubresourceInfo<'_>,
+  pLayout: *mut VkSubresourceLayout2<'_>,
 );
 /// [`vkGetDeviceImageSubresourceLayoutKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceImageSubresourceLayoutKHR.html)
 ///
@@ -12276,8 +12302,8 @@ pub type PFN_vkGetDeviceImageSubresourceLayout = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance5")]
 pub type PFN_vkGetDeviceImageSubresourceLayoutKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceImageSubresourceInfoKHR,
-  pLayout: *mut VkSubresourceLayout2KHR,
+  pInfo: *const VkDeviceImageSubresourceInfoKHR<'_>,
+  pLayout: *mut VkSubresourceLayout2KHR<'_>,
 );
 /// [`vkGetDeviceMemoryCommitment`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMemoryCommitment.html)
 ///
@@ -12309,7 +12335,7 @@ pub type PFN_vkGetDeviceMemoryCommitment = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkGetDeviceMemoryOpaqueCaptureAddress = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceMemoryOpaqueCaptureAddressInfo,
+  pInfo: *const VkDeviceMemoryOpaqueCaptureAddressInfo<'_>,
 ) -> u64;
 /// [`vkGetDeviceMemoryOpaqueCaptureAddressKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html)
 ///
@@ -12319,7 +12345,7 @@ pub type PFN_vkGetDeviceMemoryOpaqueCaptureAddress = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_buffer_device_address")]
 pub type PFN_vkGetDeviceMemoryOpaqueCaptureAddressKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceMemoryOpaqueCaptureAddressInfoKHR,
+  pInfo: *const VkDeviceMemoryOpaqueCaptureAddressInfoKHR<'_>,
 ) -> u64;
 /// [`vkGetDeviceMicromapCompatibilityEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceMicromapCompatibilityEXT.html)
 ///
@@ -12334,7 +12360,7 @@ pub type PFN_vkGetDeviceMemoryOpaqueCaptureAddressKHR = unsafe extern "system" f
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 pub type PFN_vkGetDeviceMicromapCompatibilityEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pVersionInfo: *const VkMicromapVersionInfoEXT,
+  pVersionInfo: *const VkMicromapVersionInfoEXT<'_>,
   pCompatibility: *mut VkAccelerationStructureCompatibilityKHR,
 );
 /// [`vkGetDeviceProcAddr`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceProcAddr.html)
@@ -12385,7 +12411,7 @@ pub type PFN_vkGetDeviceQueue = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetDeviceQueue2 = unsafe extern "system" fn(
   device: VkDevice,
-  pQueueInfo: *const VkDeviceQueueInfo2,
+  pQueueInfo: *const VkDeviceQueueInfo2<'_>,
   pQueue: *mut VkQueue,
 );
 /// [`vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html)
@@ -12430,8 +12456,8 @@ pub type PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI =
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkGetDeviceTensorMemoryRequirementsARM = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkDeviceTensorMemoryRequirementsARM,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkDeviceTensorMemoryRequirementsARM<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetDisplayModeProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayModeProperties2KHR.html)
 ///
@@ -12461,7 +12487,7 @@ pub type PFN_vkGetDisplayModeProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   display: VkDisplayKHR,
   pPropertyCount: *mut u32,
-  pProperties: *mut VkDisplayModeProperties2KHR,
+  pProperties: *mut VkDisplayModeProperties2KHR<'_>,
 ) -> VkResult;
 /// [`vkGetDisplayModePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayModePropertiesKHR.html)
 ///
@@ -12517,8 +12543,8 @@ pub type PFN_vkGetDisplayModePropertiesKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_get_display_properties2")]
 pub type PFN_vkGetDisplayPlaneCapabilities2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pDisplayPlaneInfo: *const VkDisplayPlaneInfo2KHR,
-  pCapabilities: *mut VkDisplayPlaneCapabilities2KHR,
+  pDisplayPlaneInfo: *const VkDisplayPlaneInfo2KHR<'_>,
+  pCapabilities: *mut VkDisplayPlaneCapabilities2KHR<'_>,
 ) -> VkResult;
 /// [`vkGetDisplayPlaneCapabilitiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetDisplayPlaneCapabilitiesKHR.html)
 ///
@@ -12630,8 +12656,8 @@ pub type PFN_vkGetDrmDisplayEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_QCOM_tile_properties")]
 pub type PFN_vkGetDynamicRenderingTilePropertiesQCOM = unsafe extern "system" fn(
   device: VkDevice,
-  pRenderingInfo: *const VkRenderingInfo,
-  pProperties: *mut VkTilePropertiesQCOM,
+  pRenderingInfo: *const VkRenderingInfo<'_>,
+  pProperties: *mut VkTilePropertiesQCOM<'_>,
 ) -> VkResult;
 /// [`vkGetEncodedVideoSessionParametersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetEncodedVideoSessionParametersKHR.html)
 ///
@@ -12660,8 +12686,8 @@ pub type PFN_vkGetDynamicRenderingTilePropertiesQCOM = unsafe extern "system" fn
 #[cfg(feature = "VK_KHR_video_encode_queue")]
 pub type PFN_vkGetEncodedVideoSessionParametersKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pVideoSessionParametersInfo: *const VkVideoEncodeSessionParametersGetInfoKHR,
-  pFeedbackInfo: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR,
+  pVideoSessionParametersInfo: *const VkVideoEncodeSessionParametersGetInfoKHR<'_>,
+  pFeedbackInfo: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR<'_>,
   pDataSize: *mut usize,
   pData: *mut core::ffi::c_void,
 ) -> VkResult;
@@ -12716,7 +12742,7 @@ pub type PFN_vkGetEventStatus =
 pub type PFN_vkGetExecutionGraphPipelineNodeIndexAMDX = unsafe extern "system" fn(
   device: VkDevice,
   executionGraph: VkPipeline,
-  pNodeInfo: *const VkPipelineShaderStageNodeCreateInfoAMDX,
+  pNodeInfo: *const VkPipelineShaderStageNodeCreateInfoAMDX<'_>,
   pNodeIndex: *mut u32,
 ) -> VkResult;
 /// [`vkGetExecutionGraphPipelineScratchSizeAMDX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetExecutionGraphPipelineScratchSizeAMDX.html)
@@ -12743,7 +12769,7 @@ pub type PFN_vkGetExecutionGraphPipelineNodeIndexAMDX = unsafe extern "system" f
 pub type PFN_vkGetExecutionGraphPipelineScratchSizeAMDX = unsafe extern "system" fn(
   device: VkDevice,
   executionGraph: VkPipeline,
-  pSizeInfo: *mut VkExecutionGraphPipelineScratchSizeAMDX,
+  pSizeInfo: *mut VkExecutionGraphPipelineScratchSizeAMDX<'_>,
 ) -> VkResult;
 /// [`vkGetExternalComputeQueueDataNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetExternalComputeQueueDataNV.html)
 ///
@@ -12758,7 +12784,7 @@ pub type PFN_vkGetExecutionGraphPipelineScratchSizeAMDX = unsafe extern "system"
 #[cfg(feature = "VK_NV_external_compute_queue")]
 pub type PFN_vkGetExternalComputeQueueDataNV = unsafe extern "system" fn(
   externalQueue: VkExternalComputeQueueNV,
-  params: *mut VkExternalComputeQueueDataParamsNV,
+  params: *mut VkExternalComputeQueueDataParamsNV<'_>,
   pData: *mut core::ffi::c_void,
 );
 /// [`vkGetFaultData`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFaultData.html)
@@ -12792,7 +12818,7 @@ pub type PFN_vkGetFaultData = unsafe extern "system" fn(
   faultQueryBehavior: VkFaultQueryBehavior,
   pUnrecordedFaults: *mut VkBool32,
   pFaultCount: *mut u32,
-  pFaults: *mut VkFaultData,
+  pFaults: *mut VkFaultData<'_>,
 ) -> VkResult;
 /// [`vkGetFenceFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceFdKHR.html)
 ///
@@ -12818,7 +12844,7 @@ pub type PFN_vkGetFaultData = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_external_fence_fd")]
 pub type PFN_vkGetFenceFdKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pGetFdInfo: *const VkFenceGetFdInfoKHR,
+  pGetFdInfo: *const VkFenceGetFdInfoKHR<'_>,
   pFd: *mut core::ffi::c_int,
 ) -> VkResult;
 /// [`vkGetFenceSciSyncFenceNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceSciSyncFenceNV.html)
@@ -12849,7 +12875,7 @@ pub type PFN_vkGetFenceFdKHR = unsafe extern "system" fn(
 ))]
 pub type PFN_vkGetFenceSciSyncFenceNV = unsafe extern "system" fn(
   device: VkDevice,
-  pGetSciSyncHandleInfo: *const VkFenceGetSciSyncInfoNV,
+  pGetSciSyncHandleInfo: *const VkFenceGetSciSyncInfoNV<'_>,
   pHandle: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetFenceSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceSciSyncObjNV.html)
@@ -12880,7 +12906,7 @@ pub type PFN_vkGetFenceSciSyncFenceNV = unsafe extern "system" fn(
 ))]
 pub type PFN_vkGetFenceSciSyncObjNV = unsafe extern "system" fn(
   device: VkDevice,
-  pGetSciSyncHandleInfo: *const VkFenceGetSciSyncInfoNV,
+  pGetSciSyncHandleInfo: *const VkFenceGetSciSyncInfoNV<'_>,
   pHandle: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetFenceStatus`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFenceStatus.html)
@@ -12933,7 +12959,7 @@ pub type PFN_vkGetFenceStatus =
 #[cfg(feature = "VK_KHR_external_fence_win32")]
 pub type PFN_vkGetFenceWin32HandleKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pGetWin32HandleInfo: *const VkFenceGetWin32HandleInfoKHR,
+  pGetWin32HandleInfo: *const VkFenceGetWin32HandleInfoKHR<'_>,
   pHandle: *mut HANDLE,
 ) -> VkResult;
 /// [`vkGetFramebufferTilePropertiesQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetFramebufferTilePropertiesQCOM.html)
@@ -12962,7 +12988,7 @@ pub type PFN_vkGetFramebufferTilePropertiesQCOM = unsafe extern "system" fn(
   device: VkDevice,
   framebuffer: VkFramebuffer,
   pPropertiesCount: *mut u32,
-  pProperties: *mut VkTilePropertiesQCOM,
+  pProperties: *mut VkTilePropertiesQCOM<'_>,
 ) -> VkResult;
 /// [`vkGetGeneratedCommandsMemoryRequirementsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGeneratedCommandsMemoryRequirementsEXT.html)
 ///
@@ -12977,8 +13003,8 @@ pub type PFN_vkGetFramebufferTilePropertiesQCOM = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 pub type PFN_vkGetGeneratedCommandsMemoryRequirementsEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkGeneratedCommandsMemoryRequirementsInfoEXT,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkGeneratedCommandsMemoryRequirementsInfoEXT<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetGeneratedCommandsMemoryRequirementsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGeneratedCommandsMemoryRequirementsNV.html)
 ///
@@ -12993,8 +13019,8 @@ pub type PFN_vkGetGeneratedCommandsMemoryRequirementsEXT = unsafe extern "system
 #[cfg(feature = "VK_NV_device_generated_commands")]
 pub type PFN_vkGetGeneratedCommandsMemoryRequirementsNV = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkGeneratedCommandsMemoryRequirementsInfoNV,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkGeneratedCommandsMemoryRequirementsInfoNV<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetGpaDeviceClockInfoAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaDeviceClockInfoAMD.html)
 ///
@@ -13017,8 +13043,10 @@ pub type PFN_vkGetGeneratedCommandsMemoryRequirementsNV = unsafe extern "system"
 ///   - `VK_ERROR_UNKNOWN`
 ///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_AMD_gpa_interface")]
-pub type PFN_vkGetGpaDeviceClockInfoAMD =
-  unsafe extern "system" fn(device: VkDevice, pInfo: *mut VkGpaDeviceGetClockInfoAMD) -> VkResult;
+pub type PFN_vkGetGpaDeviceClockInfoAMD = unsafe extern "system" fn(
+  device: VkDevice,
+  pInfo: *mut VkGpaDeviceGetClockInfoAMD<'_>,
+) -> VkResult;
 /// [`vkGetGpaSessionResultsAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetGpaSessionResultsAMD.html)
 ///
 /// Provided by:
@@ -13097,7 +13125,7 @@ pub type PFN_vkGetGpaSessionStatusAMD =
 pub type PFN_vkGetImageDrmFormatModifierPropertiesEXT = unsafe extern "system" fn(
   device: VkDevice,
   image: VkImage,
-  pProperties: *mut VkImageDrmFormatModifierPropertiesEXT,
+  pProperties: *mut VkImageDrmFormatModifierPropertiesEXT<'_>,
 ) -> VkResult;
 /// [`vkGetImageMemoryRequirements`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageMemoryRequirements.html)
 ///
@@ -13130,8 +13158,8 @@ pub type PFN_vkGetImageMemoryRequirements = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetImageMemoryRequirements2 = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkImageMemoryRequirementsInfo2,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkImageMemoryRequirementsInfo2<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetImageMemoryRequirements2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageMemoryRequirements2KHR.html)
 ///
@@ -13141,8 +13169,8 @@ pub type PFN_vkGetImageMemoryRequirements2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_get_memory_requirements2")]
 pub type PFN_vkGetImageMemoryRequirements2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkImageMemoryRequirementsInfo2KHR,
-  pMemoryRequirements: *mut VkMemoryRequirements2KHR,
+  pInfo: *const VkImageMemoryRequirementsInfo2KHR<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2KHR<'_>,
 );
 /// [`vkGetImageOpaqueCaptureDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageOpaqueCaptureDataEXT.html)
 ///
@@ -13171,7 +13199,7 @@ pub type PFN_vkGetImageOpaqueCaptureDataEXT = unsafe extern "system" fn(
   device: VkDevice,
   imageCount: u32,
   pImages: *const VkImage,
-  pDatas: *mut VkHostAddressRangeEXT,
+  pDatas: *mut VkHostAddressRangeEXT<'_>,
 ) -> VkResult;
 /// [`vkGetImageOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageOpaqueCaptureDescriptorDataEXT.html)
 ///
@@ -13197,7 +13225,7 @@ pub type PFN_vkGetImageOpaqueCaptureDataEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetImageOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkImageCaptureDescriptorDataInfoEXT,
+  pInfo: *const VkImageCaptureDescriptorDataInfoEXT<'_>,
   pData: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetImageSparseMemoryRequirements`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSparseMemoryRequirements.html)
@@ -13234,9 +13262,9 @@ pub type PFN_vkGetImageSparseMemoryRequirements = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetImageSparseMemoryRequirements2 = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkImageSparseMemoryRequirementsInfo2,
+  pInfo: *const VkImageSparseMemoryRequirementsInfo2<'_>,
   pSparseMemoryRequirementCount: *mut u32,
-  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2,
+  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
 );
 /// [`vkGetImageSparseMemoryRequirements2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSparseMemoryRequirements2KHR.html)
 ///
@@ -13246,9 +13274,9 @@ pub type PFN_vkGetImageSparseMemoryRequirements2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_get_memory_requirements2")]
 pub type PFN_vkGetImageSparseMemoryRequirements2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkImageSparseMemoryRequirementsInfo2KHR,
+  pInfo: *const VkImageSparseMemoryRequirementsInfo2KHR<'_>,
   pSparseMemoryRequirementCount: *mut u32,
-  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2KHR,
+  pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2KHR<'_>,
 );
 /// [`vkGetImageSubresourceLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout.html)
 ///
@@ -13285,8 +13313,8 @@ pub type PFN_vkGetImageSubresourceLayout = unsafe extern "system" fn(
 pub type PFN_vkGetImageSubresourceLayout2 = unsafe extern "system" fn(
   device: VkDevice,
   image: VkImage,
-  pSubresource: *const VkImageSubresource2,
-  pLayout: *mut VkSubresourceLayout2,
+  pSubresource: *const VkImageSubresource2<'_>,
+  pLayout: *mut VkSubresourceLayout2<'_>,
 );
 /// [`vkGetImageSubresourceLayout2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2EXT.html)
 ///
@@ -13301,8 +13329,8 @@ pub type PFN_vkGetImageSubresourceLayout2 = unsafe extern "system" fn(
 pub type PFN_vkGetImageSubresourceLayout2EXT = unsafe extern "system" fn(
   device: VkDevice,
   image: VkImage,
-  pSubresource: *const VkImageSubresource2EXT,
-  pLayout: *mut VkSubresourceLayout2EXT,
+  pSubresource: *const VkImageSubresource2EXT<'_>,
+  pLayout: *mut VkSubresourceLayout2EXT<'_>,
 );
 /// [`vkGetImageSubresourceLayout2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageSubresourceLayout2KHR.html)
 ///
@@ -13313,8 +13341,8 @@ pub type PFN_vkGetImageSubresourceLayout2EXT = unsafe extern "system" fn(
 pub type PFN_vkGetImageSubresourceLayout2KHR = unsafe extern "system" fn(
   device: VkDevice,
   image: VkImage,
-  pSubresource: *const VkImageSubresource2KHR,
-  pLayout: *mut VkSubresourceLayout2KHR,
+  pSubresource: *const VkImageSubresource2KHR<'_>,
+  pLayout: *mut VkSubresourceLayout2KHR<'_>,
 );
 /// [`vkGetImageViewAddressNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewAddressNVX.html)
 ///
@@ -13340,7 +13368,7 @@ pub type PFN_vkGetImageSubresourceLayout2KHR = unsafe extern "system" fn(
 pub type PFN_vkGetImageViewAddressNVX = unsafe extern "system" fn(
   device: VkDevice,
   imageView: VkImageView,
-  pProperties: *mut VkImageViewAddressPropertiesNVX,
+  pProperties: *mut VkImageViewAddressPropertiesNVX<'_>,
 ) -> VkResult;
 /// [`vkGetImageViewHandle64NVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewHandle64NVX.html)
 ///
@@ -13353,7 +13381,7 @@ pub type PFN_vkGetImageViewAddressNVX = unsafe extern "system" fn(
 /// - `pInfo`
 #[cfg(feature = "VK_NVX_image_view_handle")]
 pub type PFN_vkGetImageViewHandle64NVX =
-  unsafe extern "system" fn(device: VkDevice, pInfo: *const VkImageViewHandleInfoNVX) -> u64;
+  unsafe extern "system" fn(device: VkDevice, pInfo: *const VkImageViewHandleInfoNVX<'_>) -> u64;
 /// [`vkGetImageViewHandleNVX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewHandleNVX.html)
 ///
 /// Provided by:
@@ -13365,7 +13393,7 @@ pub type PFN_vkGetImageViewHandle64NVX =
 /// - `pInfo`
 #[cfg(feature = "VK_NVX_image_view_handle")]
 pub type PFN_vkGetImageViewHandleNVX =
-  unsafe extern "system" fn(device: VkDevice, pInfo: *const VkImageViewHandleInfoNVX) -> u32;
+  unsafe extern "system" fn(device: VkDevice, pInfo: *const VkImageViewHandleInfoNVX<'_>) -> u32;
 /// [`vkGetImageViewOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html)
 ///
 /// Provided by:
@@ -13390,7 +13418,7 @@ pub type PFN_vkGetImageViewHandleNVX =
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkImageViewCaptureDescriptorDataInfoEXT,
+  pInfo: *const VkImageViewCaptureDescriptorDataInfoEXT<'_>,
   pData: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetInstanceProcAddr`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetInstanceProcAddr.html)
@@ -13422,7 +13450,7 @@ pub type PFN_vkGetInstanceProcAddr = unsafe extern "system" fn(
 pub type PFN_vkGetLatencyTimingsNV = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pLatencyMarkerInfo: *mut VkGetLatencyMarkerInfoNV,
+  pLatencyMarkerInfo: *mut VkGetLatencyMarkerInfoNV<'_>,
 );
 /// [`vkGetMemoryAndroidHardwareBufferANDROID`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryAndroidHardwareBufferANDROID.html)
 ///
@@ -13448,7 +13476,7 @@ pub type PFN_vkGetLatencyTimingsNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_ANDROID_external_memory_android_hardware_buffer")]
 pub type PFN_vkGetMemoryAndroidHardwareBufferANDROID = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkMemoryGetAndroidHardwareBufferInfoANDROID,
+  pInfo: *const VkMemoryGetAndroidHardwareBufferInfoANDROID<'_>,
   pBuffer: *mut *mut AHardwareBuffer,
 ) -> VkResult;
 /// [`vkGetMemoryFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryFdKHR.html)
@@ -13475,7 +13503,7 @@ pub type PFN_vkGetMemoryAndroidHardwareBufferANDROID = unsafe extern "system" fn
 #[cfg(feature = "VK_KHR_external_memory_fd")]
 pub type PFN_vkGetMemoryFdKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pGetFdInfo: *const VkMemoryGetFdInfoKHR,
+  pGetFdInfo: *const VkMemoryGetFdInfoKHR<'_>,
   pFd: *mut core::ffi::c_int,
 ) -> VkResult;
 /// [`vkGetMemoryFdPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryFdPropertiesKHR.html)
@@ -13505,7 +13533,7 @@ pub type PFN_vkGetMemoryFdPropertiesKHR = unsafe extern "system" fn(
   device: VkDevice,
   handleType: VkExternalMemoryHandleTypeFlagBits,
   fd: core::ffi::c_int,
-  pMemoryFdProperties: *mut VkMemoryFdPropertiesKHR,
+  pMemoryFdProperties: *mut VkMemoryFdPropertiesKHR<'_>,
 ) -> VkResult;
 /// [`vkGetMemoryHostPointerPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryHostPointerPropertiesEXT.html)
 ///
@@ -13534,7 +13562,7 @@ pub type PFN_vkGetMemoryHostPointerPropertiesEXT = unsafe extern "system" fn(
   device: VkDevice,
   handleType: VkExternalMemoryHandleTypeFlagBits,
   pHostPointer: *const core::ffi::c_void,
-  pMemoryHostPointerProperties: *mut VkMemoryHostPointerPropertiesEXT,
+  pMemoryHostPointerProperties: *mut VkMemoryHostPointerPropertiesEXT<'_>,
 ) -> VkResult;
 /// [`vkGetMemoryMetalHandleEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryMetalHandleEXT.html)
 ///
@@ -13560,7 +13588,7 @@ pub type PFN_vkGetMemoryHostPointerPropertiesEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_external_memory_metal")]
 pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pGetMetalHandleInfo: *const VkMemoryGetMetalHandleInfoEXT,
+  pGetMetalHandleInfo: *const VkMemoryGetMetalHandleInfoEXT<'_>,
   pHandle: *mut *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetMemoryMetalHandlePropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryMetalHandlePropertiesEXT.html)
@@ -13590,7 +13618,7 @@ pub type PFN_vkGetMemoryMetalHandlePropertiesEXT = unsafe extern "system" fn(
   device: VkDevice,
   handleType: VkExternalMemoryHandleTypeFlagBits,
   pHandle: *const core::ffi::c_void,
-  pMemoryMetalHandleProperties: *mut VkMemoryMetalHandlePropertiesEXT,
+  pMemoryMetalHandleProperties: *mut VkMemoryMetalHandlePropertiesEXT<'_>,
 ) -> VkResult;
 /// [`vkGetMemoryNativeBufferOHOS`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryNativeBufferOHOS.html)
 ///
@@ -13615,7 +13643,7 @@ pub type PFN_vkGetMemoryMetalHandlePropertiesEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_OHOS_external_memory")]
 pub type PFN_vkGetMemoryNativeBufferOHOS = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkMemoryGetNativeBufferInfoOHOS,
+  pInfo: *const VkMemoryGetNativeBufferInfoOHOS<'_>,
   pBuffer: *mut *mut OH_NativeBuffer,
 ) -> VkResult;
 /// [`vkGetMemoryRemoteAddressNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryRemoteAddressNV.html)
@@ -13641,7 +13669,7 @@ pub type PFN_vkGetMemoryNativeBufferOHOS = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_external_memory_rdma")]
 pub type PFN_vkGetMemoryRemoteAddressNV = unsafe extern "system" fn(
   device: VkDevice,
-  pMemoryGetRemoteAddressInfo: *const VkMemoryGetRemoteAddressInfoNV,
+  pMemoryGetRemoteAddressInfo: *const VkMemoryGetRemoteAddressInfoNV<'_>,
   pAddress: *mut VkRemoteAddressNV,
 ) -> VkResult;
 /// [`vkGetMemorySciBufNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemorySciBufNV.html)
@@ -13667,7 +13695,7 @@ pub type PFN_vkGetMemoryRemoteAddressNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_external_memory_sci_buf")]
 pub type PFN_vkGetMemorySciBufNV = unsafe extern "system" fn(
   device: VkDevice,
-  pGetSciBufInfo: *const VkMemoryGetSciBufInfoNV,
+  pGetSciBufInfo: *const VkMemoryGetSciBufInfoNV<'_>,
   pHandle: *mut NvSciBufObj,
 ) -> VkResult;
 /// [`vkGetMemoryWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandleKHR.html)
@@ -13694,7 +13722,7 @@ pub type PFN_vkGetMemorySciBufNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_external_memory_win32")]
 pub type PFN_vkGetMemoryWin32HandleKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pGetWin32HandleInfo: *const VkMemoryGetWin32HandleInfoKHR,
+  pGetWin32HandleInfo: *const VkMemoryGetWin32HandleInfoKHR<'_>,
   pHandle: *mut HANDLE,
 ) -> VkResult;
 /// [`vkGetMemoryWin32HandleNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryWin32HandleNV.html)
@@ -13753,7 +13781,7 @@ pub type PFN_vkGetMemoryWin32HandlePropertiesKHR = unsafe extern "system" fn(
   device: VkDevice,
   handleType: VkExternalMemoryHandleTypeFlagBits,
   handle: HANDLE,
-  pMemoryWin32HandleProperties: *mut VkMemoryWin32HandlePropertiesKHR,
+  pMemoryWin32HandleProperties: *mut VkMemoryWin32HandlePropertiesKHR<'_>,
 ) -> VkResult;
 /// [`vkGetMemoryZirconHandleFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryZirconHandleFUCHSIA.html)
 ///
@@ -13779,7 +13807,7 @@ pub type PFN_vkGetMemoryWin32HandlePropertiesKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_FUCHSIA_external_memory")]
 pub type PFN_vkGetMemoryZirconHandleFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
-  pGetZirconHandleInfo: *const VkMemoryGetZirconHandleInfoFUCHSIA,
+  pGetZirconHandleInfo: *const VkMemoryGetZirconHandleInfoFUCHSIA<'_>,
   pZirconHandle: *mut zx_handle_t,
 ) -> VkResult;
 /// [`vkGetMemoryZirconHandlePropertiesFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMemoryZirconHandlePropertiesFUCHSIA.html)
@@ -13808,7 +13836,7 @@ pub type PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA = unsafe extern "system" f
   device: VkDevice,
   handleType: VkExternalMemoryHandleTypeFlagBits,
   zirconHandle: zx_handle_t,
-  pMemoryZirconHandleProperties: *mut VkMemoryZirconHandlePropertiesFUCHSIA,
+  pMemoryZirconHandleProperties: *mut VkMemoryZirconHandlePropertiesFUCHSIA<'_>,
 ) -> VkResult;
 /// [`vkGetMicromapBuildSizesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetMicromapBuildSizesEXT.html)
 ///
@@ -13825,8 +13853,8 @@ pub type PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA = unsafe extern "system" f
 pub type PFN_vkGetMicromapBuildSizesEXT = unsafe extern "system" fn(
   device: VkDevice,
   buildType: VkAccelerationStructureBuildTypeKHR,
-  pBuildInfo: *const VkMicromapBuildInfoEXT,
-  pSizeInfo: *mut VkMicromapBuildSizesInfoEXT,
+  pBuildInfo: *const VkMicromapBuildInfoEXT<'_>,
+  pSizeInfo: *mut VkMicromapBuildSizesInfoEXT<'_>,
 );
 /// [`vkGetNativeBufferPropertiesOHOS`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetNativeBufferPropertiesOHOS.html)
 ///
@@ -13853,7 +13881,7 @@ pub type PFN_vkGetMicromapBuildSizesEXT = unsafe extern "system" fn(
 pub type PFN_vkGetNativeBufferPropertiesOHOS = unsafe extern "system" fn(
   device: VkDevice,
   buffer: *const OH_NativeBuffer,
-  pProperties: *mut VkNativeBufferPropertiesOHOS,
+  pProperties: *mut VkNativeBufferPropertiesOHOS<'_>,
 ) -> VkResult;
 /// [`vkGetPartitionedAccelerationStructuresBuildSizesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPartitionedAccelerationStructuresBuildSizesNV.html)
 ///
@@ -13868,8 +13896,8 @@ pub type PFN_vkGetNativeBufferPropertiesOHOS = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
 pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkPartitionedAccelerationStructureInstancesInputNV,
-  pSizeInfo: *mut VkAccelerationStructureBuildSizesInfoKHR,
+  pInfo: *const VkPartitionedAccelerationStructureInstancesInputNV<'_>,
+  pSizeInfo: *mut VkAccelerationStructureBuildSizesInfoKHR<'_>,
 );
 /// [`vkGetPastPresentationTimingEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingEXT.html)
 ///
@@ -13897,8 +13925,8 @@ pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern 
 #[cfg(feature = "VK_EXT_present_timing")]
 pub type PFN_vkGetPastPresentationTimingEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pPastPresentationTimingInfo: *const VkPastPresentationTimingInfoEXT,
-  pPastPresentationTimingProperties: *mut VkPastPresentationTimingPropertiesEXT,
+  pPastPresentationTimingInfo: *const VkPastPresentationTimingInfoEXT<'_>,
+  pPastPresentationTimingProperties: *mut VkPastPresentationTimingPropertiesEXT<'_>,
 ) -> VkResult;
 /// [`vkGetPastPresentationTimingGOOGLE`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPastPresentationTimingGOOGLE.html)
 ///
@@ -13957,7 +13985,7 @@ pub type PFN_vkGetPastPresentationTimingGOOGLE = unsafe extern "system" fn(
 pub type PFN_vkGetPerformanceParameterINTEL = unsafe extern "system" fn(
   device: VkDevice,
   parameter: VkPerformanceParameterTypeINTEL,
-  pValue: *mut VkPerformanceValueINTEL,
+  pValue: *mut VkPerformanceValueINTEL<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceCalibrateableTimeDomainsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html)
 ///
@@ -14027,7 +14055,7 @@ pub type PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV 
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeMatrixFlexibleDimensionsPropertiesNV,
+    pProperties: *mut VkCooperativeMatrixFlexibleDimensionsPropertiesNV<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html)
 ///
@@ -14056,7 +14084,7 @@ pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeMatrixPropertiesKHR,
+    pProperties: *mut VkCooperativeMatrixPropertiesKHR<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceCooperativeMatrixPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html)
 ///
@@ -14085,7 +14113,7 @@ pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeMatrixPropertiesNV,
+    pProperties: *mut VkCooperativeMatrixPropertiesNV<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceCooperativeVectorPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html)
 ///
@@ -14114,7 +14142,7 @@ pub type PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     pPropertyCount: *mut u32,
-    pProperties: *mut VkCooperativeVectorPropertiesNV,
+    pProperties: *mut VkCooperativeVectorPropertiesNV<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceDescriptorSizeEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDescriptorSizeEXT.html)
 ///
@@ -14173,7 +14201,7 @@ pub type PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT =
 pub type PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pPropertyCount: *mut u32,
-  pProperties: *mut VkDisplayPlaneProperties2KHR,
+  pProperties: *mut VkDisplayPlaneProperties2KHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceDisplayPlanePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html)
 ///
@@ -14229,7 +14257,7 @@ pub type PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR = unsafe extern "syste
 pub type PFN_vkGetPhysicalDeviceDisplayProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pPropertyCount: *mut u32,
-  pProperties: *mut VkDisplayProperties2KHR,
+  pProperties: *mut VkDisplayProperties2KHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceDisplayPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceDisplayPropertiesKHR.html)
 ///
@@ -14257,7 +14285,7 @@ pub type PFN_vkGetPhysicalDeviceDisplayProperties2KHR = unsafe extern "system" f
 pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pPropertyCount: *mut u32,
-  pProperties: *mut VkDisplayPropertiesKHR,
+  pProperties: *mut VkDisplayPropertiesKHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceExternalBufferProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalBufferProperties.html)
 ///
@@ -14273,8 +14301,8 @@ pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceExternalBufferProperties = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pExternalBufferInfo: *const VkPhysicalDeviceExternalBufferInfo,
-  pExternalBufferProperties: *mut VkExternalBufferProperties,
+  pExternalBufferInfo: *const VkPhysicalDeviceExternalBufferInfo<'_>,
+  pExternalBufferProperties: *mut VkExternalBufferProperties<'_>,
 );
 /// [`vkGetPhysicalDeviceExternalBufferPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalBufferPropertiesKHR.html)
 ///
@@ -14284,8 +14312,8 @@ pub type PFN_vkGetPhysicalDeviceExternalBufferProperties = unsafe extern "system
 #[cfg(feature = "VK_KHR_external_memory_capabilities")]
 pub type PFN_vkGetPhysicalDeviceExternalBufferPropertiesKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pExternalBufferInfo: *const VkPhysicalDeviceExternalBufferInfoKHR,
-  pExternalBufferProperties: *mut VkExternalBufferPropertiesKHR,
+  pExternalBufferInfo: *const VkPhysicalDeviceExternalBufferInfoKHR<'_>,
+  pExternalBufferProperties: *mut VkExternalBufferPropertiesKHR<'_>,
 );
 /// [`vkGetPhysicalDeviceExternalFenceProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalFenceProperties.html)
 ///
@@ -14301,8 +14329,8 @@ pub type PFN_vkGetPhysicalDeviceExternalBufferPropertiesKHR = unsafe extern "sys
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceExternalFenceProperties = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pExternalFenceInfo: *const VkPhysicalDeviceExternalFenceInfo,
-  pExternalFenceProperties: *mut VkExternalFenceProperties,
+  pExternalFenceInfo: *const VkPhysicalDeviceExternalFenceInfo<'_>,
+  pExternalFenceProperties: *mut VkExternalFenceProperties<'_>,
 );
 /// [`vkGetPhysicalDeviceExternalFencePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalFencePropertiesKHR.html)
 ///
@@ -14312,8 +14340,8 @@ pub type PFN_vkGetPhysicalDeviceExternalFenceProperties = unsafe extern "system"
 #[cfg(feature = "VK_KHR_external_fence_capabilities")]
 pub type PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pExternalFenceInfo: *const VkPhysicalDeviceExternalFenceInfoKHR,
-  pExternalFenceProperties: *mut VkExternalFencePropertiesKHR,
+  pExternalFenceInfo: *const VkPhysicalDeviceExternalFenceInfoKHR<'_>,
+  pExternalFenceProperties: *mut VkExternalFencePropertiesKHR<'_>,
 );
 /// [`vkGetPhysicalDeviceExternalImageFormatPropertiesNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html)
 ///
@@ -14382,7 +14410,7 @@ pub type PFN_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV =
     physicalDevice: VkPhysicalDevice,
     handleType: VkExternalMemoryHandleTypeFlagBits,
     handle: NvSciBufObj,
-    pMemorySciBufProperties: *mut VkMemorySciBufPropertiesNV,
+    pMemorySciBufProperties: *mut VkMemorySciBufPropertiesNV<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceExternalSemaphoreProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalSemaphoreProperties.html)
 ///
@@ -14398,8 +14426,8 @@ pub type PFN_vkGetPhysicalDeviceExternalMemorySciBufPropertiesNV =
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceExternalSemaphoreProperties = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pExternalSemaphoreInfo: *const VkPhysicalDeviceExternalSemaphoreInfo,
-  pExternalSemaphoreProperties: *mut VkExternalSemaphoreProperties,
+  pExternalSemaphoreInfo: *const VkPhysicalDeviceExternalSemaphoreInfo<'_>,
+  pExternalSemaphoreProperties: *mut VkExternalSemaphoreProperties<'_>,
 );
 /// [`vkGetPhysicalDeviceExternalSemaphorePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html)
 ///
@@ -14409,8 +14437,8 @@ pub type PFN_vkGetPhysicalDeviceExternalSemaphoreProperties = unsafe extern "sys
 #[cfg(feature = "VK_KHR_external_semaphore_capabilities")]
 pub type PFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pExternalSemaphoreInfo: *const VkPhysicalDeviceExternalSemaphoreInfoKHR,
-  pExternalSemaphoreProperties: *mut VkExternalSemaphorePropertiesKHR,
+  pExternalSemaphoreInfo: *const VkPhysicalDeviceExternalSemaphoreInfoKHR<'_>,
+  pExternalSemaphoreProperties: *mut VkExternalSemaphorePropertiesKHR<'_>,
 );
 /// [`vkGetPhysicalDeviceExternalTensorPropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceExternalTensorPropertiesARM.html)
 ///
@@ -14425,8 +14453,8 @@ pub type PFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = unsafe extern "
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pExternalTensorInfo: *const VkPhysicalDeviceExternalTensorInfoARM,
-  pExternalTensorProperties: *mut VkExternalTensorPropertiesARM,
+  pExternalTensorInfo: *const VkPhysicalDeviceExternalTensorInfoARM<'_>,
+  pExternalTensorProperties: *mut VkExternalTensorPropertiesARM<'_>,
 );
 /// [`vkGetPhysicalDeviceFeatures`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFeatures.html)
 ///
@@ -14457,7 +14485,7 @@ pub type PFN_vkGetPhysicalDeviceFeatures = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceFeatures2 = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pFeatures: *mut VkPhysicalDeviceFeatures2,
+  pFeatures: *mut VkPhysicalDeviceFeatures2<'_>,
 );
 /// [`vkGetPhysicalDeviceFeatures2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFeatures2KHR.html)
 ///
@@ -14467,7 +14495,7 @@ pub type PFN_vkGetPhysicalDeviceFeatures2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
 pub type PFN_vkGetPhysicalDeviceFeatures2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pFeatures: *mut VkPhysicalDeviceFeatures2KHR,
+  pFeatures: *mut VkPhysicalDeviceFeatures2KHR<'_>,
 );
 /// [`vkGetPhysicalDeviceFormatProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFormatProperties.html)
 ///
@@ -14502,7 +14530,7 @@ pub type PFN_vkGetPhysicalDeviceFormatProperties = unsafe extern "system" fn(
 pub type PFN_vkGetPhysicalDeviceFormatProperties2 = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   format: VkFormat,
-  pFormatProperties: *mut VkFormatProperties2,
+  pFormatProperties: *mut VkFormatProperties2<'_>,
 );
 /// [`vkGetPhysicalDeviceFormatProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFormatProperties2KHR.html)
 ///
@@ -14513,7 +14541,7 @@ pub type PFN_vkGetPhysicalDeviceFormatProperties2 = unsafe extern "system" fn(
 pub type PFN_vkGetPhysicalDeviceFormatProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   format: VkFormat,
-  pFormatProperties: *mut VkFormatProperties2KHR,
+  pFormatProperties: *mut VkFormatProperties2KHR<'_>,
 );
 /// [`vkGetPhysicalDeviceFragmentShadingRatesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceFragmentShadingRatesKHR.html)
 ///
@@ -14540,7 +14568,7 @@ pub type PFN_vkGetPhysicalDeviceFormatProperties2KHR = unsafe extern "system" fn
 pub type PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pFragmentShadingRateCount: *mut u32,
-  pFragmentShadingRates: *mut VkPhysicalDeviceFragmentShadingRateKHR,
+  pFragmentShadingRates: *mut VkPhysicalDeviceFragmentShadingRateKHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceImageFormatProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceImageFormatProperties.html)
 ///
@@ -14611,8 +14639,8 @@ pub type PFN_vkGetPhysicalDeviceImageFormatProperties = unsafe extern "system" f
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceImageFormatProperties2 = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pImageFormatInfo: *const VkPhysicalDeviceImageFormatInfo2,
-  pImageFormatProperties: *mut VkImageFormatProperties2,
+  pImageFormatInfo: *const VkPhysicalDeviceImageFormatInfo2<'_>,
+  pImageFormatProperties: *mut VkImageFormatProperties2<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceImageFormatProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceImageFormatProperties2KHR.html)
 ///
@@ -14622,8 +14650,8 @@ pub type PFN_vkGetPhysicalDeviceImageFormatProperties2 = unsafe extern "system" 
 #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
 pub type PFN_vkGetPhysicalDeviceImageFormatProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pImageFormatInfo: *const VkPhysicalDeviceImageFormatInfo2KHR,
-  pImageFormatProperties: *mut VkImageFormatProperties2KHR,
+  pImageFormatInfo: *const VkPhysicalDeviceImageFormatInfo2KHR<'_>,
+  pImageFormatProperties: *mut VkImageFormatProperties2KHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceMemoryProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties.html)
 ///
@@ -14654,7 +14682,7 @@ pub type PFN_vkGetPhysicalDeviceMemoryProperties = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceMemoryProperties2 = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pMemoryProperties: *mut VkPhysicalDeviceMemoryProperties2,
+  pMemoryProperties: *mut VkPhysicalDeviceMemoryProperties2<'_>,
 );
 /// [`vkGetPhysicalDeviceMemoryProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMemoryProperties2KHR.html)
 ///
@@ -14664,7 +14692,7 @@ pub type PFN_vkGetPhysicalDeviceMemoryProperties2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
 pub type PFN_vkGetPhysicalDeviceMemoryProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pMemoryProperties: *mut VkPhysicalDeviceMemoryProperties2KHR,
+  pMemoryProperties: *mut VkPhysicalDeviceMemoryProperties2KHR<'_>,
 );
 /// [`vkGetPhysicalDeviceMultisamplePropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceMultisamplePropertiesEXT.html)
 ///
@@ -14680,7 +14708,7 @@ pub type PFN_vkGetPhysicalDeviceMemoryProperties2KHR = unsafe extern "system" fn
 pub type PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   samples: VkSampleCountFlagBits,
-  pMultisampleProperties: *mut VkMultisamplePropertiesEXT,
+  pMultisampleProperties: *mut VkMultisamplePropertiesEXT<'_>,
 );
 /// [`vkGetPhysicalDeviceOpticalFlowImageFormatsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html)
 ///
@@ -14709,9 +14737,9 @@ pub type PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT = unsafe extern "system
 #[cfg(feature = "VK_NV_optical_flow")]
 pub type PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pOpticalFlowImageFormatInfo: *const VkOpticalFlowImageFormatInfoNV,
+  pOpticalFlowImageFormatInfo: *const VkOpticalFlowImageFormatInfoNV<'_>,
   pFormatCount: *mut u32,
-  pImageFormatProperties: *mut VkOpticalFlowImageFormatPropertiesNV,
+  pImageFormatProperties: *mut VkOpticalFlowImageFormatPropertiesNV<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDevicePresentRectanglesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDevicePresentRectanglesKHR.html)
 ///
@@ -14777,7 +14805,7 @@ pub type PFN_vkGetPhysicalDeviceProperties = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceProperties2 = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pProperties: *mut VkPhysicalDeviceProperties2,
+  pProperties: *mut VkPhysicalDeviceProperties2<'_>,
 );
 /// [`vkGetPhysicalDeviceProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceProperties2KHR.html)
 ///
@@ -14787,7 +14815,7 @@ pub type PFN_vkGetPhysicalDeviceProperties2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
 pub type PFN_vkGetPhysicalDeviceProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pProperties: *mut VkPhysicalDeviceProperties2KHR,
+  pProperties: *mut VkPhysicalDeviceProperties2KHR<'_>,
 );
 /// [`vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM.html)
 ///
@@ -14820,8 +14848,8 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     queueFamilyIndex: u32,
-    pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM,
-    pProperties: *mut VkBaseOutStructure,
+    pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM<'_>,
+    pProperties: *mut VkBaseOutStructure<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM.html)
 ///
@@ -14854,10 +14882,10 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     queueFamilyIndex: u32,
-    pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM,
-    pOpticalFlowImageFormatInfo: *const VkDataGraphOpticalFlowImageFormatInfoARM,
+    pQueueFamilyDataGraphProperties: *const VkQueueFamilyDataGraphPropertiesARM<'_>,
+    pOpticalFlowImageFormatInfo: *const VkDataGraphOpticalFlowImageFormatInfoARM<'_>,
     pFormatCount: *mut u32,
-    pImageFormatProperties: *mut VkDataGraphOpticalFlowImageFormatPropertiesARM,
+    pImageFormatProperties: *mut VkDataGraphOpticalFlowImageFormatPropertiesARM<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM.html)
 ///
@@ -14872,8 +14900,12 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM =
 #[cfg(feature = "VK_ARM_data_graph")]
 pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM = unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
-    pQueueFamilyDataGraphProcessingEngineInfo: *const VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM,
-    pQueueFamilyDataGraphProcessingEngineProperties: *mut VkQueueFamilyDataGraphProcessingEnginePropertiesARM,
+    pQueueFamilyDataGraphProcessingEngineInfo: *const VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<
+        '_,
+    >,
+    pQueueFamilyDataGraphProcessingEngineProperties: *mut VkQueueFamilyDataGraphProcessingEnginePropertiesARM<
+        '_,
+    >,
 );
 /// [`vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM.html)
 ///
@@ -14904,7 +14936,7 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM =
     physicalDevice: VkPhysicalDevice,
     queueFamilyIndex: u32,
     pQueueFamilyDataGraphPropertyCount: *mut u32,
-    pQueueFamilyDataGraphProperties: *mut VkQueueFamilyDataGraphPropertiesARM,
+    pQueueFamilyDataGraphProperties: *mut VkQueueFamilyDataGraphPropertiesARM<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html)
 ///
@@ -14920,7 +14952,7 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM =
 pub type PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
-    pPerformanceQueryCreateInfo: *const VkQueryPoolPerformanceCreateInfoKHR,
+    pPerformanceQueryCreateInfo: *const VkQueryPoolPerformanceCreateInfoKHR<'_>,
     pNumPasses: *mut u32,
   );
 /// [`vkGetPhysicalDeviceQueueFamilyProperties`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyProperties.html)
@@ -14956,7 +14988,7 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyProperties = unsafe extern "system" f
 pub type PFN_vkGetPhysicalDeviceQueueFamilyProperties2 = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pQueueFamilyPropertyCount: *mut u32,
-  pQueueFamilyProperties: *mut VkQueueFamilyProperties2,
+  pQueueFamilyProperties: *mut VkQueueFamilyProperties2<'_>,
 );
 /// [`vkGetPhysicalDeviceQueueFamilyProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html)
 ///
@@ -14967,7 +14999,7 @@ pub type PFN_vkGetPhysicalDeviceQueueFamilyProperties2 = unsafe extern "system" 
 pub type PFN_vkGetPhysicalDeviceQueueFamilyProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pQueueFamilyPropertyCount: *mut u32,
-  pQueueFamilyProperties: *mut VkQueueFamilyProperties2KHR,
+  pQueueFamilyProperties: *mut VkQueueFamilyProperties2KHR<'_>,
 );
 /// [`vkGetPhysicalDeviceRefreshableObjectTypesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceRefreshableObjectTypesKHR.html)
 ///
@@ -15047,7 +15079,7 @@ pub type PFN_vkGetPhysicalDeviceSciBufAttributesNV = unsafe extern "system" fn(
 ))]
 pub type PFN_vkGetPhysicalDeviceSciSyncAttributesNV = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pSciSyncAttributesInfo: *const VkSciSyncAttributesInfoNV,
+  pSciSyncAttributesInfo: *const VkSciSyncAttributesInfoNV<'_>,
   pAttributes: NvSciSyncAttrList,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceScreenPresentationSupportQNX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceScreenPresentationSupportQNX.html)
@@ -15110,9 +15142,9 @@ pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties = unsafe extern "sys
 #[cfg(feature = "VK_BASE_VERSION_1_1")]
 pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties2 = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pFormatInfo: *const VkPhysicalDeviceSparseImageFormatInfo2,
+  pFormatInfo: *const VkPhysicalDeviceSparseImageFormatInfo2<'_>,
   pPropertyCount: *mut u32,
-  pProperties: *mut VkSparseImageFormatProperties2,
+  pProperties: *mut VkSparseImageFormatProperties2<'_>,
 );
 /// [`vkGetPhysicalDeviceSparseImageFormatProperties2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html)
 ///
@@ -15122,9 +15154,9 @@ pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties2 = unsafe extern "sy
 #[cfg(feature = "VK_KHR_get_physical_device_properties2")]
 pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pFormatInfo: *const VkPhysicalDeviceSparseImageFormatInfo2KHR,
+  pFormatInfo: *const VkPhysicalDeviceSparseImageFormatInfo2KHR<'_>,
   pPropertyCount: *mut u32,
-  pProperties: *mut VkSparseImageFormatProperties2KHR,
+  pProperties: *mut VkSparseImageFormatProperties2KHR<'_>,
 );
 /// [`vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html)
 ///
@@ -15153,7 +15185,7 @@ pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
     pCombinationCount: *mut u32,
-    pCombinations: *mut VkFramebufferMixedSamplesCombinationNV,
+    pCombinations: *mut VkFramebufferMixedSamplesCombinationNV<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceSurfaceCapabilities2EXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html)
 ///
@@ -15181,7 +15213,7 @@ pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   surface: VkSurfaceKHR,
-  pSurfaceCapabilities: *mut VkSurfaceCapabilities2EXT,
+  pSurfaceCapabilities: *mut VkSurfaceCapabilities2EXT<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceSurfaceCapabilities2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html)
 ///
@@ -15208,8 +15240,8 @@ pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT = unsafe extern "system"
 #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
 pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR,
-  pSurfaceCapabilities: *mut VkSurfaceCapabilities2KHR,
+  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR<'_>,
+  pSurfaceCapabilities: *mut VkSurfaceCapabilities2KHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceSurfaceCapabilitiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html)
 ///
@@ -15266,9 +15298,9 @@ pub type PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR = unsafe extern "system" 
 #[cfg(feature = "VK_KHR_get_surface_capabilities2")]
 pub type PFN_vkGetPhysicalDeviceSurfaceFormats2KHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR,
+  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR<'_>,
   pSurfaceFormatCount: *mut u32,
-  pSurfaceFormats: *mut VkSurfaceFormat2KHR,
+  pSurfaceFormats: *mut VkSurfaceFormat2KHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceSurfaceFormatsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceSurfaceFormatsKHR.html)
 ///
@@ -15328,7 +15360,7 @@ pub type PFN_vkGetPhysicalDeviceSurfaceFormatsKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_full_screen_exclusive")]
 pub type PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR,
+  pSurfaceInfo: *const VkPhysicalDeviceSurfaceInfo2KHR<'_>,
   pPresentModeCount: *mut u32,
   pPresentModes: *mut VkPresentModeKHR,
 ) -> VkResult;
@@ -15419,7 +15451,7 @@ pub type PFN_vkGetPhysicalDeviceSurfaceSupportKHR = unsafe extern "system" fn(
 pub type PFN_vkGetPhysicalDeviceToolProperties = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pToolCount: *mut u32,
-  pToolProperties: *mut VkPhysicalDeviceToolProperties,
+  pToolProperties: *mut VkPhysicalDeviceToolProperties<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceToolPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceToolPropertiesEXT.html)
 ///
@@ -15430,7 +15462,7 @@ pub type PFN_vkGetPhysicalDeviceToolProperties = unsafe extern "system" fn(
 pub type PFN_vkGetPhysicalDeviceToolPropertiesEXT = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
   pToolCount: *mut u32,
-  pToolProperties: *mut VkPhysicalDeviceToolPropertiesEXT,
+  pToolProperties: *mut VkPhysicalDeviceToolPropertiesEXT<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceUbmPresentationSupportSEC`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceUbmPresentationSupportSEC.html)
 ///
@@ -15476,8 +15508,8 @@ pub type PFN_vkGetPhysicalDeviceUbmPresentationSupportSEC = unsafe extern "syste
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pVideoProfile: *const VkVideoProfileInfoKHR,
-  pCapabilities: *mut VkVideoCapabilitiesKHR,
+  pVideoProfile: *const VkVideoProfileInfoKHR<'_>,
+  pCapabilities: *mut VkVideoCapabilitiesKHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html)
 ///
@@ -15508,8 +15540,8 @@ pub type PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = unsafe extern "system" fn
 pub type PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =
   unsafe extern "system" fn(
     physicalDevice: VkPhysicalDevice,
-    pQualityLevelInfo: *const VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR,
-    pQualityLevelProperties: *mut VkVideoEncodeQualityLevelPropertiesKHR,
+    pQualityLevelInfo: *const VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_>,
+    pQualityLevelProperties: *mut VkVideoEncodeQualityLevelPropertiesKHR<'_>,
   ) -> VkResult;
 /// [`vkGetPhysicalDeviceVideoFormatPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html)
 ///
@@ -15542,9 +15574,9 @@ pub type PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR =
 #[cfg(feature = "VK_KHR_video_queue")]
 pub type PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR = unsafe extern "system" fn(
   physicalDevice: VkPhysicalDevice,
-  pVideoFormatInfo: *const VkPhysicalDeviceVideoFormatInfoKHR,
+  pVideoFormatInfo: *const VkPhysicalDeviceVideoFormatInfoKHR<'_>,
   pVideoFormatPropertyCount: *mut u32,
-  pVideoFormatProperties: *mut VkVideoFormatPropertiesKHR,
+  pVideoFormatProperties: *mut VkVideoFormatPropertiesKHR<'_>,
 ) -> VkResult;
 /// [`vkGetPhysicalDeviceWaylandPresentationSupportKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html)
 ///
@@ -15638,8 +15670,8 @@ pub type PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR = unsafe extern "syst
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkGetPipelineBinaryDataKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkPipelineBinaryDataInfoKHR,
-  pPipelineBinaryKey: *mut VkPipelineBinaryKeyKHR,
+  pInfo: *const VkPipelineBinaryDataInfoKHR<'_>,
+  pPipelineBinaryKey: *mut VkPipelineBinaryKeyKHR<'_>,
   pPipelineBinaryDataSize: *mut usize,
   pPipelineBinaryData: *mut core::ffi::c_void,
 ) -> VkResult;
@@ -15701,9 +15733,9 @@ pub type PFN_vkGetPipelineCacheData = unsafe extern "system" fn(
 pub type PFN_vkGetPipelineExecutableInternalRepresentationsKHR =
   unsafe extern "system" fn(
     device: VkDevice,
-    pExecutableInfo: *const VkPipelineExecutableInfoKHR,
+    pExecutableInfo: *const VkPipelineExecutableInfoKHR<'_>,
     pInternalRepresentationCount: *mut u32,
-    pInternalRepresentations: *mut VkPipelineExecutableInternalRepresentationKHR,
+    pInternalRepresentations: *mut VkPipelineExecutableInternalRepresentationKHR<'_>,
   ) -> VkResult;
 /// [`vkGetPipelineExecutablePropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutablePropertiesKHR.html)
 ///
@@ -15731,9 +15763,9 @@ pub type PFN_vkGetPipelineExecutableInternalRepresentationsKHR =
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 pub type PFN_vkGetPipelineExecutablePropertiesKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pPipelineInfo: *const VkPipelineInfoKHR,
+  pPipelineInfo: *const VkPipelineInfoKHR<'_>,
   pExecutableCount: *mut u32,
-  pProperties: *mut VkPipelineExecutablePropertiesKHR,
+  pProperties: *mut VkPipelineExecutablePropertiesKHR<'_>,
 ) -> VkResult;
 /// [`vkGetPipelineExecutableStatisticsKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineExecutableStatisticsKHR.html)
 ///
@@ -15761,9 +15793,9 @@ pub type PFN_vkGetPipelineExecutablePropertiesKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_pipeline_executable_properties")]
 pub type PFN_vkGetPipelineExecutableStatisticsKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pExecutableInfo: *const VkPipelineExecutableInfoKHR,
+  pExecutableInfo: *const VkPipelineExecutableInfoKHR<'_>,
   pStatisticCount: *mut u32,
-  pStatistics: *mut VkPipelineExecutableStatisticKHR,
+  pStatistics: *mut VkPipelineExecutableStatisticKHR<'_>,
 ) -> VkResult;
 /// [`vkGetPipelineIndirectDeviceAddressNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineIndirectDeviceAddressNV.html)
 ///
@@ -15777,7 +15809,7 @@ pub type PFN_vkGetPipelineExecutableStatisticsKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_device_generated_commands_compute")]
 pub type PFN_vkGetPipelineIndirectDeviceAddressNV = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkPipelineIndirectDeviceAddressInfoNV,
+  pInfo: *const VkPipelineIndirectDeviceAddressInfoNV<'_>,
 ) -> VkDeviceAddress;
 /// [`vkGetPipelineIndirectMemoryRequirementsNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineIndirectMemoryRequirementsNV.html)
 ///
@@ -15792,8 +15824,8 @@ pub type PFN_vkGetPipelineIndirectDeviceAddressNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_device_generated_commands_compute")]
 pub type PFN_vkGetPipelineIndirectMemoryRequirementsNV = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkComputePipelineCreateInfo,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pCreateInfo: *const VkComputePipelineCreateInfo<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetPipelineKeyKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelineKeyKHR.html)
 ///
@@ -15819,8 +15851,8 @@ pub type PFN_vkGetPipelineIndirectMemoryRequirementsNV = unsafe extern "system" 
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkGetPipelineKeyKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pPipelineCreateInfo: *const VkPipelineCreateInfoKHR,
-  pPipelineKey: *mut VkPipelineBinaryKeyKHR,
+  pPipelineCreateInfo: *const VkPipelineCreateInfoKHR<'_>,
+  pPipelineKey: *mut VkPipelineBinaryKeyKHR<'_>,
 ) -> VkResult;
 /// [`vkGetPipelinePropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPipelinePropertiesEXT.html)
 ///
@@ -15845,8 +15877,8 @@ pub type PFN_vkGetPipelineKeyKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_pipeline_properties")]
 pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pPipelineInfo: *const VkPipelineInfoKHR,
-  pPipelineProperties: *mut VkBaseOutStructure,
+  pPipelineInfo: *const VkPipelineInfoKHR<'_>,
+  pPipelineProperties: *mut VkBaseOutStructure<'_>,
 ) -> VkResult;
 /// [`vkGetPrivateData`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetPrivateData.html)
 ///
@@ -15946,7 +15978,7 @@ pub type PFN_vkGetQueryPoolResults = unsafe extern "system" fn(
 pub type PFN_vkGetQueueCheckpointData2NV = unsafe extern "system" fn(
   queue: VkQueue,
   pCheckpointDataCount: *mut u32,
-  pCheckpointData: *mut VkCheckpointData2NV,
+  pCheckpointData: *mut VkCheckpointData2NV<'_>,
 );
 /// [`vkGetQueueCheckpointDataNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetQueueCheckpointDataNV.html)
 ///
@@ -15962,7 +15994,7 @@ pub type PFN_vkGetQueueCheckpointData2NV = unsafe extern "system" fn(
 pub type PFN_vkGetQueueCheckpointDataNV = unsafe extern "system" fn(
   queue: VkQueue,
   pCheckpointDataCount: *mut u32,
-  pCheckpointData: *mut VkCheckpointDataNV,
+  pCheckpointData: *mut VkCheckpointDataNV<'_>,
 );
 /// [`vkGetRandROutputDisplayEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRandROutputDisplayEXT.html)
 ///
@@ -16150,7 +16182,7 @@ pub type PFN_vkGetRenderAreaGranularity = unsafe extern "system" fn(
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
 pub type PFN_vkGetRenderingAreaGranularity = unsafe extern "system" fn(
   device: VkDevice,
-  pRenderingAreaInfo: *const VkRenderingAreaInfo,
+  pRenderingAreaInfo: *const VkRenderingAreaInfo<'_>,
   pGranularity: *mut VkExtent2D,
 );
 /// [`vkGetRenderingAreaGranularityKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetRenderingAreaGranularityKHR.html)
@@ -16161,7 +16193,7 @@ pub type PFN_vkGetRenderingAreaGranularity = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_maintenance5")]
 pub type PFN_vkGetRenderingAreaGranularityKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pRenderingAreaInfo: *const VkRenderingAreaInfoKHR,
+  pRenderingAreaInfo: *const VkRenderingAreaInfoKHR<'_>,
   pGranularity: *mut VkExtent2D,
 );
 /// [`vkGetSamplerOpaqueCaptureDescriptorDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html)
@@ -16188,7 +16220,7 @@ pub type PFN_vkGetRenderingAreaGranularityKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_descriptor_buffer")]
 pub type PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkSamplerCaptureDescriptorDataInfoEXT,
+  pInfo: *const VkSamplerCaptureDescriptorDataInfoEXT<'_>,
   pData: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetScreenBufferPropertiesQNX`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetScreenBufferPropertiesQNX.html)
@@ -16216,7 +16248,7 @@ pub type PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT = unsafe extern "system"
 pub type PFN_vkGetScreenBufferPropertiesQNX = unsafe extern "system" fn(
   device: VkDevice,
   buffer: *const _screen_buffer,
-  pProperties: *mut VkScreenBufferPropertiesQNX,
+  pProperties: *mut VkScreenBufferPropertiesQNX<'_>,
 ) -> VkResult;
 /// [`vkGetSemaphoreCounterValue`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreCounterValue.html)
 ///
@@ -16276,7 +16308,7 @@ pub type PFN_vkGetSemaphoreCounterValueKHR =
 #[cfg(feature = "VK_KHR_external_semaphore_fd")]
 pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pGetFdInfo: *const VkSemaphoreGetFdInfoKHR,
+  pGetFdInfo: *const VkSemaphoreGetFdInfoKHR<'_>,
   pFd: *mut core::ffi::c_int,
 ) -> VkResult;
 /// [`vkGetSemaphoreSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreSciSyncObjNV.html)
@@ -16303,7 +16335,7 @@ pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_external_sci_sync")]
 pub type PFN_vkGetSemaphoreSciSyncObjNV = unsafe extern "system" fn(
   device: VkDevice,
-  pGetSciSyncInfo: *const VkSemaphoreGetSciSyncInfoNV,
+  pGetSciSyncInfo: *const VkSemaphoreGetSciSyncInfoNV<'_>,
   pHandle: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetSemaphoreWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreWin32HandleKHR.html)
@@ -16330,7 +16362,7 @@ pub type PFN_vkGetSemaphoreSciSyncObjNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
 pub type PFN_vkGetSemaphoreWin32HandleKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pGetWin32HandleInfo: *const VkSemaphoreGetWin32HandleInfoKHR,
+  pGetWin32HandleInfo: *const VkSemaphoreGetWin32HandleInfoKHR<'_>,
   pHandle: *mut HANDLE,
 ) -> VkResult;
 /// [`vkGetSemaphoreZirconHandleFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSemaphoreZirconHandleFUCHSIA.html)
@@ -16357,7 +16389,7 @@ pub type PFN_vkGetSemaphoreWin32HandleKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
 pub type PFN_vkGetSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
-  pGetZirconHandleInfo: *const VkSemaphoreGetZirconHandleInfoFUCHSIA,
+  pGetZirconHandleInfo: *const VkSemaphoreGetZirconHandleInfoFUCHSIA<'_>,
   pZirconHandle: *mut zx_handle_t,
 ) -> VkResult;
 /// [`vkGetShaderBinaryDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderBinaryDataEXT.html)
@@ -16469,8 +16501,8 @@ pub type PFN_vkGetShaderInstrumentationValuesARM = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_shader_module_identifier")]
 pub type PFN_vkGetShaderModuleCreateInfoIdentifierEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pCreateInfo: *const VkShaderModuleCreateInfo,
-  pIdentifier: *mut VkShaderModuleIdentifierEXT,
+  pCreateInfo: *const VkShaderModuleCreateInfo<'_>,
+  pIdentifier: *mut VkShaderModuleIdentifierEXT<'_>,
 );
 /// [`vkGetShaderModuleIdentifierEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetShaderModuleIdentifierEXT.html)
 ///
@@ -16486,7 +16518,7 @@ pub type PFN_vkGetShaderModuleCreateInfoIdentifierEXT = unsafe extern "system" f
 pub type PFN_vkGetShaderModuleIdentifierEXT = unsafe extern "system" fn(
   device: VkDevice,
   shaderModule: VkShaderModule,
-  pIdentifier: *mut VkShaderModuleIdentifierEXT,
+  pIdentifier: *mut VkShaderModuleIdentifierEXT<'_>,
 );
 /// [`vkGetSwapchainCounterEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainCounterEXT.html)
 ///
@@ -16604,7 +16636,7 @@ pub type PFN_vkGetSwapchainStatusKHR =
 pub type PFN_vkGetSwapchainTimeDomainPropertiesEXT = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pSwapchainTimeDomainProperties: *mut VkSwapchainTimeDomainPropertiesEXT,
+  pSwapchainTimeDomainProperties: *mut VkSwapchainTimeDomainPropertiesEXT<'_>,
   pTimeDomainsCounter: *mut u64,
 ) -> VkResult;
 /// [`vkGetSwapchainTimingPropertiesEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetSwapchainTimingPropertiesEXT.html)
@@ -16635,7 +16667,7 @@ pub type PFN_vkGetSwapchainTimeDomainPropertiesEXT = unsafe extern "system" fn(
 pub type PFN_vkGetSwapchainTimingPropertiesEXT = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pSwapchainTimingProperties: *mut VkSwapchainTimingPropertiesEXT,
+  pSwapchainTimingProperties: *mut VkSwapchainTimingPropertiesEXT<'_>,
   pSwapchainTimingPropertiesCounter: *mut u64,
 ) -> VkResult;
 /// [`vkGetTensorMemoryRequirementsARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorMemoryRequirementsARM.html)
@@ -16651,8 +16683,8 @@ pub type PFN_vkGetSwapchainTimingPropertiesEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_ARM_tensors")]
 pub type PFN_vkGetTensorMemoryRequirementsARM = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkTensorMemoryRequirementsInfoARM,
-  pMemoryRequirements: *mut VkMemoryRequirements2,
+  pInfo: *const VkTensorMemoryRequirementsInfoARM<'_>,
+  pMemoryRequirements: *mut VkMemoryRequirements2<'_>,
 );
 /// [`vkGetTensorOpaqueCaptureDataARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorOpaqueCaptureDataARM.html)
 ///
@@ -16682,7 +16714,7 @@ pub type PFN_vkGetTensorOpaqueCaptureDataARM = unsafe extern "system" fn(
   device: VkDevice,
   tensorCount: u32,
   pTensors: *const VkTensorARM,
-  pDatas: *mut VkHostAddressRangeEXT,
+  pDatas: *mut VkHostAddressRangeEXT<'_>,
 ) -> VkResult;
 /// [`vkGetTensorOpaqueCaptureDescriptorDataARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorOpaqueCaptureDescriptorDataARM.html)
 ///
@@ -16709,7 +16741,7 @@ pub type PFN_vkGetTensorOpaqueCaptureDataARM = unsafe extern "system" fn(
 #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
 pub type PFN_vkGetTensorOpaqueCaptureDescriptorDataARM = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkTensorCaptureDescriptorDataInfoARM,
+  pInfo: *const VkTensorCaptureDescriptorDataInfoARM<'_>,
   pData: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetTensorViewOpaqueCaptureDescriptorDataARM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetTensorViewOpaqueCaptureDescriptorDataARM.html)
@@ -16737,7 +16769,7 @@ pub type PFN_vkGetTensorOpaqueCaptureDescriptorDataARM = unsafe extern "system" 
 #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
 pub type PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkTensorViewCaptureDescriptorDataInfoARM,
+  pInfo: *const VkTensorViewCaptureDescriptorDataInfoARM<'_>,
   pData: *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkGetValidationCacheDataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetValidationCacheDataEXT.html)
@@ -16796,7 +16828,7 @@ pub type PFN_vkGetVideoSessionMemoryRequirementsKHR = unsafe extern "system" fn(
   device: VkDevice,
   videoSession: VkVideoSessionKHR,
   pMemoryRequirementsCount: *mut u32,
-  pMemoryRequirements: *mut VkVideoSessionMemoryRequirementsKHR,
+  pMemoryRequirements: *mut VkVideoSessionMemoryRequirementsKHR<'_>,
 ) -> VkResult;
 /// [`vkGetWinrtDisplayNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkGetWinrtDisplayNV.html)
 ///
@@ -16849,7 +16881,7 @@ pub type PFN_vkGetWinrtDisplayNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_external_fence_fd")]
 pub type PFN_vkImportFenceFdKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pImportFenceFdInfo: *const VkImportFenceFdInfoKHR,
+  pImportFenceFdInfo: *const VkImportFenceFdInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkImportFenceSciSyncFenceNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceSciSyncFenceNV.html)
 ///
@@ -16878,7 +16910,7 @@ pub type PFN_vkImportFenceFdKHR = unsafe extern "system" fn(
 ))]
 pub type PFN_vkImportFenceSciSyncFenceNV = unsafe extern "system" fn(
   device: VkDevice,
-  pImportFenceSciSyncInfo: *const VkImportFenceSciSyncInfoNV,
+  pImportFenceSciSyncInfo: *const VkImportFenceSciSyncInfoNV<'_>,
 ) -> VkResult;
 /// [`vkImportFenceSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceSciSyncObjNV.html)
 ///
@@ -16907,7 +16939,7 @@ pub type PFN_vkImportFenceSciSyncFenceNV = unsafe extern "system" fn(
 ))]
 pub type PFN_vkImportFenceSciSyncObjNV = unsafe extern "system" fn(
   device: VkDevice,
-  pImportFenceSciSyncInfo: *const VkImportFenceSciSyncInfoNV,
+  pImportFenceSciSyncInfo: *const VkImportFenceSciSyncInfoNV<'_>,
 ) -> VkResult;
 /// [`vkImportFenceWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportFenceWin32HandleKHR.html)
 ///
@@ -16932,7 +16964,7 @@ pub type PFN_vkImportFenceSciSyncObjNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_external_fence_win32")]
 pub type PFN_vkImportFenceWin32HandleKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pImportFenceWin32HandleInfo: *const VkImportFenceWin32HandleInfoKHR,
+  pImportFenceWin32HandleInfo: *const VkImportFenceWin32HandleInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkImportSemaphoreFdKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreFdKHR.html)
 ///
@@ -16957,7 +16989,7 @@ pub type PFN_vkImportFenceWin32HandleKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_external_semaphore_fd")]
 pub type PFN_vkImportSemaphoreFdKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pImportSemaphoreFdInfo: *const VkImportSemaphoreFdInfoKHR,
+  pImportSemaphoreFdInfo: *const VkImportSemaphoreFdInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkImportSemaphoreSciSyncObjNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreSciSyncObjNV.html)
 ///
@@ -16983,7 +17015,7 @@ pub type PFN_vkImportSemaphoreFdKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_NV_external_sci_sync")]
 pub type PFN_vkImportSemaphoreSciSyncObjNV = unsafe extern "system" fn(
   device: VkDevice,
-  pImportSemaphoreSciSyncInfo: *const VkImportSemaphoreSciSyncInfoNV,
+  pImportSemaphoreSciSyncInfo: *const VkImportSemaphoreSciSyncInfoNV<'_>,
 ) -> VkResult;
 /// [`vkImportSemaphoreWin32HandleKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreWin32HandleKHR.html)
 ///
@@ -17008,7 +17040,7 @@ pub type PFN_vkImportSemaphoreSciSyncObjNV = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_external_semaphore_win32")]
 pub type PFN_vkImportSemaphoreWin32HandleKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pImportSemaphoreWin32HandleInfo: *const VkImportSemaphoreWin32HandleInfoKHR,
+  pImportSemaphoreWin32HandleInfo: *const VkImportSemaphoreWin32HandleInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkImportSemaphoreZirconHandleFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkImportSemaphoreZirconHandleFUCHSIA.html)
 ///
@@ -17033,7 +17065,7 @@ pub type PFN_vkImportSemaphoreWin32HandleKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_FUCHSIA_external_semaphore")]
 pub type PFN_vkImportSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
-  pImportSemaphoreZirconHandleInfo: *const VkImportSemaphoreZirconHandleInfoFUCHSIA,
+  pImportSemaphoreZirconHandleInfo: *const VkImportSemaphoreZirconHandleInfoFUCHSIA<'_>,
 ) -> VkResult;
 /// [`vkInitializePerformanceApiINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkInitializePerformanceApiINTEL.html)
 ///
@@ -17058,7 +17090,7 @@ pub type PFN_vkImportSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
 #[cfg(feature = "VK_INTEL_performance_query")]
 pub type PFN_vkInitializePerformanceApiINTEL = unsafe extern "system" fn(
   device: VkDevice,
-  pInitializeInfo: *const VkInitializePerformanceApiInfoINTEL,
+  pInitializeInfo: *const VkInitializePerformanceApiInfoINTEL<'_>,
 ) -> VkResult;
 /// [`vkInvalidateMappedMemoryRanges`](https://docs.vulkan.org/refpages/latest/refpages/source/vkInvalidateMappedMemoryRanges.html)
 ///
@@ -17086,7 +17118,7 @@ pub type PFN_vkInitializePerformanceApiINTEL = unsafe extern "system" fn(
 pub type PFN_vkInvalidateMappedMemoryRanges = unsafe extern "system" fn(
   device: VkDevice,
   memoryRangeCount: u32,
-  pMemoryRanges: *const VkMappedMemoryRange,
+  pMemoryRanges: *const VkMappedMemoryRange<'_>,
 ) -> VkResult;
 /// [`vkLatencySleepNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkLatencySleepNV.html)
 ///
@@ -17111,7 +17143,7 @@ pub type PFN_vkInvalidateMappedMemoryRanges = unsafe extern "system" fn(
 pub type PFN_vkLatencySleepNV = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pSleepInfo: *const VkLatencySleepInfoNV,
+  pSleepInfo: *const VkLatencySleepInfoNV<'_>,
 ) -> VkResult;
 /// [`vkMapMemory`](https://docs.vulkan.org/refpages/latest/refpages/source/vkMapMemory.html)
 ///
@@ -17174,7 +17206,7 @@ pub type PFN_vkMapMemory = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkMapMemory2 = unsafe extern "system" fn(
   device: VkDevice,
-  pMemoryMapInfo: *const VkMemoryMapInfo,
+  pMemoryMapInfo: *const VkMemoryMapInfo<'_>,
   ppData: *mut *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkMapMemory2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkMapMemory2KHR.html)
@@ -17185,7 +17217,7 @@ pub type PFN_vkMapMemory2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_map_memory2")]
 pub type PFN_vkMapMemory2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pMemoryMapInfo: *const VkMemoryMapInfoKHR,
+  pMemoryMapInfo: *const VkMemoryMapInfoKHR<'_>,
   ppData: *mut *mut core::ffi::c_void,
 ) -> VkResult;
 /// [`vkMergePipelineCaches`](https://docs.vulkan.org/refpages/latest/refpages/source/vkMergePipelineCaches.html)
@@ -17258,7 +17290,7 @@ pub type PFN_vkMergeValidationCachesEXT = unsafe extern "system" fn(
 /// - `pLabelInfo`
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkQueueBeginDebugUtilsLabelEXT =
-  unsafe extern "system" fn(queue: VkQueue, pLabelInfo: *const VkDebugUtilsLabelEXT);
+  unsafe extern "system" fn(queue: VkQueue, pLabelInfo: *const VkDebugUtilsLabelEXT<'_>);
 /// [`vkQueueBindSparse`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueBindSparse.html)
 ///
 /// Provided by:
@@ -17288,7 +17320,7 @@ pub type PFN_vkQueueBeginDebugUtilsLabelEXT =
 pub type PFN_vkQueueBindSparse = unsafe extern "system" fn(
   queue: VkQueue,
   bindInfoCount: u32,
-  pBindInfo: *const VkBindSparseInfo,
+  pBindInfo: *const VkBindSparseInfo<'_>,
   fence: VkFence,
 ) -> VkResult;
 /// [`vkQueueEndDebugUtilsLabelEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueEndDebugUtilsLabelEXT.html)
@@ -17312,7 +17344,7 @@ pub type PFN_vkQueueEndDebugUtilsLabelEXT = unsafe extern "system" fn(queue: VkQ
 /// - `pLabelInfo`
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkQueueInsertDebugUtilsLabelEXT =
-  unsafe extern "system" fn(queue: VkQueue, pLabelInfo: *const VkDebugUtilsLabelEXT);
+  unsafe extern "system" fn(queue: VkQueue, pLabelInfo: *const VkDebugUtilsLabelEXT<'_>);
 /// [`vkQueueNotifyOutOfBandNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueNotifyOutOfBandNV.html)
 ///
 /// Provided by:
@@ -17324,7 +17356,7 @@ pub type PFN_vkQueueInsertDebugUtilsLabelEXT =
 /// - `pQueueTypeInfo`
 #[cfg(feature = "VK_NV_low_latency2")]
 pub type PFN_vkQueueNotifyOutOfBandNV =
-  unsafe extern "system" fn(queue: VkQueue, pQueueTypeInfo: *const VkOutOfBandQueueTypeInfoNV);
+  unsafe extern "system" fn(queue: VkQueue, pQueueTypeInfo: *const VkOutOfBandQueueTypeInfoNV<'_>);
 /// [`vkQueuePresentKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueuePresentKHR.html)
 ///
 /// Provided by:
@@ -17353,7 +17385,7 @@ pub type PFN_vkQueueNotifyOutOfBandNV =
 ///   - `VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT`
 #[cfg(feature = "VK_KHR_swapchain")]
 pub type PFN_vkQueuePresentKHR =
-  unsafe extern "system" fn(queue: VkQueue, pPresentInfo: *const VkPresentInfoKHR) -> VkResult;
+  unsafe extern "system" fn(queue: VkQueue, pPresentInfo: *const VkPresentInfoKHR<'_>) -> VkResult;
 /// [`vkQueueSetPerfHintQCOM`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerfHintQCOM.html)
 ///
 /// Provided by:
@@ -17374,8 +17406,10 @@ pub type PFN_vkQueuePresentKHR =
 ///   - `VK_ERROR_UNKNOWN`
 ///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_QCOM_queue_perf_hint")]
-pub type PFN_vkQueueSetPerfHintQCOM =
-  unsafe extern "system" fn(queue: VkQueue, pPerfHintInfo: *const VkPerfHintInfoQCOM) -> VkResult;
+pub type PFN_vkQueueSetPerfHintQCOM = unsafe extern "system" fn(
+  queue: VkQueue,
+  pPerfHintInfo: *const VkPerfHintInfoQCOM<'_>,
+) -> VkResult;
 /// [`vkQueueSetPerformanceConfigurationINTEL`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSetPerformanceConfigurationINTEL.html)
 ///
 /// Provided by:
@@ -17430,7 +17464,7 @@ pub type PFN_vkQueueSetPerformanceConfigurationINTEL = unsafe extern "system" fn
 pub type PFN_vkQueueSubmit = unsafe extern "system" fn(
   queue: VkQueue,
   submitCount: u32,
-  pSubmits: *const VkSubmitInfo,
+  pSubmits: *const VkSubmitInfo<'_>,
   fence: VkFence,
 ) -> VkResult;
 /// [`vkQueueSubmit2`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2.html)
@@ -17461,7 +17495,7 @@ pub type PFN_vkQueueSubmit = unsafe extern "system" fn(
 pub type PFN_vkQueueSubmit2 = unsafe extern "system" fn(
   queue: VkQueue,
   submitCount: u32,
-  pSubmits: *const VkSubmitInfo2,
+  pSubmits: *const VkSubmitInfo2<'_>,
   fence: VkFence,
 ) -> VkResult;
 /// [`vkQueueSubmit2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueSubmit2KHR.html)
@@ -17473,7 +17507,7 @@ pub type PFN_vkQueueSubmit2 = unsafe extern "system" fn(
 pub type PFN_vkQueueSubmit2KHR = unsafe extern "system" fn(
   queue: VkQueue,
   submitCount: u32,
-  pSubmits: *const VkSubmitInfo2KHR,
+  pSubmits: *const VkSubmitInfo2KHR<'_>,
   fence: VkFence,
 ) -> VkResult;
 /// [`vkQueueWaitIdle`](https://docs.vulkan.org/refpages/latest/refpages/source/vkQueueWaitIdle.html)
@@ -17530,7 +17564,7 @@ pub type PFN_vkQueueWaitIdle = unsafe extern "system" fn(queue: VkQueue) -> VkRe
 ))]
 pub type PFN_vkRegisterCustomBorderColorEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pBorderColor: *const VkSamplerCustomBorderColorCreateInfoEXT,
+  pBorderColor: *const VkSamplerCustomBorderColorCreateInfoEXT<'_>,
   requestIndex: VkBool32,
   pIndex: *mut u32,
 ) -> VkResult;
@@ -17558,8 +17592,8 @@ pub type PFN_vkRegisterCustomBorderColorEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_display_control")]
 pub type PFN_vkRegisterDeviceEventEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pDeviceEventInfo: *const VkDeviceEventInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pDeviceEventInfo: *const VkDeviceEventInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pFence: *mut VkFence,
 ) -> VkResult;
 /// [`vkRegisterDisplayEventEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkRegisterDisplayEventEXT.html)
@@ -17588,8 +17622,8 @@ pub type PFN_vkRegisterDeviceEventEXT = unsafe extern "system" fn(
 pub type PFN_vkRegisterDisplayEventEXT = unsafe extern "system" fn(
   device: VkDevice,
   display: VkDisplayKHR,
-  pDisplayEventInfo: *const VkDisplayEventInfoEXT,
-  pAllocator: *const VkAllocationCallbacks,
+  pDisplayEventInfo: *const VkDisplayEventInfoEXT<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
   pFence: *mut VkFence,
 ) -> VkResult;
 /// [`vkReleaseCapturedPipelineDataKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseCapturedPipelineDataKHR.html)
@@ -17614,8 +17648,8 @@ pub type PFN_vkRegisterDisplayEventEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_pipeline_binary")]
 pub type PFN_vkReleaseCapturedPipelineDataKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pInfo: *const VkReleaseCapturedPipelineDataInfoKHR,
-  pAllocator: *const VkAllocationCallbacks,
+  pInfo: *const VkReleaseCapturedPipelineDataInfoKHR<'_>,
+  pAllocator: *const VkAllocationCallbacks<'_>,
 ) -> VkResult;
 /// [`vkReleaseDisplayEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseDisplayEXT.html)
 ///
@@ -17705,7 +17739,7 @@ pub type PFN_vkReleaseProfilingLockKHR = unsafe extern "system" fn(device: VkDev
 #[cfg(feature = "VK_EXT_swapchain_maintenance1")]
 pub type PFN_vkReleaseSwapchainImagesEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pReleaseInfo: *const VkReleaseSwapchainImagesInfoEXT,
+  pReleaseInfo: *const VkReleaseSwapchainImagesInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkReleaseSwapchainImagesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkReleaseSwapchainImagesKHR.html)
 ///
@@ -17729,7 +17763,7 @@ pub type PFN_vkReleaseSwapchainImagesEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_swapchain_maintenance1")]
 pub type PFN_vkReleaseSwapchainImagesKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pReleaseInfo: *const VkReleaseSwapchainImagesInfoKHR,
+  pReleaseInfo: *const VkReleaseSwapchainImagesInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkResetCommandBuffer`](https://docs.vulkan.org/refpages/latest/refpages/source/vkResetCommandBuffer.html)
 ///
@@ -17935,7 +17969,7 @@ pub type PFN_vkResetQueryPoolEXT = unsafe extern "system" fn(
 pub type PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
   collection: VkBufferCollectionFUCHSIA,
-  pBufferConstraintsInfo: *const VkBufferConstraintsInfoFUCHSIA,
+  pBufferConstraintsInfo: *const VkBufferConstraintsInfoFUCHSIA<'_>,
 ) -> VkResult;
 /// [`vkSetBufferCollectionImageConstraintsFUCHSIA`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetBufferCollectionImageConstraintsFUCHSIA.html)
 ///
@@ -17963,7 +17997,7 @@ pub type PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA = unsafe extern "syst
 pub type PFN_vkSetBufferCollectionImageConstraintsFUCHSIA = unsafe extern "system" fn(
   device: VkDevice,
   collection: VkBufferCollectionFUCHSIA,
-  pImageConstraintsInfo: *const VkImageConstraintsInfoFUCHSIA,
+  pImageConstraintsInfo: *const VkImageConstraintsInfoFUCHSIA<'_>,
 ) -> VkResult;
 /// [`vkSetDebugUtilsObjectNameEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDebugUtilsObjectNameEXT.html)
 ///
@@ -17988,7 +18022,7 @@ pub type PFN_vkSetBufferCollectionImageConstraintsFUCHSIA = unsafe extern "syste
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkSetDebugUtilsObjectNameEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pNameInfo: *const VkDebugUtilsObjectNameInfoEXT,
+  pNameInfo: *const VkDebugUtilsObjectNameInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkSetDebugUtilsObjectTagEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDebugUtilsObjectTagEXT.html)
 ///
@@ -18013,7 +18047,7 @@ pub type PFN_vkSetDebugUtilsObjectNameEXT = unsafe extern "system" fn(
 #[cfg(feature = "VK_EXT_debug_utils")]
 pub type PFN_vkSetDebugUtilsObjectTagEXT = unsafe extern "system" fn(
   device: VkDevice,
-  pTagInfo: *const VkDebugUtilsObjectTagInfoEXT,
+  pTagInfo: *const VkDebugUtilsObjectTagInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkSetDeviceMemoryPriorityEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetDeviceMemoryPriorityEXT.html)
 ///
@@ -18072,8 +18106,10 @@ pub type PFN_vkSetEvent = unsafe extern "system" fn(device: VkDevice, event: VkE
 ///   - `VK_ERROR_UNKNOWN`
 ///   - `VK_ERROR_VALIDATION_FAILED`
 #[cfg(feature = "VK_AMD_gpa_interface")]
-pub type PFN_vkSetGpaDeviceClockModeAMD =
-  unsafe extern "system" fn(device: VkDevice, pInfo: *mut VkGpaDeviceClockModeInfoAMD) -> VkResult;
+pub type PFN_vkSetGpaDeviceClockModeAMD = unsafe extern "system" fn(
+  device: VkDevice,
+  pInfo: *mut VkGpaDeviceClockModeInfoAMD<'_>,
+) -> VkResult;
 /// [`vkSetHdrMetadataEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetHdrMetadataEXT.html)
 ///
 /// Provided by:
@@ -18090,7 +18126,7 @@ pub type PFN_vkSetHdrMetadataEXT = unsafe extern "system" fn(
   device: VkDevice,
   swapchainCount: u32,
   pSwapchains: *const VkSwapchainKHR,
-  pMetadata: *const VkHdrMetadataEXT,
+  pMetadata: *const VkHdrMetadataEXT<'_>,
 );
 /// [`vkSetLatencyMarkerNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLatencyMarkerNV.html)
 ///
@@ -18106,7 +18142,7 @@ pub type PFN_vkSetHdrMetadataEXT = unsafe extern "system" fn(
 pub type PFN_vkSetLatencyMarkerNV = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pLatencyMarkerInfo: *const VkSetLatencyMarkerInfoNV,
+  pLatencyMarkerInfo: *const VkSetLatencyMarkerInfoNV<'_>,
 );
 /// [`vkSetLatencySleepModeNV`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLatencySleepModeNV.html)
 ///
@@ -18132,7 +18168,7 @@ pub type PFN_vkSetLatencyMarkerNV = unsafe extern "system" fn(
 pub type PFN_vkSetLatencySleepModeNV = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pSleepModeInfo: *const VkLatencySleepModeInfoNV,
+  pSleepModeInfo: *const VkLatencySleepModeInfoNV<'_>,
 ) -> VkResult;
 /// [`vkSetLocalDimmingAMD`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSetLocalDimmingAMD.html)
 ///
@@ -18243,7 +18279,7 @@ pub type PFN_vkSetSwapchainPresentTimingQueueSizeEXT =
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkSignalSemaphore = unsafe extern "system" fn(
   device: VkDevice,
-  pSignalInfo: *const VkSemaphoreSignalInfo,
+  pSignalInfo: *const VkSemaphoreSignalInfo<'_>,
 ) -> VkResult;
 /// [`vkSignalSemaphoreKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSignalSemaphoreKHR.html)
 ///
@@ -18253,7 +18289,7 @@ pub type PFN_vkSignalSemaphore = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_timeline_semaphore")]
 pub type PFN_vkSignalSemaphoreKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pSignalInfo: *const VkSemaphoreSignalInfoKHR,
+  pSignalInfo: *const VkSemaphoreSignalInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkSubmitDebugUtilsMessageEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkSubmitDebugUtilsMessageEXT.html)
 ///
@@ -18271,7 +18307,7 @@ pub type PFN_vkSubmitDebugUtilsMessageEXT = unsafe extern "system" fn(
   instance: VkInstance,
   messageSeverity: VkDebugUtilsMessageSeverityFlagBitsEXT,
   messageTypes: VkDebugUtilsMessageTypeFlagsEXT,
-  pCallbackData: *const VkDebugUtilsMessengerCallbackDataEXT,
+  pCallbackData: *const VkDebugUtilsMessengerCallbackDataEXT<'_>,
 );
 /// [`vkTransitionImageLayout`](https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayout.html)
 ///
@@ -18301,7 +18337,7 @@ pub type PFN_vkSubmitDebugUtilsMessageEXT = unsafe extern "system" fn(
 pub type PFN_vkTransitionImageLayout = unsafe extern "system" fn(
   device: VkDevice,
   transitionCount: u32,
-  pTransitions: *const VkHostImageLayoutTransitionInfo,
+  pTransitions: *const VkHostImageLayoutTransitionInfo<'_>,
 ) -> VkResult;
 /// [`vkTransitionImageLayoutEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkTransitionImageLayoutEXT.html)
 ///
@@ -18312,7 +18348,7 @@ pub type PFN_vkTransitionImageLayout = unsafe extern "system" fn(
 pub type PFN_vkTransitionImageLayoutEXT = unsafe extern "system" fn(
   device: VkDevice,
   transitionCount: u32,
-  pTransitions: *const VkHostImageLayoutTransitionInfoEXT,
+  pTransitions: *const VkHostImageLayoutTransitionInfoEXT<'_>,
 ) -> VkResult;
 /// [`vkTrimCommandPool`](https://docs.vulkan.org/refpages/latest/refpages/source/vkTrimCommandPool.html)
 ///
@@ -18387,7 +18423,7 @@ pub type PFN_vkUnmapMemory = unsafe extern "system" fn(device: VkDevice, memory:
 #[cfg(feature = "VK_BASE_VERSION_1_4")]
 pub type PFN_vkUnmapMemory2 = unsafe extern "system" fn(
   device: VkDevice,
-  pMemoryUnmapInfo: *const VkMemoryUnmapInfo,
+  pMemoryUnmapInfo: *const VkMemoryUnmapInfo<'_>,
 ) -> VkResult;
 /// [`vkUnmapMemory2KHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUnmapMemory2KHR.html)
 ///
@@ -18397,7 +18433,7 @@ pub type PFN_vkUnmapMemory2 = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_map_memory2")]
 pub type PFN_vkUnmapMemory2KHR = unsafe extern "system" fn(
   device: VkDevice,
-  pMemoryUnmapInfo: *const VkMemoryUnmapInfoKHR,
+  pMemoryUnmapInfo: *const VkMemoryUnmapInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkUnregisterCustomBorderColorEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUnregisterCustomBorderColorEXT.html)
 ///
@@ -18463,9 +18499,9 @@ pub type PFN_vkUpdateDescriptorSetWithTemplateKHR = unsafe extern "system" fn(
 pub type PFN_vkUpdateDescriptorSets = unsafe extern "system" fn(
   device: VkDevice,
   descriptorWriteCount: u32,
-  pDescriptorWrites: *const VkWriteDescriptorSet,
+  pDescriptorWrites: *const VkWriteDescriptorSet<'_>,
   descriptorCopyCount: u32,
-  pDescriptorCopies: *const VkCopyDescriptorSet,
+  pDescriptorCopies: *const VkCopyDescriptorSet<'_>,
 );
 /// [`vkUpdateIndirectExecutionSetPipelineEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateIndirectExecutionSetPipelineEXT.html)
 ///
@@ -18483,7 +18519,7 @@ pub type PFN_vkUpdateIndirectExecutionSetPipelineEXT = unsafe extern "system" fn
   device: VkDevice,
   indirectExecutionSet: VkIndirectExecutionSetEXT,
   executionSetWriteCount: u32,
-  pExecutionSetWrites: *const VkWriteIndirectExecutionSetPipelineEXT,
+  pExecutionSetWrites: *const VkWriteIndirectExecutionSetPipelineEXT<'_>,
 );
 /// [`vkUpdateIndirectExecutionSetShaderEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateIndirectExecutionSetShaderEXT.html)
 ///
@@ -18501,7 +18537,7 @@ pub type PFN_vkUpdateIndirectExecutionSetShaderEXT = unsafe extern "system" fn(
   device: VkDevice,
   indirectExecutionSet: VkIndirectExecutionSetEXT,
   executionSetWriteCount: u32,
-  pExecutionSetWrites: *const VkWriteIndirectExecutionSetShaderEXT,
+  pExecutionSetWrites: *const VkWriteIndirectExecutionSetShaderEXT<'_>,
 );
 /// [`vkUpdateVideoSessionParametersKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkUpdateVideoSessionParametersKHR.html)
 ///
@@ -18529,7 +18565,7 @@ pub type PFN_vkUpdateIndirectExecutionSetShaderEXT = unsafe extern "system" fn(
 pub type PFN_vkUpdateVideoSessionParametersKHR = unsafe extern "system" fn(
   device: VkDevice,
   videoSessionParameters: VkVideoSessionParametersKHR,
-  pUpdateInfo: *const VkVideoSessionParametersUpdateInfoKHR,
+  pUpdateInfo: *const VkVideoSessionParametersUpdateInfoKHR<'_>,
 ) -> VkResult;
 /// [`vkWaitForFences`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForFences.html)
 ///
@@ -18596,7 +18632,7 @@ pub type PFN_vkWaitForFences = unsafe extern "system" fn(
 pub type PFN_vkWaitForPresent2KHR = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
-  pPresentWait2Info: *const VkPresentWait2InfoKHR,
+  pPresentWait2Info: *const VkPresentWait2InfoKHR<'_>,
 ) -> VkResult;
 /// [`vkWaitForPresentKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForPresentKHR.html)
 ///
@@ -18660,7 +18696,7 @@ pub type PFN_vkWaitForPresentKHR = unsafe extern "system" fn(
 #[cfg(feature = "VK_BASE_VERSION_1_2")]
 pub type PFN_vkWaitSemaphores = unsafe extern "system" fn(
   device: VkDevice,
-  pWaitInfo: *const VkSemaphoreWaitInfo,
+  pWaitInfo: *const VkSemaphoreWaitInfo<'_>,
   timeout: u64,
 ) -> VkResult;
 /// [`vkWaitSemaphoresKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitSemaphoresKHR.html)
@@ -18671,7 +18707,7 @@ pub type PFN_vkWaitSemaphores = unsafe extern "system" fn(
 #[cfg(feature = "VK_KHR_timeline_semaphore")]
 pub type PFN_vkWaitSemaphoresKHR = unsafe extern "system" fn(
   device: VkDevice,
-  pWaitInfo: *const VkSemaphoreWaitInfoKHR,
+  pWaitInfo: *const VkSemaphoreWaitInfoKHR<'_>,
   timeout: u64,
 ) -> VkResult;
 /// [`vkWriteAccelerationStructuresPropertiesKHR`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteAccelerationStructuresPropertiesKHR.html)
@@ -18770,8 +18806,8 @@ pub type PFN_vkWriteMicromapsPropertiesEXT = unsafe extern "system" fn(
 pub type PFN_vkWriteResourceDescriptorsEXT = unsafe extern "system" fn(
   device: VkDevice,
   resourceCount: u32,
-  pResources: *const VkResourceDescriptorInfoEXT,
-  pDescriptors: *const VkHostAddressRangeEXT,
+  pResources: *const VkResourceDescriptorInfoEXT<'_>,
+  pDescriptors: *const VkHostAddressRangeEXT<'_>,
 ) -> VkResult;
 /// [`vkWriteSamplerDescriptorsEXT`](https://docs.vulkan.org/refpages/latest/refpages/source/vkWriteSamplerDescriptorsEXT.html)
 ///
@@ -18799,6 +18835,6 @@ pub type PFN_vkWriteResourceDescriptorsEXT = unsafe extern "system" fn(
 pub type PFN_vkWriteSamplerDescriptorsEXT = unsafe extern "system" fn(
   device: VkDevice,
   samplerCount: u32,
-  pSamplers: *const VkSamplerCreateInfo,
-  pDescriptors: *const VkHostAddressRangeEXT,
+  pSamplers: *const VkSamplerCreateInfo<'_>,
+  pDescriptors: *const VkHostAddressRangeEXT<'_>,
 ) -> VkResult;

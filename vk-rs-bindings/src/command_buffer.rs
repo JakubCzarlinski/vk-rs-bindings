@@ -3401,7 +3401,7 @@ impl<'dev> CommandBuffer<'dev> {
     &self,
     scratch: VkDeviceAddress,
     scratchSize: VkDeviceSize,
-    pCountInfo: &VkDispatchGraphCountInfoAMDX,
+    pCountInfo: &VkDispatchGraphCountInfoAMDX<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3434,7 +3434,7 @@ impl<'dev> CommandBuffer<'dev> {
     &self,
     scratch: VkDeviceAddress,
     scratchSize: VkDeviceSize,
-    pCountInfo: &VkDispatchGraphCountInfoAMDX,
+    pCountInfo: &VkDispatchGraphCountInfoAMDX<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3692,7 +3692,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdBeginGpaSampleAMD(
     &self,
     gpaSession: VkGpaSessionAMD,
-    pGpaSampleBeginInfo: &VkGpaSampleBeginInfoAMD,
+    pGpaSampleBeginInfo: &VkGpaSampleBeginInfoAMD<'_>,
     pSampleID: &mut u32,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3838,7 +3838,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdDispatchDataGraphARM(
     &self,
     session: VkDataGraphPipelineSessionARM,
-    pInfo: *const VkDataGraphPipelineDispatchInfoARM,
+    pInfo: *const VkDataGraphPipelineDispatchInfoARM<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -3859,7 +3859,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDispatchParameters`
   #[cfg(feature = "VK_ARM_scheduling_controls")]
   #[inline(always)]
-  pub fn vkCmdSetDispatchParametersARM(&self, pDispatchParameters: &VkDispatchParametersARM) {
+  pub fn vkCmdSetDispatchParametersARM(&self, pDispatchParameters: &VkDispatchParametersARM<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -3924,7 +3924,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyTensorInfo`
   #[cfg(feature = "VK_ARM_tensors")]
   #[inline(always)]
-  pub fn vkCmdCopyTensorARM(&self, pCopyTensorInfo: &VkCopyTensorInfoARM) {
+  pub fn vkCmdCopyTensorARM(&self, pCopyTensorInfo: &VkCopyTensorInfoARM<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyTensorARM.unwrap_unchecked()(self.raw, pCopyTensorInfo)
@@ -3955,7 +3955,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkBeginCommandBuffer(
     &self,
-    pBeginInfo: &VkCommandBufferBeginInfo,
+    pBeginInfo: &VkCommandBufferBeginInfo<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe { (self.table).vkBeginCommandBuffer.unwrap_unchecked()(self.raw, pBeginInfo) };
     if r >= VkResult::VK_SUCCESS {
@@ -4286,9 +4286,9 @@ impl<'dev> CommandBuffer<'dev> {
     srcStageMask: VkPipelineStageFlags,
     dstStageMask: VkPipelineStageFlags,
     dependencyFlags: VkDependencyFlags,
-    pMemoryBarriers: &[VkMemoryBarrier],
-    pBufferMemoryBarriers: &[VkBufferMemoryBarrier],
-    pImageMemoryBarriers: &[VkImageMemoryBarrier],
+    pMemoryBarriers: &[VkMemoryBarrier<'_>],
+    pBufferMemoryBarriers: &[VkBufferMemoryBarrier<'_>],
+    pImageMemoryBarriers: &[VkImageMemoryBarrier<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -4492,7 +4492,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_BASE_VERSION_1_3")]
   #[deprecated(note = "superseded by `vkCmdCopyMemoryKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyBuffer2(&self, pCopyBufferInfo: &VkCopyBufferInfo2) {
+  pub fn vkCmdCopyBuffer2(&self, pCopyBufferInfo: &VkCopyBufferInfo2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyBuffer2.unwrap_unchecked()(self.raw, pCopyBufferInfo)
@@ -4514,7 +4514,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_BASE_VERSION_1_3")]
   #[deprecated(note = "superseded by `vkCmdCopyMemoryToImageKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyBufferToImage2(&self, pCopyBufferToImageInfo: &VkCopyBufferToImageInfo2) {
+  pub fn vkCmdCopyBufferToImage2(&self, pCopyBufferToImageInfo: &VkCopyBufferToImageInfo2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyBufferToImage2.unwrap_unchecked()(self.raw, pCopyBufferToImageInfo)
@@ -4535,7 +4535,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyImageInfo`
   #[cfg(feature = "VK_BASE_VERSION_1_3")]
   #[inline(always)]
-  pub fn vkCmdCopyImage2(&self, pCopyImageInfo: &VkCopyImageInfo2) {
+  pub fn vkCmdCopyImage2(&self, pCopyImageInfo: &VkCopyImageInfo2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyImage2.unwrap_unchecked()(self.raw, pCopyImageInfo)
@@ -4557,7 +4557,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_BASE_VERSION_1_3")]
   #[deprecated(note = "superseded by `vkCmdCopyImageToMemoryKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyImageToBuffer2(&self, pCopyImageToBufferInfo: &VkCopyImageToBufferInfo2) {
+  pub fn vkCmdCopyImageToBuffer2(&self, pCopyImageToBufferInfo: &VkCopyImageToBufferInfo2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyImageToBuffer2.unwrap_unchecked()(self.raw, pCopyImageToBufferInfo)
@@ -4578,7 +4578,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfo`
   #[cfg(feature = "VK_BASE_VERSION_1_3")]
   #[inline(always)]
-  pub fn vkCmdPipelineBarrier2(&self, pDependencyInfo: &VkDependencyInfo) {
+  pub fn vkCmdPipelineBarrier2(&self, pDependencyInfo: &VkDependencyInfo<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPipelineBarrier2.unwrap_unchecked()(self.raw, pDependencyInfo)
@@ -4877,9 +4877,9 @@ impl<'dev> CommandBuffer<'dev> {
     pEvents: &[VkEvent],
     srcStageMask: VkPipelineStageFlags,
     dstStageMask: VkPipelineStageFlags,
-    pMemoryBarriers: &[VkMemoryBarrier],
-    pBufferMemoryBarriers: &[VkBufferMemoryBarrier],
-    pImageMemoryBarriers: &[VkImageMemoryBarrier],
+    pMemoryBarriers: &[VkMemoryBarrier<'_>],
+    pBufferMemoryBarriers: &[VkBufferMemoryBarrier<'_>],
+    pImageMemoryBarriers: &[VkImageMemoryBarrier<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -4979,7 +4979,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfo`
   #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
   #[inline(always)]
-  pub fn vkCmdSetEvent2(&self, event: VkEvent, pDependencyInfo: &VkDependencyInfo) {
+  pub fn vkCmdSetEvent2(&self, event: VkEvent, pDependencyInfo: &VkDependencyInfo<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdSetEvent2.unwrap_unchecked()(self.raw, event, pDependencyInfo)
@@ -5002,7 +5002,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfos`: len: eventCount
   #[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
   #[inline(always)]
-  pub fn vkCmdWaitEvents2(&self, pEvents: &[VkEvent], pDependencyInfos: &[VkDependencyInfo]) {
+  pub fn vkCmdWaitEvents2(&self, pEvents: &[VkEvent], pDependencyInfos: &[VkDependencyInfo<'_>]) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdWaitEvents2.unwrap_unchecked()(
@@ -5028,7 +5028,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBindDescriptorSetsInfo`
   #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
   #[inline(always)]
-  pub fn vkCmdBindDescriptorSets2(&self, pBindDescriptorSetsInfo: &VkBindDescriptorSetsInfo) {
+  pub fn vkCmdBindDescriptorSets2(&self, pBindDescriptorSetsInfo: &VkBindDescriptorSetsInfo<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBindDescriptorSets2.unwrap_unchecked()(self.raw, pBindDescriptorSetsInfo)
@@ -5049,7 +5049,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPushConstantsInfo`
   #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
   #[inline(always)]
-  pub fn vkCmdPushConstants2(&self, pPushConstantsInfo: &VkPushConstantsInfo) {
+  pub fn vkCmdPushConstants2(&self, pPushConstantsInfo: &VkPushConstantsInfo<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushConstants2.unwrap_unchecked()(self.raw, pPushConstantsInfo)
@@ -5079,7 +5079,7 @@ impl<'dev> CommandBuffer<'dev> {
     pipelineBindPoint: VkPipelineBindPoint,
     layout: VkPipelineLayout,
     set: u32,
-    pDescriptorWrites: &[VkWriteDescriptorSet],
+    pDescriptorWrites: &[VkWriteDescriptorSet<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5108,7 +5108,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPushDescriptorSetInfo`
   #[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
   #[inline(always)]
-  pub fn vkCmdPushDescriptorSet2(&self, pPushDescriptorSetInfo: &VkPushDescriptorSetInfo) {
+  pub fn vkCmdPushDescriptorSet2(&self, pPushDescriptorSetInfo: &VkPushDescriptorSetInfo<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushDescriptorSet2.unwrap_unchecked()(self.raw, pPushDescriptorSetInfo)
@@ -5163,7 +5163,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdPushDescriptorSetWithTemplate2(
     &self,
-    pPushDescriptorSetWithTemplateInfo: &VkPushDescriptorSetWithTemplateInfo,
+    pPushDescriptorSetWithTemplateInfo: &VkPushDescriptorSetWithTemplateInfo<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5236,7 +5236,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBeginConditionalRenderingEXT(
     &self,
-    pConditionalRenderingBegin: &VkConditionalRenderingBeginInfoEXT,
+    pConditionalRenderingBegin: &VkConditionalRenderingBeginInfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5290,7 +5290,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBeginCustomResolveEXT(
     &self,
-    pBeginCustomResolveInfo: *const VkBeginCustomResolveInfoEXT,
+    pBeginCustomResolveInfo: *const VkBeginCustomResolveInfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5311,7 +5311,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pMarkerInfo`
   #[cfg(feature = "VK_EXT_debug_marker")]
   #[inline(always)]
-  pub fn vkCmdDebugMarkerBeginEXT(&self, pMarkerInfo: &VkDebugMarkerMarkerInfoEXT) {
+  pub fn vkCmdDebugMarkerBeginEXT(&self, pMarkerInfo: &VkDebugMarkerMarkerInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDebugMarkerBeginEXT.unwrap_unchecked()(self.raw, pMarkerInfo)
@@ -5350,7 +5350,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pMarkerInfo`
   #[cfg(feature = "VK_EXT_debug_marker")]
   #[inline(always)]
-  pub fn vkCmdDebugMarkerInsertEXT(&self, pMarkerInfo: &VkDebugMarkerMarkerInfoEXT) {
+  pub fn vkCmdDebugMarkerInsertEXT(&self, pMarkerInfo: &VkDebugMarkerMarkerInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDebugMarkerInsertEXT.unwrap_unchecked()(self.raw, pMarkerInfo)
@@ -5370,7 +5370,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pLabelInfo`
   #[cfg(feature = "VK_EXT_debug_utils")]
   #[inline(always)]
-  pub fn vkCmdBeginDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT) {
+  pub fn vkCmdBeginDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBeginDebugUtilsLabelEXT.unwrap_unchecked()(self.raw, pLabelInfo)
@@ -5409,7 +5409,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pLabelInfo`
   #[cfg(feature = "VK_EXT_debug_utils")]
   #[inline(always)]
-  pub fn vkCmdInsertDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT) {
+  pub fn vkCmdInsertDebugUtilsLabelEXT(&self, pLabelInfo: &VkDebugUtilsLabelEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -5431,7 +5431,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDepthBiasInfo`
   #[cfg(feature = "VK_EXT_depth_bias_control")]
   #[inline(always)]
-  pub fn vkCmdSetDepthBias2EXT(&self, pDepthBiasInfo: &VkDepthBiasInfoEXT) {
+  pub fn vkCmdSetDepthBias2EXT(&self, pDepthBiasInfo: &VkDepthBiasInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdSetDepthBias2EXT.unwrap_unchecked()(self.raw, pDepthBiasInfo)
@@ -5517,7 +5517,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBindingInfos`: len: bufferCount
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
   #[inline(always)]
-  pub fn vkCmdBindDescriptorBuffersEXT(&self, pBindingInfos: &[VkDescriptorBufferBindingInfoEXT]) {
+  pub fn vkCmdBindDescriptorBuffersEXT(
+    &self,
+    pBindingInfos: &[VkDescriptorBufferBindingInfoEXT<'_>],
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -5581,7 +5584,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBindInfo`
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   #[inline(always)]
-  pub fn vkCmdBindResourceHeapEXT(&self, pBindInfo: &VkBindHeapInfoEXT) {
+  pub fn vkCmdBindResourceHeapEXT(&self, pBindInfo: &VkBindHeapInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBindResourceHeapEXT.unwrap_unchecked()(self.raw, pBindInfo)
@@ -5601,7 +5604,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBindInfo`
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   #[inline(always)]
-  pub fn vkCmdBindSamplerHeapEXT(&self, pBindInfo: &VkBindHeapInfoEXT) {
+  pub fn vkCmdBindSamplerHeapEXT(&self, pBindInfo: &VkBindHeapInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBindSamplerHeapEXT.unwrap_unchecked()(self.raw, pBindInfo)
@@ -5621,7 +5624,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPushDataInfo`
   #[cfg(feature = "VK_EXT_descriptor_heap")]
   #[inline(always)]
-  pub fn vkCmdPushDataEXT(&self, pPushDataInfo: &VkPushDataInfoEXT) {
+  pub fn vkCmdPushDataEXT(&self, pPushDataInfo: &VkPushDataInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushDataEXT.unwrap_unchecked()(self.raw, pPushDataInfo)
@@ -5646,7 +5649,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdExecuteGeneratedCommandsEXT(
     &self,
     isPreprocessed: VkBool32,
-    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoEXT,
+    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -5672,7 +5675,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdPreprocessGeneratedCommandsEXT(
     &self,
-    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoEXT,
+    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoEXT<'_>,
     stateCommandBuffer: VkCommandBuffer,
   ) {
     unsafe {
@@ -7238,7 +7241,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pRenderingEndInfo`: optional: true
   #[cfg(feature = "VK_EXT_fragment_density_map_offset")]
   #[inline(always)]
-  pub fn vkCmdEndRendering2EXT(&self, pRenderingEndInfo: *const VkRenderingEndInfoEXT) {
+  pub fn vkCmdEndRendering2EXT(&self, pRenderingEndInfo: *const VkRenderingEndInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndRendering2EXT.unwrap_unchecked()(self.raw, pRenderingEndInfo)
@@ -7284,7 +7287,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDecompressMemoryInfoEXT`
   #[cfg(feature = "VK_EXT_memory_decompression")]
   #[inline(always)]
-  pub fn vkCmdDecompressMemoryEXT(&self, pDecompressMemoryInfoEXT: &VkDecompressMemoryInfoEXT) {
+  pub fn vkCmdDecompressMemoryEXT(&self, pDecompressMemoryInfoEXT: &VkDecompressMemoryInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDecompressMemoryEXT.unwrap_unchecked()(self.raw, pDecompressMemoryInfoEXT)
@@ -7535,7 +7538,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfos`: len: infoCount
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[inline(always)]
-  pub fn vkCmdBuildMicromapsEXT(&self, pInfos: &[VkMicromapBuildInfoEXT]) {
+  pub fn vkCmdBuildMicromapsEXT(&self, pInfos: &[VkMicromapBuildInfoEXT<'_>]) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBuildMicromapsEXT.unwrap_unchecked()(
@@ -7559,7 +7562,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[inline(always)]
-  pub fn vkCmdCopyMemoryToMicromapEXT(&self, pInfo: &VkCopyMemoryToMicromapInfoEXT) {
+  pub fn vkCmdCopyMemoryToMicromapEXT(&self, pInfo: &VkCopyMemoryToMicromapInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyMemoryToMicromapEXT.unwrap_unchecked()(self.raw, pInfo)
@@ -7579,7 +7582,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[inline(always)]
-  pub fn vkCmdCopyMicromapEXT(&self, pInfo: &VkCopyMicromapInfoEXT) {
+  pub fn vkCmdCopyMicromapEXT(&self, pInfo: &VkCopyMicromapInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyMicromapEXT.unwrap_unchecked()(self.raw, pInfo)
@@ -7599,7 +7602,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   #[inline(always)]
-  pub fn vkCmdCopyMicromapToMemoryEXT(&self, pInfo: &VkCopyMicromapToMemoryInfoEXT) {
+  pub fn vkCmdCopyMicromapToMemoryEXT(&self, pInfo: &VkCopyMicromapToMemoryInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyMicromapToMemoryEXT.unwrap_unchecked()(self.raw, pInfo)
@@ -7680,7 +7683,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pSampleLocationsInfo`
   #[cfg(feature = "VK_EXT_sample_locations")]
   #[inline(always)]
-  pub fn vkCmdSetSampleLocationsEXT(&self, pSampleLocationsInfo: &VkSampleLocationsInfoEXT) {
+  pub fn vkCmdSetSampleLocationsEXT(&self, pSampleLocationsInfo: &VkSampleLocationsInfoEXT<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdSetSampleLocationsEXT.unwrap_unchecked()(self.raw, pSampleLocationsInfo)
@@ -7740,8 +7743,8 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetVertexInputEXT(
     &self,
-    pVertexBindingDescriptions: &[VkVertexInputBindingDescription2EXT],
-    pVertexAttributeDescriptions: &[VkVertexInputAttributeDescription2EXT],
+    pVertexBindingDescriptions: &[VkVertexInputBindingDescription2EXT<'_>],
+    pVertexAttributeDescriptions: &[VkVertexInputAttributeDescription2EXT<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -7983,7 +7986,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBeginRenderPass(
     &self,
-    pRenderPassBegin: &VkRenderPassBeginInfo,
+    pRenderPassBegin: &VkRenderPassBeginInfo<'_>,
     contents: VkSubpassContents,
   ) {
     unsafe {
@@ -8631,8 +8634,8 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBeginRenderPass2(
     &self,
-    pRenderPassBegin: &VkRenderPassBeginInfo,
-    pSubpassBeginInfo: &VkSubpassBeginInfo,
+    pRenderPassBegin: &VkRenderPassBeginInfo<'_>,
+    pSubpassBeginInfo: &VkSubpassBeginInfo<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8748,7 +8751,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pSubpassEndInfo`
   #[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
   #[inline(always)]
-  pub fn vkCmdEndRenderPass2(&self, pSubpassEndInfo: &VkSubpassEndInfo) {
+  pub fn vkCmdEndRenderPass2(&self, pSubpassEndInfo: &VkSubpassEndInfo<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndRenderPass2.unwrap_unchecked()(self.raw, pSubpassEndInfo)
@@ -8772,8 +8775,8 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdNextSubpass2(
     &self,
-    pSubpassBeginInfo: &VkSubpassBeginInfo,
-    pSubpassEndInfo: &VkSubpassEndInfo,
+    pSubpassBeginInfo: &VkSubpassBeginInfo<'_>,
+    pSubpassEndInfo: &VkSubpassEndInfo<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -8799,7 +8802,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pRenderingInfo`
   #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
   #[inline(always)]
-  pub fn vkCmdBeginRendering(&self, pRenderingInfo: &VkRenderingInfo) {
+  pub fn vkCmdBeginRendering(&self, pRenderingInfo: &VkRenderingInfo<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBeginRendering.unwrap_unchecked()(self.raw, pRenderingInfo)
@@ -8861,7 +8864,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBlitImageInfo`
   #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
   #[inline(always)]
-  pub fn vkCmdBlitImage2(&self, pBlitImageInfo: &VkBlitImageInfo2) {
+  pub fn vkCmdBlitImage2(&self, pBlitImageInfo: &VkBlitImageInfo2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBlitImage2.unwrap_unchecked()(self.raw, pBlitImageInfo)
@@ -8902,7 +8905,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pResolveImageInfo`
   #[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
   #[inline(always)]
-  pub fn vkCmdResolveImage2(&self, pResolveImageInfo: &VkResolveImageInfo2) {
+  pub fn vkCmdResolveImage2(&self, pResolveImageInfo: &VkResolveImageInfo2<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdResolveImage2.unwrap_unchecked()(self.raw, pResolveImageInfo)
@@ -9312,7 +9315,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetRenderingAttachmentLocations(
     &self,
-    pLocationInfo: &VkRenderingAttachmentLocationInfo,
+    pLocationInfo: &VkRenderingAttachmentLocationInfo<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9338,7 +9341,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetRenderingInputAttachmentIndices(
     &self,
-    pInputAttachmentIndexInfo: &VkRenderingInputAttachmentIndexInfo,
+    pInputAttachmentIndexInfo: &VkRenderingInputAttachmentIndexInfo<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9468,7 +9471,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetPerformanceMarkerINTEL(
     &self,
-    pMarkerInfo: &VkPerformanceMarkerInfoINTEL,
+    pMarkerInfo: &VkPerformanceMarkerInfoINTEL<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -9508,7 +9511,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetPerformanceOverrideINTEL(
     &self,
-    pOverrideInfo: &VkPerformanceOverrideInfoINTEL,
+    pOverrideInfo: &VkPerformanceOverrideInfoINTEL<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -9548,7 +9551,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetPerformanceStreamMarkerINTEL(
     &self,
-    pMarkerInfo: &VkPerformanceStreamMarkerInfoINTEL,
+    pMarkerInfo: &VkPerformanceStreamMarkerInfoINTEL<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -9581,7 +9584,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBuildAccelerationStructuresIndirectKHR(
     &self,
-    pInfos: &[VkAccelerationStructureBuildGeometryInfoKHR],
+    pInfos: &[VkAccelerationStructureBuildGeometryInfoKHR<'_>],
     pIndirectDeviceAddresses: &[VkDeviceAddress],
     pIndirectStrides: &[u32],
     ppMaxPrimitiveCounts: *const *const u32,
@@ -9618,7 +9621,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBuildAccelerationStructuresKHR(
     &self,
-    pInfos: &[VkAccelerationStructureBuildGeometryInfoKHR],
+    pInfos: &[VkAccelerationStructureBuildGeometryInfoKHR<'_>],
     ppBuildRangeInfos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
   ) {
     unsafe {
@@ -9647,7 +9650,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_acceleration_structure")]
   #[inline(always)]
-  pub fn vkCmdCopyAccelerationStructureKHR(&self, pInfo: &VkCopyAccelerationStructureInfoKHR) {
+  pub fn vkCmdCopyAccelerationStructureKHR(&self, pInfo: &VkCopyAccelerationStructureInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -9671,7 +9674,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdCopyAccelerationStructureToMemoryKHR(
     &self,
-    pInfo: &VkCopyAccelerationStructureToMemoryInfoKHR,
+    pInfo: &VkCopyAccelerationStructureToMemoryInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9696,7 +9699,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdCopyMemoryToAccelerationStructureKHR(
     &self,
-    pInfo: &VkCopyMemoryToAccelerationStructureInfoKHR,
+    pInfo: &VkCopyMemoryToAccelerationStructureInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9759,7 +9762,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBlitImageInfo`
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[inline(always)]
-  pub fn vkCmdBlitImage2KHR(&self, pBlitImageInfo: &VkBlitImageInfo2KHR) {
+  pub fn vkCmdBlitImage2KHR(&self, pBlitImageInfo: &VkBlitImageInfo2KHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBlitImage2KHR.unwrap_unchecked()(self.raw, pBlitImageInfo)
@@ -9781,7 +9784,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[deprecated(note = "superseded by `vkCmdCopyMemoryKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyBuffer2KHR(&self, pCopyBufferInfo: &VkCopyBufferInfo2KHR) {
+  pub fn vkCmdCopyBuffer2KHR(&self, pCopyBufferInfo: &VkCopyBufferInfo2KHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyBuffer2KHR.unwrap_unchecked()(self.raw, pCopyBufferInfo)
@@ -9803,7 +9806,10 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[deprecated(note = "superseded by `vkCmdCopyMemoryToImageKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyBufferToImage2KHR(&self, pCopyBufferToImageInfo: &VkCopyBufferToImageInfo2KHR) {
+  pub fn vkCmdCopyBufferToImage2KHR(
+    &self,
+    pCopyBufferToImageInfo: &VkCopyBufferToImageInfo2KHR<'_>,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyBufferToImage2KHR.unwrap_unchecked()(self.raw, pCopyBufferToImageInfo)
@@ -9824,7 +9830,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyImageInfo`
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[inline(always)]
-  pub fn vkCmdCopyImage2KHR(&self, pCopyImageInfo: &VkCopyImageInfo2KHR) {
+  pub fn vkCmdCopyImage2KHR(&self, pCopyImageInfo: &VkCopyImageInfo2KHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyImage2KHR.unwrap_unchecked()(self.raw, pCopyImageInfo)
@@ -9846,7 +9852,10 @@ impl<'dev> CommandBuffer<'dev> {
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[deprecated(note = "superseded by `vkCmdCopyImageToMemoryKHR`")]
   #[inline(always)]
-  pub fn vkCmdCopyImageToBuffer2KHR(&self, pCopyImageToBufferInfo: &VkCopyImageToBufferInfo2KHR) {
+  pub fn vkCmdCopyImageToBuffer2KHR(
+    &self,
+    pCopyImageToBufferInfo: &VkCopyImageToBufferInfo2KHR<'_>,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyImageToBuffer2KHR.unwrap_unchecked()(self.raw, pCopyImageToBufferInfo)
@@ -9867,7 +9876,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pResolveImageInfo`
   #[cfg(feature = "VK_KHR_copy_commands2")]
   #[inline(always)]
-  pub fn vkCmdResolveImage2KHR(&self, pResolveImageInfo: &VkResolveImageInfo2KHR) {
+  pub fn vkCmdResolveImage2KHR(&self, pResolveImageInfo: &VkResolveImageInfo2KHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdResolveImage2KHR.unwrap_unchecked()(self.raw, pResolveImageInfo)
@@ -9887,7 +9896,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyMemoryIndirectInfo`
   #[cfg(feature = "VK_KHR_copy_memory_indirect")]
   #[inline(always)]
-  pub fn vkCmdCopyMemoryIndirectKHR(&self, pCopyMemoryIndirectInfo: &VkCopyMemoryIndirectInfoKHR) {
+  pub fn vkCmdCopyMemoryIndirectKHR(
+    &self,
+    pCopyMemoryIndirectInfo: &VkCopyMemoryIndirectInfoKHR<'_>,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyMemoryIndirectKHR.unwrap_unchecked()(self.raw, pCopyMemoryIndirectInfo)
@@ -9909,7 +9921,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdCopyMemoryToImageIndirectKHR(
     &self,
-    pCopyMemoryToImageIndirectInfo: &VkCopyMemoryToImageIndirectInfoKHR,
+    pCopyMemoryToImageIndirectInfo: &VkCopyMemoryToImageIndirectInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9936,8 +9948,8 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBeginRenderPass2KHR(
     &self,
-    pRenderPassBegin: &VkRenderPassBeginInfo,
-    pSubpassBeginInfo: &VkSubpassBeginInfoKHR,
+    pRenderPassBegin: &VkRenderPassBeginInfo<'_>,
+    pSubpassBeginInfo: &VkSubpassBeginInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -9963,7 +9975,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pSubpassEndInfo`
   #[cfg(feature = "VK_KHR_create_renderpass2")]
   #[inline(always)]
-  pub fn vkCmdEndRenderPass2KHR(&self, pSubpassEndInfo: &VkSubpassEndInfoKHR) {
+  pub fn vkCmdEndRenderPass2KHR(&self, pSubpassEndInfo: &VkSubpassEndInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndRenderPass2KHR.unwrap_unchecked()(self.raw, pSubpassEndInfo)
@@ -9987,8 +9999,8 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdNextSubpass2KHR(
     &self,
-    pSubpassBeginInfo: &VkSubpassBeginInfoKHR,
-    pSubpassEndInfo: &VkSubpassEndInfoKHR,
+    pSubpassBeginInfo: &VkSubpassBeginInfoKHR<'_>,
+    pSubpassEndInfo: &VkSubpassEndInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10059,7 +10071,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBeginConditionalRendering2EXT(
     &self,
-    pConditionalRenderingBegin: &VkConditionalRenderingBeginInfo2EXT,
+    pConditionalRenderingBegin: &VkConditionalRenderingBeginInfo2EXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10092,7 +10104,7 @@ impl<'dev> CommandBuffer<'dev> {
     &self,
     firstCounterRange: u32,
     counterRangeCount: u32,
-    pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT,
+    pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10120,7 +10132,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_device_address_commands")]
   #[inline(always)]
-  pub fn vkCmdBindIndexBuffer3KHR(&self, pInfo: &VkBindIndexBuffer3InfoKHR) {
+  pub fn vkCmdBindIndexBuffer3KHR(&self, pInfo: &VkBindIndexBuffer3InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBindIndexBuffer3KHR.unwrap_unchecked()(self.raw, pInfo)
@@ -10150,7 +10162,7 @@ impl<'dev> CommandBuffer<'dev> {
     &self,
     firstBinding: u32,
     bindingCount: u32,
-    pBindingInfos: *const VkBindTransformFeedbackBuffer2InfoEXT,
+    pBindingInfos: *const VkBindTransformFeedbackBuffer2InfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10178,7 +10190,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdBindVertexBuffers3KHR(
     &self,
     firstBinding: u32,
-    pBindingInfos: &[VkBindVertexBuffer3InfoKHR],
+    pBindingInfos: &[VkBindVertexBuffer3InfoKHR<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10204,7 +10216,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyMemoryInfo`: optional: true
   #[cfg(feature = "VK_KHR_device_address_commands")]
   #[inline(always)]
-  pub fn vkCmdCopyImageToMemoryKHR(&self, pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR) {
+  pub fn vkCmdCopyImageToMemoryKHR(
+    &self,
+    pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR<'_>,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyImageToMemoryKHR.unwrap_unchecked()(self.raw, pCopyMemoryInfo)
@@ -10224,7 +10239,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyMemoryInfo`: optional: true
   #[cfg(feature = "VK_KHR_device_address_commands")]
   #[inline(always)]
-  pub fn vkCmdCopyMemoryKHR(&self, pCopyMemoryInfo: *const VkCopyDeviceMemoryInfoKHR) {
+  pub fn vkCmdCopyMemoryKHR(&self, pCopyMemoryInfo: *const VkCopyDeviceMemoryInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyMemoryKHR.unwrap_unchecked()(self.raw, pCopyMemoryInfo)
@@ -10244,7 +10259,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCopyMemoryInfo`: optional: true
   #[cfg(feature = "VK_KHR_device_address_commands")]
   #[inline(always)]
-  pub fn vkCmdCopyMemoryToImageKHR(&self, pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR) {
+  pub fn vkCmdCopyMemoryToImageKHR(
+    &self,
+    pCopyMemoryInfo: *const VkCopyDeviceMemoryImageInfoKHR<'_>,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCopyMemoryToImageKHR.unwrap_unchecked()(self.raw, pCopyMemoryInfo)
@@ -10308,7 +10326,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_device_address_commands")]
   #[inline(always)]
-  pub fn vkCmdDispatchIndirect2KHR(&self, pInfo: &VkDispatchIndirect2InfoKHR) {
+  pub fn vkCmdDispatchIndirect2KHR(&self, pInfo: &VkDispatchIndirect2InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDispatchIndirect2KHR.unwrap_unchecked()(self.raw, pInfo)
@@ -10329,7 +10347,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_device_address_commands")]
   #[inline(always)]
-  pub fn vkCmdDrawIndexedIndirect2KHR(&self, pInfo: &VkDrawIndirect2InfoKHR) {
+  pub fn vkCmdDrawIndexedIndirect2KHR(&self, pInfo: &VkDrawIndirect2InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDrawIndexedIndirect2KHR.unwrap_unchecked()(self.raw, pInfo)
@@ -10357,7 +10375,7 @@ impl<'dev> CommandBuffer<'dev> {
     all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
   ))]
   #[inline(always)]
-  pub fn vkCmdDrawIndexedIndirectCount2KHR(&self, pInfo: &VkDrawIndirectCount2InfoKHR) {
+  pub fn vkCmdDrawIndexedIndirectCount2KHR(&self, pInfo: &VkDrawIndirectCount2InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -10380,7 +10398,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pInfo`
   #[cfg(feature = "VK_KHR_device_address_commands")]
   #[inline(always)]
-  pub fn vkCmdDrawIndirect2KHR(&self, pInfo: &VkDrawIndirect2InfoKHR) {
+  pub fn vkCmdDrawIndirect2KHR(&self, pInfo: &VkDrawIndirect2InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDrawIndirect2KHR.unwrap_unchecked()(self.raw, pInfo)
@@ -10413,7 +10431,7 @@ impl<'dev> CommandBuffer<'dev> {
     &self,
     instanceCount: u32,
     firstInstance: u32,
-    pCounterInfo: &VkBindTransformFeedbackBuffer2InfoEXT,
+    pCounterInfo: &VkBindTransformFeedbackBuffer2InfoEXT<'_>,
     counterOffset: u32,
     vertexStride: u32,
   ) {
@@ -10453,7 +10471,7 @@ impl<'dev> CommandBuffer<'dev> {
     all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
   ))]
   #[inline(always)]
-  pub fn vkCmdDrawIndirectCount2KHR(&self, pInfo: &VkDrawIndirectCount2InfoKHR) {
+  pub fn vkCmdDrawIndirectCount2KHR(&self, pInfo: &VkDrawIndirectCount2InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDrawIndirectCount2KHR.unwrap_unchecked()(self.raw, pInfo)
@@ -10478,7 +10496,7 @@ impl<'dev> CommandBuffer<'dev> {
     feature = "VK_KHR_device_address_commands"
   ))]
   #[inline(always)]
-  pub fn vkCmdDrawMeshTasksIndirect2EXT(&self, pInfo: &VkDrawIndirect2InfoKHR) {
+  pub fn vkCmdDrawMeshTasksIndirect2EXT(&self, pInfo: &VkDrawIndirect2InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -10513,7 +10531,7 @@ impl<'dev> CommandBuffer<'dev> {
     )
   ))]
   #[inline(always)]
-  pub fn vkCmdDrawMeshTasksIndirectCount2EXT(&self, pInfo: &VkDrawIndirectCount2InfoKHR) {
+  pub fn vkCmdDrawMeshTasksIndirectCount2EXT(&self, pInfo: &VkDrawIndirectCount2InfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -10545,7 +10563,7 @@ impl<'dev> CommandBuffer<'dev> {
     &self,
     firstCounterRange: u32,
     counterRangeCount: u32,
-    pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT,
+    pCounterInfos: *const VkBindTransformFeedbackBuffer2InfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10638,7 +10656,7 @@ impl<'dev> CommandBuffer<'dev> {
     feature = "VK_KHR_device_address_commands"
   ))]
   #[inline(always)]
-  pub fn vkCmdWriteMarkerToMemoryAMD(&self, pInfo: &VkMemoryMarkerInfoAMD) {
+  pub fn vkCmdWriteMarkerToMemoryAMD(&self, pInfo: &VkMemoryMarkerInfoAMD<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdWriteMarkerToMemoryAMD.unwrap_unchecked()(self.raw, pInfo)
@@ -10813,7 +10831,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pRenderingInfo`
   #[cfg(feature = "VK_KHR_dynamic_rendering")]
   #[inline(always)]
-  pub fn vkCmdBeginRenderingKHR(&self, pRenderingInfo: &VkRenderingInfoKHR) {
+  pub fn vkCmdBeginRenderingKHR(&self, pRenderingInfo: &VkRenderingInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBeginRenderingKHR.unwrap_unchecked()(self.raw, pRenderingInfo)
@@ -10856,7 +10874,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetRenderingAttachmentLocationsKHR(
     &self,
-    pLocationInfo: &VkRenderingAttachmentLocationInfoKHR,
+    pLocationInfo: &VkRenderingAttachmentLocationInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10882,7 +10900,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetRenderingInputAttachmentIndicesKHR(
     &self,
-    pInputAttachmentIndexInfo: &VkRenderingInputAttachmentIndexInfoKHR,
+    pInputAttachmentIndexInfo: &VkRenderingInputAttachmentIndexInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -10958,7 +10976,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pRenderingEndInfo`: optional: true
   #[cfg(feature = "VK_KHR_maintenance10")]
   #[inline(always)]
-  pub fn vkCmdEndRendering2KHR(&self, pRenderingEndInfo: *const VkRenderingEndInfoKHR) {
+  pub fn vkCmdEndRendering2KHR(&self, pRenderingEndInfo: *const VkRenderingEndInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndRendering2KHR.unwrap_unchecked()(self.raw, pRenderingEndInfo)
@@ -11014,7 +11032,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
     &self,
-    pBindDescriptorBufferEmbeddedSamplersInfo: &VkBindDescriptorBufferEmbeddedSamplersInfoEXT,
+    pBindDescriptorBufferEmbeddedSamplersInfo: &VkBindDescriptorBufferEmbeddedSamplersInfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11038,7 +11056,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBindDescriptorSetsInfo`
   #[cfg(feature = "VK_KHR_maintenance6")]
   #[inline(always)]
-  pub fn vkCmdBindDescriptorSets2KHR(&self, pBindDescriptorSetsInfo: &VkBindDescriptorSetsInfoKHR) {
+  pub fn vkCmdBindDescriptorSets2KHR(
+    &self,
+    pBindDescriptorSetsInfo: &VkBindDescriptorSetsInfoKHR<'_>,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBindDescriptorSets2KHR.unwrap_unchecked()(self.raw, pBindDescriptorSetsInfo)
@@ -11059,7 +11080,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPushConstantsInfo`
   #[cfg(feature = "VK_KHR_maintenance6")]
   #[inline(always)]
-  pub fn vkCmdPushConstants2KHR(&self, pPushConstantsInfo: &VkPushConstantsInfoKHR) {
+  pub fn vkCmdPushConstants2KHR(&self, pPushConstantsInfo: &VkPushConstantsInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushConstants2KHR.unwrap_unchecked()(self.raw, pPushConstantsInfo)
@@ -11081,7 +11102,10 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPushDescriptorSetInfo`
   #[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
   #[inline(always)]
-  pub fn vkCmdPushDescriptorSet2KHR(&self, pPushDescriptorSetInfo: &VkPushDescriptorSetInfoKHR) {
+  pub fn vkCmdPushDescriptorSet2KHR(
+    &self,
+    pPushDescriptorSetInfo: &VkPushDescriptorSetInfoKHR<'_>,
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPushDescriptorSet2KHR.unwrap_unchecked()(self.raw, pPushDescriptorSetInfo)
@@ -11105,7 +11129,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdPushDescriptorSetWithTemplate2KHR(
     &self,
-    pPushDescriptorSetWithTemplateInfo: &VkPushDescriptorSetWithTemplateInfoKHR,
+    pPushDescriptorSetWithTemplateInfo: &VkPushDescriptorSetWithTemplateInfoKHR<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11131,7 +11155,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetDescriptorBufferOffsets2EXT(
     &self,
-    pSetDescriptorBufferOffsetsInfo: &VkSetDescriptorBufferOffsetsInfoEXT,
+    pSetDescriptorBufferOffsetsInfo: &VkSetDescriptorBufferOffsetsInfoEXT<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11154,7 +11178,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pRefreshObjects`
   #[cfg(feature = "VK_KHR_object_refresh")]
   #[inline(always)]
-  pub fn vkCmdRefreshObjectsKHR(&self, pRefreshObjects: &VkRefreshObjectListKHR) {
+  pub fn vkCmdRefreshObjectsKHR(&self, pRefreshObjects: &VkRefreshObjectListKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdRefreshObjectsKHR.unwrap_unchecked()(self.raw, pRefreshObjects)
@@ -11184,7 +11208,7 @@ impl<'dev> CommandBuffer<'dev> {
     pipelineBindPoint: VkPipelineBindPoint,
     layout: VkPipelineLayout,
     set: u32,
-    pDescriptorWrites: &[VkWriteDescriptorSet],
+    pDescriptorWrites: &[VkWriteDescriptorSet<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11341,7 +11365,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfo`
   #[cfg(feature = "VK_KHR_synchronization2")]
   #[inline(always)]
-  pub fn vkCmdPipelineBarrier2KHR(&self, pDependencyInfo: &VkDependencyInfoKHR) {
+  pub fn vkCmdPipelineBarrier2KHR(&self, pDependencyInfo: &VkDependencyInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdPipelineBarrier2KHR.unwrap_unchecked()(self.raw, pDependencyInfo)
@@ -11385,7 +11409,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfo`
   #[cfg(feature = "VK_KHR_synchronization2")]
   #[inline(always)]
-  pub fn vkCmdSetEvent2KHR(&self, event: VkEvent, pDependencyInfo: &VkDependencyInfoKHR) {
+  pub fn vkCmdSetEvent2KHR(&self, event: VkEvent, pDependencyInfo: &VkDependencyInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdSetEvent2KHR.unwrap_unchecked()(self.raw, event, pDependencyInfo)
@@ -11408,7 +11432,11 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDependencyInfos`: len: eventCount
   #[cfg(feature = "VK_KHR_synchronization2")]
   #[inline(always)]
-  pub fn vkCmdWaitEvents2KHR(&self, pEvents: &[VkEvent], pDependencyInfos: &[VkDependencyInfoKHR]) {
+  pub fn vkCmdWaitEvents2KHR(
+    &self,
+    pEvents: &[VkEvent],
+    pDependencyInfos: &[VkDependencyInfoKHR<'_>],
+  ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdWaitEvents2KHR.unwrap_unchecked()(
@@ -11461,7 +11489,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDecodeInfo`
   #[cfg(feature = "VK_KHR_video_decode_queue")]
   #[inline(always)]
-  pub fn vkCmdDecodeVideoKHR(&self, pDecodeInfo: &VkVideoDecodeInfoKHR) {
+  pub fn vkCmdDecodeVideoKHR(&self, pDecodeInfo: &VkVideoDecodeInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDecodeVideoKHR.unwrap_unchecked()(self.raw, pDecodeInfo)
@@ -11481,7 +11509,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pEncodeInfo`
   #[cfg(feature = "VK_KHR_video_encode_queue")]
   #[inline(always)]
-  pub fn vkCmdEncodeVideoKHR(&self, pEncodeInfo: &VkVideoEncodeInfoKHR) {
+  pub fn vkCmdEncodeVideoKHR(&self, pEncodeInfo: &VkVideoEncodeInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEncodeVideoKHR.unwrap_unchecked()(self.raw, pEncodeInfo)
@@ -11501,7 +11529,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pBeginInfo`
   #[cfg(feature = "VK_KHR_video_queue")]
   #[inline(always)]
-  pub fn vkCmdBeginVideoCodingKHR(&self, pBeginInfo: &VkVideoBeginCodingInfoKHR) {
+  pub fn vkCmdBeginVideoCodingKHR(&self, pBeginInfo: &VkVideoBeginCodingInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBeginVideoCodingKHR.unwrap_unchecked()(self.raw, pBeginInfo)
@@ -11521,7 +11549,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pCodingControlInfo`
   #[cfg(feature = "VK_KHR_video_queue")]
   #[inline(always)]
-  pub fn vkCmdControlVideoCodingKHR(&self, pCodingControlInfo: &VkVideoCodingControlInfoKHR) {
+  pub fn vkCmdControlVideoCodingKHR(&self, pCodingControlInfo: &VkVideoCodingControlInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdControlVideoCodingKHR.unwrap_unchecked()(self.raw, pCodingControlInfo)
@@ -11541,7 +11569,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pEndCodingInfo`
   #[cfg(feature = "VK_KHR_video_queue")]
   #[inline(always)]
-  pub fn vkCmdEndVideoCodingKHR(&self, pEndCodingInfo: &VkVideoEndCodingInfoKHR) {
+  pub fn vkCmdEndVideoCodingKHR(&self, pEndCodingInfo: &VkVideoEndCodingInfoKHR<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndVideoCodingKHR.unwrap_unchecked()(self.raw, pEndCodingInfo)
@@ -11561,7 +11589,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pLaunchInfo`
   #[cfg(feature = "VK_NVX_binary_import")]
   #[inline(always)]
-  pub fn vkCmdCuLaunchKernelNVX(&self, pLaunchInfo: &VkCuLaunchInfoNVX) {
+  pub fn vkCmdCuLaunchKernelNVX(&self, pLaunchInfo: &VkCuLaunchInfoNVX<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCuLaunchKernelNVX.unwrap_unchecked()(self.raw, pLaunchInfo)
@@ -11614,7 +11642,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBuildClusterAccelerationStructureIndirectNV(
     &self,
-    pCommandInfos: &VkClusterAccelerationStructureCommandsInfoNV,
+    pCommandInfos: &VkClusterAccelerationStructureCommandsInfoNV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11639,7 +11667,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdSetComputeOccupancyPriorityNV(
     &self,
-    pParameters: &VkComputeOccupancyPriorityParametersNV,
+    pParameters: &VkComputeOccupancyPriorityParametersNV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11665,7 +11693,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdConvertCooperativeVectorMatrixNV(
     &self,
-    pInfos: &[VkConvertCooperativeVectorMatrixInfoNV],
+    pInfos: &[VkConvertCooperativeVectorMatrixInfoNV<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11762,7 +11790,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pLaunchInfo`
   #[cfg(feature = "VK_NV_cuda_kernel_launch")]
   #[inline(always)]
-  pub fn vkCmdCudaLaunchKernelNV(&self, pLaunchInfo: &VkCudaLaunchInfoNV) {
+  pub fn vkCmdCudaLaunchKernelNV(&self, pLaunchInfo: &VkCudaLaunchInfoNV<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdCudaLaunchKernelNV.unwrap_unchecked()(self.raw, pLaunchInfo)
@@ -11836,7 +11864,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdExecuteGeneratedCommandsNV(
     &self,
     isPreprocessed: VkBool32,
-    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoNV,
+    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoNV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -11861,7 +11889,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdPreprocessGeneratedCommandsNV(
     &self,
-    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoNV,
+    pGeneratedCommandsInfo: &VkGeneratedCommandsInfoNV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -12104,7 +12132,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdOpticalFlowExecuteNV(
     &self,
     session: VkOpticalFlowSessionNV,
-    pExecuteInfo: &VkOpticalFlowExecuteInfoNV,
+    pExecuteInfo: &VkOpticalFlowExecuteInfoNV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -12127,7 +12155,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBuildPartitionedAccelerationStructuresNV(
     &self,
-    pBuildInfo: &VkBuildPartitionedAccelerationStructureInfoNV,
+    pBuildInfo: &VkBuildPartitionedAccelerationStructureInfoNV<'_>,
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -12159,7 +12187,7 @@ impl<'dev> CommandBuffer<'dev> {
   #[inline(always)]
   pub fn vkCmdBuildAccelerationStructureNV(
     &self,
-    pInfo: &VkAccelerationStructureInfoNV,
+    pInfo: &VkAccelerationStructureInfoNV<'_>,
     instanceData: VkBuffer,
     instanceOffset: VkDeviceSize,
     update: VkBool32,
@@ -12422,7 +12450,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdSetCoarseSampleOrderNV(
     &self,
     sampleOrderType: VkCoarseSampleOrderTypeNV,
-    pCustomSampleOrders: &[VkCoarseSampleOrderCustomNV],
+    pCustomSampleOrders: &[VkCoarseSampleOrderCustomNV<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -12453,7 +12481,7 @@ impl<'dev> CommandBuffer<'dev> {
   pub fn vkCmdSetViewportShadingRatePaletteNV(
     &self,
     firstViewport: u32,
-    pShadingRatePalettes: &[VkShadingRatePaletteNV],
+    pShadingRatePalettes: &[VkShadingRatePaletteNV<'_>],
   ) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
@@ -12481,7 +12509,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pTileMemoryBindInfo`: optional: true
   #[cfg(feature = "VK_QCOM_tile_memory_heap")]
   #[inline(always)]
-  pub fn vkCmdBindTileMemoryQCOM(&self, pTileMemoryBindInfo: *const VkTileMemoryBindInfoQCOM) {
+  pub fn vkCmdBindTileMemoryQCOM(&self, pTileMemoryBindInfo: *const VkTileMemoryBindInfoQCOM<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdBindTileMemoryQCOM.unwrap_unchecked()(self.raw, pTileMemoryBindInfo)
@@ -12501,7 +12529,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPerTileBeginInfo`
   #[cfg(feature = "VK_QCOM_tile_shading")]
   #[inline(always)]
-  pub fn vkCmdBeginPerTileExecutionQCOM(&self, pPerTileBeginInfo: &VkPerTileBeginInfoQCOM) {
+  pub fn vkCmdBeginPerTileExecutionQCOM(&self, pPerTileBeginInfo: &VkPerTileBeginInfoQCOM<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)
@@ -12524,7 +12552,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pDispatchTileInfo`
   #[cfg(feature = "VK_QCOM_tile_shading")]
   #[inline(always)]
-  pub fn vkCmdDispatchTileQCOM(&self, pDispatchTileInfo: &VkDispatchTileInfoQCOM) {
+  pub fn vkCmdDispatchTileQCOM(&self, pDispatchTileInfo: &VkDispatchTileInfoQCOM<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdDispatchTileQCOM.unwrap_unchecked()(self.raw, pDispatchTileInfo)
@@ -12544,7 +12572,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `pPerTileEndInfo`
   #[cfg(feature = "VK_QCOM_tile_shading")]
   #[inline(always)]
-  pub fn vkCmdEndPerTileExecutionQCOM(&self, pPerTileEndInfo: &VkPerTileEndInfoQCOM) {
+  pub fn vkCmdEndPerTileExecutionQCOM(&self, pPerTileEndInfo: &VkPerTileEndInfoQCOM<'_>) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table).vkCmdEndPerTileExecutionQCOM.unwrap_unchecked()(self.raw, pPerTileEndInfo)

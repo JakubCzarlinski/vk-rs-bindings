@@ -126,7 +126,10 @@ impl<'dev> ShaderInstrumentationARM<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_ARM_shader_instrumentation")]
   #[inline(always)]
-  pub fn vkDestroyShaderInstrumentationARM(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyShaderInstrumentationARM(
+    &mut self,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+  ) {
     if self.raw.0.is_null() {
       return;
     }

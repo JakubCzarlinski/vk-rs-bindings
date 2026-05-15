@@ -109,7 +109,7 @@ impl<'dev> DescriptorSetLayout<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyDescriptorSetLayout(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyDescriptorSetLayout(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

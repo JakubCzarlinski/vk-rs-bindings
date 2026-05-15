@@ -92,7 +92,10 @@ impl<'dev> SamplerYcbcrConversionKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_sampler_ycbcr_conversion")]
   #[inline(always)]
-  pub fn vkDestroySamplerYcbcrConversionKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroySamplerYcbcrConversionKHR(
+    &mut self,
+    pAllocator: *const VkAllocationCallbacks<'_>,
+  ) {
     if self.raw.0.is_null() {
       return;
     }

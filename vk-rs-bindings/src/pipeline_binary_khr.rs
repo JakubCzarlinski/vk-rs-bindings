@@ -91,7 +91,7 @@ impl<'dev> PipelineBinaryKHR<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_KHR_pipeline_binary")]
   #[inline(always)]
-  pub fn vkDestroyPipelineBinaryKHR(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyPipelineBinaryKHR(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

@@ -137,8 +137,8 @@ impl<'dev> PipelineCache<'dev> {
   #[inline(always)]
   pub fn vkCreateExecutionGraphPipelinesAMDX(
     &self,
-    pCreateInfos: &[VkExecutionGraphPipelineCreateInfoAMDX],
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfos: &[VkExecutionGraphPipelineCreateInfoAMDX<'_>],
+    pAllocator: *const VkAllocationCallbacks<'_>,
     pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -172,7 +172,7 @@ impl<'dev> PipelineCache<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyPipelineCache(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyPipelineCache(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -306,8 +306,8 @@ impl<'dev> PipelineCache<'dev> {
   #[inline(always)]
   pub fn vkCreateRayTracingPipelinesNV(
     &self,
-    pCreateInfos: &[VkRayTracingPipelineCreateInfoNV],
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfos: &[VkRayTracingPipelineCreateInfoNV<'_>],
+    pAllocator: *const VkAllocationCallbacks<'_>,
     pPipelines: &mut [VkPipeline],
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

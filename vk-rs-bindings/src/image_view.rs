@@ -99,7 +99,7 @@ impl<'dev> ImageView<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyImageView(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyImageView(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -133,7 +133,7 @@ impl<'dev> ImageView<'dev> {
   #[inline(always)]
   pub fn vkGetImageViewAddressNVX(
     &self,
-    pProperties: &mut VkImageViewAddressPropertiesNVX,
+    pProperties: &mut VkImageViewAddressPropertiesNVX<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetImageViewAddressNVX.unwrap_unchecked()(

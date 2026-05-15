@@ -291,7 +291,7 @@ impl<'lib> Instance<'lib> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_BASE_VERSION_1_0")]
   #[inline(always)]
-  pub fn vkDestroyInstance(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyInstance(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }
@@ -412,7 +412,7 @@ impl<'lib> Instance<'lib> {
   pub fn vkEnumeratePhysicalDeviceGroups(
     &self,
     pPhysicalDeviceGroupCount: *mut u32,
-    pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupProperties,
+    pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupProperties<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -454,8 +454,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDebugReportCallbackEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkDebugReportCallbackCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDebugReportCallbackCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::debug_report_callback_ext::DebugReportCallbackEXT<'ret>, VkResult> {
     let mut handle = VkDebugReportCallbackEXT::NULL;
     let r = unsafe {
@@ -498,8 +498,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDebugUtilsMessengerEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkDebugUtilsMessengerCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDebugUtilsMessengerCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::debug_utils_messenger_ext::DebugUtilsMessengerEXT<'ret>, VkResult> {
     let mut handle = VkDebugUtilsMessengerEXT::NULL;
     let r = unsafe {
@@ -543,8 +543,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDirectFBSurfaceEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkDirectFBSurfaceCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDirectFBSurfaceCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -591,8 +591,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateHeadlessSurfaceEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkHeadlessSurfaceCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkHeadlessSurfaceCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -640,8 +640,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateMetalSurfaceEXT<'ret>(
     &'ret self,
-    pCreateInfo: &VkMetalSurfaceCreateInfoEXT,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkMetalSurfaceCreateInfoEXT<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -688,8 +688,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateImagePipeSurfaceFUCHSIA<'ret>(
     &'ret self,
-    pCreateInfo: &VkImagePipeSurfaceCreateInfoFUCHSIA,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkImagePipeSurfaceCreateInfoFUCHSIA<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -734,8 +734,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateStreamDescriptorSurfaceGGP<'ret>(
     &'ret self,
-    pCreateInfo: &VkStreamDescriptorSurfaceCreateInfoGGP,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkStreamDescriptorSurfaceCreateInfoGGP<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -780,8 +780,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateAndroidSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkAndroidSurfaceCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkAndroidSurfaceCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -831,7 +831,7 @@ impl<'lib> Instance<'lib> {
   pub fn vkEnumeratePhysicalDeviceGroupsKHR(
     &self,
     pPhysicalDeviceGroupCount: *mut u32,
-    pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupPropertiesKHR,
+    pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -874,8 +874,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateDisplayPlaneSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkDisplaySurfaceCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkDisplaySurfaceCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -919,8 +919,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateWaylandSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkWaylandSurfaceCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkWaylandSurfaceCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -967,8 +967,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateWin32SurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkWin32SurfaceCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkWin32SurfaceCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1015,8 +1015,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateXcbSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkXcbSurfaceCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkXcbSurfaceCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1063,8 +1063,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateXlibSurfaceKHR<'ret>(
     &'ret self,
-    pCreateInfo: &VkXlibSurfaceCreateInfoKHR,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkXlibSurfaceCreateInfoKHR<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1112,8 +1112,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateIOSSurfaceMVK<'ret>(
     &'ret self,
-    pCreateInfo: &VkIOSSurfaceCreateInfoMVK,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkIOSSurfaceCreateInfoMVK<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1161,8 +1161,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateMacOSSurfaceMVK<'ret>(
     &'ret self,
-    pCreateInfo: &VkMacOSSurfaceCreateInfoMVK,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkMacOSSurfaceCreateInfoMVK<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1210,8 +1210,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateViSurfaceNN<'ret>(
     &'ret self,
-    pCreateInfo: &VkViSurfaceCreateInfoNN,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkViSurfaceCreateInfoNN<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1258,8 +1258,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateSurfaceOHOS<'ret>(
     &'ret self,
-    pCreateInfo: &VkSurfaceCreateInfoOHOS,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkSurfaceCreateInfoOHOS<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1306,8 +1306,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateScreenSurfaceQNX<'ret>(
     &'ret self,
-    pCreateInfo: &VkScreenSurfaceCreateInfoQNX,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkScreenSurfaceCreateInfoQNX<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {
@@ -1354,8 +1354,8 @@ impl<'lib> Instance<'lib> {
   #[inline]
   pub fn vkCreateUbmSurfaceSEC<'ret>(
     &'ret self,
-    pCreateInfo: &VkUbmSurfaceCreateInfoSEC,
-    pAllocator: *const VkAllocationCallbacks,
+    pCreateInfo: &VkUbmSurfaceCreateInfoSEC<'_>,
+    pAllocator: *const VkAllocationCallbacks<'_>,
   ) -> Result<crate::surface_khr::SurfaceKHR<'ret>, VkResult> {
     let mut handle = VkSurfaceKHR::NULL;
     let r = unsafe {

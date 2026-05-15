@@ -98,7 +98,7 @@ impl<'dev> AccelerationStructureNV<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_NV_ray_tracing")]
   #[inline(always)]
-  pub fn vkDestroyAccelerationStructureNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroyAccelerationStructureNV(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

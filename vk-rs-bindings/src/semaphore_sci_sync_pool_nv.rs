@@ -91,7 +91,7 @@ impl<'dev> SemaphoreSciSyncPoolNV<'dev> {
   /// - `pAllocator`: optional: true
   #[cfg(feature = "VK_NV_external_sci_sync2")]
   #[inline(always)]
-  pub fn vkDestroySemaphoreSciSyncPoolNV(&mut self, pAllocator: *const VkAllocationCallbacks) {
+  pub fn vkDestroySemaphoreSciSyncPoolNV(&mut self, pAllocator: *const VkAllocationCallbacks<'_>) {
     if self.raw.0.is_null() {
       return;
     }

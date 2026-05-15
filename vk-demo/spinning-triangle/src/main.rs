@@ -243,7 +243,7 @@ fn read_hz(key: &str, default: f64) -> f64 {
 }
 
 fn create_instance<'a>(entry: &'a Entry<'a>, window: &Window) -> Instance<'a> {
-    let app_info = VkApplicationInfo::DEFAULT
+    const APP_INFO: VkApplicationInfo = VkApplicationInfo::DEFAULT
         .with_apiVersion(VK_API_VERSION_1_4)
         .with_applicationVersion(VK_MAKE_VERSION(0, 1, 0))
         .with_engineVersion(VK_MAKE_VERSION(0, 1, 0))
@@ -253,7 +253,7 @@ fn create_instance<'a>(entry: &'a Entry<'a>, window: &Window) -> Instance<'a> {
     let instance_extensions = required_instance_extensions(window);
 
     let create_info = VkInstanceCreateInfo::DEFAULT
-        .with_pApplicationInfo(&app_info)
+        .with_pApplicationInfo(&APP_INFO)
         .with_enabledExtensionCount(instance_extensions.len() as u32)
         .with_ppEnabledExtensionNames(instance_extensions.as_ptr());
 
@@ -407,17 +407,16 @@ fn create_device<'a>(
     queue_family_index: u32,
 ) -> Device<'a> {
     const PRIORITIES: [f32; 1] = [1.0];
-    let queue_info = VkDeviceQueueCreateInfo::DEFAULT
+    let queue_infos = &[VkDeviceQueueCreateInfo::DEFAULT
         .with_queueFamilyIndex(queue_family_index)
-        .with_pQueuePriorities(&PRIORITIES);
-    let queue_infos = [queue_info];
+        .with_pQueuePriorities(&PRIORITIES)];
 
-    let enabled_extensions = [VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
+    const ENABLED_EXTENSIONS: &[*const i8] = &[VK_KHR_SWAPCHAIN_EXTENSION_NAME.as_ptr()];
 
     let device_info = VkDeviceCreateInfo::DEFAULT
-        .with_pQueueCreateInfos(&queue_infos)
-        .with_enabledExtensionCount(enabled_extensions.len() as u32)
-        .with_ppEnabledExtensionNames(enabled_extensions.as_ptr());
+        .with_pQueueCreateInfos(queue_infos)
+        .with_enabledExtensionCount(ENABLED_EXTENSIONS.len() as u32)
+        .with_ppEnabledExtensionNames(ENABLED_EXTENSIONS.as_ptr());
 
     physical_device
         .vkCreateDevice(&device_info, null())
@@ -579,13 +578,13 @@ fn choose_extent(caps: VkSurfaceCapabilitiesKHR, window_size: PhysicalSize<u32>)
 }
 
 fn choose_composite_alpha(supported: VkCompositeAlphaFlagsKHR) -> VkCompositeAlphaFlagBitsKHR {
-    let options = [
+    const OPTIONS: [VkCompositeAlphaFlagBitsKHR; 4] = [
         VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
         VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
         VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR,
         VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
     ];
-    options
+    OPTIONS
         .into_iter()
         .find(|flag| supported.intersects(*flag))
         .unwrap_or(VkCompositeAlphaFlagBitsKHR::VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR)
@@ -602,30 +601,37 @@ fn create_render_pass<'a>(device: &'a Device<'a>, color_format: VkFormat) -> Ren
         .with_initialLayout(VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED)
         .with_finalLayout(VkImageLayout::VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
 
-    let color_ref = VkAttachmentReference2::DEFAULT
+    const COLOR_REF: VkAttachmentReference2 = VkAttachmentReference2::DEFAULT
         .with_attachment(0)
         .with_layout(VkImageLayout::VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-    let color_attachments = [color_ref];
+    const COLOR_ATTACHMENTS: &[VkAttachmentReference2] = &[COLOR_REF];
 
-    let subpass = VkSubpassDescription2::DEFAULT
+    const SUBPASS: VkSubpassDescription2 = VkSubpassDescription2::DEFAULT
         .with_pipelineBindPoint(VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS)
-        .with_pColorAttachments(&color_attachments);
+        .with_pColorAttachments(COLOR_ATTACHMENTS);
 
-    let dependency = VkSubpassDependency2::DEFAULT
+    const MEMORY_BARRIER: VkMemoryBarrier2 = VkMemoryBarrier2::DEFAULT
+        .with_srcStageMask(
+            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0,
+        )
+        .with_dstStageMask(
+            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0,
+        )
+        .with_srcAccessMask(VkAccessFlagBits2::EMPTY.0)
+        .with_dstAccessMask(VkAccessFlagBits2::VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT.0);
+
+    const DEPENDENCY: VkSubpassDependency2 = VkSubpassDependency2::DEFAULT
+        .with_pNext_VkMemoryBarrier2(&MEMORY_BARRIER)
         .with_srcSubpass(VK_SUBPASS_EXTERNAL)
-        .with_dstSubpass(0)
-        .with_srcStageMask(VkPipelineStageFlagBits::VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT)
-        .with_dstStageMask(VkPipelineStageFlagBits::VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT)
-        .with_srcAccessMask(VkAccessFlagBits::EMPTY)
-        .with_dstAccessMask(VkAccessFlagBits::VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT);
-    let attachments = [color_attachment];
-    let subpasses = [subpass];
-    let dependencies = [dependency];
+        .with_dstSubpass(0);
+    let attachments = &[color_attachment];
+    const SUBPASSES: &[VkSubpassDescription2] = &[SUBPASS];
+    const DEPENDENCIES: &[VkSubpassDependency2] = &[DEPENDENCY];
 
     let info = VkRenderPassCreateInfo2::DEFAULT
-        .with_pAttachments(&attachments)
-        .with_pSubpasses(&subpasses)
-        .with_pDependencies(&dependencies);
+        .with_pAttachments(attachments)
+        .with_pSubpasses(SUBPASSES)
+        .with_pDependencies(DEPENDENCIES);
 
     device
         .vkCreateRenderPass2(&info, null())
@@ -636,41 +642,52 @@ fn create_graphics_pipeline<'a>(
     device: &'a Device<'a>,
     render_pass: VkRenderPass,
 ) -> (PipelineLayout<'a>, Pipeline<'a>) {
-    let vert_module = create_shader_module(device, VERT_SHADER_SPV);
-    let frag_module = create_shader_module(device, FRAG_SHADER_SPV);
+    const VERTEX_INPUT: VkPipelineVertexInputStateCreateInfo =
+        VkPipelineVertexInputStateCreateInfo::DEFAULT;
+    const INPUT_ASSEMBLY: VkPipelineInputAssemblyStateCreateInfo =
+        VkPipelineInputAssemblyStateCreateInfo::DEFAULT
+            .with_topology(VkPrimitiveTopology::VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+            .with_primitiveRestartEnable(0);
 
-    let shader_stages = [
-        VkPipelineShaderStageCreateInfo::DEFAULT
-            .with_stage(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT)
-            .with_module(vert_module.raw())
-            .with_pName(c"main".as_ptr()),
-        VkPipelineShaderStageCreateInfo::DEFAULT
-            .with_stage(VkShaderStageFlagBits::VK_SHADER_STAGE_FRAGMENT_BIT)
-            .with_module(frag_module.raw())
-            .with_pName(c"main".as_ptr()),
+    const VIEWPORT_STATE: VkPipelineViewportStateCreateInfo =
+        VkPipelineViewportStateCreateInfo::DEFAULT
+            .with_viewportCount(1)
+            .with_scissorCount(1);
+
+    const RASTERIZATION: VkPipelineRasterizationStateCreateInfo =
+        VkPipelineRasterizationStateCreateInfo::DEFAULT
+            .with_depthClampEnable(0)
+            .with_rasterizerDiscardEnable(0)
+            .with_polygonMode(VkPolygonMode::VK_POLYGON_MODE_FILL)
+            .with_lineWidth(1.0)
+            .with_cullMode(VkCullModeFlagBits::VK_CULL_MODE_NONE)
+            .with_frontFace(VkFrontFace::VK_FRONT_FACE_COUNTER_CLOCKWISE)
+            .with_depthBiasEnable(0);
+
+    const MULTISAMPLE: VkPipelineMultisampleStateCreateInfo =
+        VkPipelineMultisampleStateCreateInfo::DEFAULT
+            .with_sampleShadingEnable(0)
+            .with_rasterizationSamples(VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT);
+
+    const DYNAMIC_STATES: &[VkDynamicState] = &[
+        VkDynamicState::VK_DYNAMIC_STATE_VIEWPORT,
+        VkDynamicState::VK_DYNAMIC_STATE_SCISSOR,
     ];
+    const DYNAMIC: VkPipelineDynamicStateCreateInfo = VkPipelineDynamicStateCreateInfo::DEFAULT
+        .with_dynamicStateCount(DYNAMIC_STATES.len() as u32)
+        .with_pDynamicStates(DYNAMIC_STATES);
 
-    let vertex_input = VkPipelineVertexInputStateCreateInfo::DEFAULT;
-    let input_assembly = VkPipelineInputAssemblyStateCreateInfo::DEFAULT
-        .with_topology(VkPrimitiveTopology::VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
-        .with_primitiveRestartEnable(0);
-
-    let viewport_state = VkPipelineViewportStateCreateInfo::DEFAULT
-        .with_viewportCount(1)
-        .with_scissorCount(1);
-
-    let rasterization = VkPipelineRasterizationStateCreateInfo::DEFAULT
-        .with_depthClampEnable(0)
-        .with_rasterizerDiscardEnable(0)
-        .with_polygonMode(VkPolygonMode::VK_POLYGON_MODE_FILL)
-        .with_lineWidth(1.0)
-        .with_cullMode(VkCullModeFlagBits::VK_CULL_MODE_NONE)
-        .with_frontFace(VkFrontFace::VK_FRONT_FACE_COUNTER_CLOCKWISE)
-        .with_depthBiasEnable(0);
-
-    let multisample = VkPipelineMultisampleStateCreateInfo::DEFAULT
-        .with_sampleShadingEnable(0)
-        .with_rasterizationSamples(VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT);
+    const PUSH_CONSTANT_RANGE: VkPushConstantRange = VkPushConstantRange::DEFAULT
+        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT)
+        .with_offset(0)
+        .with_size(core::mem::size_of::<f32>() as u32);
+    const PUSH_CONSTANT_RANGES: &[VkPushConstantRange] = &[PUSH_CONSTANT_RANGE];
+    let layout_info = VkPipelineLayoutCreateInfo::DEFAULT
+        .with_pushConstantRangeCount(1)
+        .with_pPushConstantRanges(PUSH_CONSTANT_RANGES);
+    let pipeline_layout = device
+        .vkCreatePipelineLayout(&layout_info, null())
+        .expect("vkCreatePipelineLayout failed");
 
     let color_blend_attachment = VkPipelineColorBlendAttachmentState::DEFAULT
         .with_colorWriteMask(
@@ -685,36 +702,29 @@ fn create_graphics_pipeline<'a>(
         .with_attachmentCount(1)
         .with_pAttachments(&color_blend_attachment);
 
-    let dynamic_states = [
-        VkDynamicState::VK_DYNAMIC_STATE_VIEWPORT,
-        VkDynamicState::VK_DYNAMIC_STATE_SCISSOR,
-    ];
-    let dynamic = VkPipelineDynamicStateCreateInfo::DEFAULT
-        .with_dynamicStateCount(dynamic_states.len() as u32)
-        .with_pDynamicStates(&dynamic_states);
+    let vert_module = create_shader_module(device, VERT_SHADER_SPV);
+    let frag_module = create_shader_module(device, FRAG_SHADER_SPV);
 
-    let push_constant_range = VkPushConstantRange::DEFAULT
-        .with_stageFlags(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT)
-        .with_offset(0)
-        .with_size(std::mem::size_of::<f32>() as u32);
-    let push_constant_ranges = [push_constant_range];
-    let layout_info = VkPipelineLayoutCreateInfo::DEFAULT
-        .with_pushConstantRangeCount(1)
-        .with_pPushConstantRanges(&push_constant_ranges);
-    let pipeline_layout = device
-        .vkCreatePipelineLayout(&layout_info, null())
-        .expect("vkCreatePipelineLayout failed");
+    let shader_stages = [
+        VkPipelineShaderStageCreateInfo::DEFAULT
+            .with_stage(VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT)
+            .with_module(vert_module.raw())
+            .with_pName(c"main".as_ptr()),
+        VkPipelineShaderStageCreateInfo::DEFAULT
+            .with_stage(VkShaderStageFlagBits::VK_SHADER_STAGE_FRAGMENT_BIT)
+            .with_module(frag_module.raw())
+            .with_pName(c"main".as_ptr()),
+    ];
 
     let pipeline_info = VkGraphicsPipelineCreateInfo::DEFAULT
-        .with_stageCount(shader_stages.len() as u32)
         .with_pStages(&shader_stages)
-        .with_pVertexInputState(&vertex_input)
-        .with_pInputAssemblyState(&input_assembly)
-        .with_pViewportState(&viewport_state)
-        .with_pRasterizationState(&rasterization)
-        .with_pMultisampleState(&multisample)
+        .with_pVertexInputState(&VERTEX_INPUT)
+        .with_pInputAssemblyState(&INPUT_ASSEMBLY)
+        .with_pViewportState(&VIEWPORT_STATE)
+        .with_pRasterizationState(&RASTERIZATION)
+        .with_pMultisampleState(&MULTISAMPLE)
         .with_pColorBlendState(&color_blend)
-        .with_pDynamicState(&dynamic)
+        .with_pDynamicState(&DYNAMIC)
         .with_layout(pipeline_layout.raw())
         .with_renderPass(render_pass)
         .with_subpass(0);
@@ -895,38 +905,35 @@ fn draw_frame(
         angle,
     );
 
-    let wait_semaphore = VkSemaphoreSubmitInfo::DEFAULT
+    let wait_infos = &[VkSemaphoreSubmitInfo::DEFAULT
         .with_semaphore(sync.image_available.raw())
         .with_stageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0)
         .with_deviceIndex(0)
-        .with_value(0);
-    let signal_semaphore = VkSemaphoreSubmitInfo::DEFAULT
+        .with_value(0)];
+    let cmd_infos = &[VkCommandBufferSubmitInfo::DEFAULT
+        .with_commandBuffer(command_buffer.raw())
+        .with_deviceMask(0)];
+    let signal_infos = &[VkSemaphoreSubmitInfo::DEFAULT
         .with_semaphore(sync.render_finished.raw())
         .with_stageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0)
         .with_deviceIndex(0)
-        .with_value(0);
-    let cmd_info = VkCommandBufferSubmitInfo::DEFAULT
-        .with_commandBuffer(command_buffer.raw())
-        .with_deviceMask(0);
-    let wait_infos = [wait_semaphore];
-    let cmd_infos = [cmd_info];
-    let signal_infos = [signal_semaphore];
-    let submit_info = VkSubmitInfo2::DEFAULT
-        .with_pWaitSemaphoreInfos(&wait_infos)
-        .with_pCommandBufferInfos(&cmd_infos)
-        .with_pSignalSemaphoreInfos(&signal_infos);
+        .with_value(0)];
+    let submit_info = &[VkSubmitInfo2::DEFAULT
+        .with_pWaitSemaphoreInfos(wait_infos)
+        .with_pCommandBufferInfos(cmd_infos)
+        .with_pSignalSemaphoreInfos(signal_infos)];
 
     queue
-        .vkQueueSubmit2(&[submit_info], sync.in_flight_fence.raw())
+        .vkQueueSubmit2(submit_info, sync.in_flight_fence.raw())
         .expect("vkQueueSubmit2 failed");
 
-    let wait_semaphores = [sync.render_finished.raw()];
-    let swapchains = [swapchain_state.swapchain.raw()];
-    let image_indices = [image_index];
+    let wait_semaphores = &[sync.render_finished.raw()];
+    let swapchains = &[swapchain_state.swapchain.raw()];
+    let image_indices = &[image_index];
     let present_info = VkPresentInfoKHR::DEFAULT
-        .with_pWaitSemaphores(&wait_semaphores)
-        .with_pSwapchains(&swapchains)
-        .with_pImageIndices(&image_indices);
+        .with_pWaitSemaphores(wait_semaphores)
+        .with_pSwapchains(swapchains)
+        .with_pImageIndices(image_indices);
 
     window.pre_present_notify();
 

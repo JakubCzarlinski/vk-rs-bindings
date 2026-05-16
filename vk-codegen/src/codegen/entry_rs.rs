@@ -1,6 +1,8 @@
 use crate::cfggen::cfg_availability;
 use crate::codegen::pretty;
-use crate::codegen::utils::{c_str_lit, create_doc, params_to_tokens, safe_method};
+use crate::codegen::utils::{
+    c_str_lit, create_doc, params_to_tokens, safe_method, vk_result_return_if_err,
+};
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
@@ -340,6 +342,7 @@ fn gen_create_instance(
     for doc_lines in doc.lines() {
         token_stream.extend(quote! { #[doc = #doc_lines] });
     }
+    let return_if_err = vk_result_return_if_err();
     token_stream.extend(quote! {
         #cfg
         #[inline]
@@ -351,7 +354,7 @@ fn gen_create_instance(
             let mut raw = VkInstance::NULL;
             {
                 let r = unsafe { (self.table.vkCreateInstance.unwrap_unchecked())(#(#p_fwd,)* &mut raw) };
-                if r < VkResult::VK_SUCCESS { return Err(r); }
+                #return_if_err
             }
             let load_lambda = |name: *const c_char| unsafe { (self.lib.get_instance_proc_addr)(raw, name) };
             Ok(Instance {

@@ -995,6 +995,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1045,6 +1046,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1099,6 +1101,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1150,6 +1153,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1191,6 +1195,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1261,6 +1266,7 @@ impl<'inst> PhysicalDevice<'inst> {
         (self.table.vkCreateDevice.unwrap_unchecked())(self.raw, pCreateInfo, pAllocator, &mut raw)
       };
       if r < VkResult::VK_SUCCESS {
+        core::hint::cold_path();
         return Err(r);
       }
     }
@@ -1464,6 +1470,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1503,6 +1510,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1606,6 +1614,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1890,6 +1899,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2025,6 +2035,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2060,6 +2071,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2095,6 +2107,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(handle)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2131,6 +2144,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2174,6 +2188,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(handle)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2214,6 +2229,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2264,6 +2280,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2328,6 +2345,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2371,6 +2389,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2435,6 +2454,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2475,6 +2495,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2515,6 +2536,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2562,6 +2584,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2610,6 +2633,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(handle)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2652,6 +2676,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2693,6 +2718,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2735,6 +2761,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2775,6 +2802,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2815,6 +2843,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2933,6 +2962,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2975,6 +3005,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3014,6 +3045,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3054,6 +3086,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3094,6 +3127,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3185,6 +3219,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3323,6 +3358,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3366,6 +3402,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3408,6 +3445,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3459,6 +3497,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3523,6 +3562,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3566,6 +3606,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3609,6 +3650,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3651,6 +3693,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3694,6 +3737,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3737,6 +3781,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3789,6 +3834,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3915,6 +3961,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3950,6 +3997,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(handle)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3990,6 +4038,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4030,6 +4079,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4070,6 +4120,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4110,6 +4161,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4169,6 +4221,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4210,6 +4263,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4247,6 +4301,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4289,6 +4344,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4337,6 +4393,7 @@ impl<'inst> PhysicalDevice<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }

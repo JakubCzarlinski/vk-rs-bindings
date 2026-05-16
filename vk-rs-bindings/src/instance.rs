@@ -336,6 +336,7 @@ impl<'lib> Instance<'lib> {
     {
       let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
       if r < VkResult::VK_SUCCESS {
+        core::hint::cold_path();
         return Err(r);
       }
     }
@@ -346,6 +347,7 @@ impl<'lib> Instance<'lib> {
     {
       let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
       if r < VkResult::VK_SUCCESS {
+        core::hint::cold_path();
         return Err(r);
       }
     }
@@ -426,6 +428,7 @@ impl<'lib> Instance<'lib> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -470,6 +473,7 @@ impl<'lib> Instance<'lib> {
         table: &self.debug_report_callback_ext_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -514,6 +518,7 @@ impl<'lib> Instance<'lib> {
         table: &self.debug_utils_messenger_ext_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -562,6 +567,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -610,6 +616,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -659,6 +666,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -704,6 +712,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -750,6 +759,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -799,6 +809,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -845,6 +856,7 @@ impl<'lib> Instance<'lib> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -890,6 +902,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -938,6 +951,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -986,6 +1000,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1034,6 +1049,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1082,6 +1098,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1131,6 +1148,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1180,6 +1198,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1229,6 +1248,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1277,6 +1297,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1325,6 +1346,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -1373,6 +1395,7 @@ impl<'lib> Instance<'lib> {
         table: &self.surface_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }

@@ -4,7 +4,7 @@ use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
     Tier, c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
-    safe_method_unit_with_overrides, vk_result_is_err,
+    safe_method_unit_with_overrides, vk_result_return_if_err,
 };
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
@@ -298,7 +298,7 @@ fn gen_instance(
 
 fn gen_enumerate_physical_devices(cmd: &crate::ir::Command, providers: &[String]) -> TokenStream {
     let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
-    let is_err = vk_result_is_err();
+    let return_if_err = vk_result_return_if_err();
     let doc = create_doc(cmd, providers);
     let mut token_stream = TokenStream::new();
     for doc_lines in doc.lines() {
@@ -316,14 +316,14 @@ fn gen_enumerate_physical_devices(cmd: &crate::ir::Command, providers: &[String]
             let mut count = 0;
             {
                 let r = unsafe { fp(self.raw, &mut count, core::ptr::null_mut()) };
-                if #is_err { return Err(r); }
+                #return_if_err
             }
             // No point in calling again if there are no physical devices.
             if count == 0 { return Ok(alloc::boxed::Box::<[PhysicalDevice<'inst>; 0]>::new([])); }
             let mut raw_gpus = alloc::boxed::Box::<[VkPhysicalDevice]>::new_uninit_slice(count as usize);
             {
                 let r = unsafe { fp(self.raw, &mut count, raw_gpus.as_mut_ptr().cast()) };
-                if r < VkResult::VK_SUCCESS { return Err(r); }
+                #return_if_err
             }
             let raw_gpus = unsafe { raw_gpus.assume_init() };
 

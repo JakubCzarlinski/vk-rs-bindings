@@ -213,6 +213,7 @@ impl<'lib> Entry<'lib> {
         (self.table.vkCreateInstance.unwrap_unchecked())(pCreateInfo, pAllocator, &mut raw)
       };
       if r < VkResult::VK_SUCCESS {
+        core::hint::cold_path();
         return Err(r);
       }
     }
@@ -272,6 +273,7 @@ impl<'lib> Entry<'lib> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -312,6 +314,7 @@ impl<'lib> Entry<'lib> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -341,6 +344,7 @@ impl<'lib> Entry<'lib> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }

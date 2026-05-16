@@ -187,6 +187,7 @@ impl<'dev> CommandPool<'dev> {
         )
       };
       if r < VkResult::VK_SUCCESS {
+        core::hint::cold_path();
         return Err(r);
       }
     }
@@ -283,6 +284,7 @@ impl<'dev> CommandPool<'dev> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }

@@ -5,6 +5,7 @@ use crate::codegen::pretty;
 use crate::codegen::utils::{
     Tier, base_type_tokens, c_str_lit, collect_groups, create_doc, enabled_set, is_cmd_buf_cmd,
     kw_escape, param_sig_type, safe_method, safe_method_unit_with_overrides, strip_first_param,
+    vk_result_return_if_err,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -307,6 +308,7 @@ fn gen_create_command_pool(cmd: &Command, providers: &[String]) -> TokenStream {
             if r >= VkResult::VK_SUCCESS {
                 Ok(crate::command_pool::CommandPool { raw, parent: self, table: &self.command_pool_table })
             } else {
+                core::hint::cold_path();
                 Err(r)
             }
         }
@@ -345,6 +347,7 @@ fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
     for doc_lines in doc.lines() {
         token_stream.extend(quote! { #[doc = #doc_lines] });
     }
+    let return_if_err = vk_result_return_if_err();
     token_stream.extend(quote! {
         #cfg
         #[inline]
@@ -355,9 +358,7 @@ fn gen_create_pipelines(cmd: &Command, providers: &[String]) -> TokenStream {
             let mut raw_pipelines = alloc::boxed::Box::<[VkPipeline]>::new_uninit_slice(pCreateInfos.len() as usize);
             {
                 let r = unsafe { (self.table.#fname.unwrap_unchecked())(self.raw, #(#p_fwd,)* raw_pipelines.as_mut_ptr().cast()) };
-                if r < VkResult::VK_SUCCESS {
-                  return Err(r);
-                }
+                #return_if_err
             }
             let raw_pipelines = unsafe { raw_pipelines.assume_init() };
 

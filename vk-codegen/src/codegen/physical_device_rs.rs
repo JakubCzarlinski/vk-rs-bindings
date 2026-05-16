@@ -4,6 +4,7 @@ use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
     Tier, c_str_lit, collect_groups, create_doc, enabled_set, params_to_tokens, safe_method,
+    vk_result_return_if_err,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -161,6 +162,7 @@ fn gen_create_device(
     for doc_lines in doc.lines() {
         token_stream.extend(quote! { #[doc = #doc_lines] });
     }
+    let return_if_err = vk_result_return_if_err();
     token_stream.extend(quote! {
         #cfg
         #[inline]
@@ -172,7 +174,7 @@ fn gen_create_device(
             let mut raw = VkDevice::NULL;
             {
                 let r = unsafe { (self.table.vkCreateDevice.unwrap_unchecked())(self.raw, #(#p_fwd,)* &mut raw) };
-                if r < VkResult::VK_SUCCESS { return Err(r); }
+                #return_if_err
             }
             let gdpa  = unsafe { self.instance.table.vkGetDeviceProcAddr.unwrap_unchecked() };
             let load_lambda = |name: *const c_char| unsafe { gdpa(raw, name) };

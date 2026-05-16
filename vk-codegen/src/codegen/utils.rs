@@ -186,14 +186,24 @@ pub fn build_handle_type_set(reg: &Registry) -> HashSet<String> {
 }
 
 #[must_use]
-pub fn vk_result_is_err() -> TokenStream {
-    quote! { r < VkResult::VK_SUCCESS }
+pub fn vk_result_return_if_err() -> TokenStream {
+    quote! {
+        if r < VkResult::VK_SUCCESS {
+            core::hint::cold_path();
+            return Err(r);
+        }
+    }
 }
 
 #[must_use]
 pub fn result_check_arms() -> TokenStream {
     quote! {
-        if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+        if r >= VkResult::VK_SUCCESS {
+            Ok(r)
+        } else {
+            core::hint::cold_path();
+            Err(r)
+        }
     }
 }
 
@@ -942,6 +952,7 @@ pub fn safe_method(
                                 table: &#table_owner.#tf
                             })
                         } else {
+                            core::hint::cold_path();
                             Err(r)
                         }
                     }
@@ -956,6 +967,7 @@ pub fn safe_method(
                         if r >= VkResult::VK_SUCCESS {
                             Ok(handle)
                         } else {
+                            core::hint::cold_path();
                             Err(r)
                         }
                     }
@@ -992,7 +1004,7 @@ pub fn safe_method(
                 })
                 .collect();
 
-            let is_err = vk_result_is_err();
+            let return_if_err = vk_result_return_if_err();
 
             let mut fwd_first = fwd.clone();
             fwd_first[ci] = quote! { &mut count };
@@ -1008,13 +1020,14 @@ pub fn safe_method(
                 pub fn #fname(&self, #(#p_defs),*) -> Result<alloc::boxed::Box<[#elem_ty]>, VkResult> {
                     let mut count: u32 = 0;
                     let r = unsafe { #fp(#(#fwd_first),*) };
-                    if #is_err { return Err(r); }
+                    #return_if_err
                     if count == 0 { return Ok(alloc::boxed::Box::<[#elem_ty; 0]>::new([])); }
                     let mut out = alloc::boxed::Box::<[#elem_ty]>::new_uninit_slice(count as usize);
                     let r = unsafe { #fp(#(#fwd_second),*) };
                     if r >= VkResult::VK_SUCCESS {
                         Ok(unsafe { out.assume_init() })
                     } else {
+                        core::hint::cold_path();
                         Err(r)
                     }
                 }

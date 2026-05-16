@@ -135,6 +135,7 @@ impl<'dev> Buffer<'dev> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }

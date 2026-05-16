@@ -2314,6 +2314,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2379,6 +2380,7 @@ impl<'inst> Device<'inst> {
         table: &self.gpa_session_amd_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2412,6 +2414,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2445,6 +2448,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2484,6 +2488,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2523,6 +2528,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2561,6 +2567,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2609,6 +2616,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2651,6 +2659,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2697,6 +2706,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2744,6 +2754,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2815,6 +2826,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2855,6 +2867,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2903,6 +2916,7 @@ impl<'inst> Device<'inst> {
         table: &self.tensor_arm_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -2951,6 +2965,7 @@ impl<'inst> Device<'inst> {
         table: &self.tensor_view_arm_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3039,6 +3054,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3079,6 +3095,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3130,6 +3147,7 @@ impl<'inst> Device<'inst> {
         table: &self.device_memory_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3175,6 +3193,7 @@ impl<'inst> Device<'inst> {
         table: &self.buffer_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3224,6 +3243,7 @@ impl<'inst> Device<'inst> {
         table: &self.command_pool_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3268,6 +3288,7 @@ impl<'inst> Device<'inst> {
         table: &self.fence_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3314,6 +3335,7 @@ impl<'inst> Device<'inst> {
         table: &self.image_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3364,6 +3386,7 @@ impl<'inst> Device<'inst> {
         table: &self.image_view_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3413,6 +3436,7 @@ impl<'inst> Device<'inst> {
         table: &self.query_pool_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3462,6 +3486,7 @@ impl<'inst> Device<'inst> {
         table: &self.semaphore_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3515,6 +3540,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3556,6 +3582,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3629,6 +3656,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3666,6 +3694,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3715,6 +3744,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3757,6 +3787,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -3798,6 +3829,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4029,6 +4061,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4068,6 +4101,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4116,6 +4150,7 @@ impl<'inst> Device<'inst> {
         table: &self.private_data_slot_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4278,6 +4313,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4316,6 +4352,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4354,6 +4391,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4392,6 +4430,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4455,6 +4494,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4498,6 +4538,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4531,6 +4572,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4580,6 +4622,7 @@ impl<'inst> Device<'inst> {
         table: &self.buffer_view_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4634,6 +4677,7 @@ impl<'inst> Device<'inst> {
         )
       };
       if r < VkResult::VK_SUCCESS {
+        core::hint::cold_path();
         return Err(r);
       }
     }
@@ -4696,6 +4740,7 @@ impl<'inst> Device<'inst> {
         table: &self.descriptor_pool_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4746,6 +4791,7 @@ impl<'inst> Device<'inst> {
         table: &self.descriptor_set_layout_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4790,6 +4836,7 @@ impl<'inst> Device<'inst> {
         table: &self.event_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4841,6 +4888,7 @@ impl<'inst> Device<'inst> {
         table: &self.pipeline_cache_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4891,6 +4939,7 @@ impl<'inst> Device<'inst> {
         table: &self.pipeline_layout_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4942,6 +4991,7 @@ impl<'inst> Device<'inst> {
         table: &self.sampler_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -4993,6 +5043,7 @@ impl<'inst> Device<'inst> {
         table: &self.shader_module_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5072,6 +5123,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5119,6 +5171,7 @@ impl<'inst> Device<'inst> {
         table: &self.sampler_ycbcr_conversion_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5211,6 +5264,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5248,6 +5302,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5282,6 +5337,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5316,6 +5372,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5350,6 +5407,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5396,6 +5454,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5435,6 +5494,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5502,6 +5562,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5541,6 +5602,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5580,6 +5642,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5625,6 +5688,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5671,6 +5735,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5718,6 +5783,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5786,6 +5852,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5829,6 +5896,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5866,6 +5934,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5913,6 +5982,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -5958,6 +6028,7 @@ impl<'inst> Device<'inst> {
         table: &self.indirect_execution_set_ext_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6029,6 +6100,7 @@ impl<'inst> Device<'inst> {
         table: &self.fence_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6075,6 +6147,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6116,6 +6189,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6157,6 +6231,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6204,6 +6279,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6270,6 +6346,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6308,6 +6385,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6346,6 +6424,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6389,6 +6468,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6454,6 +6534,7 @@ impl<'inst> Device<'inst> {
         table: &self.micromap_ext_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6557,6 +6638,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6597,6 +6679,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6642,6 +6725,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6690,6 +6774,7 @@ impl<'inst> Device<'inst> {
         table: &self.private_data_slot_ext_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6770,6 +6855,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6843,6 +6929,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6877,6 +6964,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6924,6 +7012,7 @@ impl<'inst> Device<'inst> {
         table: &self.validation_cache_ext_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -6970,6 +7059,7 @@ impl<'inst> Device<'inst> {
         table: &self.buffer_collection_fuchsia_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7009,6 +7099,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7054,6 +7145,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7093,6 +7185,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7130,6 +7223,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7179,6 +7273,7 @@ impl<'inst> Device<'inst> {
         table: &self.framebuffer_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7233,6 +7328,7 @@ impl<'inst> Device<'inst> {
         )
       };
       if r < VkResult::VK_SUCCESS {
+        core::hint::cold_path();
         return Err(r);
       }
     }
@@ -7296,6 +7392,7 @@ impl<'inst> Device<'inst> {
         table: &self.render_pass_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7346,6 +7443,7 @@ impl<'inst> Device<'inst> {
         table: &self.render_pass_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7417,6 +7515,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7456,6 +7555,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7493,6 +7593,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7559,6 +7660,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7692,6 +7794,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7734,6 +7837,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7775,6 +7879,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7888,6 +7993,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7938,6 +8044,7 @@ impl<'inst> Device<'inst> {
         table: &self.render_pass_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -7982,6 +8089,7 @@ impl<'inst> Device<'inst> {
         table: &self.deferred_operation_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8031,6 +8139,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8082,6 +8191,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8117,6 +8227,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8162,6 +8273,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8211,6 +8323,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8288,6 +8401,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8337,6 +8451,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8372,6 +8487,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8406,6 +8522,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8447,6 +8564,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8485,6 +8603,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8520,6 +8639,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8564,6 +8684,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8605,6 +8726,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8646,6 +8768,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8682,6 +8805,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8717,6 +8841,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8758,6 +8883,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -8795,6 +8921,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9072,6 +9199,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9106,6 +9234,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9139,6 +9268,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9203,6 +9333,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9251,6 +9382,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9292,6 +9424,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9329,6 +9462,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9376,6 +9510,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9418,6 +9553,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9460,6 +9596,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9509,6 +9646,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9562,6 +9700,7 @@ impl<'inst> Device<'inst> {
         table: &self.swapchain_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9596,6 +9735,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9630,6 +9770,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9669,6 +9810,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9719,6 +9861,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9770,6 +9913,7 @@ impl<'inst> Device<'inst> {
         table: &self.video_session_khr_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9819,6 +9963,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9867,6 +10012,7 @@ impl<'inst> Device<'inst> {
         table: &self.cu_function_nvx_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -9915,6 +10061,7 @@ impl<'inst> Device<'inst> {
         table: &self.cu_module_nvx_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10034,6 +10181,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10082,6 +10230,7 @@ impl<'inst> Device<'inst> {
         table: &self.cuda_function_nv_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10130,6 +10279,7 @@ impl<'inst> Device<'inst> {
         table: &self.cuda_module_nv_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10177,6 +10327,7 @@ impl<'inst> Device<'inst> {
         },
       )
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10292,6 +10443,7 @@ impl<'inst> Device<'inst> {
         table: &self.external_compute_queue_nv_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10332,6 +10484,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10368,6 +10521,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10413,6 +10567,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10458,6 +10613,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10495,6 +10651,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10534,6 +10691,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10573,6 +10731,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10611,6 +10770,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10656,6 +10816,7 @@ impl<'inst> Device<'inst> {
         table: &self.semaphore_sci_sync_pool_nv_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10704,6 +10865,7 @@ impl<'inst> Device<'inst> {
         table: &self.optical_flow_session_nv_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10766,6 +10928,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10810,6 +10973,7 @@ impl<'inst> Device<'inst> {
         table: &self.acceleration_structure_nv_table,
       })
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10870,6 +11034,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10909,6 +11074,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10946,6 +11112,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }
@@ -10985,6 +11152,7 @@ impl<'inst> Device<'inst> {
     if r >= VkResult::VK_SUCCESS {
       Ok(r)
     } else {
+      core::hint::cold_path();
       Err(r)
     }
   }

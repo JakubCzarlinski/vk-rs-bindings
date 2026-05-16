@@ -3,7 +3,7 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
     c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
-    safe_method_unit_with_overrides,
+    safe_method_unit_with_overrides, vk_result_return_if_err,
 };
 use crate::ir::{Availability, Command, Registry, TypedefKind};
 use proc_macro2::TokenStream;
@@ -543,6 +543,7 @@ fn gen_allocate_command_buffers(cmd: &Command, providers: &[String]) -> TokenStr
     for doc_lines in doc.lines() {
         token_stream.extend(quote! { #[doc = #doc_lines] });
     }
+    let return_if_err = vk_result_return_if_err();
 
     token_stream.extend(quote! {
         #cfg
@@ -554,7 +555,7 @@ fn gen_allocate_command_buffers(cmd: &Command, providers: &[String]) -> TokenStr
             let mut raw_buffers = alloc::boxed::Box::<[VkCommandBuffer]>::new_uninit_slice(pAllocateInfo.commandBufferCount as usize);
             {
                 let r = unsafe { (self.table.vkAllocateCommandBuffers.unwrap_unchecked())(self.device().raw, pAllocateInfo, raw_buffers.as_mut_ptr().cast()) };
-                if r < VkResult::VK_SUCCESS { return Err(r); }
+                #return_if_err
             }
             let raw_buffers = unsafe { raw_buffers.assume_init() };
 
@@ -595,6 +596,7 @@ fn gen_allocate_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStr
     for doc_lines in doc.lines() {
         token_stream.extend(quote! { #[doc = #doc_lines] });
     }
+    let return_if_err = vk_result_return_if_err();
 
     token_stream.extend(quote! {
         #cfg
@@ -606,7 +608,7 @@ fn gen_allocate_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStr
             let mut raw_sets = alloc::boxed::Box::<[VkDescriptorSet]>::new_uninit_slice(pAllocateInfo.descriptorSetCount as usize);
             {
                 let r = unsafe { self.table.vkAllocateDescriptorSets.unwrap_unchecked()(self.device().raw, pAllocateInfo, raw_sets.as_mut_ptr().cast()) };
-                if r < VkResult::VK_SUCCESS { return Err(r); }
+                #return_if_err
             }
             let raw_sets = unsafe { raw_sets.assume_init() };
 
@@ -635,7 +637,12 @@ fn gen_free_descriptor_sets(cmd: &Command, providers: &[String]) -> TokenStream 
             pDescriptorSets: &[VkDescriptorSet],
         ) -> Result<VkResult, VkResult> {
             let r = unsafe { (self.table.vkFreeDescriptorSets.unwrap_unchecked())(self.device().raw, self.raw, pDescriptorSets.len() as u32, pDescriptorSets.as_ptr()) };
-            if r >= VkResult::VK_SUCCESS { Ok(r) } else { Err(r) }
+            if r >= VkResult::VK_SUCCESS {
+                Ok(r)
+            } else {
+                core::hint::cold_path();
+                Err(r)
+            }
         }
     });
     token_stream

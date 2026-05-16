@@ -336,6 +336,23 @@ pub fn apply_require_extensions(reg: &mut Registry) {
         .filter(|e| e.is_disabled())
         .map(|e| e.name.clone())
         .collect();
+    let mut disabled_required_types = HashSet::<String>::new();
+    let mut enabled_required_types = HashSet::<String>::new();
+    for feat in &reg.features {
+        for req in &feat.requires {
+            enabled_required_types.extend(req.types.iter().cloned());
+        }
+    }
+    for ext in &reg.extensions {
+        let required_types = if ext.is_disabled() {
+            &mut disabled_required_types
+        } else {
+            &mut enabled_required_types
+        };
+        for req in &ext.requires {
+            required_types.extend(req.types.iter().cloned());
+        }
+    }
     let mut to_add: Vec<(String, EnumVariant)> = Vec::new();
     let mut ext_consts: Vec<(String, Constant)> = Vec::new();
 
@@ -406,6 +423,52 @@ pub fn apply_require_extensions(reg: &mut Registry) {
         scrub(&mut c.provided_by);
         scrub_availability(&mut c.availability);
     }
+    reg.enums.retain(|name, entries| {
+        let disabled_only_type =
+            disabled_required_types.contains(name) && !enabled_required_types.contains(name);
+        if disabled_only_type {
+            entries.retain(|e| !e.provided_by.is_empty());
+        }
+        !entries.is_empty()
+    });
+    let bitmask_enum_providers: Vec<_> = reg
+        .typedefs
+        .values()
+        .flatten()
+        .filter(|td| td.kind == TypedefKind::Bitmask && !td.provided_by.is_empty())
+        .filter_map(|td| {
+            let bits = td
+                .bitmask_bits
+                .clone()
+                .or_else(|| infer_bitmask_bits_name(&td.name));
+            bits.map(|bits| {
+                (
+                    bits,
+                    td.provided_by.clone(),
+                    td.availability.clone(),
+                    td.dep.clone(),
+                )
+            })
+        })
+        .collect();
+    for (bits, providers, availability, dep) in bitmask_enum_providers {
+        let Some(entries) = reg.enums.get_mut(&bits) else {
+            continue;
+        };
+        for e in entries {
+            for provider in &providers {
+                if !e.provided_by.contains(provider) {
+                    e.provided_by.push(provider.clone());
+                }
+            }
+            for item in &availability {
+                if !e.availability.contains(item) {
+                    e.availability.push(item.clone());
+                }
+            }
+            set_dep_if_unset(&mut e.dep, &dep);
+        }
+    }
     for e in reg.enums.values_mut().flatten() {
         if e.provided_by.is_empty() {
             let mut inferred: Vec<String> = Vec::new();
@@ -467,6 +530,12 @@ pub fn apply_require_extensions(reg: &mut Registry) {
             }
         }
     }
+}
+
+fn infer_bitmask_bits_name(flags_name: &str) -> Option<String> {
+    flags_name
+        .contains("Flags")
+        .then(|| flags_name.replace("Flags", "FlagBits"))
 }
 
 /// Collects enums extended by features or extensions.

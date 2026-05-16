@@ -3,999 +3,6 @@
 //! Enums are `repr(transparent)` newtypes over `i32`/`i64`.
 //! Bitmasks are `repr(transparent)` newtypes over `u32`/`u64`
 //! with `|`, `&`, `^`, `!` and compound-assignment operators.
-/// [VkDeviceCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceCreateFlags.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkDeviceCreateFlagBits(pub i32);
-impl VkDeviceCreateFlagBits {}
-impl core::fmt::Display for VkDeviceCreateFlagBits {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    match self.0 {
-      _ => write!(f, "{}({})", stringify!(VkDeviceCreateFlagBits), self.0),
-    }
-  }
-}
-/// [VkSemaphoreCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreCreateFlags.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkSemaphoreCreateFlagBits(pub u32);
-impl VkSemaphoreCreateFlagBits {
-  pub const EMPTY: Self = Self(0);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkSemaphoreCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkSemaphoreCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkSemaphoreCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkSemaphoreCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkSemaphoreCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkSemaphoreCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkSemaphoreCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkSemaphoreCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkSemaphoreCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkSemaphoreCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkSemaphoreCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkSemaphoreCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkSemaphoreCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkSemaphoreCreateFlagBits {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.0 == 0 {
-      f.write_str("0")
-    } else {
-      write!(f, "0x{:x}", self.0)
-    }
-  }
-}
-/// [VkPrivateDataSlotCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlotCreateFlags.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkPrivateDataSlotCreateFlagBits(pub u32);
-impl VkPrivateDataSlotCreateFlagBits {
-  pub const EMPTY: Self = Self(0);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkPrivateDataSlotCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkPrivateDataSlotCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkPrivateDataSlotCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkPrivateDataSlotCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkPrivateDataSlotCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkPrivateDataSlotCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkPrivateDataSlotCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkPrivateDataSlotCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkPrivateDataSlotCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkPrivateDataSlotCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkPrivateDataSlotCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkPrivateDataSlotCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkPrivateDataSlotCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkPrivateDataSlotCreateFlagBits {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.0 == 0 {
-      f.write_str("0")
-    } else {
-      write!(f, "0x{:x}", self.0)
-    }
-  }
-}
-/// [VkPrivateDataSlotCreateFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlotCreateFlagsEXT.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkPrivateDataSlotCreateFlagBitsEXT(pub u32);
-impl VkPrivateDataSlotCreateFlagBitsEXT {
-  pub const EMPTY: Self = Self(0);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkPrivateDataSlotCreateFlagBitsEXT {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkPrivateDataSlotCreateFlagBitsEXT {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkPrivateDataSlotCreateFlagBitsEXT {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkPrivateDataSlotCreateFlagBitsEXT {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkPrivateDataSlotCreateFlagBitsEXT {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkPrivateDataSlotCreateFlagBitsEXT {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkPrivateDataSlotCreateFlagBitsEXT {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkPrivateDataSlotCreateFlagBitsEXT {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.0 == 0 {
-      f.write_str("0")
-    } else {
-      write!(f, "0x{:x}", self.0)
-    }
-  }
-}
-/// [VkShaderModuleCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModuleCreateFlags.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkShaderModuleCreateFlagBits(pub u32);
-impl VkShaderModuleCreateFlagBits {
-  pub const EMPTY: Self = Self(0);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkShaderModuleCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkShaderModuleCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkShaderModuleCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkShaderModuleCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkShaderModuleCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkShaderModuleCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkShaderModuleCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkShaderModuleCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkShaderModuleCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkShaderModuleCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkShaderModuleCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkShaderModuleCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkShaderModuleCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkShaderModuleCreateFlagBits {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.0 == 0 {
-      f.write_str("0")
-    } else {
-      write!(f, "0x{:x}", self.0)
-    }
-  }
-}
-/// [VkImageFormatConstraintsFlagBitsFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageFormatConstraintsFlagsFUCHSIA.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkImageFormatConstraintsFlagBitsFUCHSIA(pub u32);
-impl VkImageFormatConstraintsFlagBitsFUCHSIA {
-  pub const EMPTY: Self = Self(0);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkImageFormatConstraintsFlagBitsFUCHSIA {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.0 == 0 {
-      f.write_str("0")
-    } else {
-      write!(f, "0x{:x}", self.0)
-    }
-  }
-}
-/// [VkSwapchainImageUsageFlagBitsANDROID](https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainImageUsageFlagsANDROID.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkSwapchainImageUsageFlagBitsANDROID(pub u32);
-impl VkSwapchainImageUsageFlagBitsANDROID {
-  pub const EMPTY: Self = Self(0);
-  pub const VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_ANDROID: Self = Self(1 << 0u64);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkSwapchainImageUsageFlagBitsANDROID {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkSwapchainImageUsageFlagBitsANDROID {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkSwapchainImageUsageFlagBitsANDROID {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkSwapchainImageUsageFlagBitsANDROID {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkSwapchainImageUsageFlagBitsANDROID {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkSwapchainImageUsageFlagBitsANDROID {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkSwapchainImageUsageFlagBitsANDROID {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkSwapchainImageUsageFlagBitsANDROID {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkSwapchainImageUsageFlagBitsANDROID {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkSwapchainImageUsageFlagBitsANDROID {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkSwapchainImageUsageFlagBitsANDROID {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkSwapchainImageUsageFlagBitsANDROID {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkSwapchainImageUsageFlagBitsANDROID {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkSwapchainImageUsageFlagBitsANDROID {
-  #[allow(unused_mut)]
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.is_empty() {
-      f.write_str("0")
-    } else {
-      let mut wrote = false;
-      if self.intersects(Self::VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_ANDROID) {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        f.write_str("VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_ANDROID")?;
-        wrote = true;
-      }
-      let known_bits = {
-        let mut bits = 0;
-        {
-          bits |= Self::VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_ANDROID.0;
-        }
-        bits
-      };
-      let unknown_bits = self.0 & !known_bits;
-      if unknown_bits != 0 {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        write!(f, "0x{:x}", unknown_bits)?;
-        wrote = true;
-      }
-      if wrote {
-        Ok(())
-      } else {
-        write!(f, "0x{:x}", self.0)
-      }
-    }
-  }
-}
-/// [VkWaylandSurfaceCreateFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkWaylandSurfaceCreateFlagsKHR.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkWaylandSurfaceCreateFlagBitsKHR(pub u32);
-impl VkWaylandSurfaceCreateFlagBitsKHR {
-  pub const EMPTY: Self = Self(0);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkWaylandSurfaceCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkWaylandSurfaceCreateFlagBitsKHR {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkWaylandSurfaceCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkWaylandSurfaceCreateFlagBitsKHR {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkWaylandSurfaceCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkWaylandSurfaceCreateFlagBitsKHR {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkWaylandSurfaceCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkWaylandSurfaceCreateFlagBitsKHR {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.0 == 0 {
-      f.write_str("0")
-    } else {
-      write!(f, "0x{:x}", self.0)
-    }
-  }
-}
-/// [VkSwapchainImageUsageFlagBitsOHOS](https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainImageUsageFlagsOHOS.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkSwapchainImageUsageFlagBitsOHOS(pub u32);
-impl VkSwapchainImageUsageFlagBitsOHOS {
-  pub const EMPTY: Self = Self(0);
-  pub const VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_OHOS: Self = Self(1 << 0u64);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-impl core::ops::BitOr for VkSwapchainImageUsageFlagBitsOHOS {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-impl core::ops::BitOrAssign for VkSwapchainImageUsageFlagBitsOHOS {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-impl core::ops::BitAnd for VkSwapchainImageUsageFlagBitsOHOS {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-impl core::ops::BitAndAssign for VkSwapchainImageUsageFlagBitsOHOS {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-impl core::ops::BitXor for VkSwapchainImageUsageFlagBitsOHOS {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-impl core::ops::BitXorAssign for VkSwapchainImageUsageFlagBitsOHOS {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-impl core::ops::Not for VkSwapchainImageUsageFlagBitsOHOS {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-impl core::ops::BitOr<u32> for VkSwapchainImageUsageFlagBitsOHOS {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-impl core::ops::BitOrAssign<u32> for VkSwapchainImageUsageFlagBitsOHOS {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-impl core::ops::BitAnd<u32> for VkSwapchainImageUsageFlagBitsOHOS {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-impl core::ops::BitAndAssign<u32> for VkSwapchainImageUsageFlagBitsOHOS {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-impl core::ops::BitXor<u32> for VkSwapchainImageUsageFlagBitsOHOS {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-impl core::ops::BitXorAssign<u32> for VkSwapchainImageUsageFlagBitsOHOS {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-impl core::fmt::Display for VkSwapchainImageUsageFlagBitsOHOS {
-  #[allow(unused_mut)]
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.is_empty() {
-      f.write_str("0")
-    } else {
-      let mut wrote = false;
-      if self.intersects(Self::VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_OHOS) {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        f.write_str("VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_OHOS")?;
-        wrote = true;
-      }
-      let known_bits = {
-        let mut bits = 0;
-        {
-          bits |= Self::VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_OHOS.0;
-        }
-        bits
-      };
-      let unknown_bits = self.0 & !known_bits;
-      if unknown_bits != 0 {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        write!(f, "0x{:x}", unknown_bits)?;
-        wrote = true;
-      }
-      if wrote {
-        Ok(())
-      } else {
-        write!(f, "0x{:x}", self.0)
-      }
-    }
-  }
-}
-/// [VkPerformanceCounterDescriptionFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterDescriptionFlagsARM.html)
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
-pub struct VkPerformanceCounterDescriptionFlagBitsARM(pub i32);
-impl VkPerformanceCounterDescriptionFlagBitsARM {}
-impl core::fmt::Display for VkPerformanceCounterDescriptionFlagBitsARM {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    match self.0 {
-      _ => {
-        write!(
-          f,
-          "{}({})",
-          stringify!(VkPerformanceCounterDescriptionFlagBitsARM),
-          self.0
-        )
-      }
-    }
-  }
-}
 /// [VkFaultLevel](https://docs.vulkan.org/refpages/latest/refpages/source/VkFaultLevel.html)
 #[cfg(feature = "VKSC_VERSION_1_0")]
 #[repr(transparent)]
@@ -30868,6 +29875,28 @@ impl core::fmt::Display for VkFormat {
     }
   }
 }
+/// [VkPerformanceCounterDescriptionFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkPerformanceCounterDescriptionFlagsARM.html)
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkPerformanceCounterDescriptionFlagBitsARM(pub i32);
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+impl VkPerformanceCounterDescriptionFlagBitsARM {}
+#[cfg(feature = "VK_ARM_performance_counters_by_region")]
+impl core::fmt::Display for VkPerformanceCounterDescriptionFlagBitsARM {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    match self.0 {
+      _ => {
+        write!(
+          f,
+          "{}({})",
+          stringify!(VkPerformanceCounterDescriptionFlagBitsARM),
+          self.0
+        )
+      }
+    }
+  }
+}
 /// [VkSubpassDescriptionFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkSubpassDescriptionFlags.html)
 #[cfg(any(
   feature = "VK_GRAPHICS_VERSION_1_0",
@@ -32136,167 +31165,6 @@ impl core::fmt::Display for VkTensorTilingARM {
     }
   }
 }
-/// [VkTensorViewCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewCreateFlagsARM.html)
-#[cfg(feature = "VK_ARM_tensors")]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkTensorViewCreateFlagBitsARM(pub u64);
-#[cfg(feature = "VK_ARM_tensors")]
-impl VkTensorViewCreateFlagBitsARM {
-  pub const EMPTY: Self = Self(0);
-  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
-  pub const VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM: Self = Self(1 << 0u64);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitOr for VkTensorViewCreateFlagBitsARM {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitOrAssign for VkTensorViewCreateFlagBitsARM {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitAnd for VkTensorViewCreateFlagBitsARM {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitAndAssign for VkTensorViewCreateFlagBitsARM {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitXor for VkTensorViewCreateFlagBitsARM {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitXorAssign for VkTensorViewCreateFlagBitsARM {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::Not for VkTensorViewCreateFlagBitsARM {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitOr<u64> for VkTensorViewCreateFlagBitsARM {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u64) -> Self {
-    Self(self.0 | r)
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitOrAssign<u64> for VkTensorViewCreateFlagBitsARM {
-  #[inline]
-  fn bitor_assign(&mut self, r: u64) {
-    self.0 |= r;
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitAnd<u64> for VkTensorViewCreateFlagBitsARM {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u64) -> Self {
-    Self(self.0 & r)
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitAndAssign<u64> for VkTensorViewCreateFlagBitsARM {
-  #[inline]
-  fn bitand_assign(&mut self, r: u64) {
-    self.0 &= r;
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitXor<u64> for VkTensorViewCreateFlagBitsARM {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u64) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::ops::BitXorAssign<u64> for VkTensorViewCreateFlagBitsARM {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u64) {
-    self.0 ^= r;
-  }
-}
-#[cfg(feature = "VK_ARM_tensors")]
-impl core::fmt::Display for VkTensorViewCreateFlagBitsARM {
-  #[allow(unused_mut)]
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.is_empty() {
-      f.write_str("0")
-    } else {
-      let mut wrote = false;
-      #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
-      if self.intersects(Self::VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM) {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        f.write_str("VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM")?;
-        wrote = true;
-      }
-      let known_bits = {
-        let mut bits = 0;
-        #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
-        {
-          bits |= Self::VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM.0;
-        }
-        bits
-      };
-      let unknown_bits = self.0 & !known_bits;
-      if unknown_bits != 0 {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        write!(f, "0x{:x}", unknown_bits)?;
-        wrote = true;
-      }
-      if wrote {
-        Ok(())
-      } else {
-        write!(f, "0x{:x}", self.0)
-      }
-    }
-  }
-}
 /// [VkImageLayout](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageLayout.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -33414,6 +32282,167 @@ impl core::fmt::Display for VkTensorCreateFlagBitsARM {
     }
   }
 }
+/// [VkTensorViewCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewCreateFlagsARM.html)
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkTensorViewCreateFlagBitsARM(pub u64);
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl VkTensorViewCreateFlagBitsARM {
+  pub const EMPTY: Self = Self(0);
+  #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
+  pub const VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM: Self = Self(1 << 0u64);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitOr for VkTensorViewCreateFlagBitsARM {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitOrAssign for VkTensorViewCreateFlagBitsARM {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitAnd for VkTensorViewCreateFlagBitsARM {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitAndAssign for VkTensorViewCreateFlagBitsARM {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitXor for VkTensorViewCreateFlagBitsARM {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitXorAssign for VkTensorViewCreateFlagBitsARM {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::Not for VkTensorViewCreateFlagBitsARM {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitOr<u64> for VkTensorViewCreateFlagBitsARM {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u64) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitOrAssign<u64> for VkTensorViewCreateFlagBitsARM {
+  #[inline]
+  fn bitor_assign(&mut self, r: u64) {
+    self.0 |= r;
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitAnd<u64> for VkTensorViewCreateFlagBitsARM {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u64) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitAndAssign<u64> for VkTensorViewCreateFlagBitsARM {
+  #[inline]
+  fn bitand_assign(&mut self, r: u64) {
+    self.0 &= r;
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitXor<u64> for VkTensorViewCreateFlagBitsARM {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u64) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::ops::BitXorAssign<u64> for VkTensorViewCreateFlagBitsARM {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u64) {
+    self.0 ^= r;
+  }
+}
+#[cfg(any(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"))]
+impl core::fmt::Display for VkTensorViewCreateFlagBitsARM {
+  #[allow(unused_mut)]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.is_empty() {
+      f.write_str("0")
+    } else {
+      let mut wrote = false;
+      #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
+      if self.intersects(Self::VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM) {
+        if wrote {
+          f.write_str(" | ")?;
+        }
+        f.write_str("VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM")?;
+        wrote = true;
+      }
+      let known_bits = {
+        let mut bits = 0;
+        #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
+        {
+          bits |= Self::VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM.0;
+        }
+        bits
+      };
+      let unknown_bits = self.0 & !known_bits;
+      if unknown_bits != 0 {
+        if wrote {
+          f.write_str(" | ")?;
+        }
+        write!(f, "0x{:x}", unknown_bits)?;
+        wrote = true;
+      }
+      if wrote {
+        Ok(())
+      } else {
+        write!(f, "0x{:x}", self.0)
+      }
+    }
+  }
+}
 /// [VkComponentSwizzle](https://docs.vulkan.org/refpages/latest/refpages/source/VkComponentSwizzle.html)
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
@@ -33968,6 +32997,21 @@ impl core::fmt::Display for VkCommandBufferUsageFlagBits {
       } else {
         write!(f, "0x{:x}", self.0)
       }
+    }
+  }
+}
+/// [VkDeviceCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceCreateFlags.html)
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
+pub struct VkDeviceCreateFlagBits(pub i32);
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl VkDeviceCreateFlagBits {}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::fmt::Display for VkDeviceCreateFlagBits {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    match self.0 {
+      _ => write!(f, "{}({})", stringify!(VkDeviceCreateFlagBits), self.0),
     }
   }
 }
@@ -35032,6 +34076,135 @@ impl core::fmt::Display for VkSampleCountFlagBits {
       } else {
         write!(f, "0x{:x}", self.0)
       }
+    }
+  }
+}
+/// [VkSemaphoreCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkSemaphoreCreateFlags.html)
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkSemaphoreCreateFlagBits(pub u32);
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl VkSemaphoreCreateFlagBits {
+  pub const EMPTY: Self = Self(0);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOr for VkSemaphoreCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOrAssign for VkSemaphoreCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAnd for VkSemaphoreCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAndAssign for VkSemaphoreCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXor for VkSemaphoreCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXorAssign for VkSemaphoreCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::Not for VkSemaphoreCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOr<u32> for VkSemaphoreCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOrAssign<u32> for VkSemaphoreCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAnd<u32> for VkSemaphoreCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAndAssign<u32> for VkSemaphoreCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXor<u32> for VkSemaphoreCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXorAssign<u32> for VkSemaphoreCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::fmt::Display for VkSemaphoreCreateFlagBits {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.0 == 0 {
+      f.write_str("0")
+    } else {
+      write!(f, "0x{:x}", self.0)
     }
   }
 }
@@ -37454,6 +36627,182 @@ impl core::fmt::Display for VkImageCreateFlagBits {
         #[cfg(feature = "VK_KHR_maintenance11")]
         {
           bits |= Self::VK_IMAGE_CREATE_ALIAS_SINGLE_LAYER_DESCRIPTOR_BIT_KHR.0;
+        }
+        bits
+      };
+      let unknown_bits = self.0 & !known_bits;
+      if unknown_bits != 0 {
+        if wrote {
+          f.write_str(" | ")?;
+        }
+        write!(f, "0x{:x}", unknown_bits)?;
+        wrote = true;
+      }
+      if wrote {
+        Ok(())
+      } else {
+        write!(f, "0x{:x}", self.0)
+      }
+    }
+  }
+}
+/// [VkDeviceQueueCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceQueueCreateFlags.html)
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkDeviceQueueCreateFlagBits(pub u32);
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl VkDeviceQueueCreateFlagBits {
+  pub const EMPTY: Self = Self(0);
+  #[cfg(feature = "VK_BASE_VERSION_1_1")]
+  ///Queue is a protected-capable device queue
+  pub const VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT: Self = Self(1 << 0u64);
+  #[cfg(feature = "VK_KHR_internally_synchronized_queues")]
+  pub const VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR: Self = Self(1 << 2u64);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOr for VkDeviceQueueCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOrAssign for VkDeviceQueueCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAnd for VkDeviceQueueCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAndAssign for VkDeviceQueueCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXor for VkDeviceQueueCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXorAssign for VkDeviceQueueCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::Not for VkDeviceQueueCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOr<u32> for VkDeviceQueueCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitOrAssign<u32> for VkDeviceQueueCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAnd<u32> for VkDeviceQueueCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitAndAssign<u32> for VkDeviceQueueCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXor<u32> for VkDeviceQueueCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::ops::BitXorAssign<u32> for VkDeviceQueueCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+impl core::fmt::Display for VkDeviceQueueCreateFlagBits {
+  #[allow(unused_mut)]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.is_empty() {
+      f.write_str("0")
+    } else {
+      let mut wrote = false;
+      #[cfg(feature = "VK_BASE_VERSION_1_1")]
+      if self.intersects(Self::VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT) {
+        if wrote {
+          f.write_str(" | ")?;
+        }
+        f.write_str("VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT")?;
+        wrote = true;
+      }
+      #[cfg(feature = "VK_KHR_internally_synchronized_queues")]
+      if self.intersects(Self::VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR) {
+        if wrote {
+          f.write_str(" | ")?;
+        }
+        f.write_str("VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR")?;
+        wrote = true;
+      }
+      let known_bits = {
+        let mut bits = 0;
+        #[cfg(feature = "VK_BASE_VERSION_1_1")]
+        {
+          bits |= Self::VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT.0;
+        }
+        #[cfg(feature = "VK_KHR_internally_synchronized_queues")]
+        {
+          bits |= Self::VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR.0;
         }
         bits
       };
@@ -43400,230 +42749,6 @@ impl core::fmt::Display for VkExternalSemaphoreFeatureFlagBits {
     }
   }
 }
-/// [VkDeviceQueueCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkDeviceQueueCreateFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkDeviceQueueCreateFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl VkDeviceQueueCreateFlagBits {
-  pub const EMPTY: Self = Self(0);
-  #[cfg(feature = "VK_BASE_VERSION_1_1")]
-  ///Queue is a protected-capable device queue
-  pub const VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT: Self = Self(1 << 0u64);
-  #[cfg(feature = "VK_KHR_internally_synchronized_queues")]
-  pub const VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR: Self = Self(1 << 2u64);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitOr for VkDeviceQueueCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitOrAssign for VkDeviceQueueCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitAnd for VkDeviceQueueCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitAndAssign for VkDeviceQueueCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitXor for VkDeviceQueueCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitXorAssign for VkDeviceQueueCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::Not for VkDeviceQueueCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitOr<u32> for VkDeviceQueueCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitOrAssign<u32> for VkDeviceQueueCreateFlagBits {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitAnd<u32> for VkDeviceQueueCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitAndAssign<u32> for VkDeviceQueueCreateFlagBits {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitXor<u32> for VkDeviceQueueCreateFlagBits {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::ops::BitXorAssign<u32> for VkDeviceQueueCreateFlagBits {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_internally_synchronized_queues"
-))]
-impl core::fmt::Display for VkDeviceQueueCreateFlagBits {
-  #[allow(unused_mut)]
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.is_empty() {
-      f.write_str("0")
-    } else {
-      let mut wrote = false;
-      #[cfg(feature = "VK_BASE_VERSION_1_1")]
-      if self.intersects(Self::VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT) {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        f.write_str("VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT")?;
-        wrote = true;
-      }
-      #[cfg(feature = "VK_KHR_internally_synchronized_queues")]
-      if self.intersects(Self::VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR) {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        f.write_str("VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR")?;
-        wrote = true;
-      }
-      let known_bits = {
-        let mut bits = 0;
-        #[cfg(feature = "VK_BASE_VERSION_1_1")]
-        {
-          bits |= Self::VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT.0;
-        }
-        #[cfg(feature = "VK_KHR_internally_synchronized_queues")]
-        {
-          bits |= Self::VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR.0;
-        }
-        bits
-      };
-      let unknown_bits = self.0 & !known_bits;
-      if unknown_bits != 0 {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        write!(f, "0x{:x}", unknown_bits)?;
-        wrote = true;
-      }
-      if wrote {
-        Ok(())
-      } else {
-        write!(f, "0x{:x}", self.0)
-      }
-    }
-  }
-}
 /// [VkPointClippingBehavior](https://docs.vulkan.org/refpages/latest/refpages/source/VkPointClippingBehavior.html)
 #[cfg(any(feature = "VK_BASE_VERSION_1_1", feature = "VK_KHR_maintenance2"))]
 #[repr(transparent)]
@@ -44137,6 +43262,135 @@ impl core::fmt::Display for VkSemaphoreWaitFlagBits {
       } else {
         write!(f, "0x{:x}", self.0)
       }
+    }
+  }
+}
+/// [VkPrivateDataSlotCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlotCreateFlags.html)
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkPrivateDataSlotCreateFlagBits(pub u32);
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl VkPrivateDataSlotCreateFlagBits {
+  pub const EMPTY: Self = Self(0);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitOr for VkPrivateDataSlotCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitOrAssign for VkPrivateDataSlotCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitAnd for VkPrivateDataSlotCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitAndAssign for VkPrivateDataSlotCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitXor for VkPrivateDataSlotCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitXorAssign for VkPrivateDataSlotCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::Not for VkPrivateDataSlotCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitOr<u32> for VkPrivateDataSlotCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitOrAssign<u32> for VkPrivateDataSlotCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitAnd<u32> for VkPrivateDataSlotCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitAndAssign<u32> for VkPrivateDataSlotCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitXor<u32> for VkPrivateDataSlotCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::ops::BitXorAssign<u32> for VkPrivateDataSlotCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+impl core::fmt::Display for VkPrivateDataSlotCreateFlagBits {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.0 == 0 {
+      f.write_str("0")
+    } else {
+      write!(f, "0x{:x}", self.0)
     }
   }
 }
@@ -45269,6 +44523,135 @@ impl core::fmt::Display for VkSamplerMipmapMode {
         f.write_str("VK_SAMPLER_MIPMAP_MODE_LINEAR")
       }
       _ => write!(f, "{}({})", stringify!(VkSamplerMipmapMode), self.0),
+    }
+  }
+}
+/// [VkShaderModuleCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderModuleCreateFlags.html)
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkShaderModuleCreateFlagBits(pub u32);
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl VkShaderModuleCreateFlagBits {
+  pub const EMPTY: Self = Self(0);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitOr for VkShaderModuleCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitOrAssign for VkShaderModuleCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitAnd for VkShaderModuleCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitAndAssign for VkShaderModuleCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitXor for VkShaderModuleCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitXorAssign for VkShaderModuleCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::Not for VkShaderModuleCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitOr<u32> for VkShaderModuleCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitOrAssign<u32> for VkShaderModuleCreateFlagBits {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitAnd<u32> for VkShaderModuleCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitAndAssign<u32> for VkShaderModuleCreateFlagBits {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitXor<u32> for VkShaderModuleCreateFlagBits {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::ops::BitXorAssign<u32> for VkShaderModuleCreateFlagBits {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+impl core::fmt::Display for VkShaderModuleCreateFlagBits {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.0 == 0 {
+      f.write_str("0")
+    } else {
+      write!(f, "0x{:x}", self.0)
     }
   }
 }
@@ -60851,6 +60234,135 @@ impl core::fmt::Display for VkSwapchainCreateFlagBitsKHR {
     }
   }
 }
+/// [VkPrivateDataSlotCreateFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkPrivateDataSlotCreateFlagsEXT.html)
+#[cfg(feature = "VK_EXT_private_data")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkPrivateDataSlotCreateFlagBitsEXT(pub u32);
+#[cfg(feature = "VK_EXT_private_data")]
+impl VkPrivateDataSlotCreateFlagBitsEXT {
+  pub const EMPTY: Self = Self(0);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitOr for VkPrivateDataSlotCreateFlagBitsEXT {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitOrAssign for VkPrivateDataSlotCreateFlagBitsEXT {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitAnd for VkPrivateDataSlotCreateFlagBitsEXT {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitAndAssign for VkPrivateDataSlotCreateFlagBitsEXT {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitXor for VkPrivateDataSlotCreateFlagBitsEXT {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitXorAssign for VkPrivateDataSlotCreateFlagBitsEXT {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::Not for VkPrivateDataSlotCreateFlagBitsEXT {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitOr<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitOrAssign<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitAnd<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitAndAssign<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitXor<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::ops::BitXorAssign<u32> for VkPrivateDataSlotCreateFlagBitsEXT {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(feature = "VK_EXT_private_data")]
+impl core::fmt::Display for VkPrivateDataSlotCreateFlagBitsEXT {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.0 == 0 {
+      f.write_str("0")
+    } else {
+      write!(f, "0x{:x}", self.0)
+    }
+  }
+}
 /// [VkProvokingVertexModeEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkProvokingVertexModeEXT.html)
 #[cfg(feature = "VK_EXT_provoking_vertex")]
 #[repr(transparent)]
@@ -62155,6 +61667,135 @@ impl core::fmt::Display for VkValidationCheckEXT {
         f.write_str("VK_VALIDATION_CHECK_SHADERS_EXT")
       }
       _ => write!(f, "{}({})", stringify!(VkValidationCheckEXT), self.0),
+    }
+  }
+}
+/// [VkImageFormatConstraintsFlagBitsFUCHSIA](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageFormatConstraintsFlagsFUCHSIA.html)
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkImageFormatConstraintsFlagBitsFUCHSIA(pub u32);
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl VkImageFormatConstraintsFlagBitsFUCHSIA {
+  pub const EMPTY: Self = Self(0);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitOr for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitOrAssign for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitAnd for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitAndAssign for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitXor for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitXorAssign for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::Not for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitOr<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitOrAssign<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitAnd<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitAndAssign<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitXor<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::ops::BitXorAssign<u32> for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+impl core::fmt::Display for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.0 == 0 {
+      f.write_str("0")
+    } else {
+      write!(f, "0x{:x}", self.0)
     }
   }
 }
@@ -85891,15 +85532,17 @@ impl core::fmt::Display for VkVideoEncodeIntraRefreshModeFlagBitsKHR {
 }
 /// [VkVideoEncodeFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeFlagsKHR.html)
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkVideoEncodeFlagBitsKHR(pub u32);
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl VkVideoEncodeFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
@@ -85923,8 +85566,9 @@ impl VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitOr for VkVideoEncodeFlagBitsKHR {
   type Output = Self;
@@ -85934,8 +85578,9 @@ impl core::ops::BitOr for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitOrAssign for VkVideoEncodeFlagBitsKHR {
   #[inline]
@@ -85944,8 +85589,9 @@ impl core::ops::BitOrAssign for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitAnd for VkVideoEncodeFlagBitsKHR {
   type Output = Self;
@@ -85955,8 +85601,9 @@ impl core::ops::BitAnd for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitAndAssign for VkVideoEncodeFlagBitsKHR {
   #[inline]
@@ -85965,8 +85612,9 @@ impl core::ops::BitAndAssign for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitXor for VkVideoEncodeFlagBitsKHR {
   type Output = Self;
@@ -85976,8 +85624,9 @@ impl core::ops::BitXor for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitXorAssign for VkVideoEncodeFlagBitsKHR {
   #[inline]
@@ -85986,8 +85635,9 @@ impl core::ops::BitXorAssign for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::Not for VkVideoEncodeFlagBitsKHR {
   type Output = Self;
@@ -85997,8 +85647,9 @@ impl core::ops::Not for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitOr<u32> for VkVideoEncodeFlagBitsKHR {
   type Output = Self;
@@ -86008,8 +85659,9 @@ impl core::ops::BitOr<u32> for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitOrAssign<u32> for VkVideoEncodeFlagBitsKHR {
   #[inline]
@@ -86018,8 +85670,9 @@ impl core::ops::BitOrAssign<u32> for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitAnd<u32> for VkVideoEncodeFlagBitsKHR {
   type Output = Self;
@@ -86029,8 +85682,9 @@ impl core::ops::BitAnd<u32> for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitAndAssign<u32> for VkVideoEncodeFlagBitsKHR {
   #[inline]
@@ -86039,8 +85693,9 @@ impl core::ops::BitAndAssign<u32> for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitXor<u32> for VkVideoEncodeFlagBitsKHR {
   type Output = Self;
@@ -86050,8 +85705,9 @@ impl core::ops::BitXor<u32> for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::ops::BitXorAssign<u32> for VkVideoEncodeFlagBitsKHR {
   #[inline]
@@ -86060,8 +85716,9 @@ impl core::ops::BitXorAssign<u32> for VkVideoEncodeFlagBitsKHR {
   }
 }
 #[cfg(any(
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_KHR_video_encode_intra_refresh"
+  feature = "VK_KHR_video_encode_queue",
+  feature = "VK_KHR_video_encode_intra_refresh",
+  feature = "VK_KHR_video_encode_quantization_map"
 ))]
 impl core::fmt::Display for VkVideoEncodeFlagBitsKHR {
   #[allow(unused_mut)]
@@ -86107,170 +85764,6 @@ impl core::fmt::Display for VkVideoEncodeFlagBitsKHR {
         #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
         {
           bits |= Self::VK_VIDEO_ENCODE_WITH_EMPHASIS_MAP_BIT_KHR.0;
-        }
-        bits
-      };
-      let unknown_bits = self.0 & !known_bits;
-      if unknown_bits != 0 {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        write!(f, "0x{:x}", unknown_bits)?;
-        wrote = true;
-      }
-      if wrote {
-        Ok(())
-      } else {
-        write!(f, "0x{:x}", self.0)
-      }
-    }
-  }
-}
-/// [VkVideoSessionParametersCreateFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoSessionParametersCreateFlagsKHR.html)
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-#[repr(transparent)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
-pub struct VkVideoSessionParametersCreateFlagBitsKHR(pub u32);
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl VkVideoSessionParametersCreateFlagBitsKHR {
-  pub const EMPTY: Self = Self(0);
-  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-  pub const VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR: Self =
-    Self(1 << 0u64);
-  #[inline]
-  pub const fn contains(self, o: Self) -> bool {
-    (self.0 & o.0) == o.0
-  }
-  #[inline]
-  pub const fn intersects(self, o: Self) -> bool {
-    (self.0 & o.0) != 0
-  }
-  #[inline]
-  pub const fn is_empty(self) -> bool {
-    self.0 == 0
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitOr for VkVideoSessionParametersCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: Self) -> Self {
-    Self(self.0 | r.0)
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitOrAssign for VkVideoSessionParametersCreateFlagBitsKHR {
-  #[inline]
-  fn bitor_assign(&mut self, r: Self) {
-    self.0 |= r.0;
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitAnd for VkVideoSessionParametersCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: Self) -> Self {
-    Self(self.0 & r.0)
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitAndAssign for VkVideoSessionParametersCreateFlagBitsKHR {
-  #[inline]
-  fn bitand_assign(&mut self, r: Self) {
-    self.0 &= r.0;
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitXor for VkVideoSessionParametersCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: Self) -> Self {
-    Self(self.0 ^ r.0)
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitXorAssign for VkVideoSessionParametersCreateFlagBitsKHR {
-  #[inline]
-  fn bitxor_assign(&mut self, r: Self) {
-    self.0 ^= r.0;
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::Not for VkVideoSessionParametersCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn not(self) -> Self {
-    Self(!self.0)
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitOr<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitor(self, r: u32) -> Self {
-    Self(self.0 | r)
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitOrAssign<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
-  #[inline]
-  fn bitor_assign(&mut self, r: u32) {
-    self.0 |= r;
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitAnd<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitand(self, r: u32) -> Self {
-    Self(self.0 & r)
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitAndAssign<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
-  #[inline]
-  fn bitand_assign(&mut self, r: u32) {
-    self.0 &= r;
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitXor<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
-  type Output = Self;
-  #[inline]
-  fn bitxor(self, r: u32) -> Self {
-    Self(self.0 ^ r)
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::ops::BitXorAssign<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
-  #[inline]
-  fn bitxor_assign(&mut self, r: u32) {
-    self.0 ^= r;
-  }
-}
-#[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-impl core::fmt::Display for VkVideoSessionParametersCreateFlagBitsKHR {
-  #[allow(unused_mut)]
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    if self.is_empty() {
-      f.write_str("0")
-    } else {
-      let mut wrote = false;
-      #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-      if self
-        .intersects(Self::VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR)
-      {
-        if wrote {
-          f.write_str(" | ")?;
-        }
-        f.write_str("VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR")?;
-        wrote = true;
-      }
-      let known_bits = {
-        let mut bits = 0;
-        #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
-        {
-          bits |= Self::VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR.0;
         }
         bits
       };
@@ -86911,6 +86404,218 @@ impl core::fmt::Display for VkVideoSessionCreateFlagBitsKHR {
         ))]
         {
           bits |= Self::VK_VIDEO_SESSION_CREATE_INLINE_SESSION_PARAMETERS_BIT_KHR.0;
+        }
+        bits
+      };
+      let unknown_bits = self.0 & !known_bits;
+      if unknown_bits != 0 {
+        if wrote {
+          f.write_str(" | ")?;
+        }
+        write!(f, "0x{:x}", unknown_bits)?;
+        wrote = true;
+      }
+      if wrote {
+        Ok(())
+      } else {
+        write!(f, "0x{:x}", self.0)
+      }
+    }
+  }
+}
+/// [VkVideoSessionParametersCreateFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoSessionParametersCreateFlagsKHR.html)
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkVideoSessionParametersCreateFlagBitsKHR(pub u32);
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl VkVideoSessionParametersCreateFlagBitsKHR {
+  pub const EMPTY: Self = Self(0);
+  #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+  pub const VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR: Self =
+    Self(1 << 0u64);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitOr for VkVideoSessionParametersCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitOrAssign for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitAnd for VkVideoSessionParametersCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitAndAssign for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitXor for VkVideoSessionParametersCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitXorAssign for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::Not for VkVideoSessionParametersCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitOr<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitOrAssign<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitAnd<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitAndAssign<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitXor<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::ops::BitXorAssign<u32> for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(any(
+  feature = "VK_KHR_video_queue",
+  feature = "VK_KHR_video_encode_quantization_map"
+))]
+impl core::fmt::Display for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[allow(unused_mut)]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.is_empty() {
+      f.write_str("0")
+    } else {
+      let mut wrote = false;
+      #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+      if self
+        .intersects(Self::VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR)
+      {
+        if wrote {
+          f.write_str(" | ")?;
+        }
+        f.write_str("VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR")?;
+        wrote = true;
+      }
+      let known_bits = {
+        let mut bits = 0;
+        #[cfg(feature = "VK_KHR_video_encode_quantization_map")]
+        {
+          bits |= Self::VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR.0;
         }
         bits
       };
@@ -90280,6 +89985,135 @@ impl core::fmt::Display for StdVideoAV1ChromaSamplePosition {
         stringify!(StdVideoAV1ChromaSamplePosition),
         self.0
       ),
+    }
+  }
+}
+/// [VkWaylandSurfaceCreateFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkWaylandSurfaceCreateFlagsKHR.html)
+#[cfg(feature = "VK_KHR_wayland_surface")]
+#[repr(transparent)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
+pub struct VkWaylandSurfaceCreateFlagBitsKHR(pub u32);
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl VkWaylandSurfaceCreateFlagBitsKHR {
+  pub const EMPTY: Self = Self(0);
+  #[inline]
+  pub const fn contains(self, o: Self) -> bool {
+    (self.0 & o.0) == o.0
+  }
+  #[inline]
+  pub const fn intersects(self, o: Self) -> bool {
+    (self.0 & o.0) != 0
+  }
+  #[inline]
+  pub const fn is_empty(self) -> bool {
+    self.0 == 0
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitOr for VkWaylandSurfaceCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: Self) -> Self {
+    Self(self.0 | r.0)
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitOrAssign for VkWaylandSurfaceCreateFlagBitsKHR {
+  #[inline]
+  fn bitor_assign(&mut self, r: Self) {
+    self.0 |= r.0;
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitAnd for VkWaylandSurfaceCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: Self) -> Self {
+    Self(self.0 & r.0)
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitAndAssign for VkWaylandSurfaceCreateFlagBitsKHR {
+  #[inline]
+  fn bitand_assign(&mut self, r: Self) {
+    self.0 &= r.0;
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitXor for VkWaylandSurfaceCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: Self) -> Self {
+    Self(self.0 ^ r.0)
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitXorAssign for VkWaylandSurfaceCreateFlagBitsKHR {
+  #[inline]
+  fn bitxor_assign(&mut self, r: Self) {
+    self.0 ^= r.0;
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::Not for VkWaylandSurfaceCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn not(self) -> Self {
+    Self(!self.0)
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitOr<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitor(self, r: u32) -> Self {
+    Self(self.0 | r)
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitOrAssign<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
+  #[inline]
+  fn bitor_assign(&mut self, r: u32) {
+    self.0 |= r;
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitAnd<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitand(self, r: u32) -> Self {
+    Self(self.0 & r)
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitAndAssign<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
+  #[inline]
+  fn bitand_assign(&mut self, r: u32) {
+    self.0 &= r;
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitXor<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
+  type Output = Self;
+  #[inline]
+  fn bitxor(self, r: u32) -> Self {
+    Self(self.0 ^ r)
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::ops::BitXorAssign<u32> for VkWaylandSurfaceCreateFlagBitsKHR {
+  #[inline]
+  fn bitxor_assign(&mut self, r: u32) {
+    self.0 ^= r;
+  }
+}
+#[cfg(feature = "VK_KHR_wayland_surface")]
+impl core::fmt::Display for VkWaylandSurfaceCreateFlagBitsKHR {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    if self.0 == 0 {
+      f.write_str("0")
+    } else {
+      write!(f, "0x{:x}", self.0)
     }
   }
 }

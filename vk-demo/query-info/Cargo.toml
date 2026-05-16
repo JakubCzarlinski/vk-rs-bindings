@@ -1,0 +1,15 @@
+[package]
+name = "vk-demo-query-info"
+version = "0.1.0"
+edition = "2024"
+description = "Vulkan instance, physical device, queue, and device-group query demo"
+
+[dependencies.vk]
+path = "../../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = [
+  "VK_VERSION_1_4",
+  "VK_KHR_video_decode_queue",
+  "VK_KHR_video_encode_queue",
+  "VK_NV_optical_flow",
+]

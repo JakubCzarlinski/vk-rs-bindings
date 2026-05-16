@@ -5,6 +5,7 @@ members = [
   "vk-rs-bindings",
   "vk-demo/compute",
   "vk-demo/compute-vulkan-1-0",
+  "vk-demo/query-info",
   "vk-demo/spinning-triangle",
 ]
 

@@ -1,0 +1,13 @@
+[package]
+name = "vk-demo-queue-family-ownership-transfer"
+version = "0.1.0"
+edition = "2024"
+description = "Vulkan 1.4 queue family ownership transfer demo"
+
+[dependencies]
+vk-alloc = { path = "../../vk-alloc" }
+
+[dependencies.vk]
+path = "../../vk-rs-bindings"
+package = "vk-rs-bindings"
+features = ["VK_VERSION_1_4"]

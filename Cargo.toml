@@ -6,6 +6,7 @@ members = [
   "vk-demo/compute",
   "vk-demo/compute-vulkan-1-0",
   "vk-demo/query-info",
+  "vk-demo/queue-family-ownership-transfer",
   "vk-demo/spinning-triangle",
 ]
 

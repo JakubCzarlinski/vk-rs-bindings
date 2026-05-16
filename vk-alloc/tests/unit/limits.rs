@@ -12,7 +12,7 @@ fn large_buffer_chunking_respects_limits() {
     assert_eq!(
         recommended_buffer_chunk_size(
             1 << 20,
-            vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0,
+            vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT,
             limits,
         ),
         1024
@@ -20,7 +20,7 @@ fn large_buffer_chunking_respects_limits() {
     assert_eq!(
         recommended_buffer_chunk_size(
             1 << 20,
-            vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT.0,
+            vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT,
             limits,
         ),
         256
@@ -30,13 +30,13 @@ fn large_buffer_chunking_respects_limits() {
 #[test]
 fn buffer_usage_flags2_prefers_pnext_usage() {
     let usage2 = vk::VkBufferUsageFlags2CreateInfo::DEFAULT
-        .with_usage(vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0);
+        .with_usage(vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT);
     let buffer_info =
         vk::VkBufferCreateInfo::DEFAULT.with_pNext_VkBufferUsageFlags2CreateInfo(&usage2);
 
     assert_eq!(
         buffer_usage_flags2(&buffer_info),
-        vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0
+        vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT
     );
 }
 
@@ -48,9 +48,9 @@ fn buffer_usage_flags2_falls_back_to_legacy_usage() {
 
     assert_eq!(
         buffer_usage_flags2(&buffer_info),
-        vk::VkBufferUsageFlagBits::VK_BUFFER_USAGE_TRANSFER_SRC_BIT
-            .0
-            .into()
+        vk::VkBufferUsageFlagBits2(
+            vk::VkBufferUsageFlagBits::VK_BUFFER_USAGE_TRANSFER_SRC_BIT.0 as u64
+        )
     );
 }
 

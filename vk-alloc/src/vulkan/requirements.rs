@@ -54,7 +54,7 @@ pub(crate) fn buffer_usage_flags2(buffer_info: &vk::VkBufferCreateInfo) -> vk::V
 
 #[allow(deprecated)]
 fn legacy_buffer_usage_flags2(usage: vk::VkBufferUsageFlags) -> vk::VkBufferUsageFlags2 {
-    vk::VkBufferUsageFlags2::from(usage.0)
+    vk::VkBufferUsageFlagBits2(usage.0 as u64)
 }
 
 pub(crate) fn recommended_buffer_chunk_size(
@@ -67,12 +67,12 @@ pub(crate) fn recommended_buffer_chunk_size(
     } else {
         total_size
     };
-    if usage_flags & vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0 != 0
+    if usage_flags.intersects(vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT)
         && limits.max_storage_buffer_range != 0
     {
         chunk = chunk.min(u64::from(limits.max_storage_buffer_range));
     }
-    if usage_flags & vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT.0 != 0
+    if usage_flags.intersects(vk::VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT)
         && limits.max_uniform_buffer_range != 0
     {
         chunk = chunk.min(u64::from(limits.max_uniform_buffer_range));

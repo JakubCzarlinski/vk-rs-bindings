@@ -624,13 +624,13 @@ fn create_render_pass<'a>(device: &'a Device<'a>, color_format: VkFormat) -> Ren
 
     const MEMORY_BARRIER: VkMemoryBarrier2 = VkMemoryBarrier2::DEFAULT
         .with_srcStageMask(
-            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0,
+            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
         )
         .with_dstStageMask(
-            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0,
+            VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT,
         )
-        .with_srcAccessMask(VkAccessFlagBits2::EMPTY.0)
-        .with_dstAccessMask(VkAccessFlagBits2::VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT.0);
+        .with_srcAccessMask(VkAccessFlagBits2::EMPTY)
+        .with_dstAccessMask(VkAccessFlagBits2::VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT);
 
     const DEPENDENCY: VkSubpassDependency2 = VkSubpassDependency2::DEFAULT
         .with_pNext_VkMemoryBarrier2(&MEMORY_BARRIER)
@@ -917,7 +917,7 @@ fn draw_frame(
 
     let wait_infos = &[VkSemaphoreSubmitInfo::DEFAULT
         .with_semaphore(sync.image_available.raw())
-        .with_stageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0)
+        .with_stageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT)
         .with_deviceIndex(0)
         .with_value(0)];
     let cmd_infos = &[VkCommandBufferSubmitInfo::DEFAULT
@@ -925,7 +925,7 @@ fn draw_frame(
         .with_deviceMask(0)];
     let signal_infos = &[VkSemaphoreSubmitInfo::DEFAULT
         .with_semaphore(sync.render_finished.raw())
-        .with_stageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT.0)
+        .with_stageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT)
         .with_deviceIndex(0)
         .with_value(0)];
     let submit_info = &[VkSubmitInfo2::DEFAULT

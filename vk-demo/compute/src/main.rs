@@ -219,7 +219,7 @@ fn create_storage_buffer<'a>(
     size: u64,
 ) -> Result<vk_alloc::AllocatedBuffer<'a>, String> {
     let buffer_usage_info = VkBufferUsageFlags2CreateInfo::DEFAULT
-        .with_usage(VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0);
+        .with_usage(VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT);
     let buffer_info = VkBufferCreateInfo::DEFAULT
         .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
         .with_pNext_VkBufferUsageFlags2CreateInfo(&buffer_usage_info)

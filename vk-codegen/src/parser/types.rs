@@ -229,7 +229,9 @@ fn parse_bitmask(
     depr: DeprecationInfo,
 ) {
     let underlying = child_text(node, "type").unwrap_or_else(|| "VkFlags".into());
-    let bitmask_bits = attr(node, "requires").map(str::to_owned);
+    let bitmask_bits = attr(node, "bitvalues")
+        .or_else(|| attr(node, "requires"))
+        .map(str::to_owned);
     reg.typedefs.entry(name.clone()).or_default().push(Typedef {
         name,
         alias,

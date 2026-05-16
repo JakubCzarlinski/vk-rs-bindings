@@ -164,13 +164,7 @@ pub struct CommandBufferDispatchTable {
   pub vkCmdInsertDebugUtilsLabelEXT: Option<PFN_vkCmdInsertDebugUtilsLabelEXT>,
   #[cfg(feature = "VK_EXT_depth_bias_control")]
   pub vkCmdSetDepthBias2EXT: Option<PFN_vkCmdSetDepthBias2EXT>,
-  #[cfg(any(
-    all(
-      feature = "VK_EXT_depth_clamp_control",
-      feature = "VK_EXT_shader_object"
-    ),
-    feature = "VK_EXT_depth_clamp_control"
-  ))]
+  #[cfg(feature = "VK_EXT_depth_clamp_control")]
   pub vkCmdSetDepthClampRangeEXT: Option<PFN_vkCmdSetDepthClampRangeEXT>,
   #[cfg(feature = "VK_EXT_descriptor_buffer")]
   pub vkCmdBindDescriptorBufferEmbeddedSamplersEXT:
@@ -1153,13 +1147,7 @@ impl CommandBufferDispatchTable {
     vkCmdInsertDebugUtilsLabelEXT: None,
     #[cfg(feature = "VK_EXT_depth_bias_control")]
     vkCmdSetDepthBias2EXT: None,
-    #[cfg(any(
-      all(
-        feature = "VK_EXT_depth_clamp_control",
-        feature = "VK_EXT_shader_object"
-      ),
-      feature = "VK_EXT_depth_clamp_control"
-    ))]
+    #[cfg(feature = "VK_EXT_depth_clamp_control")]
     vkCmdSetDepthClampRangeEXT: None,
     #[cfg(feature = "VK_EXT_descriptor_buffer")]
     vkCmdBindDescriptorBufferEmbeddedSamplersEXT: None,
@@ -2205,13 +2193,7 @@ impl CommandBufferDispatchTable {
       #[cfg(feature = "VK_EXT_depth_bias_control")]
       vkCmdSetDepthBias2EXT: loader(c"vkCmdSetDepthBias2EXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
-      #[cfg(any(
-        all(
-          feature = "VK_EXT_depth_clamp_control",
-          feature = "VK_EXT_shader_object"
-        ),
-        feature = "VK_EXT_depth_clamp_control"
-      ))]
+      #[cfg(feature = "VK_EXT_depth_clamp_control")]
       vkCmdSetDepthClampRangeEXT: loader(c"vkCmdSetDepthClampRangeEXT".as_ptr())
         .map(|f| unsafe { core::mem::transmute(f) }),
       #[cfg(feature = "VK_EXT_descriptor_buffer")]
@@ -5451,13 +5433,7 @@ impl<'dev> CommandBuffer<'dev> {
   /// - `commandBuffer`
   /// - `depthClampMode`
   /// - `pDepthClampRange`: optional: true
-  #[cfg(any(
-    all(
-      feature = "VK_EXT_depth_clamp_control",
-      feature = "VK_EXT_shader_object"
-    ),
-    feature = "VK_EXT_depth_clamp_control"
-  ))]
+  #[cfg(feature = "VK_EXT_depth_clamp_control")]
   #[inline(always)]
   pub fn vkCmdSetDepthClampRangeEXT(
     &self,

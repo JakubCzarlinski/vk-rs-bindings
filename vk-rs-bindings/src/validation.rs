@@ -13,7 +13,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_KHR_display_swapchain",
-  not(all(feature = "VK_KHR_swapchain", feature = "VK_KHR_display"))
+  not(all(feature = "VK_KHR_display", feature = "VK_KHR_swapchain"))
 ))]
 compile_error!(
   "Feature `VK_KHR_display_swapchain` requires `VK_KHR_swapchain + VK_KHR_display`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_display_swapchain.html"
@@ -45,7 +45,7 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_video_queue",
   not(any(
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_synchronization2"),
+    all(feature = "VK_KHR_synchronization2", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -55,7 +55,7 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_video_decode_queue",
   not(any(
-    all(feature = "VK_KHR_video_queue", feature = "VK_KHR_synchronization2"),
+    all(feature = "VK_KHR_synchronization2", feature = "VK_KHR_video_queue"),
     all(feature = "VK_KHR_video_queue", feature = "VK_VERSION_1_3")
   ))
 ))]
@@ -107,10 +107,10 @@ compile_error!(
   feature = "VK_KHR_dynamic_rendering",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_depth_stencil_resolve"
+      feature = "VK_KHR_depth_stencil_resolve",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_depth_stencil_resolve"),
+    all(feature = "VK_KHR_depth_stencil_resolve", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -419,10 +419,10 @@ compile_error!(
   not(any(
     all(
       feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_maintenance2",
-      feature = "VK_KHR_image_format_list"
+      feature = "VK_KHR_image_format_list",
+      feature = "VK_KHR_maintenance2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_image_format_list"),
+    all(feature = "VK_KHR_image_format_list", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -432,7 +432,7 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_create_renderpass2",
   not(any(
-    all(feature = "VK_KHR_multiview", feature = "VK_KHR_maintenance2"),
+    all(feature = "VK_KHR_maintenance2", feature = "VK_KHR_multiview"),
     feature = "VK_VERSION_1_1"
   ))
 ))]
@@ -453,13 +453,13 @@ compile_error!(
   feature = "VK_KHR_shared_presentable_image",
   not(any(
     all(
-      feature = "VK_KHR_swapchain",
+      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_KHR_swapchain",
       feature = "VK_KHR_get_surface_capabilities2",
+      feature = "VK_KHR_swapchain",
       feature = "VK_VERSION_1_1"
     )
   ))
@@ -571,12 +571,12 @@ compile_error!(
   feature = "VK_ANDROID_external_memory_android_hardware_buffer",
   not(any(
     all(
-      feature = "VK_KHR_sampler_ycbcr_conversion",
-      feature = "VK_KHR_external_memory",
+      feature = "VK_EXT_queue_family_foreign",
       feature = "VK_KHR_dedicated_allocation",
-      feature = "VK_EXT_queue_family_foreign"
+      feature = "VK_KHR_external_memory",
+      feature = "VK_KHR_sampler_ycbcr_conversion"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_EXT_queue_family_foreign")
+    all(feature = "VK_EXT_queue_family_foreign", feature = "VK_VERSION_1_1")
   ))
 ))]
 compile_error!(
@@ -606,16 +606,16 @@ compile_error!(
   feature = "VK_AMDX_shader_enqueue",
   not(any(
     all(
-      feature = "VK_KHR_synchronization2",
-      feature = "VK_KHR_spirv_1_4",
       feature = "VK_EXT_extended_dynamic_state",
       feature = "VK_KHR_maintenance5",
-      feature = "VK_KHR_pipeline_library"
+      feature = "VK_KHR_pipeline_library",
+      feature = "VK_KHR_spirv_1_4",
+      feature = "VK_KHR_synchronization2"
     ),
     all(
-      feature = "VK_VERSION_1_3",
       feature = "VK_KHR_maintenance5",
-      feature = "VK_KHR_pipeline_library"
+      feature = "VK_KHR_pipeline_library",
+      feature = "VK_VERSION_1_3"
     )
   ))
 ))]
@@ -626,8 +626,8 @@ compile_error!(
   feature = "VK_EXT_descriptor_heap",
   not(any(
     all(
-      feature = "VK_KHR_maintenance5",
-      feature = "VK_KHR_buffer_device_address"
+      feature = "VK_KHR_buffer_device_address",
+      feature = "VK_KHR_maintenance5"
     ),
     all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2")
   ))
@@ -682,14 +682,14 @@ compile_error!(
   feature = "VK_KHR_acceleration_structure",
   not(any(
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_EXT_descriptor_indexing",
       feature = "VK_KHR_buffer_device_address",
-      feature = "VK_KHR_deferred_host_operations"
+      feature = "VK_KHR_deferred_host_operations",
+      feature = "VK_VERSION_1_1"
     ),
     all(
-      feature = "VK_VERSION_1_2",
-      feature = "VK_KHR_deferred_host_operations"
+      feature = "VK_KHR_deferred_host_operations",
+      feature = "VK_VERSION_1_2"
     )
   ))
 ))]
@@ -700,10 +700,10 @@ compile_error!(
   feature = "VK_KHR_ray_tracing_pipeline",
   not(any(
     all(
-      feature = "VK_KHR_spirv_1_4",
-      feature = "VK_KHR_acceleration_structure"
+      feature = "VK_KHR_acceleration_structure",
+      feature = "VK_KHR_spirv_1_4"
     ),
-    all(feature = "VK_VERSION_1_2", feature = "VK_KHR_acceleration_structure")
+    all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_2")
   ))
 ))]
 compile_error!(
@@ -713,10 +713,10 @@ compile_error!(
   feature = "VK_KHR_ray_query",
   not(any(
     all(
-      feature = "VK_KHR_spirv_1_4",
-      feature = "VK_KHR_acceleration_structure"
+      feature = "VK_KHR_acceleration_structure",
+      feature = "VK_KHR_spirv_1_4"
     ),
-    all(feature = "VK_VERSION_1_2", feature = "VK_KHR_acceleration_structure")
+    all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_2")
   ))
 ))]
 compile_error!(
@@ -730,10 +730,10 @@ compile_error!(
   feature = "VK_KHR_sampler_ycbcr_conversion",
   not(any(
     all(
-      feature = "VK_KHR_maintenance1",
       feature = "VK_KHR_bind_memory2",
       feature = "VK_KHR_get_memory_requirements2",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_get_physical_device_properties2",
+      feature = "VK_KHR_maintenance1"
     ),
     feature = "VK_VERSION_1_1"
   ))
@@ -747,10 +747,10 @@ compile_error!(
     all(
       feature = "VK_KHR_bind_memory2",
       feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_sampler_ycbcr_conversion",
-      feature = "VK_KHR_image_format_list"
+      feature = "VK_KHR_image_format_list",
+      feature = "VK_KHR_sampler_ycbcr_conversion"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_image_format_list"),
+    all(feature = "VK_KHR_image_format_list", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -794,8 +794,8 @@ compile_error!(
   feature = "VK_NV_ray_tracing",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_get_memory_requirements2"
+      feature = "VK_KHR_get_memory_requirements2",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
     feature = "VK_VERSION_1_1"
   ))
@@ -937,8 +937,8 @@ compile_error!(
 #[cfg(all(
   feature = "VK_GGP_frame_token",
   not(all(
-    feature = "VK_KHR_swapchain",
-    feature = "VK_GGP_stream_descriptor_surface"
+    feature = "VK_GGP_stream_descriptor_surface",
+    feature = "VK_KHR_swapchain"
   ))
 ))]
 compile_error!(
@@ -982,19 +982,19 @@ compile_error!(
   feature = "VK_KHR_swapchain_mutable_format",
   not(any(
     all(
-      feature = "VK_KHR_swapchain",
+      feature = "VK_KHR_image_format_list",
       feature = "VK_KHR_maintenance2",
-      feature = "VK_KHR_image_format_list"
+      feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_KHR_swapchain",
       feature = "VK_KHR_maintenance2",
+      feature = "VK_KHR_swapchain",
       feature = "VK_VERSION_1_2"
     ),
     all(
+      feature = "VK_KHR_image_format_list",
       feature = "VK_KHR_swapchain",
-      feature = "VK_VERSION_1_1",
-      feature = "VK_KHR_image_format_list"
+      feature = "VK_VERSION_1_1"
     ),
     all(
       feature = "VK_KHR_swapchain",
@@ -1079,10 +1079,10 @@ compile_error!(
 #[cfg(all(
   feature = "VK_EXT_present_timing",
   not(all(
-    feature = "VK_KHR_swapchain",
-    feature = "VK_KHR_present_id2",
+    feature = "VK_KHR_calibrated_timestamps",
     feature = "VK_KHR_get_surface_capabilities2",
-    feature = "VK_KHR_calibrated_timestamps"
+    feature = "VK_KHR_present_id2",
+    feature = "VK_KHR_swapchain"
   ))
 ))]
 compile_error!(
@@ -1127,9 +1127,9 @@ compile_error!(
       feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_swapchain"
+      feature = "VK_KHR_swapchain",
+      feature = "VK_VERSION_1_1"
     )
   ))
 ))]
@@ -1188,10 +1188,10 @@ compile_error!(
   feature = "VK_KHR_fragment_shading_rate",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_create_renderpass2"
+      feature = "VK_KHR_create_renderpass2",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_create_renderpass2"),
+    all(feature = "VK_KHR_create_renderpass2", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -1256,13 +1256,13 @@ compile_error!(
   feature = "VK_KHR_shader_quad_control",
   not(any(
     all(
-      feature = "VK_VERSION_1_1",
+      feature = "VK_KHR_shader_maximal_reconvergence",
       feature = "VK_KHR_vulkan_memory_model",
-      feature = "VK_KHR_shader_maximal_reconvergence"
+      feature = "VK_VERSION_1_1"
     ),
     all(
-      feature = "VK_VERSION_1_2",
-      feature = "VK_KHR_shader_maximal_reconvergence"
+      feature = "VK_KHR_shader_maximal_reconvergence",
+      feature = "VK_VERSION_1_2"
     )
   ))
 ))]
@@ -1271,7 +1271,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_KHR_spirv_1_4",
-  not(all(feature = "VK_VERSION_1_1", feature = "VK_KHR_shader_float_controls"))
+  not(all(feature = "VK_KHR_shader_float_controls", feature = "VK_VERSION_1_1"))
 ))]
 compile_error!(
   "Feature `VK_KHR_spirv_1_4` requires `VK_VERSION_1_1 + VK_KHR_shader_float_controls`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_spirv_1_4.html"
@@ -1299,8 +1299,8 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_surface_protected_capabilities",
   not(all(
-    feature = "VK_VERSION_1_1",
-    feature = "VK_KHR_get_surface_capabilities2"
+    feature = "VK_KHR_get_surface_capabilities2",
+    feature = "VK_VERSION_1_1"
   ))
 ))]
 compile_error!(
@@ -1323,10 +1323,10 @@ compile_error!(
   feature = "VK_KHR_separate_depth_stencil_layouts",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_create_renderpass2"
+      feature = "VK_KHR_create_renderpass2",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_create_renderpass2"),
+    all(feature = "VK_KHR_create_renderpass2", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -1345,7 +1345,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_KHR_present_wait",
-  not(all(feature = "VK_KHR_swapchain", feature = "VK_KHR_present_id"))
+  not(all(feature = "VK_KHR_present_id", feature = "VK_KHR_swapchain"))
 ))]
 compile_error!(
   "Feature `VK_KHR_present_wait` requires `VK_KHR_swapchain + VK_KHR_present_id`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_present_wait.html"
@@ -1364,8 +1364,8 @@ compile_error!(
   feature = "VK_NV_coverage_reduction_mode",
   not(any(
     all(
-      feature = "VK_NV_framebuffer_mixed_samples",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_get_physical_device_properties2",
+      feature = "VK_NV_framebuffer_mixed_samples"
     ),
     all(
       feature = "VK_NV_framebuffer_mixed_samples",
@@ -1421,15 +1421,15 @@ compile_error!(
   not(any(
     all(
       feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_get_surface_capabilities2",
+      feature = "VK_KHR_surface",
       feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_VERSION_1_1",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_swapchain"
+      feature = "VK_KHR_surface",
+      feature = "VK_KHR_swapchain",
+      feature = "VK_VERSION_1_1"
     )
   ))
 ))]
@@ -1444,8 +1444,8 @@ compile_error!(
   feature = "VK_KHR_buffer_device_address",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_device_group"
+      feature = "VK_KHR_device_group",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
     feature = "VK_VERSION_1_1"
   ))
@@ -1517,14 +1517,14 @@ compile_error!(
   feature = "VK_EXT_host_image_copy",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_copy_commands2",
-      feature = "VK_KHR_format_feature_flags2"
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_KHR_copy_commands2",
-      feature = "VK_KHR_format_feature_flags2"
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_VERSION_1_1"
     ),
     feature = "VK_VERSION_1_3"
   ))
@@ -1549,8 +1549,8 @@ compile_error!(
 #[cfg(all(
   feature = "VK_EXT_surface_maintenance1",
   not(all(
-    feature = "VK_KHR_surface",
-    feature = "VK_KHR_get_surface_capabilities2"
+    feature = "VK_KHR_get_surface_capabilities2",
+    feature = "VK_KHR_surface"
   ))
 ))]
 compile_error!(
@@ -1560,13 +1560,13 @@ compile_error!(
   feature = "VK_EXT_swapchain_maintenance1",
   not(any(
     all(
-      feature = "VK_KHR_swapchain",
       feature = "VK_EXT_surface_maintenance1",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_get_physical_device_properties2",
+      feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_KHR_swapchain",
       feature = "VK_EXT_surface_maintenance1",
+      feature = "VK_KHR_swapchain",
       feature = "VK_VERSION_1_1"
     )
   ))
@@ -1587,7 +1587,7 @@ compile_error!(
 #[cfg(all(
   feature = "VK_NV_device_generated_commands",
   not(any(
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_buffer_device_address"),
+    all(feature = "VK_KHR_buffer_device_address", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -1686,15 +1686,15 @@ compile_error!(
   not(any(
     all(
       feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_get_surface_capabilities2",
+      feature = "VK_KHR_surface",
       feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_VERSION_1_1",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_swapchain"
+      feature = "VK_KHR_surface",
+      feature = "VK_KHR_swapchain",
+      feature = "VK_VERSION_1_1"
     )
   ))
 ))]
@@ -1705,8 +1705,8 @@ compile_error!(
   feature = "VK_KHR_present_id",
   not(any(
     all(
-      feature = "VK_KHR_swapchain",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_get_physical_device_properties2",
+      feature = "VK_KHR_swapchain"
     ),
     all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1")
   ))
@@ -1737,7 +1737,7 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_video_encode_queue",
   not(any(
-    all(feature = "VK_KHR_video_queue", feature = "VK_KHR_synchronization2"),
+    all(feature = "VK_KHR_synchronization2", feature = "VK_KHR_video_queue"),
     all(feature = "VK_KHR_video_queue", feature = "VK_VERSION_1_3")
   ))
 ))]
@@ -1825,18 +1825,18 @@ compile_error!(
   feature = "VK_EXT_descriptor_buffer",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_buffer_device_address",
       feature = "VK_EXT_descriptor_indexing",
+      feature = "VK_KHR_buffer_device_address",
+      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_synchronization2"
     ),
     all(
-      feature = "VK_VERSION_1_1",
-      feature = "VK_KHR_buffer_device_address",
       feature = "VK_EXT_descriptor_indexing",
-      feature = "VK_KHR_synchronization2"
+      feature = "VK_KHR_buffer_device_address",
+      feature = "VK_KHR_synchronization2",
+      feature = "VK_VERSION_1_1"
     ),
-    all(feature = "VK_VERSION_1_2", feature = "VK_KHR_synchronization2"),
+    all(feature = "VK_KHR_synchronization2", feature = "VK_VERSION_1_2"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -1847,21 +1847,21 @@ compile_error!(
   feature = "VK_KHR_device_address_commands",
   not(any(
     all(
+      feature = "VK_EXT_extended_dynamic_state",
+      feature = "VK_KHR_buffer_device_address",
       feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_buffer_device_address",
-      feature = "VK_KHR_synchronization2",
-      feature = "VK_EXT_extended_dynamic_state"
+      feature = "VK_KHR_synchronization2"
     ),
     all(
-      feature = "VK_VERSION_1_1",
+      feature = "VK_EXT_extended_dynamic_state",
       feature = "VK_KHR_buffer_device_address",
       feature = "VK_KHR_synchronization2",
-      feature = "VK_EXT_extended_dynamic_state"
+      feature = "VK_VERSION_1_1"
     ),
     all(
-      feature = "VK_VERSION_1_2",
+      feature = "VK_EXT_extended_dynamic_state",
       feature = "VK_KHR_synchronization2",
-      feature = "VK_EXT_extended_dynamic_state"
+      feature = "VK_VERSION_1_2"
     ),
     feature = "VK_VERSION_1_3"
   ))
@@ -1876,7 +1876,7 @@ compile_error!(
       feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_pipeline_library"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_pipeline_library")
+    all(feature = "VK_KHR_pipeline_library", feature = "VK_VERSION_1_1")
   ))
 ))]
 compile_error!(
@@ -2096,10 +2096,10 @@ compile_error!(
   feature = "VK_EXT_device_address_binding_report",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_EXT_debug_utils"
+      feature = "VK_EXT_debug_utils",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_EXT_debug_utils")
+    all(feature = "VK_EXT_debug_utils", feature = "VK_VERSION_1_1")
   ))
 ))]
 compile_error!(
@@ -2146,8 +2146,8 @@ compile_error!(
   feature = "VK_FUCHSIA_external_memory",
   not(any(
     all(
-      feature = "VK_KHR_external_memory_capabilities",
-      feature = "VK_KHR_external_memory"
+      feature = "VK_KHR_external_memory",
+      feature = "VK_KHR_external_memory_capabilities"
     ),
     feature = "VK_VERSION_1_1"
   ))
@@ -2158,8 +2158,8 @@ compile_error!(
 #[cfg(all(
   feature = "VK_FUCHSIA_external_semaphore",
   not(all(
-    feature = "VK_KHR_external_semaphore_capabilities",
-    feature = "VK_KHR_external_semaphore"
+    feature = "VK_KHR_external_semaphore",
+    feature = "VK_KHR_external_semaphore_capabilities"
   ))
 ))]
 compile_error!(
@@ -2185,7 +2185,7 @@ compile_error!(
       feature = "VK_KHR_create_renderpass2",
       feature = "VK_KHR_synchronization2"
     ),
-    all(feature = "VK_VERSION_1_2", feature = "VK_KHR_synchronization2"),
+    all(feature = "VK_KHR_synchronization2", feature = "VK_VERSION_1_2"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -2318,8 +2318,8 @@ compile_error!(
   feature = "VK_VALVE_video_encode_rgb_conversion",
   not(any(
     all(
-      feature = "VK_KHR_video_encode_queue",
-      feature = "VK_KHR_sampler_ycbcr_conversion"
+      feature = "VK_KHR_sampler_ycbcr_conversion",
+      feature = "VK_KHR_video_encode_queue"
     ),
     all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_1")
   ))
@@ -2351,8 +2351,8 @@ compile_error!(
   feature = "VK_EXT_image_2d_view_of_3d",
   not(any(
     all(
-      feature = "VK_KHR_maintenance1",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_get_physical_device_properties2",
+      feature = "VK_KHR_maintenance1"
     ),
     feature = "VK_VERSION_1_1"
   ))
@@ -2440,8 +2440,8 @@ compile_error!(
   feature = "VK_EXT_image_sliced_view_of_3d",
   not(any(
     all(
-      feature = "VK_KHR_maintenance1",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_get_physical_device_properties2",
+      feature = "VK_KHR_maintenance1"
     ),
     feature = "VK_VERSION_1_1"
   ))
@@ -2486,7 +2486,7 @@ compile_error!(
       feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_synchronization2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_synchronization2"),
+    all(feature = "VK_KHR_synchronization2", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -2497,10 +2497,10 @@ compile_error!(
   feature = "VK_QCOM_fragment_density_map_offset",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_EXT_fragment_density_map"
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_EXT_fragment_density_map")
+    all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_1")
   ))
 ))]
 compile_error!(
@@ -2510,10 +2510,10 @@ compile_error!(
   feature = "VK_NV_copy_memory_indirect",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_buffer_device_address"
+      feature = "VK_KHR_buffer_device_address",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_buffer_device_address"),
+    all(feature = "VK_KHR_buffer_device_address", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -2524,10 +2524,10 @@ compile_error!(
   feature = "VK_NV_memory_decompression",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_buffer_device_address"
+      feature = "VK_KHR_buffer_device_address",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_buffer_device_address"),
+    all(feature = "VK_KHR_buffer_device_address", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_2"
   ))
 ))]
@@ -2600,12 +2600,12 @@ compile_error!(
   feature = "VK_OHOS_external_memory",
   not(any(
     all(
-      feature = "VK_KHR_sampler_ycbcr_conversion",
-      feature = "VK_KHR_external_memory",
+      feature = "VK_EXT_queue_family_foreign",
       feature = "VK_KHR_dedicated_allocation",
-      feature = "VK_EXT_queue_family_foreign"
+      feature = "VK_KHR_external_memory",
+      feature = "VK_KHR_sampler_ycbcr_conversion"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_EXT_queue_family_foreign")
+    all(feature = "VK_EXT_queue_family_foreign", feature = "VK_VERSION_1_1")
   ))
 ))]
 compile_error!(
@@ -2646,12 +2646,12 @@ compile_error!(
   feature = "VK_EXT_shader_module_identifier",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_EXT_pipeline_creation_cache_control"
+      feature = "VK_EXT_pipeline_creation_cache_control",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
     all(
-      feature = "VK_VERSION_1_1",
-      feature = "VK_EXT_pipeline_creation_cache_control"
+      feature = "VK_EXT_pipeline_creation_cache_control",
+      feature = "VK_VERSION_1_1"
     ),
     feature = "VK_VERSION_1_3"
   ))
@@ -2673,14 +2673,14 @@ compile_error!(
   feature = "VK_NV_optical_flow",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_synchronization2"
     ),
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_KHR_format_feature_flags2",
-      feature = "VK_KHR_synchronization2"
+      feature = "VK_KHR_synchronization2",
+      feature = "VK_VERSION_1_1"
     ),
     feature = "VK_VERSION_1_3"
   ))
@@ -2718,7 +2718,7 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_maintenance5",
   not(any(
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_dynamic_rendering"),
+    all(feature = "VK_KHR_dynamic_rendering", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -2763,9 +2763,9 @@ compile_error!(
   feature = "VK_KHR_present_wait2",
   not(all(
     feature = "VK_KHR_get_surface_capabilities2",
+    feature = "VK_KHR_present_id2",
     feature = "VK_KHR_surface",
-    feature = "VK_KHR_swapchain",
-    feature = "VK_KHR_present_id2"
+    feature = "VK_KHR_swapchain"
   ))
 ))]
 compile_error!(
@@ -2782,10 +2782,10 @@ compile_error!(
   feature = "VK_EXT_shader_object",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_dynamic_rendering"
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_dynamic_rendering"),
+    all(feature = "VK_KHR_dynamic_rendering", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -2822,8 +2822,8 @@ compile_error!(
 #[cfg(all(
   feature = "VK_KHR_surface_maintenance1",
   not(all(
-    feature = "VK_KHR_surface",
-    feature = "VK_KHR_get_surface_capabilities2"
+    feature = "VK_KHR_get_surface_capabilities2",
+    feature = "VK_KHR_surface"
   ))
 ))]
 compile_error!(
@@ -2833,13 +2833,13 @@ compile_error!(
   feature = "VK_KHR_swapchain_maintenance1",
   not(any(
     all(
-      feature = "VK_KHR_swapchain",
+      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_surface_maintenance1",
-      feature = "VK_KHR_get_physical_device_properties2"
+      feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_KHR_swapchain",
       feature = "VK_KHR_surface_maintenance1",
+      feature = "VK_KHR_swapchain",
       feature = "VK_VERSION_1_1"
     )
   ))
@@ -2915,8 +2915,8 @@ compile_error!(
 #[cfg(all(
   feature = "VK_EXT_pipeline_library_group_handles",
   not(all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_pipeline_library"
+    feature = "VK_KHR_pipeline_library",
+    feature = "VK_KHR_ray_tracing_pipeline"
   ))
 ))]
 compile_error!(
@@ -2926,10 +2926,10 @@ compile_error!(
   feature = "VK_EXT_dynamic_rendering_unused_attachments",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_dynamic_rendering"
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_dynamic_rendering"),
+    all(feature = "VK_KHR_dynamic_rendering", feature = "VK_VERSION_1_1"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -2946,10 +2946,10 @@ compile_error!(
 #[cfg(all(
   feature = "VK_NV_low_latency2",
   not(any(
-    all(feature = "VK_VERSION_1_2", feature = "VK_KHR_present_id"),
-    all(feature = "VK_VERSION_1_2", feature = "VK_KHR_present_id2"),
-    all(feature = "VK_KHR_timeline_semaphore", feature = "VK_KHR_present_id"),
-    all(feature = "VK_KHR_timeline_semaphore", feature = "VK_KHR_present_id2")
+    all(feature = "VK_KHR_present_id", feature = "VK_VERSION_1_2"),
+    all(feature = "VK_KHR_present_id2", feature = "VK_VERSION_1_2"),
+    all(feature = "VK_KHR_present_id", feature = "VK_KHR_timeline_semaphore"),
+    all(feature = "VK_KHR_present_id2", feature = "VK_KHR_timeline_semaphore")
   ))
 ))]
 compile_error!(
@@ -2968,9 +2968,9 @@ compile_error!(
 #[cfg(all(
   feature = "VK_ARM_data_graph",
   not(all(
-    feature = "VK_VERSION_1_3",
+    feature = "VK_KHR_deferred_host_operations",
     feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_deferred_host_operations"
+    feature = "VK_VERSION_1_3"
   ))
 ))]
 compile_error!(
@@ -3079,12 +3079,12 @@ compile_error!(
   feature = "VK_EXT_attachment_feedback_loop_dynamic_state",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_EXT_attachment_feedback_loop_layout"
+      feature = "VK_EXT_attachment_feedback_loop_layout",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
     all(
-      feature = "VK_VERSION_1_1",
-      feature = "VK_EXT_attachment_feedback_loop_layout"
+      feature = "VK_EXT_attachment_feedback_loop_layout",
+      feature = "VK_VERSION_1_1"
     )
   ))
 ))]
@@ -3113,7 +3113,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_KHR_shader_float_controls2",
-  not(all(feature = "VK_VERSION_1_1", feature = "VK_KHR_shader_float_controls"))
+  not(all(feature = "VK_KHR_shader_float_controls", feature = "VK_VERSION_1_1"))
 ))]
 compile_error!(
   "Feature `VK_KHR_shader_float_controls2` requires `VK_VERSION_1_1 + VK_KHR_shader_float_controls`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_shader_float_controls2.html"
@@ -3122,12 +3122,12 @@ compile_error!(
   feature = "VK_QNX_external_memory_screen_buffer",
   not(any(
     all(
-      feature = "VK_KHR_sampler_ycbcr_conversion",
-      feature = "VK_KHR_external_memory",
+      feature = "VK_EXT_queue_family_foreign",
       feature = "VK_KHR_dedicated_allocation",
-      feature = "VK_EXT_queue_family_foreign"
+      feature = "VK_KHR_external_memory",
+      feature = "VK_KHR_sampler_ycbcr_conversion"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_EXT_queue_family_foreign")
+    all(feature = "VK_EXT_queue_family_foreign", feature = "VK_VERSION_1_1")
   ))
 ))]
 compile_error!(
@@ -3211,8 +3211,8 @@ compile_error!(
   feature = "VK_KHR_copy_memory_indirect",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_buffer_device_address"
+      feature = "VK_KHR_buffer_device_address",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
     feature = "VK_VERSION_1_2"
   ))
@@ -3223,8 +3223,8 @@ compile_error!(
 #[cfg(all(
   feature = "VK_EXT_memory_decompression",
   not(all(
-    feature = "VK_KHR_get_physical_device_properties2",
-    feature = "VK_KHR_buffer_device_address"
+    feature = "VK_KHR_buffer_device_address",
+    feature = "VK_KHR_get_physical_device_properties2"
   ))
 ))]
 compile_error!(
@@ -3248,8 +3248,8 @@ compile_error!(
   feature = "VK_KHR_video_encode_quantization_map",
   not(any(
     all(
-      feature = "VK_KHR_video_encode_queue",
-      feature = "VK_KHR_format_feature_flags2"
+      feature = "VK_KHR_format_feature_flags2",
+      feature = "VK_KHR_video_encode_queue"
     ),
     all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3")
   ))
@@ -3352,7 +3352,7 @@ compile_error!(
       feature = "VK_KHR_buffer_device_address",
       feature = "VK_KHR_maintenance5"
     ),
-    all(feature = "VK_VERSION_1_2", feature = "VK_KHR_maintenance5"),
+    all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
     feature = "VK_VERSION_1_3"
   ))
 ))]
@@ -3435,14 +3435,14 @@ compile_error!(
   feature = "VK_HUAWEI_hdr_vivid",
   not(any(
     all(
+      feature = "VK_EXT_hdr_metadata",
       feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_swapchain",
-      feature = "VK_EXT_hdr_metadata"
+      feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_VERSION_1_1",
+      feature = "VK_EXT_hdr_metadata",
       feature = "VK_KHR_swapchain",
-      feature = "VK_EXT_hdr_metadata"
+      feature = "VK_VERSION_1_1"
     )
   ))
 ))]
@@ -3524,10 +3524,10 @@ compile_error!(
   feature = "VK_VALVE_fragment_density_map_layered",
   not(any(
     all(
-      feature = "VK_KHR_maintenance5",
-      feature = "VK_EXT_fragment_density_map"
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_maintenance5"
     ),
-    all(feature = "VK_VERSION_1_4", feature = "VK_EXT_fragment_density_map")
+    all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_4")
   ))
 ))]
 compile_error!(
@@ -3557,52 +3557,52 @@ compile_error!(
   feature = "VK_EXT_fragment_density_map_offset",
   not(any(
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_EXT_fragment_density_map",
       feature = "VK_KHR_create_renderpass2",
+      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_VERSION_1_3"
     ),
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_EXT_fragment_density_map",
       feature = "VK_KHR_create_renderpass2",
-      feature = "VK_KHR_dynamic_rendering"
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
     all(
-      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_VERSION_1_2",
       feature = "VK_VERSION_1_3"
     ),
     all(
+      feature = "VK_EXT_fragment_density_map",
+      feature = "VK_KHR_dynamic_rendering",
       feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_EXT_fragment_density_map",
-      feature = "VK_VERSION_1_2",
-      feature = "VK_KHR_dynamic_rendering"
+      feature = "VK_VERSION_1_2"
     ),
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_EXT_fragment_density_map",
       feature = "VK_KHR_create_renderpass2",
+      feature = "VK_VERSION_1_1",
       feature = "VK_VERSION_1_3"
     ),
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_EXT_fragment_density_map",
       feature = "VK_KHR_create_renderpass2",
-      feature = "VK_KHR_dynamic_rendering"
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_VERSION_1_1"
     ),
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_EXT_fragment_density_map",
+      feature = "VK_VERSION_1_1",
       feature = "VK_VERSION_1_2",
       feature = "VK_VERSION_1_3"
     ),
     all(
-      feature = "VK_VERSION_1_1",
       feature = "VK_EXT_fragment_density_map",
-      feature = "VK_VERSION_1_2",
-      feature = "VK_KHR_dynamic_rendering"
+      feature = "VK_KHR_dynamic_rendering",
+      feature = "VK_VERSION_1_1",
+      feature = "VK_VERSION_1_2"
     )
   ))
 ))]
@@ -3749,7 +3749,7 @@ compile_error!(
       feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_VERSION_1_2"
     ),
-    all(feature = "VK_VERSION_1_1", feature = "VK_KHR_shader_float16_int8"),
+    all(feature = "VK_KHR_shader_float16_int8", feature = "VK_VERSION_1_1"),
     all(feature = "VK_VERSION_1_1", feature = "VK_VERSION_1_2")
   ))
 ))]

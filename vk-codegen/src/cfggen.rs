@@ -25,7 +25,7 @@ pub fn cfg_any(features: &[String]) -> TokenStream {
 /// Convert DNF clauses to a `cfg` expression.
 #[must_use]
 pub fn cfg_expr_from_dnf(clauses: &[Vec<String>]) -> TokenStream {
-    clauses_to_ts(clauses)
+    clauses_to_ts(&simplify_clauses(clauses))
 }
 
 #[must_use]
@@ -167,6 +167,71 @@ fn availability_clauses(
         }
     }
     clauses
+}
+
+fn simplify_clauses(clauses: &[Vec<String>]) -> Vec<Vec<String>> {
+    let mut simplified = Vec::<Vec<String>>::new();
+
+    for clause in clauses {
+        let mut clause = clause.clone();
+        clause.sort();
+        clause.dedup();
+        let original = clause.clone();
+        clause = original
+            .iter()
+            .filter(|feature| {
+                !original
+                    .iter()
+                    .any(|other| other != *feature && feature_implies(other, feature))
+            })
+            .cloned()
+            .collect();
+        if !simplified.contains(&clause) {
+            simplified.push(clause);
+        }
+    }
+
+    let mut out = Vec::new();
+    'clause: for (idx, clause) in simplified.iter().enumerate() {
+        for (other_idx, other) in simplified.iter().enumerate() {
+            if idx != other_idx && clause_implies(clause, other) {
+                continue 'clause;
+            }
+        }
+        out.push(clause.clone());
+    }
+    out
+}
+
+fn clause_implies(clause: &[String], other: &[String]) -> bool {
+    other.iter().all(|required| {
+        clause
+            .iter()
+            .any(|feature| feature_implies(feature, required))
+    })
+}
+
+fn feature_implies(feature: &str, required: &str) -> bool {
+    feature == required || feature_implies_vulkan_base_1_0(feature, required)
+}
+
+fn feature_implies_vulkan_base_1_0(feature: &str, required: &str) -> bool {
+    if required != "VK_BASE_VERSION_1_0" {
+        return false;
+    }
+
+    is_vulkan_core_feature(feature) || is_vulkan_extension(feature)
+}
+
+fn is_vulkan_core_feature(feature: &str) -> bool {
+    feature.starts_with("VK_BASE_VERSION_")
+        || feature.starts_with("VK_COMPUTE_VERSION_")
+        || feature.starts_with("VK_GRAPHICS_VERSION_")
+        || feature.starts_with("VK_VERSION_")
+}
+
+fn is_vulkan_extension(feature: &str) -> bool {
+    feature.starts_with("VK_") && !is_vulkan_core_feature(feature) && feature != "VKSC_VERSION_1_0"
 }
 
 fn clauses_to_ts(clauses: &[Vec<String>]) -> TokenStream {

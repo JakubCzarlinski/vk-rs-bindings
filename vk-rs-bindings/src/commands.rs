@@ -5110,13 +5110,7 @@ pub type PFN_vkCmdSetDepthClampEnableEXT =
 /// - `commandBuffer`
 /// - `depthClampMode`
 /// - `pDepthClampRange`: optional: true
-#[cfg(any(
-  all(
-    feature = "VK_EXT_depth_clamp_control",
-    feature = "VK_EXT_shader_object"
-  ),
-  feature = "VK_EXT_depth_clamp_control"
-))]
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
 pub type PFN_vkCmdSetDepthClampRangeEXT = unsafe extern "system" fn(
   commandBuffer: VkCommandBuffer,
   depthClampMode: VkDepthClampModeEXT,

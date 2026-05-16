@@ -1132,1167 +1132,11 @@ impl core::fmt::Display for VkPipelineCacheValidationVersion {
 /// [VkStructureType](https://docs.vulkan.org/refpages/latest/refpages/source/VkStructureType.html)
 ///
 /// Structure type enumerant
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_GRAPHICS_VERSION_1_2",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_COMPUTE_VERSION_1_3",
-  feature = "VK_GRAPHICS_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_COMPUTE_VERSION_1_4",
-  feature = "VK_GRAPHICS_VERSION_1_4",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
-  feature = "VK_KHR_display",
-  feature = "VK_KHR_display_swapchain",
-  feature = "VK_KHR_xlib_surface",
-  feature = "VK_KHR_xcb_surface",
-  feature = "VK_KHR_wayland_surface",
-  feature = "VK_KHR_android_surface",
-  feature = "VK_KHR_win32_surface",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_AMD_rasterization_order",
-  feature = "VK_EXT_debug_marker",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_dedicated_allocation",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_NVX_image_view_handle",
-  feature = "VK_KHR_video_encode_h264",
-  feature = "VK_KHR_video_encode_h265",
-  feature = "VK_KHR_video_decode_h264",
-  feature = "VK_AMD_texture_gather_bias_lod",
-  feature = "VK_KHR_dynamic_rendering",
-  feature = "VK_GGP_stream_descriptor_surface",
-  feature = "VK_NV_corner_sampled_image",
-  feature = "VK_NV_private_vendor_info",
-  feature = "VK_KHR_multiview",
-  feature = "VK_NV_external_memory",
-  feature = "VK_NV_external_memory_win32",
-  feature = "VK_NV_win32_keyed_mutex",
-  feature = "VK_KHR_get_physical_device_properties2",
-  feature = "VK_KHR_device_group",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_EXT_validation_flags",
-  feature = "VK_NN_vi_surface",
-  feature = "VK_EXT_texture_compression_astc_hdr",
-  feature = "VK_EXT_astc_decode_mode",
-  feature = "VK_EXT_pipeline_robustness",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_KHR_external_memory_capabilities",
-  feature = "VK_KHR_external_memory",
-  feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_memory_fd",
-  feature = "VK_KHR_win32_keyed_mutex",
-  feature = "VK_KHR_external_semaphore_capabilities",
-  feature = "VK_KHR_external_semaphore",
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_semaphore_fd",
-  feature = "VK_KHR_push_descriptor",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_shader_float16_int8",
-  feature = "VK_KHR_16bit_storage",
-  feature = "VK_KHR_incremental_present",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_NV_clip_space_w_scaling",
-  feature = "VK_EXT_display_surface_counter",
-  feature = "VK_EXT_display_control",
-  feature = "VK_GOOGLE_display_timing",
-  feature = "VK_NVX_multiview_per_view_attributes",
-  all(
-    feature = "VK_NVX_multiview_per_view_attributes",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_NVX_multiview_per_view_attributes"
-  ),
-  feature = "VK_NV_viewport_swizzle",
-  feature = "VK_EXT_discard_rectangles",
-  feature = "VK_EXT_conservative_rasterization",
-  feature = "VK_EXT_depth_clip_enable",
-  feature = "VK_EXT_hdr_metadata",
-  feature = "VK_KHR_imageless_framebuffer",
-  feature = "VK_KHR_create_renderpass2",
-  feature = "VK_IMG_relaxed_line_rasterization",
-  feature = "VK_KHR_shared_presentable_image",
-  feature = "VK_KHR_external_fence_capabilities",
-  feature = "VK_KHR_external_fence",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_fence_fd",
-  feature = "VK_KHR_performance_query",
-  all(feature = "VKSC_VERSION_1_0", feature = "VK_KHR_performance_query"),
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_KHR_get_surface_capabilities2",
-  feature = "VK_KHR_variable_pointers",
-  feature = "VK_KHR_get_display_properties2",
-  feature = "VK_MVK_ios_surface",
-  feature = "VK_MVK_macos_surface",
-  feature = "VK_KHR_dedicated_allocation",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-  all(
-    feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-    feature = "VK_VERSION_1_3"
-  ),
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_AMD_gpa_interface",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_custom_border_color",
-    feature = "VK_EXT_descriptor_heap"
-  ),
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_EXT_fragment_density_map"
-  ),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(
-    feature = "VK_AMD_mixed_attachment_samples",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_AMD_mixed_attachment_samples",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  feature = "VK_EXT_inline_uniform_block",
-  feature = "VK_KHR_shader_bfloat16",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_get_memory_requirements2",
-  feature = "VK_KHR_image_format_list",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_NV_fragment_coverage_to_color",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_KHR_ray_query",
-  feature = "VK_NV_framebuffer_mixed_samples",
-  all(
-    feature = "VK_NV_framebuffer_mixed_samples",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_NV_framebuffer_mixed_samples"
-  ),
-  feature = "VK_NV_shader_sm_builtins",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_image_drm_format_modifier",
-  all(
-    feature = "VK_EXT_image_drm_format_modifier",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_image_drm_format_modifier",
-    feature = "VK_VERSION_1_3"
-  ),
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_EXT_descriptor_indexing",
-  feature = "VK_KHR_portability_subset",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_representative_fragment_test",
-  feature = "VK_KHR_maintenance3",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_QCOM_cooperative_matrix_conversion",
-  feature = "VK_QCOM_elapsed_timer_query",
-  feature = "VK_EXT_global_priority",
-  feature = "VK_KHR_shader_subgroup_extended_types",
-  feature = "VK_KHR_8bit_storage",
-  feature = "VK_EXT_external_memory_host",
-  feature = "VK_KHR_shader_atomic_int64",
-  feature = "VK_KHR_shader_clock",
-  feature = "VK_AMD_pipeline_compiler_control",
-  feature = "VK_EXT_calibrated_timestamps",
-  feature = "VK_AMD_shader_core_properties",
-  feature = "VK_KHR_video_decode_h265",
-  feature = "VK_KHR_global_priority",
-  feature = "VK_AMD_memory_overallocation_behavior",
-  feature = "VK_EXT_vertex_attribute_divisor",
-  feature = "VK_GGP_frame_token",
-  feature = "VK_EXT_pipeline_creation_feedback",
-  feature = "VK_KHR_driver_properties",
-  feature = "VK_KHR_shader_float_controls",
-  feature = "VK_KHR_depth_stencil_resolve",
-  feature = "VK_NV_compute_shader_derivatives",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_NV_fragment_shader_barycentric",
-  feature = "VK_NV_shader_image_footprint",
-  feature = "VK_NV_scissor_exclusive",
-  feature = "VK_NV_device_diagnostic_checkpoints",
-  all(
-    feature = "VK_NV_device_diagnostic_checkpoints",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_diagnostic_checkpoints"
-  ),
-  feature = "VK_KHR_timeline_semaphore",
-  feature = "VK_EXT_present_timing",
-  feature = "VK_INTEL_shader_integer_functions2",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_vulkan_memory_model",
-  feature = "VK_EXT_pci_bus_info",
-  feature = "VK_AMD_display_native_hdr",
-  feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_KHR_shader_terminate_invocation",
-  feature = "VK_EXT_metal_surface",
-  feature = "VK_EXT_fragment_density_map",
-  all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  feature = "VK_EXT_scalar_block_layout",
-  feature = "VK_EXT_subgroup_size_control",
-  feature = "VK_KHR_fragment_shading_rate",
-  all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  feature = "VK_AMD_shader_core_properties2",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_KHR_shader_constant_data",
-  feature = "VK_KHR_dynamic_rendering_local_read",
-  feature = "VK_KHR_shader_abort",
-  feature = "VK_EXT_shader_image_atomic_int64",
-  feature = "VK_KHR_shader_quad_control",
-  feature = "VK_EXT_memory_budget",
-  feature = "VK_EXT_memory_priority",
-  feature = "VK_KHR_surface_protected_capabilities",
-  feature = "VK_NV_dedicated_allocation_image_aliasing",
-  feature = "VK_KHR_separate_depth_stencil_layouts",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_EXT_tooling_info",
-  feature = "VK_EXT_separate_stencil_usage",
-  feature = "VK_EXT_validation_features",
-  feature = "VK_KHR_present_wait",
-  feature = "VK_NV_cooperative_matrix",
-  feature = "VK_NV_coverage_reduction_mode",
-  feature = "VK_EXT_fragment_shader_interlock",
-  feature = "VK_EXT_ycbcr_image_arrays",
-  feature = "VK_KHR_uniform_buffer_standard_layout",
-  feature = "VK_EXT_provoking_vertex",
-  feature = "VK_EXT_full_screen_exclusive",
-  all(
-    feature = "VK_EXT_full_screen_exclusive",
-    feature = "VK_KHR_win32_surface"
-  ),
-  feature = "VK_EXT_headless_surface",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_line_rasterization",
-  feature = "VK_EXT_shader_atomic_float",
-  feature = "VK_EXT_host_query_reset",
-  feature = "VK_EXT_index_type_uint8",
-  feature = "VK_EXT_extended_dynamic_state",
-  feature = "VK_KHR_pipeline_executable_properties",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_map_memory2",
-  feature = "VK_EXT_map_memory_placed",
-  feature = "VK_EXT_shader_atomic_float2",
-  feature = "VK_EXT_surface_maintenance1",
-  feature = "VK_EXT_swapchain_maintenance1",
-  feature = "VK_EXT_shader_demote_to_helper_invocation",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_NV_inherited_viewport_scissor",
-  feature = "VK_KHR_shader_integer_dot_product",
-  feature = "VK_EXT_texel_buffer_alignment",
-  feature = "VK_QCOM_render_pass_transform",
-  feature = "VK_EXT_depth_bias_control",
-  feature = "VK_EXT_device_memory_report",
-  feature = "VK_EXT_robustness2",
-  feature = "VK_EXT_custom_border_color",
-  feature = "VK_EXT_texture_compression_astc_3d",
-  feature = "VK_KHR_pipeline_library",
-  feature = "VK_NV_present_barrier",
-  feature = "VK_KHR_present_id",
-  feature = "VK_EXT_private_data",
-  feature = "VK_EXT_pipeline_creation_cache_control",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_device_diagnostics_config",
-  feature = "VK_QCOM_queue_perf_hint",
-  feature = "VK_QCOM_image_processing3",
-  feature = "VK_QCOM_shader_multiple_wait_queues",
-  feature = "VK_EXT_shader_split_barrier",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_KHR_object_refresh",
-  feature = "VK_QCOM_tile_shading",
-  feature = "VK_NV_low_latency",
-  feature = "VK_EXT_metal_objects",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_descriptor_buffer",
-  all(
-    feature = "VK_EXT_descriptor_buffer",
-    feature = "VK_KHR_acceleration_structure"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing"),
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_AMD_buffer_marker",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  feature = "VK_EXT_graphics_pipeline_library",
-  feature = "VK_AMD_shader_early_and_late_fragment_tests",
-  feature = "VK_KHR_fragment_shader_barycentric",
-  feature = "VK_KHR_shader_subgroup_uniform_control_flow",
-  feature = "VK_KHR_zero_initialize_workgroup_memory",
-  feature = "VK_NV_fragment_shading_rate_enums",
-  feature = "VK_NV_ray_tracing_motion_blur",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_ycbcr_2plane_444_formats",
-  feature = "VK_EXT_fragment_density_map2",
-  feature = "VK_QCOM_rotated_copy_commands",
-  feature = "VK_EXT_image_robustness",
-  feature = "VK_KHR_workgroup_memory_explicit_layout",
-  feature = "VK_KHR_copy_commands2",
-  feature = "VK_EXT_image_compression_control",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_EXT_4444_formats",
-  feature = "VK_EXT_device_fault",
-  feature = "VK_ARM_rasterization_order_attachment_access",
-  feature = "VK_EXT_rgba10x6_formats",
-  feature = "VK_EXT_directfb_surface",
-  feature = "VK_VALVE_mutable_descriptor_type",
-  feature = "VK_EXT_vertex_input_dynamic_state",
-  feature = "VK_EXT_physical_device_drm",
-  feature = "VK_EXT_device_address_binding_report",
-  feature = "VK_EXT_depth_clip_control",
-  feature = "VK_EXT_primitive_topology_list_restart",
-  feature = "VK_KHR_format_feature_flags2",
-  feature = "VK_EXT_present_mode_fifo_latest_ready",
-  feature = "VK_FUCHSIA_external_memory",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_NV_external_memory_rdma",
-  feature = "VK_EXT_pipeline_properties",
-  feature = "VK_NV_external_sci_sync",
-  feature = "VK_NV_external_memory_sci_buf",
-  feature = "VK_EXT_frame_boundary",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_extended_dynamic_state2",
-  feature = "VK_QNX_screen_surface",
-  feature = "VK_EXT_color_write_enable",
-  feature = "VK_EXT_primitives_generated_query",
-  feature = "VK_KHR_ray_tracing_maintenance1",
-  feature = "VK_KHR_shader_untyped_pointers",
-  feature = "VK_EXT_global_priority_query",
-  feature = "VK_VALVE_video_encode_rgb_conversion",
-  feature = "VK_EXT_image_view_min_lod",
-  feature = "VK_EXT_multi_draw",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_EXT_shader_tile_image",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_NV_displacement_micromap",
-  feature = "VK_HUAWEI_cluster_culling_shader",
-  feature = "VK_EXT_border_color_swizzle",
-  feature = "VK_EXT_pageable_device_local_memory",
-  feature = "VK_KHR_maintenance4",
-  feature = "VK_ARM_shader_core_properties",
-  feature = "VK_KHR_shader_subgroup_rotate",
-  feature = "VK_ARM_scheduling_controls",
-  feature = "VK_EXT_image_sliced_view_of_3d",
-  feature = "VK_VALVE_descriptor_set_host_mapping",
-  feature = "VK_EXT_depth_clamp_zero_one",
-  feature = "VK_EXT_non_seamless_cube_map",
-  feature = "VK_ARM_render_pass_striped",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_NV_copy_memory_indirect",
-  feature = "VK_NV_memory_decompression",
-  feature = "VK_NV_device_generated_commands_compute",
-  feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  feature = "VK_NV_linear_color_attachment",
-  feature = "VK_KHR_shader_maximal_reconvergence",
-  feature = "VK_EXT_application_parameters",
-  feature = "VK_EXT_image_compression_control_swapchain",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_EXT_nested_command_buffer",
-  feature = "VK_OHOS_external_memory",
-  feature = "VK_EXT_external_memory_acquire_unmodified",
-  feature = "VK_EXT_extended_dynamic_state3",
-  feature = "VK_EXT_subpass_merge_feedback",
-  feature = "VK_LUNARG_direct_driver_loading",
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_frame_boundary"),
-  feature = "VK_EXT_shader_module_identifier",
-  feature = "VK_EXT_rasterization_order_attachment_access",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_legacy_dithering",
-  feature = "VK_EXT_pipeline_protected_access",
-  feature = "VK_ANDROID_external_format_resolve",
-  feature = "VK_KHR_maintenance5",
-  feature = "VK_AMD_anti_lag",
-  feature = "VK_AMDX_dense_geometry_format",
-  feature = "VK_KHR_present_id2",
-  feature = "VK_KHR_present_wait2",
-  feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_QCOM_tile_properties",
-  feature = "VK_SEC_amigo_profiling",
-  feature = "VK_KHR_surface_maintenance1",
-  feature = "VK_KHR_swapchain_maintenance1",
-  feature = "VK_QCOM_multiview_per_view_viewports",
-  feature = "VK_NV_external_sci_sync2",
-  all(feature = "VKSC_VERSION_1_0", feature = "VK_NV_external_sci_sync2"),
-  feature = "VK_NV_ray_tracing_invocation_reorder",
-  feature = "VK_NV_cooperative_vector",
-  feature = "VK_NV_extended_sparse_address_space",
-  feature = "VK_EXT_mutable_descriptor_type",
-  feature = "VK_EXT_legacy_vertex_attributes",
-  feature = "VK_EXT_layer_settings",
-  feature = "VK_ARM_shader_core_builtins",
-  feature = "VK_EXT_pipeline_library_group_handles",
-  feature = "VK_EXT_dynamic_rendering_unused_attachments",
-  feature = "VK_KHR_internally_synchronized_queues",
-  feature = "VK_NV_low_latency2",
-  feature = "VK_KHR_cooperative_matrix",
-  feature = "VK_ARM_data_graph",
-  all(feature = "VK_ARM_data_graph", feature = "VK_ARM_tensors"),
-  feature = "VK_ARM_data_graph_instruction_set_tosa",
-  feature = "VK_QCOM_multiview_per_view_render_areas",
-  feature = "VK_KHR_compute_shader_derivatives",
-  feature = "VK_KHR_video_decode_av1",
-  feature = "VK_KHR_video_encode_av1",
-  feature = "VK_KHR_video_decode_vp9",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_NV_per_stage_descriptor_set",
-  feature = "VK_QCOM_image_processing2",
-  feature = "VK_QCOM_filter_cubic_weights",
-  feature = "VK_QCOM_ycbcr_degamma",
-  feature = "VK_QCOM_filter_cubic_clamp",
-  feature = "VK_EXT_attachment_feedback_loop_dynamic_state",
-  feature = "VK_KHR_vertex_attribute_divisor",
-  feature = "VK_KHR_unified_image_layouts",
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_unified_image_layouts",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_unified_image_layouts"
-  ),
-  feature = "VK_KHR_shader_float_controls2",
-  feature = "VK_QNX_external_memory_screen_buffer",
-  feature = "VK_MSFT_layered_driver",
-  feature = "VK_KHR_index_type_uint8",
-  feature = "VK_KHR_line_rasterization",
-  feature = "VK_KHR_calibrated_timestamps",
-  feature = "VK_KHR_shader_expect_assume",
-  feature = "VK_KHR_maintenance6",
-  all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"),
-  feature = "VK_NV_descriptor_pool_overallocation",
-  feature = "VK_QCOM_tile_memory_heap",
-  all(
-    feature = "VK_QCOM_tile_memory_heap",
-    feature = "VK_QCOM_tile_properties"
-  ),
-  feature = "VK_KHR_copy_memory_indirect",
-  feature = "VK_EXT_memory_decompression",
-  feature = "VK_NV_display_stereo",
-  feature = "VK_KHR_video_encode_intra_refresh",
-  feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  feature = "VK_NV_raw_access_chains",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_KHR_shader_relaxed_extended_instruction",
-  feature = "VK_NV_command_buffer_inheritance",
-  feature = "VK_KHR_maintenance7",
-  feature = "VK_NV_shader_atomic_float16_vector",
-  feature = "VK_EXT_shader_replicated_composites",
-  feature = "VK_EXT_shader_float8",
-  feature = "VK_NV_ray_tracing_validation",
-  feature = "VK_NV_cluster_acceleration_structure",
-  feature = "VK_NV_partitioned_acceleration_structure",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_KHR_device_fault",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_MESA_image_alignment_control",
-  feature = "VK_KHR_shader_fma",
-  feature = "VK_NV_push_constant_bank",
-  feature = "VK_EXT_ray_tracing_invocation_reorder",
-  feature = "VK_EXT_depth_clamp_control",
-  feature = "VK_KHR_maintenance9",
-  feature = "VK_KHR_video_maintenance2",
-  all(
-    feature = "VK_KHR_video_decode_h264",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  all(
-    feature = "VK_KHR_video_decode_h265",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  all(
-    feature = "VK_KHR_video_decode_av1",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  feature = "VK_OHOS_surface",
-  feature = "VK_HUAWEI_hdr_vivid",
-  feature = "VK_NV_cooperative_matrix2",
-  feature = "VK_ARM_pipeline_opacity_micromap",
-  feature = "VK_EXT_external_memory_metal",
-  feature = "VK_KHR_depth_clamp_zero_one",
-  feature = "VK_ARM_performance_counters_by_region",
-  feature = "VK_ARM_shader_instrumentation",
-  feature = "VK_EXT_vertex_attribute_robustness",
-  feature = "VK_ARM_format_pack",
-  feature = "VK_VALVE_fragment_density_map_layered",
-  feature = "VK_KHR_robustness2",
-  feature = "VK_NV_present_metering",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_EXT_zero_initialize_device_memory",
-  feature = "VK_KHR_present_mode_fifo_latest_ready",
-  feature = "VK_KHR_opacity_micromap",
-  feature = "VK_EXT_shader_64bit_indexing",
-  feature = "VK_EXT_custom_resolve",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
-  feature = "VK_QCOM_data_graph_model",
-  feature = "VK_KHR_maintenance10",
-  feature = "VK_ARM_data_graph_optical_flow",
-  feature = "VK_EXT_shader_long_vector",
-  feature = "VK_SEC_pipeline_cache_incremental_mode",
-  feature = "VK_EXT_shader_uniform_buffer_unsized_array",
-  feature = "VK_NV_compute_occupancy_priority",
-  feature = "VK_KHR_maintenance11",
-  feature = "VK_EXT_shader_subgroup_partitioned",
-  feature = "VK_SEC_ubm_surface",
-  feature = "VK_VALVE_shader_mixed_float_dot_product",
-  feature = "VK_SEC_throttle_hint",
-  feature = "VK_ARM_data_graph_neural_accelerator_statistics",
-  feature = "VK_EXT_primitive_restart_index"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkStructureType(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_GRAPHICS_VERSION_1_2",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_COMPUTE_VERSION_1_3",
-  feature = "VK_GRAPHICS_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_COMPUTE_VERSION_1_4",
-  feature = "VK_GRAPHICS_VERSION_1_4",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
-  feature = "VK_KHR_display",
-  feature = "VK_KHR_display_swapchain",
-  feature = "VK_KHR_xlib_surface",
-  feature = "VK_KHR_xcb_surface",
-  feature = "VK_KHR_wayland_surface",
-  feature = "VK_KHR_android_surface",
-  feature = "VK_KHR_win32_surface",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_AMD_rasterization_order",
-  feature = "VK_EXT_debug_marker",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_dedicated_allocation",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_NVX_image_view_handle",
-  feature = "VK_KHR_video_encode_h264",
-  feature = "VK_KHR_video_encode_h265",
-  feature = "VK_KHR_video_decode_h264",
-  feature = "VK_AMD_texture_gather_bias_lod",
-  feature = "VK_KHR_dynamic_rendering",
-  feature = "VK_GGP_stream_descriptor_surface",
-  feature = "VK_NV_corner_sampled_image",
-  feature = "VK_NV_private_vendor_info",
-  feature = "VK_KHR_multiview",
-  feature = "VK_NV_external_memory",
-  feature = "VK_NV_external_memory_win32",
-  feature = "VK_NV_win32_keyed_mutex",
-  feature = "VK_KHR_get_physical_device_properties2",
-  feature = "VK_KHR_device_group",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_EXT_validation_flags",
-  feature = "VK_NN_vi_surface",
-  feature = "VK_EXT_texture_compression_astc_hdr",
-  feature = "VK_EXT_astc_decode_mode",
-  feature = "VK_EXT_pipeline_robustness",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_KHR_external_memory_capabilities",
-  feature = "VK_KHR_external_memory",
-  feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_memory_fd",
-  feature = "VK_KHR_win32_keyed_mutex",
-  feature = "VK_KHR_external_semaphore_capabilities",
-  feature = "VK_KHR_external_semaphore",
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_semaphore_fd",
-  feature = "VK_KHR_push_descriptor",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_shader_float16_int8",
-  feature = "VK_KHR_16bit_storage",
-  feature = "VK_KHR_incremental_present",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_NV_clip_space_w_scaling",
-  feature = "VK_EXT_display_surface_counter",
-  feature = "VK_EXT_display_control",
-  feature = "VK_GOOGLE_display_timing",
-  feature = "VK_NVX_multiview_per_view_attributes",
-  all(
-    feature = "VK_NVX_multiview_per_view_attributes",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_NVX_multiview_per_view_attributes"
-  ),
-  feature = "VK_NV_viewport_swizzle",
-  feature = "VK_EXT_discard_rectangles",
-  feature = "VK_EXT_conservative_rasterization",
-  feature = "VK_EXT_depth_clip_enable",
-  feature = "VK_EXT_hdr_metadata",
-  feature = "VK_KHR_imageless_framebuffer",
-  feature = "VK_KHR_create_renderpass2",
-  feature = "VK_IMG_relaxed_line_rasterization",
-  feature = "VK_KHR_shared_presentable_image",
-  feature = "VK_KHR_external_fence_capabilities",
-  feature = "VK_KHR_external_fence",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_fence_fd",
-  feature = "VK_KHR_performance_query",
-  all(feature = "VKSC_VERSION_1_0", feature = "VK_KHR_performance_query"),
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_KHR_get_surface_capabilities2",
-  feature = "VK_KHR_variable_pointers",
-  feature = "VK_KHR_get_display_properties2",
-  feature = "VK_MVK_ios_surface",
-  feature = "VK_MVK_macos_surface",
-  feature = "VK_KHR_dedicated_allocation",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-  all(
-    feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-    feature = "VK_VERSION_1_3"
-  ),
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_AMD_gpa_interface",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_custom_border_color",
-    feature = "VK_EXT_descriptor_heap"
-  ),
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_EXT_fragment_density_map"
-  ),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(
-    feature = "VK_AMD_mixed_attachment_samples",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_AMD_mixed_attachment_samples",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  feature = "VK_EXT_inline_uniform_block",
-  feature = "VK_KHR_shader_bfloat16",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_get_memory_requirements2",
-  feature = "VK_KHR_image_format_list",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_NV_fragment_coverage_to_color",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_KHR_ray_query",
-  feature = "VK_NV_framebuffer_mixed_samples",
-  all(
-    feature = "VK_NV_framebuffer_mixed_samples",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_NV_framebuffer_mixed_samples"
-  ),
-  feature = "VK_NV_shader_sm_builtins",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_image_drm_format_modifier",
-  all(
-    feature = "VK_EXT_image_drm_format_modifier",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_image_drm_format_modifier",
-    feature = "VK_VERSION_1_3"
-  ),
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_EXT_descriptor_indexing",
-  feature = "VK_KHR_portability_subset",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_representative_fragment_test",
-  feature = "VK_KHR_maintenance3",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_QCOM_cooperative_matrix_conversion",
-  feature = "VK_QCOM_elapsed_timer_query",
-  feature = "VK_EXT_global_priority",
-  feature = "VK_KHR_shader_subgroup_extended_types",
-  feature = "VK_KHR_8bit_storage",
-  feature = "VK_EXT_external_memory_host",
-  feature = "VK_KHR_shader_atomic_int64",
-  feature = "VK_KHR_shader_clock",
-  feature = "VK_AMD_pipeline_compiler_control",
-  feature = "VK_EXT_calibrated_timestamps",
-  feature = "VK_AMD_shader_core_properties",
-  feature = "VK_KHR_video_decode_h265",
-  feature = "VK_KHR_global_priority",
-  feature = "VK_AMD_memory_overallocation_behavior",
-  feature = "VK_EXT_vertex_attribute_divisor",
-  feature = "VK_GGP_frame_token",
-  feature = "VK_EXT_pipeline_creation_feedback",
-  feature = "VK_KHR_driver_properties",
-  feature = "VK_KHR_shader_float_controls",
-  feature = "VK_KHR_depth_stencil_resolve",
-  feature = "VK_NV_compute_shader_derivatives",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_NV_fragment_shader_barycentric",
-  feature = "VK_NV_shader_image_footprint",
-  feature = "VK_NV_scissor_exclusive",
-  feature = "VK_NV_device_diagnostic_checkpoints",
-  all(
-    feature = "VK_NV_device_diagnostic_checkpoints",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_diagnostic_checkpoints"
-  ),
-  feature = "VK_KHR_timeline_semaphore",
-  feature = "VK_EXT_present_timing",
-  feature = "VK_INTEL_shader_integer_functions2",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_vulkan_memory_model",
-  feature = "VK_EXT_pci_bus_info",
-  feature = "VK_AMD_display_native_hdr",
-  feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_KHR_shader_terminate_invocation",
-  feature = "VK_EXT_metal_surface",
-  feature = "VK_EXT_fragment_density_map",
-  all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  feature = "VK_EXT_scalar_block_layout",
-  feature = "VK_EXT_subgroup_size_control",
-  feature = "VK_KHR_fragment_shading_rate",
-  all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  feature = "VK_AMD_shader_core_properties2",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_KHR_shader_constant_data",
-  feature = "VK_KHR_dynamic_rendering_local_read",
-  feature = "VK_KHR_shader_abort",
-  feature = "VK_EXT_shader_image_atomic_int64",
-  feature = "VK_KHR_shader_quad_control",
-  feature = "VK_EXT_memory_budget",
-  feature = "VK_EXT_memory_priority",
-  feature = "VK_KHR_surface_protected_capabilities",
-  feature = "VK_NV_dedicated_allocation_image_aliasing",
-  feature = "VK_KHR_separate_depth_stencil_layouts",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_EXT_tooling_info",
-  feature = "VK_EXT_separate_stencil_usage",
-  feature = "VK_EXT_validation_features",
-  feature = "VK_KHR_present_wait",
-  feature = "VK_NV_cooperative_matrix",
-  feature = "VK_NV_coverage_reduction_mode",
-  feature = "VK_EXT_fragment_shader_interlock",
-  feature = "VK_EXT_ycbcr_image_arrays",
-  feature = "VK_KHR_uniform_buffer_standard_layout",
-  feature = "VK_EXT_provoking_vertex",
-  feature = "VK_EXT_full_screen_exclusive",
-  all(
-    feature = "VK_EXT_full_screen_exclusive",
-    feature = "VK_KHR_win32_surface"
-  ),
-  feature = "VK_EXT_headless_surface",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_line_rasterization",
-  feature = "VK_EXT_shader_atomic_float",
-  feature = "VK_EXT_host_query_reset",
-  feature = "VK_EXT_index_type_uint8",
-  feature = "VK_EXT_extended_dynamic_state",
-  feature = "VK_KHR_pipeline_executable_properties",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_map_memory2",
-  feature = "VK_EXT_map_memory_placed",
-  feature = "VK_EXT_shader_atomic_float2",
-  feature = "VK_EXT_surface_maintenance1",
-  feature = "VK_EXT_swapchain_maintenance1",
-  feature = "VK_EXT_shader_demote_to_helper_invocation",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_NV_inherited_viewport_scissor",
-  feature = "VK_KHR_shader_integer_dot_product",
-  feature = "VK_EXT_texel_buffer_alignment",
-  feature = "VK_QCOM_render_pass_transform",
-  feature = "VK_EXT_depth_bias_control",
-  feature = "VK_EXT_device_memory_report",
-  feature = "VK_EXT_robustness2",
-  feature = "VK_EXT_custom_border_color",
-  feature = "VK_EXT_texture_compression_astc_3d",
-  feature = "VK_KHR_pipeline_library",
-  feature = "VK_NV_present_barrier",
-  feature = "VK_KHR_present_id",
-  feature = "VK_EXT_private_data",
-  feature = "VK_EXT_pipeline_creation_cache_control",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_device_diagnostics_config",
-  feature = "VK_QCOM_queue_perf_hint",
-  feature = "VK_QCOM_image_processing3",
-  feature = "VK_QCOM_shader_multiple_wait_queues",
-  feature = "VK_EXT_shader_split_barrier",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_KHR_object_refresh",
-  feature = "VK_QCOM_tile_shading",
-  feature = "VK_NV_low_latency",
-  feature = "VK_EXT_metal_objects",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_descriptor_buffer",
-  all(
-    feature = "VK_EXT_descriptor_buffer",
-    feature = "VK_KHR_acceleration_structure"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing"),
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_AMD_buffer_marker",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  feature = "VK_EXT_graphics_pipeline_library",
-  feature = "VK_AMD_shader_early_and_late_fragment_tests",
-  feature = "VK_KHR_fragment_shader_barycentric",
-  feature = "VK_KHR_shader_subgroup_uniform_control_flow",
-  feature = "VK_KHR_zero_initialize_workgroup_memory",
-  feature = "VK_NV_fragment_shading_rate_enums",
-  feature = "VK_NV_ray_tracing_motion_blur",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_ycbcr_2plane_444_formats",
-  feature = "VK_EXT_fragment_density_map2",
-  feature = "VK_QCOM_rotated_copy_commands",
-  feature = "VK_EXT_image_robustness",
-  feature = "VK_KHR_workgroup_memory_explicit_layout",
-  feature = "VK_KHR_copy_commands2",
-  feature = "VK_EXT_image_compression_control",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_EXT_4444_formats",
-  feature = "VK_EXT_device_fault",
-  feature = "VK_ARM_rasterization_order_attachment_access",
-  feature = "VK_EXT_rgba10x6_formats",
-  feature = "VK_EXT_directfb_surface",
-  feature = "VK_VALVE_mutable_descriptor_type",
-  feature = "VK_EXT_vertex_input_dynamic_state",
-  feature = "VK_EXT_physical_device_drm",
-  feature = "VK_EXT_device_address_binding_report",
-  feature = "VK_EXT_depth_clip_control",
-  feature = "VK_EXT_primitive_topology_list_restart",
-  feature = "VK_KHR_format_feature_flags2",
-  feature = "VK_EXT_present_mode_fifo_latest_ready",
-  feature = "VK_FUCHSIA_external_memory",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_NV_external_memory_rdma",
-  feature = "VK_EXT_pipeline_properties",
-  feature = "VK_NV_external_sci_sync",
-  feature = "VK_NV_external_memory_sci_buf",
-  feature = "VK_EXT_frame_boundary",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_extended_dynamic_state2",
-  feature = "VK_QNX_screen_surface",
-  feature = "VK_EXT_color_write_enable",
-  feature = "VK_EXT_primitives_generated_query",
-  feature = "VK_KHR_ray_tracing_maintenance1",
-  feature = "VK_KHR_shader_untyped_pointers",
-  feature = "VK_EXT_global_priority_query",
-  feature = "VK_VALVE_video_encode_rgb_conversion",
-  feature = "VK_EXT_image_view_min_lod",
-  feature = "VK_EXT_multi_draw",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_EXT_shader_tile_image",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_NV_displacement_micromap",
-  feature = "VK_HUAWEI_cluster_culling_shader",
-  feature = "VK_EXT_border_color_swizzle",
-  feature = "VK_EXT_pageable_device_local_memory",
-  feature = "VK_KHR_maintenance4",
-  feature = "VK_ARM_shader_core_properties",
-  feature = "VK_KHR_shader_subgroup_rotate",
-  feature = "VK_ARM_scheduling_controls",
-  feature = "VK_EXT_image_sliced_view_of_3d",
-  feature = "VK_VALVE_descriptor_set_host_mapping",
-  feature = "VK_EXT_depth_clamp_zero_one",
-  feature = "VK_EXT_non_seamless_cube_map",
-  feature = "VK_ARM_render_pass_striped",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_NV_copy_memory_indirect",
-  feature = "VK_NV_memory_decompression",
-  feature = "VK_NV_device_generated_commands_compute",
-  feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  feature = "VK_NV_linear_color_attachment",
-  feature = "VK_KHR_shader_maximal_reconvergence",
-  feature = "VK_EXT_application_parameters",
-  feature = "VK_EXT_image_compression_control_swapchain",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_EXT_nested_command_buffer",
-  feature = "VK_OHOS_external_memory",
-  feature = "VK_EXT_external_memory_acquire_unmodified",
-  feature = "VK_EXT_extended_dynamic_state3",
-  feature = "VK_EXT_subpass_merge_feedback",
-  feature = "VK_LUNARG_direct_driver_loading",
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_frame_boundary"),
-  feature = "VK_EXT_shader_module_identifier",
-  feature = "VK_EXT_rasterization_order_attachment_access",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_legacy_dithering",
-  feature = "VK_EXT_pipeline_protected_access",
-  feature = "VK_ANDROID_external_format_resolve",
-  feature = "VK_KHR_maintenance5",
-  feature = "VK_AMD_anti_lag",
-  feature = "VK_AMDX_dense_geometry_format",
-  feature = "VK_KHR_present_id2",
-  feature = "VK_KHR_present_wait2",
-  feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_QCOM_tile_properties",
-  feature = "VK_SEC_amigo_profiling",
-  feature = "VK_KHR_surface_maintenance1",
-  feature = "VK_KHR_swapchain_maintenance1",
-  feature = "VK_QCOM_multiview_per_view_viewports",
-  feature = "VK_NV_external_sci_sync2",
-  all(feature = "VKSC_VERSION_1_0", feature = "VK_NV_external_sci_sync2"),
-  feature = "VK_NV_ray_tracing_invocation_reorder",
-  feature = "VK_NV_cooperative_vector",
-  feature = "VK_NV_extended_sparse_address_space",
-  feature = "VK_EXT_mutable_descriptor_type",
-  feature = "VK_EXT_legacy_vertex_attributes",
-  feature = "VK_EXT_layer_settings",
-  feature = "VK_ARM_shader_core_builtins",
-  feature = "VK_EXT_pipeline_library_group_handles",
-  feature = "VK_EXT_dynamic_rendering_unused_attachments",
-  feature = "VK_KHR_internally_synchronized_queues",
-  feature = "VK_NV_low_latency2",
-  feature = "VK_KHR_cooperative_matrix",
-  feature = "VK_ARM_data_graph",
-  all(feature = "VK_ARM_data_graph", feature = "VK_ARM_tensors"),
-  feature = "VK_ARM_data_graph_instruction_set_tosa",
-  feature = "VK_QCOM_multiview_per_view_render_areas",
-  feature = "VK_KHR_compute_shader_derivatives",
-  feature = "VK_KHR_video_decode_av1",
-  feature = "VK_KHR_video_encode_av1",
-  feature = "VK_KHR_video_decode_vp9",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_NV_per_stage_descriptor_set",
-  feature = "VK_QCOM_image_processing2",
-  feature = "VK_QCOM_filter_cubic_weights",
-  feature = "VK_QCOM_ycbcr_degamma",
-  feature = "VK_QCOM_filter_cubic_clamp",
-  feature = "VK_EXT_attachment_feedback_loop_dynamic_state",
-  feature = "VK_KHR_vertex_attribute_divisor",
-  feature = "VK_KHR_unified_image_layouts",
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_unified_image_layouts",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_unified_image_layouts"
-  ),
-  feature = "VK_KHR_shader_float_controls2",
-  feature = "VK_QNX_external_memory_screen_buffer",
-  feature = "VK_MSFT_layered_driver",
-  feature = "VK_KHR_index_type_uint8",
-  feature = "VK_KHR_line_rasterization",
-  feature = "VK_KHR_calibrated_timestamps",
-  feature = "VK_KHR_shader_expect_assume",
-  feature = "VK_KHR_maintenance6",
-  all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"),
-  feature = "VK_NV_descriptor_pool_overallocation",
-  feature = "VK_QCOM_tile_memory_heap",
-  all(
-    feature = "VK_QCOM_tile_memory_heap",
-    feature = "VK_QCOM_tile_properties"
-  ),
-  feature = "VK_KHR_copy_memory_indirect",
-  feature = "VK_EXT_memory_decompression",
-  feature = "VK_NV_display_stereo",
-  feature = "VK_KHR_video_encode_intra_refresh",
-  feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  feature = "VK_NV_raw_access_chains",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_KHR_shader_relaxed_extended_instruction",
-  feature = "VK_NV_command_buffer_inheritance",
-  feature = "VK_KHR_maintenance7",
-  feature = "VK_NV_shader_atomic_float16_vector",
-  feature = "VK_EXT_shader_replicated_composites",
-  feature = "VK_EXT_shader_float8",
-  feature = "VK_NV_ray_tracing_validation",
-  feature = "VK_NV_cluster_acceleration_structure",
-  feature = "VK_NV_partitioned_acceleration_structure",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_KHR_device_fault",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_MESA_image_alignment_control",
-  feature = "VK_KHR_shader_fma",
-  feature = "VK_NV_push_constant_bank",
-  feature = "VK_EXT_ray_tracing_invocation_reorder",
-  feature = "VK_EXT_depth_clamp_control",
-  feature = "VK_KHR_maintenance9",
-  feature = "VK_KHR_video_maintenance2",
-  all(
-    feature = "VK_KHR_video_decode_h264",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  all(
-    feature = "VK_KHR_video_decode_h265",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  all(
-    feature = "VK_KHR_video_decode_av1",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  feature = "VK_OHOS_surface",
-  feature = "VK_HUAWEI_hdr_vivid",
-  feature = "VK_NV_cooperative_matrix2",
-  feature = "VK_ARM_pipeline_opacity_micromap",
-  feature = "VK_EXT_external_memory_metal",
-  feature = "VK_KHR_depth_clamp_zero_one",
-  feature = "VK_ARM_performance_counters_by_region",
-  feature = "VK_ARM_shader_instrumentation",
-  feature = "VK_EXT_vertex_attribute_robustness",
-  feature = "VK_ARM_format_pack",
-  feature = "VK_VALVE_fragment_density_map_layered",
-  feature = "VK_KHR_robustness2",
-  feature = "VK_NV_present_metering",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_EXT_zero_initialize_device_memory",
-  feature = "VK_KHR_present_mode_fifo_latest_ready",
-  feature = "VK_KHR_opacity_micromap",
-  feature = "VK_EXT_shader_64bit_indexing",
-  feature = "VK_EXT_custom_resolve",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
-  feature = "VK_QCOM_data_graph_model",
-  feature = "VK_KHR_maintenance10",
-  feature = "VK_ARM_data_graph_optical_flow",
-  feature = "VK_EXT_shader_long_vector",
-  feature = "VK_SEC_pipeline_cache_incremental_mode",
-  feature = "VK_EXT_shader_uniform_buffer_unsized_array",
-  feature = "VK_NV_compute_occupancy_priority",
-  feature = "VK_KHR_maintenance11",
-  feature = "VK_EXT_shader_subgroup_partitioned",
-  feature = "VK_SEC_ubm_surface",
-  feature = "VK_VALVE_shader_mixed_float_dot_product",
-  feature = "VK_SEC_throttle_hint",
-  feature = "VK_ARM_data_graph_neural_accelerator_statistics",
-  feature = "VK_EXT_primitive_restart_index"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_APPLICATION_INFO: Self = Self(0);
   pub const VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO: Self = Self(1);
@@ -5997,585 +4841,7 @@ impl VkStructureType {
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT: Self =
     Self(1000678000);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_GRAPHICS_VERSION_1_2",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_COMPUTE_VERSION_1_3",
-  feature = "VK_GRAPHICS_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_COMPUTE_VERSION_1_4",
-  feature = "VK_GRAPHICS_VERSION_1_4",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
-  feature = "VK_KHR_display",
-  feature = "VK_KHR_display_swapchain",
-  feature = "VK_KHR_xlib_surface",
-  feature = "VK_KHR_xcb_surface",
-  feature = "VK_KHR_wayland_surface",
-  feature = "VK_KHR_android_surface",
-  feature = "VK_KHR_win32_surface",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_AMD_rasterization_order",
-  feature = "VK_EXT_debug_marker",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_dedicated_allocation",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_NVX_image_view_handle",
-  feature = "VK_KHR_video_encode_h264",
-  feature = "VK_KHR_video_encode_h265",
-  feature = "VK_KHR_video_decode_h264",
-  feature = "VK_AMD_texture_gather_bias_lod",
-  feature = "VK_KHR_dynamic_rendering",
-  feature = "VK_GGP_stream_descriptor_surface",
-  feature = "VK_NV_corner_sampled_image",
-  feature = "VK_NV_private_vendor_info",
-  feature = "VK_KHR_multiview",
-  feature = "VK_NV_external_memory",
-  feature = "VK_NV_external_memory_win32",
-  feature = "VK_NV_win32_keyed_mutex",
-  feature = "VK_KHR_get_physical_device_properties2",
-  feature = "VK_KHR_device_group",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_EXT_validation_flags",
-  feature = "VK_NN_vi_surface",
-  feature = "VK_EXT_texture_compression_astc_hdr",
-  feature = "VK_EXT_astc_decode_mode",
-  feature = "VK_EXT_pipeline_robustness",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_KHR_external_memory_capabilities",
-  feature = "VK_KHR_external_memory",
-  feature = "VK_KHR_external_memory_win32",
-  feature = "VK_KHR_external_memory_fd",
-  feature = "VK_KHR_win32_keyed_mutex",
-  feature = "VK_KHR_external_semaphore_capabilities",
-  feature = "VK_KHR_external_semaphore",
-  feature = "VK_KHR_external_semaphore_win32",
-  feature = "VK_KHR_external_semaphore_fd",
-  feature = "VK_KHR_push_descriptor",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_shader_float16_int8",
-  feature = "VK_KHR_16bit_storage",
-  feature = "VK_KHR_incremental_present",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_NV_clip_space_w_scaling",
-  feature = "VK_EXT_display_surface_counter",
-  feature = "VK_EXT_display_control",
-  feature = "VK_GOOGLE_display_timing",
-  feature = "VK_NVX_multiview_per_view_attributes",
-  all(
-    feature = "VK_NVX_multiview_per_view_attributes",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_NVX_multiview_per_view_attributes"
-  ),
-  feature = "VK_NV_viewport_swizzle",
-  feature = "VK_EXT_discard_rectangles",
-  feature = "VK_EXT_conservative_rasterization",
-  feature = "VK_EXT_depth_clip_enable",
-  feature = "VK_EXT_hdr_metadata",
-  feature = "VK_KHR_imageless_framebuffer",
-  feature = "VK_KHR_create_renderpass2",
-  feature = "VK_IMG_relaxed_line_rasterization",
-  feature = "VK_KHR_shared_presentable_image",
-  feature = "VK_KHR_external_fence_capabilities",
-  feature = "VK_KHR_external_fence",
-  feature = "VK_KHR_external_fence_win32",
-  feature = "VK_KHR_external_fence_fd",
-  feature = "VK_KHR_performance_query",
-  all(feature = "VKSC_VERSION_1_0", feature = "VK_KHR_performance_query"),
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_KHR_get_surface_capabilities2",
-  feature = "VK_KHR_variable_pointers",
-  feature = "VK_KHR_get_display_properties2",
-  feature = "VK_MVK_ios_surface",
-  feature = "VK_MVK_macos_surface",
-  feature = "VK_KHR_dedicated_allocation",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-  all(
-    feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_ANDROID_external_memory_android_hardware_buffer",
-    feature = "VK_VERSION_1_3"
-  ),
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_AMD_gpa_interface",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_custom_border_color",
-    feature = "VK_EXT_descriptor_heap"
-  ),
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_EXT_fragment_density_map"
-  ),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(
-    feature = "VK_AMD_mixed_attachment_samples",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_AMD_mixed_attachment_samples",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  feature = "VK_EXT_inline_uniform_block",
-  feature = "VK_KHR_shader_bfloat16",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_get_memory_requirements2",
-  feature = "VK_KHR_image_format_list",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_NV_fragment_coverage_to_color",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_KHR_ray_query",
-  feature = "VK_NV_framebuffer_mixed_samples",
-  all(
-    feature = "VK_NV_framebuffer_mixed_samples",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_NV_framebuffer_mixed_samples"
-  ),
-  feature = "VK_NV_shader_sm_builtins",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_image_drm_format_modifier",
-  all(
-    feature = "VK_EXT_image_drm_format_modifier",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_image_drm_format_modifier",
-    feature = "VK_VERSION_1_3"
-  ),
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_EXT_descriptor_indexing",
-  feature = "VK_KHR_portability_subset",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_representative_fragment_test",
-  feature = "VK_KHR_maintenance3",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_QCOM_cooperative_matrix_conversion",
-  feature = "VK_QCOM_elapsed_timer_query",
-  feature = "VK_EXT_global_priority",
-  feature = "VK_KHR_shader_subgroup_extended_types",
-  feature = "VK_KHR_8bit_storage",
-  feature = "VK_EXT_external_memory_host",
-  feature = "VK_KHR_shader_atomic_int64",
-  feature = "VK_KHR_shader_clock",
-  feature = "VK_AMD_pipeline_compiler_control",
-  feature = "VK_EXT_calibrated_timestamps",
-  feature = "VK_AMD_shader_core_properties",
-  feature = "VK_KHR_video_decode_h265",
-  feature = "VK_KHR_global_priority",
-  feature = "VK_AMD_memory_overallocation_behavior",
-  feature = "VK_EXT_vertex_attribute_divisor",
-  feature = "VK_GGP_frame_token",
-  feature = "VK_EXT_pipeline_creation_feedback",
-  feature = "VK_KHR_driver_properties",
-  feature = "VK_KHR_shader_float_controls",
-  feature = "VK_KHR_depth_stencil_resolve",
-  feature = "VK_NV_compute_shader_derivatives",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_NV_fragment_shader_barycentric",
-  feature = "VK_NV_shader_image_footprint",
-  feature = "VK_NV_scissor_exclusive",
-  feature = "VK_NV_device_diagnostic_checkpoints",
-  all(
-    feature = "VK_NV_device_diagnostic_checkpoints",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_diagnostic_checkpoints"
-  ),
-  feature = "VK_KHR_timeline_semaphore",
-  feature = "VK_EXT_present_timing",
-  feature = "VK_INTEL_shader_integer_functions2",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_vulkan_memory_model",
-  feature = "VK_EXT_pci_bus_info",
-  feature = "VK_AMD_display_native_hdr",
-  feature = "VK_FUCHSIA_imagepipe_surface",
-  feature = "VK_KHR_shader_terminate_invocation",
-  feature = "VK_EXT_metal_surface",
-  feature = "VK_EXT_fragment_density_map",
-  all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  feature = "VK_EXT_scalar_block_layout",
-  feature = "VK_EXT_subgroup_size_control",
-  feature = "VK_KHR_fragment_shading_rate",
-  all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  feature = "VK_AMD_shader_core_properties2",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_KHR_shader_constant_data",
-  feature = "VK_KHR_dynamic_rendering_local_read",
-  feature = "VK_KHR_shader_abort",
-  feature = "VK_EXT_shader_image_atomic_int64",
-  feature = "VK_KHR_shader_quad_control",
-  feature = "VK_EXT_memory_budget",
-  feature = "VK_EXT_memory_priority",
-  feature = "VK_KHR_surface_protected_capabilities",
-  feature = "VK_NV_dedicated_allocation_image_aliasing",
-  feature = "VK_KHR_separate_depth_stencil_layouts",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_EXT_tooling_info",
-  feature = "VK_EXT_separate_stencil_usage",
-  feature = "VK_EXT_validation_features",
-  feature = "VK_KHR_present_wait",
-  feature = "VK_NV_cooperative_matrix",
-  feature = "VK_NV_coverage_reduction_mode",
-  feature = "VK_EXT_fragment_shader_interlock",
-  feature = "VK_EXT_ycbcr_image_arrays",
-  feature = "VK_KHR_uniform_buffer_standard_layout",
-  feature = "VK_EXT_provoking_vertex",
-  feature = "VK_EXT_full_screen_exclusive",
-  all(
-    feature = "VK_EXT_full_screen_exclusive",
-    feature = "VK_KHR_win32_surface"
-  ),
-  feature = "VK_EXT_headless_surface",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_line_rasterization",
-  feature = "VK_EXT_shader_atomic_float",
-  feature = "VK_EXT_host_query_reset",
-  feature = "VK_EXT_index_type_uint8",
-  feature = "VK_EXT_extended_dynamic_state",
-  feature = "VK_KHR_pipeline_executable_properties",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_map_memory2",
-  feature = "VK_EXT_map_memory_placed",
-  feature = "VK_EXT_shader_atomic_float2",
-  feature = "VK_EXT_surface_maintenance1",
-  feature = "VK_EXT_swapchain_maintenance1",
-  feature = "VK_EXT_shader_demote_to_helper_invocation",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_NV_inherited_viewport_scissor",
-  feature = "VK_KHR_shader_integer_dot_product",
-  feature = "VK_EXT_texel_buffer_alignment",
-  feature = "VK_QCOM_render_pass_transform",
-  feature = "VK_EXT_depth_bias_control",
-  feature = "VK_EXT_device_memory_report",
-  feature = "VK_EXT_robustness2",
-  feature = "VK_EXT_custom_border_color",
-  feature = "VK_EXT_texture_compression_astc_3d",
-  feature = "VK_KHR_pipeline_library",
-  feature = "VK_NV_present_barrier",
-  feature = "VK_KHR_present_id",
-  feature = "VK_EXT_private_data",
-  feature = "VK_EXT_pipeline_creation_cache_control",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_device_diagnostics_config",
-  feature = "VK_QCOM_queue_perf_hint",
-  feature = "VK_QCOM_image_processing3",
-  feature = "VK_QCOM_shader_multiple_wait_queues",
-  feature = "VK_EXT_shader_split_barrier",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_KHR_object_refresh",
-  feature = "VK_QCOM_tile_shading",
-  feature = "VK_NV_low_latency",
-  feature = "VK_EXT_metal_objects",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_descriptor_buffer",
-  all(
-    feature = "VK_EXT_descriptor_buffer",
-    feature = "VK_KHR_acceleration_structure"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_NV_ray_tracing"),
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_AMD_buffer_marker",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_device_address_commands"
-  ),
-  feature = "VK_EXT_graphics_pipeline_library",
-  feature = "VK_AMD_shader_early_and_late_fragment_tests",
-  feature = "VK_KHR_fragment_shader_barycentric",
-  feature = "VK_KHR_shader_subgroup_uniform_control_flow",
-  feature = "VK_KHR_zero_initialize_workgroup_memory",
-  feature = "VK_NV_fragment_shading_rate_enums",
-  feature = "VK_NV_ray_tracing_motion_blur",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_ycbcr_2plane_444_formats",
-  feature = "VK_EXT_fragment_density_map2",
-  feature = "VK_QCOM_rotated_copy_commands",
-  feature = "VK_EXT_image_robustness",
-  feature = "VK_KHR_workgroup_memory_explicit_layout",
-  feature = "VK_KHR_copy_commands2",
-  feature = "VK_EXT_image_compression_control",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_EXT_4444_formats",
-  feature = "VK_EXT_device_fault",
-  feature = "VK_ARM_rasterization_order_attachment_access",
-  feature = "VK_EXT_rgba10x6_formats",
-  feature = "VK_EXT_directfb_surface",
-  feature = "VK_VALVE_mutable_descriptor_type",
-  feature = "VK_EXT_vertex_input_dynamic_state",
-  feature = "VK_EXT_physical_device_drm",
-  feature = "VK_EXT_device_address_binding_report",
-  feature = "VK_EXT_depth_clip_control",
-  feature = "VK_EXT_primitive_topology_list_restart",
-  feature = "VK_KHR_format_feature_flags2",
-  feature = "VK_EXT_present_mode_fifo_latest_ready",
-  feature = "VK_FUCHSIA_external_memory",
-  feature = "VK_FUCHSIA_external_semaphore",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_NV_external_memory_rdma",
-  feature = "VK_EXT_pipeline_properties",
-  feature = "VK_NV_external_sci_sync",
-  feature = "VK_NV_external_memory_sci_buf",
-  feature = "VK_EXT_frame_boundary",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_extended_dynamic_state2",
-  feature = "VK_QNX_screen_surface",
-  feature = "VK_EXT_color_write_enable",
-  feature = "VK_EXT_primitives_generated_query",
-  feature = "VK_KHR_ray_tracing_maintenance1",
-  feature = "VK_KHR_shader_untyped_pointers",
-  feature = "VK_EXT_global_priority_query",
-  feature = "VK_VALVE_video_encode_rgb_conversion",
-  feature = "VK_EXT_image_view_min_lod",
-  feature = "VK_EXT_multi_draw",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_EXT_shader_tile_image",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_NV_displacement_micromap",
-  feature = "VK_HUAWEI_cluster_culling_shader",
-  feature = "VK_EXT_border_color_swizzle",
-  feature = "VK_EXT_pageable_device_local_memory",
-  feature = "VK_KHR_maintenance4",
-  feature = "VK_ARM_shader_core_properties",
-  feature = "VK_KHR_shader_subgroup_rotate",
-  feature = "VK_ARM_scheduling_controls",
-  feature = "VK_EXT_image_sliced_view_of_3d",
-  feature = "VK_VALVE_descriptor_set_host_mapping",
-  feature = "VK_EXT_depth_clamp_zero_one",
-  feature = "VK_EXT_non_seamless_cube_map",
-  feature = "VK_ARM_render_pass_striped",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_NV_copy_memory_indirect",
-  feature = "VK_NV_memory_decompression",
-  feature = "VK_NV_device_generated_commands_compute",
-  feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  feature = "VK_NV_linear_color_attachment",
-  feature = "VK_KHR_shader_maximal_reconvergence",
-  feature = "VK_EXT_application_parameters",
-  feature = "VK_EXT_image_compression_control_swapchain",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_EXT_nested_command_buffer",
-  feature = "VK_OHOS_external_memory",
-  feature = "VK_EXT_external_memory_acquire_unmodified",
-  feature = "VK_EXT_extended_dynamic_state3",
-  feature = "VK_EXT_subpass_merge_feedback",
-  feature = "VK_LUNARG_direct_driver_loading",
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_frame_boundary"),
-  feature = "VK_EXT_shader_module_identifier",
-  feature = "VK_EXT_rasterization_order_attachment_access",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_legacy_dithering",
-  feature = "VK_EXT_pipeline_protected_access",
-  feature = "VK_ANDROID_external_format_resolve",
-  feature = "VK_KHR_maintenance5",
-  feature = "VK_AMD_anti_lag",
-  feature = "VK_AMDX_dense_geometry_format",
-  feature = "VK_KHR_present_id2",
-  feature = "VK_KHR_present_wait2",
-  feature = "VK_KHR_ray_tracing_position_fetch",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_QCOM_tile_properties",
-  feature = "VK_SEC_amigo_profiling",
-  feature = "VK_KHR_surface_maintenance1",
-  feature = "VK_KHR_swapchain_maintenance1",
-  feature = "VK_QCOM_multiview_per_view_viewports",
-  feature = "VK_NV_external_sci_sync2",
-  all(feature = "VKSC_VERSION_1_0", feature = "VK_NV_external_sci_sync2"),
-  feature = "VK_NV_ray_tracing_invocation_reorder",
-  feature = "VK_NV_cooperative_vector",
-  feature = "VK_NV_extended_sparse_address_space",
-  feature = "VK_EXT_mutable_descriptor_type",
-  feature = "VK_EXT_legacy_vertex_attributes",
-  feature = "VK_EXT_layer_settings",
-  feature = "VK_ARM_shader_core_builtins",
-  feature = "VK_EXT_pipeline_library_group_handles",
-  feature = "VK_EXT_dynamic_rendering_unused_attachments",
-  feature = "VK_KHR_internally_synchronized_queues",
-  feature = "VK_NV_low_latency2",
-  feature = "VK_KHR_cooperative_matrix",
-  feature = "VK_ARM_data_graph",
-  all(feature = "VK_ARM_data_graph", feature = "VK_ARM_tensors"),
-  feature = "VK_ARM_data_graph_instruction_set_tosa",
-  feature = "VK_QCOM_multiview_per_view_render_areas",
-  feature = "VK_KHR_compute_shader_derivatives",
-  feature = "VK_KHR_video_decode_av1",
-  feature = "VK_KHR_video_encode_av1",
-  feature = "VK_KHR_video_decode_vp9",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_NV_per_stage_descriptor_set",
-  feature = "VK_QCOM_image_processing2",
-  feature = "VK_QCOM_filter_cubic_weights",
-  feature = "VK_QCOM_ycbcr_degamma",
-  feature = "VK_QCOM_filter_cubic_clamp",
-  feature = "VK_EXT_attachment_feedback_loop_dynamic_state",
-  feature = "VK_KHR_vertex_attribute_divisor",
-  feature = "VK_KHR_unified_image_layouts",
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_unified_image_layouts",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_unified_image_layouts"
-  ),
-  feature = "VK_KHR_shader_float_controls2",
-  feature = "VK_QNX_external_memory_screen_buffer",
-  feature = "VK_MSFT_layered_driver",
-  feature = "VK_KHR_index_type_uint8",
-  feature = "VK_KHR_line_rasterization",
-  feature = "VK_KHR_calibrated_timestamps",
-  feature = "VK_KHR_shader_expect_assume",
-  feature = "VK_KHR_maintenance6",
-  all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"),
-  feature = "VK_NV_descriptor_pool_overallocation",
-  feature = "VK_QCOM_tile_memory_heap",
-  all(
-    feature = "VK_QCOM_tile_memory_heap",
-    feature = "VK_QCOM_tile_properties"
-  ),
-  feature = "VK_KHR_copy_memory_indirect",
-  feature = "VK_EXT_memory_decompression",
-  feature = "VK_NV_display_stereo",
-  feature = "VK_KHR_video_encode_intra_refresh",
-  feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_quantization_map"
-  ),
-  feature = "VK_NV_raw_access_chains",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_KHR_shader_relaxed_extended_instruction",
-  feature = "VK_NV_command_buffer_inheritance",
-  feature = "VK_KHR_maintenance7",
-  feature = "VK_NV_shader_atomic_float16_vector",
-  feature = "VK_EXT_shader_replicated_composites",
-  feature = "VK_EXT_shader_float8",
-  feature = "VK_NV_ray_tracing_validation",
-  feature = "VK_NV_cluster_acceleration_structure",
-  feature = "VK_NV_partitioned_acceleration_structure",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_KHR_device_fault",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_MESA_image_alignment_control",
-  feature = "VK_KHR_shader_fma",
-  feature = "VK_NV_push_constant_bank",
-  feature = "VK_EXT_ray_tracing_invocation_reorder",
-  feature = "VK_EXT_depth_clamp_control",
-  feature = "VK_KHR_maintenance9",
-  feature = "VK_KHR_video_maintenance2",
-  all(
-    feature = "VK_KHR_video_decode_h264",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  all(
-    feature = "VK_KHR_video_decode_h265",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  all(
-    feature = "VK_KHR_video_decode_av1",
-    feature = "VK_KHR_video_maintenance2"
-  ),
-  feature = "VK_OHOS_surface",
-  feature = "VK_HUAWEI_hdr_vivid",
-  feature = "VK_NV_cooperative_matrix2",
-  feature = "VK_ARM_pipeline_opacity_micromap",
-  feature = "VK_EXT_external_memory_metal",
-  feature = "VK_KHR_depth_clamp_zero_one",
-  feature = "VK_ARM_performance_counters_by_region",
-  feature = "VK_ARM_shader_instrumentation",
-  feature = "VK_EXT_vertex_attribute_robustness",
-  feature = "VK_ARM_format_pack",
-  feature = "VK_VALVE_fragment_density_map_layered",
-  feature = "VK_KHR_robustness2",
-  feature = "VK_NV_present_metering",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_EXT_zero_initialize_device_memory",
-  feature = "VK_KHR_present_mode_fifo_latest_ready",
-  feature = "VK_KHR_opacity_micromap",
-  feature = "VK_EXT_shader_64bit_indexing",
-  feature = "VK_EXT_custom_resolve",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
-  all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
-  feature = "VK_QCOM_data_graph_model",
-  feature = "VK_KHR_maintenance10",
-  feature = "VK_ARM_data_graph_optical_flow",
-  feature = "VK_EXT_shader_long_vector",
-  feature = "VK_SEC_pipeline_cache_incremental_mode",
-  feature = "VK_EXT_shader_uniform_buffer_unsized_array",
-  feature = "VK_NV_compute_occupancy_priority",
-  feature = "VK_KHR_maintenance11",
-  feature = "VK_EXT_shader_subgroup_partitioned",
-  feature = "VK_SEC_ubm_surface",
-  feature = "VK_VALVE_shader_mixed_float_dot_product",
-  feature = "VK_SEC_throttle_hint",
-  feature = "VK_ARM_data_graph_neural_accelerator_statistics",
-  feature = "VK_EXT_primitive_restart_index"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::fmt::Display for VkStructureType {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -16158,71 +14424,11 @@ impl core::fmt::Display for VkStructureType {
 /// [VkResult](https://docs.vulkan.org/refpages/latest/refpages/source/VkResult.html)
 ///
 /// API result codes
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display_swapchain",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_NV_glsl_shader",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_external_memory",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_EXT_descriptor_indexing",
-  feature = "VK_EXT_global_priority",
-  feature = "VK_KHR_global_priority",
-  feature = "VK_EXT_present_timing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_EXT_full_screen_exclusive",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_EXT_pipeline_creation_cache_control",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_image_compression_control",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkResult(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display_swapchain",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_NV_glsl_shader",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_external_memory",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_EXT_descriptor_indexing",
-  feature = "VK_EXT_global_priority",
-  feature = "VK_KHR_global_priority",
-  feature = "VK_EXT_present_timing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_EXT_full_screen_exclusive",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_EXT_pipeline_creation_cache_control",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_image_compression_control",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl VkResult {
   ///Command completed successfully
   pub const VK_SUCCESS: Self = Self(0);
@@ -16352,37 +14558,7 @@ impl VkResult {
   #[cfg(feature = "VK_KHR_pipeline_binary")]
   pub const VK_ERROR_NOT_ENOUGH_SPACE_KHR: Self = Self(-1000483000);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_COMPUTE_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display_swapchain",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_NV_glsl_shader",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_external_memory",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_EXT_descriptor_indexing",
-  feature = "VK_EXT_global_priority",
-  feature = "VK_KHR_global_priority",
-  feature = "VK_EXT_present_timing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_EXT_full_screen_exclusive",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_EXT_pipeline_creation_cache_control",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_image_compression_control",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::fmt::Display for VkResult {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -16594,23 +14770,11 @@ impl core::fmt::Display for VkResult {
   }
 }
 /// [VkMemoryHeapFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryHeapFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkMemoryHeapFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl VkMemoryHeapFlagBits {
   pub const EMPTY: Self = Self(0);
   ///If set, heap represents device memory
@@ -16637,13 +14801,7 @@ impl VkMemoryHeapFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitOr for VkMemoryHeapFlagBits {
   type Output = Self;
   #[inline]
@@ -16651,26 +14809,14 @@ impl core::ops::BitOr for VkMemoryHeapFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitOrAssign for VkMemoryHeapFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitAnd for VkMemoryHeapFlagBits {
   type Output = Self;
   #[inline]
@@ -16678,26 +14824,14 @@ impl core::ops::BitAnd for VkMemoryHeapFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitAndAssign for VkMemoryHeapFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitXor for VkMemoryHeapFlagBits {
   type Output = Self;
   #[inline]
@@ -16705,26 +14839,14 @@ impl core::ops::BitXor for VkMemoryHeapFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitXorAssign for VkMemoryHeapFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::Not for VkMemoryHeapFlagBits {
   type Output = Self;
   #[inline]
@@ -16732,13 +14854,7 @@ impl core::ops::Not for VkMemoryHeapFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitOr<u32> for VkMemoryHeapFlagBits {
   type Output = Self;
   #[inline]
@@ -16746,26 +14862,14 @@ impl core::ops::BitOr<u32> for VkMemoryHeapFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitOrAssign<u32> for VkMemoryHeapFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitAnd<u32> for VkMemoryHeapFlagBits {
   type Output = Self;
   #[inline]
@@ -16773,26 +14877,14 @@ impl core::ops::BitAnd<u32> for VkMemoryHeapFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitAndAssign<u32> for VkMemoryHeapFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitXor<u32> for VkMemoryHeapFlagBits {
   type Output = Self;
   #[inline]
@@ -16800,26 +14892,14 @@ impl core::ops::BitXor<u32> for VkMemoryHeapFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::ops::BitXorAssign<u32> for VkMemoryHeapFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VKSC_VERSION_1_0",
-  feature = "VK_KHR_device_group_creation",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::fmt::Display for VkMemoryHeapFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -17295,38 +15375,10 @@ impl core::fmt::Display for VkCompressedTriangleFormatAMDX {
 /// [VkBufferUsageFlagBits2](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlags2.html)
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17338,38 +15390,10 @@ impl core::fmt::Display for VkCompressedTriangleFormatAMDX {
 pub struct VkBufferUsageFlagBits2(pub u64);
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17502,38 +15526,10 @@ impl VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17549,38 +15545,10 @@ impl core::ops::BitOr for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17595,38 +15563,10 @@ impl core::ops::BitOrAssign for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17642,38 +15582,10 @@ impl core::ops::BitAnd for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17688,38 +15600,10 @@ impl core::ops::BitAndAssign for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17735,38 +15619,10 @@ impl core::ops::BitXor for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17781,38 +15637,10 @@ impl core::ops::BitXorAssign for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17828,38 +15656,10 @@ impl core::ops::Not for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17875,38 +15675,10 @@ impl core::ops::BitOr<u64> for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17921,38 +15693,10 @@ impl core::ops::BitOrAssign<u64> for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -17968,38 +15712,10 @@ impl core::ops::BitAnd<u64> for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -18014,38 +15730,10 @@ impl core::ops::BitAndAssign<u64> for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -18061,38 +15749,10 @@ impl core::ops::BitXor<u64> for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -18107,38 +15767,10 @@ impl core::ops::BitXorAssign<u64> for VkBufferUsageFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_KHR_maintenance5",
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -18892,46 +16524,12 @@ impl core::fmt::Display for VkPipelineBindPoint {
   }
 }
 /// [VkBufferUsageFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferUsageFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[deprecated(note = "superseded by `VkBufferUsageFlagBits2`")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkBufferUsageFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBufferUsageFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Can be used as a source of transfer operations
@@ -19011,24 +16609,7 @@ impl VkBufferUsageFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkBufferUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -19036,48 +16617,14 @@ impl core::ops::BitOr for VkBufferUsageFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkBufferUsageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkBufferUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -19085,48 +16632,14 @@ impl core::ops::BitAnd for VkBufferUsageFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkBufferUsageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkBufferUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -19134,48 +16647,14 @@ impl core::ops::BitXor for VkBufferUsageFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkBufferUsageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkBufferUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -19183,24 +16662,7 @@ impl core::ops::Not for VkBufferUsageFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkBufferUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -19208,48 +16670,14 @@ impl core::ops::BitOr<u32> for VkBufferUsageFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkBufferUsageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkBufferUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -19257,48 +16685,14 @@ impl core::ops::BitAnd<u32> for VkBufferUsageFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkBufferUsageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkBufferUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -19306,48 +16700,14 @@ impl core::ops::BitXor<u32> for VkBufferUsageFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkBufferUsageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_AMDX_shader_enqueue",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_QCOM_tile_memory_heap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkBufferUsageFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -19733,27 +17093,15 @@ impl core::fmt::Display for VkBufferUsageFlagBits {
 /// [VkPipelineCreateFlagBits2](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlags2.html)
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -19761,79 +17109,9 @@ impl core::fmt::Display for VkBufferUsageFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -19842,27 +17120,15 @@ impl core::fmt::Display for VkBufferUsageFlagBits {
 pub struct VkPipelineCreateFlagBits2(pub u64);
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -19870,79 +17136,9 @@ pub struct VkPipelineCreateFlagBits2(pub u64);
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20204,27 +17400,15 @@ impl VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -20232,79 +17416,9 @@ impl VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20317,27 +17431,15 @@ impl core::ops::BitOr for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -20345,79 +17447,9 @@ impl core::ops::BitOr for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20429,27 +17461,15 @@ impl core::ops::BitOrAssign for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -20457,79 +17477,9 @@ impl core::ops::BitOrAssign for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20542,27 +17492,15 @@ impl core::ops::BitAnd for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -20570,79 +17508,9 @@ impl core::ops::BitAnd for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20654,27 +17522,15 @@ impl core::ops::BitAndAssign for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -20682,79 +17538,9 @@ impl core::ops::BitAndAssign for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20767,27 +17553,15 @@ impl core::ops::BitXor for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -20795,79 +17569,9 @@ impl core::ops::BitXor for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20879,27 +17583,15 @@ impl core::ops::BitXorAssign for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -20907,79 +17599,9 @@ impl core::ops::BitXorAssign for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -20992,27 +17614,15 @@ impl core::ops::Not for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -21020,79 +17630,9 @@ impl core::ops::Not for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -21105,27 +17645,15 @@ impl core::ops::BitOr<u64> for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -21133,79 +17661,9 @@ impl core::ops::BitOr<u64> for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -21217,27 +17675,15 @@ impl core::ops::BitOrAssign<u64> for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -21245,79 +17691,9 @@ impl core::ops::BitOrAssign<u64> for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -21330,27 +17706,15 @@ impl core::ops::BitAnd<u64> for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -21358,79 +17722,9 @@ impl core::ops::BitAnd<u64> for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -21442,27 +17736,15 @@ impl core::ops::BitAndAssign<u64> for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -21470,79 +17752,9 @@ impl core::ops::BitAndAssign<u64> for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -21555,27 +17767,15 @@ impl core::ops::BitXor<u64> for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -21583,79 +17783,9 @@ impl core::ops::BitXor<u64> for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -21667,27 +17797,15 @@ impl core::ops::BitXorAssign<u64> for VkPipelineCreateFlagBits2 {
 }
 #[cfg(any(
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
@@ -21695,79 +17813,9 @@ impl core::ops::BitXorAssign<u64> for VkPipelineCreateFlagBits2 {
     feature = "VK_VERSION_1_4"
   ),
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -22750,21 +18798,11 @@ impl core::fmt::Display for VkAntiLagStageAMD {
   }
 }
 /// [VkMemoryPropertyFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryPropertyFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkMemoryPropertyFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryPropertyFlagBits {
   pub const EMPTY: Self = Self(0);
   ///If otherwise stated, then allocate memory on device
@@ -22799,12 +18837,7 @@ impl VkMemoryPropertyFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkMemoryPropertyFlagBits {
   type Output = Self;
   #[inline]
@@ -22812,24 +18845,14 @@ impl core::ops::BitOr for VkMemoryPropertyFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkMemoryPropertyFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkMemoryPropertyFlagBits {
   type Output = Self;
   #[inline]
@@ -22837,24 +18860,14 @@ impl core::ops::BitAnd for VkMemoryPropertyFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkMemoryPropertyFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkMemoryPropertyFlagBits {
   type Output = Self;
   #[inline]
@@ -22862,24 +18875,14 @@ impl core::ops::BitXor for VkMemoryPropertyFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkMemoryPropertyFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkMemoryPropertyFlagBits {
   type Output = Self;
   #[inline]
@@ -22887,12 +18890,7 @@ impl core::ops::Not for VkMemoryPropertyFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkMemoryPropertyFlagBits {
   type Output = Self;
   #[inline]
@@ -22900,24 +18898,14 @@ impl core::ops::BitOr<u32> for VkMemoryPropertyFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkMemoryPropertyFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkMemoryPropertyFlagBits {
   type Output = Self;
   #[inline]
@@ -22925,24 +18913,14 @@ impl core::ops::BitAnd<u32> for VkMemoryPropertyFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkMemoryPropertyFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkMemoryPropertyFlagBits {
   type Output = Self;
   #[inline]
@@ -22950,24 +18928,14 @@ impl core::ops::BitXor<u32> for VkMemoryPropertyFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkMemoryPropertyFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_AMD_device_coherent_memory",
-  feature = "VK_NV_external_memory_rdma"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkMemoryPropertyFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -23749,77 +19717,11 @@ impl core::fmt::Display for VkGpaDeviceClockModeAMD {
 /// [VkObjectType](https://docs.vulkan.org/refpages/latest/refpages/source/VkObjectType.html)
 ///
 /// Enums to track objects of various types - also see objtypeenum attributes on type tags
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_AMD_gpa_interface",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_EXT_private_data",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_ARM_tensors",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_ARM_data_graph",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_ARM_shader_instrumentation"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkObjectType(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_AMD_gpa_interface",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_EXT_private_data",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_ARM_tensors",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_ARM_data_graph",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_ARM_shader_instrumentation"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkObjectType {
   pub const VK_OBJECT_TYPE_UNKNOWN: Self = Self(0);
   pub const VK_OBJECT_TYPE_INSTANCE: Self = Self(1);
@@ -23928,40 +19830,7 @@ impl VkObjectType {
   #[cfg(feature = "VK_ARM_shader_instrumentation")]
   pub const VK_OBJECT_TYPE_SHADER_INSTRUMENTATION_ARM: Self = Self(1000607000);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_surface",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_display",
-  feature = "VK_EXT_debug_report",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_NVX_binary_import",
-  feature = "VK_KHR_descriptor_update_template",
-  feature = "VK_EXT_debug_utils",
-  feature = "VK_AMD_gpa_interface",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_validation_cache",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_deferred_host_operations",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_EXT_private_data",
-  feature = "VK_NV_cuda_kernel_launch",
-  feature = "VK_FUCHSIA_buffer_collection",
-  feature = "VK_EXT_opacity_micromap",
-  feature = "VK_ARM_tensors",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_EXT_shader_object",
-  feature = "VK_KHR_pipeline_binary",
-  feature = "VK_NV_external_sci_sync2",
-  feature = "VK_ARM_data_graph",
-  feature = "VK_NV_external_compute_queue",
-  feature = "VK_EXT_device_generated_commands",
-  feature = "VK_ARM_shader_instrumentation"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkObjectType {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -26347,70 +22216,25 @@ impl core::fmt::Display for VkDataGraphPipelineSessionCreateFlagBitsARM {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -26420,70 +22244,25 @@ pub struct VkFormatFeatureFlagBits2(pub u64);
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -26785,70 +22564,25 @@ impl VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -26862,70 +22596,25 @@ impl core::ops::BitOr for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -26938,70 +22627,25 @@ impl core::ops::BitOrAssign for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27015,70 +22659,25 @@ impl core::ops::BitAnd for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27091,70 +22690,25 @@ impl core::ops::BitAndAssign for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27168,70 +22722,25 @@ impl core::ops::BitXor for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27244,70 +22753,25 @@ impl core::ops::BitXorAssign for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27321,70 +22785,25 @@ impl core::ops::Not for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27398,70 +22817,25 @@ impl core::ops::BitOr<u64> for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27474,70 +22848,25 @@ impl core::ops::BitOrAssign<u64> for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27551,70 +22880,25 @@ impl core::ops::BitAnd<u64> for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27627,70 +22911,25 @@ impl core::ops::BitAndAssign<u64> for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27704,70 +22943,25 @@ impl core::ops::BitXor<u64> for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -27780,70 +22974,25 @@ impl core::ops::BitXorAssign<u64> for VkFormatFeatureFlagBits2 {
 #[cfg(any(
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
   feature = "VK_KHR_format_feature_flags2",
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -29412,25 +24561,11 @@ impl core::fmt::Display for VkTensorUsageFlagBitsARM {
   }
 }
 /// [VkQueueFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueueFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkQueueFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueueFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Queue supports graphics operations
@@ -29465,14 +24600,7 @@ impl VkQueueFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkQueueFlagBits {
   type Output = Self;
   #[inline]
@@ -29480,28 +24608,14 @@ impl core::ops::BitOr for VkQueueFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkQueueFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkQueueFlagBits {
   type Output = Self;
   #[inline]
@@ -29509,28 +24623,14 @@ impl core::ops::BitAnd for VkQueueFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkQueueFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkQueueFlagBits {
   type Output = Self;
   #[inline]
@@ -29538,28 +24638,14 @@ impl core::ops::BitXor for VkQueueFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkQueueFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkQueueFlagBits {
   type Output = Self;
   #[inline]
@@ -29567,14 +24653,7 @@ impl core::ops::Not for VkQueueFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkQueueFlagBits {
   type Output = Self;
   #[inline]
@@ -29582,28 +24661,14 @@ impl core::ops::BitOr<u32> for VkQueueFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkQueueFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkQueueFlagBits {
   type Output = Self;
   #[inline]
@@ -29611,28 +24676,14 @@ impl core::ops::BitAnd<u32> for VkQueueFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkQueueFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkQueueFlagBits {
   type Output = Self;
   #[inline]
@@ -29640,28 +24691,14 @@ impl core::ops::BitXor<u32> for VkQueueFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkQueueFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_NV_optical_flow",
-  feature = "VK_ARM_data_graph"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkQueueFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -29797,50 +24834,8 @@ impl core::fmt::Display for VkQueueFlagBits {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -29861,50 +24856,8 @@ pub struct VkAccessFlagBits2(pub u64);
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30124,50 +25077,8 @@ impl VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30192,50 +25103,8 @@ impl core::ops::BitOr for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30259,50 +25128,8 @@ impl core::ops::BitOrAssign for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30327,50 +25154,8 @@ impl core::ops::BitAnd for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30394,50 +25179,8 @@ impl core::ops::BitAndAssign for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30462,50 +25205,8 @@ impl core::ops::BitXor for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30529,50 +25230,8 @@ impl core::ops::BitXorAssign for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30597,50 +25256,8 @@ impl core::ops::Not for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30665,50 +25282,8 @@ impl core::ops::BitOr<u64> for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30732,50 +25307,8 @@ impl core::ops::BitOrAssign<u64> for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30800,50 +25333,8 @@ impl core::ops::BitAnd<u64> for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30867,50 +25358,8 @@ impl core::ops::BitAndAssign<u64> for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -30935,50 +25384,8 @@ impl core::ops::BitXor<u64> for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -31002,50 +25409,8 @@ impl core::ops::BitXorAssign<u64> for VkAccessFlagBits2 {
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -32077,51 +26442,8 @@ impl core::fmt::Display for VkAccessFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32142,51 +26464,8 @@ pub struct VkPipelineStageFlagBits2(pub u64);
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32391,51 +26670,8 @@ impl VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32460,51 +26696,8 @@ impl core::ops::BitOr for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32528,51 +26721,8 @@ impl core::ops::BitOrAssign for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32597,51 +26747,8 @@ impl core::ops::BitAnd for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32665,51 +26772,8 @@ impl core::ops::BitAndAssign for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32734,51 +26798,8 @@ impl core::ops::BitXor for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32802,51 +26823,8 @@ impl core::ops::BitXorAssign for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32871,51 +26849,8 @@ impl core::ops::Not for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -32940,51 +26875,8 @@ impl core::ops::BitOr<u64> for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -33008,51 +26900,8 @@ impl core::ops::BitOrAssign<u64> for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -33077,51 +26926,8 @@ impl core::ops::BitAnd<u64> for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -33145,51 +26951,8 @@ impl core::ops::BitAndAssign<u64> for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -33214,51 +26977,8 @@ impl core::ops::BitXor<u64> for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -33282,51 +27002,8 @@ impl core::ops::BitXorAssign<u64> for VkPipelineStageFlagBits2 {
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_KHR_synchronization2",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -35575,45 +29252,11 @@ impl core::fmt::Display for VkDataGraphOpticalFlowExecuteFlagBitsARM {
 /// [VkFormat](https://docs.vulkan.org/refpages/latest/refpages/source/VkFormat.html)
 ///
 /// Vulkan format definitions
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_IMG_format_pvrtc",
-  feature = "VK_EXT_texture_compression_astc_hdr",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_texture_compression_astc_3d",
-  feature = "VK_EXT_ycbcr_2plane_444_formats",
-  feature = "VK_EXT_4444_formats",
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_KHR_shader_bfloat16"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_shader_float8"),
-  feature = "VK_NV_optical_flow",
-  feature = "VK_KHR_maintenance5",
-  feature = "VK_ARM_format_pack"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkFormat(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_IMG_format_pvrtc",
-  feature = "VK_EXT_texture_compression_astc_hdr",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_texture_compression_astc_3d",
-  feature = "VK_EXT_ycbcr_2plane_444_formats",
-  feature = "VK_EXT_4444_formats",
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_KHR_shader_bfloat16"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_shader_float8"),
-  feature = "VK_NV_optical_flow",
-  feature = "VK_KHR_maintenance5",
-  feature = "VK_ARM_format_pack"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkFormat {
   pub const VK_FORMAT_UNDEFINED: Self = Self(0);
   pub const VK_FORMAT_R4G4_UNORM_PACK8: Self = Self(1);
@@ -36142,24 +29785,7 @@ impl VkFormat {
   #[cfg(feature = "VK_ARM_format_pack")]
   pub const VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM: Self = Self(1000609013);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_IMG_format_pvrtc",
-  feature = "VK_EXT_texture_compression_astc_hdr",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_texture_compression_astc_3d",
-  feature = "VK_EXT_ycbcr_2plane_444_formats",
-  feature = "VK_EXT_4444_formats",
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_KHR_shader_bfloat16"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_shader_float8"),
-  feature = "VK_NV_optical_flow",
-  feature = "VK_KHR_maintenance5",
-  feature = "VK_ARM_format_pack"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkFormat {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -38511,17 +32137,11 @@ impl core::fmt::Display for VkTensorTilingARM {
   }
 }
 /// [VkTensorViewCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorViewCreateFlagsARM.html)
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkTensorViewCreateFlagBitsARM(pub u64);
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorViewCreateFlagBitsARM {
   pub const EMPTY: Self = Self(0);
   #[cfg(all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer"))]
@@ -38539,10 +32159,7 @@ impl VkTensorViewCreateFlagBitsARM {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOr for VkTensorViewCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -38550,20 +32167,14 @@ impl core::ops::BitOr for VkTensorViewCreateFlagBitsARM {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOrAssign for VkTensorViewCreateFlagBitsARM {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAnd for VkTensorViewCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -38571,20 +32182,14 @@ impl core::ops::BitAnd for VkTensorViewCreateFlagBitsARM {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAndAssign for VkTensorViewCreateFlagBitsARM {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXor for VkTensorViewCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -38592,20 +32197,14 @@ impl core::ops::BitXor for VkTensorViewCreateFlagBitsARM {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXorAssign for VkTensorViewCreateFlagBitsARM {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::Not for VkTensorViewCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -38613,10 +32212,7 @@ impl core::ops::Not for VkTensorViewCreateFlagBitsARM {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOr<u64> for VkTensorViewCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -38624,20 +32220,14 @@ impl core::ops::BitOr<u64> for VkTensorViewCreateFlagBitsARM {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOrAssign<u64> for VkTensorViewCreateFlagBitsARM {
   #[inline]
   fn bitor_assign(&mut self, r: u64) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAnd<u64> for VkTensorViewCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -38645,20 +32235,14 @@ impl core::ops::BitAnd<u64> for VkTensorViewCreateFlagBitsARM {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAndAssign<u64> for VkTensorViewCreateFlagBitsARM {
   #[inline]
   fn bitand_assign(&mut self, r: u64) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXor<u64> for VkTensorViewCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -38666,20 +32250,14 @@ impl core::ops::BitXor<u64> for VkTensorViewCreateFlagBitsARM {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXorAssign<u64> for VkTensorViewCreateFlagBitsARM {
   #[inline]
   fn bitxor_assign(&mut self, r: u64) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::fmt::Display for VkTensorViewCreateFlagBitsARM {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -38720,53 +32298,11 @@ impl core::fmt::Display for VkTensorViewCreateFlagBitsARM {
   }
 }
 /// [VkImageLayout](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageLayout.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_2",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_GRAPHICS_VERSION_1_4",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_shared_presentable_image",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_dynamic_rendering_local_read",
-  feature = "VK_KHR_separate_depth_stencil_layouts",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_ARM_tensors",
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_EXT_zero_initialize_device_memory"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkImageLayout(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_2",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_GRAPHICS_VERSION_1_4",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_shared_presentable_image",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_dynamic_rendering_local_read",
-  feature = "VK_KHR_separate_depth_stencil_layouts",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_ARM_tensors",
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_EXT_zero_initialize_device_memory"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageLayout {
   ///Implicit layout an image is when its contents are undefined due to various reasons (e.g. right after creation)
   pub const VK_IMAGE_LAYOUT_UNDEFINED: Self = Self(0);
@@ -38853,28 +32389,7 @@ impl VkImageLayout {
   #[cfg(feature = "VK_EXT_zero_initialize_device_memory")]
   pub const VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT: Self = Self(1000620000);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_2",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_GRAPHICS_VERSION_1_4",
-  feature = "VK_KHR_swapchain",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_shared_presentable_image",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_dynamic_rendering_local_read",
-  feature = "VK_KHR_separate_depth_stencil_layouts",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_ARM_tensors",
-  feature = "VK_KHR_video_encode_quantization_map",
-  feature = "VK_EXT_zero_initialize_device_memory"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkImageLayout {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -39040,41 +32555,11 @@ impl core::fmt::Display for VkImageLayout {
   }
 }
 /// [VkImageUsageFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageUsageFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkImageUsageFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageUsageFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Can be used as a source of transfer operations
@@ -39145,22 +32630,7 @@ impl VkImageUsageFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkImageUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -39168,44 +32638,14 @@ impl core::ops::BitOr for VkImageUsageFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkImageUsageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkImageUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -39213,44 +32653,14 @@ impl core::ops::BitAnd for VkImageUsageFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkImageUsageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkImageUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -39258,44 +32668,14 @@ impl core::ops::BitXor for VkImageUsageFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkImageUsageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkImageUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -39303,22 +32683,7 @@ impl core::ops::Not for VkImageUsageFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkImageUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -39326,44 +32691,14 @@ impl core::ops::BitOr<u32> for VkImageUsageFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkImageUsageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkImageUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -39371,44 +32706,14 @@ impl core::ops::BitAnd<u32> for VkImageUsageFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkImageUsageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkImageUsageFlagBits {
   type Output = Self;
   #[inline]
@@ -39416,44 +32721,14 @@ impl core::ops::BitXor<u32> for VkImageUsageFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkImageUsageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_EXT_host_image_copy",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_HUAWEI_invocation_mask",
-  feature = "VK_QCOM_image_processing",
-  feature = "VK_ARM_tensors",
-  feature = "VK_QCOM_tile_memory_heap",
-  feature = "VK_KHR_video_encode_quantization_map"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkImageUsageFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -39943,19 +33218,11 @@ impl core::fmt::Display for VkDescriptorType {
   }
 }
 /// [VkTensorCreateFlagBitsARM](https://docs.vulkan.org/refpages/latest/refpages/source/VkTensorCreateFlagsARM.html)
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkTensorCreateFlagBitsARM(pub u64);
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl VkTensorCreateFlagBitsARM {
   pub const EMPTY: Self = Self(0);
   pub const VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM: Self = Self(1 << 0u64);
@@ -39977,11 +33244,7 @@ impl VkTensorCreateFlagBitsARM {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOr for VkTensorCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -39989,22 +33252,14 @@ impl core::ops::BitOr for VkTensorCreateFlagBitsARM {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOrAssign for VkTensorCreateFlagBitsARM {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAnd for VkTensorCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -40012,22 +33267,14 @@ impl core::ops::BitAnd for VkTensorCreateFlagBitsARM {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAndAssign for VkTensorCreateFlagBitsARM {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXor for VkTensorCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -40035,22 +33282,14 @@ impl core::ops::BitXor for VkTensorCreateFlagBitsARM {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXorAssign for VkTensorCreateFlagBitsARM {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::Not for VkTensorCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -40058,11 +33297,7 @@ impl core::ops::Not for VkTensorCreateFlagBitsARM {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOr<u64> for VkTensorCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -40070,22 +33305,14 @@ impl core::ops::BitOr<u64> for VkTensorCreateFlagBitsARM {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitOrAssign<u64> for VkTensorCreateFlagBitsARM {
   #[inline]
   fn bitor_assign(&mut self, r: u64) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAnd<u64> for VkTensorCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -40093,22 +33320,14 @@ impl core::ops::BitAnd<u64> for VkTensorCreateFlagBitsARM {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitAndAssign<u64> for VkTensorCreateFlagBitsARM {
   #[inline]
   fn bitand_assign(&mut self, r: u64) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXor<u64> for VkTensorCreateFlagBitsARM {
   type Output = Self;
   #[inline]
@@ -40116,22 +33335,14 @@ impl core::ops::BitXor<u64> for VkTensorCreateFlagBitsARM {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::ops::BitXorAssign<u64> for VkTensorCreateFlagBitsARM {
   #[inline]
   fn bitxor_assign(&mut self, r: u64) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_ARM_tensors",
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_buffer")
-))]
+#[cfg(feature = "VK_ARM_tensors")]
 impl core::fmt::Display for VkTensorCreateFlagBitsARM {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -41865,11 +35076,11 @@ impl core::fmt::Display for VkVendorId {
   }
 }
 /// [VkCommandPoolCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkCommandPoolCreateFlags.html)
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkCommandPoolCreateFlagBits(pub u32);
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkCommandPoolCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Command buffers have a short lifetime
@@ -41892,7 +35103,7 @@ impl VkCommandPoolCreateFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkCommandPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -41900,14 +35111,14 @@ impl core::ops::BitOr for VkCommandPoolCreateFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkCommandPoolCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkCommandPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -41915,14 +35126,14 @@ impl core::ops::BitAnd for VkCommandPoolCreateFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkCommandPoolCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkCommandPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -41930,14 +35141,14 @@ impl core::ops::BitXor for VkCommandPoolCreateFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkCommandPoolCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkCommandPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -41945,7 +35156,7 @@ impl core::ops::Not for VkCommandPoolCreateFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkCommandPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -41953,14 +35164,14 @@ impl core::ops::BitOr<u32> for VkCommandPoolCreateFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkCommandPoolCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkCommandPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -41968,14 +35179,14 @@ impl core::ops::BitAnd<u32> for VkCommandPoolCreateFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkCommandPoolCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkCommandPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -41983,14 +35194,14 @@ impl core::ops::BitXor<u32> for VkCommandPoolCreateFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkCommandPoolCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_BASE_VERSION_1_1"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkCommandPoolCreateFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -42051,27 +35262,11 @@ impl core::fmt::Display for VkCommandPoolCreateFlagBits {
   }
 }
 /// [VkBufferCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkBufferCreateFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkBufferCreateFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkBufferCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Buffer should support sparse backing
@@ -42106,15 +35301,7 @@ impl VkBufferCreateFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkBufferCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -42122,30 +35309,14 @@ impl core::ops::BitOr for VkBufferCreateFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkBufferCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkBufferCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -42153,30 +35324,14 @@ impl core::ops::BitAnd for VkBufferCreateFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkBufferCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkBufferCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -42184,30 +35339,14 @@ impl core::ops::BitXor for VkBufferCreateFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkBufferCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkBufferCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -42215,15 +35354,7 @@ impl core::ops::Not for VkBufferCreateFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkBufferCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -42231,30 +35362,14 @@ impl core::ops::BitOr<u32> for VkBufferCreateFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkBufferCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkBufferCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -42262,30 +35377,14 @@ impl core::ops::BitAnd<u32> for VkBufferCreateFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkBufferCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkBufferCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -42293,30 +35392,14 @@ impl core::ops::BitXor<u32> for VkBufferCreateFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkBufferCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_2",
-  feature = "VK_EXT_buffer_device_address",
-  feature = "VK_KHR_buffer_device_address",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_KHR_video_maintenance1"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkBufferCreateFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -42447,25 +35530,11 @@ impl core::fmt::Display for VkBufferCreateFlagBits {
   }
 }
 /// [VkImageAspectFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageAspectFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkImageAspectFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageAspectFlagBits {
   pub const EMPTY: Self = Self(0);
   pub const VK_IMAGE_ASPECT_COLOR_BIT: Self = Self(1 << 0u64);
@@ -42509,14 +35578,7 @@ impl VkImageAspectFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkImageAspectFlagBits {
   type Output = Self;
   #[inline]
@@ -42524,28 +35586,14 @@ impl core::ops::BitOr for VkImageAspectFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkImageAspectFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkImageAspectFlagBits {
   type Output = Self;
   #[inline]
@@ -42553,28 +35601,14 @@ impl core::ops::BitAnd for VkImageAspectFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkImageAspectFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkImageAspectFlagBits {
   type Output = Self;
   #[inline]
@@ -42582,28 +35616,14 @@ impl core::ops::BitXor for VkImageAspectFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkImageAspectFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkImageAspectFlagBits {
   type Output = Self;
   #[inline]
@@ -42611,14 +35631,7 @@ impl core::ops::Not for VkImageAspectFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkImageAspectFlagBits {
   type Output = Self;
   #[inline]
@@ -42626,28 +35639,14 @@ impl core::ops::BitOr<u32> for VkImageAspectFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkImageAspectFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkImageAspectFlagBits {
   type Output = Self;
   #[inline]
@@ -42655,28 +35654,14 @@ impl core::ops::BitAnd<u32> for VkImageAspectFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkImageAspectFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkImageAspectFlagBits {
   type Output = Self;
   #[inline]
@@ -42684,28 +35669,14 @@ impl core::ops::BitXor<u32> for VkImageAspectFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkImageAspectFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_image_drm_format_modifier",
-  feature = "VK_KHR_maintenance4"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkImageAspectFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -42918,42 +35889,12 @@ impl core::fmt::Display for VkImageAspectFlagBits {
   }
 }
 /// [VkFormatFeatureFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkFormatFeatureFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[deprecated(note = "superseded by `VkFormatFeatureFlagBits2`")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkFormatFeatureFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkFormatFeatureFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Format can be used for sampled images (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
@@ -43074,22 +36015,7 @@ impl VkFormatFeatureFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkFormatFeatureFlagBits {
   type Output = Self;
   #[inline]
@@ -43097,44 +36023,14 @@ impl core::ops::BitOr for VkFormatFeatureFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkFormatFeatureFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkFormatFeatureFlagBits {
   type Output = Self;
   #[inline]
@@ -43142,44 +36038,14 @@ impl core::ops::BitAnd for VkFormatFeatureFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkFormatFeatureFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkFormatFeatureFlagBits {
   type Output = Self;
   #[inline]
@@ -43187,44 +36053,14 @@ impl core::ops::BitXor for VkFormatFeatureFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkFormatFeatureFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkFormatFeatureFlagBits {
   type Output = Self;
   #[inline]
@@ -43232,22 +36068,7 @@ impl core::ops::Not for VkFormatFeatureFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkFormatFeatureFlagBits {
   type Output = Self;
   #[inline]
@@ -43255,44 +36076,14 @@ impl core::ops::BitOr<u32> for VkFormatFeatureFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkFormatFeatureFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkFormatFeatureFlagBits {
   type Output = Self;
   #[inline]
@@ -43300,44 +36091,14 @@ impl core::ops::BitAnd<u32> for VkFormatFeatureFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkFormatFeatureFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkFormatFeatureFlagBits {
   type Output = Self;
   #[inline]
@@ -43345,44 +36106,14 @@ impl core::ops::BitXor<u32> for VkFormatFeatureFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkFormatFeatureFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_1",
-  feature = "VK_COMPUTE_VERSION_1_2",
-  feature = "VK_IMG_filter_cubic",
-  feature = "VK_KHR_video_decode_queue",
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_EXT_sampler_filter_minmax",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_EXT_filter_cubic",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_KHR_video_encode_queue"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkFormatFeatureFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -43935,29 +36666,11 @@ impl core::fmt::Display for VkFormatFeatureFlagBits {
   }
 }
 /// [VkDependencyFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkDependencyFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkDependencyFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkDependencyFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Dependency is per pixel region
@@ -43992,16 +36705,7 @@ impl VkDependencyFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkDependencyFlagBits {
   type Output = Self;
   #[inline]
@@ -44009,32 +36713,14 @@ impl core::ops::BitOr for VkDependencyFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkDependencyFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkDependencyFlagBits {
   type Output = Self;
   #[inline]
@@ -44042,32 +36728,14 @@ impl core::ops::BitAnd for VkDependencyFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkDependencyFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkDependencyFlagBits {
   type Output = Self;
   #[inline]
@@ -44075,32 +36743,14 @@ impl core::ops::BitXor for VkDependencyFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkDependencyFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkDependencyFlagBits {
   type Output = Self;
   #[inline]
@@ -44108,16 +36758,7 @@ impl core::ops::Not for VkDependencyFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkDependencyFlagBits {
   type Output = Self;
   #[inline]
@@ -44125,32 +36766,14 @@ impl core::ops::BitOr<u32> for VkDependencyFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkDependencyFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkDependencyFlagBits {
   type Output = Self;
   #[inline]
@@ -44158,32 +36781,14 @@ impl core::ops::BitAnd<u32> for VkDependencyFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkDependencyFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkDependencyFlagBits {
   type Output = Self;
   #[inline]
@@ -44191,32 +36796,14 @@ impl core::ops::BitXor<u32> for VkDependencyFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkDependencyFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_GRAPHICS_VERSION_1_1",
-  feature = "VK_KHR_multiview",
-  feature = "VK_KHR_device_group",
-  feature = "VK_EXT_attachment_feedback_loop_layout",
-  feature = "VK_KHR_maintenance8",
-  feature = "VK_KHR_maintenance9"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkDependencyFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -44340,49 +36927,11 @@ impl core::fmt::Display for VkDependencyFlagBits {
   }
 }
 /// [VkImageCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageCreateFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkImageCreateFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Image should support sparse backing
@@ -44460,26 +37009,7 @@ impl VkImageCreateFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkImageCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -44487,52 +37017,14 @@ impl core::ops::BitOr for VkImageCreateFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkImageCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkImageCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -44540,52 +37032,14 @@ impl core::ops::BitAnd for VkImageCreateFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkImageCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkImageCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -44593,52 +37047,14 @@ impl core::ops::BitXor for VkImageCreateFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkImageCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkImageCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -44646,26 +37062,7 @@ impl core::ops::Not for VkImageCreateFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkImageCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -44673,52 +37070,14 @@ impl core::ops::BitOr<u32> for VkImageCreateFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkImageCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkImageCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -44726,52 +37085,14 @@ impl core::ops::BitAnd<u32> for VkImageCreateFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkImageCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkImageCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -44779,52 +37100,14 @@ impl core::ops::BitXor<u32> for VkImageCreateFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkImageCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_1",
-  feature = "VK_NV_corner_sampled_image",
-  all(feature = "VK_KHR_bind_memory2", feature = "VK_KHR_device_group"),
-  feature = "VK_KHR_maintenance1",
-  feature = "VK_KHR_maintenance2",
-  feature = "VK_EXT_descriptor_heap",
-  feature = "VK_EXT_sample_locations",
-  feature = "VK_KHR_sampler_ycbcr_conversion",
-  feature = "VK_KHR_bind_memory2",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_multisampled_render_to_single_sampled",
-  feature = "VK_EXT_image_2d_view_of_3d",
-  feature = "VK_QCOM_fragment_density_map_offset",
-  feature = "VK_KHR_video_maintenance1",
-  feature = "VK_EXT_fragment_density_map_offset",
-  feature = "VK_KHR_maintenance11"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkImageCreateFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -45191,40 +37474,12 @@ impl core::fmt::Display for VkImageCreateFlagBits {
   }
 }
 /// [VkAccessFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkAccessFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[deprecated(note = "superseded by `VkAccessFlagBits2`")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkAccessFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkAccessFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Controls coherency of indirect command reads
@@ -45311,21 +37566,7 @@ impl VkAccessFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkAccessFlagBits {
   type Output = Self;
   #[inline]
@@ -45333,42 +37574,14 @@ impl core::ops::BitOr for VkAccessFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkAccessFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkAccessFlagBits {
   type Output = Self;
   #[inline]
@@ -45376,42 +37589,14 @@ impl core::ops::BitAnd for VkAccessFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkAccessFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkAccessFlagBits {
   type Output = Self;
   #[inline]
@@ -45419,42 +37604,14 @@ impl core::ops::BitXor for VkAccessFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkAccessFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkAccessFlagBits {
   type Output = Self;
   #[inline]
@@ -45462,21 +37619,7 @@ impl core::ops::Not for VkAccessFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkAccessFlagBits {
   type Output = Self;
   #[inline]
@@ -45484,42 +37627,14 @@ impl core::ops::BitOr<u32> for VkAccessFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkAccessFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkAccessFlagBits {
   type Output = Self;
   #[inline]
@@ -45527,42 +37642,14 @@ impl core::ops::BitAnd<u32> for VkAccessFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkAccessFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkAccessFlagBits {
   type Output = Self;
   #[inline]
@@ -45570,42 +37657,14 @@ impl core::ops::BitXor<u32> for VkAccessFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkAccessFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_EXT_blend_operation_advanced",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkAccessFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -46020,44 +38079,12 @@ impl core::fmt::Display for VkAccessFlagBits {
   }
 }
 /// [VkPipelineStageFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineStageFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[deprecated(note = "superseded by `VkPipelineStageFlagBits2`")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkPipelineStageFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkPipelineStageFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Before subsequent commands are processed
@@ -46142,23 +38169,7 @@ impl VkPipelineStageFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkPipelineStageFlagBits {
   type Output = Self;
   #[inline]
@@ -46166,46 +38177,14 @@ impl core::ops::BitOr for VkPipelineStageFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkPipelineStageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkPipelineStageFlagBits {
   type Output = Self;
   #[inline]
@@ -46213,46 +38192,14 @@ impl core::ops::BitAnd for VkPipelineStageFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkPipelineStageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkPipelineStageFlagBits {
   type Output = Self;
   #[inline]
@@ -46260,46 +38207,14 @@ impl core::ops::BitXor for VkPipelineStageFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkPipelineStageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkPipelineStageFlagBits {
   type Output = Self;
   #[inline]
@@ -46307,23 +38222,7 @@ impl core::ops::Not for VkPipelineStageFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkPipelineStageFlagBits {
   type Output = Self;
   #[inline]
@@ -46331,46 +38230,14 @@ impl core::ops::BitOr<u32> for VkPipelineStageFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkPipelineStageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkPipelineStageFlagBits {
   type Output = Self;
   #[inline]
@@ -46378,46 +38245,14 @@ impl core::ops::BitAnd<u32> for VkPipelineStageFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkPipelineStageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkPipelineStageFlagBits {
   type Output = Self;
   #[inline]
@@ -46425,46 +38260,14 @@ impl core::ops::BitXor<u32> for VkPipelineStageFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkPipelineStageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_EXT_conditional_rendering",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_shading_rate_image",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_KHR_fragment_shading_rate",
-  feature = "VK_NV_device_generated_commands",
-  feature = "VK_KHR_synchronization2",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_device_generated_commands"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkPipelineStageFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -46867,25 +38670,11 @@ impl core::fmt::Display for VkPipelineStageFlagBits {
   }
 }
 /// [VkIndexType](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndexType.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_index_type_uint8",
-  feature = "VK_KHR_index_type_uint8"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkIndexType(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_index_type_uint8",
-  feature = "VK_KHR_index_type_uint8"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkIndexType {
   pub const VK_INDEX_TYPE_UINT16: Self = Self(0);
   pub const VK_INDEX_TYPE_UINT32: Self = Self(1);
@@ -46900,14 +38689,7 @@ impl VkIndexType {
   #[cfg(feature = "VK_KHR_index_type_uint8")]
   pub const VK_INDEX_TYPE_UINT8_KHR: Self = Self(1000265000);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_BASE_VERSION_1_4",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_EXT_index_type_uint8",
-  feature = "VK_KHR_index_type_uint8"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkIndexType {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -46928,21 +38710,11 @@ impl core::fmt::Display for VkIndexType {
   }
 }
 /// [VkImageViewCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageViewCreateFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkImageViewCreateFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageViewCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   #[cfg(feature = "VK_EXT_fragment_density_map")]
@@ -46964,12 +38736,7 @@ impl VkImageViewCreateFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkImageViewCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -46977,24 +38744,14 @@ impl core::ops::BitOr for VkImageViewCreateFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkImageViewCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkImageViewCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -47002,24 +38759,14 @@ impl core::ops::BitAnd for VkImageViewCreateFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkImageViewCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkImageViewCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -47027,24 +38774,14 @@ impl core::ops::BitXor for VkImageViewCreateFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkImageViewCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkImageViewCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -47052,12 +38789,7 @@ impl core::ops::Not for VkImageViewCreateFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkImageViewCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -47065,24 +38797,14 @@ impl core::ops::BitOr<u32> for VkImageViewCreateFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkImageViewCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkImageViewCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -47090,24 +38812,14 @@ impl core::ops::BitAnd<u32> for VkImageViewCreateFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkImageViewCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkImageViewCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -47115,24 +38827,14 @@ impl core::ops::BitXor<u32> for VkImageViewCreateFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkImageViewCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_fragment_density_map",
-  feature = "VK_EXT_descriptor_buffer",
-  feature = "VK_EXT_fragment_density_map2"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkImageViewCreateFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -47197,27 +38899,18 @@ impl core::fmt::Display for VkImageViewCreateFlagBits {
   }
 }
 /// [VkImageTiling](https://docs.vulkan.org/refpages/latest/refpages/source/VkImageTiling.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_image_drm_format_modifier"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkImageTiling(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_image_drm_format_modifier"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkImageTiling {
   pub const VK_IMAGE_TILING_OPTIMAL: Self = Self(0);
   pub const VK_IMAGE_TILING_LINEAR: Self = Self(1);
   #[cfg(feature = "VK_EXT_image_drm_format_modifier")]
   pub const VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT: Self = Self(1000158000);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_image_drm_format_modifier"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkImageTiling {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -47232,11 +38925,11 @@ impl core::fmt::Display for VkImageTiling {
   }
 }
 /// [VkMemoryMapFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkMemoryMapFlags.html)
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkMemoryMapFlagBits(pub u32);
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkMemoryMapFlagBits {
   pub const EMPTY: Self = Self(0);
   #[cfg(feature = "VK_EXT_map_memory_placed")]
@@ -47254,7 +38947,7 @@ impl VkMemoryMapFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkMemoryMapFlagBits {
   type Output = Self;
   #[inline]
@@ -47262,14 +38955,14 @@ impl core::ops::BitOr for VkMemoryMapFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkMemoryMapFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkMemoryMapFlagBits {
   type Output = Self;
   #[inline]
@@ -47277,14 +38970,14 @@ impl core::ops::BitAnd for VkMemoryMapFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkMemoryMapFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkMemoryMapFlagBits {
   type Output = Self;
   #[inline]
@@ -47292,14 +38985,14 @@ impl core::ops::BitXor for VkMemoryMapFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkMemoryMapFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkMemoryMapFlagBits {
   type Output = Self;
   #[inline]
@@ -47307,7 +39000,7 @@ impl core::ops::Not for VkMemoryMapFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkMemoryMapFlagBits {
   type Output = Self;
   #[inline]
@@ -47315,14 +39008,14 @@ impl core::ops::BitOr<u32> for VkMemoryMapFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkMemoryMapFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkMemoryMapFlagBits {
   type Output = Self;
   #[inline]
@@ -47330,14 +39023,14 @@ impl core::ops::BitAnd<u32> for VkMemoryMapFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkMemoryMapFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkMemoryMapFlagBits {
   type Output = Self;
   #[inline]
@@ -47345,14 +39038,14 @@ impl core::ops::BitXor<u32> for VkMemoryMapFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkMemoryMapFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_EXT_map_memory_placed"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkMemoryMapFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -47393,39 +39086,11 @@ impl core::fmt::Display for VkMemoryMapFlagBits {
   }
 }
 /// [VkQueryType](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryType.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_KHR_performance_query",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_QCOM_elapsed_timer_query",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_primitives_generated_query",
-  feature = "VK_KHR_ray_tracing_maintenance1",
-  feature = "VK_EXT_opacity_micromap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkQueryType(pub i32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_KHR_performance_query",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_QCOM_elapsed_timer_query",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_primitives_generated_query",
-  feature = "VK_KHR_ray_tracing_maintenance1",
-  feature = "VK_EXT_opacity_micromap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueryType {
   pub const VK_QUERY_TYPE_OCCLUSION: Self = Self(0);
   ///Optional
@@ -47463,21 +39128,7 @@ impl VkQueryType {
   #[cfg(feature = "VK_EXT_opacity_micromap")]
   pub const VK_QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT: Self = Self(1000396001);
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_video_queue",
-  feature = "VK_EXT_transform_feedback",
-  feature = "VK_KHR_performance_query",
-  feature = "VK_KHR_acceleration_structure",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_QCOM_elapsed_timer_query",
-  feature = "VK_INTEL_performance_query",
-  feature = "VK_KHR_video_encode_queue",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_EXT_primitives_generated_query",
-  feature = "VK_KHR_ray_tracing_maintenance1",
-  feature = "VK_EXT_opacity_micromap"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkQueryType {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -47555,19 +39206,11 @@ impl core::fmt::Display for VkQueryType {
   }
 }
 /// [VkQueryPipelineStatisticFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPipelineStatisticFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkQueryPipelineStatisticFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueryPipelineStatisticFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Optional
@@ -47614,11 +39257,7 @@ impl VkQueryPipelineStatisticFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkQueryPipelineStatisticFlagBits {
   type Output = Self;
   #[inline]
@@ -47626,22 +39265,14 @@ impl core::ops::BitOr for VkQueryPipelineStatisticFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkQueryPipelineStatisticFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkQueryPipelineStatisticFlagBits {
   type Output = Self;
   #[inline]
@@ -47649,22 +39280,14 @@ impl core::ops::BitAnd for VkQueryPipelineStatisticFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkQueryPipelineStatisticFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkQueryPipelineStatisticFlagBits {
   type Output = Self;
   #[inline]
@@ -47672,22 +39295,14 @@ impl core::ops::BitXor for VkQueryPipelineStatisticFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkQueryPipelineStatisticFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkQueryPipelineStatisticFlagBits {
   type Output = Self;
   #[inline]
@@ -47695,11 +39310,7 @@ impl core::ops::Not for VkQueryPipelineStatisticFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkQueryPipelineStatisticFlagBits {
   type Output = Self;
   #[inline]
@@ -47707,22 +39318,14 @@ impl core::ops::BitOr<u32> for VkQueryPipelineStatisticFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkQueryPipelineStatisticFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkQueryPipelineStatisticFlagBits {
   type Output = Self;
   #[inline]
@@ -47730,22 +39333,14 @@ impl core::ops::BitAnd<u32> for VkQueryPipelineStatisticFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkQueryPipelineStatisticFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkQueryPipelineStatisticFlagBits {
   type Output = Self;
   #[inline]
@@ -47753,22 +39348,14 @@ impl core::ops::BitXor<u32> for VkQueryPipelineStatisticFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkQueryPipelineStatisticFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkQueryPipelineStatisticFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -47949,27 +39536,11 @@ impl core::fmt::Display for VkQueryPipelineStatisticFlagBits {
   }
 }
 /// [VkShaderStageFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderStageFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkShaderStageFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkShaderStageFlagBits {
   pub const EMPTY: Self = Self(0);
   pub const VK_SHADER_STAGE_VERTEX_BIT: Self = Self(1 << 0u64);
@@ -48029,15 +39600,7 @@ impl VkShaderStageFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkShaderStageFlagBits {
   type Output = Self;
   #[inline]
@@ -48045,30 +39608,14 @@ impl core::ops::BitOr for VkShaderStageFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkShaderStageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkShaderStageFlagBits {
   type Output = Self;
   #[inline]
@@ -48076,30 +39623,14 @@ impl core::ops::BitAnd for VkShaderStageFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkShaderStageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkShaderStageFlagBits {
   type Output = Self;
   #[inline]
@@ -48107,30 +39638,14 @@ impl core::ops::BitXor for VkShaderStageFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkShaderStageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkShaderStageFlagBits {
   type Output = Self;
   #[inline]
@@ -48138,15 +39653,7 @@ impl core::ops::Not for VkShaderStageFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkShaderStageFlagBits {
   type Output = Self;
   #[inline]
@@ -48154,30 +39661,14 @@ impl core::ops::BitOr<u32> for VkShaderStageFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkShaderStageFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkShaderStageFlagBits {
   type Output = Self;
   #[inline]
@@ -48185,30 +39676,14 @@ impl core::ops::BitAnd<u32> for VkShaderStageFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkShaderStageFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkShaderStageFlagBits {
   type Output = Self;
   #[inline]
@@ -48216,30 +39691,14 @@ impl core::ops::BitXor<u32> for VkShaderStageFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkShaderStageFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_ray_tracing_pipeline",
-  feature = "VK_NV_ray_tracing",
-  feature = "VK_NV_mesh_shader",
-  feature = "VK_EXT_mesh_shader",
-  feature = "VK_HUAWEI_subpass_shading",
-  feature = "VK_HUAWEI_cluster_culling_shader"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkShaderStageFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -48564,11 +40023,11 @@ impl core::fmt::Display for VkShaderStageFlagBits {
   }
 }
 /// [VkQueryPoolCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryPoolCreateFlags.html)
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkQueryPoolCreateFlagBits(pub u32);
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueryPoolCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   #[cfg(feature = "VK_KHR_maintenance9")]
@@ -48586,7 +40045,7 @@ impl VkQueryPoolCreateFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkQueryPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48594,14 +40053,14 @@ impl core::ops::BitOr for VkQueryPoolCreateFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkQueryPoolCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkQueryPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48609,14 +40068,14 @@ impl core::ops::BitAnd for VkQueryPoolCreateFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkQueryPoolCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkQueryPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48624,14 +40083,14 @@ impl core::ops::BitXor for VkQueryPoolCreateFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkQueryPoolCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkQueryPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48639,7 +40098,7 @@ impl core::ops::Not for VkQueryPoolCreateFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkQueryPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48647,14 +40106,14 @@ impl core::ops::BitOr<u32> for VkQueryPoolCreateFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkQueryPoolCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkQueryPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48662,14 +40121,14 @@ impl core::ops::BitAnd<u32> for VkQueryPoolCreateFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkQueryPoolCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkQueryPoolCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48677,14 +40136,14 @@ impl core::ops::BitXor<u32> for VkQueryPoolCreateFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkQueryPoolCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_maintenance9"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkQueryPoolCreateFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -48725,17 +40184,11 @@ impl core::fmt::Display for VkQueryPoolCreateFlagBits {
   }
 }
 /// [VkInstanceCreateFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkInstanceCreateFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkInstanceCreateFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkInstanceCreateFlagBits {
   pub const EMPTY: Self = Self(0);
   #[cfg(feature = "VK_KHR_portability_enumeration")]
@@ -48753,10 +40206,7 @@ impl VkInstanceCreateFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkInstanceCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48764,20 +40214,14 @@ impl core::ops::BitOr for VkInstanceCreateFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkInstanceCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkInstanceCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48785,20 +40229,14 @@ impl core::ops::BitAnd for VkInstanceCreateFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkInstanceCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkInstanceCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48806,20 +40244,14 @@ impl core::ops::BitXor for VkInstanceCreateFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkInstanceCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkInstanceCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48827,10 +40259,7 @@ impl core::ops::Not for VkInstanceCreateFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkInstanceCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48838,20 +40267,14 @@ impl core::ops::BitOr<u32> for VkInstanceCreateFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkInstanceCreateFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkInstanceCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48859,20 +40282,14 @@ impl core::ops::BitAnd<u32> for VkInstanceCreateFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkInstanceCreateFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkInstanceCreateFlagBits {
   type Output = Self;
   #[inline]
@@ -48880,20 +40297,14 @@ impl core::ops::BitXor<u32> for VkInstanceCreateFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkInstanceCreateFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_0",
-  feature = "VK_KHR_portability_enumeration"
-))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkInstanceCreateFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -48934,11 +40345,11 @@ impl core::fmt::Display for VkInstanceCreateFlagBits {
   }
 }
 /// [VkQueryResultFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkQueryResultFlags.html)
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkQueryResultFlagBits(pub u32);
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl VkQueryResultFlagBits {
   pub const EMPTY: Self = Self(0);
   ///Results of the queries are written to the destination buffer as 64-bit values
@@ -48964,7 +40375,7 @@ impl VkQueryResultFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr for VkQueryResultFlagBits {
   type Output = Self;
   #[inline]
@@ -48972,14 +40383,14 @@ impl core::ops::BitOr for VkQueryResultFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign for VkQueryResultFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd for VkQueryResultFlagBits {
   type Output = Self;
   #[inline]
@@ -48987,14 +40398,14 @@ impl core::ops::BitAnd for VkQueryResultFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign for VkQueryResultFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor for VkQueryResultFlagBits {
   type Output = Self;
   #[inline]
@@ -49002,14 +40413,14 @@ impl core::ops::BitXor for VkQueryResultFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign for VkQueryResultFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::Not for VkQueryResultFlagBits {
   type Output = Self;
   #[inline]
@@ -49017,7 +40428,7 @@ impl core::ops::Not for VkQueryResultFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOr<u32> for VkQueryResultFlagBits {
   type Output = Self;
   #[inline]
@@ -49025,14 +40436,14 @@ impl core::ops::BitOr<u32> for VkQueryResultFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitOrAssign<u32> for VkQueryResultFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAnd<u32> for VkQueryResultFlagBits {
   type Output = Self;
   #[inline]
@@ -49040,14 +40451,14 @@ impl core::ops::BitAnd<u32> for VkQueryResultFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitAndAssign<u32> for VkQueryResultFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXor<u32> for VkQueryResultFlagBits {
   type Output = Self;
   #[inline]
@@ -49055,14 +40466,14 @@ impl core::ops::BitXor<u32> for VkQueryResultFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::ops::BitXorAssign<u32> for VkQueryResultFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VK_KHR_video_queue"))]
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
 impl core::fmt::Display for VkQueryResultFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -52730,21 +44141,11 @@ impl core::fmt::Display for VkSemaphoreWaitFlagBits {
   }
 }
 /// [VkToolPurposeFlagBits](https://docs.vulkan.org/refpages/latest/refpages/source/VkToolPurposeFlags.html)
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkToolPurposeFlagBits(pub u32);
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl VkToolPurposeFlagBits {
   pub const EMPTY: Self = Self(0);
   pub const VK_TOOL_PURPOSE_VALIDATION_BIT: Self = Self(1 << 0u64);
@@ -52779,12 +44180,7 @@ impl VkToolPurposeFlagBits {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitOr for VkToolPurposeFlagBits {
   type Output = Self;
   #[inline]
@@ -52792,24 +44188,14 @@ impl core::ops::BitOr for VkToolPurposeFlagBits {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitOrAssign for VkToolPurposeFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitAnd for VkToolPurposeFlagBits {
   type Output = Self;
   #[inline]
@@ -52817,24 +44203,14 @@ impl core::ops::BitAnd for VkToolPurposeFlagBits {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitAndAssign for VkToolPurposeFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitXor for VkToolPurposeFlagBits {
   type Output = Self;
   #[inline]
@@ -52842,24 +44218,14 @@ impl core::ops::BitXor for VkToolPurposeFlagBits {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitXorAssign for VkToolPurposeFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::Not for VkToolPurposeFlagBits {
   type Output = Self;
   #[inline]
@@ -52867,12 +44233,7 @@ impl core::ops::Not for VkToolPurposeFlagBits {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitOr<u32> for VkToolPurposeFlagBits {
   type Output = Self;
   #[inline]
@@ -52880,24 +44241,14 @@ impl core::ops::BitOr<u32> for VkToolPurposeFlagBits {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitOrAssign<u32> for VkToolPurposeFlagBits {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitAnd<u32> for VkToolPurposeFlagBits {
   type Output = Self;
   #[inline]
@@ -52905,24 +44256,14 @@ impl core::ops::BitAnd<u32> for VkToolPurposeFlagBits {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitAndAssign<u32> for VkToolPurposeFlagBits {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitXor<u32> for VkToolPurposeFlagBits {
   type Output = Self;
   #[inline]
@@ -52930,24 +44271,14 @@ impl core::ops::BitXor<u32> for VkToolPurposeFlagBits {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::ops::BitXorAssign<u32> for VkToolPurposeFlagBits {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_BASE_VERSION_1_3",
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(any(feature = "VK_BASE_VERSION_1_3", feature = "VK_EXT_tooling_info"))]
 impl core::fmt::Display for VkToolPurposeFlagBits {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -57487,10 +48818,6 @@ impl core::fmt::Display for VkPipelineLayoutCreateFlagBits {
   feature = "VK_COMPUTE_VERSION_1_1",
   feature = "VK_COMPUTE_VERSION_1_4",
   all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
-  ),
   feature = "VK_KHR_descriptor_update_template"
 ))]
 #[repr(transparent)]
@@ -57500,10 +48827,6 @@ pub struct VkDescriptorUpdateTemplateType(pub i32);
   feature = "VK_COMPUTE_VERSION_1_1",
   feature = "VK_COMPUTE_VERSION_1_4",
   all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
-  ),
   feature = "VK_KHR_descriptor_update_template"
 ))]
 impl VkDescriptorUpdateTemplateType {
@@ -57527,10 +48850,6 @@ impl VkDescriptorUpdateTemplateType {
   feature = "VK_COMPUTE_VERSION_1_1",
   feature = "VK_COMPUTE_VERSION_1_4",
   all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
-  ),
   feature = "VK_KHR_descriptor_update_template"
 ))]
 impl core::fmt::Display for VkDescriptorUpdateTemplateType {
@@ -58393,71 +49712,6 @@ impl core::fmt::Display for VkPipelineCreationFeedbackFlagBits {
   feature = "VK_EXT_extended_dynamic_state2",
   feature = "VK_EXT_color_write_enable",
   feature = "VK_EXT_extended_dynamic_state3",
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_KHR_maintenance2"
-  ),
-  all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_transform_feedback"
-  ),
-  all(
-    feature = "VK_EXT_conservative_rasterization",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_depth_clip_enable",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_sample_locations"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_provoking_vertex"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_line_rasterization"
-  ),
-  all(
-    feature = "VK_EXT_depth_clip_control",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_clip_space_w_scaling"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_viewport_swizzle"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_fragment_coverage_to_color"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_framebuffer_mixed_samples"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_representative_fragment_test"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_coverage_reduction_mode"
-  ),
   feature = "VK_EXT_attachment_feedback_loop_dynamic_state",
   feature = "VK_KHR_line_rasterization",
   feature = "VK_EXT_depth_clamp_control"
@@ -58482,71 +49736,6 @@ pub struct VkDynamicState(pub i32);
   feature = "VK_EXT_extended_dynamic_state2",
   feature = "VK_EXT_color_write_enable",
   feature = "VK_EXT_extended_dynamic_state3",
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_KHR_maintenance2"
-  ),
-  all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_transform_feedback"
-  ),
-  all(
-    feature = "VK_EXT_conservative_rasterization",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_depth_clip_enable",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_sample_locations"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_provoking_vertex"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_line_rasterization"
-  ),
-  all(
-    feature = "VK_EXT_depth_clip_control",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_clip_space_w_scaling"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_viewport_swizzle"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_fragment_coverage_to_color"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_framebuffer_mixed_samples"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_representative_fragment_test"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_coverage_reduction_mode"
-  ),
   feature = "VK_EXT_attachment_feedback_loop_dynamic_state",
   feature = "VK_KHR_line_rasterization",
   feature = "VK_EXT_depth_clamp_control"
@@ -58809,71 +49998,6 @@ impl VkDynamicState {
   feature = "VK_EXT_extended_dynamic_state2",
   feature = "VK_EXT_color_write_enable",
   feature = "VK_EXT_extended_dynamic_state3",
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_KHR_maintenance2"
-  ),
-  all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_transform_feedback"
-  ),
-  all(
-    feature = "VK_EXT_conservative_rasterization",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_depth_clip_enable",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_sample_locations"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_provoking_vertex"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_EXT_line_rasterization"
-  ),
-  all(
-    feature = "VK_EXT_depth_clip_control",
-    feature = "VK_EXT_extended_dynamic_state3"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_clip_space_w_scaling"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_viewport_swizzle"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_fragment_coverage_to_color"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_framebuffer_mixed_samples"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_representative_fragment_test"
-  ),
-  all(
-    feature = "VK_EXT_extended_dynamic_state3",
-    feature = "VK_NV_coverage_reduction_mode"
-  ),
   feature = "VK_EXT_attachment_feedback_loop_dynamic_state",
   feature = "VK_KHR_line_rasterization",
   feature = "VK_EXT_depth_clamp_control"
@@ -59944,16 +51068,6 @@ impl core::fmt::Display for VkConservativeRasterizationModeEXT {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -59964,10 +51078,6 @@ impl core::fmt::Display for VkConservativeRasterizationModeEXT {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -59975,19 +51085,9 @@ impl core::fmt::Display for VkConservativeRasterizationModeEXT {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 #[repr(transparent)]
@@ -59999,16 +51099,6 @@ pub struct VkRenderingFlagBits(pub u32);
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60019,10 +51109,6 @@ pub struct VkRenderingFlagBits(pub u32);
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60030,19 +51116,9 @@ pub struct VkRenderingFlagBits(pub u32);
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl VkRenderingFlagBits {
@@ -60144,16 +51220,6 @@ impl VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60164,10 +51230,6 @@ impl VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60175,19 +51237,9 @@ impl VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOr for VkRenderingFlagBits {
@@ -60203,16 +51255,6 @@ impl core::ops::BitOr for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60223,10 +51265,6 @@ impl core::ops::BitOr for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60234,19 +51272,9 @@ impl core::ops::BitOr for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOrAssign for VkRenderingFlagBits {
@@ -60261,16 +51289,6 @@ impl core::ops::BitOrAssign for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60281,10 +51299,6 @@ impl core::ops::BitOrAssign for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60292,19 +51306,9 @@ impl core::ops::BitOrAssign for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAnd for VkRenderingFlagBits {
@@ -60320,16 +51324,6 @@ impl core::ops::BitAnd for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60340,10 +51334,6 @@ impl core::ops::BitAnd for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60351,19 +51341,9 @@ impl core::ops::BitAnd for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAndAssign for VkRenderingFlagBits {
@@ -60378,16 +51358,6 @@ impl core::ops::BitAndAssign for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60398,10 +51368,6 @@ impl core::ops::BitAndAssign for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60409,19 +51375,9 @@ impl core::ops::BitAndAssign for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXor for VkRenderingFlagBits {
@@ -60437,16 +51393,6 @@ impl core::ops::BitXor for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60457,10 +51403,6 @@ impl core::ops::BitXor for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60468,19 +51410,9 @@ impl core::ops::BitXor for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXorAssign for VkRenderingFlagBits {
@@ -60495,16 +51427,6 @@ impl core::ops::BitXorAssign for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60515,10 +51437,6 @@ impl core::ops::BitXorAssign for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60526,19 +51444,9 @@ impl core::ops::BitXorAssign for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::Not for VkRenderingFlagBits {
@@ -60554,16 +51462,6 @@ impl core::ops::Not for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60574,10 +51472,6 @@ impl core::ops::Not for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60585,19 +51479,9 @@ impl core::ops::Not for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOr<u32> for VkRenderingFlagBits {
@@ -60613,16 +51497,6 @@ impl core::ops::BitOr<u32> for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60633,10 +51507,6 @@ impl core::ops::BitOr<u32> for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60644,19 +51514,9 @@ impl core::ops::BitOr<u32> for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOrAssign<u32> for VkRenderingFlagBits {
@@ -60671,16 +51531,6 @@ impl core::ops::BitOrAssign<u32> for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60691,10 +51541,6 @@ impl core::ops::BitOrAssign<u32> for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60702,19 +51548,9 @@ impl core::ops::BitOrAssign<u32> for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAnd<u32> for VkRenderingFlagBits {
@@ -60730,16 +51566,6 @@ impl core::ops::BitAnd<u32> for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60750,10 +51576,6 @@ impl core::ops::BitAnd<u32> for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60761,19 +51583,9 @@ impl core::ops::BitAnd<u32> for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAndAssign<u32> for VkRenderingFlagBits {
@@ -60788,16 +51600,6 @@ impl core::ops::BitAndAssign<u32> for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60808,10 +51610,6 @@ impl core::ops::BitAndAssign<u32> for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60819,19 +51617,9 @@ impl core::ops::BitAndAssign<u32> for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXor<u32> for VkRenderingFlagBits {
@@ -60847,16 +51635,6 @@ impl core::ops::BitXor<u32> for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60867,10 +51645,6 @@ impl core::ops::BitXor<u32> for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60878,19 +51652,9 @@ impl core::ops::BitXor<u32> for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXorAssign<u32> for VkRenderingFlagBits {
@@ -60905,16 +51669,6 @@ impl core::ops::BitXorAssign<u32> for VkRenderingFlagBits {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -60925,10 +51679,6 @@ impl core::ops::BitXorAssign<u32> for VkRenderingFlagBits {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -60936,19 +51686,9 @@ impl core::ops::BitXorAssign<u32> for VkRenderingFlagBits {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::fmt::Display for VkRenderingFlagBits {
@@ -61439,55 +52179,11 @@ impl core::fmt::Display for VkDebugReportFlagBitsEXT {
   }
 }
 /// [VkDebugReportObjectTypeEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDebugReportObjectTypeEXT.html)
-#[cfg(any(
-  feature = "VK_EXT_debug_report",
-  all(feature = "VK_EXT_debug_report", feature = "VK_VERSION_1_1"),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NVX_binary_import"),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_descriptor_update_template"
-  ),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_acceleration_structure"
-  ),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_sampler_ycbcr_conversion"
-  ),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NV_cuda_kernel_launch"),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_FUCHSIA_buffer_collection"
-  )
-))]
+#[cfg(feature = "VK_EXT_debug_report")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkDebugReportObjectTypeEXT(pub i32);
-#[cfg(any(
-  feature = "VK_EXT_debug_report",
-  all(feature = "VK_EXT_debug_report", feature = "VK_VERSION_1_1"),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NVX_binary_import"),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_descriptor_update_template"
-  ),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_acceleration_structure"
-  ),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_sampler_ycbcr_conversion"
-  ),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NV_cuda_kernel_launch"),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_FUCHSIA_buffer_collection"
-  )
-))]
+#[cfg(feature = "VK_EXT_debug_report")]
 impl VkDebugReportObjectTypeEXT {
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT: Self = Self(0);
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT: Self = Self(1);
@@ -61560,29 +52256,7 @@ impl VkDebugReportObjectTypeEXT {
   ))]
   pub const VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT: Self = Self(1000366000);
 }
-#[cfg(any(
-  feature = "VK_EXT_debug_report",
-  all(feature = "VK_EXT_debug_report", feature = "VK_VERSION_1_1"),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NVX_binary_import"),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_descriptor_update_template"
-  ),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_acceleration_structure"
-  ),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_KHR_sampler_ycbcr_conversion"
-  ),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_debug_report", feature = "VK_NV_cuda_kernel_launch"),
-  all(
-    feature = "VK_EXT_debug_report",
-    feature = "VK_FUCHSIA_buffer_collection"
-  )
-))]
+#[cfg(feature = "VK_EXT_debug_report")]
 impl core::fmt::Display for VkDebugReportObjectTypeEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -62500,25 +53174,11 @@ impl core::fmt::Display for VkAccelerationStructureCreateFlagBitsKHR {
   }
 }
 /// [VkDescriptorMappingSourceEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkDescriptorMappingSourceEXT.html)
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkDescriptorMappingSourceEXT(pub i32);
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkDescriptorMappingSourceEXT {
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_HEAP_WITH_CONSTANT_OFFSET_EXT: Self = Self(0);
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_HEAP_WITH_PUSH_INDEX_EXT: Self = Self(1);
@@ -62553,14 +53213,7 @@ impl VkDescriptorMappingSourceEXT {
   ))]
   pub const VK_DESCRIPTOR_MAPPING_SOURCE_SHADER_RECORD_ADDRESS_EXT: Self = Self(10);
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::fmt::Display for VkDescriptorMappingSourceEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -62628,27 +53281,11 @@ impl core::fmt::Display for VkDescriptorMappingSourceEXT {
   }
 }
 /// [VkSpirvResourceTypeFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkSpirvResourceTypeFlagsEXT.html)
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkSpirvResourceTypeFlagBitsEXT(pub u32);
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl VkSpirvResourceTypeFlagBitsEXT {
   pub const EMPTY: Self = Self(0);
   pub const VK_SPIRV_RESOURCE_TYPE_ALL_EXT: Self = Self(2147483647);
@@ -62683,15 +53320,7 @@ impl VkSpirvResourceTypeFlagBitsEXT {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitOr for VkSpirvResourceTypeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -62699,30 +53328,14 @@ impl core::ops::BitOr for VkSpirvResourceTypeFlagBitsEXT {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitOrAssign for VkSpirvResourceTypeFlagBitsEXT {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitAnd for VkSpirvResourceTypeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -62730,30 +53343,14 @@ impl core::ops::BitAnd for VkSpirvResourceTypeFlagBitsEXT {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitAndAssign for VkSpirvResourceTypeFlagBitsEXT {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitXor for VkSpirvResourceTypeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -62761,30 +53358,14 @@ impl core::ops::BitXor for VkSpirvResourceTypeFlagBitsEXT {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitXorAssign for VkSpirvResourceTypeFlagBitsEXT {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::Not for VkSpirvResourceTypeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -62792,15 +53373,7 @@ impl core::ops::Not for VkSpirvResourceTypeFlagBitsEXT {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitOr<u32> for VkSpirvResourceTypeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -62808,30 +53381,14 @@ impl core::ops::BitOr<u32> for VkSpirvResourceTypeFlagBitsEXT {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitOrAssign<u32> for VkSpirvResourceTypeFlagBitsEXT {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitAnd<u32> for VkSpirvResourceTypeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -62839,30 +53396,14 @@ impl core::ops::BitAnd<u32> for VkSpirvResourceTypeFlagBitsEXT {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitAndAssign<u32> for VkSpirvResourceTypeFlagBitsEXT {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitXor<u32> for VkSpirvResourceTypeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -62870,30 +53411,14 @@ impl core::ops::BitXor<u32> for VkSpirvResourceTypeFlagBitsEXT {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::ops::BitXorAssign<u32> for VkSpirvResourceTypeFlagBitsEXT {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_descriptor_heap",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_ARM_tensors", feature = "VK_EXT_descriptor_heap")
-))]
+#[cfg(feature = "VK_EXT_descriptor_heap")]
 impl core::fmt::Display for VkSpirvResourceTypeFlagBitsEXT {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -63048,47 +53573,11 @@ impl core::fmt::Display for VkSpirvResourceTypeFlagBitsEXT {
   }
 }
 /// [VkIndirectCommandsTokenTypeEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsTokenTypeEXT.html)
-#[cfg(any(
-  feature = "VK_EXT_device_generated_commands",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_EXT_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_NV_mesh_shader"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_EXT_mesh_shader"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_ray_tracing_maintenance1"
-  )
-))]
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkIndirectCommandsTokenTypeEXT(pub i32);
-#[cfg(any(
-  feature = "VK_EXT_device_generated_commands",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_EXT_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_NV_mesh_shader"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_EXT_mesh_shader"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_ray_tracing_maintenance1"
-  )
-))]
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl VkIndirectCommandsTokenTypeEXT {
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT: Self = Self(0);
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT: Self = Self(1);
@@ -63136,25 +53625,7 @@ impl VkIndirectCommandsTokenTypeEXT {
   ))]
   pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT: Self = Self(1000386004);
 }
-#[cfg(any(
-  feature = "VK_EXT_device_generated_commands",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_EXT_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_NV_mesh_shader"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_EXT_mesh_shader"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_ray_tracing_maintenance1"
-  )
-))]
+#[cfg(feature = "VK_EXT_device_generated_commands")]
 impl core::fmt::Display for VkIndirectCommandsTokenTypeEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -63249,64 +53720,24 @@ impl core::fmt::Display for VkIndirectCommandsTokenTypeEXT {
 /// [VkShaderCreateFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkShaderCreateFlagsEXT.html)
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkShaderCreateFlagBitsEXT(pub u32);
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl VkShaderCreateFlagBitsEXT {
   pub const EMPTY: Self = Self(0);
@@ -63378,32 +53809,12 @@ impl VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOr for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -63414,32 +53825,12 @@ impl core::ops::BitOr for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOrAssign for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -63449,32 +53840,12 @@ impl core::ops::BitOrAssign for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAnd for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -63485,32 +53856,12 @@ impl core::ops::BitAnd for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAndAssign for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -63520,32 +53871,12 @@ impl core::ops::BitAndAssign for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXor for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -63556,32 +53887,12 @@ impl core::ops::BitXor for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXorAssign for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -63591,32 +53902,12 @@ impl core::ops::BitXorAssign for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::Not for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -63627,32 +53918,12 @@ impl core::ops::Not for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOr<u32> for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -63663,32 +53934,12 @@ impl core::ops::BitOr<u32> for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitOrAssign<u32> for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -63698,32 +53949,12 @@ impl core::ops::BitOrAssign<u32> for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAnd<u32> for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -63734,32 +53965,12 @@ impl core::ops::BitAnd<u32> for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitAndAssign<u32> for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -63769,32 +53980,12 @@ impl core::ops::BitAndAssign<u32> for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXor<u32> for VkShaderCreateFlagBitsEXT {
   type Output = Self;
@@ -63805,32 +53996,12 @@ impl core::ops::BitXor<u32> for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::ops::BitXorAssign<u32> for VkShaderCreateFlagBitsEXT {
   #[inline]
@@ -63840,32 +54011,12 @@ impl core::ops::BitXorAssign<u32> for VkShaderCreateFlagBitsEXT {
 }
 #[cfg(any(
   feature = "VK_EXT_shader_object",
-  all(feature = "VK_EXT_descriptor_heap", feature = "VK_EXT_shader_object"),
   all(
     feature = "VK_ARM_shader_instrumentation",
     feature = "VK_KHR_maintenance5"
   ),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_EXT_subgroup_size_control"
-  ),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_EXT_shader_object"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_device_group"),
-  all(feature = "VK_EXT_shader_object", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_EXT_shader_object",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_EXT_shader_object"
-  ),
   feature = "VK_EXT_device_generated_commands",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_opacity_micromap"),
-  feature = "VK_EXT_shader_64bit_indexing",
-  all(feature = "VK_EXT_shader_object", feature = "VK_KHR_maintenance11")
+  feature = "VK_EXT_shader_64bit_indexing"
 ))]
 impl core::fmt::Display for VkShaderCreateFlagBitsEXT {
   #[allow(unused_mut)]
@@ -64107,14 +54258,6 @@ impl core::fmt::Display for VkShaderCreateFlagBitsEXT {
 /// [VkIndirectCommandsTokenTypeNV](https://docs.vulkan.org/refpages/latest/refpages/source/VkIndirectCommandsTokenTypeNV.html)
 #[cfg(any(
   feature = "VK_NV_device_generated_commands",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_mesh_shader",
-    feature = "VK_NV_device_generated_commands"
-  ),
   feature = "VK_NV_device_generated_commands_compute"
 ))]
 #[repr(transparent)]
@@ -64122,14 +54265,6 @@ impl core::fmt::Display for VkShaderCreateFlagBitsEXT {
 pub struct VkIndirectCommandsTokenTypeNV(pub i32);
 #[cfg(any(
   feature = "VK_NV_device_generated_commands",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_mesh_shader",
-    feature = "VK_NV_device_generated_commands"
-  ),
   feature = "VK_NV_device_generated_commands_compute"
 ))]
 impl VkIndirectCommandsTokenTypeNV {
@@ -64158,14 +54293,6 @@ impl VkIndirectCommandsTokenTypeNV {
 }
 #[cfg(any(
   feature = "VK_NV_device_generated_commands",
-  all(
-    feature = "VK_EXT_descriptor_heap",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_mesh_shader",
-    feature = "VK_NV_device_generated_commands"
-  ),
   feature = "VK_NV_device_generated_commands_compute"
 ))]
 impl core::fmt::Display for VkIndirectCommandsTokenTypeNV {
@@ -68025,23 +58152,11 @@ impl core::fmt::Display for VkOpacityMicromapFormatEXT {
   }
 }
 /// [VkOpacityMicromapSpecialIndexEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexEXT.html)
-#[cfg(any(
-  feature = "VK_EXT_opacity_micromap",
-  all(
-    feature = "VK_EXT_opacity_micromap",
-    feature = "VK_NV_cluster_acceleration_structure"
-  )
-))]
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkOpacityMicromapSpecialIndexEXT(pub i32);
-#[cfg(any(
-  feature = "VK_EXT_opacity_micromap",
-  all(
-    feature = "VK_EXT_opacity_micromap",
-    feature = "VK_NV_cluster_acceleration_structure"
-  )
-))]
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl VkOpacityMicromapSpecialIndexEXT {
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_KHR: Self = Self(-1);
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_KHR: Self = Self(-2);
@@ -68062,13 +58177,7 @@ impl VkOpacityMicromapSpecialIndexEXT {
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self =
     Self(-5);
 }
-#[cfg(any(
-  feature = "VK_EXT_opacity_micromap",
-  all(
-    feature = "VK_EXT_opacity_micromap",
-    feature = "VK_NV_cluster_acceleration_structure"
-  )
-))]
+#[cfg(feature = "VK_EXT_opacity_micromap")]
 impl core::fmt::Display for VkOpacityMicromapSpecialIndexEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match self.0 {
@@ -69267,22 +59376,14 @@ impl core::fmt::Display for VkOpacityMicromapFormatKHR {
 /// [VkOpacityMicromapSpecialIndexKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkOpacityMicromapSpecialIndexKHR.html)
 #[cfg(any(
   feature = "VK_KHR_opacity_micromap",
-  feature = "VK_EXT_opacity_micromap",
-  all(
-    feature = "VK_EXT_opacity_micromap",
-    feature = "VK_NV_cluster_acceleration_structure"
-  )
+  feature = "VK_EXT_opacity_micromap"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
 pub struct VkOpacityMicromapSpecialIndexKHR(pub i32);
 #[cfg(any(
   feature = "VK_KHR_opacity_micromap",
-  feature = "VK_EXT_opacity_micromap",
-  all(
-    feature = "VK_EXT_opacity_micromap",
-    feature = "VK_NV_cluster_acceleration_structure"
-  )
+  feature = "VK_EXT_opacity_micromap"
 ))]
 impl VkOpacityMicromapSpecialIndexKHR {
   pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_KHR: Self = Self(-1);
@@ -69306,11 +59407,7 @@ impl VkOpacityMicromapSpecialIndexKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_opacity_micromap",
-  feature = "VK_EXT_opacity_micromap",
-  all(
-    feature = "VK_EXT_opacity_micromap",
-    feature = "VK_NV_cluster_acceleration_structure"
-  )
+  feature = "VK_EXT_opacity_micromap"
 ))]
 impl core::fmt::Display for VkOpacityMicromapSpecialIndexKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -70366,7 +60463,6 @@ impl core::fmt::Display for VkPresentTimingInfoFlagBitsEXT {
 /// [VkSwapchainCreateFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkSwapchainCreateFlagsKHR.html)
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70379,7 +60475,6 @@ impl core::fmt::Display for VkPresentTimingInfoFlagBitsEXT {
 pub struct VkSwapchainCreateFlagBitsKHR(pub u32);
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70424,7 +60519,6 @@ impl VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70441,7 +60535,6 @@ impl core::ops::BitOr for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70457,7 +60550,6 @@ impl core::ops::BitOrAssign for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70474,7 +60566,6 @@ impl core::ops::BitAnd for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70490,7 +60581,6 @@ impl core::ops::BitAndAssign for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70507,7 +60597,6 @@ impl core::ops::BitXor for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70523,7 +60612,6 @@ impl core::ops::BitXorAssign for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70540,7 +60628,6 @@ impl core::ops::Not for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70557,7 +60644,6 @@ impl core::ops::BitOr<u32> for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70573,7 +60659,6 @@ impl core::ops::BitOrAssign<u32> for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70590,7 +60675,6 @@ impl core::ops::BitAnd<u32> for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70606,7 +60690,6 @@ impl core::ops::BitAndAssign<u32> for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70623,7 +60706,6 @@ impl core::ops::BitXor<u32> for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70639,7 +60721,6 @@ impl core::ops::BitXorAssign<u32> for VkSwapchainCreateFlagBitsKHR {
 }
 #[cfg(any(
   feature = "VK_KHR_swapchain",
-  all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_1"),
   feature = "VK_KHR_swapchain_mutable_format",
   feature = "VK_EXT_present_timing",
   feature = "VK_EXT_swapchain_maintenance1",
@@ -70911,15 +60992,7 @@ impl core::fmt::Display for VkSamplerReductionModeEXT {
 #[cfg(any(
   feature = "VK_NV_cooperative_vector",
   feature = "VK_KHR_cooperative_matrix",
-  all(
-    feature = "VK_KHR_cooperative_matrix",
-    feature = "VK_KHR_shader_bfloat16"
-  ),
-  feature = "VK_NV_cooperative_matrix",
-  all(
-    feature = "VK_EXT_shader_float8",
-    feature = "VK_KHR_cooperative_matrix"
-  )
+  feature = "VK_NV_cooperative_matrix"
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
@@ -70927,15 +61000,7 @@ pub struct VkComponentTypeKHR(pub i32);
 #[cfg(any(
   feature = "VK_NV_cooperative_vector",
   feature = "VK_KHR_cooperative_matrix",
-  all(
-    feature = "VK_KHR_cooperative_matrix",
-    feature = "VK_KHR_shader_bfloat16"
-  ),
-  feature = "VK_NV_cooperative_matrix",
-  all(
-    feature = "VK_EXT_shader_float8",
-    feature = "VK_KHR_cooperative_matrix"
-  )
+  feature = "VK_NV_cooperative_matrix"
 ))]
 impl VkComponentTypeKHR {
   pub const VK_COMPONENT_TYPE_FLOAT16_KHR: Self = Self(0);
@@ -70998,15 +61063,7 @@ impl VkComponentTypeKHR {
 #[cfg(any(
   feature = "VK_NV_cooperative_vector",
   feature = "VK_KHR_cooperative_matrix",
-  all(
-    feature = "VK_KHR_cooperative_matrix",
-    feature = "VK_KHR_shader_bfloat16"
-  ),
-  feature = "VK_NV_cooperative_matrix",
-  all(
-    feature = "VK_EXT_shader_float8",
-    feature = "VK_KHR_cooperative_matrix"
-  )
+  feature = "VK_NV_cooperative_matrix"
 ))]
 impl core::fmt::Display for VkComponentTypeKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -71655,19 +61712,11 @@ impl core::fmt::Display for VkPresentGravityFlagBitsEXT {
   }
 }
 /// [VkToolPurposeFlagBitsEXT](https://docs.vulkan.org/refpages/latest/refpages/source/VkToolPurposeFlagsEXT.html)
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkToolPurposeFlagBitsEXT(pub u32);
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl VkToolPurposeFlagBitsEXT {
   pub const EMPTY: Self = Self(0);
   pub const VK_TOOL_PURPOSE_VALIDATION_BIT: Self = Self(1 << 0u64);
@@ -71702,11 +61751,7 @@ impl VkToolPurposeFlagBitsEXT {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitOr for VkToolPurposeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -71714,22 +61759,14 @@ impl core::ops::BitOr for VkToolPurposeFlagBitsEXT {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitOrAssign for VkToolPurposeFlagBitsEXT {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitAnd for VkToolPurposeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -71737,22 +61774,14 @@ impl core::ops::BitAnd for VkToolPurposeFlagBitsEXT {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitAndAssign for VkToolPurposeFlagBitsEXT {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitXor for VkToolPurposeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -71760,22 +61789,14 @@ impl core::ops::BitXor for VkToolPurposeFlagBitsEXT {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitXorAssign for VkToolPurposeFlagBitsEXT {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::Not for VkToolPurposeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -71783,11 +61804,7 @@ impl core::ops::Not for VkToolPurposeFlagBitsEXT {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitOr<u32> for VkToolPurposeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -71795,22 +61812,14 @@ impl core::ops::BitOr<u32> for VkToolPurposeFlagBitsEXT {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitOrAssign<u32> for VkToolPurposeFlagBitsEXT {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitAnd<u32> for VkToolPurposeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -71818,22 +61827,14 @@ impl core::ops::BitAnd<u32> for VkToolPurposeFlagBitsEXT {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitAndAssign<u32> for VkToolPurposeFlagBitsEXT {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitXor<u32> for VkToolPurposeFlagBitsEXT {
   type Output = Self;
   #[inline]
@@ -71841,22 +61842,14 @@ impl core::ops::BitXor<u32> for VkToolPurposeFlagBitsEXT {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::ops::BitXorAssign<u32> for VkToolPurposeFlagBitsEXT {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_EXT_tooling_info",
-  all(feature = "VK_EXT_debug_report", feature = "VK_EXT_tooling_info"),
-  all(feature = "VK_EXT_debug_marker", feature = "VK_EXT_tooling_info")
-))]
+#[cfg(feature = "VK_EXT_tooling_info")]
 impl core::fmt::Display for VkToolPurposeFlagBitsEXT {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -75441,11 +65434,7 @@ impl core::fmt::Display for VkResolveModeFlagBitsKHR {
 #[cfg(any(
   feature = "VK_KHR_descriptor_update_template",
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
-  )
+  all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1")
 ))]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd)]
@@ -75453,11 +65442,7 @@ pub struct VkDescriptorUpdateTemplateTypeKHR(pub i32);
 #[cfg(any(
   feature = "VK_KHR_descriptor_update_template",
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
-  )
+  all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1")
 ))]
 impl VkDescriptorUpdateTemplateTypeKHR {
   ///Create descriptor update template for descriptor set updates
@@ -75479,11 +65464,7 @@ impl VkDescriptorUpdateTemplateTypeKHR {
 #[cfg(any(
   feature = "VK_KHR_descriptor_update_template",
   feature = "VK_COMPUTE_VERSION_1_4",
-  all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
-  all(
-    feature = "VK_KHR_descriptor_update_template",
-    feature = "VK_KHR_push_descriptor"
-  )
+  all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1")
 ))]
 impl core::fmt::Display for VkDescriptorUpdateTemplateTypeKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -75521,23 +65502,11 @@ impl core::fmt::Display for VkDescriptorUpdateTemplateTypeKHR {
   }
 }
 /// [VkAddressCommandFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkAddressCommandFlagsKHR.html)
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkAddressCommandFlagBitsKHR(pub u32);
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl VkAddressCommandFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
   pub const VK_ADDRESS_COMMAND_PROTECTED_BIT_KHR: Self = Self(1 << 0u64);
@@ -75568,13 +65537,7 @@ impl VkAddressCommandFlagBitsKHR {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitOr for VkAddressCommandFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -75582,26 +65545,14 @@ impl core::ops::BitOr for VkAddressCommandFlagBitsKHR {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitOrAssign for VkAddressCommandFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitAnd for VkAddressCommandFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -75609,26 +65560,14 @@ impl core::ops::BitAnd for VkAddressCommandFlagBitsKHR {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitAndAssign for VkAddressCommandFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitXor for VkAddressCommandFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -75636,26 +65575,14 @@ impl core::ops::BitXor for VkAddressCommandFlagBitsKHR {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitXorAssign for VkAddressCommandFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::Not for VkAddressCommandFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -75663,13 +65590,7 @@ impl core::ops::Not for VkAddressCommandFlagBitsKHR {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitOr<u32> for VkAddressCommandFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -75677,26 +65598,14 @@ impl core::ops::BitOr<u32> for VkAddressCommandFlagBitsKHR {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitOrAssign<u32> for VkAddressCommandFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitAnd<u32> for VkAddressCommandFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -75704,26 +65613,14 @@ impl core::ops::BitAnd<u32> for VkAddressCommandFlagBitsKHR {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitAndAssign<u32> for VkAddressCommandFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitXor<u32> for VkAddressCommandFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -75731,26 +65628,14 @@ impl core::ops::BitXor<u32> for VkAddressCommandFlagBitsKHR {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::ops::BitXorAssign<u32> for VkAddressCommandFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_device_address_commands",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_device_address_commands"
-  )
-))]
+#[cfg(feature = "VK_KHR_device_address_commands")]
 impl core::fmt::Display for VkAddressCommandFlagBitsKHR {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -77326,16 +67211,6 @@ impl core::fmt::Display for VkDriverIdKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77346,10 +67221,6 @@ impl core::fmt::Display for VkDriverIdKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77357,19 +67228,9 @@ impl core::fmt::Display for VkDriverIdKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 #[repr(transparent)]
@@ -77380,16 +67241,6 @@ pub struct VkRenderingFlagBitsKHR(pub u32);
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77400,10 +67251,6 @@ pub struct VkRenderingFlagBitsKHR(pub u32);
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77411,19 +67258,9 @@ pub struct VkRenderingFlagBitsKHR(pub u32);
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl VkRenderingFlagBitsKHR {
@@ -77524,16 +67361,6 @@ impl VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77544,10 +67371,6 @@ impl VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77555,19 +67378,9 @@ impl VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOr for VkRenderingFlagBitsKHR {
@@ -77582,16 +67395,6 @@ impl core::ops::BitOr for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77602,10 +67405,6 @@ impl core::ops::BitOr for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77613,19 +67412,9 @@ impl core::ops::BitOr for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOrAssign for VkRenderingFlagBitsKHR {
@@ -77639,16 +67428,6 @@ impl core::ops::BitOrAssign for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77659,10 +67438,6 @@ impl core::ops::BitOrAssign for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77670,19 +67445,9 @@ impl core::ops::BitOrAssign for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAnd for VkRenderingFlagBitsKHR {
@@ -77697,16 +67462,6 @@ impl core::ops::BitAnd for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77717,10 +67472,6 @@ impl core::ops::BitAnd for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77728,19 +67479,9 @@ impl core::ops::BitAnd for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAndAssign for VkRenderingFlagBitsKHR {
@@ -77754,16 +67495,6 @@ impl core::ops::BitAndAssign for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77774,10 +67505,6 @@ impl core::ops::BitAndAssign for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77785,19 +67512,9 @@ impl core::ops::BitAndAssign for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXor for VkRenderingFlagBitsKHR {
@@ -77812,16 +67529,6 @@ impl core::ops::BitXor for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77832,10 +67539,6 @@ impl core::ops::BitXor for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77843,19 +67546,9 @@ impl core::ops::BitXor for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXorAssign for VkRenderingFlagBitsKHR {
@@ -77869,16 +67562,6 @@ impl core::ops::BitXorAssign for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77889,10 +67572,6 @@ impl core::ops::BitXorAssign for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77900,19 +67579,9 @@ impl core::ops::BitXorAssign for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::Not for VkRenderingFlagBitsKHR {
@@ -77927,16 +67596,6 @@ impl core::ops::Not for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -77947,10 +67606,6 @@ impl core::ops::Not for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -77958,19 +67613,9 @@ impl core::ops::Not for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOr<u32> for VkRenderingFlagBitsKHR {
@@ -77985,16 +67630,6 @@ impl core::ops::BitOr<u32> for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -78005,10 +67640,6 @@ impl core::ops::BitOr<u32> for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -78016,19 +67647,9 @@ impl core::ops::BitOr<u32> for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitOrAssign<u32> for VkRenderingFlagBitsKHR {
@@ -78042,16 +67663,6 @@ impl core::ops::BitOrAssign<u32> for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -78062,10 +67673,6 @@ impl core::ops::BitOrAssign<u32> for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -78073,19 +67680,9 @@ impl core::ops::BitOrAssign<u32> for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAnd<u32> for VkRenderingFlagBitsKHR {
@@ -78100,16 +67697,6 @@ impl core::ops::BitAnd<u32> for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -78120,10 +67707,6 @@ impl core::ops::BitAnd<u32> for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -78131,19 +67714,9 @@ impl core::ops::BitAnd<u32> for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitAndAssign<u32> for VkRenderingFlagBitsKHR {
@@ -78157,16 +67730,6 @@ impl core::ops::BitAndAssign<u32> for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -78177,10 +67740,6 @@ impl core::ops::BitAndAssign<u32> for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -78188,19 +67747,9 @@ impl core::ops::BitAndAssign<u32> for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXor<u32> for VkRenderingFlagBitsKHR {
@@ -78215,16 +67764,6 @@ impl core::ops::BitXor<u32> for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -78235,10 +67774,6 @@ impl core::ops::BitXor<u32> for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -78246,19 +67781,9 @@ impl core::ops::BitXor<u32> for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::ops::BitXorAssign<u32> for VkRenderingFlagBitsKHR {
@@ -78272,16 +67797,6 @@ impl core::ops::BitXorAssign<u32> for VkRenderingFlagBitsKHR {
   feature = "VK_EXT_nested_command_buffer",
   all(
     feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_maintenance5",
     feature = "VK_VERSION_1_3"
   ),
@@ -78292,10 +67807,6 @@ impl core::ops::BitXorAssign<u32> for VkRenderingFlagBitsKHR {
   ),
   feature = "VK_KHR_maintenance7",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(
-    feature = "VK_EXT_custom_resolve",
-    feature = "VK_KHR_dynamic_rendering"
-  ),
   all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_KHR_maintenance10",
@@ -78303,19 +67814,9 @@ impl core::ops::BitXorAssign<u32> for VkRenderingFlagBitsKHR {
     feature = "VK_VERSION_1_4"
   ),
   all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
     feature = "VK_KHR_dynamic_rendering_local_read",
     feature = "VK_KHR_maintenance10",
     feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
   )
 ))]
 impl core::fmt::Display for VkRenderingFlagBitsKHR {
@@ -80934,69 +70435,24 @@ impl core::fmt::Display for VkExternalSemaphoreFeatureFlagBitsKHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81007,69 +70463,24 @@ pub struct VkFormatFeatureFlagBits2KHR(pub u64);
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81372,69 +70783,24 @@ impl VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81449,69 +70815,24 @@ impl core::ops::BitOr for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81525,69 +70846,24 @@ impl core::ops::BitOrAssign for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81602,69 +70878,24 @@ impl core::ops::BitAnd for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81678,69 +70909,24 @@ impl core::ops::BitAndAssign for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81755,69 +70941,24 @@ impl core::ops::BitXor for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81831,69 +70972,24 @@ impl core::ops::BitXorAssign for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81908,69 +71004,24 @@ impl core::ops::Not for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -81985,69 +71036,24 @@ impl core::ops::BitOr<u64> for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -82061,69 +71067,24 @@ impl core::ops::BitOrAssign<u64> for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -82138,69 +71099,24 @@ impl core::ops::BitAnd<u64> for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -82214,69 +71130,24 @@ impl core::ops::BitAndAssign<u64> for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -82291,69 +71162,24 @@ impl core::ops::BitXor<u64> for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -82367,69 +71193,24 @@ impl core::ops::BitXorAssign<u64> for VkFormatFeatureFlagBits2KHR {
   feature = "VK_KHR_format_feature_flags2",
   feature = "VK_BASE_VERSION_1_3",
   feature = "VK_BASE_VERSION_1_4",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_decode_queue"
-  ),
   all(feature = "VK_KHR_video_decode_queue", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_KHR_acceleration_structure", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_fragment_shading_rate"
-  ),
   all(feature = "VK_KHR_fragment_shading_rate", feature = "VK_VERSION_1_3"),
   feature = "VK_EXT_host_image_copy",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_video_encode_queue"
-  ),
   all(feature = "VK_KHR_video_encode_queue", feature = "VK_VERSION_1_3"),
   all(
     feature = "VK_QCOM_image_processing",
     feature = "VK_QCOM_image_processing3"
   ),
-  all(feature = "VK_KHR_format_feature_flags2", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_EXT_sampler_filter_minmax",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_EXT_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
-  all(
-    feature = "VK_IMG_filter_cubic",
-    feature = "VK_KHR_format_feature_flags2"
-  ),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_NV_linear_color_attachment"
-  ),
   all(feature = "VK_NV_linear_color_attachment", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_QCOM_image_processing"
-  ),
   all(feature = "VK_QCOM_image_processing", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_tensors",
   feature = "VK_NV_optical_flow",
   feature = "VK_ARM_data_graph",
   feature = "VK_KHR_copy_memory_indirect",
   feature = "VK_KHR_video_encode_quantization_map",
-  all(
-    feature = "VK_KHR_format_feature_flags2",
-    feature = "VK_KHR_maintenance10"
-  ),
   all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
   feature = "VK_ARM_data_graph_optical_flow"
 ))]
@@ -83928,59 +72709,11 @@ impl core::fmt::Display for VkLineRasterizationModeKHR {
   }
 }
 /// [VkRenderingAttachmentFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkRenderingAttachmentFlagsKHR.html)
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkRenderingAttachmentFlagBitsKHR(pub u32);
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl VkRenderingAttachmentFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
   #[cfg(any(
@@ -84030,31 +72763,7 @@ impl VkRenderingAttachmentFlagBitsKHR {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOr for VkRenderingAttachmentFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84062,62 +72771,14 @@ impl core::ops::BitOr for VkRenderingAttachmentFlagBitsKHR {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOrAssign for VkRenderingAttachmentFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAnd for VkRenderingAttachmentFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84125,62 +72786,14 @@ impl core::ops::BitAnd for VkRenderingAttachmentFlagBitsKHR {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAndAssign for VkRenderingAttachmentFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXor for VkRenderingAttachmentFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84188,62 +72801,14 @@ impl core::ops::BitXor for VkRenderingAttachmentFlagBitsKHR {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXorAssign for VkRenderingAttachmentFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::Not for VkRenderingAttachmentFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84251,31 +72816,7 @@ impl core::ops::Not for VkRenderingAttachmentFlagBitsKHR {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOr<u32> for VkRenderingAttachmentFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84283,62 +72824,14 @@ impl core::ops::BitOr<u32> for VkRenderingAttachmentFlagBitsKHR {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOrAssign<u32> for VkRenderingAttachmentFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAnd<u32> for VkRenderingAttachmentFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84346,62 +72839,14 @@ impl core::ops::BitAnd<u32> for VkRenderingAttachmentFlagBitsKHR {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAndAssign<u32> for VkRenderingAttachmentFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXor<u32> for VkRenderingAttachmentFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84409,62 +72854,14 @@ impl core::ops::BitXor<u32> for VkRenderingAttachmentFlagBitsKHR {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXorAssign<u32> for VkRenderingAttachmentFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_dynamic_rendering_local_read",
-    feature = "VK_KHR_maintenance10"
-  ),
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_dynamic_rendering", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::fmt::Display for VkRenderingAttachmentFlagBitsKHR {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -84583,19 +72980,11 @@ impl core::fmt::Display for VkRenderingAttachmentFlagBitsKHR {
   }
 }
 /// [VkResolveImageFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkResolveImageFlagsKHR.html)
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkResolveImageFlagBitsKHR(pub u32);
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl VkResolveImageFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
   #[cfg(any(
@@ -84621,11 +73010,7 @@ impl VkResolveImageFlagBitsKHR {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOr for VkResolveImageFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84633,22 +73018,14 @@ impl core::ops::BitOr for VkResolveImageFlagBitsKHR {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOrAssign for VkResolveImageFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAnd for VkResolveImageFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84656,22 +73033,14 @@ impl core::ops::BitAnd for VkResolveImageFlagBitsKHR {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAndAssign for VkResolveImageFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXor for VkResolveImageFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84679,22 +73048,14 @@ impl core::ops::BitXor for VkResolveImageFlagBitsKHR {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXorAssign for VkResolveImageFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::Not for VkResolveImageFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84702,11 +73063,7 @@ impl core::ops::Not for VkResolveImageFlagBitsKHR {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOr<u32> for VkResolveImageFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84714,22 +73071,14 @@ impl core::ops::BitOr<u32> for VkResolveImageFlagBitsKHR {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitOrAssign<u32> for VkResolveImageFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAnd<u32> for VkResolveImageFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84737,22 +73086,14 @@ impl core::ops::BitAnd<u32> for VkResolveImageFlagBitsKHR {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitAndAssign<u32> for VkResolveImageFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXor<u32> for VkResolveImageFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -84760,22 +73101,14 @@ impl core::ops::BitXor<u32> for VkResolveImageFlagBitsKHR {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::ops::BitXorAssign<u32> for VkResolveImageFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_maintenance10",
-  all(feature = "VK_KHR_maintenance10", feature = "VK_VERSION_1_3"),
-  all(feature = "VK_KHR_copy_commands2", feature = "VK_KHR_maintenance10")
-))]
+#[cfg(feature = "VK_KHR_maintenance10")]
 impl core::fmt::Display for VkResolveImageFlagBitsKHR {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -84919,106 +73252,24 @@ impl core::fmt::Display for VkTessellationDomainOriginKHR {
 /// [VkPipelineCreateFlagBits2KHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkPipelineCreateFlags2KHR.html)
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -85027,106 +73278,24 @@ impl core::fmt::Display for VkTessellationDomainOriginKHR {
 pub struct VkPipelineCreateFlagBits2KHR(pub u64);
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -85388,106 +73557,24 @@ impl VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -85500,106 +73587,24 @@ impl core::ops::BitOr for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -85611,106 +73616,24 @@ impl core::ops::BitOrAssign for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -85723,106 +73646,24 @@ impl core::ops::BitAnd for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -85834,106 +73675,24 @@ impl core::ops::BitAndAssign for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -85946,106 +73705,24 @@ impl core::ops::BitXor for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86057,106 +73734,24 @@ impl core::ops::BitXorAssign for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86169,106 +73764,24 @@ impl core::ops::Not for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86281,106 +73794,24 @@ impl core::ops::BitOr<u64> for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86392,106 +73823,24 @@ impl core::ops::BitOrAssign<u64> for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86504,106 +73853,24 @@ impl core::ops::BitAnd<u64> for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86615,106 +73882,24 @@ impl core::ops::BitAndAssign<u64> for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86727,106 +73912,24 @@ impl core::ops::BitXor<u64> for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -86838,106 +73941,24 @@ impl core::ops::BitXorAssign<u64> for VkPipelineCreateFlagBits2KHR {
 }
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_ray_tracing_pipeline",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_NV_ray_tracing_linear_swept_spheres",
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_dynamic_rendering",
     feature = "VK_VERSION_1_4"
-  ),
-  all(
-    feature = "VK_EXT_legacy_dithering",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
   ),
   all(
     feature = "VK_EXT_legacy_dithering",
     feature = "VK_VERSION_1_3",
     feature = "VK_VERSION_1_4"
   ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_pipeline_executable_properties"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_3"),
-  all(
-    feature = "VK_EXT_pipeline_creation_cache_control",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_graphics_pipeline_library",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_pipeline_library"),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_ray_tracing_motion_blur"
-  ),
-  all(
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_dynamic_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_VERSION_1_3"
-  ),
-  all(
-    feature = "VK_EXT_attachment_feedback_loop_layout",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_pipeline_protected_access",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_NV_displacement_micromap"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
-  all(
-    feature = "VK_ARM_pipeline_opacity_micromap",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_ARM_shader_instrumentation",
-    feature = "VK_KHR_maintenance5"
-  ),
   feature = "VK_KHR_pipeline_binary",
   feature = "VK_EXT_device_generated_commands",
   feature = "VK_VALVE_fragment_density_map_layered",
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_opacity_micromap"),
   all(feature = "VK_KHR_opacity_micromap", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_shader_64bit_indexing"
 ))]
@@ -87875,37 +74896,9 @@ impl core::fmt::Display for VkPipelineCreateFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -87918,37 +74911,9 @@ pub struct VkBufferUsageFlagBits2KHR(pub u64);
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88082,37 +75047,9 @@ impl VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88129,37 +75066,9 @@ impl core::ops::BitOr for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88175,37 +75084,9 @@ impl core::ops::BitOrAssign for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88222,37 +75103,9 @@ impl core::ops::BitAnd for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88268,37 +75121,9 @@ impl core::ops::BitAndAssign for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88315,37 +75140,9 @@ impl core::ops::BitXor for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88361,37 +75158,9 @@ impl core::ops::BitXorAssign for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88408,37 +75177,9 @@ impl core::ops::Not for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88455,37 +75196,9 @@ impl core::ops::BitOr<u64> for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88501,37 +75214,9 @@ impl core::ops::BitOrAssign<u64> for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88548,37 +75233,9 @@ impl core::ops::BitAnd<u64> for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88594,37 +75251,9 @@ impl core::ops::BitAndAssign<u64> for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88641,37 +75270,9 @@ impl core::ops::BitXor<u64> for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -88687,37 +75288,9 @@ impl core::ops::BitXorAssign<u64> for VkBufferUsageFlagBits2KHR {
 #[cfg(any(
   feature = "VK_KHR_maintenance5",
   feature = "VK_BASE_VERSION_1_4",
-  all(feature = "VK_AMDX_shader_enqueue", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_AMDX_shader_enqueue", feature = "VK_VERSION_1_4"),
   feature = "VK_EXT_descriptor_heap",
-  all(feature = "VK_EXT_opacity_micromap", feature = "VK_KHR_maintenance5"),
   all(feature = "VK_EXT_opacity_micromap", feature = "VK_VERSION_1_4"),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_maintenance5",
-    feature = "VK_KHR_ray_tracing_pipeline"
-  ),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_NV_ray_tracing"),
-  all(feature = "VK_EXT_transform_feedback", feature = "VK_KHR_maintenance5"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_decode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_KHR_video_encode_queue"),
-  all(feature = "VK_KHR_maintenance5", feature = "VK_VERSION_1_2"),
-  all(
-    feature = "VK_KHR_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_EXT_buffer_device_address",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_maintenance5"
-  ),
-  all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance5"),
   feature = "VK_AMDX_dense_geometry_format",
   feature = "VK_ARM_data_graph",
   feature = "VK_QCOM_tile_memory_heap",
@@ -91536,50 +78109,8 @@ impl core::fmt::Display for VkPresentGravityFlagBitsKHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -91599,50 +78130,8 @@ pub struct VkAccessFlagBits2KHR(pub u64);
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -91861,50 +78350,8 @@ impl VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -91928,50 +78375,8 @@ impl core::ops::BitOr for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -91994,50 +78399,8 @@ impl core::ops::BitOrAssign for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92061,50 +78424,8 @@ impl core::ops::BitAnd for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92127,50 +78448,8 @@ impl core::ops::BitAndAssign for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92194,50 +78473,8 @@ impl core::ops::BitXor for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92260,50 +78497,8 @@ impl core::ops::BitXorAssign for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92327,50 +78522,8 @@ impl core::ops::Not for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92394,50 +78547,8 @@ impl core::ops::BitOr<u64> for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92460,50 +78571,8 @@ impl core::ops::BitOrAssign<u64> for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92527,50 +78596,8 @@ impl core::ops::BitAnd<u64> for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92593,50 +78620,8 @@ impl core::ops::BitAndAssign<u64> for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92660,50 +78645,8 @@ impl core::ops::BitXor<u64> for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -92726,50 +78669,8 @@ impl core::ops::BitXorAssign<u64> for VkAccessFlagBits2KHR {
   feature = "VK_EXT_descriptor_heap",
   feature = "VK_KHR_video_encode_queue",
   feature = "VK_QCOM_tile_shading",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_blend_operation_advanced",
-    feature = "VK_KHR_synchronization2"
-  ),
   feature = "VK_EXT_descriptor_buffer",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_KHR_ray_tracing_pipeline",
@@ -93800,51 +79701,8 @@ impl core::fmt::Display for VkAccessFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -93864,51 +79722,8 @@ pub struct VkPipelineStageFlagBits2KHR(pub u64);
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94112,51 +79927,8 @@ impl VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94180,51 +79952,8 @@ impl core::ops::BitOr for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94247,51 +79976,8 @@ impl core::ops::BitOrAssign for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94315,51 +80001,8 @@ impl core::ops::BitAnd for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94382,51 +80025,8 @@ impl core::ops::BitAndAssign for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94450,51 +80050,8 @@ impl core::ops::BitXor for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94517,51 +80074,8 @@ impl core::ops::BitXorAssign for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94585,51 +80099,8 @@ impl core::ops::Not for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94653,51 +80124,8 @@ impl core::ops::BitOr<u64> for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94720,51 +80148,8 @@ impl core::ops::BitOrAssign<u64> for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94788,51 +80173,8 @@ impl core::ops::BitAnd<u64> for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94855,51 +80197,8 @@ impl core::ops::BitAndAssign<u64> for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94923,51 +80222,8 @@ impl core::ops::BitXor<u64> for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -94990,51 +80246,8 @@ impl core::ops::BitXorAssign<u64> for VkPipelineStageFlagBits2KHR {
   feature = "VK_KHR_synchronization2",
   feature = "VK_KHR_video_decode_queue",
   feature = "VK_KHR_video_encode_queue",
-  all(
-    feature = "VK_EXT_transform_feedback",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_EXT_conditional_rendering",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_device_generated_commands"
-  ),
-  all(
-    feature = "VK_EXT_device_generated_commands",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_fragment_shading_rate",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_synchronization2",
-    feature = "VK_NV_shading_rate_image"
-  ),
-  all(
-    feature = "VK_KHR_acceleration_structure",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(
-    feature = "VK_KHR_ray_tracing_pipeline",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_ray_tracing"),
-  all(
-    feature = "VK_EXT_fragment_density_map",
-    feature = "VK_KHR_synchronization2"
-  ),
-  all(feature = "VK_KHR_synchronization2", feature = "VK_NV_mesh_shader"),
-  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_synchronization2"),
   feature = "VK_HUAWEI_subpass_shading",
   feature = "VK_HUAWEI_invocation_mask",
-  all(
-    feature = "VK_KHR_ray_tracing_maintenance1",
-    feature = "VK_KHR_synchronization2"
-  ),
   all(
     feature = "VK_KHR_ray_tracing_maintenance1",
     feature = "VK_VERSION_1_3"
@@ -98043,23 +83256,11 @@ impl core::fmt::Display for VkVideoEncodeAV1RateControlGroupKHR {
   }
 }
 /// [VkVideoEncodeAV1CapabilityFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeAV1CapabilityFlagsKHR.html)
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkVideoEncodeAV1CapabilityFlagBitsKHR(pub u32);
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl VkVideoEncodeAV1CapabilityFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
   pub const VK_VIDEO_ENCODE_AV1_CAPABILITY_PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_BIT_KHR: Self =
@@ -98089,13 +83290,7 @@ impl VkVideoEncodeAV1CapabilityFlagBitsKHR {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitOr for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -98103,26 +83298,14 @@ impl core::ops::BitOr for VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitOrAssign for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitAnd for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -98130,26 +83313,14 @@ impl core::ops::BitAnd for VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitAndAssign for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitXor for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -98157,26 +83328,14 @@ impl core::ops::BitXor for VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitXorAssign for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::Not for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -98184,13 +83343,7 @@ impl core::ops::Not for VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitOr<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -98198,26 +83351,14 @@ impl core::ops::BitOr<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitOrAssign<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitAnd<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -98225,26 +83366,14 @@ impl core::ops::BitAnd<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitAndAssign<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitXor<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -98252,26 +83381,14 @@ impl core::ops::BitXor<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::ops::BitXorAssign<u32> for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_av1",
-  all(
-    feature = "VK_KHR_video_encode_av1",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_av1")]
 impl core::fmt::Display for VkVideoEncodeAV1CapabilityFlagBitsKHR {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -98959,31 +84076,11 @@ impl core::fmt::Display for VkVideoEncodeH264RateControlFlagBitsKHR {
   }
 }
 /// [VkVideoEncodeH264CapabilityFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH264CapabilityFlagsKHR.html)
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkVideoEncodeH264CapabilityFlagBitsKHR(pub u32);
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl VkVideoEncodeH264CapabilityFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
   pub const VK_VIDEO_ENCODE_H264_CAPABILITY_HRD_COMPLIANCE_BIT_KHR: Self = Self(1 << 0u64);
@@ -99021,17 +84118,7 @@ impl VkVideoEncodeH264CapabilityFlagBitsKHR {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitOr for VkVideoEncodeH264CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -99039,34 +84126,14 @@ impl core::ops::BitOr for VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitOrAssign for VkVideoEncodeH264CapabilityFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitAnd for VkVideoEncodeH264CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -99074,34 +84141,14 @@ impl core::ops::BitAnd for VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitAndAssign for VkVideoEncodeH264CapabilityFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitXor for VkVideoEncodeH264CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -99109,34 +84156,14 @@ impl core::ops::BitXor for VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitXorAssign for VkVideoEncodeH264CapabilityFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::Not for VkVideoEncodeH264CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -99144,17 +84171,7 @@ impl core::ops::Not for VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitOr<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -99162,34 +84179,14 @@ impl core::ops::BitOr<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitOrAssign<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitAnd<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -99197,34 +84194,14 @@ impl core::ops::BitAnd<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitAndAssign<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitXor<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -99232,34 +84209,14 @@ impl core::ops::BitXor<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::ops::BitXorAssign<u32> for VkVideoEncodeH264CapabilityFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h264",
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h264",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h264")]
 impl core::fmt::Display for VkVideoEncodeH264CapabilityFlagBitsKHR {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -100408,31 +85365,11 @@ impl core::fmt::Display for VkVideoEncodeH265TransformBlockSizeFlagBitsKHR {
   }
 }
 /// [VkVideoEncodeH265CapabilityFlagBitsKHR](https://docs.vulkan.org/refpages/latest/refpages/source/VkVideoEncodeH265CapabilityFlagsKHR.html)
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct VkVideoEncodeH265CapabilityFlagBitsKHR(pub u32);
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl VkVideoEncodeH265CapabilityFlagBitsKHR {
   pub const EMPTY: Self = Self(0);
   pub const VK_VIDEO_ENCODE_H265_CAPABILITY_HRD_COMPLIANCE_BIT_KHR: Self = Self(1 << 0u64);
@@ -100476,17 +85413,7 @@ impl VkVideoEncodeH265CapabilityFlagBitsKHR {
     self.0 == 0
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitOr for VkVideoEncodeH265CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -100494,34 +85421,14 @@ impl core::ops::BitOr for VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(self.0 | r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitOrAssign for VkVideoEncodeH265CapabilityFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: Self) {
     self.0 |= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitAnd for VkVideoEncodeH265CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -100529,34 +85436,14 @@ impl core::ops::BitAnd for VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(self.0 & r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitAndAssign for VkVideoEncodeH265CapabilityFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: Self) {
     self.0 &= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitXor for VkVideoEncodeH265CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -100564,34 +85451,14 @@ impl core::ops::BitXor for VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(self.0 ^ r.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitXorAssign for VkVideoEncodeH265CapabilityFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: Self) {
     self.0 ^= r.0;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::Not for VkVideoEncodeH265CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -100599,17 +85466,7 @@ impl core::ops::Not for VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(!self.0)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitOr<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -100617,34 +85474,14 @@ impl core::ops::BitOr<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(self.0 | r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitOrAssign<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
   #[inline]
   fn bitor_assign(&mut self, r: u32) {
     self.0 |= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitAnd<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -100652,34 +85489,14 @@ impl core::ops::BitAnd<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(self.0 & r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitAndAssign<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
   #[inline]
   fn bitand_assign(&mut self, r: u32) {
     self.0 &= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitXor<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
   type Output = Self;
   #[inline]
@@ -100687,34 +85504,14 @@ impl core::ops::BitXor<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
     Self(self.0 ^ r)
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::ops::BitXorAssign<u32> for VkVideoEncodeH265CapabilityFlagBitsKHR {
   #[inline]
   fn bitxor_assign(&mut self, r: u32) {
     self.0 ^= r;
   }
 }
-#[cfg(any(
-  feature = "VK_KHR_video_encode_h265",
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_intra_refresh"
-  ),
-  all(
-    feature = "VK_KHR_video_encode_h265",
-    feature = "VK_KHR_video_encode_quantization_map"
-  )
-))]
+#[cfg(feature = "VK_KHR_video_encode_h265")]
 impl core::fmt::Display for VkVideoEncodeH265CapabilityFlagBitsKHR {
   #[allow(unused_mut)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {

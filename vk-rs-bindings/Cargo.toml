@@ -1142,3 +1142,5 @@ VK_SEC_throttle_hint = []
 VK_ARM_data_graph_neural_accelerator_statistics = []
 # type: device
 VK_EXT_primitive_restart_index = []
+# type: device
+VK_NV_cooperative_matrix_decode_vector = ["VK_NV_cooperative_matrix2"]

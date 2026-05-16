@@ -3766,3 +3766,10 @@ compile_error!(
 compile_error!(
   "Feature `VK_EXT_primitive_restart_index` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_primitive_restart_index.html"
 );
+#[cfg(all(
+  feature = "VK_NV_cooperative_matrix_decode_vector",
+  not(feature = "VK_NV_cooperative_matrix2")
+))]
+compile_error!(
+  "Feature `VK_NV_cooperative_matrix_decode_vector` requires `VK_NV_cooperative_matrix2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_NV_cooperative_matrix_decode_vector.html"
+);

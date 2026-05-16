@@ -3847,6 +3847,9 @@ impl VkStructureType {
   #[cfg(feature = "VK_EXT_primitive_restart_index")]
   pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT: Self =
     Self(1000678000);
+  #[cfg(feature = "VK_NV_cooperative_matrix_decode_vector")]
+  pub const VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV: Self =
+    Self(1000689000);
 }
 #[cfg(any(feature = "VK_BASE_VERSION_1_0", feature = "VKSC_VERSION_1_0"))]
 impl core::fmt::Display for VkStructureType {
@@ -13422,6 +13425,14 @@ impl core::fmt::Display for VkStructureType {
                     .0 => {
                 f.write_str(
                     "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT",
+                )
+            }
+            #[cfg(feature = "VK_NV_cooperative_matrix_decode_vector")]
+            value if value
+                == Self::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV
+                    .0 => {
+                f.write_str(
+                    "VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV",
                 )
             }
             _ => write!(f, "{}({})", stringify!(VkStructureType), self.0),
@@ -42848,6 +42859,8 @@ impl VkDriverId {
   pub const VK_DRIVER_ID_VULKAN_SC_EMULATION_ON_VULKAN: Self = Self(27);
   ///Mesa open source project
   pub const VK_DRIVER_ID_MESA_KOSMICKRISP: Self = Self(28);
+  ///Mesa open source project
+  pub const VK_DRIVER_ID_MESA_GFXSTREAM: Self = Self(29);
   #[cfg(feature = "VK_KHR_driver_properties")]
   pub const VK_DRIVER_ID_AMD_PROPRIETARY_KHR: Self = Self(1);
   #[cfg(feature = "VK_KHR_driver_properties")]
@@ -42944,6 +42957,9 @@ impl core::fmt::Display for VkDriverId {
       }
       value if value == Self::VK_DRIVER_ID_MESA_KOSMICKRISP.0 => {
         f.write_str("VK_DRIVER_ID_MESA_KOSMICKRISP")
+      }
+      value if value == Self::VK_DRIVER_ID_MESA_GFXSTREAM.0 => {
+        f.write_str("VK_DRIVER_ID_MESA_GFXSTREAM")
       }
       #[cfg(feature = "VK_KHR_driver_properties")]
       value if value == Self::VK_DRIVER_ID_AMD_PROPRIETARY_KHR.0 => {
@@ -66697,6 +66713,8 @@ impl VkDriverIdKHR {
   pub const VK_DRIVER_ID_VULKAN_SC_EMULATION_ON_VULKAN: Self = Self(27);
   ///Mesa open source project
   pub const VK_DRIVER_ID_MESA_KOSMICKRISP: Self = Self(28);
+  ///Mesa open source project
+  pub const VK_DRIVER_ID_MESA_GFXSTREAM: Self = Self(29);
   #[cfg(feature = "VK_KHR_driver_properties")]
   pub const VK_DRIVER_ID_AMD_PROPRIETARY_KHR: Self = Self(1);
   #[cfg(feature = "VK_KHR_driver_properties")]
@@ -66793,6 +66811,9 @@ impl core::fmt::Display for VkDriverIdKHR {
       }
       value if value == Self::VK_DRIVER_ID_MESA_KOSMICKRISP.0 => {
         f.write_str("VK_DRIVER_ID_MESA_KOSMICKRISP")
+      }
+      value if value == Self::VK_DRIVER_ID_MESA_GFXSTREAM.0 => {
+        f.write_str("VK_DRIVER_ID_MESA_GFXSTREAM")
       }
       #[cfg(feature = "VK_KHR_driver_properties")]
       value if value == Self::VK_DRIVER_ID_AMD_PROPRIETARY_KHR.0 => {

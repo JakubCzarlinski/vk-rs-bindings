@@ -67,10 +67,16 @@ fn main() -> Result<(), String> {
         .map_err(|e| format!("Allocator creation failed: {e:?}"))?;
     let queue = device.vkGetDeviceQueue(queue_family_index, 0);
 
-    let mut data_buffer = create_storage_buffer(&allocator, DATA_SIZE)?;
-    let mut lookback_buffer = create_storage_buffer(&allocator, LOOKBACK_SIZE)?;
-    write_input(data_buffer.allocation_mut())?;
-    clear_lookback(lookback_buffer.allocation_mut())?;
+    let data_buffer = {
+        let mut data_buffer = create_storage_buffer(&allocator, DATA_SIZE)?;
+        write_input(data_buffer.allocation_mut())?;
+        data_buffer
+    };
+    let lookback_buffer = {
+        let mut lookback_buffer = create_storage_buffer(&allocator, LOOKBACK_SIZE)?;
+        clear_lookback(lookback_buffer.allocation_mut())?;
+        lookback_buffer
+    };
 
     let descriptor_pool = create_descriptor_pool(&device)?;
     let descriptor_set_layout = device
@@ -132,11 +138,11 @@ fn create_device<'inst>(
         .with_queueFamilyIndex(queue_family_index)
         .with_pQueuePriorities(&PRIORITIES);
     let queue_infos = [queue_info];
-    let vulkan13_features =
+    const VULKAN13_FEATURES: VkPhysicalDeviceVulkan13Features<'_> =
         VkPhysicalDeviceVulkan13Features::DEFAULT.with_synchronization2(VK_TRUE);
     let device_info = DEVICE_CREATE_INFO
         .with_pQueueCreateInfos(&queue_infos)
-        .with_pNext_VkPhysicalDeviceVulkan13Features(&vulkan13_features);
+        .with_pNext_VkPhysicalDeviceVulkan13Features(&VULKAN13_FEATURES);
     let device = physical_device
         .vkCreateDevice(&device_info, null())
         .map_err(|e| format!("vkCreateDevice failed: {e:?}"))?;
@@ -309,50 +315,54 @@ fn run_prefix_sum_benchmark(
 }
 
 fn transfer_to_shader_barrier(command_buffer: &CommandBuffer<'_>) {
-    let memory_barriers = [VkMemoryBarrier2::DEFAULT
+    const MEMORY_BARRIERS: [VkMemoryBarrier2<'_>; 1] = [VkMemoryBarrier2::DEFAULT
         .with_srcStageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_TRANSFER_BIT)
         .with_srcAccessMask(VkAccessFlagBits2::VK_ACCESS_2_TRANSFER_WRITE_BIT)
         .with_dstStageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT)
-        .with_dstAccessMask(
-            VkAccessFlagBits2::VK_ACCESS_2_SHADER_READ_BIT
-                | VkAccessFlagBits2::VK_ACCESS_2_SHADER_WRITE_BIT,
-        )];
-    let dependency = VkDependencyInfo::DEFAULT.with_pMemoryBarriers(&memory_barriers);
-    command_buffer.vkCmdPipelineBarrier2(&dependency);
+        .with_dstAccessMask(VkAccessFlagBits2(
+            VkAccessFlagBits2::VK_ACCESS_2_SHADER_READ_BIT.0
+                | VkAccessFlagBits2::VK_ACCESS_2_SHADER_WRITE_BIT.0,
+        ))];
+    const DEPENDENCY: VkDependencyInfo<'_> =
+        VkDependencyInfo::DEFAULT.with_pMemoryBarriers(&MEMORY_BARRIERS);
+    command_buffer.vkCmdPipelineBarrier2(&DEPENDENCY);
 }
 
 fn shader_to_transfer_barrier(command_buffer: &CommandBuffer<'_>) {
-    let memory_barriers = [VkMemoryBarrier2::DEFAULT
+    const MEMORY_BARRIERS: [VkMemoryBarrier2<'_>; 1] = [VkMemoryBarrier2::DEFAULT
         .with_srcStageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT)
         .with_srcAccessMask(VkAccessFlagBits2::VK_ACCESS_2_SHADER_WRITE_BIT)
         .with_dstStageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_TRANSFER_BIT)
         .with_dstAccessMask(VkAccessFlagBits2::VK_ACCESS_2_TRANSFER_WRITE_BIT)];
-    let dependency = VkDependencyInfo::DEFAULT.with_pMemoryBarriers(&memory_barriers);
-    command_buffer.vkCmdPipelineBarrier2(&dependency);
+    const DEPENDENCY: VkDependencyInfo<'_> =
+        VkDependencyInfo::DEFAULT.with_pMemoryBarriers(&MEMORY_BARRIERS);
+    command_buffer.vkCmdPipelineBarrier2(&DEPENDENCY);
 }
 
 fn shader_to_host_barrier(command_buffer: &CommandBuffer<'_>) {
-    let memory_barriers = [VkMemoryBarrier2::DEFAULT
+    const MEMORY_BARRIERS: [VkMemoryBarrier2<'_>; 1] = [VkMemoryBarrier2::DEFAULT
         .with_srcStageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT)
         .with_srcAccessMask(VkAccessFlagBits2::VK_ACCESS_2_SHADER_WRITE_BIT)
         .with_dstStageMask(VkPipelineStageFlagBits2::VK_PIPELINE_STAGE_2_HOST_BIT)
         .with_dstAccessMask(VkAccessFlagBits2::VK_ACCESS_2_HOST_READ_BIT)];
-    let dependency = VkDependencyInfo::DEFAULT.with_pMemoryBarriers(&memory_barriers);
-    command_buffer.vkCmdPipelineBarrier2(&dependency);
+    const DEPENDENCY: VkDependencyInfo<'_> =
+        VkDependencyInfo::DEFAULT.with_pMemoryBarriers(&MEMORY_BARRIERS);
+    command_buffer.vkCmdPipelineBarrier2(&DEPENDENCY);
 }
 
 fn create_storage_buffer<'a>(
     allocator: &'a Allocator<'a>,
     size: VkDeviceSize,
 ) -> Result<vk_alloc::AllocatedBuffer<'a>, String> {
-    let usage = VkBufferUsageFlags2CreateInfo::DEFAULT.with_usage(
-        VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT
-            | VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_TRANSFER_DST_BIT,
-    );
+    const USAGE: VkBufferUsageFlags2CreateInfo<'_> = VkBufferUsageFlags2CreateInfo::DEFAULT
+        .with_usage(VkBufferUsageFlagBits2(
+            VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT.0
+                | VkBufferUsageFlagBits2::VK_BUFFER_USAGE_2_TRANSFER_DST_BIT.0,
+        ));
     let buffer_info = VkBufferCreateInfo::DEFAULT
         .with_size(size)
         .with_sharingMode(VkSharingMode::VK_SHARING_MODE_EXCLUSIVE)
-        .with_pNext_VkBufferUsageFlags2CreateInfo(&usage);
+        .with_pNext_VkBufferUsageFlags2CreateInfo(&USAGE);
 
     allocator
         .create_buffer(
@@ -403,17 +413,17 @@ fn verify_zero_prefix_sum(allocation: &vk_alloc::Allocation) -> Result<(), Strin
 }
 
 fn create_descriptor_pool<'a>(device: &'a Device<'a>) -> Result<DescriptorPool<'a>, String> {
-    let pool_sizes = [VkDescriptorPoolSize::DEFAULT
+    const POOL_SIZES: [VkDescriptorPoolSize; 1] = [VkDescriptorPoolSize::DEFAULT
         .with_type(VkDescriptorType::VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
         .with_descriptorCount(2)];
-    let pool_info = VkDescriptorPoolCreateInfo::DEFAULT
+    const POOL_INFO: VkDescriptorPoolCreateInfo<'_> = VkDescriptorPoolCreateInfo::DEFAULT
         .with_maxSets(1)
         .with_flags(
             VkDescriptorPoolCreateFlagBits::VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT,
         )
-        .with_pPoolSizes(&pool_sizes);
+        .with_pPoolSizes(&POOL_SIZES);
     device
-        .vkCreateDescriptorPool(&pool_info, null())
+        .vkCreateDescriptorPool(&POOL_INFO, null())
         .map_err(|e| format!("vkCreateDescriptorPool failed: {e:?}"))
 }
 

@@ -4,9 +4,28 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::commands::PFN_vkDestroyBufferCollectionFUCHSIA;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::commands::PFN_vkGetBufferCollectionPropertiesFUCHSIA;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::commands::PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::commands::PFN_vkSetBufferCollectionImageConstraintsFUCHSIA;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::types::VkBufferCollectionFUCHSIA;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::types::VkBufferCollectionPropertiesFUCHSIA;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::types::VkBufferConstraintsInfoFUCHSIA;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_FUCHSIA_buffer_collection")]
+use crate::types::VkImageConstraintsInfoFUCHSIA;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_FUCHSIA_buffer_collection")]
 #[derive(Debug, Clone)]

@@ -4,9 +4,40 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkAllocateCommandBuffers;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyCommandPool;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkFreeCommandBuffers;
+#[cfg(feature = "VKSC_VERSION_1_0")]
+use crate::commands::PFN_vkGetCommandPoolMemoryConsumption;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkResetCommandPool;
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+use crate::commands::PFN_vkTrimCommandPool;
+#[cfg(feature = "VK_KHR_maintenance1")]
+use crate::commands::PFN_vkTrimCommandPoolKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandBufferAllocateInfo;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandPool;
+#[cfg(feature = "VKSC_VERSION_1_0")]
+use crate::types::VkCommandPoolMemoryConsumption;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandPoolResetFlags;
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+use crate::types::VkCommandPoolTrimFlags;
+#[cfg(feature = "VK_KHR_maintenance1")]
+use crate::types::VkCommandPoolTrimFlagsKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]

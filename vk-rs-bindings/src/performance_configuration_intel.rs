@@ -4,9 +4,14 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::commands::PFN_vkReleasePerformanceConfigurationINTEL;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::types::VkPerformanceConfigurationINTEL;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_INTEL_performance_query")]
 #[derive(Debug, Clone)]

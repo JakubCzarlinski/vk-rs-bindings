@@ -1,7 +1,7 @@
 use crate::cfggen::cfg_availability;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    c_str_lit, create_doc, params_to_tokens, safe_method, vk_result_return_if_err,
+    ExplicitImports, c_str_lit, create_doc, params_to_tokens, safe_method, vk_result_return_if_err,
 };
 use crate::ir::Registry;
 use proc_macro2::TokenStream;
@@ -27,14 +27,26 @@ pub fn gen_entry_rs(
     handle_meta: &std::collections::BTreeMap<String, crate::codegen::handles_rs::HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
-    ts.extend(preamble());
+    let imports = entry_imports(reg);
+    ts.extend(preamble(imports.to_tokens(reg)));
     ts.extend(gen_vulkan_lib());
     ts.extend(gen_entry_dispatch_table(reg));
     ts.extend(gen_entry(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
-fn preamble() -> TokenStream {
+fn entry_imports(reg: &Registry) -> ExplicitImports {
+    let mut imports = ExplicitImports::default();
+    imports.extend_command_variants(reg, "vkGetInstanceProcAddr");
+    imports.add_type_name(reg, "VkInstance");
+    imports.add_vk_result();
+    for name in ENTRY_CMDS {
+        imports.extend_command_variants(reg, name);
+    }
+    imports
+}
+
+fn preamble(imports: TokenStream) -> TokenStream {
     quote! {
         //! Vulkan library loader, pre-instance dispatch table, and `Entry` wrapper.
         //!
@@ -65,9 +77,7 @@ fn preamble() -> TokenStream {
             clippy::missing_safety_doc,
         )]
 
-        use crate::commands::*;
-        use crate::types::*;
-        use crate::enums::*;
+        #imports
         use core::ffi::{c_char, c_void};
     }
 }

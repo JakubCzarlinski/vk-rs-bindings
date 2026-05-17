@@ -4,9 +4,82 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(any(
+  all(
+    feature = "VK_NV_device_diagnostic_checkpoints",
+    feature = "VK_VERSION_1_3"
+  ),
+  all(
+    feature = "VK_KHR_synchronization2",
+    feature = "VK_NV_device_diagnostic_checkpoints"
+  )
+))]
+use crate::commands::PFN_vkGetQueueCheckpointData2NV;
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+use crate::commands::PFN_vkGetQueueCheckpointDataNV;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkQueueBeginDebugUtilsLabelEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkQueueBindSparse;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkQueueEndDebugUtilsLabelEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkQueueInsertDebugUtilsLabelEXT;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::commands::PFN_vkQueueNotifyOutOfBandNV;
+#[cfg(feature = "VK_KHR_swapchain")]
+use crate::commands::PFN_vkQueuePresentKHR;
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+use crate::commands::PFN_vkQueueSetPerfHintQCOM;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::commands::PFN_vkQueueSetPerformanceConfigurationINTEL;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkQueueSubmit;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::commands::PFN_vkQueueSubmit2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::commands::PFN_vkQueueSubmit2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkQueueWaitIdle;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBindSparseInfo;
+#[cfg(any(
+  all(
+    feature = "VK_NV_device_diagnostic_checkpoints",
+    feature = "VK_VERSION_1_3"
+  ),
+  all(
+    feature = "VK_KHR_synchronization2",
+    feature = "VK_NV_device_diagnostic_checkpoints"
+  )
+))]
+use crate::types::VkCheckpointData2NV;
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+use crate::types::VkCheckpointDataNV;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::types::VkDebugUtilsLabelEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkFence;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::types::VkOutOfBandQueueTypeInfoNV;
+#[cfg(feature = "VK_QCOM_queue_perf_hint")]
+use crate::types::VkPerfHintInfoQCOM;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::types::VkPerformanceConfigurationINTEL;
+#[cfg(feature = "VK_KHR_swapchain")]
+use crate::types::VkPresentInfoKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkQueue;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkSubmitInfo;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::types::VkSubmitInfo2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::types::VkSubmitInfo2KHR;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]

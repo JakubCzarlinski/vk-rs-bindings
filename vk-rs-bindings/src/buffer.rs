@@ -4,9 +4,26 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkBindBufferMemory;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetBufferMemoryRequirements;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceMemory;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceSize;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkMemoryRequirements;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]

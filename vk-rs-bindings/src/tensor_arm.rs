@@ -4,9 +4,16 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_ARM_tensors")]
+use crate::commands::PFN_vkDestroyTensorARM;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
+use crate::types::VkTensorARM;
 use core::ffi::{c_char, c_void};
 #[cfg(any(feature = "VK_EXT_descriptor_heap", feature = "VK_ARM_tensors"))]
 #[derive(Debug, Clone)]

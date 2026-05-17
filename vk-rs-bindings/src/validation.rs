@@ -987,20 +987,11 @@ compile_error!(
       feature = "VK_KHR_swapchain"
     ),
     all(
-      feature = "VK_KHR_maintenance2",
-      feature = "VK_KHR_swapchain",
-      feature = "VK_VERSION_1_2"
-    ),
-    all(
       feature = "VK_KHR_image_format_list",
       feature = "VK_KHR_swapchain",
       feature = "VK_VERSION_1_1"
     ),
-    all(
-      feature = "VK_KHR_swapchain",
-      feature = "VK_VERSION_1_1",
-      feature = "VK_VERSION_1_2"
-    )
+    all(feature = "VK_KHR_swapchain", feature = "VK_VERSION_1_2")
   ))
 ))]
 compile_error!(
@@ -1080,9 +1071,7 @@ compile_error!(
   feature = "VK_EXT_present_timing",
   not(all(
     feature = "VK_KHR_calibrated_timestamps",
-    feature = "VK_KHR_get_surface_capabilities2",
-    feature = "VK_KHR_present_id2",
-    feature = "VK_KHR_swapchain"
+    feature = "VK_KHR_present_id2"
   ))
 ))]
 compile_error!(
@@ -1257,8 +1246,7 @@ compile_error!(
   not(any(
     all(
       feature = "VK_KHR_shader_maximal_reconvergence",
-      feature = "VK_KHR_vulkan_memory_model",
-      feature = "VK_VERSION_1_1"
+      feature = "VK_KHR_vulkan_memory_model"
     ),
     all(
       feature = "VK_KHR_shader_maximal_reconvergence",
@@ -1343,10 +1331,7 @@ compile_error!(
 compile_error!(
   "Feature `VK_EXT_buffer_device_address` requires `VK_KHR_get_physical_device_properties2 , VK_VERSION_1_1`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_buffer_device_address.html"
 );
-#[cfg(all(
-  feature = "VK_KHR_present_wait",
-  not(all(feature = "VK_KHR_present_id", feature = "VK_KHR_swapchain"))
-))]
+#[cfg(all(feature = "VK_KHR_present_wait", not(feature = "VK_KHR_present_id")))]
 compile_error!(
   "Feature `VK_KHR_present_wait` requires `VK_KHR_swapchain + VK_KHR_present_id`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_present_wait.html"
 );
@@ -1422,12 +1407,10 @@ compile_error!(
     all(
       feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_swapchain"
     ),
     all(
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_swapchain",
       feature = "VK_VERSION_1_1"
     )
@@ -1548,10 +1531,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_EXT_surface_maintenance1",
-  not(all(
-    feature = "VK_KHR_get_surface_capabilities2",
-    feature = "VK_KHR_surface"
-  ))
+  not(feature = "VK_KHR_get_surface_capabilities2")
 ))]
 compile_error!(
   "Feature `VK_EXT_surface_maintenance1` requires `VK_KHR_surface + VK_KHR_get_surface_capabilities2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_EXT_surface_maintenance1.html"
@@ -1687,12 +1667,10 @@ compile_error!(
     all(
       feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_swapchain"
     ),
     all(
       feature = "VK_KHR_get_surface_capabilities2",
-      feature = "VK_KHR_surface",
       feature = "VK_KHR_swapchain",
       feature = "VK_VERSION_1_1"
     )
@@ -2157,10 +2135,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_FUCHSIA_external_semaphore",
-  not(all(
-    feature = "VK_KHR_external_semaphore",
-    feature = "VK_KHR_external_semaphore_capabilities"
-  ))
+  not(feature = "VK_KHR_external_semaphore")
 ))]
 compile_error!(
   "Feature `VK_FUCHSIA_external_semaphore` requires `VK_KHR_external_semaphore_capabilities + VK_KHR_external_semaphore`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_FUCHSIA_external_semaphore.html"
@@ -2752,22 +2727,13 @@ compile_error!(
   feature = "VK_KHR_present_id2",
   not(all(
     feature = "VK_KHR_get_surface_capabilities2",
-    feature = "VK_KHR_surface",
     feature = "VK_KHR_swapchain"
   ))
 ))]
 compile_error!(
   "Feature `VK_KHR_present_id2` requires `VK_KHR_get_surface_capabilities2 + VK_KHR_surface + VK_KHR_swapchain`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_present_id2.html"
 );
-#[cfg(all(
-  feature = "VK_KHR_present_wait2",
-  not(all(
-    feature = "VK_KHR_get_surface_capabilities2",
-    feature = "VK_KHR_present_id2",
-    feature = "VK_KHR_surface",
-    feature = "VK_KHR_swapchain"
-  ))
-))]
+#[cfg(all(feature = "VK_KHR_present_wait2", not(feature = "VK_KHR_present_id2")))]
 compile_error!(
   "Feature `VK_KHR_present_wait2` requires `VK_KHR_get_surface_capabilities2 + VK_KHR_surface + VK_KHR_swapchain + VK_KHR_present_id2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_present_wait2.html"
 );
@@ -2821,10 +2787,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_KHR_surface_maintenance1",
-  not(all(
-    feature = "VK_KHR_get_surface_capabilities2",
-    feature = "VK_KHR_surface"
-  ))
+  not(feature = "VK_KHR_get_surface_capabilities2")
 ))]
 compile_error!(
   "Feature `VK_KHR_surface_maintenance1` requires `VK_KHR_surface + VK_KHR_get_surface_capabilities2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_KHR_surface_maintenance1.html"
@@ -3232,7 +3195,7 @@ compile_error!(
 );
 #[cfg(all(
   feature = "VK_NV_display_stereo",
-  not(all(feature = "VK_KHR_display", feature = "VK_KHR_get_display_properties2"))
+  not(feature = "VK_KHR_get_display_properties2")
 ))]
 compile_error!(
   "Feature `VK_NV_display_stereo` requires `VK_KHR_display + VK_KHR_get_display_properties2`.\nAdd the required features to Cargo.toml.\nSpec: https://docs.vulkan.org/refpages/latest/refpages/source/VK_NV_display_stereo.html"
@@ -3436,14 +3399,9 @@ compile_error!(
   not(any(
     all(
       feature = "VK_EXT_hdr_metadata",
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_KHR_swapchain"
+      feature = "VK_KHR_get_physical_device_properties2"
     ),
-    all(
-      feature = "VK_EXT_hdr_metadata",
-      feature = "VK_KHR_swapchain",
-      feature = "VK_VERSION_1_1"
-    )
+    all(feature = "VK_EXT_hdr_metadata", feature = "VK_VERSION_1_1")
   ))
 ))]
 compile_error!(
@@ -3559,32 +3517,8 @@ compile_error!(
     all(
       feature = "VK_EXT_fragment_density_map",
       feature = "VK_KHR_create_renderpass2",
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_VERSION_1_3"
-    ),
-    all(
-      feature = "VK_EXT_fragment_density_map",
-      feature = "VK_KHR_create_renderpass2",
       feature = "VK_KHR_dynamic_rendering",
       feature = "VK_KHR_get_physical_device_properties2"
-    ),
-    all(
-      feature = "VK_EXT_fragment_density_map",
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_VERSION_1_2",
-      feature = "VK_VERSION_1_3"
-    ),
-    all(
-      feature = "VK_EXT_fragment_density_map",
-      feature = "VK_KHR_dynamic_rendering",
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_VERSION_1_2"
-    ),
-    all(
-      feature = "VK_EXT_fragment_density_map",
-      feature = "VK_KHR_create_renderpass2",
-      feature = "VK_VERSION_1_1",
-      feature = "VK_VERSION_1_3"
     ),
     all(
       feature = "VK_EXT_fragment_density_map",
@@ -3592,16 +3526,10 @@ compile_error!(
       feature = "VK_KHR_dynamic_rendering",
       feature = "VK_VERSION_1_1"
     ),
-    all(
-      feature = "VK_EXT_fragment_density_map",
-      feature = "VK_VERSION_1_1",
-      feature = "VK_VERSION_1_2",
-      feature = "VK_VERSION_1_3"
-    ),
+    all(feature = "VK_EXT_fragment_density_map", feature = "VK_VERSION_1_3"),
     all(
       feature = "VK_EXT_fragment_density_map",
       feature = "VK_KHR_dynamic_rendering",
-      feature = "VK_VERSION_1_1",
       feature = "VK_VERSION_1_2"
     )
   ))
@@ -3745,12 +3673,8 @@ compile_error!(
       feature = "VK_KHR_get_physical_device_properties2",
       feature = "VK_KHR_shader_float16_int8"
     ),
-    all(
-      feature = "VK_KHR_get_physical_device_properties2",
-      feature = "VK_VERSION_1_2"
-    ),
     all(feature = "VK_KHR_shader_float16_int8", feature = "VK_VERSION_1_1"),
-    all(feature = "VK_VERSION_1_1", feature = "VK_VERSION_1_2")
+    feature = "VK_VERSION_1_2"
   ))
 ))]
 compile_error!(

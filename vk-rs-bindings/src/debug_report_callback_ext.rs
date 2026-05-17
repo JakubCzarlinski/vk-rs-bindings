@@ -4,9 +4,22 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::commands::PFN_vkDebugReportMessageEXT;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::commands::PFN_vkDestroyDebugReportCallbackEXT;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::enums::VkDebugReportObjectTypeEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::types::VkDebugReportCallbackEXT;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::types::VkDebugReportFlagsEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkInstance;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_EXT_debug_report")]
 #[derive(Debug, Clone)]

@@ -4,9 +4,16 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkDestroyMicromapEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkMicromapEXT;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_EXT_opacity_micromap")]
 #[derive(Debug, Clone)]

@@ -1,9 +1,20 @@
 //! Generates `#[cfg(...)]` token streams from `DepExpr` and feature-name lists.
 
+use std::collections::{BTreeMap, BTreeSet};
+use std::sync::RwLock;
+
 use proc_macro2::TokenStream;
 use quote::quote;
 
 use crate::ir::{Availability, DepExpr};
+
+static FEATURE_IMPLICATIONS: RwLock<Option<BTreeMap<String, BTreeSet<String>>>> = RwLock::new(None);
+
+pub fn set_feature_implications(implications: BTreeMap<String, BTreeSet<String>>) {
+    *FEATURE_IMPLICATIONS
+        .write()
+        .expect("feature implication lock") = Some(implications);
+}
 
 /// `#[cfg(feature = "A")]`  or  `#[cfg(any(feature="A", feature="B", ...))]`
 #[must_use]
@@ -80,17 +91,6 @@ pub fn cfg_availability_expr(
 ) -> TokenStream {
     let clauses = availability_clauses(availability, fallback_features, fallback_dep);
     cfg_expr_from_dnf(&clauses)
-}
-
-#[must_use]
-pub fn cfg_not_availability(
-    availability: &[Availability],
-    fallback_features: &[String],
-    fallback_dep: Option<&DepExpr>,
-) -> TokenStream {
-    let clauses = availability_clauses(availability, fallback_features, fallback_dep);
-    let expr = cfg_expr_from_dnf(&clauses);
-    quote! { #[cfg(not(#expr))] }
 }
 
 pub fn push_availability(
@@ -212,7 +212,9 @@ fn clause_implies(clause: &[String], other: &[String]) -> bool {
 }
 
 fn feature_implies(feature: &str, required: &str) -> bool {
-    feature == required || feature_implies_vulkan_base_1_0(feature, required)
+    feature == required
+        || feature_implies_derived_dependency(feature, required)
+        || feature_implies_vulkan_base_1_0(feature, required)
 }
 
 fn feature_implies_vulkan_base_1_0(feature: &str, required: &str) -> bool {
@@ -232,6 +234,15 @@ fn is_vulkan_core_feature(feature: &str) -> bool {
 
 fn is_vulkan_extension(feature: &str) -> bool {
     feature.starts_with("VK_") && !is_vulkan_core_feature(feature) && feature != "VKSC_VERSION_1_0"
+}
+
+fn feature_implies_derived_dependency(feature: &str, required: &str) -> bool {
+    FEATURE_IMPLICATIONS
+        .read()
+        .expect("feature implication lock")
+        .as_ref()
+        .and_then(|implications| implications.get(feature))
+        .is_some_and(|deps| deps.contains(required))
 }
 
 fn clauses_to_ts(clauses: &[Vec<String>]) -> TokenStream {
@@ -256,5 +267,30 @@ fn clause_to_ts(clause: &[String]) -> TokenStream {
             let items: Vec<TokenStream> = clause.iter().map(|f| quote! { feature = #f }).collect();
             quote! { all(#(#items),*) }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::collections::{BTreeMap, BTreeSet};
+
+    use super::{feature_implies, set_feature_implications};
+
+    #[test]
+    fn feature_implications_are_derived_from_configured_dependencies() {
+        set_feature_implications(BTreeMap::from([(
+            "VK_VERSION_1_4".to_owned(),
+            BTreeSet::from([
+                "VK_VERSION_1_3".to_owned(),
+                "VK_GRAPHICS_VERSION_1_3".to_owned(),
+            ]),
+        )]));
+
+        assert!(feature_implies("VK_VERSION_1_4", "VK_GRAPHICS_VERSION_1_3"));
+        assert!(feature_implies("VK_VERSION_1_4", "VK_VERSION_1_3"));
+        assert!(!feature_implies(
+            "VK_COMPUTE_VERSION_1_4",
+            "VK_GRAPHICS_VERSION_1_3"
+        ));
     }
 }

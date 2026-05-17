@@ -5,6 +5,7 @@ use crate::ir::Registry;
 
 pub fn gen_cargo_toml(reg: &Registry) -> String {
     let feature_deps = reg.feature_deps();
+    let transitive_deps = reg.transitive_deps();
     // Build the complete set of known feature names so deps can be filtered
     let known_features: HashSet<String> = reg.all_feature_names().into_iter().collect();
 
@@ -12,6 +13,17 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
         deps.into_iter()
             .filter(|d| known_features.contains(d))
             .collect()
+    };
+    let simplify_deps = |deps: &mut Vec<String>| {
+        let original = deps.clone();
+        deps.retain(|dep| {
+            !original.iter().any(|other| {
+                other != dep
+                    && transitive_deps
+                        .get(other)
+                        .is_some_and(|other_deps| other_deps.contains(dep))
+            })
+        });
     };
 
     let mut lines: Vec<String> = vec![
@@ -43,7 +55,8 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
             lines.push(format!("# {comment}"));
         }
         lines.push(format!("# version: {}", feat.number));
-        let deps = filter_deps(feature_deps.get(&feat.name).cloned().unwrap_or_default());
+        let mut deps = filter_deps(feature_deps.get(&feat.name).cloned().unwrap_or_default());
+        simplify_deps(&mut deps);
         lines.push(format!("{} = [{}]", feat.name, toml_feat_list(&deps)));
     }
     lines.push(String::new());
@@ -64,6 +77,7 @@ pub fn gen_cargo_toml(reg: &Registry) -> String {
 
         // Filter out any dependencies that aren't actually known features
         common_deps.retain(|d| known_features.contains(d));
+        simplify_deps(&mut common_deps);
 
         if let Some(ref s) = ext.depr.superseded_by {
             lines.push(format!("# superseded by: {s}"));

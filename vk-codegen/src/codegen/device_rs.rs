@@ -3,9 +3,9 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, base_type_tokens, c_str_lit, collect_groups, create_doc, enabled_set, is_cmd_buf_cmd,
-    kw_escape, param_sig_type, safe_method, safe_method_unit_with_overrides, strip_first_param,
-    vk_result_return_if_err,
+    ExplicitImports, Tier, base_type_tokens, c_str_lit, collect_groups, create_doc, enabled_set,
+    is_cmd_buf_cmd, kw_escape, param_sig_type, safe_method, safe_method_unit_with_overrides,
+    strip_first_param, vk_result_return_if_err,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -18,14 +18,35 @@ pub fn gen_device_rs(
     handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
-    ts.extend(preamble());
+    let imports = device_imports(reg, handle_meta);
+    ts.extend(preamble(imports.to_tokens(reg)));
     ts.extend(gen_device_dispatch_table(reg));
     ts.extend(gen_device(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
 // Preamble
-fn preamble() -> TokenStream {
+fn device_imports(reg: &Registry, handle_meta: &BTreeMap<String, HandleMeta>) -> ExplicitImports {
+    let skip = entry_cmd_set();
+    let enabled = enabled_set(reg);
+    let groups = collect_groups(reg, Tier::Device, &skip, &enabled);
+    let mut imports = ExplicitImports::default();
+    imports.add_vk_result();
+    imports.add_type_name(reg, "VkDevice");
+    for cmds in groups.values() {
+        for (name, _, cmd) in cmds {
+            imports.add_command_signature(reg, cmd, name);
+        }
+    }
+    for meta in handle_meta.values() {
+        if meta.root_vk_name == "VkDevice" {
+            imports.add_type_name(reg, &meta.vk_name);
+        }
+    }
+    imports
+}
+
+fn preamble(imports: TokenStream) -> TokenStream {
     quote! {
         //! Device-tier dispatch table and safe [`Device`] wrapper.
 
@@ -37,9 +58,7 @@ fn preamble() -> TokenStream {
         )]
 
         use core::ffi::{c_char, c_void};
-        use crate::commands::*;
-        use crate::types::*;
-        use crate::enums::*;
+        #imports
         use crate::instance::Instance;
     }
 }

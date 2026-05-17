@@ -495,7 +495,7 @@ VK_NV_device_diagnostic_checkpoints = []
 # type: device
 VK_KHR_timeline_semaphore = []
 # type: device
-VK_EXT_present_timing = ["VK_KHR_swapchain", "VK_KHR_present_id2", "VK_KHR_get_surface_capabilities2", "VK_KHR_calibrated_timestamps"]
+VK_EXT_present_timing = ["VK_KHR_present_id2", "VK_KHR_calibrated_timestamps"]
 # type: device
 VK_INTEL_shader_integer_functions2 = []
 # type: device
@@ -568,7 +568,7 @@ VK_EXT_separate_stencil_usage = []
 # type: instance
 VK_EXT_validation_features = []
 # type: device
-VK_KHR_present_wait = ["VK_KHR_swapchain", "VK_KHR_present_id"]
+VK_KHR_present_wait = ["VK_KHR_present_id"]
 # type: device
 VK_NV_cooperative_matrix = []
 # type: device
@@ -583,7 +583,7 @@ VK_KHR_uniform_buffer_standard_layout = []
 # type: device
 VK_EXT_provoking_vertex = []
 # type: device
-VK_EXT_full_screen_exclusive = ["VK_KHR_surface", "VK_KHR_get_surface_capabilities2", "VK_KHR_swapchain"]
+VK_EXT_full_screen_exclusive = ["VK_KHR_get_surface_capabilities2", "VK_KHR_swapchain"]
 # type: instance
 VK_EXT_headless_surface = ["VK_KHR_surface"]
 # promoted to: VK_VERSION_1_2
@@ -619,7 +619,7 @@ VK_EXT_map_memory_placed = []
 VK_EXT_shader_atomic_float2 = ["VK_EXT_shader_atomic_float"]
 # promoted to: VK_KHR_surface_maintenance1
 # type: instance
-VK_EXT_surface_maintenance1 = ["VK_KHR_surface", "VK_KHR_get_surface_capabilities2"]
+VK_EXT_surface_maintenance1 = ["VK_KHR_get_surface_capabilities2"]
 # promoted to: VK_KHR_swapchain_maintenance1
 # type: device
 VK_EXT_swapchain_maintenance1 = ["VK_KHR_swapchain", "VK_EXT_surface_maintenance1"]
@@ -657,7 +657,7 @@ VK_GOOGLE_user_type = []
 # type: device
 VK_KHR_pipeline_library = []
 # type: device
-VK_NV_present_barrier = ["VK_KHR_surface", "VK_KHR_get_surface_capabilities2", "VK_KHR_swapchain"]
+VK_NV_present_barrier = ["VK_KHR_get_surface_capabilities2", "VK_KHR_swapchain"]
 # promoted to: VK_VERSION_1_3
 # type: device
 VK_KHR_shader_non_semantic_info = []
@@ -773,7 +773,7 @@ VK_EXT_present_mode_fifo_latest_ready = ["VK_KHR_swapchain"]
 # type: device
 VK_FUCHSIA_external_memory = []
 # type: device
-VK_FUCHSIA_external_semaphore = ["VK_KHR_external_semaphore_capabilities", "VK_KHR_external_semaphore"]
+VK_FUCHSIA_external_semaphore = ["VK_KHR_external_semaphore"]
 # type: device
 VK_FUCHSIA_buffer_collection = ["VK_FUCHSIA_external_memory"]
 # type: device
@@ -915,9 +915,9 @@ VK_AMD_anti_lag = []
 # type: device
 VK_AMDX_dense_geometry_format = ["VK_KHR_acceleration_structure"]
 # type: device
-VK_KHR_present_id2 = ["VK_KHR_get_surface_capabilities2", "VK_KHR_surface", "VK_KHR_swapchain"]
+VK_KHR_present_id2 = ["VK_KHR_get_surface_capabilities2", "VK_KHR_swapchain"]
 # type: device
-VK_KHR_present_wait2 = ["VK_KHR_get_surface_capabilities2", "VK_KHR_surface", "VK_KHR_swapchain", "VK_KHR_present_id2"]
+VK_KHR_present_wait2 = ["VK_KHR_present_id2"]
 # type: device
 VK_KHR_ray_tracing_position_fetch = ["VK_KHR_acceleration_structure"]
 # type: device
@@ -929,7 +929,7 @@ VK_QCOM_tile_properties = []
 # type: device
 VK_SEC_amigo_profiling = []
 # type: instance
-VK_KHR_surface_maintenance1 = ["VK_KHR_surface", "VK_KHR_get_surface_capabilities2"]
+VK_KHR_surface_maintenance1 = ["VK_KHR_get_surface_capabilities2"]
 # type: device
 VK_KHR_swapchain_maintenance1 = ["VK_KHR_swapchain", "VK_KHR_surface_maintenance1"]
 # type: device
@@ -1027,7 +1027,7 @@ VK_KHR_copy_memory_indirect = []
 # type: device
 VK_EXT_memory_decompression = ["VK_KHR_get_physical_device_properties2", "VK_KHR_buffer_device_address"]
 # type: instance
-VK_NV_display_stereo = ["VK_KHR_display", "VK_KHR_get_display_properties2"]
+VK_NV_display_stereo = ["VK_KHR_get_display_properties2"]
 # type: device
 VK_KHR_video_encode_intra_refresh = ["VK_KHR_video_encode_queue"]
 # type: device
@@ -1078,7 +1078,7 @@ VK_KHR_video_maintenance2 = ["VK_KHR_video_queue"]
 # type: instance
 VK_OHOS_surface = ["VK_KHR_surface"]
 # type: device
-VK_HUAWEI_hdr_vivid = ["VK_KHR_swapchain", "VK_EXT_hdr_metadata"]
+VK_HUAWEI_hdr_vivid = ["VK_EXT_hdr_metadata"]
 # type: device
 VK_NV_cooperative_matrix2 = ["VK_KHR_cooperative_matrix"]
 # type: device

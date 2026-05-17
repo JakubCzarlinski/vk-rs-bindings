@@ -4,9 +4,30 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::commands::PFN_vkCreateExecutionGraphPipelinesAMDX;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::commands::PFN_vkCreateRayTracingPipelinesNV;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyPipelineCache;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkGetPipelineCacheData;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkMergePipelineCaches;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::types::VkExecutionGraphPipelineCreateInfoAMDX;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkPipeline;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkPipelineCache;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::types::VkRayTracingPipelineCreateInfoNV;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[derive(Debug, Clone)]

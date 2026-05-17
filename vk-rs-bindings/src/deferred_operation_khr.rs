@@ -4,9 +4,68 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkBuildAccelerationStructuresKHR;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkBuildMicromapsEXT;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCopyAccelerationStructureKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCopyAccelerationStructureToMemoryKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCopyMemoryToAccelerationStructureKHR;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCopyMemoryToMicromapEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCopyMicromapEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCopyMicromapToMemoryEXT;
+#[cfg(feature = "VK_ARM_data_graph")]
+use crate::commands::PFN_vkCreateDataGraphPipelinesARM;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::commands::PFN_vkCreateRayTracingPipelinesKHR;
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+use crate::commands::PFN_vkDeferredOperationJoinKHR;
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+use crate::commands::PFN_vkDestroyDeferredOperationKHR;
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+use crate::commands::PFN_vkGetDeferredOperationMaxConcurrencyKHR;
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+use crate::commands::PFN_vkGetDeferredOperationResultKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkAccelerationStructureBuildGeometryInfoKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkAccelerationStructureBuildRangeInfoKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkCopyAccelerationStructureInfoKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkCopyAccelerationStructureToMemoryInfoKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkCopyMemoryToAccelerationStructureInfoKHR;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkCopyMemoryToMicromapInfoEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkCopyMicromapInfoEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkCopyMicromapToMemoryInfoEXT;
+#[cfg(feature = "VK_ARM_data_graph")]
+use crate::types::VkDataGraphPipelineCreateInfoARM;
+#[cfg(feature = "VK_KHR_deferred_host_operations")]
+use crate::types::VkDeferredOperationKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkMicromapBuildInfoEXT;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkPipeline;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkPipelineCache;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::types::VkRayTracingPipelineCreateInfoKHR;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_KHR_deferred_host_operations")]
 #[derive(Debug, Clone)]

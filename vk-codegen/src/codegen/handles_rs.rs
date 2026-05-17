@@ -2,7 +2,7 @@ use crate::cfggen::{cfg_any, cfg_availability};
 use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
+    ExplicitImports, c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
     safe_method_unit_with_overrides, vk_result_return_if_err,
 };
 use crate::ir::{Availability, Command, Registry, TypedefKind};
@@ -252,6 +252,10 @@ fn gen_handle_module(
     let mut empty_ts = TokenStream::new();
     let mut load_ts = TokenStream::new();
     let mut methods_ts = TokenStream::new();
+    let mut imports = ExplicitImports::default();
+    imports.add_vk_result();
+    imports.add_type_name(reg, &meta.vk_name);
+    imports.add_type_name(reg, &meta.parent_vk_name);
 
     let mut destroy_stmt = quote! {};
     let destroy_name = format!("vkDestroy{}", meta.struct_name);
@@ -264,21 +268,25 @@ fn gen_handle_module(
     };
 
     if reg.commands.contains_key(&destroy_name) {
+        imports.extend_command_variants(reg, &destroy_name);
         let fp = format_ident!("{}", destroy_name);
         destroy_stmt = quote! {
             unsafe { (self.table.#fp).unwrap_unchecked()(self.parent.raw(), self.raw, core::ptr::null()) };
         };
     } else if reg.commands.contains_key(&free_group_name) {
+        imports.extend_command_variants(reg, &free_group_name);
         let fp = format_ident!("{}", free_group_name);
         destroy_stmt = quote! {
             unsafe { (self.parent.table.#fp).unwrap_unchecked()(self.device().raw, self.parent.raw, 1, &self.raw) };
         };
     } else if reg.commands.contains_key(&free_name) {
+        imports.extend_command_variants(reg, &free_name);
         let fp = format_ident!("{}", free_name);
         destroy_stmt = quote! {
             unsafe { (self.table.#fp).unwrap_unchecked()(self.device().raw, self.raw, core::ptr::null()) };
         };
     } else if !custom_free_name.is_empty() && reg.commands.contains_key(&custom_free_name) {
+        imports.extend_command_variants(reg, &custom_free_name);
         let fp = format_ident!("{}", custom_free_name);
         destroy_stmt = quote! {
             unsafe { (self.table.#fp).unwrap_unchecked()(self.device().raw, self.raw, core::ptr::null()) };
@@ -290,6 +298,7 @@ fn gen_handle_module(
             if !is_supported_handle_method(cmd, meta) {
                 continue;
             }
+            imports.add_command_signature(reg, cmd, cmd_name);
             let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
             let fname = format_ident!("{}", cmd_name);
             let pfn = format_ident!("PFN_{}", cmd_name);
@@ -362,6 +371,7 @@ fn gen_handle_module(
                 if split_instance_handle_target(cmd_name.as_str()) != Some(meta.vk_name.as_str()) {
                     continue;
                 }
+                imports.add_command_signature(reg, cmd, cmd_name);
                 let cfg = cfg_availability(&cmd.availability, providers, cmd.dep.as_ref());
                 let fname = format_ident!("{}", cmd_name);
                 let pfn = format_ident!("PFN_{}", cmd_name);
@@ -477,13 +487,12 @@ fn gen_handle_module(
         quote! {}
     };
     let wrapper_cfg = cfg_any(&meta.providers);
+    let imports = imports.to_tokens(reg);
 
     quote! {
         #![allow(non_snake_case, unused_imports, clippy::too_many_arguments, clippy::missing_safety_doc)]
         use core::ffi::{c_char, c_void};
-        use crate::commands::*;
-        use crate::types::*;
-        use crate::enums::*;
+        #imports
 
         #wrapper_cfg
         #[derive(Debug, Clone)]

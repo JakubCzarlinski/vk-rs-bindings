@@ -4,9 +4,28 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkAllocateDescriptorSets;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyDescriptorPool;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkFreeDescriptorSets;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkResetDescriptorPool;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorPool;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorPoolResetFlags;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorSet;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorSetAllocateInfo;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[derive(Debug, Clone)]

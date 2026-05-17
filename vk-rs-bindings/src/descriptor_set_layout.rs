@@ -4,9 +4,22 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyDescriptorSetLayout;
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+use crate::commands::PFN_vkGetDescriptorSetLayoutBindingOffsetEXT;
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+use crate::commands::PFN_vkGetDescriptorSetLayoutSizeEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorSetLayout;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceSize;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[derive(Debug, Clone)]

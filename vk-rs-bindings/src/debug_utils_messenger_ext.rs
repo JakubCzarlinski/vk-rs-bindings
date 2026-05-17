@@ -4,9 +4,24 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkDestroyDebugUtilsMessengerEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkSubmitDebugUtilsMessageEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::enums::VkDebugUtilsMessageSeverityFlagBitsEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::types::VkDebugUtilsMessageTypeFlagsEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::types::VkDebugUtilsMessengerCallbackDataEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::types::VkDebugUtilsMessengerEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkInstance;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_EXT_debug_utils")]
 #[derive(Debug, Clone)]

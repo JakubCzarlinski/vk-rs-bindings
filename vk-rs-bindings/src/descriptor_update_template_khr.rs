@@ -4,9 +4,16 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_KHR_descriptor_update_template")]
+use crate::commands::PFN_vkDestroyDescriptorUpdateTemplateKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_KHR_descriptor_update_template")]
+use crate::types::VkDescriptorUpdateTemplateKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_KHR_descriptor_update_template")]
 #[derive(Debug, Clone)]

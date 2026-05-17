@@ -3,8 +3,8 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, create_doc, enabled_set, params_to_tokens, safe_method,
-    vk_result_return_if_err,
+    ExplicitImports, Tier, c_str_lit, collect_groups, create_doc, enabled_set, params_to_tokens,
+    safe_method, vk_result_return_if_err,
 };
 use crate::ir::{Command, Registry};
 use proc_macro2::TokenStream;
@@ -17,20 +17,35 @@ pub fn gen_physical_device_rs(
     handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
-    ts.extend(preamble());
+    let imports = physical_device_imports(reg);
+    ts.extend(preamble(imports.to_tokens(reg)));
     ts.extend(gen_physical_device_dispatch_table(reg));
     ts.extend(gen_physical_device(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
-fn preamble() -> TokenStream {
+fn physical_device_imports(reg: &Registry) -> ExplicitImports {
+    let skip = entry_cmd_set();
+    let enabled = enabled_set(reg);
+    let groups = collect_groups(reg, Tier::PhysicalDevice, &skip, &enabled);
+    let mut imports = ExplicitImports::default();
+    imports.add_vk_result();
+    imports.add_type_name(reg, "VkDevice");
+    imports.add_type_name(reg, "VkPhysicalDevice");
+    for cmds in groups.values() {
+        for (name, _, cmd) in cmds {
+            imports.add_command_signature(reg, cmd, name);
+        }
+    }
+    imports
+}
+
+fn preamble(imports: TokenStream) -> TokenStream {
     quote! {
         //! PhysicalDevice-tier dispatch table and safe wrapper.
         #![allow(non_snake_case, unused_imports, clippy::too_many_arguments, clippy::missing_safety_doc)]
         use core::ffi::{c_char, c_void};
-        use crate::commands::*;
-        use crate::types::*;
-        use crate::enums::*;
+        #imports
         use crate::instance::Instance;
     }
 }

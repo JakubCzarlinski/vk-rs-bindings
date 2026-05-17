@@ -4,9 +4,39 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkFreeMemory;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetDeviceMemoryCommitment;
+#[cfg(feature = "VK_NV_external_memory_win32")]
+use crate::commands::PFN_vkGetMemoryWin32HandleNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkMapMemory;
+#[cfg(feature = "VK_EXT_pageable_device_local_memory")]
+use crate::commands::PFN_vkSetDeviceMemoryPriorityEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkUnmapMemory;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(any(
+  feature = "VK_NV_external_memory_win32",
+  feature = "VK_KHR_external_memory_win32",
+  feature = "VK_KHR_external_semaphore_win32",
+  feature = "VK_KHR_external_fence_win32"
+))]
+use crate::types::HANDLE;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceMemory;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceSize;
+#[cfg(feature = "VK_NV_external_memory_capabilities")]
+use crate::types::VkExternalMemoryHandleTypeFlagsNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkMemoryMapFlags;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]

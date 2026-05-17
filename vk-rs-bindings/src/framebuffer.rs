@@ -4,9 +4,20 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyFramebuffer;
+#[cfg(feature = "VK_QCOM_tile_properties")]
+use crate::commands::PFN_vkGetFramebufferTilePropertiesQCOM;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkFramebuffer;
+#[cfg(feature = "VK_QCOM_tile_properties")]
+use crate::types::VkTilePropertiesQCOM;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[derive(Debug, Clone)]

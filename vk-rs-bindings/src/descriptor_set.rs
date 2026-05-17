@@ -4,9 +4,26 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkFreeDescriptorSets;
+#[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
+use crate::commands::PFN_vkGetDescriptorSetHostMappingVALVE;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+use crate::commands::PFN_vkUpdateDescriptorSetWithTemplate;
+#[cfg(feature = "VK_KHR_descriptor_update_template")]
+use crate::commands::PFN_vkUpdateDescriptorSetWithTemplateKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorPool;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorSet;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+use crate::types::VkDescriptorUpdateTemplate;
+#[cfg(feature = "VK_KHR_descriptor_update_template")]
+use crate::types::VkDescriptorUpdateTemplateKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[derive(Debug, Clone)]

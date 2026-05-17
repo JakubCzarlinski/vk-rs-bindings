@@ -3,7 +3,7 @@ use crate::codegen::entry_rs::entry_cmd_set;
 use crate::codegen::handles_rs::HandleMeta;
 use crate::codegen::pretty;
 use crate::codegen::utils::{
-    Tier, c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
+    ExplicitImports, Tier, c_str_lit, collect_groups, create_doc, enabled_set, safe_method,
     safe_method_unit_with_overrides, vk_result_return_if_err,
 };
 use crate::ir::Registry;
@@ -31,14 +31,39 @@ pub fn gen_instance_rs(
     handle_meta: &BTreeMap<String, HandleMeta>,
 ) -> String {
     let mut ts = TokenStream::new();
-    ts.extend(preamble());
+    let imports = instance_imports(reg, handle_meta);
+    ts.extend(preamble(imports.to_tokens(reg)));
     ts.extend(gen_instance_dispatch_table(reg));
     ts.extend(gen_instance(reg, handle_types, handle_meta));
     pretty(&ts)
 }
 
 // Preamble
-fn preamble() -> TokenStream {
+fn instance_imports(reg: &Registry, handle_meta: &BTreeMap<String, HandleMeta>) -> ExplicitImports {
+    let skip = entry_cmd_set();
+    let enabled = enabled_set(reg);
+    let groups = collect_groups(reg, Tier::Instance, &skip, &enabled);
+    let mut imports = ExplicitImports::default();
+    imports.add_vk_result();
+    imports.add_type_name(reg, "VkInstance");
+    imports.add_type_name(reg, "VkPhysicalDevice");
+    for cmds in groups.values() {
+        for (name, _, cmd) in cmds {
+            if split_instance_handle_target(name).is_some() {
+                continue;
+            }
+            imports.add_command_signature(reg, cmd, name);
+        }
+    }
+    for meta in handle_meta.values() {
+        if meta.root_vk_name == "VkInstance" {
+            imports.add_type_name(reg, &meta.vk_name);
+        }
+    }
+    imports
+}
+
+fn preamble(imports: TokenStream) -> TokenStream {
     quote! {
         //! Instance-tier dispatch table and safe [`Instance`] wrapper.
 
@@ -51,9 +76,7 @@ fn preamble() -> TokenStream {
 
         use core::ptr;
         use core::ffi::{c_char, c_void};
-        use crate::commands::*;
-        use crate::types::*;
-        use crate::enums::*;
+        #imports
         use crate::entry::VulkanLib;
     }
 }

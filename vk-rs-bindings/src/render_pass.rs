@@ -4,9 +4,22 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyRenderPass;
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
+use crate::commands::PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkGetRenderAreaGranularity;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkExtent2D;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkRenderPass;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
 #[derive(Debug, Clone)]

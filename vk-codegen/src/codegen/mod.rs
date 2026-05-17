@@ -31,7 +31,7 @@ use crate::codegen::validation_rs::gen_validation_rs;
 use crate::ir::{DeprecationInfo, Registry};
 use proc_macro2::TokenStream;
 use quote::quote;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 pub struct GeneratedFiles {
     pub cargo_toml: String,
@@ -51,6 +51,13 @@ pub struct GeneratedFiles {
 
 #[must_use]
 pub fn generate(reg: &Registry) -> GeneratedFiles {
+    let feature_implications = reg
+        .transitive_deps()
+        .into_iter()
+        .map(|(feature, deps)| (feature, deps.into_iter().collect::<BTreeSet<_>>()))
+        .collect::<BTreeMap<_, _>>();
+    crate::cfggen::set_feature_implications(feature_implications);
+
     let handle_types = build_handle_type_set(reg);
     let handle_meta = crate::codegen::handles_rs::get_handle_metadata(reg);
     let handles = gen_handles(reg, &handle_types);

@@ -4,9 +4,22 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::commands::PFN_vkClearShaderInstrumentationMetricsARM;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::commands::PFN_vkDestroyShaderInstrumentationARM;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::commands::PFN_vkGetShaderInstrumentationValuesARM;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::types::VkShaderInstrumentationARM;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::types::VkShaderInstrumentationValuesFlagsARM;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_ARM_shader_instrumentation")]
 #[derive(Debug, Clone)]

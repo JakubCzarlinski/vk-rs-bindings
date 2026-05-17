@@ -25,9 +25,30 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCreateInstance;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkEnumerateInstanceExtensionProperties;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkEnumerateInstanceLayerProperties;
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+use crate::commands::PFN_vkEnumerateInstanceVersion;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetInstanceProcAddr;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::PFN_vkVoidFunction;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkExtensionProperties;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkInstance;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkInstanceCreateInfo;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkLayerProperties;
 use core::ffi::{c_char, c_void};
 #[cfg(target_os = "windows")]
 const VULKAN_LIB_NAMES: &[&str] = &["vulkan-1.dll"];

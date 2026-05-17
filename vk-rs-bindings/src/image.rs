@@ -4,9 +4,67 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkBindImageMemory;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyImage;
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+use crate::commands::PFN_vkGetImageDrmFormatModifierPropertiesEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetImageMemoryRequirements;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetImageSparseMemoryRequirements;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetImageSubresourceLayout;
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+use crate::commands::PFN_vkGetImageSubresourceLayout2;
+#[cfg(any(
+  feature = "VK_EXT_host_image_copy",
+  feature = "VK_EXT_image_compression_control"
+))]
+use crate::commands::PFN_vkGetImageSubresourceLayout2EXT;
+#[cfg(feature = "VK_KHR_maintenance5")]
+use crate::commands::PFN_vkGetImageSubresourceLayout2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceMemory;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceSize;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImage;
+#[cfg(feature = "VK_EXT_image_drm_format_modifier")]
+use crate::types::VkImageDrmFormatModifierPropertiesEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImageSubresource;
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+use crate::types::VkImageSubresource2;
+#[cfg(any(
+  feature = "VK_EXT_host_image_copy",
+  feature = "VK_EXT_image_compression_control"
+))]
+use crate::types::VkImageSubresource2EXT;
+#[cfg(feature = "VK_KHR_maintenance5")]
+use crate::types::VkImageSubresource2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkMemoryRequirements;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkSparseImageMemoryRequirements;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkSubresourceLayout;
+#[cfg(feature = "VK_BASE_VERSION_1_4")]
+use crate::types::VkSubresourceLayout2;
+#[cfg(any(
+  feature = "VK_EXT_host_image_copy",
+  feature = "VK_EXT_image_compression_control"
+))]
+use crate::types::VkSubresourceLayout2EXT;
+#[cfg(feature = "VK_KHR_maintenance5")]
+use crate::types::VkSubresourceLayout2KHR;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]

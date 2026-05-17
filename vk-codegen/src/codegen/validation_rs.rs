@@ -19,7 +19,7 @@ pub fn gen_validation_rs(reg: &Registry) -> String {
             continue;
         }
         let clauses = match &ext.depends {
-            Some(d) => d.to_dnf_clauses(),
+            Some(depends) => depends.to_dnf_clauses(),
             None => continue,
         };
         if clauses.is_empty() {

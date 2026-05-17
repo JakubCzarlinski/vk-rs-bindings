@@ -5,10 +5,117 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
+#[cfg(feature = "VK_KHR_android_surface")]
+use crate::commands::PFN_vkCreateAndroidSurfaceKHR;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::commands::PFN_vkCreateDebugReportCallbackEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkCreateDebugUtilsMessengerEXT;
+#[cfg(feature = "VK_EXT_directfb_surface")]
+use crate::commands::PFN_vkCreateDirectFBSurfaceEXT;
+#[cfg(feature = "VK_KHR_display")]
+use crate::commands::PFN_vkCreateDisplayPlaneSurfaceKHR;
+#[cfg(feature = "VK_EXT_headless_surface")]
+use crate::commands::PFN_vkCreateHeadlessSurfaceEXT;
+#[cfg(feature = "VK_MVK_ios_surface")]
+use crate::commands::PFN_vkCreateIOSSurfaceMVK;
+#[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
+use crate::commands::PFN_vkCreateImagePipeSurfaceFUCHSIA;
+#[cfg(feature = "VK_MVK_macos_surface")]
+use crate::commands::PFN_vkCreateMacOSSurfaceMVK;
+#[cfg(feature = "VK_EXT_metal_surface")]
+use crate::commands::PFN_vkCreateMetalSurfaceEXT;
+#[cfg(feature = "VK_QNX_screen_surface")]
+use crate::commands::PFN_vkCreateScreenSurfaceQNX;
+#[cfg(feature = "VK_GGP_stream_descriptor_surface")]
+use crate::commands::PFN_vkCreateStreamDescriptorSurfaceGGP;
+#[cfg(feature = "VK_OHOS_surface")]
+use crate::commands::PFN_vkCreateSurfaceOHOS;
+#[cfg(feature = "VK_SEC_ubm_surface")]
+use crate::commands::PFN_vkCreateUbmSurfaceSEC;
+#[cfg(feature = "VK_NN_vi_surface")]
+use crate::commands::PFN_vkCreateViSurfaceNN;
+#[cfg(feature = "VK_KHR_wayland_surface")]
+use crate::commands::PFN_vkCreateWaylandSurfaceKHR;
+#[cfg(feature = "VK_KHR_win32_surface")]
+use crate::commands::PFN_vkCreateWin32SurfaceKHR;
+#[cfg(feature = "VK_KHR_xcb_surface")]
+use crate::commands::PFN_vkCreateXcbSurfaceKHR;
+#[cfg(feature = "VK_KHR_xlib_surface")]
+use crate::commands::PFN_vkCreateXlibSurfaceKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyInstance;
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+use crate::commands::PFN_vkEnumeratePhysicalDeviceGroups;
+#[cfg(feature = "VK_KHR_device_group_creation")]
+use crate::commands::PFN_vkEnumeratePhysicalDeviceGroupsKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkEnumeratePhysicalDevices;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetDeviceProcAddr;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkGetInstanceProcAddr;
 use crate::entry::VulkanLib;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::PFN_vkVoidFunction;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_KHR_android_surface")]
+use crate::types::VkAndroidSurfaceCreateInfoKHR;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::types::VkDebugReportCallbackCreateInfoEXT;
+#[cfg(feature = "VK_EXT_debug_report")]
+use crate::types::VkDebugReportCallbackEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::types::VkDebugUtilsMessengerCreateInfoEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::types::VkDebugUtilsMessengerEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_EXT_directfb_surface")]
+use crate::types::VkDirectFBSurfaceCreateInfoEXT;
+#[cfg(feature = "VK_KHR_display")]
+use crate::types::VkDisplaySurfaceCreateInfoKHR;
+#[cfg(feature = "VK_EXT_headless_surface")]
+use crate::types::VkHeadlessSurfaceCreateInfoEXT;
+#[cfg(feature = "VK_MVK_ios_surface")]
+use crate::types::VkIOSSurfaceCreateInfoMVK;
+#[cfg(feature = "VK_FUCHSIA_imagepipe_surface")]
+use crate::types::VkImagePipeSurfaceCreateInfoFUCHSIA;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkInstance;
+#[cfg(feature = "VK_MVK_macos_surface")]
+use crate::types::VkMacOSSurfaceCreateInfoMVK;
+#[cfg(feature = "VK_EXT_metal_surface")]
+use crate::types::VkMetalSurfaceCreateInfoEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkPhysicalDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+use crate::types::VkPhysicalDeviceGroupProperties;
+#[cfg(feature = "VK_KHR_device_group_creation")]
+use crate::types::VkPhysicalDeviceGroupPropertiesKHR;
+#[cfg(feature = "VK_QNX_screen_surface")]
+use crate::types::VkScreenSurfaceCreateInfoQNX;
+#[cfg(feature = "VK_GGP_stream_descriptor_surface")]
+use crate::types::VkStreamDescriptorSurfaceCreateInfoGGP;
+#[cfg(feature = "VK_OHOS_surface")]
+use crate::types::VkSurfaceCreateInfoOHOS;
+#[cfg(feature = "VK_KHR_surface")]
+use crate::types::VkSurfaceKHR;
+#[cfg(feature = "VK_SEC_ubm_surface")]
+use crate::types::VkUbmSurfaceCreateInfoSEC;
+#[cfg(feature = "VK_NN_vi_surface")]
+use crate::types::VkViSurfaceCreateInfoNN;
+#[cfg(feature = "VK_KHR_wayland_surface")]
+use crate::types::VkWaylandSurfaceCreateInfoKHR;
+#[cfg(feature = "VK_KHR_win32_surface")]
+use crate::types::VkWin32SurfaceCreateInfoKHR;
+#[cfg(feature = "VK_KHR_xcb_surface")]
+use crate::types::VkXcbSurfaceCreateInfoKHR;
+#[cfg(feature = "VK_KHR_xlib_surface")]
+use crate::types::VkXlibSurfaceCreateInfoKHR;
 use core::ffi::{c_char, c_void};
 use core::ptr;
 /// Raw instance-tier function pointer table.

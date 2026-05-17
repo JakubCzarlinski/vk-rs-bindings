@@ -4,9 +4,24 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::commands::PFN_vkBindVideoSessionMemoryKHR;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::commands::PFN_vkDestroyVideoSessionKHR;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::commands::PFN_vkGetVideoSessionMemoryRequirementsKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::types::VkBindVideoSessionMemoryInfoKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::types::VkVideoSessionKHR;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::types::VkVideoSessionMemoryRequirementsKHR;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_KHR_video_queue")]
 #[derive(Debug, Clone)]

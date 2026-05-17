@@ -1,6 +1,7 @@
 use crate::cfggen::cfg_availability;
 use crate::codegen::utils::{
-    create_doc, ctype_to_tokens_for_registry, resolve_alias, rewrite_command_types_for_providers,
+    ExplicitImports, create_doc, ctype_to_tokens_for_registry, resolve_alias,
+    rewrite_command_types_for_providers,
 };
 use crate::codegen::{deprecate_attr, pretty, sanitize_ident};
 use crate::ir::{Command, Registry};
@@ -17,12 +18,24 @@ pub fn gen_commands_rs(reg: &Registry) -> String {
         groups.entry(cmd.name.clone()).or_default().push(cmd);
     }
 
+    let mut imports = ExplicitImports::default();
+    imports.add_all_enum_names(reg);
+    imports.add_all_type_names(reg);
+    for cmds in groups.values() {
+        for cmd in cmds {
+            imports.add_ctype(reg, &cmd.return_type);
+            for param in &cmd.params {
+                imports.add_ctype(reg, &param.ty);
+            }
+        }
+    }
+    let imports = imports.to_tokens(reg);
+
     let mut token_stream = TokenStream::new();
     token_stream.extend(quote! {
         //! Vulkan command function pointer types (`PFN_vk*`).
         #[allow(unused_imports)] use core::ffi::{c_char, c_void};
-        #[allow(unused_imports)] use crate::types::*;
-        #[allow(unused_imports)] use crate::enums::*;
+        #imports
     });
 
     for (_name, cmds) in groups {

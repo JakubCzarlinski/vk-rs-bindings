@@ -4,9 +4,20 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyShaderModule;
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+use crate::commands::PFN_vkGetShaderModuleIdentifierEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkShaderModule;
+#[cfg(feature = "VK_EXT_shader_module_identifier")]
+use crate::types::VkShaderModuleIdentifierEXT;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[derive(Debug, Clone)]

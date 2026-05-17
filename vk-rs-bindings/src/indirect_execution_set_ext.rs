@@ -4,9 +4,27 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::commands::PFN_vkDestroyIndirectExecutionSetEXT;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::commands::PFN_vkUpdateIndirectExecutionSetPipelineEXT;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::commands::PFN_vkUpdateIndirectExecutionSetShaderEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::types::VkIndirectExecutionSetEXT;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::types::VkWriteIndirectExecutionSetPipelineEXT;
+#[cfg(all(
+  feature = "VK_EXT_device_generated_commands",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::types::VkWriteIndirectExecutionSetShaderEXT;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_EXT_device_generated_commands")]
 #[derive(Debug, Clone)]

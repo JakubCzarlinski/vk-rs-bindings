@@ -4,9 +4,80 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+use crate::commands::PFN_vkAcquireFullScreenExclusiveModeEXT;
+#[cfg(feature = "VK_KHR_swapchain")]
+use crate::commands::PFN_vkAcquireNextImageKHR;
+#[cfg(feature = "VK_KHR_swapchain")]
+use crate::commands::PFN_vkDestroySwapchainKHR;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::commands::PFN_vkGetLatencyTimingsNV;
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+use crate::commands::PFN_vkGetPastPresentationTimingGOOGLE;
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+use crate::commands::PFN_vkGetRefreshCycleDurationGOOGLE;
+#[cfg(feature = "VK_EXT_display_control")]
+use crate::commands::PFN_vkGetSwapchainCounterEXT;
+#[cfg(feature = "VK_KHR_swapchain")]
+use crate::commands::PFN_vkGetSwapchainImagesKHR;
+#[cfg(feature = "VK_KHR_shared_presentable_image")]
+use crate::commands::PFN_vkGetSwapchainStatusKHR;
+#[cfg(feature = "VK_EXT_present_timing")]
+use crate::commands::PFN_vkGetSwapchainTimeDomainPropertiesEXT;
+#[cfg(feature = "VK_EXT_present_timing")]
+use crate::commands::PFN_vkGetSwapchainTimingPropertiesEXT;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::commands::PFN_vkLatencySleepNV;
+#[cfg(feature = "VK_EXT_full_screen_exclusive")]
+use crate::commands::PFN_vkReleaseFullScreenExclusiveModeEXT;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::commands::PFN_vkSetLatencyMarkerNV;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::commands::PFN_vkSetLatencySleepModeNV;
+#[cfg(feature = "VK_AMD_display_native_hdr")]
+use crate::commands::PFN_vkSetLocalDimmingAMD;
+#[cfg(feature = "VK_EXT_present_timing")]
+use crate::commands::PFN_vkSetSwapchainPresentTimingQueueSizeEXT;
+#[cfg(feature = "VK_KHR_present_wait2")]
+use crate::commands::PFN_vkWaitForPresent2KHR;
+#[cfg(feature = "VK_KHR_present_wait")]
+use crate::commands::PFN_vkWaitForPresentKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_EXT_display_surface_counter")]
+use crate::enums::VkSurfaceCounterFlagBitsEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBool32;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkFence;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::types::VkGetLatencyMarkerInfoNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImage;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::types::VkLatencySleepInfoNV;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::types::VkLatencySleepModeInfoNV;
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+use crate::types::VkPastPresentationTimingGOOGLE;
+#[cfg(feature = "VK_KHR_present_wait2")]
+use crate::types::VkPresentWait2InfoKHR;
+#[cfg(feature = "VK_GOOGLE_display_timing")]
+use crate::types::VkRefreshCycleDurationGOOGLE;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkSemaphore;
+#[cfg(feature = "VK_NV_low_latency2")]
+use crate::types::VkSetLatencyMarkerInfoNV;
+#[cfg(feature = "VK_KHR_swapchain")]
+use crate::types::VkSwapchainKHR;
+#[cfg(feature = "VK_EXT_present_timing")]
+use crate::types::VkSwapchainTimeDomainPropertiesEXT;
+#[cfg(feature = "VK_EXT_present_timing")]
+use crate::types::VkSwapchainTimingPropertiesEXT;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_KHR_swapchain")]
 #[derive(Debug, Clone)]

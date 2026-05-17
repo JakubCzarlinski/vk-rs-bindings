@@ -4,9 +4,1415 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkBeginCommandBuffer;
+#[cfg(all(
+  feature = "VK_EXT_conditional_rendering",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::commands::PFN_vkCmdBeginConditionalRendering2EXT;
+#[cfg(feature = "VK_EXT_conditional_rendering")]
+use crate::commands::PFN_vkCmdBeginConditionalRenderingEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_custom_resolve",
+    feature = "VK_KHR_dynamic_rendering"
+  ),
+  all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+))]
+use crate::commands::PFN_vkCmdBeginCustomResolveEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkCmdBeginDebugUtilsLabelEXT;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkCmdBeginGpaSampleAMD;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkCmdBeginGpaSessionAMD;
+#[cfg(feature = "VK_QCOM_tile_shading")]
+use crate::commands::PFN_vkCmdBeginPerTileExecutionQCOM;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdBeginQuery;
+#[cfg(feature = "VK_EXT_transform_feedback")]
+use crate::commands::PFN_vkCmdBeginQueryIndexedEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdBeginRenderPass;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+use crate::commands::PFN_vkCmdBeginRenderPass2;
+#[cfg(feature = "VK_KHR_create_renderpass2")]
+use crate::commands::PFN_vkCmdBeginRenderPass2KHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdBeginRendering;
+#[cfg(feature = "VK_KHR_dynamic_rendering")]
+use crate::commands::PFN_vkCmdBeginRenderingKHR;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::commands::PFN_vkCmdBeginShaderInstrumentationARM;
+#[cfg(all(
+  feature = "VK_EXT_transform_feedback",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::commands::PFN_vkCmdBeginTransformFeedback2EXT;
+#[cfg(feature = "VK_EXT_transform_feedback")]
+use crate::commands::PFN_vkCmdBeginTransformFeedbackEXT;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::commands::PFN_vkCmdBeginVideoCodingKHR;
+#[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
+use crate::commands::PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT;
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+use crate::commands::PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT;
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+use crate::commands::PFN_vkCmdBindDescriptorBuffersEXT;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdBindDescriptorSets;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::commands::PFN_vkCmdBindDescriptorSets2;
+#[cfg(feature = "VK_KHR_maintenance6")]
+use crate::commands::PFN_vkCmdBindDescriptorSets2KHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdBindIndexBuffer;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+use crate::commands::PFN_vkCmdBindIndexBuffer2;
+#[cfg(feature = "VK_KHR_maintenance5")]
+use crate::commands::PFN_vkCmdBindIndexBuffer2KHR;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdBindIndexBuffer3KHR;
+#[cfg(feature = "VK_HUAWEI_invocation_mask")]
+use crate::commands::PFN_vkCmdBindInvocationMaskHUAWEI;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdBindPipeline;
+#[cfg(feature = "VK_NV_device_generated_commands")]
+use crate::commands::PFN_vkCmdBindPipelineShaderGroupNV;
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+use crate::commands::PFN_vkCmdBindResourceHeapEXT;
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+use crate::commands::PFN_vkCmdBindSamplerHeapEXT;
+#[cfg(feature = "VK_EXT_shader_object")]
+use crate::commands::PFN_vkCmdBindShadersEXT;
+#[cfg(feature = "VK_NV_shading_rate_image")]
+use crate::commands::PFN_vkCmdBindShadingRateImageNV;
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+use crate::commands::PFN_vkCmdBindTileMemoryQCOM;
+#[cfg(all(
+  feature = "VK_EXT_transform_feedback",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::commands::PFN_vkCmdBindTransformFeedbackBuffers2EXT;
+#[cfg(feature = "VK_EXT_transform_feedback")]
+use crate::commands::PFN_vkCmdBindTransformFeedbackBuffersEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdBindVertexBuffers;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdBindVertexBuffers2;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdBindVertexBuffers2EXT;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdBindVertexBuffers3KHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdBlitImage;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdBlitImage2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::commands::PFN_vkCmdBlitImage2KHR;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::commands::PFN_vkCmdBuildAccelerationStructureNV;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCmdBuildAccelerationStructuresIndirectKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCmdBuildAccelerationStructuresKHR;
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+use crate::commands::PFN_vkCmdBuildClusterAccelerationStructureIndirectNV;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCmdBuildMicromapsEXT;
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+use crate::commands::PFN_vkCmdBuildPartitionedAccelerationStructuresNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdClearAttachments;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdClearColorImage;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdClearDepthStencilImage;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::commands::PFN_vkCmdControlVideoCodingKHR;
+#[cfg(feature = "VK_NV_cooperative_vector")]
+use crate::commands::PFN_vkCmdConvertCooperativeVectorMatrixNV;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCmdCopyAccelerationStructureKHR;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::commands::PFN_vkCmdCopyAccelerationStructureNV;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCmdCopyAccelerationStructureToMemoryKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdCopyBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdCopyBuffer2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::commands::PFN_vkCmdCopyBuffer2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdCopyBufferToImage;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdCopyBufferToImage2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::commands::PFN_vkCmdCopyBufferToImage2KHR;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkCmdCopyGpaSessionResultsAMD;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdCopyImage;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdCopyImage2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::commands::PFN_vkCmdCopyImage2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdCopyImageToBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdCopyImageToBuffer2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::commands::PFN_vkCmdCopyImageToBuffer2KHR;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdCopyImageToMemoryKHR;
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+use crate::commands::PFN_vkCmdCopyMemoryIndirectKHR;
+#[cfg(feature = "VK_NV_copy_memory_indirect")]
+use crate::commands::PFN_vkCmdCopyMemoryIndirectNV;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdCopyMemoryKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCmdCopyMemoryToAccelerationStructureKHR;
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+use crate::commands::PFN_vkCmdCopyMemoryToImageIndirectKHR;
+#[cfg(feature = "VK_NV_copy_memory_indirect")]
+use crate::commands::PFN_vkCmdCopyMemoryToImageIndirectNV;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdCopyMemoryToImageKHR;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCmdCopyMemoryToMicromapEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCmdCopyMicromapEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCmdCopyMicromapToMemoryEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdCopyQueryPoolResults;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdCopyQueryPoolResultsToMemoryKHR;
+#[cfg(feature = "VK_ARM_tensors")]
+use crate::commands::PFN_vkCmdCopyTensorARM;
+#[cfg(feature = "VK_NVX_binary_import")]
+use crate::commands::PFN_vkCmdCuLaunchKernelNVX;
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+use crate::commands::PFN_vkCmdCudaLaunchKernelNV;
+#[cfg(feature = "VK_EXT_debug_marker")]
+use crate::commands::PFN_vkCmdDebugMarkerBeginEXT;
+#[cfg(feature = "VK_EXT_debug_marker")]
+use crate::commands::PFN_vkCmdDebugMarkerEndEXT;
+#[cfg(feature = "VK_EXT_debug_marker")]
+use crate::commands::PFN_vkCmdDebugMarkerInsertEXT;
+#[cfg(feature = "VK_KHR_video_decode_queue")]
+use crate::commands::PFN_vkCmdDecodeVideoKHR;
+#[cfg(feature = "VK_EXT_memory_decompression")]
+use crate::commands::PFN_vkCmdDecompressMemoryEXT;
+#[cfg(feature = "VK_EXT_memory_decompression")]
+use crate::commands::PFN_vkCmdDecompressMemoryIndirectCountEXT;
+#[cfg(feature = "VK_NV_memory_decompression")]
+use crate::commands::PFN_vkCmdDecompressMemoryIndirectCountNV;
+#[cfg(feature = "VK_NV_memory_decompression")]
+use crate::commands::PFN_vkCmdDecompressMemoryNV;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdDispatch;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+use crate::commands::PFN_vkCmdDispatchBase;
+#[cfg(feature = "VK_KHR_device_group")]
+use crate::commands::PFN_vkCmdDispatchBaseKHR;
+#[cfg(feature = "VK_ARM_data_graph")]
+use crate::commands::PFN_vkCmdDispatchDataGraphARM;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::commands::PFN_vkCmdDispatchGraphAMDX;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::commands::PFN_vkCmdDispatchGraphIndirectAMDX;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::commands::PFN_vkCmdDispatchGraphIndirectCountAMDX;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdDispatchIndirect;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdDispatchIndirect2KHR;
+#[cfg(feature = "VK_QCOM_tile_shading")]
+use crate::commands::PFN_vkCmdDispatchTileQCOM;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdDraw;
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+use crate::commands::PFN_vkCmdDrawClusterHUAWEI;
+#[cfg(feature = "VK_HUAWEI_cluster_culling_shader")]
+use crate::commands::PFN_vkCmdDrawClusterIndirectHUAWEI;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdDrawIndexed;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdDrawIndexedIndirect;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdDrawIndexedIndirect2KHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+use crate::commands::PFN_vkCmdDrawIndexedIndirectCount;
+#[cfg(any(
+  all(
+    feature = "VK_KHR_device_address_commands",
+    feature = "VK_KHR_draw_indirect_count"
+  ),
+  all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+))]
+use crate::commands::PFN_vkCmdDrawIndexedIndirectCount2KHR;
+#[cfg(feature = "VK_AMD_draw_indirect_count")]
+use crate::commands::PFN_vkCmdDrawIndexedIndirectCountAMD;
+#[cfg(feature = "VK_KHR_draw_indirect_count")]
+use crate::commands::PFN_vkCmdDrawIndexedIndirectCountKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdDrawIndirect;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdDrawIndirect2KHR;
+#[cfg(all(
+  feature = "VK_EXT_transform_feedback",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::commands::PFN_vkCmdDrawIndirectByteCount2EXT;
+#[cfg(feature = "VK_EXT_transform_feedback")]
+use crate::commands::PFN_vkCmdDrawIndirectByteCountEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+use crate::commands::PFN_vkCmdDrawIndirectCount;
+#[cfg(any(
+  all(
+    feature = "VK_KHR_device_address_commands",
+    feature = "VK_KHR_draw_indirect_count"
+  ),
+  all(feature = "VK_KHR_device_address_commands", feature = "VK_VERSION_1_2")
+))]
+use crate::commands::PFN_vkCmdDrawIndirectCount2KHR;
+#[cfg(feature = "VK_AMD_draw_indirect_count")]
+use crate::commands::PFN_vkCmdDrawIndirectCountAMD;
+#[cfg(feature = "VK_KHR_draw_indirect_count")]
+use crate::commands::PFN_vkCmdDrawIndirectCountKHR;
+#[cfg(feature = "VK_EXT_mesh_shader")]
+use crate::commands::PFN_vkCmdDrawMeshTasksEXT;
+#[cfg(all(
+  feature = "VK_EXT_mesh_shader",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::commands::PFN_vkCmdDrawMeshTasksIndirect2EXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_mesh_shader",
+    feature = "VK_KHR_device_address_commands",
+    feature = "VK_KHR_draw_indirect_count"
+  ),
+  all(
+    feature = "VK_EXT_mesh_shader",
+    feature = "VK_KHR_device_address_commands",
+    feature = "VK_VERSION_1_2"
+  )
+))]
+use crate::commands::PFN_vkCmdDrawMeshTasksIndirectCount2EXT;
+#[cfg(any(
+  all(feature = "VK_EXT_mesh_shader", feature = "VK_VERSION_1_2"),
+  all(feature = "VK_EXT_mesh_shader", feature = "VK_KHR_draw_indirect_count"),
+  all(feature = "VK_AMD_draw_indirect_count", feature = "VK_EXT_mesh_shader")
+))]
+use crate::commands::PFN_vkCmdDrawMeshTasksIndirectCountEXT;
+#[cfg(any(
+  all(feature = "VK_NV_mesh_shader", feature = "VK_VERSION_1_2"),
+  all(feature = "VK_KHR_draw_indirect_count", feature = "VK_NV_mesh_shader"),
+  all(feature = "VK_AMD_draw_indirect_count", feature = "VK_NV_mesh_shader")
+))]
+use crate::commands::PFN_vkCmdDrawMeshTasksIndirectCountNV;
+#[cfg(feature = "VK_EXT_mesh_shader")]
+use crate::commands::PFN_vkCmdDrawMeshTasksIndirectEXT;
+#[cfg(feature = "VK_NV_mesh_shader")]
+use crate::commands::PFN_vkCmdDrawMeshTasksIndirectNV;
+#[cfg(feature = "VK_NV_mesh_shader")]
+use crate::commands::PFN_vkCmdDrawMeshTasksNV;
+#[cfg(feature = "VK_EXT_multi_draw")]
+use crate::commands::PFN_vkCmdDrawMultiEXT;
+#[cfg(feature = "VK_EXT_multi_draw")]
+use crate::commands::PFN_vkCmdDrawMultiIndexedEXT;
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+use crate::commands::PFN_vkCmdEncodeVideoKHR;
+#[cfg(feature = "VK_EXT_conditional_rendering")]
+use crate::commands::PFN_vkCmdEndConditionalRenderingEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkCmdEndDebugUtilsLabelEXT;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkCmdEndGpaSampleAMD;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkCmdEndGpaSessionAMD;
+#[cfg(feature = "VK_QCOM_tile_shading")]
+use crate::commands::PFN_vkCmdEndPerTileExecutionQCOM;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdEndQuery;
+#[cfg(feature = "VK_EXT_transform_feedback")]
+use crate::commands::PFN_vkCmdEndQueryIndexedEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdEndRenderPass;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+use crate::commands::PFN_vkCmdEndRenderPass2;
+#[cfg(feature = "VK_KHR_create_renderpass2")]
+use crate::commands::PFN_vkCmdEndRenderPass2KHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdEndRendering;
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+use crate::commands::PFN_vkCmdEndRendering2EXT;
+#[cfg(feature = "VK_KHR_maintenance10")]
+use crate::commands::PFN_vkCmdEndRendering2KHR;
+#[cfg(feature = "VK_KHR_dynamic_rendering")]
+use crate::commands::PFN_vkCmdEndRenderingKHR;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::commands::PFN_vkCmdEndShaderInstrumentationARM;
+#[cfg(all(
+  feature = "VK_EXT_transform_feedback",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::commands::PFN_vkCmdEndTransformFeedback2EXT;
+#[cfg(feature = "VK_EXT_transform_feedback")]
+use crate::commands::PFN_vkCmdEndTransformFeedbackEXT;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::commands::PFN_vkCmdEndVideoCodingKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdExecuteCommands;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::commands::PFN_vkCmdExecuteGeneratedCommandsEXT;
+#[cfg(feature = "VK_NV_device_generated_commands")]
+use crate::commands::PFN_vkCmdExecuteGeneratedCommandsNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdFillBuffer;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdFillMemoryKHR;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::commands::PFN_vkCmdInitializeGraphScratchMemoryAMDX;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::commands::PFN_vkCmdInsertDebugUtilsLabelEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdNextSubpass;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+use crate::commands::PFN_vkCmdNextSubpass2;
+#[cfg(feature = "VK_KHR_create_renderpass2")]
+use crate::commands::PFN_vkCmdNextSubpass2KHR;
+#[cfg(feature = "VK_NV_optical_flow")]
+use crate::commands::PFN_vkCmdOpticalFlowExecuteNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdPipelineBarrier;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdPipelineBarrier2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::commands::PFN_vkCmdPipelineBarrier2KHR;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::commands::PFN_vkCmdPreprocessGeneratedCommandsEXT;
+#[cfg(feature = "VK_NV_device_generated_commands")]
+use crate::commands::PFN_vkCmdPreprocessGeneratedCommandsNV;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdPushConstants;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::commands::PFN_vkCmdPushConstants2;
+#[cfg(feature = "VK_KHR_maintenance6")]
+use crate::commands::PFN_vkCmdPushConstants2KHR;
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+use crate::commands::PFN_vkCmdPushDataEXT;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::commands::PFN_vkCmdPushDescriptorSet;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::commands::PFN_vkCmdPushDescriptorSet2;
+#[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
+use crate::commands::PFN_vkCmdPushDescriptorSet2KHR;
+#[cfg(feature = "VK_KHR_push_descriptor")]
+use crate::commands::PFN_vkCmdPushDescriptorSetKHR;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::commands::PFN_vkCmdPushDescriptorSetWithTemplate;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::commands::PFN_vkCmdPushDescriptorSetWithTemplate2;
+#[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
+use crate::commands::PFN_vkCmdPushDescriptorSetWithTemplate2KHR;
+#[cfg(any(
+  all(feature = "VK_KHR_push_descriptor", feature = "VK_VERSION_1_1"),
+  all(
+    feature = "VK_KHR_descriptor_update_template",
+    feature = "VK_KHR_push_descriptor"
+  )
+))]
+use crate::commands::PFN_vkCmdPushDescriptorSetWithTemplateKHR;
+#[cfg(feature = "VK_KHR_object_refresh")]
+use crate::commands::PFN_vkCmdRefreshObjectsKHR;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdResetEvent;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdResetEvent2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::commands::PFN_vkCmdResetEvent2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdResetQueryPool;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdResolveImage;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdResolveImage2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::commands::PFN_vkCmdResolveImage2KHR;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetAlphaToCoverageEnableEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetAlphaToOneEnableEXT;
+#[cfg(feature = "VK_EXT_attachment_feedback_loop_dynamic_state")]
+use crate::commands::PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetBlendConstants;
+#[cfg(feature = "VK_NV_device_diagnostic_checkpoints")]
+use crate::commands::PFN_vkCmdSetCheckpointNV;
+#[cfg(feature = "VK_NV_shading_rate_image")]
+use crate::commands::PFN_vkCmdSetCoarseSampleOrderNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_blend_operation_advanced",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ),
+  all(
+    feature = "VK_EXT_blend_operation_advanced",
+    feature = "VK_EXT_shader_object"
+  )
+))]
+use crate::commands::PFN_vkCmdSetColorBlendAdvancedEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetColorBlendEnableEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetColorBlendEquationEXT;
+#[cfg(feature = "VK_EXT_color_write_enable")]
+use crate::commands::PFN_vkCmdSetColorWriteEnableEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetColorWriteMaskEXT;
+#[cfg(feature = "VK_NV_compute_occupancy_priority")]
+use crate::commands::PFN_vkCmdSetComputeOccupancyPriorityNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_conservative_rasterization",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ),
+  all(
+    feature = "VK_EXT_conservative_rasterization",
+    feature = "VK_EXT_shader_object"
+  )
+))]
+use crate::commands::PFN_vkCmdSetConservativeRasterizationModeEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  )
+))]
+use crate::commands::PFN_vkCmdSetCoverageModulationModeNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  )
+))]
+use crate::commands::PFN_vkCmdSetCoverageModulationTableEnableNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_framebuffer_mixed_samples"
+  )
+))]
+use crate::commands::PFN_vkCmdSetCoverageModulationTableNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_coverage_reduction_mode"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_coverage_reduction_mode"
+  )
+))]
+use crate::commands::PFN_vkCmdSetCoverageReductionModeNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_fragment_coverage_to_color"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_fragment_coverage_to_color"
+  )
+))]
+use crate::commands::PFN_vkCmdSetCoverageToColorEnableNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_fragment_coverage_to_color"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_fragment_coverage_to_color"
+  )
+))]
+use crate::commands::PFN_vkCmdSetCoverageToColorLocationNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetCullMode;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetCullModeEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetDepthBias;
+#[cfg(feature = "VK_EXT_depth_bias_control")]
+use crate::commands::PFN_vkCmdSetDepthBias2EXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetDepthBiasEnable;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state2",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetDepthBiasEnableEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetDepthBounds;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetDepthBoundsTestEnable;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetDepthBoundsTestEnableEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetDepthClampEnableEXT;
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
+use crate::commands::PFN_vkCmdSetDepthClampRangeEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_depth_clip_enable",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ),
+  all(feature = "VK_EXT_depth_clip_enable", feature = "VK_EXT_shader_object")
+))]
+use crate::commands::PFN_vkCmdSetDepthClipEnableEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_depth_clip_control",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ),
+  all(
+    feature = "VK_EXT_depth_clip_control",
+    feature = "VK_EXT_shader_object"
+  )
+))]
+use crate::commands::PFN_vkCmdSetDepthClipNegativeOneToOneEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetDepthCompareOp;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetDepthCompareOpEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetDepthTestEnable;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetDepthTestEnableEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetDepthWriteEnable;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetDepthWriteEnableEXT;
+#[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
+use crate::commands::PFN_vkCmdSetDescriptorBufferOffsets2EXT;
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+use crate::commands::PFN_vkCmdSetDescriptorBufferOffsetsEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_1")]
+use crate::commands::PFN_vkCmdSetDeviceMask;
+#[cfg(feature = "VK_KHR_device_group")]
+use crate::commands::PFN_vkCmdSetDeviceMaskKHR;
+#[cfg(feature = "VK_EXT_discard_rectangles")]
+use crate::commands::PFN_vkCmdSetDiscardRectangleEXT;
+#[cfg(feature = "VK_EXT_discard_rectangles")]
+use crate::commands::PFN_vkCmdSetDiscardRectangleEnableEXT;
+#[cfg(feature = "VK_EXT_discard_rectangles")]
+use crate::commands::PFN_vkCmdSetDiscardRectangleModeEXT;
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+use crate::commands::PFN_vkCmdSetDispatchParametersARM;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetEvent;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetEvent2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::commands::PFN_vkCmdSetEvent2KHR;
+#[cfg(feature = "VK_NV_scissor_exclusive")]
+use crate::commands::PFN_vkCmdSetExclusiveScissorEnableNV;
+#[cfg(feature = "VK_NV_scissor_exclusive")]
+use crate::commands::PFN_vkCmdSetExclusiveScissorNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_conservative_rasterization",
+    feature = "VK_EXT_extended_dynamic_state3"
+  ),
+  all(
+    feature = "VK_EXT_conservative_rasterization",
+    feature = "VK_EXT_shader_object"
+  )
+))]
+use crate::commands::PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT;
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+use crate::commands::PFN_vkCmdSetFragmentShadingRateEnumNV;
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+use crate::commands::PFN_vkCmdSetFragmentShadingRateKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetFrontFace;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetFrontFaceEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_line_rasterization"
+  ),
+  all(
+    feature = "VK_EXT_line_rasterization",
+    feature = "VK_EXT_shader_object"
+  )
+))]
+use crate::commands::PFN_vkCmdSetLineRasterizationModeEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+use crate::commands::PFN_vkCmdSetLineStipple;
+#[cfg(feature = "VK_EXT_line_rasterization")]
+use crate::commands::PFN_vkCmdSetLineStippleEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_line_rasterization"
+  ),
+  all(
+    feature = "VK_EXT_line_rasterization",
+    feature = "VK_EXT_shader_object"
+  )
+))]
+use crate::commands::PFN_vkCmdSetLineStippleEnableEXT;
+#[cfg(feature = "VK_KHR_line_rasterization")]
+use crate::commands::PFN_vkCmdSetLineStippleKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetLineWidth;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state2",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetLogicOpEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetLogicOpEnableEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state2",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetPatchControlPointsEXT;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::commands::PFN_vkCmdSetPerformanceMarkerINTEL;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::commands::PFN_vkCmdSetPerformanceOverrideINTEL;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::commands::PFN_vkCmdSetPerformanceStreamMarkerINTEL;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetPolygonModeEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetPrimitiveRestartEnable;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state2",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetPrimitiveRestartEnableEXT;
+#[cfg(feature = "VK_EXT_primitive_restart_index")]
+use crate::commands::PFN_vkCmdSetPrimitiveRestartIndexEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetPrimitiveTopology;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetPrimitiveTopologyEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_provoking_vertex"
+  ),
+  all(feature = "VK_EXT_provoking_vertex", feature = "VK_EXT_shader_object")
+))]
+use crate::commands::PFN_vkCmdSetProvokingVertexModeEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetRasterizationSamplesEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_transform_feedback"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_EXT_transform_feedback"
+  )
+))]
+use crate::commands::PFN_vkCmdSetRasterizationStreamEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetRasterizerDiscardEnable;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state2",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetRasterizerDiscardEnableEXT;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::commands::PFN_vkCmdSetRayTracingPipelineStackSizeKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+use crate::commands::PFN_vkCmdSetRenderingAttachmentLocations;
+#[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
+use crate::commands::PFN_vkCmdSetRenderingAttachmentLocationsKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+use crate::commands::PFN_vkCmdSetRenderingInputAttachmentIndices;
+#[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
+use crate::commands::PFN_vkCmdSetRenderingInputAttachmentIndicesKHR;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_representative_fragment_test"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_representative_fragment_test"
+  )
+))]
+use crate::commands::PFN_vkCmdSetRepresentativeFragmentTestEnableNV;
+#[cfg(feature = "VK_EXT_sample_locations")]
+use crate::commands::PFN_vkCmdSetSampleLocationsEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_EXT_sample_locations"
+  ),
+  all(feature = "VK_EXT_sample_locations", feature = "VK_EXT_shader_object")
+))]
+use crate::commands::PFN_vkCmdSetSampleLocationsEnableEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetSampleMaskEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetScissor;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetScissorWithCount;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetScissorWithCountEXT;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_shading_rate_image"
+  ),
+  all(feature = "VK_EXT_shader_object", feature = "VK_NV_shading_rate_image")
+))]
+use crate::commands::PFN_vkCmdSetShadingRateImageEnableNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetStencilCompareMask;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetStencilOp;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetStencilOpEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetStencilReference;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetStencilTestEnable;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetStencilTestEnableEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetStencilWriteMask;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_KHR_maintenance2"
+  ),
+  all(feature = "VK_EXT_extended_dynamic_state3", feature = "VK_VERSION_1_1"),
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetTessellationDomainOriginEXT;
+#[cfg(any(
+  feature = "VK_EXT_vertex_input_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetVertexInputEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::commands::PFN_vkCmdSetViewport;
+#[cfg(feature = "VK_NV_shading_rate_image")]
+use crate::commands::PFN_vkCmdSetViewportShadingRatePaletteNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_viewport_swizzle"
+  ),
+  all(feature = "VK_EXT_shader_object", feature = "VK_NV_viewport_swizzle")
+))]
+use crate::commands::PFN_vkCmdSetViewportSwizzleNV;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_extended_dynamic_state3",
+    feature = "VK_NV_clip_space_w_scaling"
+  ),
+  all(
+    feature = "VK_EXT_shader_object",
+    feature = "VK_NV_clip_space_w_scaling"
+  )
+))]
+use crate::commands::PFN_vkCmdSetViewportWScalingEnableNV;
+#[cfg(feature = "VK_NV_clip_space_w_scaling")]
+use crate::commands::PFN_vkCmdSetViewportWScalingNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::commands::PFN_vkCmdSetViewportWithCount;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::commands::PFN_vkCmdSetViewportWithCountEXT;
+#[cfg(feature = "VK_HUAWEI_subpass_shading")]
+use crate::commands::PFN_vkCmdSubpassShadingHUAWEI;
+#[cfg(all(
+  feature = "VK_KHR_ray_tracing_maintenance1",
+  feature = "VK_KHR_ray_tracing_pipeline"
+))]
+use crate::commands::PFN_vkCmdTraceRaysIndirect2KHR;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::commands::PFN_vkCmdTraceRaysIndirectKHR;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::commands::PFN_vkCmdTraceRaysKHR;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::commands::PFN_vkCmdTraceRaysNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdUpdateBuffer;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::commands::PFN_vkCmdUpdateMemoryKHR;
+#[cfg(feature = "VK_NV_device_generated_commands_compute")]
+use crate::commands::PFN_vkCmdUpdatePipelineIndirectBufferNV;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdWaitEvents;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdWaitEvents2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::commands::PFN_vkCmdWaitEvents2KHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::commands::PFN_vkCmdWriteAccelerationStructuresPropertiesKHR;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::commands::PFN_vkCmdWriteAccelerationStructuresPropertiesNV;
+#[cfg(any(
+  all(feature = "VK_AMD_buffer_marker", feature = "VK_VERSION_1_3"),
+  all(feature = "VK_AMD_buffer_marker", feature = "VK_KHR_synchronization2")
+))]
+use crate::commands::PFN_vkCmdWriteBufferMarker2AMD;
+#[cfg(feature = "VK_AMD_buffer_marker")]
+use crate::commands::PFN_vkCmdWriteBufferMarkerAMD;
+#[cfg(all(
+  feature = "VK_AMD_buffer_marker",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::commands::PFN_vkCmdWriteMarkerToMemoryAMD;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::commands::PFN_vkCmdWriteMicromapsPropertiesEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkCmdWriteTimestamp;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::commands::PFN_vkCmdWriteTimestamp2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::commands::PFN_vkCmdWriteTimestamp2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkEndCommandBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkFreeCommandBuffers;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::commands::PFN_vkResetCommandBuffer;
+#[cfg(feature = "VK_NV_shading_rate_image")]
+use crate::enums::VkCoarseSampleOrderTypeNV;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::enums::VkCompareOp;
+#[cfg(feature = "VK_EXT_conservative_rasterization")]
+use crate::enums::VkConservativeRasterizationModeEXT;
+#[cfg(any(
+  feature = "VK_KHR_acceleration_structure",
+  feature = "VK_NV_ray_tracing"
+))]
+use crate::enums::VkCopyAccelerationStructureModeKHR;
+#[cfg(feature = "VK_NV_framebuffer_mixed_samples")]
+use crate::enums::VkCoverageModulationModeNV;
+#[cfg(feature = "VK_NV_coverage_reduction_mode")]
+use crate::enums::VkCoverageReductionModeNV;
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
+use crate::enums::VkDepthClampModeEXT;
+#[cfg(feature = "VK_EXT_discard_rectangles")]
+use crate::enums::VkDiscardRectangleModeEXT;
+#[cfg(any(
+  feature = "VK_COMPUTE_VERSION_1_0",
+  feature = "VK_IMG_filter_cubic",
+  feature = "VK_EXT_filter_cubic"
+))]
+use crate::enums::VkFilter;
+#[cfg(feature = "VK_KHR_fragment_shading_rate")]
+use crate::enums::VkFragmentShadingRateCombinerOpKHR;
+#[cfg(feature = "VK_NV_fragment_shading_rate_enums")]
+use crate::enums::VkFragmentShadingRateNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::enums::VkFrontFace;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkImageLayout;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkIndexType;
+#[cfg(feature = "VK_EXT_line_rasterization")]
+use crate::enums::VkLineRasterizationModeEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::enums::VkLogicOp;
+#[cfg(any(
+  feature = "VK_COMPUTE_VERSION_1_0",
+  feature = "VK_AMDX_shader_enqueue",
+  feature = "VK_KHR_ray_tracing_pipeline",
+  feature = "VK_NV_ray_tracing",
+  feature = "VK_HUAWEI_subpass_shading"
+))]
+use crate::enums::VkPipelineBindPoint;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkPipelineStageFlagBits;
+#[cfg(any(feature = "VK_GRAPHICS_VERSION_1_0", feature = "VK_NV_fill_rectangle"))]
+use crate::enums::VkPolygonMode;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::enums::VkPrimitiveTopology;
+#[cfg(feature = "VK_EXT_provoking_vertex")]
+use crate::enums::VkProvokingVertexModeEXT;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkQueryType;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkSampleCountFlagBits;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkShaderStageFlagBits;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::enums::VkStencilOp;
+#[cfg(any(
+  feature = "VK_GRAPHICS_VERSION_1_0",
+  feature = "VK_EXT_nested_command_buffer"
+))]
+use crate::enums::VkSubpassContents;
+#[cfg(any(feature = "VK_GRAPHICS_VERSION_1_1", feature = "VK_KHR_maintenance2"))]
+use crate::enums::VkTessellationDomainOrigin;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkAccelerationStructureBuildGeometryInfoKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkAccelerationStructureBuildRangeInfoKHR;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::types::VkAccelerationStructureInfoNV;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkAccelerationStructureKHR;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::types::VkAccelerationStructureNV;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkAddressCommandFlagsKHR;
+#[cfg(any(
+  all(
+    feature = "VK_EXT_custom_resolve",
+    feature = "VK_KHR_dynamic_rendering"
+  ),
+  all(feature = "VK_EXT_custom_resolve", feature = "VK_VERSION_1_3")
+))]
+use crate::types::VkBeginCustomResolveInfoEXT;
+#[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
+use crate::types::VkBindDescriptorBufferEmbeddedSamplersInfoEXT;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::types::VkBindDescriptorSetsInfo;
+#[cfg(feature = "VK_KHR_maintenance6")]
+use crate::types::VkBindDescriptorSetsInfoKHR;
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+use crate::types::VkBindHeapInfoEXT;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkBindIndexBuffer3InfoKHR;
+#[cfg(all(
+  feature = "VK_EXT_transform_feedback",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::types::VkBindTransformFeedbackBuffer2InfoEXT;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkBindVertexBuffer3InfoKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::types::VkBlitImageInfo2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::types::VkBlitImageInfo2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBool32;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBufferCopy;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBufferImageCopy;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkBufferMemoryBarrier;
+#[cfg(feature = "VK_NV_partitioned_acceleration_structure")]
+use crate::types::VkBuildPartitionedAccelerationStructureInfoNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkClearAttachment;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkClearColorValue;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkClearDepthStencilValue;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkClearRect;
+#[cfg(feature = "VK_NV_cluster_acceleration_structure")]
+use crate::types::VkClusterAccelerationStructureCommandsInfoNV;
+#[cfg(feature = "VK_NV_shading_rate_image")]
+use crate::types::VkCoarseSampleOrderCustomNV;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::types::VkColorBlendAdvancedEXT;
+#[cfg(any(
+  feature = "VK_EXT_extended_dynamic_state3",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::types::VkColorBlendEquationEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkColorComponentFlags;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandBuffer;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandBufferBeginInfo;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandBufferResetFlags;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkCommandPool;
+#[cfg(feature = "VK_NV_compute_occupancy_priority")]
+use crate::types::VkComputeOccupancyPriorityParametersNV;
+#[cfg(all(
+  feature = "VK_EXT_conditional_rendering",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::types::VkConditionalRenderingBeginInfo2EXT;
+#[cfg(feature = "VK_EXT_conditional_rendering")]
+use crate::types::VkConditionalRenderingBeginInfoEXT;
+#[cfg(feature = "VK_NV_cooperative_vector")]
+use crate::types::VkConvertCooperativeVectorMatrixInfoNV;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkCopyAccelerationStructureInfoKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkCopyAccelerationStructureToMemoryInfoKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::types::VkCopyBufferInfo2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::types::VkCopyBufferInfo2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::types::VkCopyBufferToImageInfo2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::types::VkCopyBufferToImageInfo2KHR;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkCopyDeviceMemoryImageInfoKHR;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkCopyDeviceMemoryInfoKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::types::VkCopyImageInfo2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::types::VkCopyImageInfo2KHR;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::types::VkCopyImageToBufferInfo2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::types::VkCopyImageToBufferInfo2KHR;
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+use crate::types::VkCopyMemoryIndirectInfoKHR;
+#[cfg(feature = "VK_KHR_acceleration_structure")]
+use crate::types::VkCopyMemoryToAccelerationStructureInfoKHR;
+#[cfg(feature = "VK_KHR_copy_memory_indirect")]
+use crate::types::VkCopyMemoryToImageIndirectInfoKHR;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkCopyMemoryToMicromapInfoEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkCopyMicromapInfoEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkCopyMicromapToMemoryInfoEXT;
+#[cfg(feature = "VK_ARM_tensors")]
+use crate::types::VkCopyTensorInfoARM;
+#[cfg(feature = "VK_NVX_binary_import")]
+use crate::types::VkCuLaunchInfoNVX;
+#[cfg(feature = "VK_NV_cuda_kernel_launch")]
+use crate::types::VkCudaLaunchInfoNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkCullModeFlags;
+#[cfg(feature = "VK_ARM_data_graph")]
+use crate::types::VkDataGraphPipelineDispatchInfoARM;
+#[cfg(feature = "VK_ARM_data_graph")]
+use crate::types::VkDataGraphPipelineSessionARM;
+#[cfg(feature = "VK_EXT_debug_marker")]
+use crate::types::VkDebugMarkerMarkerInfoEXT;
+#[cfg(feature = "VK_EXT_debug_utils")]
+use crate::types::VkDebugUtilsLabelEXT;
+#[cfg(feature = "VK_EXT_memory_decompression")]
+use crate::types::VkDecompressMemoryInfoEXT;
+#[cfg(feature = "VK_NV_memory_decompression")]
+use crate::types::VkDecompressMemoryRegionNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDependencyFlags;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::types::VkDependencyInfo;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::types::VkDependencyInfoKHR;
+#[cfg(feature = "VK_EXT_depth_bias_control")]
+use crate::types::VkDepthBiasInfoEXT;
+#[cfg(feature = "VK_EXT_depth_clamp_control")]
+use crate::types::VkDepthClampRangeEXT;
+#[cfg(feature = "VK_EXT_descriptor_buffer")]
+use crate::types::VkDescriptorBufferBindingInfoEXT;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkDescriptorSet;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_1")]
+use crate::types::VkDescriptorUpdateTemplate;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceAddress;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkDeviceAddressRangeKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceSize;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::types::VkDispatchGraphCountInfoAMDX;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkDispatchIndirect2InfoKHR;
+#[cfg(feature = "VK_ARM_scheduling_controls")]
+use crate::types::VkDispatchParametersARM;
+#[cfg(feature = "VK_QCOM_tile_shading")]
+use crate::types::VkDispatchTileInfoQCOM;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkDrawIndirect2InfoKHR;
+#[cfg(feature = "VK_KHR_device_address_commands")]
+use crate::types::VkDrawIndirectCount2InfoKHR;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkEvent;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkExtent2D;
+#[cfg(feature = "VK_EXT_device_generated_commands")]
+use crate::types::VkGeneratedCommandsInfoEXT;
+#[cfg(feature = "VK_NV_device_generated_commands")]
+use crate::types::VkGeneratedCommandsInfoNV;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::types::VkGpaSampleBeginInfoAMD;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::types::VkGpaSessionAMD;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImage;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImageAspectFlags;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkImageBlit;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImageCopy;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImageMemoryBarrier;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkImageResolve;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImageSubresourceLayers;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImageSubresourceRange;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkImageView;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkMemoryBarrier;
+#[cfg(feature = "VK_EXT_memory_decompression")]
+use crate::types::VkMemoryDecompressionMethodFlagsEXT;
+#[cfg(all(
+  feature = "VK_AMD_buffer_marker",
+  feature = "VK_KHR_device_address_commands"
+))]
+use crate::types::VkMemoryMarkerInfoAMD;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkMicromapBuildInfoEXT;
+#[cfg(feature = "VK_EXT_opacity_micromap")]
+use crate::types::VkMicromapEXT;
+#[cfg(feature = "VK_EXT_multi_draw")]
+use crate::types::VkMultiDrawIndexedInfoEXT;
+#[cfg(feature = "VK_EXT_multi_draw")]
+use crate::types::VkMultiDrawInfoEXT;
+#[cfg(feature = "VK_NV_optical_flow")]
+use crate::types::VkOpticalFlowExecuteInfoNV;
+#[cfg(feature = "VK_NV_optical_flow")]
+use crate::types::VkOpticalFlowSessionNV;
+#[cfg(feature = "VK_QCOM_tile_shading")]
+use crate::types::VkPerTileBeginInfoQCOM;
+#[cfg(feature = "VK_QCOM_tile_shading")]
+use crate::types::VkPerTileEndInfoQCOM;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::types::VkPerformanceMarkerInfoINTEL;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::types::VkPerformanceOverrideInfoINTEL;
+#[cfg(feature = "VK_INTEL_performance_query")]
+use crate::types::VkPerformanceStreamMarkerInfoINTEL;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkPipeline;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkPipelineLayout;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkPipelineStageFlags;
+#[cfg(feature = "VK_BASE_VERSION_1_3")]
+use crate::types::VkPipelineStageFlags2;
+#[cfg(feature = "VK_KHR_synchronization2")]
+use crate::types::VkPipelineStageFlags2KHR;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::types::VkPushConstantsInfo;
+#[cfg(feature = "VK_KHR_maintenance6")]
+use crate::types::VkPushConstantsInfoKHR;
+#[cfg(feature = "VK_EXT_descriptor_heap")]
+use crate::types::VkPushDataInfoEXT;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::types::VkPushDescriptorSetInfo;
+#[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
+use crate::types::VkPushDescriptorSetInfoKHR;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_4")]
+use crate::types::VkPushDescriptorSetWithTemplateInfo;
+#[cfg(all(feature = "VK_KHR_maintenance6", feature = "VK_KHR_push_descriptor"))]
+use crate::types::VkPushDescriptorSetWithTemplateInfoKHR;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkQueryControlFlags;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkQueryPool;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkQueryResultFlags;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkRect2D;
+#[cfg(feature = "VK_KHR_object_refresh")]
+use crate::types::VkRefreshObjectListKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkRenderPassBeginInfo;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+use crate::types::VkRenderingAttachmentLocationInfo;
+#[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
+use crate::types::VkRenderingAttachmentLocationInfoKHR;
+#[cfg(feature = "VK_EXT_fragment_density_map_offset")]
+use crate::types::VkRenderingEndInfoEXT;
+#[cfg(feature = "VK_KHR_maintenance10")]
+use crate::types::VkRenderingEndInfoKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::types::VkRenderingInfo;
+#[cfg(any(
+  feature = "VK_KHR_dynamic_rendering",
+  all(feature = "VK_QCOM_tile_properties", feature = "VK_VERSION_1_3")
+))]
+use crate::types::VkRenderingInfoKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_4")]
+use crate::types::VkRenderingInputAttachmentIndexInfo;
+#[cfg(feature = "VK_KHR_dynamic_rendering_local_read")]
+use crate::types::VkRenderingInputAttachmentIndexInfoKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_3")]
+use crate::types::VkResolveImageInfo2;
+#[cfg(feature = "VK_KHR_copy_commands2")]
+use crate::types::VkResolveImageInfo2KHR;
+#[cfg(feature = "VK_EXT_sample_locations")]
+use crate::types::VkSampleLocationsInfoEXT;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkSampleMask;
+#[cfg(all(feature = "VK_EXT_descriptor_buffer", feature = "VK_KHR_maintenance6"))]
+use crate::types::VkSetDescriptorBufferOffsetsInfoEXT;
+#[cfg(feature = "VK_EXT_shader_object")]
+use crate::types::VkShaderEXT;
+#[cfg(feature = "VK_ARM_shader_instrumentation")]
+use crate::types::VkShaderInstrumentationARM;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkShaderStageFlags;
+#[cfg(feature = "VK_NV_shading_rate_image")]
+use crate::types::VkShadingRatePaletteNV;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkStencilFaceFlags;
+#[cfg(any(
+  feature = "VK_KHR_device_address_commands",
+  feature = "VK_KHR_copy_memory_indirect"
+))]
+use crate::types::VkStridedDeviceAddressRangeKHR;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::types::VkStridedDeviceAddressRegionKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+use crate::types::VkSubpassBeginInfo;
+#[cfg(feature = "VK_KHR_create_renderpass2")]
+use crate::types::VkSubpassBeginInfoKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_2")]
+use crate::types::VkSubpassEndInfo;
+#[cfg(feature = "VK_KHR_create_renderpass2")]
+use crate::types::VkSubpassEndInfoKHR;
+#[cfg(feature = "VK_QCOM_tile_memory_heap")]
+use crate::types::VkTileMemoryBindInfoQCOM;
+#[cfg(any(
+  feature = "VK_EXT_vertex_input_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::types::VkVertexInputAttributeDescription2EXT;
+#[cfg(any(
+  feature = "VK_EXT_vertex_input_dynamic_state",
+  feature = "VK_EXT_shader_object"
+))]
+use crate::types::VkVertexInputBindingDescription2EXT;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::types::VkVideoBeginCodingInfoKHR;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::types::VkVideoCodingControlInfoKHR;
+#[cfg(feature = "VK_KHR_video_decode_queue")]
+use crate::types::VkVideoDecodeInfoKHR;
+#[cfg(feature = "VK_KHR_video_encode_queue")]
+use crate::types::VkVideoEncodeInfoKHR;
+#[cfg(feature = "VK_KHR_video_queue")]
+use crate::types::VkVideoEndCodingInfoKHR;
+#[cfg(feature = "VK_GRAPHICS_VERSION_1_0")]
+use crate::types::VkViewport;
+#[cfg(feature = "VK_NV_viewport_swizzle")]
+use crate::types::VkViewportSwizzleNV;
+#[cfg(feature = "VK_NV_clip_space_w_scaling")]
+use crate::types::VkViewportWScalingNV;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkWriteDescriptorSet;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_BASE_VERSION_1_0")]
 #[derive(Debug, Clone)]

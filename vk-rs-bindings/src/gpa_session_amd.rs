@@ -4,9 +4,22 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkDestroyGpaSessionAMD;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkGetGpaSessionResultsAMD;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkGetGpaSessionStatusAMD;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::commands::PFN_vkResetGpaSessionAMD;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_AMD_gpa_interface")]
+use crate::types::VkGpaSessionAMD;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_AMD_gpa_interface")]
 #[derive(Debug, Clone)]

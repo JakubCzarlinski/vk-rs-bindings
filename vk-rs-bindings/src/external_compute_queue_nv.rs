@@ -4,9 +4,20 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_NV_external_compute_queue")]
+use crate::commands::PFN_vkDestroyExternalComputeQueueNV;
+#[cfg(feature = "VK_NV_external_compute_queue")]
+use crate::commands::PFN_vkGetExternalComputeQueueDataNV;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_NV_external_compute_queue")]
+use crate::types::VkExternalComputeQueueDataParamsNV;
+#[cfg(feature = "VK_NV_external_compute_queue")]
+use crate::types::VkExternalComputeQueueNV;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_NV_external_compute_queue")]
 #[derive(Debug, Clone)]

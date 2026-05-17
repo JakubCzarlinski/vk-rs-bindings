@@ -4,9 +4,44 @@
   clippy::too_many_arguments,
   clippy::missing_safety_doc
 )]
-use crate::commands::*;
-use crate::enums::*;
-use crate::types::*;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::commands::PFN_vkCompileDeferredNV;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::commands::PFN_vkDestroyPipeline;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::commands::PFN_vkGetExecutionGraphPipelineNodeIndexAMDX;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::commands::PFN_vkGetExecutionGraphPipelineScratchSizeAMDX;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::commands::PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::commands::PFN_vkGetRayTracingShaderGroupHandlesKHR;
+#[cfg(feature = "VK_NV_ray_tracing")]
+use crate::commands::PFN_vkGetRayTracingShaderGroupHandlesNV;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::commands::PFN_vkGetRayTracingShaderGroupStackSizeKHR;
+#[cfg(feature = "VK_AMD_shader_info")]
+use crate::commands::PFN_vkGetShaderInfoAMD;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkResult;
+#[cfg(feature = "VK_KHR_ray_tracing_pipeline")]
+use crate::enums::VkShaderGroupShaderKHR;
+#[cfg(feature = "VK_AMD_shader_info")]
+use crate::enums::VkShaderInfoTypeAMD;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::enums::VkShaderStageFlagBits;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkAllocationCallbacks;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDevice;
+#[cfg(feature = "VK_BASE_VERSION_1_0")]
+use crate::types::VkDeviceSize;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::types::VkExecutionGraphPipelineScratchSizeAMDX;
+#[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
+use crate::types::VkPipeline;
+#[cfg(feature = "VK_AMDX_shader_enqueue")]
+use crate::types::VkPipelineShaderStageNodeCreateInfoAMDX;
 use core::ffi::{c_char, c_void};
 #[cfg(feature = "VK_COMPUTE_VERSION_1_0")]
 #[derive(Debug, Clone)]

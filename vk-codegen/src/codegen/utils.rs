@@ -5,7 +5,7 @@ use crate::ir::{Availability, CType, Command, Member, Optional, Registry, Typede
 use crate::types::c_type_to_rust;
 use proc_macro2::TokenStream;
 use quote::{ToTokens, format_ident, quote};
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 
 #[derive(Clone, PartialEq, Debug, Eq, Hash)]
 pub enum Tier {
@@ -14,6 +14,222 @@ pub enum Tier {
     PhysicalDevice,
     Device,
     Handle(String),
+}
+
+#[derive(Clone, Debug, Default)]
+pub struct ExplicitImports {
+    commands: BTreeSet<String>,
+    consts: BTreeSet<String>,
+    enums: BTreeSet<String>,
+    types: BTreeSet<String>,
+}
+
+impl ExplicitImports {
+    pub fn add_command_pfn(&mut self, name: &str) {
+        self.commands.insert(format!("PFN_{name}"));
+    }
+
+    pub fn add_command_signature(&mut self, reg: &Registry, cmd: &Command, name: &str) {
+        self.add_command_pfn(name);
+        self.add_ctype(reg, &cmd.return_type);
+        for param in &cmd.params {
+            self.add_ctype(reg, &param.ty);
+        }
+    }
+
+    pub fn add_ctype(&mut self, reg: &Registry, ty: &CType) {
+        self.add_type_name(reg, &ty.base);
+        if let Some(array_size) = &ty.is_array
+            && array_size.parse::<u64>().is_err()
+        {
+            self.add_const_name(reg, array_size);
+        }
+    }
+
+    pub fn add_const_name(&mut self, reg: &Registry, name: &str) {
+        if reg.constants.contains_key(name) {
+            self.consts.insert(name.to_owned());
+        }
+    }
+
+    pub fn add_enum_name(&mut self, reg: &Registry, name: &str) {
+        if reg.enums.contains_key(name) {
+            self.enums.insert(name.to_owned());
+        }
+    }
+
+    pub fn add_all_enum_names(&mut self, reg: &Registry) {
+        self.enums.extend(reg.enums.keys().cloned());
+    }
+
+    pub fn add_all_type_names(&mut self, reg: &Registry) {
+        self.types.extend(reg.structs.keys().cloned());
+        self.types.extend(reg.typedefs.keys().cloned());
+    }
+
+    pub fn add_ctype_external_to_types_rs(&mut self, reg: &Registry, ty: &CType) {
+        self.add_enum_name(reg, &ty.base);
+        if let Some(array_size) = &ty.is_array
+            && array_size.parse::<u64>().is_err()
+        {
+            self.add_const_name(reg, array_size);
+        }
+    }
+
+    pub fn add_type_name(&mut self, reg: &Registry, name: &str) {
+        if reg.enums.contains_key(name) {
+            self.enums.insert(name.to_owned());
+        } else if reg.structs.contains_key(name) || reg.typedefs.contains_key(name) {
+            self.types.insert(name.to_owned());
+        }
+    }
+
+    pub fn add_vk_result(&mut self) {
+        self.enums.insert("VkResult".to_owned());
+    }
+
+    pub fn extend_command_variants(&mut self, reg: &Registry, name: &str) {
+        let Some(variants) = reg.commands.get(name) else {
+            return;
+        };
+        self.add_command_pfn(name);
+        if let Some(cmd) = variants.last() {
+            self.add_ctype(reg, &cmd.return_type);
+            for param in &cmd.params {
+                self.add_ctype(reg, &param.ty);
+            }
+        }
+    }
+
+    pub fn to_tokens(&self, reg: &Registry) -> TokenStream {
+        let mut ts = TokenStream::new();
+
+        for pfn in &self.commands {
+            let Some(command_name) = pfn.strip_prefix("PFN_") else {
+                continue;
+            };
+            let cfg = command_import_cfg(reg, command_name);
+            let ident = format_ident!("{}", pfn);
+            ts.extend(quote! { #cfg use crate::commands::#ident; });
+        }
+
+        for name in &self.consts {
+            let Some(cfg) = const_import_cfg(reg, name) else {
+                continue;
+            };
+            let ident = format_ident!("{}", name);
+            ts.extend(quote! { #cfg use crate::consts::#ident; });
+        }
+
+        for name in &self.enums {
+            let Some(cfg) = enum_import_cfg(reg, name) else {
+                continue;
+            };
+            let ident = format_ident!("{}", name);
+            ts.extend(quote! { #cfg use crate::enums::#ident; });
+        }
+
+        for name in &self.types {
+            let Some(cfg) = type_import_cfg(reg, name) else {
+                continue;
+            };
+            let ident = format_ident!("{}", name);
+            ts.extend(quote! { #cfg use crate::types::#ident; });
+        }
+
+        ts
+    }
+}
+
+fn command_import_cfg(reg: &Registry, name: &str) -> TokenStream {
+    let Some(variants) = reg.commands.get(name) else {
+        return quote! {};
+    };
+    let mut providers: Vec<String> = variants
+        .iter()
+        .flat_map(|cmd| cmd.provided_by.clone())
+        .collect();
+    providers.sort();
+    providers.dedup();
+    let availability: Vec<_> = variants
+        .iter()
+        .flat_map(|cmd| cmd.availability.clone())
+        .collect();
+    if providers.is_empty() {
+        quote! {}
+    } else {
+        cfg_availability(
+            &availability,
+            &providers,
+            variants.iter().find_map(|cmd| cmd.dep.as_ref()),
+        )
+    }
+}
+
+fn enum_import_cfg(reg: &Registry, name: &str) -> Option<TokenStream> {
+    let variants = reg.enums.get(name)?;
+    let enum_def = variants.first()?;
+    let mut providers = Vec::<String>::new();
+    let mut availability = Vec::<Availability>::new();
+    for enum_def in variants {
+        providers.extend(enum_def.provided_by.clone());
+        availability.extend(enum_def.availability.clone());
+        for variant in &enum_def.variants {
+            providers.extend(variant.provided_by.clone());
+            availability.extend(variant.availability.clone());
+        }
+    }
+    providers.sort();
+    providers.dedup();
+    Some(cfg_availability(
+        &availability,
+        &providers,
+        enum_def.dep.as_ref(),
+    ))
+}
+
+fn const_import_cfg(reg: &Registry, name: &str) -> Option<TokenStream> {
+    let variants = reg.constants.get(name)?;
+    let constant = variants.first()?;
+    let mut providers = Vec::<String>::new();
+    let mut availability = Vec::<Availability>::new();
+    for constant in variants {
+        providers.extend(constant.provided_by.clone());
+        availability.extend(constant.availability.clone());
+    }
+    providers.sort();
+    providers.dedup();
+    Some(cfg_availability(
+        &availability,
+        &providers,
+        constant.dep.as_ref(),
+    ))
+}
+
+fn type_import_cfg(reg: &Registry, name: &str) -> Option<TokenStream> {
+    if let Some(structs) = reg.structs.get(name) {
+        let s = structs.first()?;
+        if s.provided_by.is_empty() {
+            return None;
+        }
+        return Some(cfg_availability(
+            &s.availability,
+            &s.provided_by,
+            s.dep.as_ref(),
+        ));
+    }
+    if let Some(typedefs) = reg.typedefs.get(name) {
+        let td = typedefs.first()?;
+        if td.provided_by.is_empty() || matches!(td.kind, TypedefKind::Define) {
+            return None;
+        }
+        return Some(cfg_availability(
+            &td.availability,
+            &td.provided_by,
+            td.dep.as_ref(),
+        ));
+    }
+    None
 }
 
 // Commands pinned to the instance tier.

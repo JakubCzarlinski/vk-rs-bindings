@@ -749,7 +749,13 @@ impl Registry {
             if ext.is_disabled() || ext.is_video_header() {
                 continue;
             }
-            let deps = ext.depends.as_ref().map(DepExpr::atoms).unwrap_or_default();
+            // Cargo features cannot express OR dependencies, so implication
+            // data must use only dependencies present in every valid clause.
+            let deps = ext
+                .depends
+                .as_ref()
+                .map(DepExpr::common_dependencies)
+                .unwrap_or_default();
             let entry = map.entry(ext.name.clone()).or_default();
             for dep in deps {
                 if !entry.contains(&dep) {

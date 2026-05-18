@@ -216,7 +216,7 @@ impl<'dev> DeviceMemory<'dev> {
     offset: VkDeviceSize,
     size: VkDeviceSize,
     flags: VkMemoryMapFlags,
-    ppData: *mut *mut core::ffi::c_void,
+    ppData: &mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkMapMemory.unwrap_unchecked()(

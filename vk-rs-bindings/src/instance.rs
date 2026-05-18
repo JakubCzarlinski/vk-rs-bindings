@@ -520,7 +520,7 @@ impl<'lib> Instance<'lib> {
   #[inline(always)]
   pub fn vkEnumeratePhysicalDeviceGroups(
     &self,
-    pPhysicalDeviceGroupCount: *mut u32,
+    pPhysicalDeviceGroupCount: &mut u32,
     pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupProperties<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -948,7 +948,7 @@ impl<'lib> Instance<'lib> {
   #[inline(always)]
   pub fn vkEnumeratePhysicalDeviceGroupsKHR(
     &self,
-    pPhysicalDeviceGroupCount: *mut u32,
+    pPhysicalDeviceGroupCount: &mut u32,
     pPhysicalDeviceGroupProperties: *mut VkPhysicalDeviceGroupPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

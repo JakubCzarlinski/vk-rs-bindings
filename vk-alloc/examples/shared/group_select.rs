@@ -14,11 +14,11 @@ pub(crate) fn select_device_group<'inst>(
         .map_err(|err| format!("vkEnumeratePhysicalDevices failed: {err:?}"))?;
     let mut group_count = 0;
     instance
-        .vkEnumeratePhysicalDeviceGroups(&raw mut group_count, std::ptr::null_mut())
+        .vkEnumeratePhysicalDeviceGroups(&mut group_count, std::ptr::null_mut())
         .map_err(|err| format!("vkEnumeratePhysicalDeviceGroups failed: {err:?}"))?;
     let mut groups = vec![vk::VkPhysicalDeviceGroupProperties::DEFAULT; group_count as usize];
     instance
-        .vkEnumeratePhysicalDeviceGroups(&raw mut group_count, groups.as_mut_ptr())
+        .vkEnumeratePhysicalDeviceGroups(&mut group_count, groups.as_mut_ptr())
         .map_err(|err| format!("vkEnumeratePhysicalDeviceGroups fetch failed: {err:?}"))?;
 
     for group in groups.into_iter().take(group_count as usize) {

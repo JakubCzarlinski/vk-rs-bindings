@@ -4,10 +4,9 @@ pub(crate) fn queue_family_properties<'a>(
     physical_device: &'a vk::PhysicalDevice<'a>,
 ) -> Vec<vk::VkQueueFamilyProperties2<'a>> {
     let mut count = 0;
-    physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&raw mut count, std::ptr::null_mut());
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, std::ptr::null_mut());
     let mut properties = vec![vk::VkQueueFamilyProperties2::DEFAULT; count as usize];
-    physical_device
-        .vkGetPhysicalDeviceQueueFamilyProperties2(&raw mut count, properties.as_mut_ptr());
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, properties.as_mut_ptr());
     properties.truncate(count as usize);
     properties
 }

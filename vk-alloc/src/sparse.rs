@@ -215,7 +215,7 @@ fn sparse_image_base<'vk>(
         page_size
     } else if !group_allocator {
         let mut count = 0;
-        image.vkGetImageSparseMemoryRequirements(&raw mut count, core::ptr::null_mut());
+        image.vkGetImageSparseMemoryRequirements(&mut count, core::ptr::null_mut());
         64 * 1024
     } else {
         64 * 1024

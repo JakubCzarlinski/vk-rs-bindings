@@ -147,7 +147,7 @@ impl<'dev> CudaModuleNV<'dev> {
   #[inline(always)]
   pub fn vkGetCudaModuleCacheNV(
     &self,
-    pCacheSize: *mut usize,
+    pCacheSize: &mut usize,
     pCacheData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

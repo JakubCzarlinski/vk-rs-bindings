@@ -308,7 +308,7 @@ impl<'dev> Image<'dev> {
   #[inline(always)]
   pub fn vkGetImageSparseMemoryRequirements(
     &self,
-    pSparseMemoryRequirementCount: *mut u32,
+    pSparseMemoryRequirementCount: &mut u32,
     pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements,
   ) {
     unsafe {

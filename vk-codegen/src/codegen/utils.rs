@@ -741,12 +741,18 @@ pub fn param_sig_type(m: &Member) -> TokenStream {
     // params that are not array-like (for example `pCreateInfo: &Vk*CreateInfo`).
     // Keep optional and array/len-linked pointers raw so null and pointer
     // semantics remain explicit in the signature.
-    if m.ty.pointer_depth == 1
-        && m.optional == Optional::False
+    if m.ty.pointer_depth >= 1
+        && matches!(m.optional, Optional::False | Optional::FalseTrue)
         && m.len.is_none()
-        && m.ty.base != "void"
+        && (m.ty.base != "void" || m.ty.pointer_depth > 1)
     {
-        let base = base_type_tokens(&m.ty.base);
+        let base = if m.ty.pointer_depth == 1 {
+            base_type_tokens(&m.ty.base)
+        } else {
+            let mut inner = m.ty.clone();
+            inner.pointer_depth -= 1;
+            ctype_to_tokens(&inner)
+        };
         if m.ty.is_const {
             quote! { &#base }
         } else {
@@ -759,12 +765,18 @@ pub fn param_sig_type(m: &Member) -> TokenStream {
 
 #[must_use]
 pub fn param_sig_type_for_registry(m: &Member, reg: &Registry) -> TokenStream {
-    if m.ty.pointer_depth == 1
-        && m.optional == Optional::False
+    if m.ty.pointer_depth >= 1
+        && matches!(m.optional, Optional::False | Optional::FalseTrue)
         && m.len.is_none()
-        && m.ty.base != "void"
+        && (m.ty.base != "void" || m.ty.pointer_depth > 1)
     {
-        let base = base_type_tokens_for_registry(&m.ty.base, reg, quote! { '_ });
+        let base = if m.ty.pointer_depth == 1 {
+            base_type_tokens_for_registry(&m.ty.base, reg, quote! { '_ })
+        } else {
+            let mut inner = m.ty.clone();
+            inner.pointer_depth -= 1;
+            ctype_to_tokens_for_registry(&inner, reg, quote! { '_ })
+        };
         if m.ty.is_const {
             quote! { &#base }
         } else {

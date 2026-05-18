@@ -582,7 +582,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkGetPastPresentationTimingGOOGLE(
     &self,
-    pPresentationTimingCount: *mut u32,
+    pPresentationTimingCount: &mut u32,
     pPresentationTimings: *mut VkPastPresentationTimingGOOGLE,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -883,7 +883,7 @@ impl<'dev> SwapchainKHR<'dev> {
   #[inline(always)]
   pub fn vkGetSwapchainImagesKHR(
     &self,
-    pSwapchainImageCount: *mut u32,
+    pSwapchainImageCount: &mut u32,
     pSwapchainImages: *mut VkImage,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

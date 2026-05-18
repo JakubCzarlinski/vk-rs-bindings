@@ -124,7 +124,7 @@ fn create_instance(library: &'_ VulkanLib) -> Instance<'_> {
 
 fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
     let mut count = 0;
-    physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&raw mut count, null_mut());
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, null_mut());
     if count == 0 {
         return None;
     }
@@ -133,7 +133,7 @@ fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
         iter::repeat_n(VkQueueFamilyProperties2::DEFAULT, count as usize).collect();
 
     physical_device
-        .vkGetPhysicalDeviceQueueFamilyProperties2(&raw mut count, props.as_mut_ptr().cast());
+        .vkGetPhysicalDeviceQueueFamilyProperties2(&mut count, props.as_mut_ptr().cast());
 
     props
         .iter()

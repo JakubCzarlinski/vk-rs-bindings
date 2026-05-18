@@ -1452,7 +1452,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM(
     &self,
     queueFamilyIndex: u32,
-    pQueueFamilyDataGraphPropertyCount: *mut u32,
+    pQueueFamilyDataGraphPropertyCount: &mut u32,
     pQueueFamilyDataGraphProperties: *mut VkQueueFamilyDataGraphPropertiesARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -1556,7 +1556,7 @@ impl<'inst> PhysicalDevice<'inst> {
     queueFamilyIndex: u32,
     pQueueFamilyDataGraphProperties: &VkQueueFamilyDataGraphPropertiesARM<'_>,
     pOpticalFlowImageFormatInfo: &VkDataGraphOpticalFlowImageFormatInfoARM<'_>,
-    pFormatCount: *mut u32,
+    pFormatCount: &mut u32,
     pImageFormatProperties: *mut VkDataGraphOpticalFlowImageFormatPropertiesARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -1608,7 +1608,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM(
     &self,
     queueFamilyIndex: u32,
-    pCounterCount: *mut u32,
+    pCounterCount: &mut u32,
     pCounters: *mut VkPerformanceCounterARM<'_>,
     pCounterDescriptions: *mut VkPerformanceCounterDescriptionARM<'_>,
   ) -> Result<VkResult, VkResult> {
@@ -1657,7 +1657,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM(
     &self,
-    pDescriptionCount: *mut u32,
+    pDescriptionCount: &mut u32,
     pDescriptions: *mut VkShaderInstrumentationMetricDescriptionARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -1932,7 +1932,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkEnumerateDeviceExtensionProperties(
     &self,
     pLayerName: *const core::ffi::c_char,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkExtensionProperties,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -1972,7 +1972,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkEnumerateDeviceLayerProperties(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkLayerProperties,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -2152,7 +2152,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceQueueFamilyProperties(
     &self,
-    pQueueFamilyPropertyCount: *mut u32,
+    pQueueFamilyPropertyCount: &mut u32,
     pQueueFamilyProperties: *mut VkQueueFamilyProperties,
   ) {
     unsafe {
@@ -2188,7 +2188,7 @@ impl<'inst> PhysicalDevice<'inst> {
     samples: VkSampleCountFlagBits,
     usage: VkImageUsageFlags,
     tiling: VkImageTiling,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkSparseImageFormatProperties,
   ) {
     unsafe {
@@ -2434,7 +2434,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceQueueFamilyProperties2(
     &self,
-    pQueueFamilyPropertyCount: *mut u32,
+    pQueueFamilyPropertyCount: &mut u32,
     pQueueFamilyProperties: *mut VkQueueFamilyProperties2<'_>,
   ) {
     unsafe {
@@ -2461,7 +2461,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     &self,
     pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2<'_>,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkSparseImageFormatProperties2<'_>,
   ) {
     unsafe {
@@ -2497,7 +2497,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceToolProperties(
     &self,
-    pToolCount: *mut u32,
+    pToolCount: &mut u32,
     pToolProperties: *mut VkPhysicalDeviceToolProperties<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -2691,7 +2691,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
     &self,
-    pTimeDomainCount: *mut u32,
+    pTimeDomainCount: &mut u32,
     pTimeDomains: *mut VkTimeDomainEXT,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -2851,7 +2851,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     &self,
     pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR<'_>,
-    pPresentModeCount: *mut u32,
+    pPresentModeCount: &mut u32,
     pPresentModes: *mut VkPresentModeKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -2916,7 +2916,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceToolPropertiesEXT(
     &self,
-    pToolCount: *mut u32,
+    pToolCount: &mut u32,
     pToolProperties: *mut VkPhysicalDeviceToolPropertiesEXT<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -2957,7 +2957,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     &self,
-    pTimeDomainCount: *mut u32,
+    pTimeDomainCount: &mut u32,
     pTimeDomains: *mut VkTimeDomainKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -2998,7 +2998,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkCooperativeMatrixPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3046,7 +3046,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDevicePresentRectanglesKHR(
     &self,
     surface: VkSurfaceKHR,
-    pRectCount: *mut u32,
+    pRectCount: &mut u32,
     pRects: *mut VkRect2D,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3138,7 +3138,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetDisplayModePropertiesKHR(
     &self,
     display: VkDisplayKHR,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkDisplayModePropertiesKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3223,7 +3223,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetDisplayPlaneSupportedDisplaysKHR(
     &self,
     planeIndex: u32,
-    pDisplayCount: *mut u32,
+    pDisplayCount: &mut u32,
     pDisplays: *mut VkDisplayKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3264,7 +3264,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkDisplayPlanePropertiesKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3305,7 +3305,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkDisplayPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3424,7 +3424,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     &self,
-    pFragmentShadingRateCount: *mut u32,
+    pFragmentShadingRateCount: &mut u32,
     pFragmentShadingRates: *mut VkPhysicalDeviceFragmentShadingRateKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3467,7 +3467,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetDisplayModeProperties2KHR(
     &self,
     display: VkDisplayKHR,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkDisplayModeProperties2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3548,7 +3548,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkDisplayPlaneProperties2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3589,7 +3589,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceDisplayProperties2KHR(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkDisplayProperties2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3757,7 +3757,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceQueueFamilyProperties2KHR(
     &self,
-    pQueueFamilyPropertyCount: *mut u32,
+    pQueueFamilyPropertyCount: &mut u32,
     pQueueFamilyProperties: *mut VkQueueFamilyProperties2KHR<'_>,
   ) {
     unsafe {
@@ -3784,7 +3784,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSparseImageFormatProperties2KHR(
     &self,
     pFormatInfo: &VkPhysicalDeviceSparseImageFormatInfo2KHR<'_>,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkSparseImageFormatProperties2KHR<'_>,
   ) {
     unsafe {
@@ -3864,7 +3864,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     &self,
     pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR<'_>,
-    pSurfaceFormatCount: *mut u32,
+    pSurfaceFormatCount: &mut u32,
     pSurfaceFormats: *mut VkSurfaceFormat2KHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3903,7 +3903,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceRefreshableObjectTypesKHR(
     &self,
-    pRefreshableObjectTypeCount: *mut u32,
+    pRefreshableObjectTypeCount: &mut u32,
     pRefreshableObjectTypes: *mut VkObjectType,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3952,7 +3952,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(
     &self,
     queueFamilyIndex: u32,
-    pCounterCount: *mut u32,
+    pCounterCount: &mut u32,
     pCounters: *mut VkPerformanceCounterKHR<'_>,
     pCounterDescriptions: *mut VkPerformanceCounterDescriptionKHR<'_>,
   ) -> Result<VkResult, VkResult> {
@@ -4068,7 +4068,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     &self,
     surface: VkSurfaceKHR,
-    pSurfaceFormatCount: *mut u32,
+    pSurfaceFormatCount: &mut u32,
     pSurfaceFormats: *mut VkSurfaceFormatKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4112,7 +4112,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     &self,
     surface: VkSurfaceKHR,
-    pPresentModeCount: *mut u32,
+    pPresentModeCount: &mut u32,
     pPresentModes: *mut VkPresentModeKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4291,7 +4291,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     &self,
     pVideoFormatInfo: &VkPhysicalDeviceVideoFormatInfoKHR<'_>,
-    pVideoFormatPropertyCount: *mut u32,
+    pVideoFormatPropertyCount: &mut u32,
     pVideoFormatProperties: *mut VkVideoFormatPropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4500,7 +4500,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkCooperativeMatrixPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4541,7 +4541,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkCooperativeMatrixFlexibleDimensionsPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4582,7 +4582,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceCooperativeVectorPropertiesNV(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkCooperativeVectorPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4623,7 +4623,7 @@ impl<'inst> PhysicalDevice<'inst> {
   #[inline(always)]
   pub fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
     &self,
-    pCombinationCount: *mut u32,
+    pCombinationCount: &mut u32,
     pCombinations: *mut VkFramebufferMixedSamplesCombinationNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -4850,7 +4850,7 @@ impl<'inst> PhysicalDevice<'inst> {
   pub fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     &self,
     pOpticalFlowImageFormatInfo: &VkOpticalFlowImageFormatInfoNV<'_>,
-    pFormatCount: *mut u32,
+    pFormatCount: &mut u32,
     pImageFormatProperties: *mut VkOpticalFlowImageFormatPropertiesNV<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

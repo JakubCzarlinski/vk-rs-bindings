@@ -236,7 +236,7 @@ impl<'dev> PipelineCache<'dev> {
   #[inline(always)]
   pub fn vkGetPipelineCacheData(
     &self,
-    pDataSize: *mut usize,
+    pDataSize: &mut usize,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

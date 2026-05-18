@@ -157,7 +157,7 @@ impl<'dev> ValidationCacheEXT<'dev> {
   #[inline(always)]
   pub fn vkGetValidationCacheDataEXT(
     &self,
-    pDataSize: *mut usize,
+    pDataSize: &mut usize,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

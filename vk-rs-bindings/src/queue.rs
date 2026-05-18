@@ -638,7 +638,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkGetQueueCheckpointData2NV(
     &self,
-    pCheckpointDataCount: *mut u32,
+    pCheckpointDataCount: &mut u32,
     pCheckpointData: *mut VkCheckpointData2NV<'_>,
   ) {
     unsafe {
@@ -664,7 +664,7 @@ impl<'dev> Queue<'dev> {
   #[inline(always)]
   pub fn vkGetQueueCheckpointDataNV(
     &self,
-    pCheckpointDataCount: *mut u32,
+    pCheckpointDataCount: &mut u32,
     pCheckpointData: *mut VkCheckpointDataNV<'_>,
   ) {
     unsafe {

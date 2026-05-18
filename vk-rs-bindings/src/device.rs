@@ -3433,7 +3433,7 @@ impl<'inst> Device<'inst> {
     &self,
     faultQueryBehavior: VkFaultQueryBehavior,
     pUnrecordedFaults: &mut VkBool32,
-    pFaultCount: *mut u32,
+    pFaultCount: &mut u32,
     pFaults: *mut VkFaultData<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3652,7 +3652,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetMemoryAndroidHardwareBufferANDROID(
     &self,
     pInfo: &VkMemoryGetAndroidHardwareBufferInfoANDROID<'_>,
-    pBuffer: *mut *mut AHardwareBuffer,
+    pBuffer: &mut *mut AHardwareBuffer,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -3782,7 +3782,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetDataGraphPipelineAvailablePropertiesARM(
     &self,
     pPipelineInfo: &VkDataGraphPipelineInfoARM<'_>,
-    pPropertiesCount: *mut u32,
+    pPropertiesCount: &mut u32,
     pProperties: *mut VkDataGraphPipelinePropertyARM,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -3872,7 +3872,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetDataGraphPipelineSessionBindPointRequirementsARM(
     &self,
     pInfo: &VkDataGraphPipelineSessionBindPointRequirementsInfoARM<'_>,
-    pBindPointRequirementCount: *mut u32,
+    pBindPointRequirementCount: &mut u32,
     pBindPointRequirements: *mut VkDataGraphPipelineSessionBindPointRequirementARM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -5088,7 +5088,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetImageSparseMemoryRequirements2(
     &self,
     pInfo: &VkImageSparseMemoryRequirementsInfo2<'_>,
-    pSparseMemoryRequirementCount: *mut u32,
+    pSparseMemoryRequirementCount: &mut u32,
     pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
   ) {
     unsafe {
@@ -5355,7 +5355,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetDeviceImageSparseMemoryRequirements(
     &self,
     pInfo: &VkDeviceImageMemoryRequirements<'_>,
-    pSparseMemoryRequirementCount: *mut u32,
+    pSparseMemoryRequirementCount: &mut u32,
     pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
   ) {
     unsafe {
@@ -5621,7 +5621,7 @@ impl<'inst> Device<'inst> {
   pub fn vkMapMemory2(
     &self,
     pMemoryMapInfo: &VkMemoryMapInfo<'_>,
-    ppData: *mut *mut core::ffi::c_void,
+    ppData: &mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkMapMemory2.unwrap_unchecked()(self.raw, pMemoryMapInfo, ppData) };
@@ -7311,7 +7311,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetMemoryMetalHandleEXT(
     &self,
     pGetMetalHandleInfo: &VkMemoryGetMetalHandleInfoEXT<'_>,
-    pHandle: *mut *mut core::ffi::c_void,
+    pHandle: &mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetMemoryMetalHandleEXT.unwrap_unchecked()(
@@ -7403,7 +7403,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetDeviceGroupSurfacePresentModes2EXT(
     &self,
     pSurfaceInfo: &VkPhysicalDeviceSurfaceInfo2KHR<'_>,
-    pModes: *mut VkDeviceGroupPresentModeFlagsKHR,
+    pModes: &mut VkDeviceGroupPresentModeFlagsKHR,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table)
@@ -10126,7 +10126,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetImageSparseMemoryRequirements2KHR(
     &self,
     pInfo: &VkImageSparseMemoryRequirementsInfo2KHR<'_>,
-    pSparseMemoryRequirementCount: *mut u32,
+    pSparseMemoryRequirementCount: &mut u32,
     pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2KHR<'_>,
   ) {
     unsafe {
@@ -10233,7 +10233,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetDeviceImageSparseMemoryRequirementsKHR(
     &self,
     pInfo: &VkDeviceImageMemoryRequirementsKHR<'_>,
-    pSparseMemoryRequirementCount: *mut u32,
+    pSparseMemoryRequirementCount: &mut u32,
     pSparseMemoryRequirements: *mut VkSparseImageMemoryRequirements2<'_>,
   ) {
     unsafe {
@@ -10326,7 +10326,7 @@ impl<'inst> Device<'inst> {
   pub fn vkMapMemory2KHR(
     &self,
     pMemoryMapInfo: &VkMemoryMapInfoKHR<'_>,
-    ppData: *mut *mut core::ffi::c_void,
+    ppData: &mut *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r =
       unsafe { (self.table).vkMapMemory2KHR.unwrap_unchecked()(self.raw, pMemoryMapInfo, ppData) };
@@ -10501,7 +10501,7 @@ impl<'inst> Device<'inst> {
     &self,
     pInfo: &VkPipelineBinaryDataInfoKHR<'_>,
     pPipelineBinaryKey: &mut VkPipelineBinaryKeyKHR<'_>,
-    pPipelineBinaryDataSize: *mut usize,
+    pPipelineBinaryDataSize: &mut usize,
     pPipelineBinaryData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10628,7 +10628,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetPipelineExecutableInternalRepresentationsKHR(
     &self,
     pExecutableInfo: &VkPipelineExecutableInfoKHR<'_>,
-    pInternalRepresentationCount: *mut u32,
+    pInternalRepresentationCount: &mut u32,
     pInternalRepresentations: *mut VkPipelineExecutableInternalRepresentationKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10676,7 +10676,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetPipelineExecutablePropertiesKHR(
     &self,
     pPipelineInfo: &VkPipelineInfoKHR<'_>,
-    pExecutableCount: *mut u32,
+    pExecutableCount: &mut u32,
     pProperties: *mut VkPipelineExecutablePropertiesKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10719,7 +10719,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetPipelineExecutableStatisticsKHR(
     &self,
     pExecutableInfo: &VkPipelineExecutableInfoKHR<'_>,
-    pStatisticCount: *mut u32,
+    pStatisticCount: &mut u32,
     pStatistics: *mut VkPipelineExecutableStatisticKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -10978,7 +10978,7 @@ impl<'inst> Device<'inst> {
     &self,
     pVideoSessionParametersInfo: &VkVideoEncodeSessionParametersGetInfoKHR<'_>,
     pFeedbackInfo: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR<'_>,
-    pDataSize: *mut usize,
+    pDataSize: &mut usize,
     pData: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -12160,7 +12160,7 @@ impl<'inst> Device<'inst> {
   pub fn vkGetMemoryNativeBufferOHOS(
     &self,
     pInfo: &VkMemoryGetNativeBufferInfoOHOS<'_>,
-    pBuffer: *mut *mut OH_NativeBuffer,
+    pBuffer: &mut *mut OH_NativeBuffer,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
       (self.table).vkGetMemoryNativeBufferOHOS.unwrap_unchecked()(self.raw, pInfo, pBuffer)

@@ -187,7 +187,7 @@ impl<'dev> DescriptorSet<'dev> {
   /// - `ppData`
   #[cfg(feature = "VK_VALVE_descriptor_set_host_mapping")]
   #[inline(always)]
-  pub fn vkGetDescriptorSetHostMappingVALVE(&self, ppData: *mut *mut core::ffi::c_void) {
+  pub fn vkGetDescriptorSetHostMappingVALVE(&self, ppData: &mut *mut core::ffi::c_void) {
     unsafe {
       // SAFETY: table is fully loaded at creation.
       (self.table)

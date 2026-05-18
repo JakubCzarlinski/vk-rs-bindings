@@ -129,14 +129,13 @@ fn create_instance(library: &'_ VulkanLib) -> Instance<'_> {
 #[allow(deprecated)]
 fn find_queue_family(physical_device: &PhysicalDevice) -> Option<u32> {
     let mut count = 0;
-    physical_device.vkGetPhysicalDeviceQueueFamilyProperties(&raw mut count, null_mut());
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties(&mut count, null_mut());
     if count == 0 {
         return None;
     }
 
     let mut props = Box::<[VkQueueFamilyProperties]>::new_uninit_slice(count as usize);
-    physical_device
-        .vkGetPhysicalDeviceQueueFamilyProperties(&raw mut count, props.as_mut_ptr().cast());
+    physical_device.vkGetPhysicalDeviceQueueFamilyProperties(&mut count, props.as_mut_ptr().cast());
 
     let props = unsafe { props.assume_init() };
 
@@ -191,10 +190,10 @@ fn create_compute_pipeline<'a>(
         .with_stage(VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT)
         .with_pName(c"main".as_ptr())
         .with_module(shader_module.raw());
-    let pipe_info = VkComputePipelineCreateInfo::DEFAULT
+    let pipe_info = &[VkComputePipelineCreateInfo::DEFAULT
         .with_stage(stage)
-        .with_layout(pipeline_layout.raw());
-    let pipelines = device.vkCreateComputePipelines(VkPipelineCache::NULL, &[pipe_info], null())?;
+        .with_layout(pipeline_layout.raw())];
+    let pipelines = device.vkCreateComputePipelines(VkPipelineCache::NULL, pipe_info, null())?;
 
     Ok((pipeline_layout, pipelines))
 }
@@ -263,7 +262,7 @@ fn write_to_buffer(memory: &DeviceMemory<'_>, data: &[u32]) -> Result<(), VkResu
     {
         let mut mapped = null_mut();
         let bytes = mem::size_of_val(data);
-        memory.vkMapMemory(0, bytes as u64, VkMemoryMapFlagBits::EMPTY, &raw mut mapped)?;
+        memory.vkMapMemory(0, bytes as u64, VkMemoryMapFlagBits::EMPTY, &mut mapped)?;
         unsafe {
             ptr::copy_nonoverlapping(data.as_ptr().cast::<u8>(), mapped.cast::<u8>(), bytes);
         }
@@ -276,7 +275,7 @@ fn read_from_buffer(memory: &DeviceMemory<'_>) -> Result<u32, VkResult> {
     let mut mapped = null_mut();
     {
         const BYTES: u64 = mem::size_of::<u32>() as u64;
-        memory.vkMapMemory(0, BYTES, VkMemoryMapFlagBits::EMPTY, &raw mut mapped)?;
+        memory.vkMapMemory(0, BYTES, VkMemoryMapFlagBits::EMPTY, &mut mapped)?;
     }
     let value = unsafe { mapped.cast::<u32>().read() };
     memory.vkUnmapMemory();

@@ -292,7 +292,7 @@ impl<'dev> Pipeline<'dev> {
     &self,
     shaderStage: VkShaderStageFlagBits,
     infoType: VkShaderInfoTypeAMD,
-    pInfoSize: *mut usize,
+    pInfoSize: &mut usize,
     pInfo: *mut core::ffi::c_void,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

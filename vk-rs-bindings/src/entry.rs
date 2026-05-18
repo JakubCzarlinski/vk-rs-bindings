@@ -283,7 +283,7 @@ impl<'lib> Entry<'lib> {
   pub fn vkEnumerateInstanceExtensionProperties(
     &self,
     pLayerName: *const core::ffi::c_char,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkExtensionProperties,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
@@ -324,7 +324,7 @@ impl<'lib> Entry<'lib> {
   #[inline(always)]
   pub fn vkEnumerateInstanceLayerProperties(
     &self,
-    pPropertyCount: *mut u32,
+    pPropertyCount: &mut u32,
     pProperties: *mut VkLayerProperties,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

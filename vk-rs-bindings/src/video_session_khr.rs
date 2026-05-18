@@ -204,7 +204,7 @@ impl<'dev> VideoSessionKHR<'dev> {
   #[inline(always)]
   pub fn vkGetVideoSessionMemoryRequirementsKHR(
     &self,
-    pMemoryRequirementsCount: *mut u32,
+    pMemoryRequirementsCount: &mut u32,
     pMemoryRequirements: *mut VkVideoSessionMemoryRequirementsKHR<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {

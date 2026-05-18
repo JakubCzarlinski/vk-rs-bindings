@@ -149,7 +149,7 @@ impl<'dev> Framebuffer<'dev> {
   #[inline(always)]
   pub fn vkGetFramebufferTilePropertiesQCOM(
     &self,
-    pPropertiesCount: *mut u32,
+    pPropertiesCount: &mut u32,
     pProperties: *mut VkTilePropertiesQCOM<'_>,
   ) -> Result<VkResult, VkResult> {
     let r = unsafe {
